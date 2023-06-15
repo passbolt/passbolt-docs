@@ -1,0 +1,43 @@
+:root {
+  --layout-max-width: 1440px;
+  --layout-content-background: var(--passbolt-grey);
+}
+
+.navbar__inner {
+  max-width: var(--layout-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.main-wrapper {
+  width: 100%;
+  max-width: var(--layout-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1.5rem;
+}
+
+.main-wrapper > div {
+  gap: 2rem;
+}
+
+.main-wrapper > div > main .row {
+  gap: 2rem;
+}
+
+.main-wrapper > div > main .row .col {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.main-wrapper > div > aside {
+  border-right: unset;
+  width: 100%;
+  max-width: 22rem;
+}
+
+/* .main-wrapper > div > main article {
+  background: var(--layout-content-background);
+  border-radius: 0.625rem;
+  padding: 2rem;
+} */

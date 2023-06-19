@@ -30,7 +30,6 @@ const config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
-
   presets: [
     [
       'classic',
@@ -69,12 +68,41 @@ const config = {
           width: 160,
         },
         items: [
+          // {
+          //   type: 'html',
+          //   position: 'left',
+          //   value: '<a rol="button" href="https://www.passbolt.com" class="main-website" title="Return to main website">←</a>',
+          // },
+          {
+            href: 'https://www.passbolt.com',
+            position: 'left',
+            className: 'main-website-link',
+            title: 'Return to main website',
+            label: '←',
+          },
           {
             type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
+            sidebarId: 'userGuideSidebar',
             position: 'left',
-            label: 'Tutorial',
+            label: 'User guide',
           },
+          {
+            type: 'docSidebar',
+            sidebarId: 'adminGuideSidebar',
+            position: 'left',
+            label: 'Admin guide',
+          },
+          {
+            type: 'docSidebar',
+            sidebarId: 'developerGuideSidebar',
+            position: 'left',
+            label: 'Developer guide',
+          },
+          // {
+          //   to: 'api',
+          //   position: 'left',
+          //   label: 'API',
+          // },
           {
             href: 'https://github.com/passbolt',
             position: 'right',
@@ -137,7 +165,20 @@ const config = {
         darkTheme: passboltTheme,
       },
     }),
-  plugins: [],
+  themes: [
+    [
+      '@easyops-cn/docusaurus-search-local',
+      /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+      ({
+        hashed: true,
+        indexBlog: false,
+        docsRouteBasePath: '/',
+        language: ['en'],
+        highlightSearchTermsOnTargetPage: true,
+        explicitSearchResultPath: true,
+      }),
+    ],
+  ],
 };
 
 module.exports = config;

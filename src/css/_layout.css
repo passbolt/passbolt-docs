@@ -25,19 +25,15 @@
   gap: 2rem;
 }
 
-.main-wrapper > div > main .row .col {
-  padding-left: 0;
-  padding-right: 0;
-}
-
 .main-wrapper > div > aside {
   border-right: unset;
   width: 100%;
   max-width: 22rem;
 }
 
-/* .main-wrapper > div > main article {
-  background: var(--layout-content-background);
-  border-radius: 0.625rem;
-  padding: 2rem;
-} */
+@media (min-width: 997px) {
+  .main-wrapper > div > main .row .col {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

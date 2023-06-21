@@ -1,0 +1,11 @@
+.theme-doc-toc-desktop {
+  padding-top: 5rem;
+}
+
+.theme-doc-toc-mobile {
+  display: none;
+}
+
+.table-of-contents {
+  --ifm-toc-border-color: rgba(255,255,255,.1);
+}

@@ -4,6 +4,7 @@
 @import url('./_sidebar.css');
 @import url('./_code.css');
 @import url('./_breadcrumb.css');
+@import url('./_toc.css');
 
 /**
  * Any CSS included here will be global. The classic template

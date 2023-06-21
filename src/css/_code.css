@@ -1,0 +1,7 @@
+.theme-code-block {
+  border: 1px solid var(--passbolt-light-grey);
+}
+
+code .theme-code-block-highlighted-line {
+  background: var(--passbolt-light-grey);
+}

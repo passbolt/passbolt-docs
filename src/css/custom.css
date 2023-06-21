@@ -2,6 +2,7 @@
 @import url('./_layout.css');
 @import url('./_navbar.css');
 @import url('./_sidebar.css');
+@import url('./_code.css');
 
 /**
  * Any CSS included here will be global. The classic template
@@ -44,25 +45,4 @@ html[data-theme='dark'] {
 
   /* Breadcrumb */
   --ifm-breadcrumb-color-active: white;
-}
-
-html[data-theme='dark'] .theme-code-block {
-  /* --prism-background-color: var(--passbolt-grey) !important; */
-  border: 1px solid var(--passbolt-light-grey)
-}
-
-code .theme-code-block-highlighted-line {
-  background-color: var(--passbolt-light-grey) !important;
-  margin: 0 calc(-1 * (var(--ifm-pre-padding) / 2)) !important;
-  padding: 0 calc(var(--ifm-pre-padding) / 2) !important;
-}
-
-code .theme-code-block-highlighted-line:first-child {
-  border-top-left-radius: var(--ifm-code-border-radius) !important;
-  border-top-right-radius: var(--ifm-code-border-radius) !important;
-}
-
-code .theme-code-block-highlighted-line:last-child {
-  border-bottom-left-radius: var(--ifm-code-border-radius) !important;
-  border-bottom-right-radius: var(--ifm-code-border-radius) !important;
 }

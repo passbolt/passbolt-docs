@@ -3,6 +3,10 @@
 }
 
 /* Sidebar navigation */
+.theme-doc-sidebar-container > div > div {
+  width: 100%;
+}
+
 .theme-doc-sidebar-container nav {
   padding: 0 0 0 1rem;
 }

@@ -3,6 +3,7 @@
 @import url('./_navbar.css');
 @import url('./_sidebar.css');
 @import url('./_code.css');
+@import url('./_breadcrumb.css');
 
 /**
  * Any CSS included here will be global. The classic template

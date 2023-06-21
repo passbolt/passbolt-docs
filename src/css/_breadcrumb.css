@@ -1,0 +1,36 @@
+.theme-doc-breadcrumbs {
+  padding: 0 2rem;
+  background: var(--passbolt-grey);
+  border-radius: 1.5rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem !important;
+}
+
+.theme-doc-breadcrumbs .breadcrumbs {
+  display: flex;
+  align-items: center;
+}
+
+.theme-doc-breadcrumbs .breadcrumbs .breadcrumbs__item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.theme-doc-breadcrumbs .breadcrumbs .breadcrumbs__item:first-child svg {
+  margin-top: 1px;
+}
+
+.theme-doc-breadcrumbs .breadcrumbs .breadcrumbs__item .breadcrumbs__link {
+  padding: 0;
+  font-size: 0.875rem;
+}
+
+.theme-doc-breadcrumbs .breadcrumbs .breadcrumbs__item .breadcrumbs__link:hover {
+  background: unset;
+}
+
+.theme-doc-breadcrumbs .breadcrumbs .breadcrumbs__item.breadcrumbs__item--active .breadcrumbs__link {
+  background: unset;
+}

@@ -38,3 +38,7 @@
 .main-wrapper .container {
   padding: 0 calc(var(--ifm-spacing-horizontal) * 2);
 }
+
+.pagination-nav {
+  display: none;
+}

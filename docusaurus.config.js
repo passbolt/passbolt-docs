@@ -13,6 +13,7 @@ const ROUTES = {
   GITHUB_URL: 'https://github.com/passbolt',
   TWITTER_URL: 'https://twitter.com/passbolt',
   LINKEDIN_URL: 'https://www.linkedin.com/company/passbolt',
+  YOUTUBE_URL: 'https://www.youtube.com/user/passboltpassword',
 }
 
 /** @type {import('@docusaurus/types').Config} */
@@ -22,7 +23,7 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: ROUTES.HELPSITE_URL,
+  url: ROUTES.WEBSITE_URL,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -37,7 +38,7 @@ const config = {
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
-  // to replace "en" with "zh-Hans".
+  // to replace 'en' with 'zh-Hans'.
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
@@ -51,7 +52,7 @@ const config = {
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
+          // Remove this to remove the 'edit this page' links.
           editUrl:
             'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
@@ -62,7 +63,43 @@ const config = {
       }),
     ],
   ],
-
+  customFields: {
+    footer: {
+      slogan: 'Open source password management platform for agile and devops teams. Built for team collaboration, open source, self-hosted, api-centric, privacy-focused, developer-first.',
+      socialMedia: {
+        title: 'See you around:',
+        links: [
+          {
+            href: ROUTES.YOUTUBE_URL,
+            icon: {
+              alt: 'Our Youtube account',
+              src: 'icons/youtube.svg',
+              width: 26,
+              height: 18,
+            },
+          },
+          {
+            href: ROUTES.TWITTER_URL,
+            icon: {
+              alt: 'Our Twitter account',
+              src: 'icons/twitter.svg',
+              width: 24,
+              height: 20,
+            },
+          },
+          {
+            href: ROUTES.LINKEDIN_URL,
+            icon: {
+              alt: 'Our LinkedIn account',
+              src: 'icons/linkedin.svg',
+              width: 20,
+              height: 20,
+            },
+          }
+        ]
+      }
+    }
+  },
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -122,6 +159,13 @@ const config = {
         ],
       },
       footer: {
+        logo: {
+          alt: 'Passbolt logo',
+          src: 'img/logo.svg',
+          width: 180,
+          height: 32,
+          href: ROUTES.WEBSITE_URL,
+        },
         links: [
           {
             title: 'Company',
@@ -205,7 +249,7 @@ const config = {
   themes: [
     [
       '@easyops-cn/docusaurus-search-local',
-      /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+      /** @type {import('@easyops-cn/docusaurus-search-local').PluginOptions} */
       ({
         hashed: true,
         indexBlog: false,

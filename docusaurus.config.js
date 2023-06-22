@@ -3,6 +3,18 @@
 
 const passboltTheme = require('./src/lib/prism-passbolt');
 
+const ROUTES = {
+  HELPSITE_URL: 'https://www.passbolt.com/docs',
+  WEBSITE_URL: 'https://www.passbolt.com',
+  BLOG_URL: 'https://blog.passbolt.com',
+  CAREERS_URL: 'https://careers.passbolt.com',
+  FORUM_URL: 'https://community.passbolt.com',
+  REDDIT_URL: 'https://www.reddit.com/r/passbolt',
+  GITHUB_URL: 'https://github.com/passbolt',
+  TWITTER_URL: 'https://twitter.com/passbolt',
+  LINKEDIN_URL: 'https://www.linkedin.com/company/passbolt',
+}
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Passbolt documentation.',
@@ -10,7 +22,7 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-test-site.com',
+  url: ROUTES.HELPSITE_URL,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -21,7 +33,7 @@ const config = {
   projectName: 'passbolt-docs', // Usually your repo name.
 
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenMarkdownLinks: 'throw',
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -54,7 +66,6 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
       image: 'img/og.jpg',
       docs: {
         sidebar: {
@@ -68,13 +79,8 @@ const config = {
           width: 160,
         },
         items: [
-          // {
-          //   type: 'html',
-          //   position: 'left',
-          //   value: '<a rol="button" href="https://www.passbolt.com" class="main-website" title="Return to main website">←</a>',
-          // },
           {
-            href: 'https://www.passbolt.com',
+            href: ROUTES.WEBSITE_URL,
             position: 'left',
             className: 'main-website-link',
             title: 'Return to main website',
@@ -104,7 +110,7 @@ const config = {
           //   label: 'API',
           // },
           {
-            href: 'https://github.com/passbolt',
+            href: ROUTES.GITHUB_URL,
             position: 'right',
             className: 'header-github-link',
             'aria-label': 'GitHub repository',
@@ -116,41 +122,72 @@ const config = {
         ],
       },
       footer: {
-        style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'Company',
             items: [
               {
-                label: 'Tutorial',
-                to: '/',
+                label: 'About',
+                href: `${ROUTES.WEBSITE_URL}/about`,
               },
+              {
+                label: 'Blog',
+                href: ROUTES.BLOG_URL,
+              },
+              {
+                label: 'Careers',
+                href: ROUTES.CAREERS_URL,
+              },
+              {
+                label: 'Contact us',
+                href: `${ROUTES.WEBSITE_URL}/contact`,
+              }
             ],
           },
           {
-            title: 'Community',
+            title: 'Legal',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                label: 'Security',
+                href: `${ROUTES.WEBSITE_URL}/security/more`,
               },
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                label: 'Privacy policy',
+                href: `${ROUTES.WEBSITE_URL}/privacy`,
+              },
+              {
+                label: 'Legal terms',
+                href: `${ROUTES.WEBSITE_URL}/terms`,
+              },
+              {
+                label: 'Credits',
+                href: `${ROUTES.WEBSITE_URL}/credits`,
+              }
+            ],
+          },
+          {
+            title: 'Social',
+            items: [
+              {
+                label: 'Github',
+                href: ROUTES.GITHUB_URL,
               },
               {
                 label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                href: ROUTES.TWITTER_URL,
               },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
               {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                label: 'Community Forum',
+                href: ROUTES.FORUM_URL,
               },
+              {
+                label: 'Reddit',
+                href: ROUTES.REDDIT_URL,
+              },
+              {
+                label: 'LinkedIn',
+                href: ROUTES.LINKEDIN_URL,
+              }
             ],
           },
         ],

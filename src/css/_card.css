@@ -1,0 +1,18 @@
+:root {
+  --ifm-card-background-color: var(--passbolt-grey);
+  --ifm-card-border-radius: .5rem;
+}
+
+.index-card-list .card {
+  border: 1px solid var(--passbolt-light-grey);
+  box-shadow: unset;
+}
+
+.index-card-list .card h2 {
+  text-indent: -0.25rem;
+}
+
+.index-card-list .card h2::first-letter {
+  font-size: 0;
+  color: transparent;
+}

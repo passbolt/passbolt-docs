@@ -63,7 +63,7 @@ const theme = {
     {
       types: ["function", "deleted", "tag"],
       style: {
-        color: "#D40101",
+        color: "#ffffff",
         fontWeight: "900",
       },
     },

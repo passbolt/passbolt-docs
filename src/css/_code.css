@@ -2,6 +2,18 @@
   border: 1px solid var(--passbolt-light-grey);
 }
 
-code .theme-code-block-highlighted-line {
+pre code {
+  color: inherit;
+}
+
+pre code .theme-code-block-highlighted-line {
   background: var(--passbolt-light-grey);
+}
+
+code {
+  --ifm-code-background: var(--passbolt-grey);
+  --ifm-code-padding-vertical: .125rem;
+  --ifm-code-padding-horizontal: .25rem;
+  border-color: var(--passbolt-light-grey);
+  color: white;
 }

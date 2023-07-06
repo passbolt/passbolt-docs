@@ -93,7 +93,7 @@ div.menu__list-item a.main-website-link:hover {
 .navbar__items .navbar__link {
   text-decoration: underline;
   text-decoration-color: rgba(var(--ifm-color-primary-rgb),0);
-  text-decoration-thickness: 2px;
+  text-decoration-thickness: 1px;
   text-underline-offset: 1rem;
   font-weight: bold;
   transition: all .1s linear;
@@ -104,7 +104,6 @@ div.menu__list-item a.main-website-link:hover {
   color: var(--ifm-navbar-link-color);
   text-decoration: underline;
   text-decoration-color: var(--ifm-color-primary);
-  text-decoration-thickness: 2px;
   text-underline-offset: .5rem;
 }
 

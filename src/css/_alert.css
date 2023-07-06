@@ -1,0 +1,30 @@
+.alert {
+  --ifm-alert-foreground-color: white;
+  background-color: transparent;
+  border-width: 1px;
+}
+
+.alert code {
+  background-color: rgba(255,255,255,.125);
+  border: none;
+}
+
+.alert--secondary {
+  border-color: var(--passbolt-light-grey);
+}
+
+.alert--success {
+  border-color: rgba(var(--passbolt-green-rgb), .5);
+}
+
+.alert--info {
+  border-color: rgba(var(--passbolt-blue-rgb), .5);
+}
+
+.alert--warning {
+  border-color: rgba(var(--passbolt-yellow-rgb), .5);
+}
+
+.alert--danger {
+  border-color: rgba(var(--passbolt-red-rgb), .5);
+}

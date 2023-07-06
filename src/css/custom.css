@@ -7,6 +7,9 @@
 @import url('./_toc.css');
 @import url('./_footer.css');
 @import url('./_card.css');
+@import url('./_typography.css');
+@import url('./_alert.css');
+@import url('./_tabs.css');
 
 /**
  * Any CSS included here will be global. The classic template
@@ -29,6 +32,14 @@
   --passbolt-black: #171717;
   --passbolt-grey: #1F1F1F;
   --passbolt-light-grey: #2E2E2E;
+  --passbolt-red: var(--ifm-color-primary);
+  --passbolt-red-rgb: var(--ifm-color-primary-rgb);
+  --passbolt-green: #088869;
+  --passbolt-green-rgb: 8, 136, 105;
+  --passbolt-blue: #2894DF;
+  --passbolt-blue-rgb: 40, 148, 223;
+  --passbolt-yellow: #F2AE55;
+  --passbolt-yellow-rgb: 242, 174, 85;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */

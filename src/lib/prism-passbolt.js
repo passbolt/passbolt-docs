@@ -25,13 +25,14 @@ const theme = {
       types: ["string", "attr-value"],
       style: {
         color: "#ffffff",
-        opacity: 0.8,
+        opacity: 0.7,
       },
     },
     {
       types: ["punctuation", "operator"],
       style: {
         color: "#ffffff",
+        opacity: 0.7,
       },
     },
     {
@@ -49,35 +50,41 @@ const theme = {
       ],
       style: {
         color: "#ffffff",
-        opacity: 0.8,
+        opacity: 0.7,
       },
     },
     {
       types: ["atrule", "keyword", "attr-name", "selector"],
       style: {
         color: "#ffffff",
-        opacity: 0.8,
+        opacity: 0.7,
       },
     },
     {
       types: ["function", "deleted", "tag"],
       style: {
-        // color: "#2894df",
-        color: "#ffffff",
+        color: "#D40101",
+        fontWeight: "900",
       },
     },
     {
       types: ["function-variable"],
       style: {
         color: "#ffffff",
-        opacity: 0.8,
+        fontWeight: "900",
       },
     },
     {
       types: ["tag", "selector", "keyword"],
       style: {
         color: "#ffffff",
-        opacity: 0.8,
+      },
+    },
+    {
+      types: ["imports"],
+      style: {
+        color: "#ffffff",
+        fontWeight: "900",
       },
     },
   ],

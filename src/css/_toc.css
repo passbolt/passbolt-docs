@@ -1,12 +1,34 @@
-.theme-doc-toc-desktop {
+/* Main content TOC */
+main .row .col:first-of-type ul {
+  list-style: none;
+}
+
+main .row .col:first-of-type ul.table-of-contents {
+  background-color: var(--passbolt-grey);
+  padding: 1rem;
+  border-radius: .5rem;
+}
+
+main .row .col:first-of-type ul.table-of-contents a {
+  text-decoration: none;
+}
+
+main .row .col:first-of-type ul.table-of-contents a::before {
+  content: '#';
+  margin-right: .5rem;
+  color: var(--passbolt-red)
+}
+
+/* Right sidebar TOC */
+main .row .col:nth-of-type(2) .theme-doc-toc-desktop {
   padding-top: 5rem;
 }
 
-.theme-doc-toc-mobile {
+main .row .col:nth-of-type(2) .theme-doc-toc-mobile {
   display: none;
 }
 
-ul.table-of-contents {
+main .row .col:nth-of-type(2) ul.table-of-contents {
   --ifm-toc-border-color: rgba(255,255,255,.1);
   --ifm-toc-padding-vertical: 0;
   --ifm-toc-padding-horizontal: 0;
@@ -14,17 +36,17 @@ ul.table-of-contents {
   font-size: 0.875rem;
 }
 
-ul.table-of-contents li {
+main .row .col:nth-of-type(2) ul.table-of-contents li {
   position: relative;
   padding: .5rem;
 }
 
-ul.table-of-contents .table-of-contents__link {
+main .row .col:nth-of-type(2) ul.table-of-contents .table-of-contents__link {
   display: flex;
   opacity: .5;
 }
 
-ul.table-of-contents .table-of-contents__link::before {
+main .row .col:nth-of-type(2) ul.table-of-contents .table-of-contents__link::before {
   content: '';
   background: var(--ifm-toc-border-color);
   position: absolute;
@@ -34,20 +56,20 @@ ul.table-of-contents .table-of-contents__link::before {
   width: 1px;
 }
 
-ul.table-of-contents .table-of-contents__link:hover {
+main .row .col:nth-of-type(2) ul.table-of-contents .table-of-contents__link:hover {
   opacity: 1;
   color: inherit;
 }
 
-ul.table-of-contents .table-of-contents__link--active {
+main .row .col:nth-of-type(2) ul.table-of-contents .table-of-contents__link--active {
   opacity: 1;
   color: inherit;
 }
 
-ul.table-of-contents .table-of-contents__link--active::before {
+main .row .col:nth-of-type(2) ul.table-of-contents .table-of-contents__link--active::before {
   background: var(--ifm-color-primary);
 }
 
-ul.table-of-contents ul {
+main .row .col:nth-of-type(2) ul.table-of-contents ul {
   display: none;
 }

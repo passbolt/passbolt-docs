@@ -1,0 +1,14 @@
+.theme-doc-markdown a:not(.hash-link) {
+  --ifm-link-color: var(--ifm-font-color-base);
+  --ifm-link-decoration: underline;
+  --ifm-transition-fast: .1s;
+  --ifm-transition-timing-default: linear;
+  transition-property: all;
+  text-decoration-color: var(--ifm-color-primary);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+}
+
+.theme-doc-markdown a.hash-link {
+  text-decoration: none;
+}

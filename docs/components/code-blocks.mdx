@@ -4,7 +4,17 @@ description: How to use the code blocks component
 hide_table_of_contents: true
 ---
 
+# Code blocks
+
+## Standard code block
 ```jsx title="/src/components/HelloCodeTitle.js"
+function HelloCodeTitle(props) {
+  return <h1>Hello, {props.name}</h1>;
+}
+```
+
+## Code block with line numbers
+```jsx title="/src/components/HelloCodeTitle.js" showLineNumbers
 function HelloCodeTitle(props) {
   return <h1>Hello, {props.name}</h1>;
 }

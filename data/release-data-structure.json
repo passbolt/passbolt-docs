@@ -1,0 +1,90 @@
+{
+  "name": "releases",
+  "type": "folder",
+  "children": [
+      {
+          "name": "ce",
+          "type": "folder",
+          "children": [
+              {
+                  "name": "black-sunrise",
+                  "type": "file"
+              },
+                      {
+                  "name": "la-cle-des-champs",
+                  "type": "file"
+              },
+                      {
+                  "name": "love-over-entropy-sea",
+                  "type": "file"
+              },
+                      {
+                  "name": "new-morning",
+                  "type": "file"
+              },
+                      {
+                  "name": "senior-elfo",
+                  "type": "file"
+              },
+                      {
+                  "name": "our-house",
+                  "type": "file"
+              },
+                      {
+                  "name": "wide-open",
+                  "type": "file"
+              },
+                      {
+                  "name": "wide-open-2",
+                  "type": "file"
+              },
+                      {
+                  "name": "last-day",
+                  "type": "file"
+              }
+          ]
+      },
+      {
+          "name": "pro",
+          "type": "folder",
+          "children": [
+              {
+                  "name": "black-sunrise",
+                  "type": "file"
+              },
+                      {
+                  "name": "la-cle-des-champs",
+                  "type": "file"
+              },
+                      {
+                  "name": "love-over-entropy-sea",
+                  "type": "file"
+              },
+                      {
+                  "name": "new-morning",
+                  "type": "file"
+              },
+                      {
+                  "name": "senior-elfo",
+                  "type": "file"
+              },
+                      {
+                  "name": "our-house",
+                  "type": "file"
+              },
+                      {
+                  "name": "wide-open",
+                  "type": "file"
+              },
+                      {
+                  "name": "wide-open-2",
+                  "type": "file"
+              },
+                      {
+                  "name": "last-day",
+                  "type": "file"
+              }
+          ]
+      }
+  ]
+}

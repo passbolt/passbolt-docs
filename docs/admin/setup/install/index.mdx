@@ -1,0 +1,37 @@
+---
+title: Install passbolt CE or PRO
+sidebar_label: Install
+description: Install Passbolt CE or Passbolt PRO
+---
+
+import DistributionCard from "@site/src/components/DistributionCard/DistributionCard.js";
+import distributions from "@site/data/distributions.json";
+import styles from "@site/src/components/DistributionCard/DistributionCard.module.css";
+
+export const DistributionCardWrapper = () => {
+  return (
+    <div className={styles.grid}>
+      {distributions.map((distribution) => {
+        return (
+          <DistributionCard
+            key={distribution.slug}
+            logo={distribution.logo}
+            name={distribution.name}
+            links={{
+              ...(distribution.ce && {
+                ce: `${distribution.slug}/ce`,
+              }),
+              ...(distribution.ce && {
+                pro: `${distribution.slug}/pro`,
+              }),
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
+<DistributionCardWrapper />
+
+

@@ -1,3 +1,9 @@
+:root {
+  --small-text-font-size: 0.875rem;
+  --default-text-font-size: 1rem;
+  --large-text-font-size: 1.125rem;
+}
+
 .theme-doc-markdown a:not(.hash-link) {
   --ifm-link-color: var(--ifm-font-color-base);
   --ifm-link-decoration: underline;

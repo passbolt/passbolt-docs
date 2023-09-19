@@ -10,6 +10,7 @@
 
 .index-card-list .card h2 {
   text-indent: -0.25rem;
+  text-transform: capitalize;
 }
 
 .index-card-list .card h2::first-letter {

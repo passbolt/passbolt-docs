@@ -1,0 +1,132 @@
+[
+  {
+    "name": "AlmaLinux",
+    "slug": "almalinux",
+    "version": 8,
+    "package": "dnf",
+    "db_engine": "mariadb",
+    "logo": "/img/distributions/almalinux.svg",
+    "ce": true,
+    "pro": true
+  },
+  {
+    "name": "CentOS",
+    "slug": "centos",
+    "version": 7,
+    "package": "yum",
+    "db_engine": "mariadb",
+    "logo": "/img/distributions/centos.svg",
+    "ce": true,
+    "pro": true
+  },
+  {
+    "name": "Debian",
+    "slug": "debian",
+    "version": 11,
+    "package": "yum",
+    "db_engine": "mariadb",
+    "logo": "/img/distributions/debian.svg",
+    "ce": true,
+    "pro": true
+  },
+  {
+    "name": "Docker",
+    "slug": "docker",
+    "version": null,
+    "package": null,
+    "db_engine": null,
+    "logo": "/img/distributions/docker.svg",
+    "ce": true,
+    "pro": true
+  },
+  {
+    "name": "Fedora",
+    "slug": "fedora",
+    "version": "34 / 35 / 36",
+    "package": "dnf",
+    "db_engine": "mariadb",
+    "logo": "/img/distributions/fedora.svg",
+    "ce": true,
+    "pro": true
+  },
+  {
+    "name": "Helm Chart",
+    "slug": "helm-chart",
+    "version": null,
+    "package": null,
+    "db_engine": null,
+    "logo": "/img/distributions/kubernetes.svg",
+    "ce": true,
+    "pro": true
+  },
+  {
+    "name": "openSUSE",
+    "slug": "opensuse",
+    "version": 15,
+    "package": "zypper",
+    "db_engine": "mariadb",
+    "logo": "/img/distributions/opensuse.svg",
+    "ce": true,
+    "pro": true
+  },
+  {
+    "name": "OracleLinux",
+    "slug": "oraclelinux",
+    "version": 8,
+    "package": "dnf",
+    "db_engine": "mariadb",
+    "logo": "/img/distributions/oraclelinux.svg",
+    "ce": true,
+    "pro": true
+  },
+  {
+    "name": "Raspberry",
+    "slug": "raspberry",
+    "version": "PI",
+    "package": null,
+    "db_engine": "mariadb",
+    "logo": "/img/distributions/raspberry.svg",
+    "ce": true,
+    "pro": true
+  },
+  {
+    "name": "RedHat",
+    "slug": "redhat",
+    "version": 8,
+    "package": "dnf",
+    "db_engine": "mariadb",
+    "logo": "/img/distributions/redhat.svg",
+    "ce": true,
+    "pro": true
+  },
+  {
+    "name": "RockyLinux",
+    "slug": "rockylinux",
+    "version": 8,
+    "package": "dnf",
+    "db_engine": "mariadb",
+    "logo": "/img/distributions/rockylinux.svg",
+    "ce": true,
+    "pro": true
+  },
+  {
+    "name": "Ubuntu",
+    "slug": "ubuntu",
+    "version": 20.04,
+    "package": "dnf",
+    "db_engine": "mysql",
+    "logo": "/img/distributions/ubuntu.svg",
+    "ce": true,
+    "pro": true
+  },
+  {
+    "name": "From sources",
+    "slug": "from-sources",
+    "version": null,
+    "package": null,
+    "db_engine": null,
+    "logo": "/img/distributions/github.svg",
+    "ce": true,
+    "pro": false
+  }
+]

@@ -10,6 +10,7 @@
 @import url('./_typography.css');
 @import url('./_alert.css');
 @import url('./_tabs.css');
+@import url('./_badge.css');
 
 /**
  * Any CSS included here will be global. The classic template
@@ -29,7 +30,9 @@
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --true-black: #000000;
   --passbolt-black: #171717;
+  --passbolt-black-rgb: 23, 23, 23;
   --passbolt-grey: #1F1F1F;
   --passbolt-light-grey: #2E2E2E;
   --passbolt-red: var(--ifm-color-primary);

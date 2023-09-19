@@ -105,6 +105,10 @@
   --ifm-menu-link-padding-horizontal: 0;
 }
 
+.theme-doc-sidebar-container .menu__link--sublist {
+  text-transform: capitalize;
+}
+
 .theme-doc-sidebar-container .menu__link--sublist-caret:after {
   background-size: 1.5rem;
   filter: none;

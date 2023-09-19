@@ -25,6 +25,7 @@
 .theme-doc-breadcrumbs .breadcrumbs .breadcrumbs__item .breadcrumbs__link {
   padding: 0;
   font-size: 0.875rem;
+  text-transform: capitalize;
 }
 
 .theme-doc-breadcrumbs .breadcrumbs .breadcrumbs__item .breadcrumbs__link:hover {

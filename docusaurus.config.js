@@ -137,12 +137,12 @@ const config = {
             position: 'left',
             label: 'Admin guide',
           },
-          {
-            type: 'docSidebar',
-            sidebarId: 'developerGuideSidebar',
-            position: 'left',
-            label: 'Developer guide',
-          },
+          // {
+          //   type: 'docSidebar',
+          //   sidebarId: 'developerGuideSidebar',
+          //   position: 'left',
+          //   label: 'Developer guide',
+          // },
           // {
           //   to: 'api',
           //   position: 'left',

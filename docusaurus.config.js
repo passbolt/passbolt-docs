@@ -108,7 +108,7 @@ const config = {
       image: 'img/og.jpg',
       docs: {
         sidebar: {
-          autoCollapseCategories: true,
+          autoCollapseCategories: false,
         }
       },
       navbar: {

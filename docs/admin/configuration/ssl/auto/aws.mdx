@@ -1,6 +1,51 @@
 ---
-title: Aws
+title: Auto configure HTTPS with Let's Encrypt on AWS
+sidebar_label: AWS
 # description: 
 slug: aws
 ---
 
+import AWSPro from './_aws-pro.mdx';
+import AWSCe from './_aws-ce.mdx';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+
+:::caution 
+  If you are changing your domain from **HTTP to HTTPS**, you will unlink the browser extension of all the users. Before changing the domain, you must ensure that all the users have a copy of their private key to **[recover their account](/user/start/account-recover)**.
+:::
+
+:::caution Important requirement
+  This tutorial assumes your machine has a valid domain name assigned in order to work with let's encrypt. If you want to use user provided certificates or self-signed certificates skip to the next section
+:::
+
+:::note Note
+  The configuration does not support serving passbolt on a subdirectory fashion. For example, scenarios like https://mydomain.com/passbolt are not supported by default
+:::
+
+## Edit nginx configuration file
+
+By default, our nginx configuration file ensure all domain names will match with our passbolt virtual machine but to obtain a valid Let's Encrypt SSL certificate, you will have to manually set your passbolt domain name.
+
+Open `/etc/nginx/sites-enabled/nginx-passbolt.conf` and search for this line:
+
+```bash
+server_name _;
+```
+
+Replace the underscore with your passbolt domain name:
+
+```bash
+server_name passbolt.domain.tld;
+```
+
+## Reconfigure passbolt
+
+<Tabs groupId="editions">
+  <TabItem value="CE Edition">
+    <AWSCe />
+  </TabItem>
+  <TabItem value="PRO Edition">
+    <AWSPro />
+  </TabItem>
+</Tabs>

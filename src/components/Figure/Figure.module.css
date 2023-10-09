@@ -1,0 +1,11 @@
+.root {
+  text-align: center;
+  margin-inline: 0;
+  margin-block: 2rem;
+}
+
+.root figcaption {
+  margin-top: .5rem;
+  font-size: var(--small-text-font-size);
+  font-style: italic;
+}

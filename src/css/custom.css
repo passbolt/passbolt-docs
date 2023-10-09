@@ -11,6 +11,7 @@
 @import url('./_alert.css');
 @import url('./_tabs.css');
 @import url('./_badge.css');
+@import url('./_list.css');
 
 /**
  * Any CSS included here will be global. The classic template
@@ -34,7 +35,8 @@
   --passbolt-black: #171717;
   --passbolt-black-rgb: 23, 23, 23;
   --passbolt-grey: #1F1F1F;
-  --passbolt-light-grey: #2E2E2E;
+  --passbolt-light-grey: #2e2e2e;
+  --passbolt-light-grey-rgb: 46, 46, 46;
   --passbolt-red: var(--ifm-color-primary);
   --passbolt-red-rgb: var(--ifm-color-primary-rgb);
   --passbolt-green: #088869;

@@ -1,22 +1,22 @@
-.tabs-container ul {
+.tabs-container > ul {
   border-bottom: 1px solid var(--passbolt-light-grey);
 }
 
-.tabs-container ul .tabs__item {
+.tabs-container > ul .tabs__item {
   --ifm-tabs-padding-vertical: .5rem;
   --ifm-tabs-padding-horizontal: 1rem;
   border-radius: unset;
   color: rgba(255,255,255,.5);
 }
 
-.tabs-container ul .tabs__item.tabs__item--active {
+.tabs-container > ul .tabs__item.tabs__item--active {
   --ifm-tabs-color-active-border: var(--passbolt-red);
   position: relative;
   color: white;
   border-width: .125rem;
 }
 
-.tabs-container ul .tabs__item:hover {
+.tabs-container > ul .tabs__item:hover {
   background: unset;
   color: white;
 }

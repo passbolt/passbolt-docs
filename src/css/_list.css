@@ -1,0 +1,11 @@
+.theme-doc-markdown ul:not([role="tablist"]) {
+  list-style: none
+}
+
+.theme-doc-markdown ul:not([role="tablist"]) li::before {
+  content: "•";
+  color: var(--passbolt-red);
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}

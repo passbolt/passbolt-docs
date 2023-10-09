@@ -37,7 +37,7 @@
 .main-wrapper > div > aside {
   border-right: unset;
   width: 100%;
-  max-width: 22rem;
+  max-width: 20rem;
 }
 
 .main-wrapper .container {
@@ -103,10 +103,11 @@
 
 @media (min-width: 1280px) {
   .main-wrapper > div > main > .container > .row > .col:first-of-type {
-    max-width: 75%;
+    max-width: 75% !important;
   }
 
   .main-wrapper > div > main > .container > .row > .col.col--3 {
     display: block;
+    flex: 1;
   }
 }

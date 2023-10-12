@@ -111,3 +111,9 @@
     flex: 1;
   }
 }
+
+@media (min-width: 2000px) {
+  :root {
+    --layout-max-width: 1600px;
+  }
+}

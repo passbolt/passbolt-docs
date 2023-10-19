@@ -1,12 +1,14 @@
-      ____                  __          ____
-     / __ \____  _____ ____/ /_  ____  / / /_
-    / /_/ / __ `/ ___/ ___/ __ \/ __ \/ / __/
-   / ____/ /_/ (__  |__  ) /_/ / /_/ / / /_
-  /_/    \__,_/____/____/_,___/\____/_/\__/
 
-The open-source password management solution for teams
-(c) 2023 Passbolt SA
-https://www.passbolt.com
+	      ____                  __          ____
+	     / __ \____  _____ ____/ /_  ____  / / /_
+	    / /_/ / __ `/ ___/ ___/ __ \/ __ \/ / __/
+	   / ____/ /_/ (__  |__  ) /_/ / /_/ / / /_
+	  /_/    \__,_/____/____/_,___/\____/_/\__/
+	
+	The open-source password management solution for teams
+	(c) 2023 Passbolt SA
+	https://www.passbolt.com
+
 
 ## License
 

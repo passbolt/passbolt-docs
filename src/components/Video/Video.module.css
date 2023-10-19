@@ -1,0 +1,16 @@
+.root {
+  text-align: center;
+  margin-inline: 0;
+  margin-block: 2rem;
+}
+
+.root iframe { 
+  width: 100%;
+  aspect-ratio: var(--video-aspect-ratio, 16/9);
+}
+
+.root figcaption {
+  margin-top: .5rem;
+  font-size: var(--small-text-font-size);
+  font-style: italic;
+}

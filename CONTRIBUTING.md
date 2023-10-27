@@ -45,7 +45,15 @@ To edit an existing content, go to /docs and navigate through the folders until 
 To add new content, go to /docs and navigate to the folder where the new file needs to be created.
 The new file should be a `.mdx` file with a front matter to configure the title, description, slug, sidebar label, etc.
 
+#### File options
+
+You can set different properties on the page through the front matter.
+
+For example, if the page should not be indexed, excluded from the sitemap but only accessible via direct link, you can set the option `unlisted` to true.
+
 > See the front matter options: [https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs#markdown-front-matter](https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs#markdown-front-matter)
+
+#### Going further
 
 > See Docusaurus recommendations regarding the content creation: [https://docusaurus.io/docs/create-doc](https://docusaurus.io/docs/create-doc)
 

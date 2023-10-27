@@ -26,20 +26,20 @@
 
 .alert--success {
   border-color: rgba(var(--passbolt-green-rgb), .5);
-  background: rgba(var(--passbolt-green-rgb), .02);
+  background: rgba(var(--passbolt-green-rgb), .2);
 }
 
 .alert--info {
   border-color: rgba(var(--passbolt-blue-rgb), .5);
-  background: rgba(var(--passbolt-blue-rgb), .02);
+  background: rgba(var(--passbolt-blue-rgb), .2);
 }
 
 .alert--warning {
   border-color: rgba(var(--passbolt-yellow-rgb), .5);
-  background: rgba(var(--passbolt-yellow-rgb), .02);
+  background: rgba(var(--passbolt-yellow-rgb), .2);
 }
 
 .alert--danger {
   border-color: rgba(var(--passbolt-red-rgb), .5);
-  background: rgba(var(--passbolt-red-rgb), .02);
+  background: rgba(var(--passbolt-red-rgb), .2);
 }

@@ -5,7 +5,7 @@ import Badge from '@site/src/components/Badge/Badge'
 import clsx from 'clsx'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
-const DistributionCard = ({ logo, name, links, ...props }) => {
+const DistributionCard = ({ logo, name, version, links, ...props }) => {
 
   const imageUrl = useBaseUrl(logo)
 
@@ -18,7 +18,12 @@ const DistributionCard = ({ logo, name, links, ...props }) => {
       )}
 
       {name && (
-        <h3 className={styles.name}>{name}</h3>
+        <h3 className={styles.name}>
+          {name}
+          {version && (
+            ` ${version}`
+          )}
+        </h3>
       )}
 
       {links && (
@@ -38,6 +43,10 @@ const DistributionCard = ({ logo, name, links, ...props }) => {
 DistributionCard.propTypes = {
   logo: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  version: PropTypes.oneOf([
+    PropTypes.string,
+    PropTypes.number
+  ]),
   links: PropTypes.shape({
     ce: PropTypes.string,
     pro: PropTypes.string,

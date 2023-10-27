@@ -23,8 +23,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 4.5rem;
-  min-height: 3rem;
+  width: 2.8rem;
+  min-height: 2.8rem;
 }
 
 .logo img {
@@ -33,12 +33,13 @@
 
 .name {
   margin: 0;
+  flex: 1;
 }
 
 .links {
   display: flex;
   margin-left: auto;
-  gap: 1rem;
+  gap: .5rem;
   align-items: center;
   flex: 100%;
 }

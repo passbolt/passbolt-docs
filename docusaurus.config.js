@@ -253,11 +253,11 @@ const config = {
       '@easyops-cn/docusaurus-search-local',
       /** @type {import('@easyops-cn/docusaurus-search-local').PluginOptions} */
       ({
-        hashed: true,
+        hashed: false,
         indexBlog: false,
         docsRouteBasePath: '/',
         language: ['en'],
-        highlightSearchTermsOnTargetPage: true,
+        highlightSearchTermsOnTargetPage: false,
         explicitSearchResultPath: true,
       }),
     ],

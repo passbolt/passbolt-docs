@@ -1,0 +1,44 @@
+ <h3>Prerequisites</h3>
+
+<div>
+    For this tutorial, you will need:
+    <ul>
+        {props.distributionLabel === 'Raspberry' ? (
+            <>
+                <li>Any Raspberry PI from zero to 4</li>
+                <li>A minimal <a href="https://www.raspberrypi.com/software/operating-systems/">Raspberry Pi OS Lite (formerly called Raspbian)</a> server or any OS based on Debian 12 Bookworm.</li>
+            </>
+        ) : (
+            <li>A minimal {props.distributionLabel}{props.distributionVersion} server.</li>
+        )}
+        <li>A domain / host name pointing to your server, or at least being able to reach your server through a static IP address.</li>
+        <li>A working SMTP server for email notifications</li>
+        <li>A working NTP service to avoid GPG authentication issues</li>
+    </ul>
+</div>
+
+
+
+The recommended server requirements are:
+- 2 cores
+- 2GB of RAM
+
+FAQ pages:
+
+<div>
+    <ul>
+        {props.distributionLabel !== 'Debian' && props.distributionLabel !== 'Ubuntu' && props.distributionLabel !== 'Raspberry' && (
+            <li><a href={"/faq/hosting/why-haveged-virtual-env"}>Considerations about entropy</a></li>
+        )}
+    <li><a href={"/faq/hosting/set-up-ntp"}>Set up NTP</a></li>
+    <li><a href={"/faq/hosting/firewall-rules"}>Firewall rules</a></li>
+    </ul>
+</div>
+
+:::caution
+**Please note:** It is important that you use a vanilla server with no other services or tools already installed on it. The install scripts could potentially damage any existing data on your server.
+:::
+
+:::info
+**Pro tip**: If you are going to manually provision SSL certificates you may want to do that before beginning!
+:::

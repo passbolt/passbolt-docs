@@ -3,6 +3,12 @@ title: Ce
 # description: 
 slug: ce
 ---
-import Prerequisites from '../../../_includes/debian/_prerequisites.mdx'
+import Prerequisites from '/docs/admin/_includes/package/_prerequisites.mdx'
+import ServerComponents from '/docs/admin/_includes/package/_install-server-components.mdx'
+import PackageConfiguration from '/docs/admin/_includes/package/_package-configuration.mdx'
+import WizzardConfiguration from '/docs/admin/_includes/wizzard/_server.mdx'
 
 <Prerequisites distributionLabel={"Debian"} distributionVersion={"12"} />
+<ServerComponents productName={"CE"} />
+<PackageConfiguration productName={"CE"} distributionLabel={"Debian"} />
+<WizzardConfiguration counter={0} productLabel={"CE"}/>

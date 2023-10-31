@@ -1,0 +1,26 @@
+<h3>Package repository setup</h3>
+
+<div>
+    For easier installation and update tasks Passbolt provides a package repository that you need to setup
+    before you download Passbolt {props.productName} and install it.
+</div>
+
+<br />
+
+**Step 1.** Download our dependencies installation script:
+
+<pre className="prism-code language-bash">
+<code>wget https://download.passbolt.com/{props.productName}/installer/passbolt-repo-setup.{props.productName}.sh</code>
+</pre>
+
+**Step 2.** Download our SHA512SUM for the installation script:
+
+<pre className="prism-code language-bash">
+<code>https://github.com/passbolt/passbolt-dep-scripts/releases/latest/download/passbolt-{props.productName}-SHA512SUM.txt</code>
+</pre>
+
+**Step 3.** Ensure that the script is valid and execute it:
+
+<pre className="prism-code language-bash">
+<code>sha512sum -c passbolt-{props.productName}-SHA512SUM.txt && sudo bash ./passbolt-repo-setup.{props.productName}.sh || echo \"Bad checksum. Aborting\" && rm -f passbolt-repo-setup.{props.productName}.sh</code>
+</pre>

@@ -1,0 +1,14 @@
+import ConfigureDebianPackage from './_configure-debian-package-mariadb.mdx'
+
+<ConfigureDebianPackage distributionLabel={"Debian"} databaseEngine={"mariadb"} />
+
+#### Configure nginx for serving HTTPS
+
+<>
+    Depending on your needs there are two different options to setup nginx and SSL using the {props.distributionLabel} package:
+    <ul>
+        <li><a href={`/configure/https/${props.productName}/debian/auto.html`}>Auto (Using Let's Encrypt)</a></li>
+        <li><a href={`/configure/https/${props.productName}/debian/manual.html`}>Manual (Using user-provided SSL certificates)</a></li>
+    </ul>
+</>
+

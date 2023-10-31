@@ -1,0 +1,72 @@
+import Figure from "../../../../src/components/Figure/Figure";
+import GpgKeyGeneration from '/docs/admin/_includes/warning/_gpg-key-generation.mdx'
+
+<h3>2. Configure passbolt</h3>
+
+Before you can use the application, you need to configure it. Point your browser to the hostname / ip where passbolt
+can be reached. You will reach a getting started page.
+
+<Figure src="https://help.passbolt.com/assets/img/help/2021/02/web-installer-getting-started.png" alt="Passbolt welcome page before configuration" caption="fig. Passbolt welcome page before configuration" />
+
+<h4>2.{props.counter += 1}. Healthcheck</h4>
+
+The first page of the wizard will tell you if your environment is ready for passbolt. Solve issues if any and click on
+"Start configuration" when ready.
+
+<>
+{props.productLabel === 'CE' ? (
+    <Figure src={"https://help.passbolt.com/assets/img/help/2018/11/web-installer-ce-healthcheck.png"} alt={"Healthcheck from the wizard"} caption={"fig. Wizard - Healthcheck"} />
+) : (
+    <Figure src={"https://help.passbolt.com/assets/img/help/2018/11/web-installer-pro-healthcheck.png"} alt={"Healthcheck from the wizard"} caption={"fig. Wizard - Healthcheck"} />
+)}
+</>
+
+<>
+    {props.productLabel === 'PRO' && (
+        <>
+            <h4>2.{props.counter += 1}. Subscription Key</h4>
+            <span>At this step, the wizard will ask you for your subscription key. You should have received it by email soon after your online purchase. Enter it in the box.</span>
+            <Figure src={"https://help.passbolt.com/assets/img/help/2018/11/web-installer-pro-subscription-key.png"} alt={"Subscription key from the wizard"} caption={"fig. Wizard - Subscription Key"} />
+        </>
+    )}
+</>
+
+
+<h4>2.{props.counter += 1}. Database</h4>
+
+This step is about telling passbolt which database to use. Enter the host name, port number, database name, username and password.
+
+<>
+    {props.productLabel === 'CE' ? (
+        <Figure src={"https://help.passbolt.com/assets/img/help/2021/02/web-installer-ce-database.png"} alt={"Database from the wizard"} caption={"fig. Wizard - Database"} />
+    ) : (
+        <Figure src={"https://help.passbolt.com/assets/img/help/2021/02/web-installer-pro-database.png"} alt={"Database from the wizard"} caption={"fig. Wizard - Database"} />
+    )}
+</>
+
+<h4>2.{props.counter += 1}. GPG Key</h4>
+
+In this section you can either generate or import a GPG key pair. This key pair will be used by passbolt API to authenticate itself during the login handshake process.
+Generate a key if you don't have one.
+
+<>
+    {props.productLabel === 'CE' ? (
+        <Figure src={"https://help.passbolt.com/assets/img/help/2018/11/web-installer-ce-server-key-generate.png"} alt={"GPG Key from the wizard"} caption={"fig. Wizard - Gpg Key"} />
+    ) : (
+        <Figure src={"https://help.passbolt.com/assets/img/help/2018/11/web-installer-pro-server-key-generate.png"} alt={"GPG Key from the wizard"} caption={"fig. Wizard - Gpg Key"} />
+    )}
+</>
+
+:::tip
+**Optional**: Import a key if you already have one and you want your server to use it.
+:::
+
+<GpgKeyGeneration />
+
+<>
+    {props.productLabel === 'CE' ? (
+        <Figure src={"https://help.passbolt.com/assets/img/help/2018/11/web-installer-ce-server-key-import.png"} alt={"Import a Key Pair from the Wizard"} caption={"fig. Wizard - Import a Key Pair"} />
+    ) : (
+        <Figure src={"https://help.passbolt.com/assets/img/help/2018/11/web-installer-pro-server-key-import.png"} alt={"Import a Key Pair from the Wizard"} caption={"fig. Wizard - Import a Key Pair"} />
+    )}
+</>

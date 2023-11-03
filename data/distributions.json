@@ -22,8 +22,8 @@
   {
     "name": "Debian",
     "slug": "debian",
-    "version": 11,
-    "package": "yum",
+    "version": 12,
+    "package": "apt",
     "db_engine": "mariadb",
     "logo": "/img/distributions/debian.svg",
     "ce": true,
@@ -112,8 +112,8 @@
   {
     "name": "Ubuntu",
     "slug": "ubuntu",
-    "version": 20.04,
-    "package": "dnf",
+    "version": 22.04,
+    "package": "apt",
     "db_engine": "mysql",
     "logo": "/img/distributions/ubuntu.svg",
     "ce": true,

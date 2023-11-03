@@ -1,6 +1,17 @@
 ---
-title: Pro
+title: Install Passbolt PRO on Ubuntu 22.04
 # description: 
 slug: pro
 ---
 
+import Prerequisites from '/docs/admin/_includes/package/_prerequisites.mdx'
+import ServerComponents from '/docs/admin/_includes/package/_install-server-components.mdx'
+import PackageConfiguration from '/docs/admin/_includes/package/_package-configuration.mdx'
+import WizzardConfiguration from '/docs/admin/_includes/wizzard/_server.mdx'
+import AdminConfiguration from '/docs/admin/_includes/wizzard/_admin.mdx'
+
+<Prerequisites distributionLabel={"Ubuntu"} distributionVersion={"22.04"} />
+<ServerComponents productName={"PRO"} distributionPackage={"apt"} />
+<PackageConfiguration productName={"PRO"} distributionLabel={"Ubuntu"} />
+<WizzardConfiguration counter={0} productLabel={"PRO"}/>
+<AdminConfiguration counter={0} />

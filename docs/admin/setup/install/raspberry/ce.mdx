@@ -1,6 +1,17 @@
 ---
-title: Ce
+title: Install Passbolt CE on Raspberry PI
 # description: 
 slug: ce
 ---
 
+import Prerequisites from '/docs/admin/_includes/package/_prerequisites.mdx'
+import ServerComponents from '/docs/admin/_includes/package/_install-server-components.mdx'
+import PackageConfiguration from '/docs/admin/_includes/package/_package-configuration.mdx'
+import WizzardConfiguration from '/docs/admin/_includes/wizzard/_server.mdx'
+import AdminConfiguration from '/docs/admin/_includes/wizzard/_admin.mdx'
+
+<Prerequisites distributionLabel={"Raspberry"} distributionVersion={null} />
+<ServerComponents productName={"CE"} distributionPackage={"apt"} />
+<PackageConfiguration productName={"CE"} distributionLabel={"Raspberry"} />
+<WizzardConfiguration counter={0} productLabel={"CE"}/>
+<AdminConfiguration counter={0} />

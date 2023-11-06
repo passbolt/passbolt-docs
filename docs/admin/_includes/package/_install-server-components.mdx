@@ -32,7 +32,7 @@
 
 
 <>
-{props.distributionPackage === 'dnf' && (
+    {(props.distributionPackage === 'dnf' || props.distributionPackage === 'yum') && (
 <div>
     During the installation, you will be asked to accept the Passbolt repository GPG key. You must ensure the fingerprint is exactly the same as the one below:
 

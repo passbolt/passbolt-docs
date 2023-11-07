@@ -127,6 +127,17 @@
     "db_engine": null,
     "logo": "/img/distributions/github.svg",
     "ce": true,
-    "pro": false
+    "pro": null
+  },
+  {
+    "name": "AWS AMI",
+    "slug": "aws-ami",
+    "version": null,
+    "package": "apt",
+    "db_engine": "mysql",
+    "logo": "/img/distributions/awsami.svg",
+    "ce": true,
+    "pro": null
   }
+
 ]

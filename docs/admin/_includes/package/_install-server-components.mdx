@@ -1,3 +1,5 @@
+import OpenSUSEGPGKey from '/docs/admin/_includes/openSUSE/_opensuse-gpg-key.mdx'
+
 <h3>Package repository setup</h3>
 
 <div>
@@ -32,7 +34,7 @@
 
 
 <>
-    {(props.distributionPackage === 'dnf' || props.distributionPackage === 'yum') && (
+    {(props.distributionPackage === 'dnf' || props.distributionPackage === 'yum' || props.distributionPackage === 'znypper') && (
 <div>
     During the installation, you will be asked to accept the Passbolt repository GPG key. You must ensure the fingerprint is exactly the same as the one below:
 
@@ -44,4 +46,7 @@
 
 </div>
 )}
+    {(props.distributionPackage === 'znypper') && (
+        <OpenSUSEGPGKey />
+    )}
 </>

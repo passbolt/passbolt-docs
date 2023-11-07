@@ -127,7 +127,7 @@
     "db_engine": null,
     "logo": "/img/distributions/github.svg",
     "ce": true,
-    "pro": null
+    "pro": false
   },
   {
     "name": "AWS AMI",
@@ -137,7 +137,17 @@
     "db_engine": "mysql",
     "logo": "/img/distributions/awsami.svg",
     "ce": true,
-    "pro": null
+    "pro": true
+  },
+  {
+    "name": "Digital Ocean",
+    "slug": "digital-ocean",
+    "version": null,
+    "package": "apt",
+    "db_engine": "mysql",
+    "logo": "/img/distributions/digitalocean.svg",
+    "ce": true,
+    "pro": false
   }
 
 ]

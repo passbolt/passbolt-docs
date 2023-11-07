@@ -156,7 +156,7 @@
     "package": "apt",
     "db_engine": "mysql",
     "logo": "/img/distributions/virtualmachine.svg",
-    "ce": true,
+    "ce": false,
     "pro": true
   }
 

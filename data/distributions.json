@@ -148,6 +148,16 @@
     "logo": "/img/distributions/digitalocean.svg",
     "ce": true,
     "pro": false
+  },
+  {
+    "name": "Virtual Machine",
+    "slug": "virtual-machine",
+    "version": null,
+    "package": "apt",
+    "db_engine": "mysql",
+    "logo": "/img/distributions/virtualmachine.svg",
+    "ce": true,
+    "pro": true
   }
 
 ]

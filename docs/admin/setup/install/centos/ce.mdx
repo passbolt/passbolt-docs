@@ -1,6 +1,19 @@
 ---
-title: Ce
-# description: 
+title: Install Passbolt CE on CentOS 7
+# description:
 slug: ce
 ---
 
+import Prerequisites from '/docs/admin/_includes/package/_prerequisites.mdx'
+import ServerComponents from '/docs/admin/_includes/package/_install-server-components.mdx'
+import PackageConfiguration from '/docs/admin/_includes/package/_package-configuration.mdx'
+import WizardConfiguration from '/docs/admin/_includes/wizard/_server.mdx'
+import AdminConfiguration from '/docs/admin/_includes/wizard/_admin.mdx'
+import RpmPackageConfiguration from '/docs/admin/_includes/package/_configure-rpm-package.mdx'
+
+<Prerequisites distributionLabel={"CentOS"} distributionVersion={"7"} />
+<ServerComponents productName={"CE"} distributionPackage={"yum"} />
+<PackageConfiguration productName={"CE"} distributionLabel={"CentOS"} />
+<RpmPackageConfiguration productName={"CE"} distributionLabel={"CentOS"} distributionVersion={"7"} />
+<WizardConfiguration counter={0} productLabel={"CE"}/>
+<AdminConfiguration counter={0} />

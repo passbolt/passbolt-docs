@@ -1,51 +1,21 @@
 [
   {
-    "name": "AlmaLinux",
-    "slug": "almalinux",
-    "version": 8,
-    "package": "dnf",
-    "db_engine": "mariadb",
-    "logo": "/img/distributions/almalinux.svg",
-    "ce": true,
-    "pro": true
-  },
-  {
-    "name": "CentOS",
-    "slug": "centos",
-    "version": 7,
-    "package": "yum",
-    "db_engine": "mariadb",
-    "logo": "/img/distributions/centos.svg",
-    "ce": true,
-    "pro": true
-  },
-  {
     "name": "Debian",
     "slug": "debian",
-    "version": 11,
-    "package": "yum",
+    "version": 12,
+    "package": "apt",
     "db_engine": "mariadb",
     "logo": "/img/distributions/debian.svg",
     "ce": true,
     "pro": true
   },
   {
-    "name": "Docker",
-    "slug": "docker",
-    "version": null,
-    "package": null,
-    "db_engine": null,
-    "logo": "/img/distributions/docker.svg",
-    "ce": true,
-    "pro": true
-  },
-  {
-    "name": "Fedora",
-    "slug": "fedora",
-    "version": "34 / 35 / 36",
-    "package": "dnf",
-    "db_engine": "mariadb",
-    "logo": "/img/distributions/fedora.svg",
+    "name": "Ubuntu",
+    "slug": "ubuntu",
+    "version": 22.04,
+    "package": "apt",
+    "db_engine": "mysql",
+    "logo": "/img/distributions/ubuntu.svg",
     "ce": true,
     "pro": true
   },
@@ -60,22 +30,12 @@
     "pro": true
   },
   {
-    "name": "openSUSE",
-    "slug": "opensuse",
-    "version": 15,
-    "package": "zypper",
-    "db_engine": "mariadb",
-    "logo": "/img/distributions/opensuse.svg",
-    "ce": true,
-    "pro": true
-  },
-  {
-    "name": "OracleLinux",
-    "slug": "oraclelinux",
-    "version": 8,
-    "package": "dnf",
-    "db_engine": "mariadb",
-    "logo": "/img/distributions/oraclelinux.svg",
+    "name": "Docker",
+    "slug": "docker",
+    "version": null,
+    "package": null,
+    "db_engine": null,
+    "logo": "/img/distributions/docker.svg",
     "ce": true,
     "pro": true
   },
@@ -90,12 +50,62 @@
     "pro": true
   },
   {
+    "name": "Virtual Machine",
+    "slug": "virtual-machine",
+    "version": null,
+    "package": "apt",
+    "db_engine": "mysql",
+    "logo": "/img/distributions/virtualmachine.svg",
+    "ce": false,
+    "pro": true
+  },
+  {
+    "name": "AWS AMI",
+    "slug": "aws-ami",
+    "version": null,
+    "package": "apt",
+    "db_engine": "mysql",
+    "logo": "/img/distributions/awsami.svg",
+    "ce": true,
+    "pro": true
+  },
+  {
+    "name": "Digital Ocean",
+    "slug": "digital-ocean",
+    "version": null,
+    "package": "apt",
+    "db_engine": "mysql",
+    "logo": "/img/distributions/digitalocean.svg",
+    "ce": true,
+    "pro": false
+  },
+  {
     "name": "RedHat",
     "slug": "redhat",
     "version": 8,
     "package": "dnf",
     "db_engine": "mariadb",
     "logo": "/img/distributions/redhat.svg",
+    "ce": true,
+    "pro": true
+  },
+  {
+    "name": "CentOS",
+    "slug": "centos",
+    "version": 7,
+    "package": "yum",
+    "db_engine": "mariadb",
+    "logo": "/img/distributions/centos.svg",
+    "ce": true,
+    "pro": true
+  },
+  {
+    "name": "AlmaLinux",
+    "slug": "almalinux",
+    "version": 8,
+    "package": "dnf",
+    "db_engine": "mariadb",
+    "logo": "/img/distributions/almalinux.svg",
     "ce": true,
     "pro": true
   },
@@ -110,18 +120,38 @@
     "pro": true
   },
   {
-    "name": "Ubuntu",
-    "slug": "ubuntu",
-    "version": 20.04,
-    "package": "dnf",
-    "db_engine": "mysql",
-    "logo": "/img/distributions/ubuntu.svg",
+    "name": "openSUSE",
+    "slug": "opensuse",
+    "version": 15,
+    "package": "zypper",
+    "db_engine": "mariadb",
+    "logo": "/img/distributions/opensuse.svg",
     "ce": true,
     "pro": true
   },
   {
-    "name": "From sources",
-    "slug": "from-sources",
+    "name": "Fedora",
+    "slug": "fedora",
+    "version": "38",
+    "package": "dnf",
+    "db_engine": "mariadb",
+    "logo": "/img/distributions/fedora.svg",
+    "ce": true,
+    "pro": true
+  },
+  {
+    "name": "OracleLinux",
+    "slug": "oraclelinux",
+    "version": 8,
+    "package": "dnf",
+    "db_engine": "mariadb",
+    "logo": "/img/distributions/oraclelinux.svg",
+    "ce": true,
+    "pro": true
+  },
+  {
+    "name": "From source",
+    "slug": "from-source",
     "version": null,
     "package": null,
     "db_engine": null,

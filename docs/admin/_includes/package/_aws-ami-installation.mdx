@@ -1,0 +1,78 @@
+import Figure from "../../../../src/components/Figure/Figure";
+
+Passbolt Amazon Machine Image (AMI) provides a ready to use passbolt image that you can
+use for free on your Amazon Web Services infrastructure.
+
+The AMI includes the following software:
+
+<div>
+    <ul>
+        <li>Debian 12</li>
+        <li>Nginx</li>
+        <li>Php-FPM</li>
+        <li>MariaDB</li>
+        <li>Passbolt {props.productName.toUpperCase()}</li>
+        <li>Certbot</li>
+    </ul>
+</div>
+
+This AMI does not provide an email server preinstalled so users can manually install it or
+leverage on third party email providers.
+
+<div>
+    <h4>Getting started with Passbolt {props.productName.toUpperCase()} AMI</h4>
+</div>
+
+<div>
+    {props.productName === 'CE' ? (
+        <>
+        <p>You can subscribe to Passbolt {props.productName.toUpperCase()} on the following <a href={"https://aws.amazon.com/marketplace/pp/B08PDGS3ML"}>AWS marketplace listing</a>. Just click on “continue to subscribe” button on the listing page.</p>
+        <Figure src='https://help.passbolt.com/assets/img/help/2020/12/subscribe-aws-ce.png' alt='Subscribe to Passbolt Marketplace' caption='fig. Subscribe to Passbolt Marketplace' />
+        <p>The EULA for the Passbolt {props.productName.toUpperCase()} is the AGPL license you have to accept that in order to use this image by just clicking on the "Accept terms" button.</p>
+        <Figure src='https://help.passbolt.com/assets/img/help/2020/12/accept-terms-aws-ce.png' alt='Accept AMI terms' caption='fig. Accept AMI terms' />
+        <p>Once the terms are accepted you can click on “Continue to configuration” button. In the next screen you will be able to select which version of the AMI you want to use as well as in which AWS region you want the instance to be launched. Once you have selected your desired configuration just click on “Continue to Launch” button.</p>
+        <Figure src='https://help.passbolt.com/assets/img/help/2020/12/configure-aws-ce.png' alt='Configure instance region and version' caption='fig. Configure instance region and version' />
+        </>
+    ) : (
+        <>
+        <p>You can subscribe to Passbolt {props.productName.toUpperCase()} on the following <a href={"https://aws.amazon.com/marketplace/pp/prodview-7tuiu3brmboa2"}>AWS marketplace listing</a>. Just click on “continue to subscribe” button on the listing page.</p>
+        <Figure src='https://help.passbolt.com/assets/img/help/2021/08/subscribe-aws-pro.png' alt='Subscribe to Passbolt Marketplace' caption='fig. Subscribe to Passbolt Marketplace' />
+        <p>The EULA for the Passbolt {props.productName.toUpperCase()} is the AGPL license you have to accept that in order to use this image by just clicking on the "Accept terms" button.</p>
+        <Figure src='https://help.passbolt.com/assets/img/help/2021/08/accept-terms-aws-pro.png' alt='Accept AMI terms' caption='fig. Accept AMI terms' />
+        <p>Once the terms are accepted you can click on “Continue to configuration” button. In the next screen you will be able to select which version of the AMI you want to use as well as in which AWS region you want the instance to be launched. Once you have selected your desired configuration just click on “Continue to Launch” button.</p>
+        <Figure src='https://help.passbolt.com/assets/img/help/2021/08/configure-aws-pro.png' alt='Configure instance region and version' caption='fig. Configure instance region and version' />
+        </>
+        )}
+</div>
+
+
+On the launch screen you will be able to select:
+- How to launch the instance
+- Instance type
+- VPC
+- Subnet settings
+- Security group settings
+- Key pair settings
+
+If you do not know what this fields mean just rely on the defaults making sure that they key pair
+is available on your local machine so you can connect through SSH to the instance.
+If all the values are good just click on "Launch" button.
+
+<div>
+    {props.productName === 'CE' ? (
+        <Figure src='https://help.passbolt.com/assets/img/help/2020/12/launch-aws-ce.png' alt='Configure instance region and version' caption='fig. Configure instance region and version' />
+        ) : (
+        <Figure src='https://help.passbolt.com/assets/img/help/2021/08/launch-aws-pro.png' alt='Configure instance region and version' caption='fig. Configure instance region and version' />
+        )}
+</div>
+
+### 1.1. Setup HTTPS (optional, but highly recommended):
+
+If you are planning to use this AWS instance in production, it is highly recommended to setup SSL. There are two main methods described below:
+
+<div>
+<ul>
+    <li><a href={`https://help.passbolt.com/configure/https/${props.productName.toLowerCase()}/aws/auto.html`}>Auto (Using Let's Encrypt)</a></li>
+    <li><a href={`https://help.passbolt.com/configure/https/${props.productName.toLowerCase()}/debian/manual.html`}>Manual (Using user-provided SSL certificates)</a></li>
+</ul>
+</div>

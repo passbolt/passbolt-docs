@@ -1,11 +1,11 @@
+import Incrementor from "../../../components/incrementor";
 
 ## Docker Compose
 
 The easiest and recommended way to deploy your passbolt stack is to use docker-compose.
 
-<>
-<b>Step {props.counter += 1}.</b> Download our docker-compose.yml example file
-</>
+
+<Incrementor title="Download our docker-compose.yml example file" />
 
 <pre className="prism-code language-bash">
     <code>wget https://download.passbolt.com/{props.productName.toLowerCase()}/docker/docker-compose-{props.productName.toLowerCase()}.yaml</code>
@@ -13,7 +13,7 @@ The easiest and recommended way to deploy your passbolt stack is to use docker-c
     <code>wget https://github.com/passbolt/passbolt_docker/releases/latest/download/docker-compose-{props.productName.toLowerCase()}-SHA512SUM.txt</code>
 </pre>
 
-<b>Step {props.counter += 1}.</b> Ensure the file has not been corrupted by verifying its shasum
+<Incrementor title="Ensure the file has not been corrupted by verifying its shasum" />
 
 <pre className="prism-code language-bash">
     <code>sha512sum -c docker-compose-{props.productName.toLowerCase()}-SHA512SUM.txt</code>
@@ -32,18 +32,17 @@ If the <i>shasum</i> command output is not correct, the downloaded file has been
 <div>
     <>
     {props.productName === 'PRO' && (
-         <span><b>Step {props.counter += 1}.</b> Create a <code>subscription_key.txt</code> file containing your subscription key.</span>
-    )}
+        <Incrementor title="Create a subscription_key.txt file containing your subscription key."/>
+        )}
     </>
 </div>
 
-<>
-    <b>Step {props.counter += 1}.</b> Configure environment variables in docker-compose-{props.productName.toLowerCase()}.yaml file to customize your instance.
-</>
+<br />
+
+<Incrementor productName={props.productName} title="Configure environment variables in docker-compose-{productName}.yaml file to customize your instance." />
 
 :::caution
-By default the docker-compose.yaml file is set to **latest**. We strongly recommend
-changing that to the [tag](https://hub.docker.com/r/passbolt/passbolt/tags) for the version you want to install.
+By default the docker-compose.yaml file is set to **latest**. We strongly recommend changing that to the [tag](https://hub.docker.com/r/passbolt/passbolt/tags) for the version you want to install.
 :::
 
 The `APP_FULL_BASE_URL` environment variable is set by default to [https://passbolt.local](https://passbolt.local), using a self-signed certificate.
@@ -65,17 +64,15 @@ the most used environment variables for this purpose:
 
 For more information on which environment variables are available on passbolt, please check the [passbolt environment variable reference](https://help.passbolt.com/configure/environment/reference.html)
 
-<>
-    <b>Step {props.counter += 1}.</b> Start your containers
-</>
+<Incrementor title="Start your containers" />
+
 
 <pre className="prism-code language-bash">
     <code>docker compose -f docker-compose-{props.productName.toLowerCase()}.yaml up -d</code>
 </pre>
 
-<>
-    <b>Step {props.counter += 1}.</b> Create first admin user
-</>
+
+<Incrementor title="Create first admin user" />
 
 <div>
     <>
@@ -103,7 +100,7 @@ It will output a link similar to the below one that can be pasted on the browser
 https://my.domain.tld/setup/install/1eafab88-a17d-4ad8-97af-77a97f5ff552/f097be64-3703-41e2-8ea2-d59cbe1c15bc
 ```
 
-At this point, you should have a working docker setup running on the **latest** tag. However, it is recommended that users [pull the tags pointing to specific passbolt versions](https://hub.docker.com/r/passbolt/passbolt/tags){:target="_blank"} when running in environments other than testing.
+At this point, you should have a working docker setup running on the **latest** tag. However, it is recommended that users [pull the tags pointing to specific passbolt versions](https://hub.docker.com/r/passbolt/passbolt/tags) when running in environments other than testing.
 
 ## Going further
 

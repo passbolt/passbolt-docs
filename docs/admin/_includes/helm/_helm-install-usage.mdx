@@ -1,33 +1,31 @@
 import ValuesProYaml from './_helm-values-pro.mdx';
 import RequiredChart from './_helm-required-charts.mdx';
+import Incrementor from "../../../components/incrementor";
 
 ## Helm install
 
 The easiest and recommended way to deploy your Passbolt Helm chart is to use `helm install`.
 
-<div>
-    <b>Step {props.counter += 1}.</b> Set up our Helm repo
-</div>
+<Incrementor title="Set up our Helm repo" />
 
 ```bash
 helm repo add passbolt-repo https://download.passbolt.com/charts/passbolt
 ```
 
-<div>
-    <b>Step {props.counter += 1}.</b> Get a copy of the values file
-</div>
+<Incrementor title="Get a copy of the values file" />
 
 ```bash
 wget https://raw.githubusercontent.com/passbolt/charts-passbolt/main/values.yaml
 ```
 
 <div>
-    <b>Step {props.productName === 'PRO' ? props.counter + 1 : props.counter +1}.</b>
-    {props.productName === 'PRO' ?
-        ' Configure values file to customize your instance and enable the Pro install.'
-        :
-        ' Configure values file to customize your instance.'
-    }
+    <>
+        {props.productName === 'PRO' ? (
+            <Incrementor title="Configure values file to customize your instance and enable the Passbolt PRO installation"/>
+        ) : (
+            <Incrementor title="Configure values file to customize your instance"/>
+        )}
+    </>
 </div>
 
 The `APP_FULL_BASE_URL` environment variable is set by default to [https://passbolt.local](https://passbolt.local), using a self-signed certificate.
@@ -62,9 +60,7 @@ Additionally the following charts are used by Passbolt and you can adjust the va
 
 <RequiredChart />
 
-<div>
-    <b>Step {props.counter += 2}.</b> Run helm install
-</div>
+<Incrementor title="Run helm install" />
 
 ```
 helm install -f values.yaml my-passbolt passbolt-repo/passbolt

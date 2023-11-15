@@ -7,7 +7,7 @@ const Incrementor = ({ title, productName }) => {
 
     if (typeof title !== 'string') {
         console.error('Incrementor expects a string as title');
-        return null; // ou retournez une valeur par défaut
+        return null;
     }
 
     const processedTitle = productName

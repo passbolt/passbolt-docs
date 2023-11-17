@@ -1,0 +1,24 @@
+---
+title: Install Passbolt on AWS AMI
+# description:
+sidebar_label: AWS AMI
+---
+
+import AwsAmiInstallation from '/docs/admin/_includes/package/_aws-ami-installation.mdx';
+import WizardConfiguration from '/docs/admin/_includes/wizard/_server.mdx';
+import AdminConfiguration from '/docs/admin/_includes/wizard/_admin.mdx';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs groupId="version" queryString>
+    <TabItem value="ce" label="CE Edition">
+        <AwsAmiInstallation productName={"CE"} />
+        <WizardConfiguration productLabel={"CE"} distributionLabel={"AWS AMI"}/>
+        <AdminConfiguration />
+    </TabItem>
+    <TabItem value="pro" label="PRO Edition">
+        <AwsAmiInstallation productName={"PRO"} />
+        <WizardConfiguration productLabel={"PRO"} distributionLabel={"AWS AMI"}/>
+        <AdminConfiguration />
+    </TabItem>
+</Tabs>

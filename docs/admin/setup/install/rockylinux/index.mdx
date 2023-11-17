@@ -1,0 +1,34 @@
+---
+title: Install Passbolt on RockyLinux 8
+# description:
+sidebar_label: RockyLinux 8
+---
+
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Prerequisites from '/docs/admin/_includes/package/_prerequisites.mdx'
+import ServerComponents from '/docs/admin/_includes/package/_install-server-components.mdx'
+import PackageConfiguration from '/docs/admin/_includes/package/_package-configuration.mdx'
+import WizardConfiguration from '/docs/admin/_includes/wizard/_server.mdx'
+import AdminConfiguration from '/docs/admin/_includes/wizard/_admin.mdx'
+import RpmPackageConfiguration from '/docs/admin/_includes/package/_configure-rpm-package.mdx'
+
+<Tabs groupId="version" queryString>
+    <TabItem value="ce" label="CE Edition">
+        <Prerequisites distributionLabel={"RockyLinux"} distributionVersion={"8"} />
+        <ServerComponents productName={"CE"} distributionPackage={"dnf"} />
+        <PackageConfiguration productName={"CE"} distributionLabel={"RockyLinux"} />
+        <RpmPackageConfiguration productName={"CE"} distributionLabel={"RockyLinux"} distributionVersion={"8"} />
+        <WizardConfiguration productLabel={"CE"}/>
+        <AdminConfiguration />
+    </TabItem>
+    <TabItem value="pro" label="PRO Edition">
+        <Prerequisites distributionLabel={"RockyLinux"} distributionVersion={"8"} />
+        <ServerComponents productName={"PRO"} distributionPackage={"dnf"} />
+        <PackageConfiguration productName={"PRO"} distributionLabel={"RockyLinux"} />
+        <RpmPackageConfiguration productName={"PRO"} distributionLabel={"RockyLinux"} distributionVersion={"8"} />
+        <WizardConfiguration productLabel={"PRO"}/>
+        <AdminConfiguration />
+    </TabItem>
+</Tabs>

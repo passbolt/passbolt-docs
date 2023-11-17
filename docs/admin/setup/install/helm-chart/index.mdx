@@ -1,0 +1,32 @@
+---
+title: Install Passbolt on Helm Chart
+# description:
+sidebar_label: Helm chart
+---
+
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import HelmWarning from '/docs/admin/_includes/warning/_helm-warning.mdx';
+import HelmSysRequirements from '/docs/admin/_includes/helm/_helm-system-requirements.mdx';
+import HelmInstallationUsage from '/docs/admin/_includes/helm/_helm-install-usage.mdx';
+import FirstUserCreation from '/docs/admin/_includes/helm/_helm-first-user-creation.mdx';
+import GoingFurther from '/docs/admin/_includes/helm/_helm-going-further.mdx';
+
+
+<Tabs groupId="version" queryString>
+    <TabItem value="ce" label="CE Edition">
+        <HelmWarning />
+        <HelmSysRequirements />
+        <HelmInstallationUsage productName={"CE"} />
+        <FirstUserCreation />
+        <GoingFurther />
+    </TabItem>
+    <TabItem value="pro" label="PRO Edition">
+        <HelmWarning />
+        <HelmSysRequirements />
+        <HelmInstallationUsage productName={"PRO"} />
+        <FirstUserCreation />
+        <GoingFurther />
+    </TabItem>
+</Tabs>

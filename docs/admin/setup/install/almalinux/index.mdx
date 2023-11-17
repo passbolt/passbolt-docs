@@ -1,0 +1,33 @@
+---
+title: Install Passbolt on AlmaLinux 8
+# description:
+sidebar_label: AlmaLinux 8
+---
+
+import Prerequisites from '/docs/admin/_includes/package/_prerequisites.mdx'
+import ServerComponents from '/docs/admin/_includes/package/_install-server-components.mdx'
+import PackageConfiguration from '/docs/admin/_includes/package/_package-configuration.mdx'
+import WizardConfiguration from '/docs/admin/_includes/wizard/_server.mdx'
+import AdminConfiguration from '/docs/admin/_includes/wizard/_admin.mdx'
+import RpmPackageConfiguration from '/docs/admin/_includes/package/_configure-rpm-package.mdx'
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs groupId="version" queryString>
+    <TabItem value="ce" label="CE Edition">
+        <Prerequisites distributionLabel={"AlmaLinux"} distributionVersion={"8"} />
+        <ServerComponents productName={"CE"} distributionPackage={"dnf"} />
+        <PackageConfiguration productName={"CE"} distributionLabel={"AlmaLinux"} />
+        <RpmPackageConfiguration productName={"CE"} distributionLabel={"AlmaLinux"} distributionVersion={"8"} />
+        <WizardConfiguration productLabel={"CE"}/>
+        <AdminConfiguration />
+    </TabItem>
+    <TabItem value="pro" label="PRO Edition">
+        <Prerequisites distributionLabel={"AlmaLinux"} distributionVersion={"8"} />
+        <ServerComponents productName={"PRO"} distributionPackage={"dnf"} />
+        <PackageConfiguration productName={"PRO"} distributionLabel={"AlmaLinux"} />
+        <RpmPackageConfiguration productName={"PRO"} distributionLabel={"AlmaLinux"} distributionVersion={"8"} />
+        <WizardConfiguration productLabel={"PRO"}/>
+        <AdminConfiguration />
+    </TabItem>
+</Tabs>

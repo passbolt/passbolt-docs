@@ -125,14 +125,15 @@ const config = {
             title: 'Return to main website',
             label: '←',
           },
+          // {
+          //   type: 'docSidebar',
+          //   sidebarId: 'userGuideSidebar',
+          //   position: 'left',
+          //   label: 'User guide',
+          // },
           {
             type: 'docSidebar',
-            sidebarId: 'userGuideSidebar',
-            position: 'left',
-            label: 'User guide',
-          },
-          {
-            type: 'docSidebar',
+            href: '/admin/install',
             sidebarId: 'adminGuideSidebar',
             position: 'left',
             label: 'Admin guide',

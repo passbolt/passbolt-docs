@@ -2,7 +2,10 @@ import React from 'react';
 
 let counter = 0;
 
-const Incrementor = ({ title, productName }) => {
+const Incrementor = ({ title, productName, resetCounter }) => {
+    if (resetCounter) {
+        counter = 0;
+    }
     counter += 1;
 
     if (typeof title !== 'string') {

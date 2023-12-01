@@ -5,27 +5,14 @@ sidebar_label: Helm chart
 hide_table_of_contents: true
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 import HelmWarning from '/docs/hosting/_includes/warning/_helm-warning.mdx';
 import HelmSysRequirements from '/docs/hosting/_includes/helm/_helm-system-requirements.mdx';
 import HelmInstallationUsage from '/docs/hosting/_includes/helm/_helm-install-usage.mdx';
 import FirstUserCreation from '/docs/hosting/_includes/helm/_helm-first-user-creation.mdx';
 import GoingFurther from '/docs/hosting/_includes/helm/_helm-going-further.mdx';
 
-<Tabs groupId="version" queryString>
-    <TabItem value="ce" label="CE Edition">
-        <HelmWarning />
-        <HelmSysRequirements />
-        <HelmInstallationUsage productName={"CE"} />
-        <FirstUserCreation />
-        <GoingFurther />
-    </TabItem>
-    <TabItem value="pro" label="PRO Edition">
-        <HelmWarning />
-        <HelmSysRequirements />
-        <HelmInstallationUsage productName={"PRO"} />
-        <FirstUserCreation />
-        <GoingFurther />
-    </TabItem>
-</Tabs>
+<HelmWarning />
+<HelmSysRequirements />
+<HelmInstallationUsage productName={"CE"} />
+<FirstUserCreation />
+<GoingFurther />

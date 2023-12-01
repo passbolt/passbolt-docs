@@ -11,24 +11,10 @@ import PackageConfiguration from '/docs/hosting/_includes/package/_package-confi
 import WizardConfiguration from '/docs/hosting/_includes/wizard/_server.mdx'
 import AdminConfiguration from '/docs/hosting/_includes/wizard/_admin.mdx'
 import RpmPackageConfiguration from '/docs/hosting/_includes/package/_configure-rpm-package.mdx'
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
-<Tabs groupId="version" queryString>
-    <TabItem value="ce" label="CE Edition">
-        <Prerequisites distributionLabel={"AlmaLinux"} distributionVersion={"8"} />
-        <ServerComponents productName={"CE"} distributionPackage={"dnf"} />
-        <PackageConfiguration productName={"CE"} distributionLabel={"AlmaLinux"} />
-        <RpmPackageConfiguration productName={"CE"} distributionLabel={"AlmaLinux"} distributionVersion={"8"} />
-        <WizardConfiguration productLabel={"CE"}/>
-        <AdminConfiguration />
-    </TabItem>
-    <TabItem value="pro" label="PRO Edition">
-        <Prerequisites distributionLabel={"AlmaLinux"} distributionVersion={"8"} />
-        <ServerComponents productName={"PRO"} distributionPackage={"dnf"} />
-        <PackageConfiguration productName={"PRO"} distributionLabel={"AlmaLinux"} />
-        <RpmPackageConfiguration productName={"PRO"} distributionLabel={"AlmaLinux"} distributionVersion={"8"} />
-        <WizardConfiguration productLabel={"PRO"}/>
-        <AdminConfiguration />
-    </TabItem>
-</Tabs>
+<Prerequisites distributionLabel={"AlmaLinux"} distributionVersion={"8"} />
+<ServerComponents productName={"PRO"} distributionPackage={"dnf"} />
+<PackageConfiguration productName={"PRO"} distributionLabel={"AlmaLinux"} />
+<RpmPackageConfiguration productName={"PRO"} distributionLabel={"AlmaLinux"} distributionVersion={"8"} />
+<WizardConfiguration productLabel={"PRO"}/>
+<AdminConfiguration />

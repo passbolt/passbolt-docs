@@ -8,18 +8,7 @@ hide_table_of_contents: true
 import AwsAmiInstallation from '/docs/hosting/_includes/package/_aws-ami-installation.mdx';
 import WizardConfiguration from '/docs/hosting/_includes/wizard/_server.mdx';
 import AdminConfiguration from '/docs/hosting/_includes/wizard/_admin.mdx';
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
-<Tabs groupId="version" queryString>
-    <TabItem value="ce" label="CE Edition">
-        <AwsAmiInstallation productName={"CE"} />
-        <WizardConfiguration productLabel={"CE"} distributionLabel={"AWS AMI"}/>
-        <AdminConfiguration />
-    </TabItem>
-    <TabItem value="pro" label="PRO Edition">
-        <AwsAmiInstallation productName={"PRO"} />
-        <WizardConfiguration productLabel={"PRO"} distributionLabel={"AWS AMI"}/>
-        <AdminConfiguration />
-    </TabItem>
-</Tabs>
+<AwsAmiInstallation productName={"PRO"} />
+<WizardConfiguration productLabel={"PRO"} distributionLabel={"AWS AMI"}/>
+<AdminConfiguration />

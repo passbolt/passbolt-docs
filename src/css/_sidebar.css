@@ -126,6 +126,10 @@
   color: inherit;
 }
 
+.hidden {
+  display: none !important;
+}
+
 @media (min-width: 1470px) {
   .theme-doc-sidebar-container nav {
     padding: 0;

@@ -1,0 +1,24 @@
+import Figure from "../../../../src/components/Figure/Figure";
+
+#### Configure {props.databaseEngine}
+
+<>
+If not instructed otherwise passbolt {props.distributionLabel} package will install {props.databaseEngine}-server locally. This step will help you create
+an empty {props.databaseEngine} database for passbolt to use.
+</>
+
+<Figure src={"https://help.passbolt.com/assets/img/help/2020/05/debian-package/configure_mysql.png"} caption="fig. Configure database dialog" alt="Configure database dialog"/>
+
+<span>The configuration process will ask you for the credentials of the {props.databaseEngine} admin user to create a new database. By default in most installations the admin username would be <code>root</code> and the password would be empty.</span>
+
+<Figure src={"https://help.passbolt.com/assets/img/help/2020/05/debian-package/mysql_admin_user.png"} alt={"Database admin user dialog"} caption={"fig. Database admin user dialog"} />
+<Figure src={"https://help.passbolt.com/assets/img/help/2020/05/debian-package/mysql_admin_user_pass.png"} alt={"Database admin user pass dialog"} caption={"fig. Database admin user pass dialog"} />
+
+<span>Now we need to create a {props.databaseEngine} user with reduced permissions for passbolt to connect. These values will also be requested later on the webconfiguration tool of passbolt so please keep them in mind.</span>
+
+<Figure src={"https://help.passbolt.com/assets/img/help/2020/05/debian-package/passbolt_db_user_name.png"} alt={"Database passbolt user dialog"} caption={"fig. Database passbolt user dialog"} />
+<Figure src={"https://help.passbolt.com/assets/img/help/2020/05/debian-package/passbolt_db_user_pass.png"} alt={"Database passbolt user dialog"} caption={"fig. Database passbolt user pass dialog"} />
+
+Lastly we need to create a database for passbolt to use, for that we need to name it:
+
+<Figure src={"https://help.passbolt.com/assets/img/help/2020/05/debian-package/db_name.png"} alt={"Database name dialog"} caption={"fig. Database name dialog"} />

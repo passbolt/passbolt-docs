@@ -1,0 +1,33 @@
+---
+title: Install Passbolt on openSUSE
+# description:
+sidebar_label: openSUSE
+hide_table_of_contents: true
+---
+
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Prerequisites from '/docs/hosting/_includes/package/_prerequisites.mdx'
+import ServerComponents from '/docs/hosting/_includes/package/_install-server-components.mdx'
+import RpmPackageConfiguration from '/docs/hosting/_includes/package/_configure-rpm-package.mdx'
+import WizardConfiguration from '/docs/hosting/_includes/wizard/_server.mdx'
+import AdminConfiguration from '/docs/hosting/_includes/wizard/_admin.mdx'
+
+
+<Tabs groupId="version" queryString>
+    <TabItem value="ce" label="CE Edition">
+        <Prerequisites distributionLabel={"openSUSE"} distributionVersion={"15"} />
+        <ServerComponents productName={"CE"} distributionPackage={"zypper"} />
+        <RpmPackageConfiguration productName={"CE"} distributionLabel={"openSUSE"} distributionVersion={"15"} />
+        <WizardConfiguration productLabel={"CE"} distributionLabel={"openSUSE"}/>
+        <AdminConfiguration />
+    </TabItem>
+    <TabItem value="pro" label="PRO Edition">
+        <Prerequisites distributionLabel={"openSUSE"} distributionVersion={"15"} />
+        <ServerComponents productName={"PRO"} distributionPackage={"zypper"} />
+        <RpmPackageConfiguration productName={"PRO"} distributionLabel={"openSUSE"} distributionVersion={"15"} />
+        <WizardConfiguration productLabel={"PRO"} distributionLabel={"openSUSE"}/>
+        <AdminConfiguration />
+    </TabItem>
+</Tabs>

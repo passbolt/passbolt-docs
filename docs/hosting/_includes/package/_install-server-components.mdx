@@ -32,20 +32,19 @@ import OpenSUSEGPGKey from '/docs/hosting/_includes/openSUSE/_opensuse-gpg-key.m
 <code>sudo {props.distributionPackage} install passbolt-{props.productName.toLowerCase()}-server</code>
 </pre>
 
-
 <>
     {(props.distributionPackage === 'dnf' || props.distributionPackage === 'yum' || props.distributionPackage === 'zypper') && (
-<div>
-    During the installation, you will be asked to accept the Passbolt repository GPG key. You must ensure the fingerprint is exactly the same as the one below:
+        <div>
+            During the installation, you will be asked to accept the Passbolt repository GPG key. You must ensure the fingerprint is exactly the same as the one below:
 
 
-    Importing GPG key 0xC155581D:
-    Userid     : "Passbolt SA package signing key contact@passbolt.com"
-    Fingerprint: 3D1A 0346 C8E1 802F 774A EF21 DE8B 853F C155 581D
-    From       : https://download.passbolt.com/pub.key
+            Importing GPG key 0xC155581D:
+            Userid     : "Passbolt SA package signing key contact@passbolt.com"
+            Fingerprint: 3D1A 0346 C8E1 802F 774A EF21 DE8B 853F C155 581D
+            From       : https://download.passbolt.com/pub.key
 
-</div>
-)}
+        </div>
+    )}
     {(props.distributionPackage === 'zypper') && (
         <OpenSUSEGPGKey />
     )}

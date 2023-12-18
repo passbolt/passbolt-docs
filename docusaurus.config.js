@@ -53,10 +53,8 @@ const config = {
           sidebarPath: require.resolve('./sidebars/index.js'),
           showLastUpdateTime: true,
           showLastUpdateAuthor: false,
-          // Please change this to your repo.
-          // Remove this to remove the 'edit this page' links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/passbolt/passbolt-docs',
         },
         blog: false,
         theme: {
@@ -125,17 +123,18 @@ const config = {
             title: 'Return to main website',
             label: '←',
           },
+          // {
+          //   type: 'docSidebar',
+          //   sidebarId: 'userGuideSidebar',
+          //   position: 'left',
+          //   label: 'User guide',
+          // },
           {
             type: 'docSidebar',
-            sidebarId: 'userGuideSidebar',
+            href: '/hosting/install/',
+            sidebarId: 'hostingGuideSidebar',
             position: 'left',
-            label: 'User guide',
-          },
-          {
-            type: 'docSidebar',
-            sidebarId: 'adminGuideSidebar',
-            position: 'left',
-            label: 'Admin guide',
+            label: 'Hosting guide',
           },
           // {
           //   type: 'docSidebar',

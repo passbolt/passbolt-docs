@@ -98,4 +98,4 @@ All the static assets are stored in the /static folder.
 
 Images used in the doc file should be added to the /static folder, following the same folder structure as the documentation file.
 
-> E.g.: I need to add an image to a documentation file located in /docs/admin/setup/configuration/firewall-rules.mdx. The image should be uploaded under /static/admin/setup/configuration/firewall-rules/filename.png.
+> E.g.: I need to add an image to a documentation file located in /docs/hosting/setup/configuration/firewall-rules.mdx. The image should be uploaded under /static/admin/setup/configuration/firewall-rules/filename.png.

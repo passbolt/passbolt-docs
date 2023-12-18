@@ -1,0 +1,18 @@
+---
+title: Install Passbolt on Ubuntu 22.04
+# description:
+sidebar_label: Ubuntu 22.04
+hide_table_of_contents: true
+---
+
+import Prerequisites from '/docs/hosting/_includes/package/_prerequisites.mdx'
+import ServerComponents from '/docs/hosting/_includes/package/_install-server-components.mdx'
+import PackageConfiguration from '/docs/hosting/_includes/package/_package-configuration.mdx'
+import WizardConfiguration from '/docs/hosting/_includes/wizard/_server.mdx'
+import AdminConfiguration from '/docs/hosting/_includes/wizard/_admin.mdx'
+
+<Prerequisites distributionLabel={"Ubuntu"} distributionVersion={"22.04"} />
+<ServerComponents productName={"PRO"} distributionPackage={"apt"} />
+<PackageConfiguration productName={"PRO"} distributionLabel={"Ubuntu"} />
+<WizardConfiguration productLabel={"PRO"}/>
+<AdminConfiguration />

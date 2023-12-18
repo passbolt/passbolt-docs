@@ -1,4 +1,4 @@
-import Figure from "../../../../src/components/Figure/Figure";
+import Figure from "/src/components/Figure/Figure";
 import WizardConfiguration from '/docs/hosting/_includes/wizard/_server.mdx';
 import AdminConfiguration from '/docs/hosting/_includes/wizard/_admin.mdx';
 
@@ -42,7 +42,7 @@ You can copy it and check if it is reachable and up and running.
 <Figure src='https://help.passbolt.com/assets/img/help/2019/03/digital-ocean/005_highlight_copy_ip.png' alt='Copy the IP address' caption='fig. Copy the IP address' />
 
 
-## 1.1. Setup your DNS to point to the droplet
+### 1.1. Setup your DNS to point to the droplet
 
 Next you need to point your domain DNS to this machine IP address. Please check
 [Digital Ocean DNS documentation](https://www.digitalocean.com/docs/networking/dns/)
@@ -56,7 +56,7 @@ resolve to this droplet IP. You can also check the propagation using
 <WizardConfiguration productLabel={"CE"} distributionLabel={"Digital Ocean"}/>
 <AdminConfiguration />
 
-### 4. Setup HTTPS (optional, but highly recommended):
+## 4. Setup HTTPS (optional, but highly recommended):
 
 If you are planning to use this AWS instance in production, it is highly recommended to setup SSL. There are two main methods described below:
 

@@ -1,12 +1,10 @@
-#### MariaDB / Nginx / SSL settings
+## MariaDB / Nginx / SSL settings
 
-<div>
 Passbolt {props.productName} RPM package on {props.distributionLabel} {props.distributionVersion} come with a configuration helper tool to prepare MariaDB, Nginx and SSL settings.
 
 You must prepare beforehand your SSL certificates before launching the tool. Be sure to write down the full path to your cert/key combo, as it will be needed in the nginx configuration process.
 
 Please, notice that for security matters we highly recommend to setup SSL to serve passbolt.
-</div>
 
 Launch `passbolt-configure` tool and answer to the questions:
 
@@ -14,7 +12,7 @@ Launch `passbolt-configure` tool and answer to the questions:
 sudo /usr/local/bin/passbolt-configure
 ```
 
-#### MariaDB
+### MariaDB
 
 ```
 ================================================================
@@ -50,7 +48,7 @@ Please enter a name for the passbolt database:
 Passbolt database name:passboltdb
 ```
 
-#### Haveged
+### Haveged
 
 On virtualized environments GnuPG happen to find not enough entropy to generate a key. Therefore, Passbolt will not run properly.
 
@@ -65,7 +63,7 @@ Install Haveged ?
 #?
 ```
 
-#### Nginx
+### Nginx
 
 Please enter the domain name under which passbolt will run.
 
@@ -79,7 +77,7 @@ Hostname: passbolt.domain.tld
 =========
 ```
 
-#### SSL configuration
+### SSL configuration
 
 3 available choices for SSL configuration:
 

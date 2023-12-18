@@ -1,0 +1,47 @@
+stages:
+  - build
+  - deploy
+
+.build:
+  image: node:lts-slim
+  stage: build
+  artifacts:
+    paths:
+      - build
+  script:
+    - npm install
+    - npm run build
+    - ls
+
+build-staging:
+  extends: .build
+
+.publish:
+  stage: deploy
+  image: gcr.io/google.com/cloudsdktool/google-cloud-cli:latest
+  variables:
+    BUCKET: "passbolt-docs-staging"
+    ENV: "STAGING"
+  script:
+    - ls
+    - rm -rf docs
+    - mv build docs
+    - KEY=SVC_ACC_KEY_${ENV}
+    - /usr/bin/gcloud auth activate-service-account --key-file "$(eval echo \$$KEY)"
+    - /usr/bin/gsutil -m cp -r ./docs "gs://$BUCKET"
+    - gsutil -m setmeta -r  -h "Cache-Control:no-cache" "gs://$BUCKET"
+
+publish-staging:
+  extends: .publish
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+      when: on_success
+
+publish-production:
+  extends: .publish
+  variables:
+    BUCKET: "passbolt-docs-production"
+    ENV: "PRODUCTION"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: on_success

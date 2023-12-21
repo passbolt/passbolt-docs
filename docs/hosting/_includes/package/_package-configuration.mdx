@@ -5,7 +5,7 @@ import ConfigureDebianPackage from './_configure-debian-package-mariadb.mdx'
         (props.distributionLabel === 'Debian' || props.distributionLabel === 'Ubuntu' || props.distributionLabel === 'Raspberry') && (
             <>
                 <ConfigureDebianPackage distributionLabel={"Debian"} databaseEngine={"mariadb"} />
-                #### Configure nginx for serving HTTPS
+                <h3>Configure nginx for serving HTTPS</h3>
                 Depending on your needs there are two different options to setup nginx and SSL using the {props.distributionLabel} package:
                 <ul>
                     <li><a href={`https://help.passbolt.com/configure/https/${props.productName.toLowerCase()}/debian/auto.html`}>Auto (Using Let's Encrypt)</a></li>

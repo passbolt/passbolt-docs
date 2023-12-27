@@ -1,0 +1,28 @@
+---
+title: Update Passbolt on Docker
+# description:
+sidebar_label: Docker
+---
+
+import DockerWarning from '/docs/hosting/_includes/warning/_docker-warning.mdx';
+import SystemRequirements from '/docs/hosting/_includes/docker/_docker-system-requirements.mdx';
+
+<DockerWarning />
+<SystemRequirements />
+
+It is recommended that users pull the tags pointing to specific passbolt versions when running in environments other than testing.
+
+To update passbolt, you would just need to change the image tag in your docker-compose.yml file:
+
+```yaml
+ image: passbolt/passbolt:<IMAGE_TAG>
+``` 
+Then relaunch your docker containers:
+
+```bash
+docker-compose up -d
+```
+By doing this:
+
+a new passbolt docker image will be pulled and a new container created
+your passbolt database schema will be updated

@@ -1,10 +1,11 @@
-import OpenSUSEGPGKey from '/docs/hosting/_includes/openSUSE/_opensuse-gpg-key.mdx'
+import OpenSUSEGPGKey from '/docs/hosting/_includes/openSUSE/_opensuse-gpg-key.mdx';
 
 ## Package repository setup
 
 <div>
-    For easier installation and update tasks Passbolt provides a package repository that you need to setup
-    before you download Passbolt {props.productName} and install it.
+  For easier installation and update tasks Passbolt provides a package
+  repository that you need to setup before you download Passbolt{' '}
+  {props.productName} and install it.
 </div>
 
 <br />
@@ -12,31 +13,37 @@ import OpenSUSEGPGKey from '/docs/hosting/_includes/openSUSE/_opensuse-gpg-key.m
 **Step 1.** Download our dependencies installation script:
 
 <pre className="prism-code language-bash">
-<code>{`wget https://download.passbolt.com/${props.productName.toLowerCase()}/installer/passbolt-repo-setup.${props.productName.toLowerCase()}.sh`}</code>
+  <code>{`wget https://download.passbolt.com/${props.productName.toLowerCase()}/installer/passbolt-repo-setup.${props.productName.toLowerCase()}.sh`}</code>
 </pre>
 
 **Step 2.** Download our SHA512SUM for the installation script:
 
 <pre className="prism-code language-bash">
-<code>wget {`https://github.com/passbolt/passbolt-dep-scripts/releases/latest/download/passbolt-${props.productName.toLowerCase()}-SHA512SUM.txt`}</code>
+  <code>
+    wget{' '}
+    {`https://github.com/passbolt/passbolt-dep-scripts/releases/latest/download/passbolt-${props.productName.toLowerCase()}-SHA512SUM.txt`}
+  </code>
 </pre>
 
 **Step 3.** Ensure that the script is valid and execute it:
 
 <pre className="prism-code language-bash">
-<code>{`sha512sum -c passbolt-${props.productName.toLowerCase()}-SHA512SUM.txt && sudo bash ./passbolt-repo-setup.${props.productName.toLowerCase()}.sh || echo \"Bad checksum. Aborting\" && rm -f passbolt-repo-setup.${props.productName.toLowerCase()}.sh`}</code>
+  <code>{`sha512sum -c passbolt-${props.productName.toLowerCase()}-SHA512SUM.txt && sudo bash ./passbolt-repo-setup.${props.productName.toLowerCase()}.sh || echo \"Bad checksum. Aborting\" && rm -f passbolt-repo-setup.${props.productName.toLowerCase()}.sh`}</code>
 </pre>
 
 ## Install passbolt official linux package
+
 <pre className="prism-code language-bash">
-<code>sudo {props.distributionPackage} install passbolt-{props.productName.toLowerCase()}-server</code>
+  <code>
+    sudo {props.distributionPackage} install passbolt-
+    {props.productName.toLowerCase()}-server
+  </code>
 </pre>
 
 <>
     {(props.distributionPackage === 'dnf' || props.distributionPackage === 'yum' || props.distributionPackage === 'zypper') && (
         <div>
             During the installation, you will be asked to accept the Passbolt repository GPG key. You must ensure the fingerprint is exactly the same as the one below:
-
 
             Importing GPG key 0xC155581D:
             Userid     : "Passbolt SA package signing key contact@passbolt.com"
@@ -48,4 +55,5 @@ import OpenSUSEGPGKey from '/docs/hosting/_includes/openSUSE/_opensuse-gpg-key.m
     {(props.distributionPackage === 'zypper') && (
         <OpenSUSEGPGKey />
     )}
+
 </>

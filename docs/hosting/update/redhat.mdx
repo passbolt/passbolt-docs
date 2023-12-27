@@ -1,0 +1,27 @@
+---
+title: Update Passbolt on Redhat 8
+# description:
+sidebar_label: Redhat 8
+---
+
+import Prerequisites from '/docs/hosting/_includes/package/_prerequisites.mdx';
+import UpdateProcess from '/docs/hosting/_includes/package/_update-process.mdx';
+import Troubleshooting from '/docs/hosting/_includes/default/_troubleshooting.mdx';
+import InCaseOfIssues from '/docs/hosting/_includes/default/_in-case-of-issues.mdx';
+
+<Prerequisites
+  distributionLabel={'Redhat'}
+  distributionVersion={'8'}
+  type={'updatePackage'}
+/>
+
+<UpdateProcess 
+  distributionPackage={'dnf'}
+  distributionLabel={'Redhat'}
+  distributionVersion={'8'} 
+  distributionWebUser={'nginx'}
+/>
+
+<Troubleshooting distributionPackage={'dnf'} />
+
+<InCaseOfIssues />

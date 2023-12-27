@@ -1,6 +1,6 @@
 import ValuesProYaml from './_helm-values-pro.mdx';
 import RequiredChart from './_helm-required-charts.mdx';
-import Incrementor from "../../../components/incrementor";
+import Incrementor from '../../../components/incrementor';
 
 ## Helm install
 
@@ -19,13 +19,13 @@ wget https://raw.githubusercontent.com/passbolt/charts-passbolt/main/values.yaml
 ```
 
 <div>
-    <>
-        {props.productName === 'PRO' ? (
-            <Incrementor title="Configure values file to customize your instance and enable the Passbolt PRO installation"/>
-        ) : (
-            <Incrementor title="Configure values file to customize your instance"/>
-        )}
-    </>
+  <>
+    {props.productName === 'PRO' ? (
+      <Incrementor title="Configure values file to customize your instance and enable the Passbolt PRO installation" />
+    ) : (
+      <Incrementor title="Configure values file to customize your instance" />
+    )}
+  </>
 </div>
 
 The `APP_FULL_BASE_URL` environment variable is set by default to [https://passbolt.local](https://passbolt.local), using a self-signed certificate.
@@ -33,13 +33,8 @@ The `APP_FULL_BASE_URL` environment variable is set by default to [https://passb
 Update this variable with the server name you plan to use. You will find at the bottom of this documentation links about how to set your own SSL certificate.
 
 <div>
-    <>
-        {props.productName === 'PRO' && (
-            <ValuesProYaml />
-        )}
-    </>
+  <>{props.productName === 'PRO' && <ValuesProYaml />}</>
 </div>
-
 
 If you are creating your own gpg keys the following commands can help convert them into a base64 encoded single line string which is what the values.yaml file expects.
 
@@ -53,8 +48,9 @@ You must configure also SMTP settings to be able to receive notifications and re
 For more information on which environment variables are available on passbolt, please check the [passbolt environment variable reference](https://help.passbolt.com/configure/environment/reference.html)
 
 :::note
-<b>Important:</b> By default we have the ingress set to false, you'll need to decide how you want to handle this to access the web page.
-:::
+
+<b>Important:</b> By default we have the ingress set to false, you'll need to decide
+how you want to handle this to access the web page. :::
 
 Additionally the following charts are used by Passbolt and you can adjust the values under their respective headings in values.yaml
 
@@ -66,7 +62,9 @@ Additionally the following charts are used by Passbolt and you can adjust the va
 helm install -f values.yaml my-passbolt passbolt-repo/passbolt
 ```
 
-
 <div>
-    <span>At this point, you should have a working Passbolt setup via Helm running on the most up to date {props.productName.toUpperCase()} version of Passbolt.</span>
+  <span>
+    At this point, you should have a working Passbolt setup via Helm running on
+    the most up to date {props.productName.toUpperCase()} version of Passbolt.
+  </span>
 </div>

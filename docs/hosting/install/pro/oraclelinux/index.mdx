@@ -4,16 +4,20 @@ title: Install Passbolt on OracleLinux 8
 sidebar_label: OracleLinux 8
 ---
 
-import Prerequisites from '/docs/hosting/_includes/package/_prerequisites.mdx'
-import ServerComponents from '/docs/hosting/_includes/package/_install-server-components.mdx'
-import PackageConfiguration from '/docs/hosting/_includes/package/_package-configuration.mdx'
-import WizardConfiguration from '/docs/hosting/_includes/wizard/_server.mdx'
-import AdminConfiguration from '/docs/hosting/_includes/wizard/_admin.mdx'
-import RpmPackageConfiguration from '/docs/hosting/_includes/package/_configure-rpm-package.mdx'
+import Prerequisites from '/docs/hosting/_includes/package/_prerequisites.mdx';
+import ServerComponents from '/docs/hosting/_includes/package/_install-server-components.mdx';
+import PackageConfiguration from '/docs/hosting/_includes/package/_package-configuration.mdx';
+import WizardConfiguration from '/docs/hosting/_includes/wizard/_server.mdx';
+import AdminConfiguration from '/docs/hosting/_includes/wizard/_admin.mdx';
+import RpmPackageConfiguration from '/docs/hosting/_includes/package/_configure-rpm-package.mdx';
 
-<Prerequisites distributionLabel={"OracleLinux"} distributionVersion={"8"} />
-<ServerComponents productName={"PRO"} distributionPackage={"dnf"} />
-<PackageConfiguration productName={"PRO"} distributionLabel={"OracleLinux"} />
-<RpmPackageConfiguration productName={"PRO"} distributionLabel={"OracleLinux"} distributionVersion={"8"} />
-<WizardConfiguration productLabel={"PRO"}/>
+<Prerequisites distributionLabel={'OracleLinux'} distributionVersion={'8'} />
+<ServerComponents productName={'PRO'} distributionPackage={'dnf'} />
+<PackageConfiguration productName={'PRO'} distributionLabel={'OracleLinux'} />
+<RpmPackageConfiguration
+  productName={'PRO'}
+  distributionLabel={'OracleLinux'}
+  distributionVersion={'8'}
+/>
+<WizardConfiguration productLabel={'PRO'} />
 <AdminConfiguration />

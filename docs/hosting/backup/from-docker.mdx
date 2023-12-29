@@ -1,0 +1,75 @@
+---
+title: Backing up a docker Passbolt installation
+description: Backing up a docker Passbolt installation
+sidebar_label: From Docker
+---
+
+import Prerequisites from '/docs/hosting/_includes/backup/_prerequisites.mdx';
+import BackupList from '/docs/hosting/_includes/backup/_list.mdx';
+import MigrateOldToNew from '/docs/hosting/_includes/backup/_migrate-to-new.mdx';
+import SecretKeys from '/docs/hosting/_includes/backup/_secret-keys.mdx';
+
+<Prerequisites />
+
+## What to backup?
+
+If you are a PRO user, ensure you have a backup of your subscription key.
+
+There are also several elements you need to backup:
+
+We assume here Passbolt container is named __passbolt-container__ and MariaDB container __database-container__. Please replace these names with your own. You can use docker ps for this.
+
+:::warning[Please Note]
+Many docker users use __-ti__, __-it__ or __-t -i__ arguments to execute commands on docker containers. To get reliable backups on docker, please use only __-i__, as __-t__ will create a pseudo-tty and make your backup files unusuable.
+:::
+
+### 1. The database
+
+This can be easily scripted using mysqldump. Use docker exec to connect to the Passbolt database container and write mysqldump output to a local file.
+
+Be sure to use simple-quotes for the bash -c argument to be able to use __MYSQL_USER__, __MYSQL_PASSWORD__ and __MYSQL_DATABASE__ environment variables.
+
+```bash
+docker exec -i database-container bash -c \
+'mysqldump -u${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE}' \
+> /path/to/backup.sql
+```
+
+### 2. The server public and private keys
+
+You can use docker cp to backup the Passbolt GPG keys:
+
+```bash
+docker cp passbolt-container:/etc/passbolt/gpg/serverkey_private.asc \
+    /path/to/backup/serverkey_private.asc
+```
+```bash
+docker cp passbolt-container:/etc/passbolt/gpg/serverkey.asc \
+    /path/to/backup/serverkey.asc
+```
+
+### 3. The application configuration
+Passbolt docker stores its configuration as environment variables.
+
+If you are using docker-compose, environment variables are on the env folder:
+
+* env/passbolt.env
+* env/mysql.env
+
+If you are running docker container, you should have passed these variables through the command line. Please check the [passbolt env variable reference](https://help.passbolt.com/configure/environment/reference.html)
+
+### 4. The avatars
+
+:::info[Since Passbolt 3.2]
+User's avatars are no longer stored on disk but on the avatars table of passbolt database.
+:::
+
+```bash
+docker exec -i passbolt-container \
+    tar cvfzp - -C /usr/share/php/passbolt/ webroot/img/avatar \
+    > passbolt-avatars.tar.gz
+```
+
+<BackupList />
+<MigrateOldToNew />
+<SecretKeys />

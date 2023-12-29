@@ -1,0 +1,54 @@
+---
+title: Backing up a Passbolt package installation
+description: Backing up a Passbolt package installation
+sidebar_label: From DEB/RPM package
+---
+
+import Prerequisites from '/docs/hosting/_includes/backup/_prerequisites.mdx';
+import BackupList from '/docs/hosting/_includes/backup/_list.mdx';
+import MigrateOldToNew from '/docs/hosting/_includes/backup/_migrate-to-new.mdx';
+import SecretKeys from '/docs/hosting/_includes/backup/_secret-keys.mdx';
+
+<Prerequisites />
+
+## What to backup?
+
+If you are a PRO user, ensure you have a backup of your subscription key.
+
+There are also several elements you need to backup:
+
+### 1. The database
+
+We made a dedicated command in order to make a backup of the database, it uses mysqldump but we recommend to use the passbolt command as it has been made to avoid any pasting or logins details errors.
+
+__Replace `WEB_SERVER_USER` with the correct one__. Depending on your OS, it could be nginx, www-data, etc.
+```bash
+sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt mysql_export" WEB_SERVER_USER
+```
+
+### 2. The server public and private keys
+
+The GPG server keys are stored under /etc/passbolt/gpg/ folder:
+
+* private key is serverkey_private.asc
+* public key is serverkey.asc
+
+### 3. The application configuration
+
+Passbolt package stores all configuration files under /etc/passbolt/* but the one you need is /etc/passbolt/passbolt.php
+
+### 4. The avatars
+
+:::info[Since Passbolt 3.2]
+User's avatars are no longer stored on disk but on the avatars table of passbolt database.
+:::
+
+Back up `/usr/share/php/passbolt/webroot/img/avatar` to avoid losing the profile images.
+
+```bash
+sudo tar cvfzp passbolt-avatars.tar.gz -C /usr/share/php/passbolt/ webroot/img/avatar
+```
+
+<BackupList />
+<MigrateOldToNew />
+<SecretKeys />

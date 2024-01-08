@@ -50,8 +50,8 @@
     "pro": true
   },
   {
-    "name": "Virtual Machine",
-    "slug": "virtual-machine",
+    "name": "Virtual Appliance",
+    "slug": "virtual-appliance",
     "version": null,
     "package": "apt",
     "db_engine": "mysql",
@@ -80,7 +80,7 @@
     "pro": false
   },
   {
-    "name": "RedHat",
+    "name": "Red Hat",
     "slug": "redhat",
     "version": 8,
     "package": "dnf",
@@ -120,7 +120,7 @@
     "pro": true
   },
   {
-    "name": "openSUSE",
+    "name": "OpenSUSE Leap",
     "slug": "opensuse",
     "version": 15,
     "package": "zypper",

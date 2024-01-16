@@ -133,7 +133,7 @@ const config = {
           // },
           {
             type: 'docSidebar',
-            href: '/hosting/install/',
+            href: '/hosting/install',
             sidebarId: 'hostingGuideSidebar',
             position: 'left',
             label: 'Hosting guide',

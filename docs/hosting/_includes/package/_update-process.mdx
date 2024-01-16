@@ -21,14 +21,14 @@ It is recommended to always perform a backup of your passbolt installation. Plea
 :::
 
 {(props.distributionLabel === 'Debian') || (props.distributionLabel === 'Ubuntu') ? (
-  <div>
+  <>
     <p>This command will trigger an upgrade on your whole Debian system, choose between <strong>passbolt-ce-server</strong> and <strong>passbolt-pro-server</strong> based on your installation:</p>
     <CodeBlock>
       {`sudo apt update
 sudo apt --only-upgrade install PASSBOLT_PACKAGE
 sudo apt upgrade`}
     </CodeBlock>
-  </div>
+  </>
 ) : (
   <>
     <p>This commands will trigger an upgrade on your whole {`${props.distributionLabel} ${props.distributionVersion}`} system:</p>

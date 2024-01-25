@@ -1,3 +1,5 @@
+import AdmonitionsInstallPrerequisites  from '/docs/hosting/_includes/package/_prerequisites_ad.mdx';
+
  ## Prerequisites
 
 <div>
@@ -43,14 +45,6 @@ FAQ pages:
     </ul>
 </div>
 
-{(props.type !== 'updatePackage') && (
-    <> 
-    :::caution
-    **Please note:** It is important that you use a vanilla server with no other services or tools already installed on it. The install scripts could potentially damage any existing data on your server.
-    :::
-
-    :::info
-    **Pro tip**: If you are going to manually provision SSL certificates you may want to do that before beginning!
-    :::
-    </>
+{props.type !== 'updatePackage' && (
+  <AdmonitionsInstallPrerequisites />
 )}

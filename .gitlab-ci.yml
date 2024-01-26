@@ -28,7 +28,7 @@ build-staging:
     - mv build docs
     - KEY=SVC_ACC_KEY_${ENV}
     - /usr/bin/gcloud auth activate-service-account --key-file "$(eval echo \$$KEY)"
-    - /usr/bin/gsutil -m cp -r ./docs "gs://$BUCKET"
+    - /usr/bin/gsutil -m rsync -d -r ./docs "gs://$BUCKET"
     - gsutil -m setmeta -r  -h "Cache-Control:no-cache" "gs://$BUCKET"
 
 publish-staging:

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import styles from './Badge.module.css';
 import PropTypes from 'prop-types';

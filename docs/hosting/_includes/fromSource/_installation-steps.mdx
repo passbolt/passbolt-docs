@@ -1,4 +1,4 @@
-import WarningGpgKeyGeneration from '/docs/hosting/_includes/warning/_gpg-key-generation.mdx'
+import WarningGpgKeyGeneration from '/docs/hosting/_includes/warning/_gpg-key-generation.mdx';
 
 ## Installation steps
 
@@ -14,10 +14,14 @@ For the rest of this tutorial we will assume that the user named `www-data`.
 
 :::caution
 We highly recommend that you install https on your server. You can get a free SSL certificate with the let's encrypt initiative.
-<a className={"clean-btn"} href={"https://letsencrypt.org/"}>Let's Encrypt</a>
+
+<a className={'clean-btn'} href={'https://letsencrypt.org/'}>
+  Let's Encrypt
+</a>
 :::
 
 ### 2. Database configuration
+
 #### Create an empty database
 
 Connect to your mysql server and create new database. Make sure it is in the utf8mb4 char set to
@@ -62,7 +66,6 @@ $ sudo su -s /bin/bash -c "run the command here" www-data
 ```
 
 <WarningGpgKeyGeneration />
-
 
 After creating the key make sure you note down the fingerprint, it will be requested later in the install process.
 You can get the server key fingerprint as follow:
@@ -115,6 +118,7 @@ $ nano config/passbolt.php
 
 Even if the format has changed the information needed are pretty much the same than v1.
 You will need to set at least the following:
+
 - Application full base url
 - Database configuration
 - Email settings
@@ -163,6 +167,7 @@ $ nano /etc/nginx/sites-enabled/passbolt.conf
 ```
 
 You can use this default configuration sample (do not forget to replace PLACEHOLDERS with your values):
+
 - **SERVER_NAME** with your localhost/virtualhost address
 - **CERTIFICATE_PATH** with the path where cert.pem is located
 - **KEY_PATH** with the path where key.pem is located
@@ -218,31 +223,36 @@ $ sudo systemctl reload nginx
 ### 10. Setup the emails
 
 :::caution
-If you are running Passbolt 3.8.0 or higher version, you are able to configure your email server through the UI, any changes made will override the *config/passbolt.php*
+If you are running Passbolt 3.8.0 or higher version, you are able to configure your email server through the UI, any changes made will override the _config/passbolt.php_
 
 ## You are running Passbolt CE < 3.8.0 ?
+
 For passbolt to be able to send emails, you must first configure properly the “EmailTransport” section in the
 `config/passbolt.php` file to match your provider smtp details.
 :::
 
 Emails are placed in a queue that needs to be processed by the following shell.
+
 ```bash
 $ ./bin/cake EmailQueue.sender
 ```
 
 In order to have your emails sent automatically, you can add a cron call to the script so the emails
 will be sent every minute. Run the following command to edit the crontab for the www-data user:
+
 ```bash
 $ crontab -u www-data -e
 ```
 
 You can add a cron call to the script so the emails will be sent every minute.
 Add the following line to you crontab:
+
 ```bash
  * * * * * /var/www/passbolt/bin/cron >> /var/log/passbolt.log
 ```
 
 If the log file does not yet exist, you can create it with the following command:
+
 ```bash
 $ touch /var/log/passbolt.log && chown www-data:www-data /var/log/passbolt.log
 ```
@@ -252,6 +262,7 @@ And you are done!
 ## Troubleshooting
 
 Here are some frequently asked questions related to passbolt installation:
+
 - [Why are my emails not being sent?](https://help.passbolt.com/faq/hosting/why-email-not-sent)
 - [How to generate JWT key pair manually](https://help.passbolt.com/faq/hosting/how-to-generate-jwt-key-pair-manually)
 - [Troubleshoot SSL](https://help.passbolt.com/faq/hosting/troubleshoot-ssl)

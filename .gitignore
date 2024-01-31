@@ -9,6 +9,8 @@
 .cache-loader
 
 # Misc
+.eslintrc
+.prettierrc
 .DS_Store
 .env.local
 .env.development.local

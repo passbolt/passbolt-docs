@@ -1,28 +1,30 @@
-import Incrementor from "/docs/components/incrementor";
+import Incrementor from '/docs/components/incrementor';
 
 ## Docker Compose
 
 The easiest and recommended way to deploy your passbolt stack is to use docker-compose.
 
-
-<Incrementor title="Download our docker-compose.yml example file" resetCounter={true} />
+<Incrementor
+  title="Download our docker-compose.yml example file"
+  resetCounter={true}
+/>
 
 <pre className="prism-code language-bash">
-    <code>{`wget https://download.passbolt.com/${props.productName.toLowerCase()}/docker/docker-compose-${props.productName.toLowerCase()}.yaml`}</code>
-    <br />
-    <code>{`wget https://github.com/passbolt/passbolt_docker/releases/latest/download/docker-compose-${props.productName.toLowerCase()}-SHA512SUM.txt`}</code>
+  <code>{`wget https://download.passbolt.com/${props.productName.toLowerCase()}/docker/docker-compose-${props.productName.toLowerCase()}.yaml`}</code>
+  <br />
+  <code>{`wget https://github.com/passbolt/passbolt_docker/releases/latest/download/docker-compose-${props.productName.toLowerCase()}-SHA512SUM.txt`}</code>
 </pre>
 
 <Incrementor title="Ensure the file has not been corrupted by verifying its shasum" />
 
 <pre className="prism-code language-bash">
-    <code>{`sha512sum -c docker-compose-${props.productName.toLowerCase()}-SHA512SUM.txt`}</code>
+  <code>{`sha512sum -c docker-compose-${props.productName.toLowerCase()}-SHA512SUM.txt`}</code>
 </pre>
 
 Must return:
 
 <pre className="prism-code language-bash">
-    <code>{`docker-compose-${props.productName.toLowerCase()}.yaml: OK`}</code>
+  <code>{`docker-compose-${props.productName.toLowerCase()}.yaml: OK`}</code>
 </pre>
 
 :::caution
@@ -30,16 +32,19 @@ If the <i>shasum</i> command output is not correct, the downloaded file has been
 :::
 
 <div>
-    <>
+  <>
     {props.productName === 'PRO' && (
-        <Incrementor title="Create a subscription_key.txt file containing your subscription key."/>
-        )}
-    </>
+      <Incrementor title="Create a subscription_key.txt file containing your subscription key." />
+    )}
+  </>
 </div>
 
 <br />
 
-<Incrementor productName={props.productName} title="Configure environment variables in the docker-compose yaml file to customize your instance." />
+<Incrementor
+  productName={props.productName}
+  title="Configure environment variables in the docker-compose yaml file to customize your instance."
+/>
 
 :::caution
 By default the docker-compose.yaml file is set to **latest**. We strongly recommend changing that to the [tag](https://hub.docker.com/r/passbolt/passbolt/tags) for the version you want to install.
@@ -53,7 +58,7 @@ You must configure also SMTP settings to be able to receive notifications and re
 the most used environment variables for this purpose:
 
 | Variable name                    | Description                    | Default value     |
-|----------------------------------|--------------------------------|-------------------|
+| -------------------------------- | ------------------------------ | ----------------- |
 | EMAIL_DEFAULT_FROM_NAME          | From email username            | `'Passbolt'`      |
 | EMAIL_DEFAULT_FROM               | From email address             | `'you@localhost'` |
 | EMAIL_TRANSPORT_DEFAULT_HOST     | Server hostname                | `'localhost'`     |
@@ -66,32 +71,31 @@ For more information on which environment variables are available on passbolt, p
 
 <Incrementor title="Start your containers" />
 
-
 <pre className="prism-code language-bash">
-    <code>{`docker compose -f docker-compose-${props.productName.toLowerCase()}.yaml up -d`}</code>
+  <code>{`docker compose -f docker-compose-${props.productName.toLowerCase()}.yaml up -d`}</code>
 </pre>
-
 
 <Incrementor title="Create first admin user" />
 
 <div>
-    <>
-        <pre className="prism-code language-bash">
-            <code>
-                                        docker-compose -f docker-compose-{props.productName.toLowerCase()}.yaml exec passbolt su -m -c "/usr/share/php/passbolt/bin/cake \
-                <br/>
-                                        passbolt register_user \
-                <br />
-                                        -u YOUR_EMAIL \
-                <br />
-                                        -f YOUR_NAME \
-                <br />
-                                        -l YOUR_LASTNAME \
-                <br />
-                                        -r admin" -s /bin/sh www-data
-            </code>
-        </pre>
-    </>
+  <>
+    <pre className="prism-code language-bash">
+      <code>
+        docker-compose -f docker-compose-{props.productName.toLowerCase()}.yaml
+        exec passbolt su -m -c "/usr/share/php/passbolt/bin/cake \
+        <br />
+        passbolt register_user \
+        <br />
+        -u YOUR_EMAIL \
+        <br />
+        -f YOUR_NAME \
+        <br />
+        -l YOUR_LASTNAME \
+        <br />
+        -r admin" -s /bin/sh www-data
+      </code>
+    </pre>
+  </>
 </div>
 
 It will output a link similar to the below one that can be pasted on the browser to finalize user registration:
@@ -107,19 +111,55 @@ At this point, you should have a working docker setup running on the **latest** 
 Docker FAQs:
 
 <div>
-    <>
+  <>
     <ul>
-        <li><a href={`https://help.passbolt.com/configure/email/setup`}>How to configure SMTP to receive emails</a></li>
-        <li><a href={`https://help.passbolt.com/configure/https/${props.productName}/docker/manual.html`}>How to configure HTTPS with my own certificates in docker</a></li>
-        <li><a href={`https://help.passbolt.com/configure/https/${props.productName}/docker/auto.html`}>How to configure HTTPS with Let's Encrypt in docker</a></li>
-        <li><a href={`https://help.passbolt.com/faq/hosting/how-to-use-rootless-images`}>How to use rootless images</a></li>
-        <li><a href={`https://help.passbolt.com/faq/hosting/troubleshoot-docker`}>Troubleshoot Docker</a></li>
-        <li><a href={`https://help.passbolt.com/configure/environment/reference.html`}>Passbolt reference environment variables</a></li>
-        <li><a href={`https://help.passbolt.com/faq/hosting/docker-secrets`}>Docker Secrets</a></li>
+      <li>
+        <a href={`https://help.passbolt.com/configure/email/setup`}>
+          How to configure SMTP to receive emails
+        </a>
+      </li>
+      <li>
+        <a
+          href={`https://help.passbolt.com/configure/https/${props.productName}/docker/manual.html`}
+        >
+          How to configure HTTPS with my own certificates in docker
+        </a>
+      </li>
+      <li>
+        <a
+          href={`https://help.passbolt.com/configure/https/${props.productName}/docker/auto.html`}
+        >
+          How to configure HTTPS with Let's Encrypt in docker
+        </a>
+      </li>
+      <li>
+        <a
+          href={`https://help.passbolt.com/faq/hosting/how-to-use-rootless-images`}
+        >
+          How to use rootless images
+        </a>
+      </li>
+      <li>
+        <a href={`https://help.passbolt.com/faq/hosting/troubleshoot-docker`}>
+          Troubleshoot Docker
+        </a>
+      </li>
+      <li>
+        <a
+          href={`https://help.passbolt.com/configure/environment/reference.html`}
+        >
+          Passbolt reference environment variables
+        </a>
+      </li>
+      <li>
+        <a href={`https://help.passbolt.com/faq/hosting/docker-secrets`}>
+          Docker Secrets
+        </a>
+      </li>
     </ul>
-    </>
+  </>
 </div>
 
 Passbolt docker repository:
 
-* [https://github.com/passbolt/passbolt_docker/](https://github.com/passbolt/passbolt_docker/)
+- [https://github.com/passbolt/passbolt_docker/](https://github.com/passbolt/passbolt_docker/)

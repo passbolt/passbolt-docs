@@ -1,4 +1,3 @@
-
 ## 1. Getting started with Passbolt Pro VM
 
 ### 1.1 Download
@@ -15,6 +14,7 @@ Once imported, it is highly recommanded to check if the VM is actually running a
 ## 1.2 Credentials
 
 The appliance performs some actions on the first boot:
+
 - Creates ssh host keys
 - Enables ssh
 - Creates a set of random mariadb credentials for the mariadb server installed on the appliance
@@ -30,16 +30,30 @@ password: admin
 
 The `passbolt` user is part of `sudo` group. There is no root password, so you cannot
 login in as root. You can however create a shell as root with the default user:
+
 ```
 sudo -s
 ```
+
 ## 1.3. HTTPS setup process:
 
-Passbolt Pro VM uses passbolt debian package.  Depending on your needs there are two different options to setup nginx and SSL using the debian package:
+Passbolt Pro VM uses passbolt debian package. Depending on your needs there are two different options to setup nginx and SSL using the debian package:
 
 <div>
-    <ul>
-        <li><a href={`https://help.passbolt.com/configure/https/${props.productName.toLowerCase()}/aws/auto.html`}>Auto (Using Let's Encrypt)</a></li>
-        <li><a href={`https://help.passbolt.com/configure/https/${props.productName.toLowerCase()}/debian/manual.html`}>Manual (Using user-provided SSL certificates)</a></li>
-    </ul>
+  <ul>
+    <li>
+      <a
+        href={`https://help.passbolt.com/configure/https/${props.productName.toLowerCase()}/aws/auto.html`}
+      >
+        Auto (Using Let's Encrypt)
+      </a>
+    </li>
+    <li>
+      <a
+        href={`https://help.passbolt.com/configure/https/${props.productName.toLowerCase()}/debian/manual.html`}
+      >
+        Manual (Using user-provided SSL certificates)
+      </a>
+    </li>
+  </ul>
 </div>

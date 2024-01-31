@@ -1,12 +1,14 @@
 ---
 title: Install
 description: Passbolt installation methods
-sidebar_class_name: hidden
+sidebar_position: 1
+sidebar_label: List
+hide_table_of_contents: true
 ---
 
-import DistributionCard from "/src/components/DistributionCard/DistributionCard.js";
-import distributions from "/data/distributions.json";
-import styles from "/src/components/DistributionCard/DistributionCard.module.css";
+import DistributionCard from '/src/components/DistributionCard/DistributionCard.js';
+import distributions from '/data/distributions.json';
+import styles from '/src/components/DistributionCard/DistributionCard.module.css';
 
 export const DistributionCardWrapper = () => {
   return (
@@ -20,10 +22,10 @@ export const DistributionCardWrapper = () => {
             version={distribution.version}
             links={{
               ...(distribution.ce && {
-                ce: `ce/${distribution.slug}`,
+                ce: `/hosting/install/ce/${distribution.slug}`,
               }),
               ...(distribution.pro && {
-                pro: `pro/${distribution.slug}`,
+                pro: `/hosting/install/pro/${distribution.slug}`,
               }),
             }}
           />

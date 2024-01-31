@@ -1,0 +1,74 @@
+---
+title: Backing up a from source Passbolt installation
+description: Backing up a from source Passbolt installation
+sidebar_label: From Source
+hide_table_of_contents: true
+---
+
+import Prerequisites from '/docs/hosting/_includes/backup/_prerequisites.mdx';
+import BackupList from '/docs/hosting/_includes/backup/_list.mdx';
+import MigrateOldToNew from '/docs/hosting/_includes/backup/_migrate-to-new.mdx';
+import SecretKeys from '/docs/hosting/_includes/backup/_secret-keys.mdx';
+
+<Prerequisites />
+
+## What to backup?
+
+If you are a PRO user, ensure you have a backup of your subscription key.
+
+There are also several elements you need to backup:
+
+### 1. The database
+
+We made a dedicated command in order to make a backup of the database, it uses mysqldump but we recommend to use the passbolt command as it has been made to avoid any pasting or logins details errors.
+
+__Replace `WEB_SERVER_USER` with the correct one__. Depending on your OS, it could be nginx, www-data, etc.
+```bash
+sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt mysql_export" WEB_SERVER_USER
+```
+
+### 2. The server public and private keys
+
+The GPG server keys are stored under /etc/passbolt/gpg/ folder:
+
+* private key is serverkey_private.asc
+* public key is serverkey.asc
+
+Another method is to export it using GnuPG. You can use the email attached to your keys to identify them or use the fingerprint. In order to find the fingerprint if you do not know the email attached to your keys:
+
+```bash
+sudo -H -u www-data /bin/bash -c "gpg --list-keys"
+```
+
+If you know the email attached to your keys you can use it to export your keys as follows:
+
+```bash
+sudo -H -u www-data /bin/bash -c "gpg --export-secret-keys <identifier> > /var/www/passbolt/config/gpg/private.asc" www-data
+sudo -H -u www-data /bin/bash -c "gpg --export <identifier> > /var/www/passbolt/config/gpg/public.asc" www-data
+```
+
+Where can be the key fingerprint or the email associated with the key you want to export.
+
+:::caution
+Be sure to remove the expiration time before importing the keys at backup restore. While restoring the backup, the imported keys cannot have an expiry date.
+:::
+
+### 3. The application configuration
+
+Passbolt configuration file is located in config/passbolt.php.
+
+### 4. The avatars
+
+:::info[Since Passbolt 3.2]
+User's avatars are no longer stored on disk but on the avatars table of passbolt database.
+:::
+
+Back up `webroot/img/public` to avoid losing the profile images.
+
+```bash
+sudo tar cvfzp passbolt-avatars.tar.gz -C /var/www/passbolt/ webroot/img/avatar
+```
+
+<BackupList />
+<MigrateOldToNew />
+<SecretKeys />

@@ -22,10 +22,10 @@ export const DistributionCardWrapper = () => {
             version={distribution.version}
             links={{
               ...(distribution.ce && {
-                ce: `/docs/hosting/install/ce/${distribution.slug}`,
+                ce: `/hosting/install/ce/${distribution.slug}`,
               }),
               ...(distribution.pro && {
-                pro: `/docs/hosting/install/pro/${distribution.slug}`,
+                pro: `/hosting/install/pro/${distribution.slug}`,
               }),
             }}
           />

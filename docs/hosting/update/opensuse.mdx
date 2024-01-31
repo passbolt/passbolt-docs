@@ -1,0 +1,28 @@
+---
+title: Update Passbolt on OpenSUSE Leap 15
+description: Update Passbolt on OpenSUSE Leap 15
+sidebar_label: OpenSUSE Leap 15
+hide_table_of_contents: true
+---
+
+import Prerequisites from '/docs/hosting/_includes/package/_prerequisites.mdx';
+import UpdateProcess from '/docs/hosting/_includes/package/_update-process.mdx';
+import Troubleshooting from '/docs/hosting/_includes/default/_troubleshooting.mdx';
+import InCaseOfIssues from '/docs/hosting/_includes/default/_in-case-of-issues.mdx';
+
+<Prerequisites
+  distributionLabel={'OpenSUSE Leap'}
+  distributionVersion={'15'}
+  type={'updatePackage'}
+/>
+
+<UpdateProcess 
+  distributionPackage={'zypper'}
+  distributionLabel={'OpenSUSE Leap'}
+  distributionVersion={'15'} 
+  distributionWebUser={'nginx'}
+/>
+
+<Troubleshooting distributionPackage={'zypper'} />
+
+<InCaseOfIssues />

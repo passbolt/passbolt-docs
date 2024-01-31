@@ -11,7 +11,11 @@
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
-    "write-heading-ids": "docusaurus write-heading-ids"
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "lint": "eslint 'src/**/*.{js,jsx}'",
+    "lint:fix": "eslint 'src/**/*.{js,jsx}' --fix",
+    "lint:mdx": "eslint '**/*.mdx' --ext .mdx",
+    "lint:fix:mdx": "eslint '**/*.mdx' --ext .mdx --fix"
   },
   "dependencies": {
     "@docusaurus/core": "^3.0.0",
@@ -20,7 +24,7 @@
     "@easyops-cn/docusaurus-search-local": "^0.37.4",
     "@mdx-js/react": "^3.0.0",
     "clsx": "^1.2.1",
-    "prism-react-renderer": "^2.1.0",
+    "prism-react-renderer": "^2.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -28,6 +32,14 @@
     "@docusaurus/module-type-aliases": "^3.0.0",
     "@docusaurus/tsconfig": "^3.0.0",
     "@docusaurus/types": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.16.0",
+    "@typescript-eslint/parser": "^6.16.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-mdx": "^3.1.1",
+    "eslint-plugin-prettier": "^5.1.2",
+    "eslint-plugin-react": "^7.33.2",
+    "prettier": "^3.1.1",
     "typescript": "^5.3.2"
   },
   "browserslist": {

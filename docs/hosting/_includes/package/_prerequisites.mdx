@@ -1,3 +1,5 @@
+import AdmonitionsInstallPrerequisites  from '/docs/hosting/_includes/package/_prerequisites_ad.mdx';
+
  ## Prerequisites
 
 <div>
@@ -11,9 +13,17 @@
         ) : (
             <li>A minimal {props.distributionLabel} {props.distributionVersion} server.</li>
         )}
-        <li>A domain / host name pointing to your server, or at least being able to reach your server through a static IP address.</li>
-        <li>A working SMTP server for email notifications</li>
-        <li>A working NTP service to avoid GPG authentication issues</li>
+        {(props.type === 'updatePackage') ? (
+            <>
+                <li>Passbolt {props.distributionLabel} {props.distributionVersion} package installed.</li>
+            </>
+        ): (
+            <>
+                <li>A domain / host name pointing to your server, or at least being able to reach your server through a static IP address.</li>
+                <li>A working SMTP server for email notifications</li>
+                <li>A working NTP service to avoid GPG authentication issues</li>
+            </>
+        )}
     </ul>
 </div>
 
@@ -35,10 +45,6 @@ FAQ pages:
     </ul>
 </div>
 
-:::caution
-**Please note:** It is important that you use a vanilla server with no other services or tools already installed on it. The install scripts could potentially damage any existing data on your server.
-:::
-
-:::info
-**Pro tip**: If you are going to manually provision SSL certificates you may want to do that before beginning!
-:::
+{props.type !== 'updatePackage' && (
+  <AdmonitionsInstallPrerequisites />
+)}

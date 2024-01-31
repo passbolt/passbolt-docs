@@ -1,0 +1,26 @@
+---
+title: Update Passbolt on Raspberry PI
+description: Update Passbolt on Raspberry PI
+sidebar_label: Raspberry PI
+hide_table_of_contents: true
+---
+
+import Prerequisites from '/docs/hosting/_includes/package/_prerequisites.mdx';
+import UpdateProcess from '/docs/hosting/_includes/package/_update-process.mdx';
+import Troubleshooting from '/docs/hosting/_includes/default/_troubleshooting.mdx';
+import InCaseOfIssues from '/docs/hosting/_includes/default/_in-case-of-issues.mdx';
+
+<Prerequisites
+  distributionLabel={'Raspberry'}
+  type={'updatePackage'}
+/>
+
+<UpdateProcess 
+  distributionPackage={'apt'}
+  distributionLabel={'Raspberry'}
+  distributionWebUser={'www-data'}
+/>
+
+<Troubleshooting distributionPackage={'apt'} />
+
+<InCaseOfIssues />

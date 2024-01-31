@@ -1,7 +1,9 @@
+/* eslint-disable prettier/prettier */
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const passboltTheme = require('./src/lib/prism-passbolt');
+// const passboltTheme = require('./src/lib/prism-passbolt');
+import {themes as prismThemes} from 'prism-react-renderer';
 
 const ROUTES = {
   HELPSITE_URL: 'https://www.passbolt.com/docs',
@@ -43,6 +45,7 @@ const config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+  trailingSlash: true,
   presets: [
     [
       'classic',
@@ -131,7 +134,7 @@ const config = {
           // },
           {
             type: 'docSidebar',
-            href: '/hosting/install/',
+            href: '/hosting/install',
             sidebarId: 'hostingGuideSidebar',
             position: 'left',
             label: 'Hosting guide',
@@ -244,7 +247,8 @@ const config = {
         respectPrefersColorScheme: false,
       },
       prism: {
-        darkTheme: passboltTheme,
+        darkTheme: prismThemes.vsDark,
+        additionalLanguages: ['bash'],
       },
     }),
   themes: [

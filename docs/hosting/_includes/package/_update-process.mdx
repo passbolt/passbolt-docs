@@ -1,0 +1,56 @@
+import CodeBlock from '@site/src/components/CodeBlock/CodeBlock';
+
+## Update passbolt
+
+### 1. Take down your site
+   It is generally a good idea to stop running the site prior to the upgrade. This is to avoid having side effects such as active users corrupting the data in the middle of an upgrade.
+
+<pre className="prism-code language-bash">
+  <code>
+    {`sudo systemctl stop nginx`}
+  </code>
+</pre> 
+
+### 2. Backup your database
+It is recommended to always perform a backup of your passbolt installation. Please check the backup article
+
+### 3. Upgrade your system
+   
+:::info
+    Sometimes, while updating when there is also an update to MySQL/MariaDB you will get an error on the upgrade step. That's why we are suggesting to manually upgrade passbolt prior to system upgrade
+:::
+
+{(props.distributionLabel === 'Debian') || (props.distributionLabel === 'Ubuntu') ? (
+  <>
+    <p>This command will trigger an upgrade on your whole Debian system, choose between <strong>passbolt-ce-server</strong> and <strong>passbolt-pro-server</strong> based on your installation:</p>
+    <CodeBlock>
+      {`sudo apt update
+sudo apt --only-upgrade install PASSBOLT_PACKAGE
+sudo apt upgrade`}
+    </CodeBlock>
+  </>
+) : (
+  <>
+    <p>This commands will trigger an upgrade on your whole {`${props.distributionLabel} ${props.distributionVersion}`} system:</p>
+    <CodeBlock>
+      {`sudo ${props.distributionPackage} update`}
+    </CodeBlock>
+  </>
+)}
+
+
+### 4. Clear the cache
+Finally make sure you clear the application cache, to make sure any changes in the database structure are reflected in model cache files:
+<pre className="prism-code language-bash">
+  <code>
+    {`sudo -H -u ${props.distributionWebUser} bash -c "/usr/share/php/passbolt/bin/cake cache clear_all"`}
+  </code>
+</pre>
+
+### 5. Bring your site back online
+Almost done:
+<pre className="prism-code language-bash">
+  <code>
+    {`sudo systemctl start nginx`}
+  </code>
+</pre> 

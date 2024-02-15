@@ -1,0 +1,22 @@
+<>
+    <p>This document describes how to migrate an existing passbolt to a new {props.distributionLabel} server.</p>
+</>
+
+## Pre-requisites
+
+For this tutorial, you will need:
+<ul>
+    <li>Passbolt installed on an old server</li>
+    <li>A minimal {props.distributionLabel} {props.distributionVersion} new server</li>
+</ul>
+
+## Backup the existing data
+
+Prior to the migration you will need to backup the existing passbolt instance data. Please refer to [the official backup documentations](https://help.passbolt.com/hosting/backup).
+
+Depending on your SSL configuration you might need to copy the certificate and key from the existing instance. If you are using let’s encrypt you can continue you’ll configure it later directly in the new server.
+
+Don’t delete the existing instance yet!
+
+<h2>Prepare the new {props.distributionLabel} server</h2>
+

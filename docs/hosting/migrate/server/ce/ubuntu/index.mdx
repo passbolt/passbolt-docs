@@ -1,0 +1,16 @@
+---
+title: Migrate to a new Ubuntu Server
+# description:
+sidebar_label: Ubuntu 22.04
+hide_table_of_contents: true
+---
+
+import Prerequisites from '/docs/hosting/_includes/migrate/migration-requirements.mdx';
+import PackageSetup from '/docs/hosting/_includes/migrate/migration-setup.mdx';
+import PackageConfiguration from '/docs/hosting/_includes/package/_package-configuration.mdx';
+import MigrateData from '/docs/hosting/_includes/migrate/migration-data.mdx';
+
+<Prerequisites distributionLabel={'Ubuntu'} distributionVersion={'22.04'} />
+<PackageSetup productName={'CE'} distributionPackage={'apt'} />
+<PackageConfiguration productName={'CE'} distributionLabel={'Ubuntu'} />
+<MigrateData productName={'CE'} webServerUser={'www-data'}/>

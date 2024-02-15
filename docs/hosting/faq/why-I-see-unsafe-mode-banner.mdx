@@ -1,0 +1,13 @@
+---
+title: Why do I see an unsafe mode banner in the footer?
+sidebar_label: Why do I see an unsafe mode banner in the footer?
+description: Why am I seeing an unsafe mode banner in the footer
+hide_table_of_contents: true
+---
+
+When running the site with debug mode on, or without enforcing https, your passbolt instance can
+not be considered secure. These settings can be useful for example when doing some local testing or development,
+but should not be used for production.
+
+To disable the warning a passbolt administrator can edit your configuration to set `debug` to false and
+`passbolt.ssl.force` to true.

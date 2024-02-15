@@ -1,3 +1,5 @@
+import CodeBlock from "/src/components/CodeBlock/CodeBlock";
+
 ## 1. Getting started with Passbolt Pro VM
 
 ### 1.1 Download
@@ -22,38 +24,15 @@ The appliance performs some actions on the first boot:
 
 For the first login the appliance comes with the following ssh default credentials:
 
-```bash
-VM login credentials:
+<CodeBlock>
+{`VM login credentials:
 username: passbolt
-password: admin
-```
+password: admin`}
+</CodeBlock>
 
 The `passbolt` user is part of `sudo` group. There is no root password, so you cannot
 login in as root. You can however create a shell as root with the default user:
 
-```
-sudo -s
-```
-
-## 1.3. HTTPS setup process:
-
-Passbolt Pro VM uses passbolt debian package. Depending on your needs there are two different options to setup nginx and SSL using the debian package:
-
-<div>
-  <ul>
-    <li>
-      <a
-        href={`https://help.passbolt.com/configure/https/${props.productName.toLowerCase()}/aws/auto.html`}
-      >
-        Auto (Using Let's Encrypt)
-      </a>
-    </li>
-    <li>
-      <a
-        href={`https://help.passbolt.com/configure/https/${props.productName.toLowerCase()}/debian/manual.html`}
-      >
-        Manual (Using user-provided SSL certificates)
-      </a>
-    </li>
-  </ul>
-</div>
+<CodeBlock>
+{`sudo -s`}
+</CodeBlock>

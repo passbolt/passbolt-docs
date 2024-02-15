@@ -1,10 +1,14 @@
-## Troubleshooting
-Verifying the status of the application
-Optionally, you can login as an administrator and check the status on the healthcheck page:
+import CodeBlock from "@site/src/components/CodeBlock/CodeBlock";
+import Figure from '@site/src/components/Figure/Figure';
 
-Example of healthcheck screenfig. Example of healthcheck screen
+<Figure
+    src="https://help.passbolt.com/assets/img/screenshots/AD_healthcheck.jpg"
+    alt="Example of healthcheck screen"
+    caption="fig. Example of healthcheck screen"
+/>
+
 You can also run the following command:
 
-```bash
-sudo -H -u nginx bash -c "/usr/share/php/passbolt/bin/cake passbolt healthcheck"
-```
+<CodeBlock>
+    {`sudo -H -u ${props.webServerUser.toLowerCase()} bash -c "/usr/share/php/passbolt/bin/cake passbolt healthcheck"`}
+</CodeBlock>

@@ -1,6 +1,6 @@
 import ValuesProYaml from './_helm-values-pro.mdx';
 import RequiredChart from './_helm-required-charts.mdx';
-import Incrementor from '../../../components/incrementor';
+import Incrementor from '/docs/components/incrementor';
 
 ## Helm install
 
@@ -47,10 +47,10 @@ You must configure also SMTP settings to be able to receive notifications and re
 
 For more information on which environment variables are available on passbolt, please check the [passbolt environment variable reference](https://help.passbolt.com/configure/environment/reference.html)
 
-:::note
-
-<b>Important:</b> By default we have the ingress set to false, you'll need to decide
-how you want to handle this to access the web page. :::
+:::note[Important]
+By default we have the ingress set to false, you'll need to decide
+how you want to handle this to access the web page.
+:::
 
 Additionally the following charts are used by Passbolt and you can adjust the values under their respective headings in values.yaml
 
@@ -58,7 +58,7 @@ Additionally the following charts are used by Passbolt and you can adjust the va
 
 <Incrementor title="Run helm install" />
 
-```
+```bash
 helm install -f values.yaml my-passbolt passbolt-repo/passbolt
 ```
 

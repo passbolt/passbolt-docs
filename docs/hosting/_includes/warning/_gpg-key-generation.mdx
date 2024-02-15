@@ -1,14 +1,9 @@
-:::danger
-**Do not set a passphrase or an expiration date**
-The php-gnupg module does not support using passphrase at the moment. Make sure you do not set one.
-Similarly do not set an expiration date. Otherwise all your users will need to
-perform an account recovery when you will eventually need to update the key.
-:::
+import CodeBlock from '@site/src/components/CodeBlock/CodeBlock';
 
 To create a new GnuPG key without passphrase:
 
-```bash
-gpg --batch --no-tty --gen-key <<EOF
+<CodeBlock>
+{`gpg --batch --no-tty --gen-key <<EOF
     Key-Type: default
     Key-Length: 2048
     Subkey-Type: default
@@ -18,8 +13,8 @@ gpg --batch --no-tty --gen-key <<EOF
     Expire-Date: 0
     %no-protection
     %commit
-EOF
-```
+EOF`}
+</CodeBlock>
 
 Feel free to replace **Name-Real** and **Name-Email** with your own.
 

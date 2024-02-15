@@ -1,0 +1,28 @@
+---
+title: Ubuntu 22.04
+description: How to upgrade on Ubuntu 22.04 from CE to PRO
+sidebar_position: 1 
+hide_table_of_contents: true
+---
+
+import Prerequisites from '/docs/hosting/_includes/package/_prerequisites.mdx';
+import UpgradeProcess from '/docs/hosting/_includes/package/_upgrade-process.mdx';
+import Troubleshooting from '/docs/hosting/_includes/default/_troubleshooting.mdx';
+import InCaseOfIssues from '/docs/hosting/_includes/default/_in-case-of-issues.mdx';
+
+<Prerequisites
+  distributionLabel={'Ubuntu'}
+  distributionVersion={'22.04'}
+  type={'updatePackage'}
+/>
+
+<UpgradeProcess 
+  distributionPackage={'apt'}
+  distributionLabel={'Ubuntu'}
+  distributionVersion={'22.04'} 
+  distributionWebUser={'www-data'}
+/>
+
+<Troubleshooting distributionPackage={'apt'} webServerUser={'www-data'} />
+
+<InCaseOfIssues />

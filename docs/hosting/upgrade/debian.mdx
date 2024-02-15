@@ -1,0 +1,28 @@
+---
+title: Debian 12
+description: How to upgrade on Debian 12 from CE to PRO
+sidebar_position: 1 
+hide_table_of_contents: true
+---
+
+import Prerequisites from '/docs/hosting/_includes/package/_prerequisites.mdx';
+import UpgradeProcess from '/docs/hosting/_includes/package/_upgrade-process.mdx';
+import Troubleshooting from '/docs/hosting/_includes/default/_troubleshooting.mdx';
+import InCaseOfIssues from '/docs/hosting/_includes/default/_in-case-of-issues.mdx';
+
+<Prerequisites
+  distributionLabel={'Debian'}
+  distributionVersion={'12'}
+  type={'updatePackage'}
+/>
+
+<UpgradeProcess 
+  distributionPackage={'apt'}
+  distributionLabel={'Debian'}
+  distributionVersion={'12'} 
+  distributionWebUser={'www-data'}
+/>
+
+<Troubleshooting distributionPackage={'apt'} webServerUser={'www-data'} />
+
+<InCaseOfIssues />

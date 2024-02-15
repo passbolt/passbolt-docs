@@ -28,18 +28,18 @@ const DistributionCard = ({ logo, name, version, links, ...props }) => {
           {links.ce && (
             <Badge
               className={clsx([styles.link, styles.linkCe])}
-              href={links.ce}
+              href={links.ce.slug}
             >
-              CE
+              {links.ce.label}
             </Badge>
           )}
           {links.pro && (
             <Badge
               className={clsx([styles.link, styles.linkPro])}
-              href={links.pro}
+              href={links.pro.slug}
               variant="secondary"
             >
-              Pro
+              {links.pro.label}
             </Badge>
           )}
         </div>

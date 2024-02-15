@@ -1,4 +1,5 @@
 import CodeBlock from '@site/src/components/CodeBlock/CodeBlock';
+import AptMySQLWarning from '/docs/hosting/_includes/warning/_apt-mysql-warning.mdx';
 
 ## Update passbolt
 
@@ -15,13 +16,12 @@ import CodeBlock from '@site/src/components/CodeBlock/CodeBlock';
 It is recommended to always perform a backup of your passbolt installation. Please check the backup article
 
 ### 3. Upgrade your system
-   
-:::info
-    Sometimes, while updating when there is also an update to MySQL/MariaDB you will get an error on the upgrade step. That's why we are suggesting to manually upgrade passbolt prior to system upgrade
-:::
 
-{(props.distributionLabel === 'Debian') || (props.distributionLabel === 'Ubuntu') ? (
+<>
+{(props.distributionLabel === 'Debian') || (props.distributionLabel === 'Ubuntu') || (props.distributionLabel === 'Raspberry') ? (
   <>
+      <AptMySQLWarning />
+
     <p>This command will trigger an upgrade on your whole Debian system, choose between <strong>passbolt-ce-server</strong> and <strong>passbolt-pro-server</strong> based on your installation:</p>
     <CodeBlock>
       {`sudo apt update
@@ -37,6 +37,7 @@ sudo apt upgrade`}
     </CodeBlock>
   </>
 )}
+    </>
 
 
 ### 4. Clear the cache

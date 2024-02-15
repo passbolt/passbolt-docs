@@ -1,0 +1,44 @@
+---
+title: Install
+description: Passbolt installation methods
+sidebar_position: 1
+sidebar_label: List
+hide_table_of_contents: true
+---
+
+import DistributionCard from '/src/components/DistributionCard/DistributionCard.js';
+import distributions from '/data/distributions.json';
+import styles from '/src/components/DistributionCard/DistributionCard.module.css';
+
+export const DistributionCardWrapper = () => {
+  return (
+    <div className={styles.grid}>
+      {distributions.map((distribution) => {
+        return (
+          <DistributionCard
+            key={distribution.slug}
+            logo={distribution.logo}
+            name={distribution.name}
+            version={distribution.version}
+            links={{
+              ...(distribution.ce && {
+                ce: {
+                  slug: `/hosting/install/ce/${distribution.slug}`,
+                  label: "CE"
+                }
+              }),
+              ...(distribution.pro && {
+               pro: {
+                  slug: `/hosting/install/pro/${distribution.slug}`,
+                  label: "Pro"
+                },
+              }),
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
+<DistributionCardWrapper />

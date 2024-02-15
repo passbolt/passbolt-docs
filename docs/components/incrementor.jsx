@@ -17,7 +17,7 @@ const Incrementor = ({ title, productName, resetCounter }) => {
         ? title.replace(/\{productName\}/g, productName.toLowerCase())
         : title;
 
-    return <b>Step {counter}. {processedTitle}</b>;
+    return <h3>Step {counter}. {processedTitle}</h3>;
 };
 
 export default Incrementor;

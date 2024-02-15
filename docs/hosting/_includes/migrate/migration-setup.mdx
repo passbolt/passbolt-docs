@@ -1,0 +1,46 @@
+import CodeBlock from "/src/components/CodeBlock/CodeBlock";
+import OpenSUSEGPGKey from '/docs/hosting/_includes/OpenSUSE/_opensuse-gpg-key.mdx';
+
+## Package repository setup
+
+<p>For easier installation and update tasks Passbolt provides a package repository that you need to setup
+    before you download Passbolt {props.productName.toUpperCase()} and install it.</p>
+
+**Step 1.** Download our dependencies installation script:
+<CodeBlock>
+    {`wget "https://download.passbolt.com/${props.productName.toLowerCase()}/installer/passbolt-repo-setup.${props.productName.toLowerCase()}.sh"`}
+</CodeBlock>
+
+**Step 2.** Download our SHA512SUM for the installation script:
+<CodeBlock>
+    {`wget https://github.com/passbolt/passbolt-dep-scripts/releases/latest/download/passbolt-${props.productName.toLowerCase()}-SHA512SUM.txt`}
+</CodeBlock>
+
+**Step 3.** Ensure that the script is valid and execute it:
+<CodeBlock>
+    {`sha512sum -c passbolt-${props.productName.toLowerCase()}-SHA512SUM.txt && sudo bash ./passbolt-repo-setup.${props.productName.toLowerCase()}.sh  || echo \"Bad checksum. Aborting\" && rm -f passbolt-repo-setup.${props.productName.toLowerCase()}.sh`}
+</CodeBlock>
+
+## Install passbolt official linux package
+<CodeBlock>
+    {`sudo ${props.distributionPackage.toLowerCase()} install passbolt-${props.productName.toLowerCase()}-server`}
+</CodeBlock>
+
+<>
+    {(props.distributionPackage === 'dnf' || props.distributionPackage === 'yum' || props.distributionPackage === 'zypper') && (
+        <div>
+            During the installation, you will be asked to accept the Passbolt repository GPG key. You must ensure the fingerprint is exactly the same as the one below:
+
+            <CodeBlock>
+            {`Importing GPG key 0xC155581D:
+Userid     : "Passbolt SA package signing key contact@passbolt.com"
+Fingerprint: 3D1A 0346 C8E1 802F 774A EF21 DE8B 853F C155 581D
+From       : https://download.passbolt.com/pub.key`}
+            </CodeBlock>
+        </div>
+    )}
+    {(props.distributionPackage === 'zypper') && (
+        <OpenSUSEGPGKey />
+    )}
+
+</>

@@ -1,3 +1,5 @@
+import CodeBlock from "/src/components/CodeBlock/CodeBlock";
+
 ## MariaDB / Nginx / SSL settings
 
 Passbolt {props.productName} RPM package on {props.distributionLabel} {props.distributionVersion} come with a configuration helper tool to prepare MariaDB, Nginx and SSL settings.
@@ -8,27 +10,27 @@ Please, notice that for security matters we highly recommend to setup SSL to ser
 
 Launch `passbolt-configure` tool and answer to the questions:
 
-```
-sudo /usr/local/bin/passbolt-configure
-```
+<CodeBlock>
+{`sudo /usr/local/bin/passbolt-configure`}
+</CodeBlock>
 
 ### MariaDB
 
-```
-================================================================
+<CodeBlock>
+{`================================================================
 Do you want to configure a local mariadb server on this machine?
 ================================================================
 1) yes
 2) no
-#?
-```
+#?`}
+</CodeBlock>
 
 Answer **1** for yes if you want to configure a local MariaDB database, otherwise **2** for no if you plan to use an existing one.
 
 If you chose yes, answer the questions:
 
-```
-=======================================================
+<CodeBlock>
+{`=======================================================
 Please enter a new password for the root database user:
 =======================================================
 MariaDB Root Password: ****
@@ -45,8 +47,8 @@ MariaDB passbolt user password (verify): ****
 ==============================================
 Please enter a name for the passbolt database:
 ==============================================
-Passbolt database name:passboltdb
-```
+Passbolt database name:passboltdb`}
+</CodeBlock>
 
 ### Haveged
 
@@ -54,14 +56,14 @@ On virtualized environments GnuPG happen to find not enough entropy to generate 
 
 You should consider to install Haveged to speed up the entropy generation. Please check [our FAQ page about this](https://help.passbolt.com/faq/hosting/why-haveged-virtual-env) for more informations.
 
-```
-==================
+<CodeBlock>
+{`==================
 Install Haveged ?
 ==================
 1) yes
 2) no
-#?
-```
+#?`}
+</CodeBlock>
 
 ### Nginx
 
@@ -71,11 +73,11 @@ Note this hostname will be used as server_name for nginx and as the domain name 
 
 If you don't have a domain name and you do not plan to use let's encrypt please enter the ip address to access this machine.
 
-```
-=========
+<CodeBlock>
+{`=========
 Hostname: passbolt.domain.tld
-=========
-```
+=========`}
+</CodeBlock>
 
 ### SSL configuration
 
@@ -85,28 +87,28 @@ Hostname: passbolt.domain.tld
 - auto: Will issue a free SSL certificate with https://www.letsencrypt.org and set up nginx
 - none: Do not setup HTTPS at all
 
-```
-==================
+<CodeBlock>
+{`==================
 Setting up SSL...
 ==================
 1) manual
 2) auto
 3) none
-#?
-```
+#?`}
+</CodeBlock>
 
 If you choose **1**, you will be prompted for the full path of your certificates:
 
-```
-Enter the path to the SSL certificate: /path/to/certs/cert.pem
-Enter the path to the SSL privkey: /path/to/certs/key.pem
-```
+<CodeBlock>
+{`Enter the path to the SSL certificate: /path/to/certs/cert.pem
+Enter the path to the SSL privkey: /path/to/certs/key.pem`}
+</CodeBlock>
 
 Nginx and MariaDB are now on the way to be configured. You will be notified at the end of the process to connect to the Passbolt web interface to finish the configuration.
 
-```
-===============================================================
+<CodeBlock>
+{`===============================================================
 Installation is almost complete. Please point your browser to
   https://passbolt.domain.tld to complete the process
-===============================================================
-```
+===============================================================`}
+</CodeBlock>

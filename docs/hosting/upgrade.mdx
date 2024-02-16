@@ -1,0 +1,40 @@
+---
+title: Upgrade to PRO
+description: How to upgrade from CE to PRO
+sidebar_position: 1 
+displayed_sidebar: hostingGuideSidebar
+hide_table_of_contents: true
+---
+
+import DistributionCard from '/src/components/DistributionCard/DistributionCard.js';
+import distributions from '/data/distributions.json';
+import styles from '/src/components/DistributionCard/DistributionCard.module.css';
+
+export const DistributionCardWrapper = () => {
+  return (
+    <div className={styles.grid}>
+      {distributions
+      .filter(distribution => distribution.canUpgrade === true)
+      .map((distribution) => {
+        return (
+          <DistributionCard
+            key={distribution.slug}
+            logo={distribution.logo}
+            name={distribution.name}
+            version={distribution.version}
+            links={{
+              ...(distribution.pro && {
+                pro: {
+                  slug: `/hosting/upgrade/${distribution.slug}`,
+                  label: "Upgrade"
+                }
+              }),
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
+<DistributionCardWrapper />

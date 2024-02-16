@@ -7,7 +7,10 @@
     "db_engine": "mariadb",
     "logo": "/img/distributions/debian.svg",
     "ce": true,
-    "pro": true
+    "pro": true,
+    "canMigrateServer": true,
+    "canMigratePackage": true, 
+    "canUpgrade": true
   },
   {
     "name": "Ubuntu",
@@ -17,7 +20,10 @@
     "db_engine": "mysql",
     "logo": "/img/distributions/ubuntu.svg",
     "ce": true,
-    "pro": true
+    "pro": true,
+    "canMigrateServer": true,
+    "canMigratePackage": true, 
+    "canUpgrade": true
   },
   {
     "name": "Helm Chart",
@@ -27,7 +33,10 @@
     "db_engine": null,
     "logo": "/img/distributions/kubernetes.svg",
     "ce": true,
-    "pro": true
+    "pro": true,
+    "canMigrateServer": false,
+    "canMigratePackage": false, 
+    "canUpgrade": false
   },
   {
     "name": "Docker",
@@ -37,7 +46,10 @@
     "db_engine": null,
     "logo": "/img/distributions/docker.svg",
     "ce": true,
-    "pro": true
+    "pro": true,
+    "canMigrateServer": true,
+    "canMigratePackage": false, 
+    "canUpgrade": true
   },
   {
     "name": "Raspberry",
@@ -47,7 +59,10 @@
     "db_engine": "mariadb",
     "logo": "/img/distributions/raspberry.svg",
     "ce": true,
-    "pro": true
+    "pro": true,
+    "canMigrateServer": false,
+    "canMigratePackage": false, 
+    "canUpgrade": false
   },
   {
     "name": "Virtual Appliance",
@@ -57,7 +72,10 @@
     "db_engine": "mysql",
     "logo": "/img/distributions/virtualmachine.svg",
     "ce": false,
-    "pro": true
+    "pro": true,
+    "canMigrateServer": true,
+    "canMigratePackage": false, 
+    "canUpgrade": false
   },
   {
     "name": "AWS AMI",
@@ -67,7 +85,10 @@
     "db_engine": "mysql",
     "logo": "/img/distributions/awsami.svg",
     "ce": true,
-    "pro": true
+    "pro": true,
+    "canMigrateServer": false,
+    "canMigratePackage": false, 
+    "canUpgrade": false
   },
   {
     "name": "Digital Ocean",
@@ -77,7 +98,10 @@
     "db_engine": "mysql",
     "logo": "/img/distributions/digitalocean.svg",
     "ce": true,
-    "pro": false
+    "pro": false,
+    "canMigrateServer": false,
+    "canMigratePackage": false, 
+    "canUpgrade": false
   },
   {
     "name": "Red Hat",
@@ -87,7 +111,10 @@
     "db_engine": "mariadb",
     "logo": "/img/distributions/redhat.svg",
     "ce": true,
-    "pro": true
+    "pro": true,
+    "canMigrateServer": true,
+    "canMigratePackage": false, 
+    "canUpgrade": false
   },
   {
     "name": "CentOS",
@@ -97,7 +124,10 @@
     "db_engine": "mariadb",
     "logo": "/img/distributions/centos.svg",
     "ce": true,
-    "pro": true
+    "pro": true,
+    "canMigrateServer": true,
+    "canMigratePackage": true, 
+    "canUpgrade": false
   },
   {
     "name": "AlmaLinux",
@@ -107,7 +137,10 @@
     "db_engine": "mariadb",
     "logo": "/img/distributions/almalinux.svg",
     "ce": true,
-    "pro": true
+    "pro": true,
+    "canMigrateServer": true,
+    "canMigratePackage": false, 
+    "canUpgrade": false
   },
   {
     "name": "RockyLinux",
@@ -117,17 +150,23 @@
     "db_engine": "mariadb",
     "logo": "/img/distributions/rockylinux.svg",
     "ce": true,
-    "pro": true
+    "pro": true,
+    "canMigrateServer": true,
+    "canMigratePackage": false, 
+    "canUpgrade": false
   },
   {
-    "name": "OpenSUSE Leap",
+    "name": "openSUSE Leap",
     "slug": "opensuse",
     "version": 15,
     "package": "zypper",
     "db_engine": "mariadb",
     "logo": "/img/distributions/opensuse.svg",
     "ce": true,
-    "pro": true
+    "pro": true,
+    "canMigrateServer": true,
+    "canMigratePackage": false, 
+    "canUpgrade": false
   },
   {
     "name": "Fedora",
@@ -137,7 +176,10 @@
     "db_engine": "mariadb",
     "logo": "/img/distributions/fedora.svg",
     "ce": true,
-    "pro": true
+    "pro": true,
+    "canMigrateServer": true,
+    "canMigratePackage": false, 
+    "canUpgrade": false
   },
   {
     "name": "OracleLinux",
@@ -147,7 +189,10 @@
     "db_engine": "mariadb",
     "logo": "/img/distributions/oraclelinux.svg",
     "ce": true,
-    "pro": true
+    "pro": true,
+    "canMigrateServer": true,
+    "canMigratePackage": false, 
+    "canUpgrade": false
   },
   {
     "name": "From source",
@@ -157,6 +202,9 @@
     "db_engine": null,
     "logo": "/img/distributions/github.svg",
     "ce": true,
-    "pro": false
+    "pro": false,
+    "canMigrateServer": false,
+    "canMigratePackage": false,
+    "canUpgrade": false
   }
-]
+] 

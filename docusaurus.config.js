@@ -12,8 +12,8 @@ const ROUTES = {
   CAREERS_URL: 'https://careers.passbolt.com',
   FORUM_URL: 'https://community.passbolt.com',
   REDDIT_URL: 'https://www.reddit.com/r/passbolt',
-  GITHUB_URL: 'https://github.com/passbolt',
-  TWITTER_URL: 'https://twitter.com/passbolt',
+  GITHUB_URL: 'https://github.com/passbolt/passbolt-docs',
+  X_URL: 'https://x.com/passbolt',
   LINKEDIN_URL: 'https://www.linkedin.com/company/passbolt',
   YOUTUBE_URL: 'https://www.youtube.com/user/passboltpassword',
 }
@@ -68,7 +68,7 @@ const config = {
   ],
   customFields: {
     footer: {
-      slogan: 'Open source password management platform for agile and devops teams. Built for team collaboration, open source, self-hosted, api-centric, privacy-focused, developer-first.',
+      slogan: 'Open source password management for teams. Built for team collaboration, open source, self-hosted, api-centric, privacy-focused, developer-first.',
       socialMedia: {
         title: 'See you around:',
         links: [
@@ -82,10 +82,10 @@ const config = {
             },
           },
           {
-            href: ROUTES.TWITTER_URL,
+            href: ROUTES.X_URL,
             icon: {
-              alt: 'Our Twitter account',
-              src: 'icons/twitter.svg',
+              alt: 'Our X account',
+              src: 'icons/x.svg',
               width: 24,
               height: 20,
             },
@@ -109,7 +109,7 @@ const config = {
       image: 'img/og.jpg',
       docs: {
         sidebar: {
-          autoCollapseCategories: false,
+          autoCollapseCategories: true,
         }
       },
       navbar: {
@@ -221,8 +221,8 @@ const config = {
                 href: ROUTES.GITHUB_URL,
               },
               {
-                label: 'Twitter',
-                href: ROUTES.TWITTER_URL,
+                label: 'X',
+                href: ROUTES.X_URL,
               },
               {
                 label: 'Community Forum',

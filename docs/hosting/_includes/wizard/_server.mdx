@@ -169,8 +169,8 @@ Generate a key if you don't have one.
   )}
 </>
 
-:::tip
-**Optional**: Import a key if you already have one and you want your server to use it.
+:::tip[Optional]
+Import a key if you already have one and you want your server to use it.
 :::
 
 <GpgKeyGeneration />
@@ -323,3 +323,17 @@ Your user account is now created. You will see a redirection page for a few seco
     />
   )}
 </>
+<Counter chapter={2} title="HTTPS setup process" />
+
+Passbolt Pro VM uses passbolt debian package. Depending on your needs there are two different options to setup nginx and SSL using the debian package:
+
+<div>
+    <ul>
+        <li>
+            <a href={`https://help.passbolt.com/configure/https/${props.productLabel.toLowerCase()}/debian/auto.html`}> Auto (Using Let's Encrypt) </a>
+        </li>
+        <li>
+            <a href={`https://help.passbolt.com/configure/https/${props.productLabel.toLowerCase()}/debian/manual.html`}> Manual (Using user-provided SSL certificates) </a>
+        </li>
+    </ul>
+</div>

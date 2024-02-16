@@ -216,16 +216,18 @@ server {
 
 Then, reload the Nginx process so that it takes your new configuration into account :
 
-```
+```bash
 $ sudo systemctl reload nginx
 ```
 
 ### 10. Setup the emails
 
-:::caution
+:::danger
 If you are running Passbolt 3.8.0 or higher version, you are able to configure your email server through the UI, any changes made will override the _config/passbolt.php_
+:::
 
-## You are running Passbolt CE < 3.8.0 ?
+:::caution
+**You are running Passbolt CE < 3.8.0 ?**
 
 For passbolt to be able to send emails, you must first configure properly the “EmailTransport” section in the
 `config/passbolt.php` file to match your provider smtp details.

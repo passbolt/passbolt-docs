@@ -1,0 +1,149 @@
+import CodeBlock from '@site/src/components/CodeBlock/CodeBlock';
+
+### 5.1. Copy the server keys
+
+Copy the GPG server keys as following:
+<CodeBlock>
+{`sudo cp -a /var/www/passbolt/config/gpg/serverkey.asc /etc/passbolt/gpg/
+sudo cp -a /var/www/passbolt/config/gpg/serverkey_private.asc /etc/passbolt/gpg/
+sudo chown -R root:${props.webServerUser} /etc/passbolt/gpg
+sudo chmod g-w /etc/passbolt/gpg`}
+</CodeBlock>
+
+### 5.2. Copy the passbolt configuration
+
+Copy passbolt configuration as following:
+<CodeBlock>
+{`sudo cp /var/www/passbolt/config/passbolt.php /etc/passbolt/passbolt.php
+sudo chown root:${props.webServerUser} /etc/passbolt/passbolt.php
+sudo chmod g-w /etc/passbolt/passbolt.php`}
+</CodeBlock>
+
+
+If you are running mysql 8, please change the `quoteIdentifiers` setting of the `passbolt.php` as follow:
+
+```php
+'quoteIdentifiers' => true
+```
+
+### 5.3. Copy the avatars
+
+If coming from Passbolt version prior to 3.2, copy passbolt avatars as following:
+
+```bash
+sudo cp -R /var/www/passbolt/webroot/img/public/avatar /usr/share/php/passbolt/webroot/img/public/
+```
+<>
+    {props.productName == 'PRO' && (
+        <>
+            <h3>Copy the subscription key</h3>
+
+        <p>Copy the subscription key as following:</p>
+
+        <CodeBlock>
+{`sudo cp /var/www/passbolt/config/license /etc/passbolt/subscription_key.txt
+sudo chown root:${props.webServerUser} /etc/passbolt/subscription_key.txt
+sudo chmod g-w /etc/passbolt/subscription_key.txt`}
+        </CodeBlock>
+        </>
+        )}
+</>
+
+
+<>
+    {props.distributionPackage === 'apt' && (
+        <>
+            <h3>PHP-FPM</h3>
+
+            <p>Edit {`/etc/php/${props.distributionPhpVersion}/fpm/pool.d/www.conf`} and look for the line that looks like this:</p>
+
+            <CodeBlock>
+                {`listen = 127.0.0.1:9000`}
+            </CodeBlock>
+
+            <p>Change it to look like this:</p>
+
+            <CodeBlock>
+                {`listen = /run/php/php${props.distributionPhpVersion}-fpm.sock`}
+            </CodeBlock>
+
+            <p>Due to a bug on the install scripts some installations might need to do an additional substitution on {`/etc/php/${props.distributionPhpVersion}/fpm/pool.d/www.conf`}:</p>
+
+            <p>Look for the line containing:</p>
+
+            <CodeBlock>
+                {`listen.group = _WWW_GROUP_`}
+            </CodeBlock>
+
+            <p>And change it to look like:</p>
+
+            <CodeBlock>
+                {`listen.group = www-data`}
+            </CodeBlock>
+        </>
+    )}
+</>
+
+## Nginx
+
+Now you can remove all the old nginx configuration files from `/etc/nginx/conf.d/`
+
+<CodeBlock>
+{`sudo rm /etc/nginx/conf.d/passbolt.conf
+sudo rm /etc/nginx/conf.d/passbolt_ssl.conf`}
+</CodeBlock>
+
+<p>Then, you can reconfigure the {props.distributionLabel} package using:</p>
+
+<>
+    {props.distributionPackage == 'apt' ? (
+        <CodeBlock>
+            {`sudo dpkg-reconfigure passbolt-${props.productName.toLowerCase()}-server`}
+        </CodeBlock>
+    ) : (
+        <CodeBlock>
+            {`sudo /usr/local/bin/passbolt-configure`}
+        </CodeBlock>
+    )}
+</>
+
+Answer the following way:
+
+<ul>
+    <li><b>No</b> to {props.databaseEngine} configuration</li>
+    <li><b>No</b> to nginx configuration</li>
+</ul>
+
+You can then select the SSL method that suits best your needs.
+
+## Run the database migrations
+
+Now it is time to run the migrations to upgrade the database schemas:
+
+<CodeBlock>
+    {`sudo -H -u ${props.webServerUser} bash -c "/usr/share/php/passbolt/bin/cake passbolt migrate"`}
+</CodeBlock>
+
+
+## Cleanup
+
+<p>After you have checked you can access your new setup with the {props.distributionLabel} package make a backup of <code>/var/www/passbolt</code> and then you can delete it:</p>
+
+<CodeBlock>
+    {`sudo rm -rf /var/www/passbolt`}
+</CodeBlock>
+
+You may also want to check for the old CRON job that may need to be removed:
+
+<CodeBlock>
+    {`sudo crontab -u ${props.webServerUser}`}
+</CodeBlock>
+
+## Bring your site back online
+
+Finally take passbolt back up:
+
+<CodeBlock>
+    {`sudo systemctl start nginx
+sudo systemctl restart php${props.distributionPhpVersion}-fpm`}
+</CodeBlock>

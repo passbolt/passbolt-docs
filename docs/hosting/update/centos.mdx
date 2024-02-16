@@ -9,10 +9,9 @@ import Prerequisites from '/docs/hosting/_includes/package/_prerequisites.mdx';
 import UpdateProcess from '/docs/hosting/_includes/package/_update-process.mdx';
 import Troubleshooting from '/docs/hosting/_includes/default/_troubleshooting.mdx';
 import InCaseOfIssues from '/docs/hosting/_includes/default/_in-case-of-issues.mdx';
+import CentOSWarning from '/docs/hosting/_includes/warning/_dont-install-CentOS.mdx';
 
-:::warning
-    **Important:** You may want to consider a different distribution. CentOS 7 is expected to be end of life on 30 June 2024 so you will need to migrate to a different distribution before then.
-:::
+<CentOSWarning />
 
 <Prerequisites
   distributionLabel={'Centos'}
@@ -27,6 +26,6 @@ import InCaseOfIssues from '/docs/hosting/_includes/default/_in-case-of-issues.m
   distributionWebUser={'nginx'}
 />
 
-<Troubleshooting distributionPackage={'yum'} />
+<Troubleshooting distributionPackage={'yum'} webServerUser={'nginx'} />
 
 <InCaseOfIssues />

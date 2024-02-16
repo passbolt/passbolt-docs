@@ -1,0 +1,46 @@
+---
+title: Migrate to the package
+description: Migrate to the package
+sidebar_position: 1
+hide_table_of_contents: true
+sidebar_label: To The Package
+---
+
+import DistributionCard from '/src/components/DistributionCard/DistributionCard.js';
+import distributions from '/data/distributions.json';
+import styles from '/src/components/DistributionCard/DistributionCard.module.css';
+
+export const DistributionCardWrapper = () => {
+  return (
+    <div className={styles.grid}>
+      {distributions
+      .filter(distribution => distribution.canMigratePackage === true)
+      .map((distribution) => {
+        return (
+          <DistributionCard
+            key={distribution.slug}
+            logo={distribution.logo}
+            name={distribution.name}
+            version={distribution.version}
+            links={{
+              ...(distribution.ce && {
+                ce: {
+                  slug: `/hosting/migrate/package/ce/${distribution.slug}`,
+                  label: "CE"
+                }
+              }),
+              ...(distribution.pro && {
+                pro: {
+                  slug: `/hosting/migrate/package/pro/${distribution.slug}`,
+                  label: "PRO"
+                }
+              }),
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
+<DistributionCardWrapper />

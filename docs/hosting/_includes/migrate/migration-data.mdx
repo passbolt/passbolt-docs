@@ -1,0 +1,125 @@
+import Incrementor from "/docs/components/incrementor";
+import CodeBlock from "/src/components/CodeBlock/CodeBlock";
+import Troubleshooting from '/docs/hosting/_includes/default/_troubleshooting.mdx';
+
+## Migrate data
+
+<p>Load the backup files into the new {props.distributionLabel} server, for the following tasks we will consider that the backup files are in your user home directory `~/backup`</p>
+
+You should have:
+
+<ul>
+    {props.productName === 'PRO' && (
+    <li>Your subscription key</li>
+    )}
+    <li>The private and public GPG keys</li>
+    <li>Your database dump</li>
+    <li>The avatar archive file `passbolt-avatars.tar.gz` if you are coming from Passbolt prior to 3.2</li>
+</ul>
+
+<>
+    {props.productName === 'PRO' && (
+        <Incrementor
+            title="Create the subscription key file"
+            resetCounter={true}
+        />
+        )}
+
+    {props.productName === 'PRO' && (
+    <p>You received your subscription key by email, copy it as `/etc/passbolt/subscription_key.txt` on your server.</p>
+    )}
+</>
+
+<>
+    {props.productName === 'PRO' ? (
+        <Incrementor
+            title="Restore Passbolt configuration file and ensure rights and ownership are correct:"
+            resetCounter={false}
+        />
+    ) : (
+        <Incrementor
+            title="Restore Passbolt configuration file and ensure rights and ownership are correct:"
+            resetCounter={true}
+        />
+    )}
+</>
+
+{props.productName === 'PRO' ? (
+<CodeBlock>
+    {`sudo mv ~/backup/passbolt.php /etc/passbolt
+sudo chown ${props.webServerUser}:${props.webServerUser} /etc/passbolt/passbolt.php
+sudo chmod 440 /etc/passbolt/passbolt.php
+sudo chown ${props.webServerUser}:${props.webServerUser} /etc/passbolt/subscription_key.txt`}
+</CodeBlock>
+) : (
+<CodeBlock>
+    {`sudo mv ~/backup/passbolt.php /etc/passbolt
+sudo chown ${props.webServerUser}:${props.webServerUser} /etc/passbolt/passbolt.php
+sudo chmod 440 /etc/passbolt/passbolt.php`}
+</CodeBlock>
+
+)}
+
+
+<Incrementor
+    title="Restore GPG public and private keys and ensure rights and ownership are correct:"
+/>
+
+<CodeBlock>
+    {`sudo mv ~/backup/serverkey.asc /etc/passbolt/gpg
+sudo mv ~/backup/serverkey_private.asc /etc/passbolt/gpg
+sudo chown ${props.webServerUser}:${props.webServerUser} /etc/passbolt/gpg/serverkey_private.asc
+sudo chown ${props.webServerUser}:${props.webServerUser} /etc/passbolt/gpg/serverkey.asc
+sudo chmod 440 /etc/passbolt/gpg/serverkey.asc
+sudo chmod 440 /etc/passbolt/gpg/serverkey_private.asc`}
+</CodeBlock>
+
+<Incrementor
+    title="Extract the passbolt-avatars.tar.gz archive and set correct rights (if coming from Passbolt version prior to 3.2)"
+/>
+
+<CodeBlock>
+    {`sudo tar xzf passbolt-avatars.tar.gz -C /usr/share/php/passbolt/
+sudo chown -R ${props.webServerUser}:${props.webServerUser} /usr/share/php/passbolt/webroot/img/public`}
+</CodeBlock>
+
+<Incrementor
+    title="Load the database"
+/>
+
+<CodeBlock>
+    {`mysql -u PASSBOLT_DATABASE_USER -p PASSBOLT_DATABASE < passbolt-backup.sql`}
+</CodeBlock>
+
+<Incrementor
+    title="Import the server key"
+/>
+
+<CodeBlock>
+    {`sudo su -s /bin/bash -c "gpg --home /var/lib/passbolt/.gnupg --import /etc/passbolt/gpg/serverkey_private.asc" ${props.webServerUser}`}
+</CodeBlock>
+
+
+<Incrementor
+    title="Migrate passbolt to the latest version"
+/>
+
+<CodeBlock>
+    {`sudo -H -u ${props.webServerUser} /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt migrate"`}
+</CodeBlock>
+
+<Incrementor
+    title="Test passbolt"
+/>
+
+Try to access your passbolt application with your browser.
+
+If you are encountering any issues, you can run the following command to assess the status of your instance:
+
+<CodeBlock>
+    {`sudo -H -u ${props.webServerUser} /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt healthcheck"`}
+</CodeBlock>
+
+
+
+

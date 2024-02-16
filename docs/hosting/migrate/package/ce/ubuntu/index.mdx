@@ -1,0 +1,14 @@
+---
+title: Migrate from source to package on Ubuntu
+# description:
+sidebar_label: Ubuntu 22.04
+hide_table_of_contents: true
+---
+
+import Migration from '/docs/hosting/_includes/migrate/scripts/_migrate-from-script-to-package.mdx';
+import ServerComponents from '/docs/hosting/_includes/package/_install-server-components.mdx';
+import CopyConfiguration from '/docs/hosting/_includes/migrate/scripts/_copy-configuration.mdx';
+
+<Migration distributionLabel={'Ubuntu'} distributionVersion={'22.04'} />
+<ServerComponents productName={'CE'} distributionPackage={'apt'} isMigrating={true}/>
+<CopyConfiguration webServerUser={'www-data'} distributionPackage={'apt'} distributionLabel={'Ubuntu'} distributionPhpVersion={'8.1'} productName={'CE'} />

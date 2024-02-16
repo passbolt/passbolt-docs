@@ -1,0 +1,140 @@
+---
+title: Where to find various logs on your instace
+description: A guide to help you find different logs and information about your instance
+sidebar_label: How to check the logs
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 3
+---
+import Webserverprotip from '/docs/hosting/_includes/troubleshooting/_webserver-user-protip.mdx';
+import Harwarning from '/docs/hosting/_includes/troubleshooting/_har-json-warning.mdx';
+import Figure from '/src/components/Figure/Figure';
+
+
+
+## The importance of the installation method
+
+There are three main types of installations for Passbolt, and that's what you need to know before running one of these commands as they may not work for each installation.
+
+  -  Package installation (Debian, Ubuntu, OracleLinux, and so on.)
+  -  From source
+  -  Docker
+
+With package installation, the files will be split into two different directories, `/etc/passbolt` for the configuration files and `/usr/share/php/passbolt` for every other files and the CakePHP CLI.
+
+If you did a from source installation, the whole directory will be in `/var/www/passbolt`.
+
+If you are running Docker, please, refer to the [Troubleshooting Docker](/hosting/troubleshooting/docker) guide as all is explained there.
+
+If you are running Helm, please, refer to the [Troubleshooting Helm](/hosting/troubleshooting/helm) guide as all is explained there.
+
+
+## API
+### Healthcheck
+
+The healthcheck is used to check whether the Passbolt system is running as expected. It evaluates various aspects of the system to ensure that all components are working properly and configured correctly. It provides a detailed report about important information such as the gpg configuration, the ssl access, database configuration, etc.
+
+    **Package Installation**
+    ```bash
+    sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt healthcheck" www-data
+    ```
+
+    **From source**
+     ```bash
+     sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt healthcheck" www-data
+     ```
+
+<Webserverprotip />
+
+### Datacheck
+
+The datacheck is a great tool as it aims to have a look at the data integrity for gpg keys, authentication tokens, groups, resources, etc.
+
+    **Package Installation**
+    ```bash
+    sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt datacheck" www-data
+    ```
+
+    **From source**
+    ```bash
+    sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt datacheck" www-data
+    ```
+
+<Webserverprotip />
+
+### Status Report
+
+The status report is in most case the best alternative if you need to gather information from the healthcheck, datacheck, do a cleanup dry-run and retrieve the server logs.
+
+On top of executing the healthcheck, datacheck and retrieving the server logs one after the other, it also gives important information about the system itself such as the passbolt edition and version, the version of CakePHP and PHP, composer version etc.
+
+    **Package Installation**
+    ```bash
+    sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/status-report" www-data
+    ```
+
+    **From source**
+    ```bash
+    sudo su -s /bin/bash -c "/var/www/passbolt/bin/status-report" www-data
+    ```
+
+<Webserverprotip />
+
+### Server logs
+
+The server logs contains mostly error and warnings such as bad request, invalid requests, applications errors, etc.
+
+    **Package Installation**
+    ```bash
+    sudo su -s /bin/bash -c "cat /var/log/passbolt/error.log" www-data
+    ```
+
+    **From source**
+    ```bash
+    sudo su -s /bin/bash -c "cat /var/www/passbolt/logs/error.log" www-data
+    ```
+
+<Webserverprotip />
+
+## Browser Extension
+### Google Chrome
+
+    - You will need to navigate to your extensions
+    - Activate the Developer mode in the top right corner
+    - Look for Passbolt and click details button
+    - Look for the Inspect views and the index.html link
+    - A new window will appear this is the debugger of the browser extension
+    - You can see from here, if there is any issue in the console tab
+    - Go to the network tab
+    - Try to reproduce the error
+    - Export the logs by clicking the down arrow
+
+<Harwarning />
+<Figure
+  src="https://help.passbolt.com/assets/img/help/2023/05/browser-extension-logs.png"
+  alt="Browser Extension Network Logs"
+  caption="fig. Browser Extension Network Logs"
+/>
+
+### Firefox
+
+    - You will need to navigate to your extensions
+    - Locate Passbolt and click Inspect
+    - A new window will appear this is the debugger of the browser extension
+    - You can see from here, if there is any issue in the console tab
+    - Go to the network tab
+    - Try to reproduce the error
+    - Export logs by clicking right on the logs and select Save all As HAR
+
+<Harwarning />
+
+### Edge
+
+    - Go to [edge://extensions/](edge://extensions/)
+    - Activate Developer mode with the toggle on  the left
+    - Open up Developer Tools
+    - Go to network tab
+    - Try to reproduce the error
+    - Export logs by clicking the down arrow
+
+<Harwarning />

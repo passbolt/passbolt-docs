@@ -1,0 +1,66 @@
+import CodeBlock from "/src/components/CodeBlock/CodeBlock";
+import HTTPSWarning from '/docs/hosting/_includes/warning/_https-url-change.mdx';
+
+<HTTPSWarning />
+
+
+## Requirements
+  - <a href={`/docs/hosting/install/${props.productName.toLowerCase()}/docker`}>docker setup with docker-compose</a>.
+
+
+
+## HTTPS configuration
+
+You need to bind-mount your certificates inside passbolt container to use them.
+
+Create a certs folder and put your certificates there:
+
+<CodeBlock>
+    {`mkdir certs
+mv /path/to/your/certificate.crt certs/cert.pem
+mv /path/to/your/certificate.key certs/key.pem`}
+</CodeBlock>
+
+The bind-mount configuration will differ depending which passbolt image you are using.
+### Standard images
+
+If you are using standard passbolt image, add your certificates in the volumes definition of the passbolt service and ensure ports are well mapped:
+
+<CodeBlock>
+    {`version: '3.7'
+services:
+  db:
+    ...
+  passbolt:
+    ...
+    volumes:
+      ...
+      - ./certs/cert.pem:/etc/ssl/certs/certificate.crt:ro
+      - ./certs/key.pem:/etc/ssl/certs/certificate.key:ro
+    ports:
+      - 80:80
+      - 443:443`}
+</CodeBlock>
+
+Ensure your `APP_FULL_BASE_URL` environment variable starts with `https://`
+### Non-root images
+
+If you are using non-root images, tagged as non-root, the bind-mount path will be different as well as port mapping:
+
+<CodeBlock>
+    {`version: '3.7'
+services:
+  db:
+    ...
+  passbolt:
+    ...
+    volumes:
+      ...
+      - ./certs/cert.pem:/etc/passbolt/certs/certificate.crt:ro
+      - ./certs/key.pem:/etc/passbolt/certs/certificate.key:ro
+    ports:
+      - 80:8080
+      - 443:4433`}
+</CodeBlock>
+
+Like standard images, ensure your `APP_FULL_BASE_URL` environment variable starts with `https://`

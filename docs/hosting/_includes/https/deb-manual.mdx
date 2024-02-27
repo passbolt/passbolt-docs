@@ -1,0 +1,166 @@
+import Figure from '@site/src/components/Figure/Figure';
+import CodeBlock from "/src/components/CodeBlock/CodeBlock";
+import HTTPSWarning from '/docs/hosting/_includes/warning/_https-url-change.mdx';
+import NginxSuccess from '/docs/hosting/_includes/https/nginx-success.mdx'
+
+
+<HTTPSWarning />
+
+Passbolt debian and ubuntu packages currently supports the configuration of nginx. It comes with a default configuration that supports:
+
+  -  Serve passbolt on port 80 (http)
+  -  Serve passbolt on port 443 (https)
+
+On this context ‘manually’ means that the user will provide the SSL certificates, this is the main difference with the ‘auto’ method where [Let’s Encrypt](https://letsencrypt.org/) will issue the SSL certificate for you.
+
+This manual method is often useful on private network installations with private CA where the system admin issues a new private SSL certificate and uploads it to the passbolt server. It is also a method often used with self-signed SSL certificates for test installations.
+
+On this example we will assume the user is generating a self-signed certificate on the passbolt server.
+## Generate the SSL certificate
+
+While connected to your passbolt instance you can generate a SSL certificate in the following way:
+<CodeBlock>
+{`openssl req -x509 \
+  
+    -newkey rsa:4096 \
+  
+    -days 120 \
+  
+    -subj "/C=LU/ST=Luxembourg/L=Esch-Sur-Alzette/O=Passbolt SA/OU=Passbolt IT Team/CN=passbolt.domain.tld/" \
+  
+    -nodes \
+  
+    -addext "subjectAltName = DNS:passbolt.domain.tld" \
+  
+    -keyout key.pem \
+  
+    -out cert.pem`}
+</CodeBlock>
+
+This command will output two files: `key.pem` and `cert.pem`. Identify the absolute path where these files are located as you will need them in next steps.
+
+Of course, replace `-subj` values with your own. It is important to set your passbolt FQDN in both `CN` and `subjectAltName`. In this way, you will be able to import the generated certificate in your operating system keychain and make your self-signed domain trusted in your browser.
+
+:::important[Pro tip:]
+You can use an IP address instead of a domain name for your self-signed certificate. If you do that, replace DNS with IP in `subjectAltName`.
+:::
+
+## Install or reconfigure passbolt
+
+If you don’t have passbolt installed please check on the hosting section for more information on how to install passbolt on debian.
+
+If you have already installed passbolt then you want to execute the following command to start the configuration process for SSL:
+
+<CodeBlock>
+    {`sudo dpkg-reconfigure passbolt-${props.productName.toLowerCase()}-server`}
+</CodeBlock>
+
+You most likely want to say ‘NO’ to the mariadb/mysql setup question and go for the nginx setup
+
+You should select 'YES' for the nginx setup:
+<>
+{props.productName == 'PRO' && (
+  <Figure
+    size={{ width: '450px', height: 'auto' }}
+    src="https://help.passbolt.com/assets/img/help/2020/05/debian-package/configure_nginx_pro.png"      
+    alt="Nginx configuration message"
+    caption="fig. Nginx configuration message"
+  />
+  )}
+{props.productName == 'CE' && (
+  <Figure 
+    size={{ width: '450px', height: 'auto' }}
+    src="https://help.passbolt.com/assets/img/help/2020/05/debian-package/configure_nginx.png"      
+    alt="Nginx configuration message"
+    caption="fig. Nginx configuration message"
+  />
+  )}
+</>
+
+
+Choose ‘manual’ for the SSL setup method:
+<>
+{props.productName == 'PRO' && (
+  <Figure
+    size={{ width: '450px', height: 'auto' }}
+    src="https://help.passbolt.com/assets/img/help/2020/09/debian-package/ssl_method_select_pro.png"      
+    alt="SSL method selection"
+    caption="fig. SSL method selection"
+  />
+  )}
+{props.productName == 'CE' && (
+  <Figure 
+    size={{ width: '450px', height: 'auto' }}
+    src="https://help.passbolt.com/assets/img/help/2020/09/debian-package/ssl_method_select.png"      
+    alt="SSL method selection"
+    caption="fig. SSL method selection"
+  />
+  )}
+</>
+ 
+
+Provide the domain name you plan to use for your passbolt server. On this example and as we are using a self-signed certificate the domain name is not as important as if you are planning to use a proper SSL certificate. In the later escenario DNS domain name and SSL domain name must match.
+<>
+{props.productName == 'PRO' && (
+  <Figure
+    size={{ width: '450px', height: 'auto' }}
+    src="https://help.passbolt.com/assets/img/help/2020/09/debian-package/ssl_domain_pro.png"      
+    alt="Domain for nginx setup"
+    caption="fig. Domain for nginx setup"
+  />
+  )}
+{props.productName == 'CE' && (
+  <Figure 
+    size={{ width: '450px', height: 'auto' }}
+    src="https://help.passbolt.com/assets/img/help/2020/09/debian-package/ssl_domain.png"      
+    alt="Domain for nginx setup"
+    caption="fig. Domain for nginx setup"
+  />
+  )}
+</>
+ 
+
+Provide the full path of the SSL certificate you created on previous steps: `cert.pem`
+<>
+{props.productName == 'PRO' && (
+  <Figure
+    size={{ width: '450px', height: 'auto' }}
+    src="https://help.passbolt.com/assets/img/help/2020/09/debian-package/ssl_cert_pro.png"      
+    alt="SSL certificate path"
+    caption="fig. SSL certificate path"
+  />
+  )}
+{props.productName == 'CE' && (
+  <Figure 
+    size={{ width: '450px', height: 'auto' }}
+    src="https://help.passbolt.com/assets/img/help/2020/09/debian-package/ssl_cert.png"      
+    alt="SSL certificate path"
+    caption="fig. SSL certificate path"
+  />
+  )}
+</>
+ 
+
+Now provide the full path of the SSL key: `key.pem`
+<>
+{props.productName == 'PRO' && (
+  <Figure
+    size={{ width: '450px', height: 'auto' }}
+    src="https://help.passbolt.com/assets/img/help/2020/09/debian-package/key_ssl_pro.png"      
+    alt="SSL private key path"
+    caption="fig. SSL private key path"
+  />
+  )}
+{props.productName == 'CE' && (
+  <Figure 
+    size={{ width: '450px', height: 'auto' }}
+    src="https://help.passbolt.com/assets/img/help/2020/09/debian-package/key_ssl.png"      
+    alt="SSL private key path"
+    caption="fig. SSL private key path"
+  />
+  )}
+</>
+
+Keep in mind that you might need to add DNS records to reach your domain on your local network or in a public DNS provider.
+
+<NginxSuccess />

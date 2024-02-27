@@ -1,0 +1,26 @@
+import CodeBlock from "/src/components/CodeBlock/CodeBlock";
+
+## Edit nginx configuration file
+
+By default, our nginx configuration file ensure all domain names will match with our passbolt virtual machine but to obtain a valid Let’s Encrypt SSL certificate, you will have to manually set your passbolt domain name.
+
+Open `/etc/nginx/sites-enabled/nginx-passbolt.conf` and search for this line:
+
+<CodeBlock>
+    {`server_name _;`}
+</CodeBlock>
+
+Replace the underscore with your passbolt domain name:
+
+<CodeBlock>
+    {`server_name passbolt.domain.tld;`}
+</CodeBlock>
+
+## Reconfigure passbolt
+
+Execute this command:
+
+<CodeBlock>
+    {`sudo dpkg-reconfigure passbolt-${props.productName.toLowerCase()}-server`}
+</CodeBlock>
+You most likely want to say ‘NO’ to the mariadb/mysql setup question and go for the nginx setup

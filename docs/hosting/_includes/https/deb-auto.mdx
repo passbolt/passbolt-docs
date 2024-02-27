@@ -1,0 +1,23 @@
+import Figure from '@site/src/components/Figure/Figure';
+import CodeBlock from "/src/components/CodeBlock/CodeBlock";
+import HTTPSWarning from '/docs/hosting/_includes/warning/_https-url-change.mdx';
+import LetsEncryptWarning from '/docs/hosting/_includes/warning/_https-valid-domain.mdx'
+import SubDirectoryWarning from '/docs/hosting/_includes/warning/_subdirectory-https-warning.mdx'
+
+
+<HTTPSWarning />
+<LetsEncryptWarning />
+<SubDirectoryWarning />
+
+
+### Install or reconfigure passbolt
+
+If you don’t have passbolt installed please check on the hosting section for more information on how to install passbolt on debian.
+
+If you have already installed passbolt then you want to execute the following command to start the configuration process for SSL:
+
+<CodeBlock>
+    {`sudo dpkg-reconfigure passbolt-${props.productName.toLowerCase()}-server`}
+</CodeBlock>
+
+You most likely want to say ‘NO’ to the mariadb/mysql setup question and go for the nginx setup

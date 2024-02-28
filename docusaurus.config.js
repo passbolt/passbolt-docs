@@ -57,7 +57,7 @@ const config = {
           showLastUpdateTime: true,
           showLastUpdateAuthor: false,
           editUrl:
-            'https://github.com/passbolt/passbolt-docs',
+            'https://github.com/passbolt/passbolt-docs/blob/main',
         },
         blog: false,
         theme: {

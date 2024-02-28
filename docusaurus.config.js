@@ -139,6 +139,13 @@ const config = {
             position: 'left',
             label: 'Hosting guide',
           },
+          {
+            type: 'docSidebar',
+            href: '/admin/user-provisioning',
+            sidebarId: 'hostingGuideSidebar',
+            position: 'left',
+            label: 'Admin guide',
+          },
           // {
           //   type: 'docSidebar',
           //   sidebarId: 'developerGuideSidebar',

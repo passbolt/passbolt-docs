@@ -1,0 +1,54 @@
+---
+title: Configure Email authentication with Mailgun
+description: Configuration of the authentication methods that is used with SMTP for Mailgun
+sidebar_label: Mailgun
+---
+import Figure from '/src/components/Figure/Figure';
+import EmailServerConfigurationIntroduction from '/docs/admin/_includes/email/email-server/introduction.mdx';
+import TestYourEmailConfiguration from '/docs/admin/_includes/email/email-server/test-your-email-configuration.mdx';
+
+<EmailServerConfigurationIntroduction/>
+
+## Mailgun
+
+- Administration panel
+
+When you are using Mailgun, once logged in, you will be automatically redirected to the administration panel dashboard.
+
+<Figure
+  src="/img/help/2023/02/smtp-mailgun-credentials-panel.png"
+  caption="Mailgun - SMTP Credentials Panel"
+  alt="Mailgun - SMTP Credentials Panel"
+/>
+
+You will need to navigate to *Sending > Overview*.
+
+- Create your SMTP Credentials
+
+On this page you will find the SMTP hostname, port, username, and default password that you will need to set up SMTP authentication for your email sending requests.
+
+Mailgun provides a dedicated page for managing your SMTP credentials. To access this page, you can click on the "SMTP Credentials" link located in the "SMTP" section. Here you can create new SMTP credentials by clicking on the "Add New SMTP Credential" button.
+
+<Figure
+  src="/img/help/2023/02/smtp-mailgun-credentials-example.png"
+  caption="Mailgun - SMTP Credentials"
+  alt="Mailgun - SMTP Credentials"
+/>
+
+When you create new SMTP credentials on Mailgun, the platform will generate a unique password consisting of 50 random characters. You can use this password to authenticate your email sending requests through the Mailgun SMTP servers.
+
+It's important to keep your Mailgun SMTP credentials secure, as they can be used to send emails from your account. You should never share your password or username with anyone, and you should take steps to protect your account from unauthorized access.
+
+- Authentication on Passbolt GUI
+
+On your Passbolt instance, you can navigate to *Administration > Email server*.
+
+<Figure
+  src="/img/help/2023/02/smtp-mailgun-authentication.png"
+  caption="Passbolt - Email authentication"
+  alt="Passbolt - Email authentication"
+/>
+
+You will need to fill in your smtp credentials to match your authentication method (username & password).
+
+<TestYourEmailConfiguration/>

@@ -1,0 +1,33 @@
+---
+title: Configure Email authentication with AWS SES
+description: Configuration of the authentication methods that is used with SMTP for AWS SES
+sidebar_label: AWS SES
+---
+import EmailServerConfigurationIntroduction from '/docs/admin/_includes/email/email-server/introduction.mdx';
+import TestYourEmailConfiguration from '/docs/admin/_includes/email/email-server/test-your-email-configuration.mdx';
+
+<EmailServerConfigurationIntroduction/>
+
+## AWS SES
+
+- Navigate through your AWS Management Console
+
+You'll see the navigation panel on the left-hand side of the screen.
+
+When you are on the navigation panel, you will need to navigate to *Email Sending > SMTP Settings*.
+
+- Create your SMTP Credentials
+
+Once you are on the SMTP Settings page, you can click on the "Create SMTP Credentials" button to begin the process. When prompted, you can either accept the default name for your credentials or choose a custom name that is easy for you to remember, such as "Passbolt".
+
+Once you have selected a name for your credentials, AWS SES will generate a set of SMTP credentials that you can use to authenticate your email sending requests. These credentials will consist of an SMTP username and password.
+
+To download your newly created SMTP credentials, simply click on the "Download Credentials" button. This will download a file containing your SMTP username and password. It's important to keep this file safe and secure, as it contains sensitive information that can be used to send emails from your account.
+
+- Authentication on Passbolt GUI
+
+On your Passbolt instance, you can navigate to *Administration > Email server*.
+
+You will need to fill in your smtp credentials to match your authentication method (username & password).
+
+<TestYourEmailConfiguration/>

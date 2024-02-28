@@ -1,0 +1,54 @@
+---
+title: Configure Email authentication with Zoho
+description: Configuration of the authentication methods that is used with SMTP for Zoho
+sidebar_label: Zoho
+---
+import Figure from '/src/components/Figure/Figure';
+import EmailServerConfigurationIntroduction from '/docs/admin/_includes/email/email-server/introduction.mdx';
+import TestYourEmailConfiguration from '/docs/admin/_includes/email/email-server/test-your-email-configuration.mdx';
+
+<EmailServerConfigurationIntroduction/>
+
+## Zoho
+
+- Administration panel
+
+You will need to navigate to your ZohoMail administration panel, in order to do that you can click on the gear icon located in the top-right corner of the screen. A drop-down menu will appear with several options, please click on the "Control Panel" to access the Zoho administration panel
+
+<Figure
+  src="/img/help/2023/02/smtp-zoho-credentials-panel.png"
+  caption="Zoho - SMTP Credentials Panel"
+  alt="Zoho - SMTP Credentials Panel"
+/>
+
+You will need to navigate to *Security > App password*.
+
+- Create your SMTP Credentials
+
+You will be prompt to generate a name for the "App password", we recommend to use "Passbolt".
+
+Then, you will need to click on "Generate" and a random application password will be generated.
+
+<Figure
+  src="/img/help/2023/02/smtp-zoho-credentials-example.png"
+  caption="Zoho - SMTP Credentials"
+  alt="Zoho - SMTP Credentials"
+/>
+
+Please, be sure to save this password as you will need it to authenticate on the Passbolt GUI.
+
+Your SMTP username should be the Zoho account email address and your SMTP password is the application password that has been generated previously.
+
+- Authentication on Passbolt GUI
+
+On your Passbolt instance, you can navigate to *Administration > Email server*.
+
+<Figure
+  src="/img/help/2023/02/smtp-zoho-authentication.png"
+  caption="Passbolt - Email authentication"
+  alt="Passbolt - Email authentication"
+/>
+
+You will need to fill in your smtp credentials to match your authentication method (username & password).
+
+<TestYourEmailConfiguration/>

@@ -1,0 +1,52 @@
+---
+title: Configure Email authentication with Mailjet
+description: Configuration of the authentication methods that is used with SMTP for Mailjet
+sidebar_label: Mailjet
+---
+import Figure from '/src/components/Figure/Figure';
+import EmailServerConfigurationIntroduction from '/docs/admin/_includes/email/email-server/introduction.mdx';
+import TestYourEmailConfiguration from '/docs/admin/_includes/email/email-server/test-your-email-configuration.mdx';
+
+<EmailServerConfigurationIntroduction/>
+
+## Mailjet
+
+- Administration panel
+
+When you are using Mailjet, once logged in, you will be automatically redirected to the administration panel dashboard.
+
+<Figure
+  src="/img/help/2023/02/smtp-mailjet-credentials-panel.png"
+  caption="Mailjet - SMTP Credentials Panel"
+  alt="Mailjet - SMTP Credentials Panel"
+/>
+
+You will need to navigate to *Senders & Domains > SMTP & SEND API Settings*.
+
+- Create your SMTP Credentials
+
+Mailjet provides a dedicated page for managing your API keys. You can create a new API key by selecting the "SMTP & API Keys" option from the dashboard, clicking on the "Create a new API Key" button, and then following the prompts.
+
+<Figure
+  src="/img/help/2023/02/smtp-mailjet-credentials-example.png"
+  caption="Mailjet - SMTP Credentials"
+  alt="Mailjet - SMTP Credentials"
+/>
+
+When you create a new API key on Mailjet, the platform will generate a unique key pair consisting of a public API key and a secret key. The public API key can be used as the SMTP username for your email sending requests, while the secret key can be used as the SMTP password.
+
+It's important to keep your Mailjet API keys secure, as they can be used to access your Mailjet account and send emails from your account. You should never share your secret key or public API key with anyone, and you should take steps to protect your account from unauthorized access.
+
+- Authentication on Passbolt GUI
+
+On your Passbolt instance, you can navigate to *Administration > Email server*.
+
+<Figure
+  src="/img/help/2023/02/smtp-mailjet-authentication.png"
+  caption="Passbolt - Email authentication"
+  alt="Passbolt - Email authentication"
+/>
+
+You will need to fill in your smtp credentials to match your authentication method (username & password).
+
+<TestYourEmailConfiguration/>

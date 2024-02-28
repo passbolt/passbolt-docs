@@ -141,7 +141,7 @@ const config = {
           },
           {
             type: 'docSidebar',
-            href: '/admin',
+            href: '/admin/user-provisioning',
             sidebarId: 'hostingGuideSidebar',
             position: 'left',
             label: 'Admin guide',

@@ -1,0 +1,234 @@
+---
+title: Email Notifications
+sidebar_label: Email Notifications
+description: Email Notifications
+hide_table_of_contents: false
+---
+
+import CodeBlock from "/src/components/CodeBlock/CodeBlock";
+import Figure from '/src/components/Figure/Figure';
+
+### How to configure email notification settings for your organization
+Some actions in passbolt, such as a user sharing a password with someone else, trigger an email notification.
+As passbolt admin, you can control which events result in an email notification and which events are ignored.
+Similarly you can control whether or not a piece of information is included in those notification emails.
+
+## Passbolt events that trigger email notification
+<table>
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>Recipients</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>When a comment is posted on a password.</td><td>All the users having access to the given password.</td></tr>
+    <tr><td>When a password is created.</td><td>The user creating the password.</td></tr>
+    <tr><td>When a password is shared.</td><td>	The users gaining access to the given password.</td></tr>
+    <tr><td>When a password is updated.</td><td>	All the users having access to the given password.</td></tr>
+    <tr><td>When a password is deleted.</td><td>	All the users who had access to the given password.</td></tr>
+    <tr><td>When a new user is invited.</td><td>	The invited user.</td></tr>
+    <tr><td>When users try to recover their passbolt account.</td><td>	The user trying to recover their account.</td></tr>
+    <tr><td>When a group is deleted.</td><td>	Group's members.</td></tr>
+    <tr><td>A user is added to a group.</td><td>	The user getting added.</td></tr>
+    <tr><td>A user is removed from a group.</td><td>	The user getting removed.</td></tr>
+    <tr><td>When user roles change in a group.</td><td>	The affected users.</td></tr>
+    <tr><td>When members of a group change.</td><td>	The group's managers.</td></tr>
+  </tbody>
+</table>
+
+## Information that can be shown/hidden from the outgoing emails.
+<table>
+  <thead>
+    <tr>
+      <th>Config</th>
+      <th>Show / Hide</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Username</td><td>Resource username</td></tr>
+    <tr><td>URI</td><td>	Resource URI/URL</td></tr>
+    <tr><td>Encrypted Secret</td><td>	PGP encrypted password</td></tr>
+    <tr><td>Description</td><td>	Resource description</td></tr>
+    <tr><td>Comment</td><td>	Comment content</td></tr>
+  </tbody>
+</table>
+
+### Default behavior
+By default all the settings are `true` which means all the notifications are set to be broadcasted and all the
+information blocks are set to be shown.
+
+## Configuring Email Notification Settings
+You can configure email notification settings using either the admin interface, config files or environment variables.
+If multiple settings providers are used the settings in the admin interface will override the one used in files.
+Similarly the settings in files will override environment variables.
+
+## Using admin user interface
+Since v2.10 a user interface is provided for administrators to setup email notification settings. Click on “administration” in the top menu, then “Email Notifications” on the left menu.
+
+The settings are divided into two sections.
+
+### Email Delivery
+These settings control whether or not an email is sent on a given event.
+
+<Figure
+  src={
+    '/img/help/2019/05/AD_email_notification_send_settings.png'
+  }
+  caption="fig. Email Notification Settings - Email Delivery"
+  alt="Email Notification Settings - Email Delivery"
+/>
+
+
+### Email content visibility
+These settings control whether a piece of information is included in the emails sent.
+
+<Figure
+  src={
+    '/img/help/2019/05/AD_email_notification_show_settings.png'
+  }
+  caption="fig. Email Notification Settings - Email Content Visibility"
+  alt="Email Notification Settings - Email Content Visibility"
+/>
+
+## Using Environment variables
+You can use the following environment variables to control the email delivery settings.
+They are all boolean and accepts 1 or 0. Setting the variable to 1 (one) will mean that email will be sent for that
+event and setting it 0 (zero) will ignore the event.
+
+<table>
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>Environment variable</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>When a comment is posted on a password	</td><td>PASSBOLT_EMAIL_SEND_COMMENT_ADD</td></tr>
+    <tr><td>When a password is created	</td><td>PASSBOLT_EMAIL_SEND_PASSWORD_CREATE</td></tr>
+    <tr><td>When a password is shared	</td><td>PASSBOLT_EMAIL_SEND_PASSWORD_SHARE</td></tr>
+    <tr><td>When a password is updated	</td><td>PASSBOLT_EMAIL_SEND_PASSWORD_UPDATE</td></tr>
+    <tr><td>When a password is deleted	</td><td>PASSBOLT_EMAIL_SEND_PASSWORD_DELETE</td></tr>
+    <tr><td>When a new user is invited	</td><td>PASSBOLT_EMAIL_SEND_USER_CREATE</td></tr>
+    <tr><td>When users try to recover their passbolt account	</td><td>PASSBOLT_EMAIL_SEND_USER_RECOVER</td></tr>
+    <tr><td>When a group is deleted	</td><td>PASSBOLT_EMAIL_SEND_GROUP_DELETE</td></tr>
+    <tr><td>A user is added to a group	</td><td>PASSBOLT_EMAIL_SEND_GROUP_USER_ADD</td></tr>
+    <tr><td>A user is removed from a group	</td><td>PASSBOLT_EMAIL_SEND_GROUP_USER_DELETE</td></tr>
+    <tr><td>When user roles change in a group	</td><td>PASSBOLT_EMAIL_SEND_GROUP_USER_UPDATE</td></tr>
+    <tr><td>When members of a group change	</td><td>PASSBOLT_EMAIL_SEND_GROUP_MANAGER_UPDATE</td></tr>
+    <tr><td>When a folder is created, notify its creator	</td><td>PASSBOLT_EMAIL_SEND_FOLDER_CREATED</td></tr>
+    <tr><td>When a folder is updated, notify the users who have access to it	</td><td>PASSBOLT_EMAIL_SEND_FOLDER_UPDATED</td></tr>
+    <tr><td>When a folder is deleted, notify the users who had access to it	</td><td>PASSBOLT_EMAIL_SEND_FOLDER_DELETED</td></tr>
+    <tr><td>When a folder is shared, notify the users who gain access to it	</td><td>PASSBOLT_EMAIL_SEND_FOLDER_SHARE_CREATED</td></tr>
+    <tr><td>When permissions on a folder are removed, notify the users who lost access to it	</td><td>PASSBOLT_EMAIL_SEND_FOLDER_SHARE_DROPPED</td></tr>
+  </tbody>
+</table>
+
+
+Similarly, for changing the email content visibility, you can use the following environment variables . They are all boolean and accepts 1 or 0. Setting the variable to 1 (one) will mean that information will be included in outgoing mails and setting it to 0 (zero) will result in not including that.
+
+<table>
+  <thead>
+    <tr>
+      <th>Show/Hide</th>
+      <th>Environment variable</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Resource username	</td><td>PASSBOLT_EMAIL_SHOW_USERNAME</td></tr>
+    <tr><td>Resource URI/URL	</td><td>PASSBOLT_EMAIL_SHOW_URI</td></tr>
+    <tr><td>PGP encrypted password	</td><td>PASSBOLT_EMAIL_SHOW_SECRET</td></tr>
+    <tr><td>Resource description	</td><td>PASSBOLT_EMAIL_SHOW_DESCRIPTION</td></tr>
+    <tr><td>Comment content	</td><td>PASSBOLT_EMAIL_SHOW_COMMENT</td></tr>
+  </tbody>
+</table>
+
+When using docker to set these environment variable you can pass them as arguments, like other variables
+such as the database name, for example:
+
+<CodeBlock>
+{
+  `$ docker run --name passbolt \\
+             -p 80:80 \\
+             -p 443:443 \\
+             -e PASSBOLT_EMAIL_SHOW_COMMENT=0 \\
+             -e PASSBOLT_EMAIL_SHOW_DESCRIPTION=0 \\
+             -e PASSBOLT_EMAIL_SEND_COMMENT_ADD=0 \\
+             -e PASSBOLT_EMAIL_SEND_PASSWORD_CREATE=0 \\`
+}
+</CodeBlock>
+
+## Using config file
+Email notification settings can also be managed by updating the config/passbolt.php file in your install directory.
+These settings live in the email key under passbolt.
+
+<CodeBlock>
+{
+  `'passbolt' => [
+    'email' => [
+        // For Email Delivery configs
+        'send' => [
+            'comment' => [
+              'add' => false
+            ],
+            'password' => [
+              'create' => false
+            ]
+        ],
+        // For content visibility configs
+        'show' => [
+            'comment' => false,
+            'description' => false
+        ]
+    ]
+]`
+}
+</CodeBlock>
+If a config variable does not exist in your config file, it’s default value will be picked.
+
+You can use the following config variables to control the email delivery settings. They are all boolean and accepts
+`true` or `false`. Setting the variable to `true` will mean that email will be sent for that event and setting it `false`
+will ignore the event.
+
+<table>
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>Config variable</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>When a comment is posted on a password	</td><td>passbolt.email.send.comment.add</td></tr>
+    <tr><td>When a password is created	</td><td>passbolt.email.send.password.create</td></tr>
+    <tr><td>When a password is shared	</td><td>passbolt.email.send.password.share</td></tr>
+    <tr><td>When a password is updated	</td><td>passbolt.email.send.password.update</td></tr>
+    <tr><td>When a password is deleted	</td><td>passbolt.email.send.password.delete</td></tr>
+    <tr><td>When a new user is invited	</td><td>passbolt.email.send.user.create</td></tr>
+    <tr><td>When users try to recover their passbolt account	</td><td>passbolt.email.send.user.recover</td></tr>
+    <tr><td>When a group is deleted	</td><td>passbolt.email.send.group.delete</td></tr>
+    <tr><td>When a user is added to a group	</td><td>passbolt.email.send.group.user.add</td></tr>
+    <tr><td>When a user is removed from a group	</td><td>passbolt.email.send.group.user.delete</td></tr>
+    <tr><td>When user roles change in a group	</td><td>passbolt.email.send.group.user.update</td></tr>
+    <tr><td>When members of a group change	</td><td>passbolt.email.send.group.manager.update</td></tr>
+  </tbody>
+</table>
+
+Similarly, for changing the email content visibility, you can use the following config variables .
+They are all boolean and accepts `true` or `false`. Setting the variable to `true` will mean that information will be
+included in outgoing mails and setting it to `false` will result in not including that.
+
+<table>
+  <thead>
+    <tr>
+      <th>Show/Hide</th>
+      <th>Variable name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Resource username	</td><td>passbolt.email.show.username</td></tr>
+    <tr><td>Resource URI/URL	</td><td>passbolt.email.show.uri</td></tr>
+    <tr><td>PGP encrypted password	</td><td>passbolt.email.show.secret</td></tr>
+    <tr><td>Resource description	</td><td>passbolt.email.show.description</td></tr>
+    <tr><td>Comment content	</td><td>passbolt.email.show.comment</td></tr>
+  </tbody>
+</table>

@@ -1,0 +1,105 @@
+---
+title: How to configure passbolt to use Yubikey
+sidebar_label: Yubikey
+description: How to configure YubiKey with Passbolt
+hide_table_of_contents: false
+---
+
+import Figure from '@site/src/components/Figure/Figure';
+
+Passbolt Pro Edition since v2.5 and CE since v3.9 support Yubikeys and more precisely Yubico OTP as a multi factor authentication option.
+
+Yubico OTP is a simple authentication mechanism that is supported by all YubiKeys out of the box and it can be used in addition to another authentication method (such as username and password).
+
+<Figure
+  src="/img/help/2018/11/mfa-yubikey-login.jpg"
+  alt="Using a Yubikey at login"
+  caption="fig. Using a Yubikey at login"
+/>
+
+:::important
+Please note than only [Yubikey 5 Series](https://www.yubico.com/products/yubikey-5-overview/) are supported. [Security Keys](https://www.yubico.com/products/security-key/) with FIDO2/U2F/WebAuthN support are currently not supported.
+:::
+:::important
+Multi Factor Authentication requires HTTPS to work.
+:::
+
+## Security considerations
+
+When using Yubikey as a form of multi-factor authentication, it is recommended to set up at least one additional multi-factor authentication method as a backup. Should users lose their Yubikeys, this measure guarantees that users can continue to access their accounts despite the malfunction of one authentication method.
+
+Another key point to consider is that Passbolt verifies whether the key ID used during a login attempt matches the one used at setup. If a user needs to change their key, the second factor must be disabled in advance, either by the user in their User Profile or by an administrator in the Users workspace, especially if the device is lost.
+
+## Register to YubiCloud
+
+In order to use YubiKey to authenticate to passbolt you first need get an API key for YubiCloud, Yubico’s web service for verifying one time passwords (OTPs).
+
+Navigate to [upgrade.yubico.com](https://upgrade.yubico.com/getapikey) and signup to the service using your email and your Yubikey.
+
+Please note that it is no longer possible to [host yourself the OTP validation server](https://support.yubico.com/hc/en-us/articles/360021227000-YK-VAL-YK-KSM-and-YubiHSM-1-End-of-Life).
+
+<Figure
+  src="/img/help/2018/11/mfa-yubikey-admin.png"
+  alt="Signup to YubiCloud"
+  caption="fig. Signup to YubiCloud"
+/>
+
+## Allow connections to YubiCloud
+
+To authenticate with Yubikey, passbolt will establish a connection with the YubiCloud service. Make sure that the passbolt server allows outgoing connections to the following domains:
+
+- api.yubico.com
+- api2.yubico.com
+- api3.yubico.com
+- api4.yubico.com
+- api5.yubico.com
+
+Please note that one or more of these domains may be used to try to validate an OTP.
+
+## Enable Yubikey access
+
+Yubikey can be set up through either the administration interface or environment variables. Should both settings providers be utilized, the configurations made in the administration interface will take precedence over those specified by environment variables.
+
+### Enable Yubikey access via the interface
+
+To enable YubiKey via the interface, navigate to the multi-factor authentication administration page: *Administration > Multi Factor Authentication*.
+
+Subsequently, enable the "YubiKey" provider by moving the adjacent toggle to the on position and inputs the information provided by YubliCloud at the previous step. Ensure you save these modifications to activate the provider.
+
+<Figure
+  src="/img/help/2018/12/AD_mfa_org_settings_yubikey.png"
+  alt="Enable YubiKey in administration settings"
+  caption="fig. Enable YubiKey in administration settings"
+/>
+
+### Enable Yubikey access via environment variables
+
+If you are [using docker](/docs/hosting/install/ce/docker/), you can set these environment variables to enable YubiKey for your organization.
+
+| Variable name | Description | Type |
+| --- | --- | --- |
+| ASSBOLT_PLUGINS_MFA_YUBIKEY_SECRETKEY | YubiCloud secret key | string |
+| PASSBOLT_PLUGINS_MFA_YUBIKEY_CLIENTID | YubiCloud client id | integer |
+
+## Setup YubiKey as a user
+
+To setup YubiKey as multi-factor authentication method, navigate to the multi-factor authentication user settings page: *Avatar > Profil > Multi Factor Authentication*. Select the provider "YubiKey OTP" to continue.
+
+The next step will require you to plug your YubiKey and touch it to release a Yubico OTP. Then click on "Validate" to ensure it functions correctly and complete the setup.
+
+<Figure
+  src="/img/help/2024/02/yubikey-passbolt-user-setup.png"
+  alt="Register your Yubikey"
+  caption="fig. Register your Yubikey"
+/>
+
+## Authenticate with YubiKey
+
+After setting up YubiKey, each time you sign-in to Passbolt, you'll be prompted to plug your device and touch it to release a Yubico OTP. Additionally, if permitted by the "Multi-factor Authentication Policy", passbolt can remember your MFA authentication for a month.
+
+<Figure
+  src="/img/help/2024/02/yubikey-passbolt-user-authenticate.png"
+  alt="Authenticate with YubiKey"
+  caption="fig. Authenticate with YubiKey"
+size={{ width: '450px', height: 'auto' }}
+/>

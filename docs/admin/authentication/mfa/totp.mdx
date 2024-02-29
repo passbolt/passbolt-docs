@@ -1,0 +1,69 @@
+---
+title: How to configure passbolt to use TOTP
+sidebar_label: TOTP
+description: How to configure passbolt to use TOTP
+hide_table_of_contents: false
+---
+
+import Figure from '@site/src/components/Figure/Figure';
+
+Passbolt Pro Edition since v2.4 and CE since v3.9 support TOTP (Time-based One Time Password) as a multi factor authentication option.
+
+TOTP is a type of authentication method that generates a new, unique password at set intervals (such as every 30 seconds) to be used in addition to another authentication method (such as username and password).
+
+:::important
+Multi Factor Authentication requires HTTPS to work.
+:::
+
+## Security considerations
+
+When using Time-based One-Time Passwords (TOTP) as a form of multi-factor authentication, it is recommended to set up at least one additional multi-factor authentication method as a backup. Should the TOTP service experience downtime, this measure guarantees that users can continue to access their accounts despite the malfunction of one authentication method.
+
+Another consideration involves ensuring accurate time synchronization between the server and client devices. Without this, TOTP codes may not align, leading to authentication failures.
+
+## Install a TOTP application
+
+To use this authentication service, users must install an application that supports Time-Based One-Time Passwords (TOTP), such as Google Authenticator or FreeOTP. Throughout this page, we will focus on the Google Authenticator mobile application, compatible with smartphones and tablets.
+
+- [Google Authenticator for Android](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en&gl=US&pli=1) on google play store.
+- [Google Authenticator for iOS](https://apps.apple.com/us/app/google-authenticator/id388497605) on apple store.
+
+## Enable TOTP access
+
+To enable TOTP for the organization, navigate to the multi-factor authentication administration page: *Administration > Multi Factor Authentication*. Subsequently, enable the "Time-based One Time Password" provider by moving the adjacent toggle to the on position. Ensure you save these modifications to activate the provider.
+
+<Figure
+  src="/img/help/2023/01/totp-passbolt-admin-enable.png"
+  alt="Enable TOTP in Administration settings"
+  caption="fig. Enable TOTP in Administration settings"
+/>
+
+## Setup TOTP as a user
+
+To setup TOTP as multi-factor authentication method, navigate to the multi-factor authentication user settings page: *Avatar > Profil > Multi Factor Authentication*. Next, you should be able to select the provider "TOTP Authenticator".
+
+<Figure
+  src="/img/help/2023/01/totp-passbolt-user-enable.png"
+  alt="Setup TOTP as a user"
+  caption="fig. Setup TOTP as a user"
+/>
+
+Upon clicking on your provider, you will be presented with a short visual guide on how the feature operates, followed by an invitation to "Get Started!".
+
+<Figure
+  src="/img/help/2024/02/totp-passbolt-user-scan.png"
+  alt="Scan TOTP QR code"
+  caption="fig. Scan TOTP QR code"
+/>
+
+The next step will show a QR code that you can scan with the Google Authenticator app. This app will then produce a six-digit code that refreshes every 30 seconds. Input this code into Passbolt and click on "Validate" to ensure it functions correctly and complete the setup.
+
+## Authenticate with TOTP
+
+After setting up TOTP, each time you sign-in to Passbolt, you'll need to enter the six-digit code from the Google Authenticator app. Additionally, if permitted by the "Multi-factor Authentication Policy", passbolt can remember your MFA authentication for a month.
+
+<Figure
+  src="/img/help/2024/02/totp-passbolt-user-authenticate.png"
+  alt="Authenticate with TOTP"
+  caption="fig. Authenticate with TOTP"
+/>

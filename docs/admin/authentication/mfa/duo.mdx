@@ -1,0 +1,147 @@
+---
+title: How to configure passbolt to use Duo
+sidebar_label: Duo
+description: How to configure Duo with Passbolt
+hide_table_of_contents: false
+---
+
+import Figure from '@site/src/components/Figure/Figure';
+
+Passbolt Pro Edition since v2.5 and CE since v3.9 support Duo as a multi factor authentication option.
+
+Duo is a proprietary solution that is free for up to 10 users, and supports a bundle of authentication channels (such as HOTP, mobile push, phone calls, etc.) configurable by the Duo account administrator. Duo can be used in addition to another authentication method (such as username and password).
+
+<Figure
+  src="/img/help/2023/02/mfa-duo-website.png"
+  alt="Duo website"
+  caption="fig. Duo website"
+/>
+
+:::important
+Multi Factor Authentication requires HTTPS to work.
+:::
+
+## Security considerations
+
+When using Duo as a form of multi-factor authentication, it is recommended to set up at least one additional multi-factor authentication method as a backup. Should the Duo service experience downtime, this measure guarantees that users can continue to access their accounts despite the malfunction of one authentication method.
+
+In order to authenticate using Duo, the user will be redirected to Duo’s authentication page. Whether the authentication was successful, the user will be redirected back to passbolt. Make sure your users have access to internet or do not enable this authentication provider if you are running passbolt on a private network that is not connected to internet.
+
+## Install Duo app
+
+To use this authentication service, users will need to have either:
+
+- [Duo Mobile for Android](https://play.google.com/store/apps/details?id=com.duosecurity.duomobile&hl=en) on google play store.
+- [Duo Mobile for iOS](https://itunes.apple.com/us/app/duo-mobile/id422663827?mt=8) on apple itunes.
+- TouchID fingerprint reader on MacOS laptops
+- A security key
+- A physical token
+- A network administrator
+
+:::info
+Visit the [Duo authentication methods page](https://duo.com/product/multi-factor-authentication-mfa/authentication-methods) for more information.
+:::
+
+## Register to Duo
+
+To allow users to authenticate via Duo in Passbolt, you must first obtain Duo application credentials by creating a Web SDK application for Passbolt within Duo.
+
+### Register Duo admin account
+
+If you do not have a Duo administrator account yet, start by registering at [https://signup.duo.com/](https://signup.duo.com/).
+
+### Get Duo application credentials
+
+Sign-in to the Duo Admin panel at [https://admin.duosecurity.com/login](https://admin.duosecurity.com/login) and navigate to the applications management administration page: *Left sidebar > Applications*.
+
+<Figure
+src="/img/help/2023/02/mfa-duo-application.png"
+alt="Manage Duo admin applications"
+caption="fig. Manage Duo admin applications"
+/>
+
+Click on "Protect an application" then find the "Web SDK" application type in the proposed list and click on the adjacent "Protect" button.
+
+<Figure
+src="/img/help/2023/02/mfa-duo-admin.png"
+alt="Duo web sdk application for passbolt"
+caption="fig. Duo web sdk application for passbolt"
+/>
+
+Note down the "Client ID", "Client secret", and "API hostname" details, as it will be request to you later to configure the Duo integration in passbolt.
+
+## Enable Duo access
+
+Duo can be set up through either the administration interface or environment variables. Should both settings providers be utilized, the configurations made in the administration interface will take precedence over those specified by environment variables.
+
+### Generate a salt
+
+:::info
+Required only for passbolt server < 3.11.
+:::
+
+Generating a random salt to configure Duo is mandatory, a salt is a random piece of data that is generated and used in the hashing process to protect sensitive information. It is generated and combined with the secret key before hashing it.
+
+To generate a random salt, you can use the passbolt interface, generate a new password as shown below and use it as the generated salt.
+
+<Figure
+src="/img/help/2023/05/password-generator.png"
+alt="Generate a salt with passbolt password generator"
+caption="fig. Generate a salt with passbolt password generator"
+size={{ width: '450px', height: 'auto' }}
+/>
+
+### Enable Duo access via the interface
+
+To enable Duo via the interface, navigate to the multi-factor authentication administration page: *Administration > Multi Factor Authentication*.
+
+Subsequently, enable the "Duo" provider by moving the adjacent toggle to the on position and inputs the information provided by Duo at the previous step. Ensure you save these modifications to activate the provider.
+
+<Figure
+src="/img/help/2023/02/AD_mfa_org_settings_duo.png"
+alt="Enable Duo in administration settings"
+caption="fig. Enable Duo in administration settings"
+/>
+
+### Enable Duo access via environment variables
+
+If you are [using docker](/docs/hosting/install/ce/docker/), you can set these environment variables to enable Duo for your organization.
+
+| Variable name | Description | Type |
+| --- | --- | --- |
+| PASSBOLT_PLUGINS_MFA_DUO_CLIENT_ID | Client ID | string |
+| PASSBOLT_PLUGINS_MFA_DUO_CLIENT_SECRET | Client Secret | string |
+| PASSBOLT_PLUGINS_MFA_DUO_API_HOSTNAME | API Hostname | string |
+
+## Setup Duo as a user
+
+To setup Duo as multi-factor authentication method, navigate to the multi-factor authentication user settings page: *Avatar > Profil > Multi Factor Authentication*. Select the provider "Duo MFA" to continue.
+
+The next step will require you to start the Duo authentication process. Click on "Sign-in" when you are ready.
+
+<Figure
+src="/img/help/2023/02/mfa-duo-setup-welcome.png"
+alt="Duo welcome screen"
+caption="fig. Duo welcome screen"
+size={{ width: '450px', height: 'auto' }}
+/>
+
+If this is the first time you are using Duo with this user and this server, you will be asked to link one or more device(s) to Duo to authenticate with.
+
+<Figure
+src="/img/help/2023/02/mfa-duo-setup-options.png"
+alt="Duo authentication options"
+caption="fig. Duo authentication options"
+size={{ width: '450px', height: 'auto' }}
+/>
+
+## Authenticate with Duo
+
+After setting up Duo, each time you sign-in to Passbolt, you'll be prompted to plug authenticate with the method you have chosen during the setup. Additionally, if permitted by the "Multi-factor Authentication Policy", passbolt can remember your MFA authentication for a month.
+
+<Figure
+src="/img/help/2023/02/mfa-duo-login.png"
+alt="Authenticate with Duo"
+caption="fig. Authenticate with Duo"
+size={{ width: '450px', height: 'auto' }}
+/>

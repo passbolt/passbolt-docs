@@ -255,7 +255,7 @@ const config = {
       },
       prism: {
         darkTheme: prismThemes.vsDark,
-        additionalLanguages: ['bash'],
+        additionalLanguages: ['bash', 'php'],
       },
     }),
   themes: [

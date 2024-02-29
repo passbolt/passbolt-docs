@@ -1,0 +1,17 @@
+[
+  {
+    "name": "DUO",
+    "slug": "duo",
+    "logo": "/img/mfa-providers/duo.svg"
+  },
+  {
+    "name": "Yubikey",
+    "slug": "yubikey",
+    "logo": "/img/mfa-providers/yubikey.svg"
+  },
+  {
+    "name": "TOTP",
+    "slug": "totp",
+    "logo": "/img/mfa-providers/google-authenticator.svg"
+  }
+]

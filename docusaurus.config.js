@@ -134,14 +134,14 @@ const config = {
           },
           {
             type: 'docSidebar',
-            href: '/hosting/install',
+            href: '/hosting',
             sidebarId: 'hostingGuideSidebar',
             position: 'left',
             label: 'Hosting guide',
           },
           {
             type: 'docSidebar',
-            href: '/admin/user-provisioning',
+            href: '/admin',
             sidebarId: 'hostingGuideSidebar',
             position: 'left',
             label: 'Admin guide',

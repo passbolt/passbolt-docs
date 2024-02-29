@@ -2,247 +2,67 @@
   "name": "user",
   "type": "folder",
   "children": [
-      {
-          "name": "contribute",
-          "type": "folder",
-          "children": [
-              {
-                  "name": "code-of-conduct",
-                  "type": "file"
-              },
-                      {
-                  "name": "code-contribution",
-                  "type": "file"
-              },
-                      {
-                  "name": "support-us",
-                  "type": "file"
-              },
-                      {
-                  "name": "bug-report",
-                  "type": "file"
-              },
-                      {
-                  "name": "design-contribution",
-                  "type": "file"
-              },
-                      {
-                  "name": "translation",
-                  "type": "file"
-              },
-                      {
-                  "name": "feature-request",
-                  "type": "file"
-              },
-                      {
-                  "name": "financial-contribution",
-                  "type": "file"
-              }
-          ]
-      },
-      {
-          "name": "start",
-          "type": "folder",
-          "children": [
-              {
-                  "name": "profile-picture",
-                  "type": "file"
-              },
-                      {
-                  "name": "share-passwords",
-                  "type": "file"
-              },
-                      {
-                  "name": "update-subscription-key",
-                  "type": "file"
-              },
-                      {
-                  "name": "managing-your-favorites",
-                  "type": "file"
-              },
-                      {
-                  "name": "account-recover",
-                  "type": "file"
-              },
-                      {
-                  "name": "account-setup",
-                  "type": "file"
-              },
-                      {
-                  "name": "browser-extensions",
-                  "type": "file"
-              },
-                      {
-                  "name": "copy-to-clipboard",
-                  "type": "file"
-              },
-                      {
-                  "name": "password-basics",
-                  "type": "file"
-              },
-                      {
-                  "name": "disable-browser-built-in-password-manager",
-                  "type": "file"
-              },
-                      {
-                  "name": "tags",
-                  "type": "file"
-              },
-                      {
-                  "name": "import-passwords",
-                  "type": "file"
-              },
-                      {
-                  "name": "expired-registration-token",
-                  "type": "file"
-              },
-                      {
-                  "name": "roles-and-permissions",
-                  "type": "file"
-              },
-                      {
-                  "name": "roles-and-permissions-faq",
-                  "type": "file"
-              }
-          ]
-      },
-      {
-          "name": "discover",
-          "type": "folder",
-          "children": [
-              {
-                  "name": "browser-extension",
-                  "type": "file"
-              },
-                      {
-                  "name": "how-does-it-work",
-                  "type": "file"
-              },
-                      {
-                  "name": "what-is-passbolt",
-                  "type": "file"
-              },
-                      {
-                  "name": "why-do-i-need-passbolt",
-                  "type": "file"
-              },
-                      {
-                  "name": "how-is-different",
-                  "type": "file"
-              },
-                      {
-                  "name": "roadmap",
-                  "type": "file"
-              },
-                      {
-                  "name": "features-prioritization",
-                  "type": "file"
-              },
-                      {
-                  "name": "password-share",
-                  "type": "file"
-              },
-                      {
-                  "name": "where-can-i-login",
-                  "type": "file"
-              },
-                      {
-                  "name": "where-to-get-help",
-                  "type": "file"
-              }
-          ]
-      },
-      {
-          "name": "legal",
-          "type": "folder",
-          "children": [
-              {
-                  "name": "commercial-use",
-                  "type": "file"
-              },
-                      {
-                  "name": "how-to-sign-cla",
-                  "type": "file"
-              },
-                      {
-                  "name": "review-modify-share",
-                  "type": "file"
-              },
-                      {
-                  "name": "where-is-cla",
-                  "type": "file"
-              },
-                      {
-                  "name": "which-license",
-                  "type": "file"
-              },
-                      {
-                  "name": "why-cla",
-                  "type": "file"
-              }
-          ]
-      },
-      {
-          "name": "security",
-          "type": "folder",
-          "children": [
-              {
-                  "name": "authentication",
-                  "type": "file"
-              },
-                      {
-                  "name": "passphrase-update",
-                  "type": "file"
-              },
-                      {
-                  "name": "code-review",
-                  "type": "file"
-              },
-                      {
-                  "name": "compromised-secret-key",
-                  "type": "file"
-              },
-                      {
-                  "name": "encryption-tech",
-                  "type": "file"
-              },
-                      {
-                  "name": "how-to-extend-user-expired-key",
-                  "type": "file"
-              },
-                      {
-                  "name": "is-open-source-secure",
-                  "type": "file"
-              },
-                      {
-                  "name": "is-passbolt-secure",
-                  "type": "file"
-              },
-                      {
-                  "name": "javascript-security",
-                  "type": "file"
-              },
-                      {
-                  "name": "public-key-trust",
-                  "type": "file"
-              },
-                      {
-                  "name": "revocation-certificate",
-                  "type": "file"
-              },
-                      {
-                  "name": "security-token",
-                  "type": "file"
-              },
-                      {
-                  "name": "security-vulnerability",
-                  "type": "file"
-              },
-                      {
-                  "name": "what-is-encrypted",
-                  "type": "file"
-              }
-          ]
-      }
+    {
+      "name": "introduction",
+      "type": "folder",
+      "children": []
+    },
+    {
+      "name": "quickstart",
+      "type": "folder",
+      "children": [
+        {
+          "name": "browser",
+          "type": "file"
+        },
+        {
+          "name": "desktop",
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "name": "basic-features",
+      "type": "folder",
+      "children": [
+        {
+          "name": "manage-resources",
+          "type": "file"
+        },
+        {
+          "name": "share",
+          "type": "file"
+        },
+        {
+          "name": "import",
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "name": "advanced-features",
+      "type": "folder",
+      "children": [
+        {
+          "name": "tags",
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "name": "settings",
+      "type": "folder",
+      "children": [
+        {
+          "name": "profile",
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "name": "faq",
+      "type": "folder",
+      "children": []
+    }
   ]
 }

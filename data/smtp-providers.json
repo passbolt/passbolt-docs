@@ -1,0 +1,57 @@
+[
+  {
+    "name": "AWS SES",
+    "slug": "aws-ses",
+    "logo": "/img/smtp-providers/aws-ses.svg"
+  },
+  {
+    "name": "Elastic Email",
+    "slug": "elastic-email",
+    "logo": "/img/smtp-providers/elastic-email.svg"
+  },
+  {
+    "name": "Google",
+    "slug": "google",
+    "logo": "/img/smtp-providers/google.svg"
+  },
+  {
+    "name": "Mailchimp",
+    "slug": "mailchimp",
+    "logo": "/img/smtp-providers/mailchimp.svg"
+  },
+  {
+    "name": "Mailgun",
+    "slug": "mailgun",
+    "logo": "/img/smtp-providers/mailgun.svg"
+  },
+  {
+    "name": "Mailjet",
+    "slug": "mailjet",
+    "logo": "/img/smtp-providers/mailjet.svg"
+  },
+  {
+    "name": "Office 365",
+    "slug": "office365",
+    "logo": "/img/smtp-providers/microsoft.svg"
+  },
+  {
+    "name": "Sendgrid",
+    "slug": "sendgrid",
+    "logo": "/img/smtp-providers/sendgrid.svg"
+  },
+  {
+    "name": "Sendinblue",
+    "slug": "sendinblue",
+    "logo": "/img/smtp-providers/sendinblue.svg"
+  },
+  {
+    "name": "Zoho",
+    "slug": "zoho",
+    "logo": "/img/smtp-providers/zoho.svg"
+  },
+  {
+    "name": "Others",
+    "slug": "others",
+    "logo": "/img/smtp-providers/others.svg"
+  }
+]

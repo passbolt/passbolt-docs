@@ -13,7 +13,7 @@ export const DocCardListWithoutCurrentPage = () => {
    */
   const pathname = location.pathname.replace(/\/$/, '');
   const category = useCurrentSidebarCategory();
-  const items = category.items.filter(item => item.href.replace(/\/$/, '') !== pathname);
+  const items = category.items.filter(item => item.href?.replace(/\/$/, '') !== pathname);
 
   return (
     <DocCardListWrapper items={items}/>

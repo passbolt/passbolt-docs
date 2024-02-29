@@ -3,7 +3,7 @@
 // Note: type annotations allow type checking and IDEs autocompletion
 
 // const passboltTheme = require('./src/lib/prism-passbolt');
-import {themes as prismThemes} from 'prism-react-renderer';
+import { themes as prismThemes } from 'prism-react-renderer';
 
 const ROUTES = {
   HELPSITE_URL: 'https://www.passbolt.com/docs',
@@ -16,7 +16,7 @@ const ROUTES = {
   X_URL: 'https://x.com/passbolt',
   LINKEDIN_URL: 'https://www.linkedin.com/company/passbolt',
   YOUTUBE_URL: 'https://www.youtube.com/user/passboltpassword',
-}
+};
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -56,8 +56,7 @@ const config = {
           sidebarPath: require.resolve('./sidebars/index.js'),
           showLastUpdateTime: true,
           showLastUpdateAuthor: false,
-          editUrl:
-            'https://github.com/passbolt/passbolt-docs/blob/main',
+          editUrl: 'https://github.com/passbolt/passbolt-docs/blob/main',
         },
         blog: false,
         theme: {
@@ -68,7 +67,8 @@ const config = {
   ],
   customFields: {
     footer: {
-      slogan: 'Open source password management for teams. Built for team collaboration, open source, self-hosted, api-centric, privacy-focused, developer-first.',
+      slogan:
+        'Open source password management for teams. Built for team collaboration, open source, self-hosted, api-centric, privacy-focused, developer-first.',
       socialMedia: {
         title: 'See you around:',
         links: [
@@ -98,10 +98,10 @@ const config = {
               width: 20,
               height: 20,
             },
-          }
-        ]
-      }
-    }
+          },
+        ],
+      },
+    },
   },
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
@@ -110,7 +110,7 @@ const config = {
       docs: {
         sidebar: {
           autoCollapseCategories: true,
-        }
+        },
       },
       navbar: {
         logo: {
@@ -128,6 +128,7 @@ const config = {
           },
           {
             type: 'docSidebar',
+            href: '/user',
             sidebarId: 'userGuideSidebar',
             position: 'left',
             label: 'User guide',
@@ -142,7 +143,7 @@ const config = {
           {
             type: 'docSidebar',
             href: '/admin',
-            sidebarId: 'hostingGuideSidebar',
+            sidebarId: 'adminGuideSidebar',
             position: 'left',
             label: 'Admin guide',
           },
@@ -196,7 +197,7 @@ const config = {
               {
                 label: 'Contact us',
                 href: `${ROUTES.WEBSITE_URL}/contact`,
-              }
+              },
             ],
           },
           {
@@ -217,7 +218,7 @@ const config = {
               {
                 label: 'Credits',
                 href: `${ROUTES.WEBSITE_URL}/credits`,
-              }
+              },
             ],
           },
           {
@@ -242,7 +243,7 @@ const config = {
               {
                 label: 'LinkedIn',
                 href: ROUTES.LINKEDIN_URL,
-              }
+              },
             ],
           },
         ],

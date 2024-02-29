@@ -1,7 +1,56 @@
 ---
-title: How to configure Role-Based Access Control
-description: How to configure Role-Based Access Control
-slug: role-based-access-control
+title: Role Based Access Control
+sidebar_label: Role Based Access Control
+description: Role Based Access Control
+hide_table_of_contents: false
 ---
 
-# How to configure Role-Based Access Control
+import Figure from '/src/components/Figure/Figure';
+
+### How to configure Role-Based Access Control
+
+Since version 4.1.0, all editions of passbolt support Role-Based Access Control.
+
+<Figure
+  src={
+    '/img/help/2023/06/rbac.png'
+  }
+  caption="fig. Role-Based Access Control"
+  alt="Role-Based Access Control"
+/>
+
+### Requirements
+You can follow this procedure if you are meeting the following requirements:
+
+* You are running passbolt >= v4.1.0.
+* You have an active administrator account.
+
+### How does it work?
+RBAC is a feature introduced that as for aim to restrict the access of functionalities to users.
+
+According to the administrator choices, users can be restricted to some functionalities. The administrator has only to chose between allow or deny options for the functionalities.
+
+## RBAC
+In order to configure RBAC for your organisation, go to administration setting workspace Administration > Role-Based Access Control.
+
+### Choose to restrict or not a functionality
+By default, all functionalities are allowed. To deny one select and restrict the one that suits best your organization.
+
+<Figure
+  src={
+    '/img/help/2023/06/rbac-select-permission.png'
+  }
+  caption="fig. RBAC administration settings select permission"
+  alt="RBAC administration settings select permission"
+/>
+
+### Apply the changes
+Once the RBAC is configured as you wish, you can apply the changes. Click on the “save settings” button.
+
+<Figure
+  src={
+    '/img/help/2023/06/rbac-save.png'
+  }
+  caption="fig. RBAC administration settings save changes"
+  alt="RBAC administration settings save changes"
+/>

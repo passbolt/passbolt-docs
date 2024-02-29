@@ -1,0 +1,70 @@
+---
+title: Roles and permissions FAQ
+description: Roles and permissions FAQ
+sidebar_label: Roles and permissions FAQ
+hide_table_of_contents: false
+---
+
+import Figure from '/src/components/Figure/Figure';
+
+
+##  What are the main differences between passbolt resource permissions?
+
+Passbolt offers three permissions at the resource level:
+
+* <b>Owner:</b> can manage share settings, delete, update, read.
+* <b>Update:</b> can update the record and delete.
+* <b>Read:</b> can only read and use the password metadata and secret.
+
+:::warning
+A User with <b>Update</b> right is able to delete a resource. The main difference between <b>Owner</b> and <b>Update</b>
+ right is the ability for the <b>Owner</b> to share a resource.
+:::
+
+## What happens when you delete a user who is sole owner of a resource shared with a group or user? Does the group/user keeps access to this resource or is it deleted?
+
+
+When a user, sole owner of a resource, is about to be deleted, a popup window is displayed and passbolt admin will be asked to transfer ownership of the resource to the group or user.
+<Figure
+  src={
+    '/img/help/2022/05/delete-user-group.png'
+  }
+  caption="fig. Shared password ownership transfer"
+  alt="Shared password ownership transfer"
+/>
+
+
+If the deleted user was also the sole group manager, passbolt admin will promote another user of the group as group manager.
+
+## What happens when you delete a user who owns non-shared resources?
+
+Unlike shared ones, non-shared resources of a deleted user will be deleted as well.
+
+## What is the difference between a group manager and group member?
+
+The group manager is a group member who can add or delete users to a given group, and promote them as another group manager. No more, no less.
+
+It is possible for a group member to share a resource he owns in “read-only” mode with the group. Group manager doesn’t have extra-rights to edit resources ownership.
+
+## Who can create a group in passbolt?
+
+Only a passbolt administrator can create groups on passbolt.
+
+
+## Other frequently asked questions in the same category
+
+* <a href={`/docs/user/quickstart/browser/installing-extension`}>How to install and remove browser extensions</a>
+* <a href={`/docs/user/introduction/account-setup`}>How to create and setup an account</a>
+* <a href={`/docs/user/settings/profile/edit-my-avatar`}>How can I change the profile picture</a>
+* <a href={`/docs/user/basic-features/copy-to-clipboard`}>How to copy a password to clipboard</a>
+* <a href={`/docs/user/basic-features/manage-resources`}>Password basics</a>
+* <a href={`/docs/user/basic-features/manage-resources/mark-as-favorite`}>Managing your favorites</a>
+* <a href={`/docs/user/basic-features/share/share-a-password`}>How to share passwords</a>
+* <a href={`/docs/user/basic-features/import`}>How to import passwords from a csv or kdbx file</a>
+* <a href={`/docs/user/quickstart/browser/disable-built-in-password-manager`}>How to disable your browser/mobile built-in password manager</a>
+* <a href={`/docs/user/advanced-features/tags`}>How to use tags (PRO)</a>
+* <a href={`/docs/user/basic-features/share/roles-and-permissions`}>Roles and permissions FAQ</a>
+* <a href={`/docs/user/basic-features/share/roles-and-permissions`}>Roles and permissions</a>
+* <a href={`/docs/user/quickstart/browser/account-recovery/setup-account-recovery`}>How to subscribe to the account recovery program?</a>
+* <a href={`/docs/user/settings/account-recovery`}>How to recover my passphrase?</a>
+* <a href={`/docs/user/basic-features/export`}>How to export passwords in a csv or kdbx file</a>

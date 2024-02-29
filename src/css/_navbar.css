@@ -1,3 +1,7 @@
+:root {
+  --search-local-modal-shadow: var(--passbolt-light-grey);
+}
+
 .navbar {
   --ifm-navbar-link-color: white;
   min-height: 4.5rem;
@@ -24,7 +28,7 @@ a.navbar__item.main-website-link {
   border-radius: 0.32rem;
   align-items: center;
   justify-content: center;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.15);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
   color: var(--ifm-navbar-link-color);
   position: absolute;
   left: 0;
@@ -58,7 +62,7 @@ div.menu__list-item a.main-website-link {
 
 div.menu__list-item a.main-website-link::after {
   content: attr(title);
-  margin-left: .25rem;
+  margin-left: 0.25rem;
 }
 
 div.menu__list-item a.main-website-link:hover {
@@ -82,7 +86,7 @@ div.menu__list-item a.main-website-link:hover {
 }
 
 .header-github-link::before {
-  content: '';
+  content: "";
   width: 24px;
   height: 24px;
   display: flex;
@@ -92,11 +96,11 @@ div.menu__list-item a.main-website-link:hover {
 
 .navbar__items .navbar__link {
   text-decoration: underline;
-  text-decoration-color: rgba(var(--ifm-color-primary-rgb),0);
+  text-decoration-color: rgba(var(--ifm-color-primary-rgb), 0);
   text-decoration-thickness: 1px;
   text-underline-offset: 1rem;
   font-weight: bold;
-  transition: all .1s linear;
+  transition: all 0.1s linear;
 }
 
 .navbar__items .navbar__link.navbar__link--active,
@@ -104,7 +108,7 @@ div.menu__list-item a.main-website-link:hover {
   color: var(--ifm-navbar-link-color);
   text-decoration: underline;
   text-decoration-color: var(--ifm-color-primary);
-  text-underline-offset: .5rem;
+  text-underline-offset: 0.5rem;
 }
 
 .navbar__items--right > :last-child {
@@ -115,13 +119,12 @@ div.menu__list-item a.main-website-link:hover {
 }
 
 .navbar__search {
-  --search-local-modal-background: transparent;
+  --search-local-modal-background: var(--passbolt-grey);
   --ifm-navbar-search-input-background-color: transparent;
   margin-left: 1.5rem;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.15);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
   border-radius: 1rem;
 }
-
 
 .navbar__search-input {
   --ifm-navbar-search-input-placeholder-color: white;
@@ -140,11 +143,66 @@ div.menu__list-item a.main-website-link:hover {
   box-shadow: unset;
   border: unset;
   color: white;
-  background: rgb(0,0,0,.5);
+  background: rgb(0, 0, 0, 0.5);
+}
+
+[data-page="frontpage"] .navbar--fixed-top {
+  position: initial;
+  top: unset;
+}
+
+[data-page="frontpage"] .navbar__search {
+  --ifm-navbar-search-input-background-color: var(--passbolt-light-grey);
+  margin-left: 0;
+}
+
+[data-page="frontpage"] .navbar__items--right > :last-child {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 40rem;
+  top: 22rem;
+}
+
+[data-page="frontpage"]
+  .navbar__items--right
+  > :last-child
+  .navbar__search
+  > span,
+[data-page="frontpage"]
+  .navbar__items--right
+  > :last-child
+  .navbar__search
+  .navbar__search-input {
+  width: 100%;
+}
+
+[data-page="frontpage"]
+  .navbar__items--right
+  > :last-child
+  .navbar__search
+  [role="listbox"] {
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  [data-page="frontpage"] .navbar__items--right > :last-child {
+    top: 18rem;
+  }
+
+  [data-page="frontpage"] .navbar__items--right > :last-child .navbar__search,
+  [data-page="frontpage"]
+    .navbar__items--right
+    > :last-child
+    .navbar__search
+    .navbar__search-input {
+    height: 3rem;
+    border-radius: 3rem;
+  }
 }
 
 @media (min-width: 997px) {
-
   a.navbar__item.main-website-link {
     display: flex;
   }

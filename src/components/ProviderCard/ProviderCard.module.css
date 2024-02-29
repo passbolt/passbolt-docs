@@ -15,7 +15,7 @@
   flex-wrap: wrap;
 }
 
-.logo {
+.providerCard .logo {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,32 +23,28 @@
   min-height: 2.8rem;
 }
 
-.logo img {
+.providerCard .logo img {
   display: block;
 }
 
-.name {
+.providerCard .name {
   margin: 0;
   flex: 1;
 }
 
-a {
+.providerCard {
   flex: auto;
   text-align: center;
   text-decoration: none;
 }
 
-a:hover {
+.providerCard:hover {
   text-decoration: underline;
 }
 
 @media (min-width: 576px) {
   .root {
     flex-wrap: unset;
-  }
-
-  .links {
-    flex: unset;
   }
 }
 
@@ -57,27 +53,13 @@ a:hover {
     grid-template-columns: 1fr;
   }
 
-  h1 {
-    font-size: 2.25em;
-  }
-
-  h3 {
+  .providerCard h3 {
     font-size: 1.40em;
   }
 }
 
 @media (max-width: 996px) {
-  h1 {
-    font-size: 2rem;
-  }
-
-  h3 {
+  .providerCard h3 {
     font-size: 1.30em;
-  }
-}
-
-@media (min-width: 2500px) {
-  h1 {
-    font-size: 2.75rem;
   }
 }

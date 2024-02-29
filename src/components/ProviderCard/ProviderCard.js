@@ -7,7 +7,7 @@ const ProviderCard = ({ logo, name, slug, ...props }) => {
   const imageUrl = useBaseUrl(logo);
 
   return (
-    <a href={slug} title={name} {...props}>
+    <a className={styles.providerCard} href={slug} title={name} {...props}>
       <div className={styles.root}>
         <div className={styles.logo}>
           <img src={imageUrl} />

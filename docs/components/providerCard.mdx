@@ -1,0 +1,15 @@
+import React from 'react';
+import ProviderCard from '/src/components/ProviderCard/ProviderCard.js';
+import styles from '/src/components/ProviderCard/ProviderCard.module.css';
+
+export const ProviderCardWrapper = ({providers}) => {
+  return (
+    <div className={styles.grid}>
+      {providers.map(provider => {
+        return (
+          <ProviderCard {...provider}/>
+        );
+      })}
+    </div>
+  );
+};

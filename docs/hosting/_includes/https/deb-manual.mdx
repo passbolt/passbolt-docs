@@ -21,19 +21,19 @@ On this example we will assume the user is generating a self-signed certificate 
 While connected to your passbolt instance you can generate a SSL certificate in the following way:
 <CodeBlock>
 {`openssl req -x509 \
-  
+
     -newkey rsa:4096 \
-  
+
     -days 120 \
-  
+
     -subj "/C=LU/ST=Luxembourg/L=Esch-Sur-Alzette/O=Passbolt SA/OU=Passbolt IT Team/CN=passbolt.domain.tld/" \
-  
+
     -nodes \
-  
+
     -addext "subjectAltName = DNS:passbolt.domain.tld" \
-  
+
     -keyout key.pem \
-  
+
     -out cert.pem`}
 </CodeBlock>
 

@@ -1,0 +1,62 @@
+---
+title: Configure Email authentication with Office 365
+description: Configuration of the authentication methods that is used with SMTP for Office 365
+sidebar_label: Office 365
+sidebar_position: 070
+hide_table_of_contents: true
+---
+import Figure from '/src/components/Figure/Figure';
+import EmailServerConfigurationIntroduction from '/docs/admin/_includes/email/email-server/introduction.mdx';
+import TestYourEmailConfiguration from '/docs/admin/_includes/email/email-server/test-your-email-configuration.mdx';
+
+<EmailServerConfigurationIntroduction/>
+
+## Office 365
+
+- Administration panel
+
+When you are using Office 365, you will need to access your [Microsoft 365 admin center](https://admin.microsoft.com).
+
+- Create your SMTP Credentials
+
+Office 365 uses OAuth 2.0 for authentication, so you will need to set up an *application password* to authenticate with the SMTP server.
+
+In the Microsoft 365 admin center, navigate to *[Additional security verification page](https://mysignins.microsoft.com/security-info)* > Add sign-in method > App password
+
+<Figure
+  src="/img/help/2023/08/office365-app-password-menu.png"
+  caption="Microsoft - Create an application password"
+  alt="Microsoft - Create an application password"
+/>
+
+:::warning
+Please, note that the password could not be shown after your close the tab, please be sure to copy the application password generated otherwise you will need to generate a new one.
+:::
+
+<Figure
+  src="/img/help/2023/08/office365-app-password-example.png"
+  caption="Microsoft - Application password"
+  alt="Microsoft - Application password"
+/>
+
+Now, you'll need to get the SMTP settings that are available from Outlook in *Settings > Mail > POP and IMAP*
+
+<Figure
+  src="/img/help/2023/08/office365-smtp-credentials.png"
+  caption="Microsoft - SMTP Settings"
+  alt="Microsoft - SMTP Settings"
+/>
+
+- Authentication on Passbolt GUI
+
+On your Passbolt instance, navigate to "Administration" > "Email server."
+
+You will need to fill in your SMTP credentials to match your authentication method, remember, do not use the login credentials but the application password instead.
+
+<Figure
+  src="/img/help/2023/08/passbolt-office365-smtp-settings.png"
+  caption="Passbolt - Email authentication"
+  alt="Passbolt - Email authentication"
+/>
+
+<TestYourEmailConfiguration/>

@@ -1,0 +1,54 @@
+---
+title: Configure Email authentication with Sendgrid
+description: Configuration of the authentication methods that is used with SMTP for Sendgrid
+sidebar_label: Sendgrid
+sidebar_position: 080
+hide_table_of_contents: true
+---
+import Figure from '/src/components/Figure/Figure';
+import EmailServerConfigurationIntroduction from '/docs/admin/_includes/email/email-server/introduction.mdx';
+import TestYourEmailConfiguration from '/docs/admin/_includes/email/email-server/test-your-email-configuration.mdx';
+
+<EmailServerConfigurationIntroduction/>
+
+## Sendgrid
+
+- Administration panel
+
+When you are using Sendgrid, once logged in, you will be automatically redirected to the administration panel dashboard.
+
+<Figure
+  src="/img/help/2023/02/smtp-sendgrid-credentials-panel.png"
+  caption="Sendgrid - SMTP Credentials Panel"
+  alt="Sendgrid - SMTP Credentials Panel"
+/>
+
+You will need to navigate to *Settings > API Keys* and click on Create API Key.
+
+- Create your SMTP Credentials
+
+When creating a new API key, you can give it a name that's easy for you to remember, such as "Passbolt". SendGrid will then generate a unique API key consisting of 70 random characters. This key can be used to authenticate your email sending requests through the SendGrid SMTP servers.
+
+After generating the API key, you can use the settings shown to configure your email client or application. The SMTP username should be "apikey". The SMTP password is the API key that you generated in the previous step.
+
+<Figure
+  src="/img/help/2023/02/smtp-sendgrid-credentials-example.png"
+  caption="Sendgrid - SMTP Credentials"
+  alt="Sendgrid - SMTP Credentials"
+/>
+
+It's important to keep your SendGrid API key secure, as it can be used to access your SendGrid account and send emails from your account. You should never share your API key with anyone, and you should take steps to protect your account from unauthorized access.
+
+- Authentication on Passbolt GUI
+
+On your Passbolt instance, you can navigate to *Administration > Email server*.
+
+<Figure
+  src="/img/help/2023/02/smtp-sendgrid-authentication.png"
+  caption="Passbolt - Email authentication"
+  alt="Passbolt - Email authentication"
+/>
+
+You will need to fill in your smtp credentials to match your authentication method (username & password).
+
+<TestYourEmailConfiguration/>

@@ -1,0 +1,54 @@
+---
+title: Configure Email authentication with Sendinblue
+description: Configuration of the authentication methods that is used with SMTP for Sendinblue
+sidebar_label: Sendinblue
+sidebar_position: 090
+hide_table_of_contents: true
+---
+import Figure from '/src/components/Figure/Figure';
+import EmailServerConfigurationIntroduction from '/docs/admin/_includes/email/email-server/introduction.mdx';
+import TestYourEmailConfiguration from '/docs/admin/_includes/email/email-server/test-your-email-configuration.mdx';
+
+<EmailServerConfigurationIntroduction/>
+
+## Sendinblue
+
+- Administration panel
+
+When you are using Sendinblue, once logged in, you will be automatically redirected to the administration panel dashboard.
+
+<Figure
+  src="/img/help/2023/02/smtp-sendinblue-credentials-panel.png"
+  caption="Sendinblue - SMTP Credentials Panel"
+  alt="Sendinblue - SMTP Credentials Panel"
+/>
+
+You will need to navigate to *Your Senders & Domains > SMTP & API*.
+
+- Create your SMTP Credentials
+
+You will find your SMTP key value under the "SMTP Credentials" section. This key can be used to authenticate your email sending requests through the Sendinblue SMTP servers.
+
+Sendinblue also provides the SMTP settings that you can use to configure your email client or application. The SMTP username is your Sendinblue account email address. The SMTP password is your SMTP key value.
+
+<Figure
+  src="/img/help/2023/02/smtp-sendinblue-credentials-example.png"
+  caption="Sendinblue - SMTP Credentials"
+  alt="Sendinblue - SMTP Credentials "
+/>
+
+It's important to keep your Sendinblue SMTP key value secure, as it can be used to access your Sendinblue account and send emails from your account. You should never share your SMTP key value with anyone, and you should take steps to protect your account from unauthorized access.
+
+- Authentication on Passbolt GUI
+
+On your Passbolt instance, you can navigate to *Administration > Email server*.
+
+<Figure
+  src="/img/help/2023/02/smtp-sendgrid-authentication.png"
+  caption="Passbolt - Email authentication"
+  alt="Passbolt - Email authentication"
+/>
+
+You will need to fill in your smtp credentials to match your authentication method (username & password).
+
+<TestYourEmailConfiguration/>

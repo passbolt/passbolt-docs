@@ -26,7 +26,7 @@ import Video from '@site/src/components/Video/Video';
         logo={importResource.logo}
         name={importResource.name}
         links={importResource.formats.map((format) => ({
-          slug: `/user/basic-features/import/${importResource.slug}${importResource.formats.length > 1 ? "-" + format : "" }`,
+          slug: `/user/basic-features/import/${importResource.slug}${importResource.formats.length > 1 ? "-" + format.toLowerCase() : "" }`,
           label: format
        }))}
       />

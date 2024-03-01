@@ -1,0 +1,28 @@
+---
+title: Desktop
+description: How to preview a TOTP on Desktop
+slug: desktop
+---
+
+import Figure from '/src/components/Figure/Figure';
+
+# How to preview a TOTP on Desktop
+
+Since version 4.3.0, Passbolt supports creation of TOTP (Time-based One Time Password) via [Mobile](/docs/user/basic-features/manage-resources/totp/mobile). However, it is still possible to preview those TOTP from the Web UI
+
+<Figure
+  src={
+    'https://help.passbolt.com/assets/img/help/2023/10/totp_web_preview.png'
+  }
+  caption="fig. Web UI - Preview TOTP"
+  alt="Web UI - Preview TOTP"
+/>
+
+There are two types of TOTP:
+
+- Standalone
+  - That is the **Passbolt Community TOTP** resource, this is not linked to any passwords.
+- Linked to an existing password
+  - The resource **Passbolt** was existing before the creation of the TOTP and has been linked to it.
+
+From the Web UI, you are able to preview any TOTP shown in the column “TOTP”

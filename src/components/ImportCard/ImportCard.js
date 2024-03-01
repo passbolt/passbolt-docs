@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 //Reuse the css theme from distribution
-import styles from '../../DistributionCard/DistributionCard.module.css';
+import styles from '../DistributionCard/DistributionCard.module.css';
 import Badge from '@site/src/components/Badge/Badge';
 import clsx from 'clsx';
 import useBaseUrl from '@docusaurus/useBaseUrl';

@@ -1,14 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Chips.module.css';
-import clsx from "clsx";
+import Link from "@docusaurus/Link";
 
-const Chips = ({ children, href = null, isUnderMainTitle = false}) => {
+const Chips = ({ children, href = null, link = "", isUnderMainTitle = false}) => {
   if (!children) return null;
+  const hasLink = link.length > 0;
+  const handleClick = () => {
+    window.open(link);
+  }
 
   return (
-    <div className={styles["under-main-menu"]}>
-      <span className={styles.chips}>{children}</span>
+    <div onClick={hasLink ? handleClick : null} className={`${isUnderMainTitle ? styles["under-main-menu"] : ''}`}>
+      {hasLink &&
+        <Link className={`${styles.chips} ${styles.link}`} to={link} target="_blank">{children}</Link>
+      }
+      {!hasLink &&
+        <span className={styles.chips}>{children}</span>
+      }
     </div>
   );
 };
@@ -18,7 +27,8 @@ Chips.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
-  isUnderMainTitle: PropTypes.bool.isRequired
+  isUnderMainTitle: PropTypes.bool.isRequired,
+  link: PropTypes.string
 };
 
 export default Chips;

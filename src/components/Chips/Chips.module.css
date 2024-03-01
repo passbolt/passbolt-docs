@@ -1,15 +1,26 @@
 .chips {
   color: var(--passbolt-black);
-  padding: 0 .8rem;
-  border-radius: 0.7rem;
+  padding: .25rem 1rem;
+  border-radius: 6.3rem;
   font-weight: 700;
   font-size: 1rem;
   line-height: 1.4rem;
   background-color: var(--passbolt-red);
 }
 
+.link {
+  text-decoration: none !important;
+  &:hover{
+    color: var(--passbolt-black);
+    box-shadow: 1px 1px 0 0 rgba(0, 0, 0, 1), 1px 1px 0 0 rgba(255, 255, 255, 0.25) inset;
+  }
+  &:active {
+    box-shadow: 1px 1px 0 0 rgba(102, 0, 0, 1) inset, -1px -1px 0 0 rgba(255, 255, 255, 0.25) inset;
+  }
+}
+
 .under-main-menu {
   display: flex;
-  margin-top: calc(.2rem + (-1 * var(--ifm-h1-vertical-rhythm-bottom)* var(--ifm-leading))) !important;
+  margin-top: calc(.4rem + (-1 * var(--ifm-h1-vertical-rhythm-bottom)* var(--ifm-leading))) !important;
   margin-bottom: 1rem;
 }

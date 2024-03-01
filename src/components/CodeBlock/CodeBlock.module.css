@@ -1,0 +1,15 @@
+.code-container {
+    position: relative;
+}
+
+.code-copy-button {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.code-container:hover .code-copy-button {
+    opacity: 1;
+}

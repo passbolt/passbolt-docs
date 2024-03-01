@@ -1,0 +1,38 @@
+---
+title: Lastpass
+description: lastpass resources import
+---
+
+import ImportSteps from '/src/components/import/ImportSteps/ImportSteps.js';
+import CheckMarkSuccess from '/src/components/Icon/CheckMarkSuccess/CheckMarkSuccess.js';
+import CheckMarkNone from '/src/components/Icon/CheckMarkNone/CheckMarkNone.js';
+import CodeBlock from "/src/components/CodeBlock/CodeBlock";
+
+## Steps
+
+<ImportSteps />
+
+## Example
+
+<CodeBlock>
+
+url,username,password,extra,name,grouping,fav
+https://test.url,account1,P4ssw0Rd!,,Account1,,0
+https://test.url,account1,P4ssw0Rd!,,Account2,,0
+,,P4ssw0Rd!,,Account3,,1
+
+</CodeBlock>
+
+## Matrix
+
+|   |  Supported |
+|---|---|
+| URL | <CheckMarkSuccess/>  |
+| username  | <CheckMarkSuccess/> |
+| password  | <CheckMarkSuccess/>  |
+| extra | <CheckMarkSuccess/> |
+| name | <CheckMarkSuccess/> |
+| grouping | <CheckMarkSuccess/> |
+| fav | <CheckMarkNone/> |
+| totp | <CheckMarkNone/>  |
+

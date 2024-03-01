@@ -1,0 +1,35 @@
+---
+title: 1Password
+description: 1Password resources import
+---
+
+import ImportSteps from '/src/components/import/ImportSteps/ImportSteps.js';
+import CheckMarkSuccess from '/src/components/Icon/CheckMarkSuccess/CheckMarkSuccess.js';
+import CheckMarkNone from '/src/components/Icon/CheckMarkNone/CheckMarkNone.js';
+import CodeBlock from "/src/components/CodeBlock/CodeBlock";
+
+## Steps
+
+<ImportSteps />
+
+## Example
+
+<CodeBlock>
+
+Title,Username,URL,Password,Notes,Type
+Account1,account1,https://test.url,P4ssw0Rd!,Notes Account2,server
+Account2,account2,https://test.url,P4ssw0Rd!,Notes Account2,shell
+Account3,,,P4ssw0Rd!,Notes Account3,server
+
+</CodeBlock>
+
+## Matrix
+
+|   |  Supported |
+|---|---|
+| Title | <CheckMarkSuccess/>  |
+| Username  | <CheckMarkSuccess/> |
+| URL  | <CheckMarkSuccess/>  |
+| Password | <CheckMarkSuccess/> |
+| Notes | <CheckMarkSuccess/> |
+| Type | <CheckMarkSuccess/> |

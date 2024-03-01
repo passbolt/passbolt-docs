@@ -1,0 +1,38 @@
+---
+title: Dashlane
+description: dashlane resources import
+---
+
+import ImportSteps from '/src/components/import/ImportSteps/ImportSteps.js';
+import CheckMarkSuccess from '/src/components/Icon/CheckMarkSuccess/CheckMarkSuccess.js';
+import CheckMarkNone from '/src/components/Icon/CheckMarkNone/CheckMarkNone.js';
+import CodeBlock from "/src/components/CodeBlock/CodeBlock";
+
+## Steps
+
+<ImportSteps />
+
+## Example
+
+<CodeBlock>
+
+username,username2,username3,title,password,note,url,category,otpSecret
+account1,,,Account 1,P4ssw0Rd,"this is the description",https:///test.url,,
+account2@domain.tld,,,Account 2,P4ssw0Rd,"this is the description",https://test.url,,
+account3@domain.tld,,,Account 3,P4ssw0Rd,,https://test.url,,
+
+</CodeBlock>
+
+## Matrix
+
+|   |  Supported |
+|---|---|
+| username | <CheckMarkSuccess/>  |
+| username2  | <CheckMarkNone/> |
+| username3  | <CheckMarkNone/>  |
+| title | <CheckMarkSuccess/> |
+| password | <CheckMarkSuccess/> |
+| note | <CheckMarkSuccess/> |
+| url | <CheckMarkSuccess/> |
+| category | <CheckMarkNone/> |
+| otpSecret | <CheckMarkNone/> |

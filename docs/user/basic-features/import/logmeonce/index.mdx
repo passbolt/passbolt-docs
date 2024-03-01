@@ -1,0 +1,36 @@
+---
+title: LogMeOnce
+description: logmeonce resources import
+---
+
+import ImportSteps from '/src/components/import/ImportSteps/ImportSteps.js';
+import CheckMarkSuccess from '/src/components/Icon/CheckMarkSuccess/CheckMarkSuccess.js';
+import CheckMarkNone from '/src/components/Icon/CheckMarkNone/CheckMarkNone.js';
+import CodeBlock from "/src/components/CodeBlock/CodeBlock";
+
+## Steps
+
+<ImportSteps />
+
+## Example
+
+<CodeBlock>
+
+"name","url","note","group","username","password","extra"
+"Account1","https://test.url","this is the description","My servers","account1","P4ssw0Rd!",""
+"Account2","https://test.url","","My servers","account2","P4ssw0Rd!",""
+"Account3","https://test.url","this is the description","My servers","account3","P4ssw0Rd!",""
+
+</CodeBlock>
+
+## Matrix
+
+|   |  Supported |
+|---|---|
+| name | <CheckMarkSuccess/>  |
+| url  | <CheckMarkSuccess/> |
+| note  | <CheckMarkSuccess/>  |
+| group | <CheckMarkSuccess/> |
+| username | <CheckMarkSuccess/> |
+| password | <CheckMarkSuccess/> |
+| extra | <CheckMarkNone/> |

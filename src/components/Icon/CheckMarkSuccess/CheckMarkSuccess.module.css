@@ -1,0 +1,21 @@
+.checkmark {
+  box-sizing: border-box;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 2px #088869 solid;
+  border-radius: 2.4rem;
+  position: relative;
+  z-index: 2;
+}
+
+.filler {
+  border-radius: 2.4rem;
+    background-color: #088869;
+  display: inline-block;
+  inset: -2px;
+  position: absolute;
+  z-index: -1;
+}

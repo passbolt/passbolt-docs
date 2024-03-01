@@ -1,0 +1,35 @@
+---
+title: Keepass (CSV)
+description: keepass csv resources import
+---
+
+import ImportSteps from '/src/components/import/ImportSteps/ImportSteps.js';
+import CheckMarkSuccess from '/src/components/Icon/CheckMarkSuccess/CheckMarkSuccess.js';
+import CodeBlock from "/src/components/CodeBlock/CodeBlock";
+
+## Steps
+
+<ImportSteps />
+
+## Example
+
+<CodeBlock>
+
+"Group","Title","Username","Password","URL","Notes"
+"My Servers","Account1","account1","P4ssw0Rd!","https://test.url","this is the description"
+"My Servers","Account2","account2","P4ssw0Rd!","https://test.url","this is the description"
+"My Servers","Account2","","P4ssw0Rd!","https://test.url",""
+
+</CodeBlock>
+
+## Matrix
+
+|   |  Supported |
+|---|---|
+| Group | <CheckMarkSuccess/>  |
+| Title  | <CheckMarkSuccess/> |
+| Username  | <CheckMarkSuccess/>  |
+| Password | <CheckMarkSuccess/> |
+| URL | <CheckMarkSuccess/> |
+| Notes | <CheckMarkSuccess/> |
+| TOTP | <CheckMarkSuccess/> |

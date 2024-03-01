@@ -1,0 +1,25 @@
+.checkmark {
+  box-sizing: border-box;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 2px #db5454 solid;
+  border-radius: 2.4rem;
+  position: relative;
+  z-index: 2;
+}
+
+.filler {
+  border-radius: 2.4rem;
+  background-color: #db5454;
+  display: inline-block;
+  inset: -2px;
+  position: absolute;
+  z-index: -1;
+}
+
+.icon {
+  transform: rotate(45deg);
+}

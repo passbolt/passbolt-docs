@@ -1,0 +1,34 @@
+---
+title: Firefox
+description: firefox resources import
+---
+
+import ImportSteps from '/src/components/import/ImportSteps/ImportSteps.js';
+import CheckMarkSuccess from '/src/components/Icon/CheckMarkSuccess/CheckMarkSuccess.js';
+import CheckMarkNone from '/src/components/Icon/CheckMarkNone/CheckMarkNone.js';
+import CodeBlock from "/src/components/CodeBlock/CodeBlock";
+
+## Steps
+
+<ImportSteps />
+
+## Example
+
+<CodeBlock>
+
+"url","username","password", "note", "folder"
+"https://test.url","Account1",,"P4ssw0Rd!",, "test2"
+"https://test.url","Account2",,"P4ssw0Rd!",, ""
+"https://test.url","Account3",,"P4ssw0Rd!",, ""
+
+</CodeBlock>
+
+## Matrix
+
+|   |  Supported |
+|---|---|
+| url | <CheckMarkSuccess/>  |
+| username  | <CheckMarkSuccess/> |
+| password  | <CheckMarkSuccess/>  |
+| note | <CheckMarkSuccess/> |
+| folder | <CheckMarkSuccess/> |

@@ -1,0 +1,74 @@
+[
+    {
+        "name": "Lastpass",
+        "slug": "lastpass",
+        "logo": "/img/import/lastpass.svg",
+        "formats": ["CSV"]
+    },
+    {
+        "name": "1Password",
+        "slug": "1password",
+        "logo": "/img/import/1password.svg",
+        "formats": ["CSV"]
+    },
+    {
+        "name": "Keepass",
+        "slug": "keepass",
+        "logo": "/img/import/keepass.svg",
+        "formats": ["CSV", "KDBX"]
+    },
+    {
+        "name": "Dashlane",
+        "slug": "dashlane",
+        "logo": "/img/import/dashlane.svg",
+        "formats": ["CSV"]
+    },
+    {
+        "name": "Nordpass",
+        "slug": "nordpass",
+        "logo": "/img/import/nordpass.svg",
+        "formats": ["CSV"]
+    },
+    {
+        "name": "LogMeOnce",
+        "slug": "logmeonce",
+        "logo": "/img/import/logmeonce.svg",
+        "formats": ["CSV"]
+    },
+    {
+        "name": "Bitwarden",
+        "slug": "bitwarden",
+        "logo": "/img/import/bitwarden.svg",
+        "formats": ["CSV"]
+    },
+    {
+        "name": "Firefox",
+        "slug": "firefox",
+        "logo": "/img/import/firefox.svg",
+        "formats": ["CSV"]
+    },
+    {
+        "name": "Chrome",
+        "slug": "chrome",
+        "logo": "/img/import/chrome.svg",
+        "formats": ["CSV"]
+    },
+    {
+        "name": "Brave",
+        "slug": "brave",
+        "logo": "/img/import/brave.svg",
+        "formats": ["CSV"]
+    },
+    {
+        "name": "Edge",
+        "slug": "edge",
+        "logo": "/img/import/edge.svg",
+        "formats": ["CSV"]
+    },
+    {
+        "name": "Safari",
+        "slug": "safari",
+        "logo": "/img/import/safari.svg",
+        "formats": ["CSV"]
+    }
+]

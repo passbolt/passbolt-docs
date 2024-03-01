@@ -49,7 +49,7 @@ const HomepageHero = () => {
     <div className={styles.root}>
       <div className={styles.headings}>
         <h1 className={styles.heading}>
-          welcome to the passbolt{' '}
+          Welcome to the passbolt{' '}
           <span className={styles.red}>documentation</span>!
         </h1>
 

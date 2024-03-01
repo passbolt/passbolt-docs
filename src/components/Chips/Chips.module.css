@@ -10,13 +10,15 @@
 
 .link {
   text-decoration: none !important;
-  &:hover{
-    color: var(--passbolt-black);
-    box-shadow: 1px 1px 0 0 rgba(0, 0, 0, 1), 1px 1px 0 0 rgba(255, 255, 255, 0.25) inset;
-  }
-  &:active {
-    box-shadow: 1px 1px 0 0 rgba(102, 0, 0, 1) inset, -1px -1px 0 0 rgba(255, 255, 255, 0.25) inset;
-  }
+}
+
+.link:hover{
+  color: var(--passbolt-black);
+  box-shadow: 1px 1px 0 0 rgba(0, 0, 0, 1), 1px 1px 0 0 rgba(255, 255, 255, 0.25) inset;
+}
+
+.link:active {
+  box-shadow: 1px 1px 0 0 rgba(102, 0, 0, 1) inset, -1px -1px 0 0 rgba(255, 255, 255, 0.25) inset;
 }
 
 .under-main-menu {

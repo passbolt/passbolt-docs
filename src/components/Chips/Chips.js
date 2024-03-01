@@ -6,12 +6,9 @@ import Link from "@docusaurus/Link";
 const Chips = ({ children, href = null, link = "", isUnderMainTitle = false}) => {
   if (!children) return null;
   const hasLink = link.length > 0;
-  const handleClick = () => {
-    window.open(link);
-  }
 
   return (
-    <div onClick={hasLink ? handleClick : null} className={`${isUnderMainTitle ? styles["under-main-menu"] : ''}`}>
+    <div className={`${isUnderMainTitle ? styles["under-main-menu"] : ''}`}>
       {hasLink &&
         <Link className={`${styles.chips} ${styles.link}`} to={link} target="_blank">{children}</Link>
       }

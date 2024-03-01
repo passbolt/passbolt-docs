@@ -152,14 +152,9 @@ const config = {
           },
           // {
           //   type: 'docSidebar',
-          //   sidebarId: 'developerGuideSidebar',
+          //   sidebarId: 'contributeGuideSidebar',
           //   position: 'left',
-          //   label: 'Developer guide',
-          // },
-          // {
-          //   to: 'api',
-          //   position: 'left',
-          //   label: 'API',
+          //   label: 'Contribute guide',
           // },
           {
             href: ROUTES.GITHUB_URL,

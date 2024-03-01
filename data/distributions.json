@@ -9,7 +9,7 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": true,
-    "canMigratePackage": true, 
+    "canMigratePackage": true,
     "canUpgrade": true
   },
   {
@@ -22,7 +22,7 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": true,
-    "canMigratePackage": true, 
+    "canMigratePackage": true,
     "canUpgrade": true
   },
   {
@@ -35,7 +35,7 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": false,
-    "canMigratePackage": false, 
+    "canMigratePackage": false,
     "canUpgrade": false
   },
   {
@@ -48,7 +48,7 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": true,
-    "canMigratePackage": false, 
+    "canMigratePackage": false,
     "canUpgrade": true
   },
   {
@@ -61,7 +61,7 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": false,
-    "canMigratePackage": false, 
+    "canMigratePackage": false,
     "canUpgrade": false
   },
   {
@@ -74,7 +74,7 @@
     "ce": false,
     "pro": true,
     "canMigrateServer": true,
-    "canMigratePackage": false, 
+    "canMigratePackage": false,
     "canUpgrade": false
   },
   {
@@ -87,7 +87,7 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": false,
-    "canMigratePackage": false, 
+    "canMigratePackage": false,
     "canUpgrade": false
   },
   {
@@ -100,7 +100,7 @@
     "ce": true,
     "pro": false,
     "canMigrateServer": false,
-    "canMigratePackage": false, 
+    "canMigratePackage": false,
     "canUpgrade": false
   },
   {
@@ -113,7 +113,7 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": true,
-    "canMigratePackage": false, 
+    "canMigratePackage": false,
     "canUpgrade": false
   },
   {
@@ -126,7 +126,7 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": true,
-    "canMigratePackage": true, 
+    "canMigratePackage": true,
     "canUpgrade": false
   },
   {
@@ -139,7 +139,7 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": true,
-    "canMigratePackage": false, 
+    "canMigratePackage": false,
     "canUpgrade": false
   },
   {
@@ -152,7 +152,7 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": true,
-    "canMigratePackage": false, 
+    "canMigratePackage": false,
     "canUpgrade": false
   },
   {
@@ -165,7 +165,7 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": true,
-    "canMigratePackage": false, 
+    "canMigratePackage": false,
     "canUpgrade": false
   },
   {
@@ -178,7 +178,7 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": true,
-    "canMigratePackage": false, 
+    "canMigratePackage": false,
     "canUpgrade": false
   },
   {
@@ -191,7 +191,7 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": true,
-    "canMigratePackage": false, 
+    "canMigratePackage": false,
     "canUpgrade": false
   },
   {
@@ -207,4 +207,4 @@
     "canMigratePackage": false,
     "canUpgrade": false
   }
-] 
+]

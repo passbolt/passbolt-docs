@@ -1,0 +1,168 @@
+---
+title: HTTPS
+description: How to configure HTTPS
+hide_table_of_contents: true
+---
+
+import DistributionCard from '@site/src/components/DistributionCard/DistributionCard.js';
+import distributions from '@site/data/distributions.json';
+import styles from '@site/src/components/DistributionCard/DistributionCard.module.css';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+export const DistributionCardWrapper = ({ type }) => {
+
+  const logos = distributions.reduce((acc, { slug, logo }) => {
+    acc[slug] = logo;
+    return acc;
+  }, {});
+
+  const data = {
+    auto: [
+      {
+        key: 'aws',
+        logo: logos['aws-ami'],
+        name: 'AWS',
+        links: {
+          ce: {
+            slug: 'CE/aws-auto',
+            label: 'CE',
+          },
+          pro: {
+            slug: 'PRO/aws-auto',
+            label: 'PRO',
+          }
+        }
+      },
+      {
+        key: 'debian',
+        logo: logos['debian'],
+        name: 'Debian/Ubuntu',
+        links: {
+          ce: {
+            slug: 'CE/debian-auto',
+            label: 'CE',
+          },
+          pro: {
+            slug: 'PRO/debian-auto',
+            label: 'PRO',
+          }
+        }
+      },
+      {
+        key: 'digital-ocean',
+        logo: logos['digital-ocean'],
+        name: 'Digital Ocean',
+        links: {
+          ce: {
+            slug: 'CE/digitalocean-auto',
+            label: 'CE',
+          },
+        }
+      },
+      {
+        key: 'docker',
+        logo: logos['docker'],
+        name: 'Docker',
+        links: {
+          ce: {
+            slug: 'CE/docker-auto',
+            label: 'CE',
+          },
+          pro: {
+            slug: 'PRO/docker-auto',
+            label: 'PRO',
+          }
+        }
+      },
+      {
+        key: 'ova',
+        logo: logos['virtual-appliance'],
+        name: 'OVA',
+        links: {
+          pro: {
+            slug: 'PRO/ova-auto',
+            label: 'PRO',
+          }
+        }
+      }
+    ],
+    manual: [
+      {
+        key: 'debian',
+        logo: logos['debian'],
+        name: 'Debian/Ubuntu',
+        links: {
+          ce: {
+            slug: 'CE/debian-manual',
+            label: 'CE',
+          },
+          pro: {
+            slug: 'PRO/debian-manual',
+            label: 'PRO',
+          }
+        }
+      },
+      {
+        key: 'docker',
+        logo: logos['docker'],
+        name: 'Docker',
+        links: {
+          ce: {
+            slug: 'CE/docker-manual',
+            label: 'CE',
+          },
+          pro: {
+            slug: 'PRO/docker-manual',
+            label: 'PRO',
+          }
+        }
+      },
+      {
+        key: 'rpm',
+        logo: logos['virtual-appliance'],
+        name: 'RPM',
+        links: {
+          ce: {
+            slug: 'CE/rpm-manual',
+            label: 'CE',
+          },
+          pro: {
+            slug: 'PRO/rpm-manual',
+            label: 'PRO',
+          }
+        }
+      }
+    ]
+  }
+
+  return (
+
+    <div className= { styles.grid } >
+    {
+      data[type].map((distribution) => {
+        return (
+          <DistributionCard
+            key={distribution.key}
+            logo={distribution.logo}
+            name={distribution.name}
+            links={distribution.links}
+          />
+        );
+    })
+
+}
+
+</div>
+
+);
+};
+
+<Tabs>
+  <TabItem value="auto" label="Automatic configuration" default>
+    <DistributionCardWrapper type="auto" />
+  </TabItem>
+  <TabItem value="manual" label="Manual configuration">
+    <DistributionCardWrapper type="manual" />
+  </TabItem>
+</Tabs>

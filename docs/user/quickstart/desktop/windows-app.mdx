@@ -2,6 +2,7 @@
 title: Using Windows App
 description: How to use Windows App
 slug: windows-app
+sidebar_position: 0
 ---
 
 import Figure from '/src/components/Figure/Figure';
@@ -11,27 +12,10 @@ import Figure from '/src/components/Figure/Figure';
 
 ## Prerequisites
 
-:::warning
-**Important:** The Windows application is currently in  **BETA**  mode. To use it, you need to enable the ‘desktop’ feature flag. This will allow all your users to access and configure the Passbolt desktop application from their user profiles
+:::warning[Important]
+The Windows application is currently in  **BETA**  mode.
 :::
 
-This feature flag can be enabled through different methods:
-
-* Docker: Set the environment variable  `PASSBOLT_PLUGINS_DESKTOP_ENABLED`  to true.  
-* Configuration File: In  `/etc/passbolt/passbolt.php`, add the following section:
-    
-
-```php title="/etc/passbolt/passbolt.php"
-return [
-  "passbolt" => [
-    "plugins" => [
-      "desktop" => [
-        "enabled" => true
-      ]
-    ]
-  ]
-];
-```
 
 ## How to download and install the application
 

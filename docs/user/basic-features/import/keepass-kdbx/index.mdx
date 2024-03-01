@@ -1,0 +1,39 @@
+---
+title: Keepass (KDBX)
+description: keepass kdbx resources import
+---
+
+import ImportSteps from '@site/src/components/ImportSteps/ImportSteps';
+import CheckMarkSuccess from '@site/src/components/Icon/CheckMarkSuccess/CheckMarkSuccess';
+import CheckMarkNone from '@site/src/components/Icon/CheckMarkNone/CheckMarkNone';
+import CheckMarkPartial from '@site/src/components/Icon/CheckMarkPartial/CheckMarkPartial';
+import CodeBlock from "@site/src/components/CodeBlock/CodeBlock";
+
+## Steps
+
+<ImportSteps />
+
+## Example
+
+[Download example](/files/keepass_file_example.kdbx) (the file is not password protected)
+
+## Matrix
+
+|   |  Windows |  Keepass XC |  Macpass |
+|---|---|---|---|
+| Title | <CheckMarkSuccess/>  | <CheckMarkSuccess/>  | <CheckMarkSuccess/>  |
+| Username  | <CheckMarkSuccess/> | <CheckMarkSuccess/>  | <CheckMarkSuccess/>  |
+| URL  | <CheckMarkSuccess/>  | <CheckMarkSuccess/>  | <CheckMarkSuccess/>  |
+| Password | <CheckMarkSuccess/> | <CheckMarkSuccess/>  | <CheckMarkSuccess/>  |
+| Notes | <CheckMarkSuccess/> | <CheckMarkSuccess/>  | <CheckMarkSuccess/>  |
+| Group | <CheckMarkSuccess/> | <CheckMarkSuccess/>  | <CheckMarkSuccess/>  |
+| TOTP | <CheckMarkPartial/> | <CheckMarkSuccess/>  | <CheckMarkSuccess/>  |
+| Icon | <CheckMarkNone/> | <CheckMarkNone/>  | <CheckMarkNone/>  |
+
+:::warning
+Keepass windows totp supported :
+- TimeOtp-Algorithm
+- TimeOtp-Length
+- TimeOtp-Period
+- TimeOtp-Secret-Base32
+:::

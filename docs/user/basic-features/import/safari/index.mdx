@@ -1,0 +1,35 @@
+---
+title: Safari
+description: safari resources import
+---
+
+import ImportSteps from '@site/src/components/ImportSteps/ImportSteps';
+import CheckMarkSuccess from '@site/src/components/Icon/CheckMarkSuccess/CheckMarkSuccess';
+import CheckMarkNone from '@site/src/components/Icon/CheckMarkNone/CheckMarkNone';
+import CodeBlock from "@site/src/components/CodeBlock/CodeBlock";
+
+## Steps
+
+<ImportSteps />
+
+## Example
+
+<CodeBlock>
+
+Title,URL,Username,Password,Notes
+Account1,https://test.url,account1,P4ssw0Rd!,this is the description
+Account2,https://test.url,account2,P4ssw0Rd!,this is the description
+Account3,https://test.url,account3,P4ssw0Rd!,,
+
+</CodeBlock>
+
+## Matrix
+
+|   |  Supported |
+|---|---|
+| Title | <CheckMarkSuccess/>  |
+| URL  | <CheckMarkSuccess/> |
+| Username  | <CheckMarkSuccess/>  |
+| Password | <CheckMarkSuccess/> |
+| Notes | <CheckMarkSuccess/> |
+| OTPAuth | <CheckMarkNone/> |

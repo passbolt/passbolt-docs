@@ -52,9 +52,9 @@ DistributionCard.propTypes = {
   logo: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   version: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
-  links: PropTypes.shape({
-    ce: PropTypes.string,
-    pro: PropTypes.string,
+  link: PropTypes.shape({
+    slug: PropTypes.string,
+    label: PropTypes.string,
   }).isRequired,
 };
 

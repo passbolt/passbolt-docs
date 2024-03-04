@@ -4,6 +4,13 @@ description: Quickstart with the Passbolt Desktop applications
 ---
 
 import {DocCardListWithoutCurrentPage} from '/docs/components/docCardListWithoutCurrentPage.jsx';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
 
 This section describes how to quickly start Passbolt using the desktop applications.
 

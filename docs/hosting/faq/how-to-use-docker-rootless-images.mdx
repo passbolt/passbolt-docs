@@ -5,6 +5,14 @@ sidebar_label: How can I use Docker rootless images?
 sidebar_class_name: hidden
 hide_table_of_contents: true
 ---
+
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
 Our docker-compose.yml example uses root images. If you want to use non-root images, choose one from [our available docker tags](https://hub.docker.com/r/passbolt/passbolt/tags?name=non-root) as `image` and update `ports` option.
 
 root images uses ports 80 and 443:
@@ -57,8 +65,8 @@ To use the LDAP cronjob on the non-root docker the following steps are needed:
 - Make the file for the ldap cronjob executable
 - Mount both files into the container
 ```yaml
-   - ./<path to file>/cron_ldap:/usr/share/php/passbolt/bin/cron_ldap  
-   - ./<path to file>/passbolt-pro-server:/etc/cron.d/passbolt-pro-server  
+   - ./<path to file>/cron_ldap:/usr/share/php/passbolt/bin/cron_ldap
+   - ./<path to file>/passbolt-pro-server:/etc/cron.d/passbolt-pro-server
 ```
 ### Example files:
 #### cron_ldap
@@ -77,7 +85,7 @@ DIR=$(dirname "$(readlink -f "$0")")
 The cron_ldap file needs to be executable.
 :::
 
-#### passbolt-pro-server   
+#### passbolt-pro-server
 ```bash
 #
 #

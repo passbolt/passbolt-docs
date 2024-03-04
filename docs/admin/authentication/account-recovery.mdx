@@ -9,7 +9,11 @@ import Figure from '/src/components/Figure/Figure';
 import Video from '@site/src/components/Video/Video';
 import Chips from "/src/components/Chips/Chips";
 
-<Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro & Cloud only</Chips>
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
 
 <Video
 src="/docs/video/2024/02/account-recovery-introduction.mp4"

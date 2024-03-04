@@ -12,6 +12,9 @@ import ServerComponents from '/docs/hosting/_includes/package/_install-server-co
 import PackageConfiguration from '/docs/hosting/_includes/package/_package-configuration.mdx';
 import RpmPackageConfiguration from '/docs/hosting/_includes/package/_configure-rpm-package.mdx';
 import CentOSWarning from '/docs/hosting/_includes/warning/_dont-install-CentOS.mdx';
+import Chips from "/src/components/Chips/Chips";
+
+<Chips link="https://www.passbolt.com/ce/centos" isUnderMainTitle={true}>CE</Chips>
 
 <CentOSWarning />
 <Prerequisites distributionLabel={'CentOS'} distributionVersion={'7'} />
@@ -21,5 +24,5 @@ import CentOSWarning from '/docs/hosting/_includes/warning/_dont-install-CentOS.
     productName={'CE'}
     distributionLabel={'CentOS'}
     distributionVersion={'7'}
-/>          
+/>
 <MigrateData productName={'CE'} webServerUser={'nginx'}/>

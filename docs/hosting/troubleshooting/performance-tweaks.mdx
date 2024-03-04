@@ -5,12 +5,19 @@ description: Some potential performance tweaks
 hide_table_of_contents: false
 ---
 
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
 ## Introduction
-At Passbolt, we are constantly striving to enhance performance, introduce new functionality, and refine existing features. 
+At Passbolt, we are constantly striving to enhance performance, introduce new functionality, and refine existing features.
 
-The default settings that come with Passbolt are suitable for the majority of our users. However, if you have a significant number of users or groups who have access to hundreds or thousands of secrets, the defaults may not meet your performance expectations. 
+The default settings that come with Passbolt are suitable for the majority of our users. However, if you have a significant number of users or groups who have access to hundreds or thousands of secrets, the defaults may not meet your performance expectations.
 
-To address this, we have created this guide to help you optimize Passbolt's performance. 
+To address this, we have created this guide to help you optimize Passbolt's performance.
 
 If you prefer not to make these adjustments, please let us know which areas of Passbolt are slowing down for you, and we will consider incorporating improvements in future releases.
 
@@ -52,7 +59,7 @@ You will then need to adjust your Passbolt configuration to point to `127.0.0.1`
 ## PHP FPM
 There are two values which you can change to increase the resources that PHP is able to use. These are `memory_limit` and `pm.max_children`
 
-You can adjust `memory_limit` by editing the `/etc/php/X.X/fpm/php.ini` file where X.X is your PHP version. 
+You can adjust `memory_limit` by editing the `/etc/php/X.X/fpm/php.ini` file where X.X is your PHP version.
 
 You can adjust `pm.max_children` by editing the `/etc/php/X.X/fpm/pool.d/www.conf` file where X.X is your PHP version.
 

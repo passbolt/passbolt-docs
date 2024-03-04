@@ -5,6 +5,14 @@ sidebar_label: How can I install passbolt in non-interactive mode?
 sidebar_class_name: hidden
 hide_table_of_contents: true
 ---
+
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
 The non-interactive mode is useful for automating passbolt installation and for users with specific needs. It is available only on Debian and Ubuntu operating systems.
 
 The commands of this page assume you want to install passbolt CE. Replace ce with pro if you plan to install the PRO version.

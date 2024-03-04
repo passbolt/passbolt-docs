@@ -6,6 +6,13 @@ sidebar_class_name: hidden
 hide_table_of_contents: true
 ---
 
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
 You can (and should) make a backup of your secret key during the setup after generating a new key. You can also do that at any moment when you are logged in the application by going to the profile section.
 
 At the moment it is not possible to download a backup of your passwords from the client side. However if you have email notification enabled you should receive a copy of your encrypted passwords by email, which can act as a backup.

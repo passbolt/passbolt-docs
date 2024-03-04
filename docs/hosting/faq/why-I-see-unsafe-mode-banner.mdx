@@ -6,6 +6,13 @@ description: Why am I seeing an unsafe mode banner in the footer
 hide_table_of_contents: true
 ---
 
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
 When running the site with debug mode on, or without enforcing https, your passbolt instance can
 not be considered secure. These settings can be useful for example when doing some local testing or development,
 but should not be used for production.

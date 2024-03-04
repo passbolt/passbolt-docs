@@ -6,6 +6,12 @@ sidebar_class_name: hidden
 hide_table_of_contents: true
 ---
 import Figure from '/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
 
 By default passbolt uses the PHP session duration setting to define when the auto logout should kick in. If the default session timeout is too short for you and your user you can extend it in the PHP configuration.
 

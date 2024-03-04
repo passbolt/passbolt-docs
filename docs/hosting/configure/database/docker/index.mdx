@@ -5,6 +5,12 @@ sidebar_label: Docker
 hide_table_of_contents: false
 ---
 
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
 
 Database credentials are set in environment variables and you will need to edit them for each container:
 

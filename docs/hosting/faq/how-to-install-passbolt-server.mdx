@@ -6,4 +6,11 @@ sidebar_class_name: hidden
 hide_table_of_contents: true
 ---
 
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
 There are multiple way to install passbolt. You can install it using Docker or on your favorite distribution. Check out the dedicated [documentation page](/hosting/install) for that topic.

@@ -10,6 +10,13 @@ import ImportCard from '/src/components/ImportCard/ImportCard.js';
 import importResources from '/data/import-resources.json';
 import styles from '/src/components/DistributionCard/DistributionCard.module.css';
 import Video from '@site/src/components/Video/Video';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
 
 ## How to import passwords in passbolt
 

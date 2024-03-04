@@ -7,9 +7,14 @@ hide_table_of_contents: true
 
 import Introduction from '/docs/hosting/_includes/fromSource/_introduction-from-source.mdx';
 import SystemRequirements from '/docs/hosting/_includes/fromSource/_system-requirements.mdx';
-import UpdateProcess from '/docs/hosting/_includes/package/_update-process.mdx';
 import Troubleshooting from '/docs/hosting/_includes/default/_troubleshooting.mdx';
 import InCaseOfIssues from '/docs/hosting/_includes/default/_in-case-of-issues.mdx';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://github.com/passbolt" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
 
 <Introduction
   type={'update'}
@@ -21,7 +26,7 @@ import InCaseOfIssues from '/docs/hosting/_includes/default/_in-case-of-issues.m
 ## Find out where is your passbolt directory
 All the commands hereafter should be done from inside your passbolt directory:
 
-```bash 
+```bash
 cd /var/www/passbolt
 ```
 By default passbolt should be installed under ```/var/www/passbolt``` but it could be different if you installed from source manually. We will assume for the rest of this tutorial that it is located in ```/var/www/passbolt```.
@@ -31,7 +36,7 @@ Some commands need to be run as the same user running the web server. Generally 
 
 Generally it is not possible to login as this user, so in order to run the command as this user, you can execute something like this:
 
-```bash 
+```bash
 sudo -H -u www-data bash -c "./bin/cake passbolt healthcheck"
 ```
 This command for example, will run the healthcheck command as ```www-data``` user. It is a good idea to start with running a healthcheck prior to updating, to make sure everything is in order.
@@ -152,7 +157,7 @@ php -d allow_url_fopen=on /usr/bin/composer.phar install --no-dev -n -o
 ### 4. Run the migration script
 You can run the database migration scripts as follow:
 
-```bash 
+```bash
 sudo -H -u www-data bash -c "./bin/cake passbolt migrate --backup"
 ```
 As you can see with the command above you can optional ask the application to create a database backup. This is useful in case you run into any issues with the new version and need to revert to an old but working one.

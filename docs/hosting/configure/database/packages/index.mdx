@@ -5,6 +5,13 @@ sidebar_label: Package Installation
 hide_table_of_contents: false
 ---
 
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
 In order to update the database credentials, you can open the `/etc/passbolt/passbolt.php` file and edit the **Datasources** block:
 
 ```php

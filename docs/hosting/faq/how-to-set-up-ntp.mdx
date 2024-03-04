@@ -6,6 +6,13 @@ sidebar_class_name: hidden
 hide_table_of_contents: false
 ---
 
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
 ## Introduction
 
 This page is intended to give you the resources to set up NTP(or suitable equivalent) on the main distrobutions that we support. NTP is important for two main reasons with Passbolt. The first is in regards to GPG authentication. The other area where this becomes important is if you have MFA enabled as if the server and user device time get out of sync the codes will not work.
@@ -228,7 +235,7 @@ After this step, you will need to specify the type of configuration source. In t
 
 You need to configure time servers. Time servers for the client to query are listed in the lower part of the NTP Configuration window. Modify this list as needed by clicking Add, Edit, and Delete.
 
-After you clicked Add to add a new time server in the address field, type the URL of the time server or pool of time servers with which you want to synchronize the machine time (for example, europe.pool.ntp.org). 
+After you clicked Add to add a new time server in the address field, type the URL of the time server or pool of time servers with which you want to synchronize the machine time (for example, europe.pool.ntp.org).
 
 After URL is complete, click on Test to verify that it points to a valid time source.
 

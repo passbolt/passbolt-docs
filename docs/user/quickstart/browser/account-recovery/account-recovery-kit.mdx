@@ -3,9 +3,14 @@ title: Account recovery kit
 description: Recovering an account with the recovery kit
 slug: account-recovery-kit
 ---
+
 import Chips from "/src/components/Chips/Chips";
 
-<Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro & Cloud only</Chips>
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
 
 The recovery kit can be used if you are setting up passbolt on a new machine because you lost, upgraded or reinstalled the previous one. This procedure can also be used to configure passbolt on an additional machine.
 

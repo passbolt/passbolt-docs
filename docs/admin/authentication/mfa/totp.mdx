@@ -6,6 +6,13 @@ hide_table_of_contents: false
 ---
 
 import Figure from '@site/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
 
 Passbolt Pro Edition since v2.4 and CE since v3.9 support TOTP (Time-based One Time Password) as a multi factor authentication option.
 

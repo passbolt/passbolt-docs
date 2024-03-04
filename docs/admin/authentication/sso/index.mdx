@@ -8,6 +8,9 @@ hide_table_of_contents: false
 import DocCardList from '@theme/DocCardList';
 import Chips from "/src/components/Chips/Chips";
 
-<Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro & Cloud only</Chips>
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
 
 <DocCardList />

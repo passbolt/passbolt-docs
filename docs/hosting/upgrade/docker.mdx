@@ -1,11 +1,17 @@
 ---
 title: Docker
 description: How to upgrade on Docker from CE to PRO
-sidebar_position: 1 
+sidebar_position: 1
 hide_table_of_contents: true
 ---
 
 import InCaseOfIssues from '/docs/hosting/_includes/default/_in-case-of-issues.mdx';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
 
 :::caution[Important]
 Please take a [full backup](/docs/hosting/backup/from-docker) of your passbolt before proceeding with the upgrade.

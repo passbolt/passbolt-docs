@@ -9,6 +9,7 @@ import distributions from '@site/data/distributions.json';
 import styles from '@site/src/components/DistributionCard/DistributionCard.module.css';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import Chips from "/src/components/Chips/Chips";
 
 export const DistributionCardWrapper = ({ type }) => {
 
@@ -157,6 +158,11 @@ export const DistributionCardWrapper = ({ type }) => {
 
 );
 };
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
 
 <Tabs>
   <TabItem value="auto" label="Automatic configuration" default>

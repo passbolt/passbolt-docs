@@ -6,6 +6,12 @@ sidebar_label: Introduction
 hide_table_of_contents: true
 ---
 import Figure from '@site/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
 
 <Figure
   src="/img/background/guide-covers/hosting-guide.svg"

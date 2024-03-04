@@ -6,5 +6,12 @@ hide_table_of_contents: true
 ---
 import mfaProviders from '/data/mfa-providers.json';
 import {ProviderCardWrapper} from '/docs/components/providerCard.mdx';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
 
 <ProviderCardWrapper providers={mfaProviders}/>

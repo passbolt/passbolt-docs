@@ -8,7 +8,10 @@ hide_table_of_contents: false
 import Figure from '@site/src/components/Figure/Figure';
 import Chips from "/src/components/Chips/Chips";
 
-<Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro & Cloud only</Chips>
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
 
 Since version 3.9, Passbolt Pro Edition supports SSO with Microsoft via Azure AD.
 

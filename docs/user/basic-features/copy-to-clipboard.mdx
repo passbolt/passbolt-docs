@@ -5,7 +5,13 @@ description: How to copy a password to clipboard
 slug: copy-to-clipboard
 ---
 
-# How to copy a password to clipboard
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
 
 :::note
 A clipboard, in computer terms, is a buffer that some operating systems provide for short-term storage and transfer within and between application programs.

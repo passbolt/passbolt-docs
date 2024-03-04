@@ -7,6 +7,12 @@ hide_table_of_contents: true
 ---
 import EmailServerConfigurationIntroduction from '/docs/admin/_includes/email/email-server/introduction.mdx';
 import TestYourEmailConfiguration from '/docs/admin/_includes/email/email-server/test-your-email-configuration.mdx';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
 
 <EmailServerConfigurationIntroduction/>
 

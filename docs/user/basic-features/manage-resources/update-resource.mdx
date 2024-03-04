@@ -3,8 +3,15 @@ title: Update Resource
 description: Editing a password
 slug: update-resource
 ---
+import Chips from "/src/components/Chips/Chips";
 
 # Editing a password
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
 
 1.  Login and/or go to password workspace
 2.  Select the password from your list

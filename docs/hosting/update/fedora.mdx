@@ -9,6 +9,12 @@ import Prerequisites from '/docs/hosting/_includes/package/_prerequisites.mdx';
 import UpdateProcess from '/docs/hosting/_includes/package/_update-process.mdx';
 import Troubleshooting from '/docs/hosting/_includes/default/_troubleshooting.mdx';
 import InCaseOfIssues from '/docs/hosting/_includes/default/_in-case-of-issues.mdx';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/fedora" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
 
 <Prerequisites
   distributionLabel={'Fedora'}
@@ -16,10 +22,10 @@ import InCaseOfIssues from '/docs/hosting/_includes/default/_in-case-of-issues.m
   type={'updatePackage'}
 />
 
-<UpdateProcess 
+<UpdateProcess
   distributionPackage={'dnf'}
   distributionLabel={'Fedora'}
-  distributionVersion={'38'} 
+  distributionVersion={'38'}
   distributionWebUser={'nginx'}
 />
 

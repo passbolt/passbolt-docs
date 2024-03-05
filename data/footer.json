@@ -1,0 +1,88 @@
+[
+  {
+    "title": "Legal",
+    "items": [
+      {
+        "label": "Privacy Policy",
+        "href": "https://www.passbolt.com/privacy"
+      },
+      {
+        "label": "Legal terms",
+        "href": "https://www.passbolt.com/terms"
+      },
+      {
+        "label": "Credits",
+        "href": "https://www.passbolt.com/credits"
+      }
+    ]
+  },
+  {
+    "title": "Product",
+    "items": [
+      {
+        "label": "Security",
+        "href": "https://www.passbolt.com/security/more"
+      },
+      {
+        "label": "Roadmap",
+        "href": "https://www.passbolt.com/roadmap"
+      },
+      {
+        "label": "Downloads",
+        "href": "https://www.passbolt.com/downloads"
+      }
+    ]
+  },
+  {
+    "title": "Resources",
+    "items": [
+      {
+        "html": "Compare"
+      },
+      {
+        "label": "Passbolt vs KeePass",
+        "href": "https://www.passbolt.com/passbolt-vs-keepass"
+      },
+      {
+        "label": "Passbolt vs Bitwarden",
+        "href": "https://www.passbolt.com/vs/bitwarden/overview"
+      },
+      {
+        "html": "Case studies"
+      },
+      {
+        "label": "ZIT-RLP",
+        "href": "https://www.passbolt.com/case-studies/zit-rlp"
+      },
+      {
+        "label": "Municipality of Macerata",
+        "href": "https://www.passbolt.com/case-studies/municipality-of-macerata"
+      }
+    ]
+  },
+  {
+    "title": "Company",
+    "items": [
+      {
+        "label": "About",
+        "href": "https://www.passbolt.com/about"
+      },
+      {
+        "label": "Careers",
+        "href": "https://careers.passbolt.com"
+      },
+      {
+        "label": "Contact us",
+        "href": "https://www.passbolt.com/contact"
+      },
+      {
+        "label": "Press",
+        "href": "https://www.passbolt.com/credits/press-kit"
+      },
+      {
+        "label": "Partnerships",
+        "href": "https://www.passbolt.com/reseller"
+      }
+    ]
+  }
+]

@@ -156,7 +156,7 @@
     "canUpgrade": false
   },
   {
-    "name": "openSUSE Leap",
+    "name": "OpenSUSE Leap",
     "slug": "opensuse",
     "version": 15,
     "package": "zypper",

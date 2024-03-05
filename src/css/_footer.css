@@ -8,6 +8,14 @@ footer.footer .container {
   max-width: var(--layout-max-width);
 }
 
+footer.footer .footer__item:not(:has(a)) {
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, .5);
+  margin-top: 1rem;
+}
+
 footer.footer .footer__link-item {
   font-size: .875rem;
 }
@@ -22,6 +30,10 @@ footer.footer .footer__link-item:hover {
 
 footer.footer .copyright {
   font-size: .875rem;
+}
+
+footer.footer .logo {
+  margin-bottom: 1.875rem;
 }
 
 footer.footer .logo a {
@@ -43,7 +55,13 @@ footer.footer .social-block nav {
   margin-top: 0.625rem;
   margin-bottom: 0;
   display: flex;
-  gap: 1.625rem
+  flex-wrap: wrap;
+  gap: 1.625rem;
+  color: white;
+}
+
+footer.footer .footer__links {
+  margin-top: 1.875rem;
 }
 
 
@@ -54,5 +72,9 @@ footer.footer .social-block nav {
 
   footer.footer .copyright {
     text-align: right;
+  }
+
+  footer.footer .footer__links {
+    margin-top: unset;
   }
 }

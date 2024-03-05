@@ -4,6 +4,8 @@
 
 // const passboltTheme = require('./src/lib/prism-passbolt');
 import { themes as prismThemes } from 'prism-react-renderer';
+import footerLinks from './data/footer.json'
+
 
 const ROUTES = {
   HELPSITE_URL: 'https://www.passbolt.com/docs',
@@ -13,9 +15,11 @@ const ROUTES = {
   FORUM_URL: 'https://community.passbolt.com',
   REDDIT_URL: 'https://www.reddit.com/r/passbolt',
   GITHUB_URL: 'https://github.com/passbolt/passbolt-docs',
+  GITHUB_ORG_URL: 'https://github.com/passbolt',
   X_URL: 'https://x.com/passbolt',
   LINKEDIN_URL: 'https://www.linkedin.com/company/passbolt',
   YOUTUBE_URL: 'https://www.youtube.com/user/passboltpassword',
+  MASTODON_URL: 'https://mastodon.social/@passbolt',
 };
 
 /** @type {import('@docusaurus/types').Config} */
@@ -76,6 +80,15 @@ const config = {
         title: 'See you around:',
         links: [
           {
+            href: ROUTES.GITHUB_ORG_URL,
+            icon:  {
+              alt: 'Our Github account',
+              src: 'icons/github.svg',
+              width: 20,
+              height: 20,
+            },
+          },
+          {
             href: ROUTES.YOUTUBE_URL,
             icon: {
               alt: 'Our Youtube account',
@@ -89,8 +102,8 @@ const config = {
             icon: {
               alt: 'Our X account',
               src: 'icons/x.svg',
-              width: 24,
-              height: 20,
+              width: 19.92,
+              height: 18,
             },
           },
           {
@@ -99,6 +112,33 @@ const config = {
               alt: 'Our LinkedIn account',
               src: 'icons/linkedin.svg',
               width: 20,
+              height: 20,
+            },
+          },
+          {
+            href: ROUTES.MASTODON_URL,
+            icon: {
+              alt: 'Our Mastodon account',
+              src: 'icons/mastodon.svg',
+              width: 19.13,
+              height: 20,
+            },
+          },
+          {
+            href: ROUTES.REDDIT_URL,
+            icon: {
+              alt: 'Our Reddit account',
+              src: 'icons/reddit.svg',
+              width: 20,
+              height: 20,
+            },
+          },
+          {
+            href: ROUTES.FORUM_URL,
+            icon: {
+              alt: 'Our Forum',
+              src: 'icons/discourse.svg',
+              width: 19.42,
               height: 20,
             },
           },
@@ -176,75 +216,7 @@ const config = {
           height: 32,
           href: ROUTES.WEBSITE_URL,
         },
-        links: [
-          {
-            title: 'Company',
-            items: [
-              {
-                label: 'About',
-                href: `${ROUTES.WEBSITE_URL}/about`,
-              },
-              {
-                label: 'Blog',
-                href: ROUTES.BLOG_URL,
-              },
-              {
-                label: 'Careers',
-                href: ROUTES.CAREERS_URL,
-              },
-              {
-                label: 'Contact us',
-                href: `${ROUTES.WEBSITE_URL}/contact`,
-              },
-            ],
-          },
-          {
-            title: 'Legal',
-            items: [
-              {
-                label: 'Security',
-                href: `${ROUTES.WEBSITE_URL}/security/more`,
-              },
-              {
-                label: 'Privacy policy',
-                href: `${ROUTES.WEBSITE_URL}/privacy`,
-              },
-              {
-                label: 'Legal terms',
-                href: `${ROUTES.WEBSITE_URL}/terms`,
-              },
-              {
-                label: 'Credits',
-                href: `${ROUTES.WEBSITE_URL}/credits`,
-              },
-            ],
-          },
-          {
-            title: 'Social',
-            items: [
-              {
-                label: 'Github',
-                href: ROUTES.GITHUB_URL,
-              },
-              {
-                label: 'X',
-                href: ROUTES.X_URL,
-              },
-              {
-                label: 'Community Forum',
-                href: ROUTES.FORUM_URL,
-              },
-              {
-                label: 'Reddit',
-                href: ROUTES.REDDIT_URL,
-              },
-              {
-                label: 'LinkedIn',
-                href: ROUTES.LINKEDIN_URL,
-              },
-            ],
-          },
-        ],
+        links: footerLinks,
         copyright: `Copyright © ${new Date().getFullYear()} Passbolt S.A. All right reserved.`,
       },
       colorMode: {

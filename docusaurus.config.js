@@ -4,8 +4,7 @@
 
 // const passboltTheme = require('./src/lib/prism-passbolt');
 import { themes as prismThemes } from 'prism-react-renderer';
-import footerLinks from './data/footer.json'
-
+import footerLinks from './data/footer.json';
 
 const ROUTES = {
   HELPSITE_URL: 'https://www.passbolt.com/docs',
@@ -81,7 +80,7 @@ const config = {
         links: [
           {
             href: ROUTES.GITHUB_ORG_URL,
-            icon:  {
+            icon: {
               alt: 'Our Github account',
               src: 'icons/github.svg',
               width: 20,
@@ -231,16 +230,15 @@ const config = {
     }),
   themes: [
     [
-      '@easyops-cn/docusaurus-search-local',
-      /** @type {import('@easyops-cn/docusaurus-search-local').PluginOptions} */
-      ({
-        hashed: false,
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      {
+        hashed: true,
         indexBlog: false,
         docsRouteBasePath: '/',
         language: ['en'],
         highlightSearchTermsOnTargetPage: false,
-        explicitSearchResultPath: true,
-      }),
+        explicitSearchResultPath: false,
+      }
     ],
   ],
 };

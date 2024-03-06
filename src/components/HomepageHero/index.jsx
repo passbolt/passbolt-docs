@@ -4,6 +4,7 @@ import styles from './HomepageHero.module.css';
 import Link from '@docusaurus/Link';
 import Icon from '@site/src/components/Icon';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import SearchBar from '@easyops-cn/docusaurus-search-local/dist/client/client/theme/SearchBar/index.js';
 
 const HomepageHero = () => {
   const { siteConfig } = useDocusaurusContext();
@@ -47,7 +48,7 @@ const HomepageHero = () => {
 
   return (
     <div className={styles.root}>
-      <div className={styles.headings}>
+      <div className={styles.header}>
         <h1 className={styles.heading}>
           Welcome to the passbolt{' '}
           <span className={styles.red}>documentation</span>!
@@ -57,6 +58,10 @@ const HomepageHero = () => {
           The documentation for Passbolt contains several main sections, all
           accessible from the top navigation bar or from the links below.
         </h2>
+
+        <div className={styles.search_bar}>
+          <SearchBar />
+        </div>
       </div>
       <div className={styles.grid}>
         {guides.map((item) => (

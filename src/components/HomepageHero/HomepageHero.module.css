@@ -3,7 +3,7 @@
   padding-inline: var(--ifm-navbar-padding-horizontal);
 }
 
-.headings {
+.header {
   text-align: center;
   margin-bottom: 8rem;
 }
@@ -19,6 +19,30 @@
 
 .red {
   color: var(--passbolt-red);
+}
+
+.search_bar {
+  margin-top: 3rem;
+  margin-inline: auto;
+  width: 100%;
+  max-width: 40rem
+}
+
+.search_bar :global(.navbar__search) {
+  --ifm-navbar-search-input-background-color: var(--passbolt-light-grey);
+  box-shadow: unset;
+}
+
+.search_bar :global(.navbar__search),
+.search_bar :global(.navbar__search input) {
+  height: 3rem;
+  border-radius: 1.5rem;
+}
+
+.search_bar :global(.navbar__search input),
+.search_bar :global(.navbar__search [role="listbox"]),
+.search_bar :global(.navbar__search > span) {
+  width: 100%;
 }
 
 .grid {

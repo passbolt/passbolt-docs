@@ -26,6 +26,6 @@
 
 .under-main-menu {
   display: flex;
-  margin-top: calc(.4rem + (-1 * var(--ifm-h1-vertical-rhythm-bottom)* var(--ifm-leading))) !important;
-  margin-bottom: 1rem;
+  margin-top: calc(.8rem + (-1 * var(--ifm-h1-vertical-rhythm-bottom)* var(--ifm-leading))) !important;
+  margin-bottom: 1.5rem;
 }

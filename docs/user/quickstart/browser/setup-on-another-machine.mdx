@@ -1,0 +1,83 @@
+---
+title: Setup on another machine or browser
+description: How to setup passbolt on another machine or browser
+sidebar_label: Setup on Another Browser
+sidebar_position: 2
+---
+
+import Figure from '/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+:::warning
+You need your recovery kit (private key and passphrase) to setup passbolt on a new browser.
+:::
+
+The recovery kit can be used if you are setting up passbolt on a new machine, for example if you lost, upgraded or reinstalled
+the previous one. This procedure can also be used to configure passbolt on an additional machine, or another browser,
+or another browser profile.
+
+<Figure
+  src="/img/help/2024/03/user-setup-4-download-recovery-kit.png"
+  alt="User setup - Download recovery kit"
+  caption="fig. User setup - Download recovery kit"
+/>
+
+## Requirements
+
+You can follow this procedure if you are meeting the following requirements:
+
+- You are in possession of a valid user account (you have completed the setup, and you are not suspended);
+- You are in possession of your recovery kit, it contains a copy of the private key associated to your account;
+- You remember your passphrase.
+
+If you lost your recovery kit or your passphrase and you subscribed to the account recovery program, checkout this [documentation](/docs/user/quickstart/browser/admin-assisted-recovery).
+
+
+## Procedure
+
+**Step 1.** In order to recover you will need to go to your domain URL and add `/recover` at the end of the url,
+for example `https://yourpassbolt.com/recover`.
+
+<Figure
+  src="/img/help/2024/03/user-recover-start0.png"
+  alt="User setup - Download recovery kit"
+  caption="fig. User setup - Download recovery kit"
+/>
+
+**Step 2.** Complete the form by providing your email address.
+
+<Figure
+  src="/img/help/2024/03/user-recover-start1.png"
+  alt="User setup - Enter your email"
+  caption="fig. User setup - Enter your email"
+/>
+
+**Step 3.** Follow the link in your mailbox.
+
+<Figure
+  src="/img/help/2024/03/user-recover-start2.png"
+  alt="User setup - Check your mailbox"
+  caption="fig. User setup - Check your mailbox"
+/>
+
+**Step 4.** Follow the recovery steps, which is much like the initial setup. You will need to import your private key.
+
+<Figure
+  src="/img/help/2024/03/user-recover-start3.png"
+  alt="User setup - Select private key"
+  caption="fig. User setup - Select private key"
+/>
+
+**Step 5.** Enter your passphrase to login!
+
+<Figure
+  src="/img/help/2024/03/user-recover-start4.png"
+  alt="User setup - Enter passphrase"
+  caption="fig. User setup - Enter passphrase"
+/>

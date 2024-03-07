@@ -1,7 +1,8 @@
 ---
-title: Account recovery assisted by an administrator
-description: Recover an account via the account recovery program
+title: Account Recovery with the Help of an Administrator
+description: Recover access to a user account using administrator help via the account recovery program
 slug: admin-assisted-recovery
+sidebar_label: Account Recovery Program
 ---
 
 import Figure from '@site/src/components/Figure/Figure';
@@ -12,16 +13,25 @@ import Chips from "/src/components/Chips/Chips";
   <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
 </div>
 
-The Account recovery is a feature introduced with passbolt v3.6.0 that as for aim to help users to recover their accounts in case of recovery kit or passphrase loss.
-To know more about account recovery, checkout this [documentation](/docs/admin/authentication/account-recovery/).
+:::info
+This feature needs to be activated by your administrator first and you need to have completed the setup for your user
+account. The feature is currently not available in the community edition.
+:::
+
+The Account recovery is a feature introduced with passbolt v3.6.0 that as for aim to help users to recover their
+accounts in the scenario where they have lost their recovery kit and/or passphrase.
+
+The way it works is that during setup, the user will share an encrypted version of their private key. The private key
+material is encrypted using an organization recovery key.
 
 ## Requirements
 
 You can follow this procedure if you are meeting the following requirements:
 
-- You are in possession of an active account;
-- Your organisation is running passbolt Pro > v3.6.0 or Passbolt Cloud.
-- You subscribed to the account recovery program while installing passbolt for the first time or via in your user settings workspace.
+- Your organisation is running Passbolt Pro > v3.6.0 or Passbolt Cloud.
+- Account recovery was setup for your organization by your administrator.
+- You are in possession of a valid user account (you have completed the setup, and you are not suspended);
+- You subscribed to the account recovery program while installing passbolt for the first time or via in your [user settings workspace](/docs/user/browser/settings/account-recovery-setup).
 
 ## Procedure
 
@@ -30,17 +40,17 @@ There are 2 ways to start the procedure:
 1. Assuming the browser extension is configured but the passphrase is lost: users can, at any time, click on the “help, I lost my passphrase” link in the sign in screen. An email will be sent to them to start the procedure.
 
 <Figure
-  src="/img/help/2022/07/account-recovery-help-lost-passphrase.png"
-  alt="Login screen with the account recovery feature"
-  caption="fig. Login screen with the account recovery feature"
+  src="/img/help/2024/03/user-login-lost-passphrase.png"
+  alt="Login screen with lost passphrase"
+  caption="fig. Login screen - lost passphrase"
 />
 
 2. Assuming users are configuring Passbolt for a new browser or a new browser profile: during the process, they will be prompted to provide a recovery kit and its passphrase. If one of the information is missing, users can click on the “help, I lost my private key” link. Users will receive an email to start the procedure.
 
 <Figure
-  src="/img/help/2022/07/account-recovery-help-lost-private-key.png"
-  alt="Recover screen with the help link"
-  caption="fig. Recover screen with the help link"
+  src="/img/help/2024/03/user-recover-lost-passphrase.png"
+  alt="Setup on a new device with lost passphrase"
+  caption="fig. Setup on a new device - lost passphrase"
 />
 
 ## How does the account recovery procedure look like
@@ -54,3 +64,10 @@ There are 2 ways to start the procedure:
 4. If they reject or accept the request an email is sent to inform the users about their choice. If it’s accepted, the email contains a link that users can follow to go on with the account recovery procedure.
 
 5. At this step, users are asked to provide the passphrase they chose previously. If they don’t remember it, they’re still able to request for another account recovery from the interface. After entering the right passphrase, the browser extension will sign the users in after ensuring they have downloaded their new recovery kit.
+
+## Going further
+
+To know more about account recovery, checkout the following:
+- [Account recovery in Administrator Guide](/docs/admin/authentication/account-recovery/)
+- [What will the “Account Recovery” functionality look like?](https://www.passbolt.com/blog/what-will-the-account-recovery-functionality-look-like) (Blog)
+- [Introducing the “Account Recovery” functionality](https://www.passbolt.com/blog/account-recovery) (Blog)

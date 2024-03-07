@@ -177,17 +177,17 @@ const config = {
           },
           {
             type: 'docSidebar',
-            href: '/hosting',
-            sidebarId: 'hostingGuideSidebar',
-            position: 'left',
-            label: 'Hosting guide',
-          },
-          {
-            type: 'docSidebar',
             href: '/admin',
             sidebarId: 'adminGuideSidebar',
             position: 'left',
             label: 'Admin guide',
+          },
+          {
+            type: 'docSidebar',
+            href: '/hosting',
+            sidebarId: 'hostingGuideSidebar',
+            position: 'left',
+            label: 'Hosting guide',
           },
           // {
           //   type: 'docSidebar',

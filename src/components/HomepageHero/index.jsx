@@ -29,20 +29,20 @@ const HomepageHero = () => {
         'All you need to know about the functionalities available to every users.',
     },
     {
-      id: 'hosting',
-      icon: 'server',
-      href: useBaseUrl(getSidebarUrl('hostingGuideSidebar', '/hosting')),
-      title: 'Hosting guide',
-      description:
-        'All the technical information related to the setup and update of your passbolt self-hosted server',
-    },
-    {
       id: 'admin',
       icon: 'settings',
       href: useBaseUrl(getSidebarUrl('adminGuideSidebar', '/admin')),
       title: 'Admin guide',
       description:
         'All the information for users with the administrator role, e.g. all about the user and admin workspaces',
+    },
+    {
+      id: 'hosting',
+      icon: 'server',
+      href: useBaseUrl(getSidebarUrl('hostingGuideSidebar', '/hosting')),
+      title: 'Hosting guide',
+      description:
+        'All the technical information related to the setup and update of your passbolt self-hosted server',
     },
   ];
 

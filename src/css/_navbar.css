@@ -101,6 +101,7 @@ div.menu__list-item a.main-website-link:hover {
   text-underline-offset: 1rem;
   font-weight: bold;
   transition: all 0.1s linear;
+  margin: auto .5rem;
 }
 
 .navbar__items .navbar__link.navbar__link--active,

@@ -1,0 +1,39 @@
+---
+title: Update
+description: Passbolt update methods
+sidebar_label: List
+hide_table_of_contents: true
+---
+
+import DistributionCard from '/src/components/DistributionCard/DistributionCard.js';
+import distributions from '/data/distributions.json';
+import styles from '/src/components/DistributionCard/DistributionCard.module.css';
+
+export const DistributionCardWrapper = () => {
+  return (
+    <div className={styles.grid}>
+      {distributions
+      .filter(distribution => distribution.canUpdate === true)
+      .map((distribution) => {
+        return (
+          <DistributionCard
+            key={distribution.slug}
+            logo={distribution.logo}
+            name={distribution.name}
+            version={distribution.version}
+            links={{
+              ...({
+                ce: {
+                  slug: `/hosting/update/${distribution.slug}`,
+                  label: "Update"
+                }
+              }),
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
+<DistributionCardWrapper />

@@ -10,7 +10,8 @@
     "pro": true,
     "canMigrateServer": true,
     "canMigratePackage": true,
-    "canUpgrade": true
+    "canUpgrade": true,
+    "canUpdate": true
   },
   {
     "name": "Ubuntu",
@@ -23,7 +24,8 @@
     "pro": true,
     "canMigrateServer": true,
     "canMigratePackage": true,
-    "canUpgrade": true
+    "canUpgrade": true,
+    "canUpdate": true
   },
   {
     "name": "Helm Chart",
@@ -36,7 +38,8 @@
     "pro": true,
     "canMigrateServer": false,
     "canMigratePackage": false,
-    "canUpgrade": false
+    "canUpgrade": false,
+    "canUpdate": false
   },
   {
     "name": "Docker",
@@ -49,7 +52,8 @@
     "pro": true,
     "canMigrateServer": true,
     "canMigratePackage": false,
-    "canUpgrade": true
+    "canUpgrade": true,
+    "canUpdate": true
   },
   {
     "name": "Raspberry",
@@ -62,7 +66,8 @@
     "pro": true,
     "canMigrateServer": false,
     "canMigratePackage": false,
-    "canUpgrade": false
+    "canUpgrade": false,
+    "canUpdate": true
   },
   {
     "name": "Virtual Appliance",
@@ -75,7 +80,8 @@
     "pro": true,
     "canMigrateServer": true,
     "canMigratePackage": false,
-    "canUpgrade": false
+    "canUpgrade": false,
+    "canUpdate": true
   },
   {
     "name": "AWS AMI",
@@ -88,7 +94,8 @@
     "pro": true,
     "canMigrateServer": false,
     "canMigratePackage": false,
-    "canUpgrade": false
+    "canUpgrade": false,
+    "canUpdate": true
   },
   {
     "name": "Digital Ocean",
@@ -101,7 +108,8 @@
     "pro": false,
     "canMigrateServer": false,
     "canMigratePackage": false,
-    "canUpgrade": false
+    "canUpgrade": false,
+    "canUpdate": true
   },
   {
     "name": "Red Hat",
@@ -114,7 +122,8 @@
     "pro": true,
     "canMigrateServer": true,
     "canMigratePackage": false,
-    "canUpgrade": false
+    "canUpgrade": false,
+    "canUpdate": true
   },
   {
     "name": "CentOS",
@@ -127,7 +136,8 @@
     "pro": true,
     "canMigrateServer": true,
     "canMigratePackage": true,
-    "canUpgrade": false
+    "canUpgrade": false,
+    "canUpdate": true
   },
   {
     "name": "AlmaLinux",
@@ -140,7 +150,8 @@
     "pro": true,
     "canMigrateServer": true,
     "canMigratePackage": false,
-    "canUpgrade": false
+    "canUpgrade": false,
+    "canUpdate": true
   },
   {
     "name": "RockyLinux",
@@ -153,7 +164,8 @@
     "pro": true,
     "canMigrateServer": true,
     "canMigratePackage": false,
-    "canUpgrade": false
+    "canUpgrade": false,
+    "canUpdate": true
   },
   {
     "name": "OpenSUSE Leap",
@@ -166,7 +178,8 @@
     "pro": true,
     "canMigrateServer": true,
     "canMigratePackage": false,
-    "canUpgrade": false
+    "canUpgrade": false,
+    "canUpdate": true
   },
   {
     "name": "Fedora",
@@ -179,7 +192,8 @@
     "pro": true,
     "canMigrateServer": true,
     "canMigratePackage": false,
-    "canUpgrade": false
+    "canUpgrade": false,
+    "canUpdate": true
   },
   {
     "name": "OracleLinux",
@@ -192,7 +206,8 @@
     "pro": true,
     "canMigrateServer": true,
     "canMigratePackage": false,
-    "canUpgrade": false
+    "canUpgrade": false,
+    "canUpdate": true
   },
   {
     "name": "From source",
@@ -205,6 +220,7 @@
     "pro": false,
     "canMigrateServer": false,
     "canMigratePackage": false,
-    "canUpgrade": false
+    "canUpgrade": false,
+    "canUpdate": true
   }
 ]

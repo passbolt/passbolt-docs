@@ -1,0 +1,28 @@
+---
+title: Update Passbolt on Digital Ocean
+description: Update Passbolt on Digital Ocean
+sidebar_label: Digital Ocean
+hide_table_of_contents: true
+---
+
+import Prerequisites from '/docs/hosting/_includes/package/_prerequisites.mdx';
+import UpdateProcess from '/docs/hosting/_includes/package/_update-process.mdx';
+import Troubleshooting from '/docs/hosting/_includes/default/_troubleshooting.mdx';
+import InCaseOfIssues from '/docs/hosting/_includes/default/_in-case-of-issues.mdx';
+
+<Prerequisites
+  distributionLabel={'Debian'}
+  distributionVersion={'12'}
+  type={'updatePackage'}
+/>
+
+<UpdateProcess 
+  distributionPackage={'apt'}
+  distributionLabel={'Debian'}
+  distributionVersion={'12'} 
+  distributionWebUser={'www-data'}
+/>
+
+<Troubleshooting distributionPackage={'apt'} webServerUser={'www-data'} />
+
+<InCaseOfIssues />

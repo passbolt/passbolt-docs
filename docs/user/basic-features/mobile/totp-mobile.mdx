@@ -1,11 +1,12 @@
 ---
-title: Mobile
+title: TOTP
 description: How to create a TOTP on Mobile application
-slug: mobile
 ---
 
 import Figure from '/src/components/Figure/Figure';
 import Chips from "/src/components/Chips/Chips";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 <div style={{display: "flex", gap: "1rem"}}>
   <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
@@ -13,15 +14,12 @@ import Chips from "/src/components/Chips/Chips";
   <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
 </div>
 
-# How to create a TOTP on mobile
-
 Since version 4.3.0, Passbolt supports creation of TOTP (Time-based One Time Password).
 
 TOTP is a mechanism that generates a unique and temporary password based on the current time. This dynamic code can be used on its own or in combination with a static password, offering an additional layer of security compared to traditional password-only systems.
 
-* [iOS](#ios)
-* [Android](#android)
-
+<Tabs>
+  <TabItem value="iOS" label="iOS" default>
 ## iOS
 
 On the iOS application, there is a new section called “TOTP”
@@ -118,9 +116,11 @@ Once created, you will see a success message “TOTP has been created.” then y
   alt="iOS - TOTP Preview"
 />
 
-## Android
+  </TabItem>
+  <TabItem value="android" label="Android">
+    ## Android
 
-On the Android application, there will be a new section called “TOTP”
+    On the Android application, there will be a new section called “TOTP”
 
 <Figure
   size={{
@@ -213,3 +213,5 @@ Once created, you will see a success message then you will be able to preview th
   caption="fig. Android - TOTP Preview"
   alt="Android - TOTP Preview"
 />
+  </TabItem>
+</Tabs>

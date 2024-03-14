@@ -1,8 +1,9 @@
 ---
-title: Using LDAP Filters
-sidebar_label: Using LDAP Filters
-description: Using LDAP Filters
+title: How to use LDAP Filters
+sidebar_label: LDAP Filters
+description: How to use LDAP Filters
 hide_table_of_contents: false
+sidebar_position: 1
 ---
 
 import Figure from '@site/src/components/Figure/Figure';
@@ -49,3 +50,13 @@ These fields will accept standard LDAP query syntax. This is useful if you need 
   * This would be for the groups “admins” or “testers”
 * `(uid=*smith*)`
   * This would be for any user with “smith” in their uid
+
+### Optional server tooling
+
+For testing purpose, it might be handy to have some [ldap utilities](https://wiki.debian.org/LDAP/LDAPUtils) installed
+on your system. On Debian you can use ldapsearch for example to search for and display entries:
+
+```bash
+sudo apt-get install ldap-utils
+ldapsearch -b'dc=example,dc=com' -x
+```

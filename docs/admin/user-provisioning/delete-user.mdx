@@ -1,0 +1,35 @@
+---
+title: How to delete users
+description: How to delete users (FAQ)
+sidebar_label: User off-boarding
+sidebar_position: 2
+hide_table_of_contents: false
+---
+
+import Figure from '/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+## What happens when you delete a user who owns non-shared resources?
+
+When you delete a user who owns non-shared resources, those resources belonging solely to the user will also be deleted.
+Unlike shared resources, they won't be retained.
+
+## What happens when you delete a user who is sole owner of a shared resource?
+
+When a user, sole owner of a resource, is about to be deleted, a popup window is displayed and passbolt admin will
+be asked to transfer ownership of the resource to the group or user. If the deleted user was also the sole group manager,
+passbolt admin will promote another user of the group as group manager.
+
+<Figure
+  src={
+    '/img/help/2022/05/delete-user-group.png'
+  }
+  caption="fig. Shared password ownership transfer"
+  alt="Shared password ownership transfer"
+/>

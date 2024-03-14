@@ -1,7 +1,7 @@
 ---
-title: Configure User Directory
+title: How to Synchronize Users and Groups from a Directory
+description: How to Synchronize Users and Groups from a Directory
 sidebar_label: User Directory
-description: Configure User Directory
 hide_table_of_contents: false
 ---
 
@@ -17,83 +17,55 @@ import Chips from "/src/components/Chips/Chips";
 />
 
 :::caution[Important]
-The LDAP connector will send an invitation email to all the users matching your configuration during a synchronization. If you are simply testing it, make sure not to perform an actual synchronization (use simulate sync instead), or disable the cron job to send emails first.
+The LDAP connector will send an invitation email to all the users matching your configuration during a synchronization.
+If you are simply testing it, make sure not to perform an actual synchronization (use simulate sync instead), or
+disable the cron job to send emails first.
 :::
 
 ## Introduction
 
-### What is it?
+### What is the User Directory synchronization feature?
 
-The goal of the directory synchronization tool, also called LDAP connector, is to provide a way for a passbolt administrator to synchronize a list of groups and users, as well as the associated group memberships.
+The goal of the directory synchronization feature, also called LDAP connector, is to provide a way for a passbolt
+administrator to synchronize a list of groups and users, as well as the associated group memberships.
 
-Currently the connector supports two types of directory: OpenLDAP and Microsoft Active Directory. In the future we will also support other non ldap based user directories such as Google API User Directory.
+Currently the connector supports two types of directory: OpenLDAP and Microsoft Active Directory. In the future we
+will also support other non ldap based user directories such as Google API User Directory.
 
 ### How does it work?
 
-In a nutshell this part of the application will try to keep passbolt and a directory in sync with a minimal involvement of the administrators and group managers. However if an action is not possible, such as, deleting a user that is the sole password owner, the process triggers will trigger relevant email notifications so that a human can solve it manually. An admin can also alternatively tell passbolt to ignore a record in the next synchronization round, if the issue does not need to be resolved.
-
-### Requirements
-
-:::caution[Important]
-If you have installed [Passbolt Pro](https://www.passbolt.com/pricing/pro) using our debian and ubuntu packages you can skip this section.
-:::
-
-The directory synchronization tools requires the [php-ldap extension](https://secure.php.net/manual/en/book.ldap.php) to be present on the server. If you built your own server the way you install php-ldap will depend on your system flavor.
-
-On Debian using nginx for example you can do:
-
-```bash
-sudo apt-get install php-ldap
-sudo service nginx restart
-```
-
-Make sure the ldap extension is present in the php-cli.ini file. You should add `extension=ldap.so` if it is not already present:
-
-```bash
-$ php -i |grep php\.ini
-Configuration File (php.ini) Path => /etc/php/7.4/cli
-Loaded Configuration File => /etc/php/7.4/cli/php.ini
-$ nano /etc/php/7.4/cli/php.ini
-```
-
-For testing purpose, it might be handy to have some [ldap utilities](https://wiki.debian.org/LDAP/LDAPUtils) installed on your system. On Debian you can use ldapsearch for example to search for and display entries:
-
-```bash
-sudo apt-get install ldap-utils
-ldapsearch -b'dc=example,dc=com' -x
-```
-
-The plugin relies on a 3rd party library called ldaptools which you will need to install as part of your passbolt update or install. You can get it the same way than other php dependencies using composer:
-
-```bash
-cd /var/www/passbolt
-git pull origin master
-composer install
-./bin/cake passbolt migrate
-```
-
-To run, the LDAP plugin needs to have at least one active admin user existing inside passbolt.
+In a nutshell this part of the application will try to keep passbolt and a directory in sync with a minimal
+involvement of the administrators and group managers. However if an action is not possible, such as, deleting a
+user that is the sole password owner, the process triggers will trigger relevant email notifications so that a
+human can solve it manually. An admin can also alternatively tell passbolt to ignore a record in the next
+synchronization round, if the issue does not need to be resolved.
 
 ## Limitations
 
-The LDAP plugin doesn't support nested groups in the current version. This improvement will be added later, once groups inside groups is supported by passbolt.
+The LDAP plugin doesn't support nested groups in the current version. This improvement will be added later, once
+groups inside groups is supported by passbolt.
 
-A delegated authentication (such as using a LDAP user password as replacement of the passphrase) is currently not supported (and is not a trivial problem) but could still be considered in the future. If you are interested in this feature you can join the discussion on the [community forum](https://community.passbolt.com/t/as-a-user-i-can-login-using-my-organization-ldap-credentials/159).
+A delegated authentication (such as using a LDAP user password as replacement of the passphrase) is currently
+not supported (and is not a trivial problem) but could still be considered in the future. If you are interested
+in this feature you can join the discussion on the
+[community forum](https://community.passbolt.com/t/as-a-user-i-can-login-using-my-organization-ldap-credentials/159).
 
 The following improvements will also be shipped gradually and will be available soon:
 
 * Test mode: the capability to test the configuration and mapping directly from the configuration screen.
 * Report screens: the synchronization reports will be available in the admin workspace.
 
-## How to use?
+## Setup guide
 
 :::caution[Please note]
-This guide explains how to configure the Ldap connector through the UI. For complex configurations (for example custom field mapping in openldap) you will need to [configure ldap directly through the configuration file](https://help.passbolt.com/configure/ldap/ldap-from-configuration-file).
+This guide explains how to configure the Ldap connector through the UI. For complex configurations (for example
+custom field mapping in openldap) you will need to [configure ldap directly through the configuration file](https://help.passbolt.com/configure/ldap/ldap-from-configuration-file).
 :::
 
 ### Activate the plugin
 
-The plugin is deactivated by default. You need to activate it to be able to use it. While logged in as an admin, click on the administration menu item in the top menu, and then click on "Users Directory".
+The plugin is deactivated by default. You need to activate it to be able to use it. While logged in as an admin,
+click on the administration menu item in the top menu, and then click on "Users Directory".
 
 <Figure
   src="https://help.passbolt.com/assets/img/help/2018/12/AD_directory_sync_settings_disabled.png"
@@ -109,7 +81,8 @@ Click on the switch next to "Users Directory" to enable the plugin.
   caption="fig. LDAP directory settings screen (enabled)"
 />
 
-You will need to fill the configuration parameters with your connection details before you can save the settings and actually activate it.
+You will need to fill the configuration parameters with your connection details before you can save the settings
+and actually activate it.
 
 ### Configure the plugin
 
@@ -308,7 +281,9 @@ The available options are:
 
 ### Save configuration
 
-Once the configuration is entered, do not forget to save it by clicking on the "Save settings" at the top. The configuration will be saved only if passbolt managed to connect to your directory. If not, it will display an error message.
+Once the configuration is entered, do not forget to save it by clicking on the "Save settings" at the top. The
+configuration will be saved only if passbolt managed to connect to your directory. If not, it will display an error
+message.
 
 <Figure
   src="https://help.passbolt.com/assets/img/help/2018/12/AD_directory_sync_settings_saved.png"
@@ -320,7 +295,8 @@ Once the configuration is entered, do not forget to save it by clicking on the "
 
 Once the settings have been saved, the buttons "Simulate synchronize" and "Synchronize" at the top have become clickable.
 
-Before we actually do a real synchronization, we will first simulate one. Click on "Simulate synchronize" and wait a few seconds. Once the simulation is complete, a report such as the one below will be displayed.
+Before we actually do a real synchronization, we will first simulate one. Click on "Simulate synchronize" and wait
+a few seconds. Once the simulation is complete, a report such as the one below will be displayed.
 
 <Figure
   src="https://help.passbolt.com/assets/img/help/2018/12/AD_directory_sync_simulation.png"
@@ -328,36 +304,32 @@ Before we actually do a real synchronization, we will first simulate one. Click 
   caption="fig. LDAP directory sync simulation"
 />
 
-In this report, you will be able to see what will actually happen when you will synchronize your directory for real. You will also be able to take corrective measures before an error actually happens.
+In this report, you will be able to see what will actually happen when you will synchronize your directory for real.
+You will also be able to take corrective measures before an error actually happens.
 
 ### First synchronization
 
-To do the first synchronization, repeat the same process as above. Only, click on "Synchronize" this time. A similar report to the one that was displayed during a simulate will appear and let you know what happened exactly.
+To do the first synchronization, repeat the same process as above. Only, click on "Synchronize" this time. A similar
+report to the one that was displayed during a simulate will appear and let you know what happened exactly.
 
 ### User synchronization example workflow
 
 When an user is created in LDAP, they are imported in Passbolt using synchronization.
 
-If you delete this user in Passbolt, he will remain present in LDAP but won't be added back to Passbolt on next synchronization.
+If you delete this user in Passbolt, he will remain present in LDAP but won't be added back to Passbolt on next
+synchronization.
 
-If you want to re-sync this user with LDAP, manually re-create him in Passbolt then run synchronization. Passbolt synchronization tool will automatically recreate the link in Passbolt database.
+If you want to re-sync this user with LDAP, manually re-create him in Passbolt then run synchronization. Passbolt
+synchronization tool will automatically recreate the link in Passbolt database.
 
 If you delete this user in LDAP, he will be deleted from Passbolt on next synchronization.
 
+## Going further
 ### How to synchronize my directory automatically?
+If you want to automate the synchronization, you (or the person in charge of hosting) will need to setup a cron job.
+See the how to in the [hosting guide](/hosting/configure/ldap/ldap-cron).
 
-To synchronize the changes automatically you will need to add a cron job on your server. We recommend to execute the job once a day, but you can choose as per your preference.
+### Configure LDAP with SSL (LDAPS)
 
-```bash
-0 0 * * * su -c "/var/www/passbolt/bin/cake directory_sync all --persist" -s /bin/bash www-data >> /var/log/cron.log 2>&1
-```
-
-For debian and ubuntu systems where passbolt is installed through our supported packages:
-
-```bash
-0 0 * * * su -c "/usr/share/php/passbolt/bin/cake directory_sync all --persist" -s /bin/bash www-data >> /var/log/cron.log 2>&1
-```
-
-## Configure LDAP with SSL (LDAPS)
-
-If your configuration doesn't run out of the box with LDAPS, you can refer to the [LDAP with SSL](/admin/user-provisioning/configure/ldap/ldap-with-ssl) documentation in order to adjust your config or throubleshoot your issue.
+If your configuration doesn't run out of the box with LDAPS, you can refer to the [LDAP with SSL](/hosting/configure/ldap/ldaps)
+documentation in order to adjust your config or throubleshoot your issue.

@@ -1,8 +1,9 @@
 ---
-title: How to share passwords
-description: How to share passwords
-sidebar_label: How To Share Passwords
+title: How to share resources
+description: How to share resources
+sidebar_label: Share Resource
 hide_table_of_contents: false
+sidebar_position: 4
 ---
 
 import Chips from "/src/components/Chips/Chips";
@@ -12,6 +13,19 @@ import Chips from "/src/components/Chips/Chips";
   <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
   <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
 </div>
+
+##  What are the different permissions?
+
+Passbolt offers three permissions at the resource or folder level:
+
+* <b>Owner:</b> can manage share settings, delete, update, read.
+* <b>Update:</b> can update the record and delete.
+* <b>Read:</b> can only read and use the password metadata and secret.
+
+:::warning
+A User with <b>Update</b> right is able to delete a resource. The main difference between <b>Owner</b> and <b>Update</b>
+right is the ability for the <b>Owner</b> to share a resource.
+:::
 
 ##  Sharing a password
 

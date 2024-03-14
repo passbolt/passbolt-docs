@@ -1,3 +1,11 @@
-td {
+th, td {
     text-align: center;
+  min-width:10rem;
 }
+thead tr th:first-child,
+tbody tr td:first-child {
+  width: 50%;
+  word-break: break-all;
+  text-align: left;
+}
+

@@ -33,7 +33,7 @@ import Chips from "/src/components/Chips/Chips";
         logo={importResource.logo}
         name={importResource.name}
         links={importResource.formats.map((format) => ({
-          slug: `/user/basic-features/import/${importResource.slug}${importResource.formats.length > 1 ? "-" + format.toLowerCase() : "" }`,
+          slug: `/user/basic-features/browser/import/${importResource.slug}${importResource.formats.length > 1 ? "-" + format.toLowerCase() : "" }`,
           label: format
        }))}
       />

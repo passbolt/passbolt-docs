@@ -1,0 +1,65 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 2rem;
+  row-gap: 1rem;
+}
+
+.root {
+  display: flex;
+  background: var(--passbolt-grey);
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.providerCard .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.8rem;
+  min-height: 2.8rem;
+}
+
+.providerCard .logo img {
+  display: block;
+}
+
+.providerCard .name {
+  margin: 0;
+  flex: 1;
+}
+
+.providerCard {
+  flex: auto;
+  text-align: center;
+  text-decoration: none;
+}
+
+.providerCard:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 576px) {
+  .root {
+    flex-wrap: unset;
+  }
+}
+
+@media (max-width: 1289px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .providerCard h3 {
+    font-size: 1.40em;
+  }
+}
+
+@media (max-width: 996px) {
+  .providerCard h3 {
+    font-size: 1.30em;
+  }
+}

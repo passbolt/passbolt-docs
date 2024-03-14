@@ -1,0 +1,43 @@
+---
+title: LogMeOnce
+description: logmeonce resources import
+---
+
+import ImportSteps from '@site/src/components/ImportSteps/ImportSteps';
+import CheckMarkSuccess from '@site/src/components/Icon/CheckMarkSuccess/CheckMarkSuccess';
+import CheckMarkNone from '@site/src/components/Icon/CheckMarkNone/CheckMarkNone';
+import CodeBlock from "@site/src/components/CodeBlock/CodeBlock";
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+## Steps
+
+<ImportSteps />
+
+## Example
+
+<CodeBlock>
+
+"name","url","note","group","username","password","extra"
+"Account1","https://test.url","this is the description","My servers","account1","P4ssw0Rd!",""
+"Account2","https://test.url","","My servers","account2","P4ssw0Rd!",""
+"Account3","https://test.url","this is the description","My servers","account3","P4ssw0Rd!",""
+
+</CodeBlock>
+
+## Matrix
+
+|   |  Supported |
+|---|---|
+| name | <CheckMarkSuccess/>  |
+| url  | <CheckMarkSuccess/> |
+| note  | <CheckMarkSuccess/>  |
+| group | <CheckMarkSuccess/> |
+| username | <CheckMarkSuccess/> |
+| password | <CheckMarkSuccess/> |
+| extra | <CheckMarkNone/> |

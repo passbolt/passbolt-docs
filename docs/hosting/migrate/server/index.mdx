@@ -9,6 +9,12 @@ sidebar_label: To a new server
 import DistributionCard from '/src/components/DistributionCard/DistributionCard.js';
 import distributions from '/data/distributions.json';
 import styles from '/src/components/DistributionCard/DistributionCard.module.css';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
 
 export const DistributionCardWrapper = () => {
   return (

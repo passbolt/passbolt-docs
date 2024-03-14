@@ -1,0 +1,121 @@
+---
+title: First Setup
+description: Step by step guide for user account creation
+sidebar_position: 1
+---
+import Figure from '@site/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+## Click on the invitation link
+The setup by default starts in your mailbox, with an email sent by your passbolt instance administrator.
+This is to ensure your email address is verified and can be trusted by other passbolt users. It will also
+be used to send you notifications in the future.
+<Figure
+  src="/img/help/2024/03/user-setup-0-email.png"
+  alt="User setup - Example of invitation email"
+  caption="fig. User setup - Example of invitation email"
+/>
+
+:::important
+The invitation link is only valid for a day or two. Best to get started before it expires. If it expired,
+you can always request a new one by providing your email.
+Check your spam folder in your mailbox if you do not receive the link after a few minutes.
+:::
+
+## Install the browser extension
+After clicking on the link in the invitation email, one need to install the browser extension.
+<Figure
+  src="/img/help/2024/03/user-setup-0-extension-install.png"
+  alt="User setup - browser extension install"
+  caption="fig. User setup - browser extension install"
+/>
+
+:::important
+The browser extension is required to use passbolt. This is to ensure end-to-end encryption, e.g. to make sure the
+application cannot be modified if the server is compromised. It is also needed for some functionalities like the autofill.
+:::
+
+Depending on the browser you use you will be taken to the webstore, to install the extension. Here is the
+example on the Chrome Web Store.
+<Figure
+  src="/img/help/2024/03/user-setup-1-chrome-webstore.png"
+  alt="User setup - Chrome Web Store"
+  caption="fig. User setup - Chrome Web Store"
+/>
+
+## Pin the browser extension
+
+Once installed the extension should automatically close the Web Store page and take you back to the setup. There
+You will be shown instructions on how to pin the browser extension in the toolbar. Pinning the extension in the
+browser toolbar is usefull as it will make sure you always have one-click access to your credentials.
+<Figure
+  src="/img/help/2024/03/user-setup-2-pin-extension.png"
+  alt="User setup - Pinning the browser extension"
+  caption="fig. User setup - Pinning the browser extension"
+/>
+
+## Select a passphrase
+
+In this step you are requested to the setup a passphrase. This will be the main password that will be used to
+protect your encryption key. You want to choose something that is long enough and difficult for an attacker to
+guess.
+<Figure
+  src="/img/help/2024/03/user-setup-3-select-passphrase.png"
+  alt="User setup - Select a passphrase"
+  caption="fig. User setup - Select a passphrase"
+/>
+
+:::important
+Passbolt uses a system of public/private encryption key pair. The private key is required to decrypt information
+stored in passbolt. The passphrase is used to encrypt that private key. For your security by default the private
+key and the passphrase never leaves your devices.
+:::
+
+
+## Download recovery kit
+
+Since your private key is required to login, it is important to make a backup. This backup is encrypted with your
+passphrase, so it safe to store for example in a USB stick or your hard drive, for future use. You will need it
+for example when you want to setup passbolt on a new machine, so keep it handy!
+
+<Figure
+  src="/img/help/2024/03/user-setup-4-download-recovery-kit.png"
+  alt="User setup - Download recovery kit"
+  caption="fig. User setup - Download recovery kit"
+/>
+
+## Select an anti-phishing token
+
+In this step you need to select a color and three letters. This will be your security token. This security token
+is usefull to prevent your from [phishing attack](https://en.wikipedia.org/wiki/Phishing). For example an attacker creating a fake passbolt dialog on a
+website that you visit to capture your passphrase. Since an attacker will not know your security token, you
+should be able to spot such attacks before it's too late!
+
+<Figure
+  src="/img/help/2024/03/user-setup-5-security-token.png"
+  alt="User setup - Security token selection"
+  caption="fig. User setup - Security token selection"
+/>
+
+## That's it!
+
+Once you click next, the browser extension is now fully configured and will log you into your passbolt instance.
+
+<Figure
+  src="/img/help/2024/03/user-setup-6-signing-in.png"
+  alt="User setup - Setup completed, signing in..."
+  caption="fig. User setup - Setup completed, signing in..."
+/>
+
+You should be able to see you user workspace. You can then start [managing credentials](/docs/user/basic-features/browser)!
+<Figure
+  src="/img/help/2024/03/user-setup-7-complete.png"
+  alt="User setup - And you are all set!"
+  caption="fig. User setup - And you are all set!"
+/>

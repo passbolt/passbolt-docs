@@ -1,0 +1,45 @@
+---
+title: Dashlane
+description: dashlane resources import
+---
+
+import ImportSteps from '@site/src/components/ImportSteps/ImportSteps';
+import CheckMarkSuccess from '@site/src/components/Icon/CheckMarkSuccess/CheckMarkSuccess';
+import CheckMarkNone from '@site/src/components/Icon/CheckMarkNone/CheckMarkNone';
+import CodeBlock from "@site/src/components/CodeBlock/CodeBlock";
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+## Steps
+
+<ImportSteps />
+
+## Example
+
+<CodeBlock>
+
+username,username2,username3,title,password,note,url,category,otpSecret
+account1,,,Account 1,P4ssw0Rd,"this is the description",https:///test.url,,
+account2@domain.tld,,,Account 2,P4ssw0Rd,"this is the description",https://test.url,,
+account3@domain.tld,,,Account 3,P4ssw0Rd,,https://test.url,,
+
+</CodeBlock>
+
+## Matrix
+
+|   |  Supported |
+|---|---|
+| username | <CheckMarkSuccess/>  |
+| username2  | <CheckMarkNone/> |
+| username3  | <CheckMarkNone/>  |
+| title | <CheckMarkSuccess/> |
+| password | <CheckMarkSuccess/> |
+| note | <CheckMarkSuccess/> |
+| url | <CheckMarkSuccess/> |
+| category | <CheckMarkNone/> |
+| otpSecret | <CheckMarkNone/> |

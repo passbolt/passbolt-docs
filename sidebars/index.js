@@ -13,7 +13,8 @@
 
 /** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
 const sidebars = {
-  // adminGuideSidebar: require('./admin.sidebar'),
+  adminGuideSidebar: require('./admin.sidebar'),
+  contributeGuideSidebar: require('./contribute.sidebar'),
   hostingGuideSidebar: require('./hosting.sidebar'),
   userGuideSidebar: require('./user.sidebar'),
 };

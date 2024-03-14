@@ -56,5 +56,5 @@ export default function FooterLayout({ links, logo, copyright }) {
 FooterLayout.propTypes = {
   links: PropTypes.node, // if 'links' is a React node (e.g., JSX elements)
   logo: PropTypes.node, // if 'logo' is a React node
-  copyright: PropTypes.string, // assuming 'copyright' is a string
+  copyright: PropTypes.element, // assuming 'copyright' is a react element
 };

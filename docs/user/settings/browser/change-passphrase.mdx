@@ -1,0 +1,38 @@
+---
+title: How can I change my passphrase?
+description: How can I change my passphrase?
+sidebar_label: Passphrase
+hide_table_of_contents: false
+---
+import Figure from "/src/components/Figure/Figure";
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+Since version 3.1, you can change your passphrase from passbolt itself.
+
+Before getting started, please note that your passphrase is stored on your device and never sent server side. Changing your passphrase will only change it locally. If you have multiple devices configured, the passphrase will need to be changed in all places individually.
+
+In order to change your passphrase, navigate to **Profile Settings** > **Passphrase**. Confirm that you understand what you have to do and press “**Start**”.
+
+<Figure src="img/help/2024/02/change-passphrase-01.png" alt="Update passphrase - step 1"
+        caption="fig. Update passphrase - step 1"/>
+
+Enter your current passphrase.
+
+<Figure src="img/help/2024/02/change-passphrase-02.png" alt="Update passphrase - step 2"
+        caption="fig. Update passphrase - step 2"/>
+
+Then enter your new passphrase, if possible follow all our recommendations, and press the “**Update**” button. You can ensure the new passphrase is correct by pressing the eye icon.
+
+<Figure src="img/help/2024/02/change-passphrase-03.png" alt="Update passphrase - step 3"
+        caption="fig. Update passphrase - step 3"/>
+
+Your passphrase is now updated, and you will be prompted to download a backup of your private key encrypted with it. Be sure to keep it in a safe place, it will be needed in case of an account recovery.
+
+<Figure src="img/help/2024/02/change-passphrase-04.png" alt="Update passphrase - step 4"
+        caption="fig. Update passphrase - step 4"/>

@@ -1,9 +1,17 @@
 ---
 title: Why should I install haveged on virtual environments?
 sidebar_label: Why should I install haveged on virtual environments?
+sidebar_class_name: hidden
 description: Why haveged should be installed on virtual environments
 hide_table_of_contents: true
 ---
+
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
 
 Passbolt uses Gnupg as the encryption engine. Encryption operations such as creating a private key require an enough amount of entropy on the system's entropy pool.
 A good and fast source of entropy is important to generate high quality random numbers. Poor quality on the random numbers could lead to weak private keys that

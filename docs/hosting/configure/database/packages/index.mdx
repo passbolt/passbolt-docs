@@ -1,0 +1,31 @@
+---
+title: Update database credentials with a package installation
+description: How to update the database credentials with a package installation
+sidebar_label: Package Installation
+hide_table_of_contents: false
+---
+
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+In order to update the database credentials, you can open the `/etc/passbolt/passbolt.php` file and edit the **Datasources** block:
+
+```php
+[...]
+// Database configuration.
+'Datasources' => [
+      'default' => [
+      'host' => '127.0.0.1',
+      'port' => '3306',
+      'username' => 'YOUR_DATABASE_USER_USERNAME',
+      'password' => 'YOUR_DATABASE_USER_PASSWORD',
+      'database' => 'YOUR_PASSBOLT_DATABASE_NAME',
+    ],
+],
+[...]
+```
+Then, you can save and quit. No restart should be needed to apply these changes.

@@ -1,0 +1,35 @@
+---
+title: Configure Email authentication
+description: Configuration of the authentication methods that is used with SMTP
+sidebar_label: Others
+sidebar_position: 110
+hide_table_of_contents: true
+---
+import EmailServerConfigurationIntroduction from '/docs/admin/_includes/email/email-server/introduction.mdx';
+import TestYourEmailConfiguration from '/docs/admin/_includes/email/email-server/test-your-email-configuration.mdx';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+<EmailServerConfigurationIntroduction/>
+
+## Other
+
+If you are using another smtp email provider or a local one, you'd rather use the **"Other"** email provider.
+
+- Authentication on Passbolt GUI
+
+On your Passbolt instance, you can navigate to *Administration > Email server*.
+
+You will need to fill in your smtp credentials to match your authentication method, it could be:
+
+1. Username & Password
+2. Username only
+3. None
+
+Please, take into consideration that if you are using an email provider that doesn't require any authentication, you'll need to use the *none* authentication method, leaving empty fields with another authentication method could result in a failure to send emails.
+
+<TestYourEmailConfiguration/>

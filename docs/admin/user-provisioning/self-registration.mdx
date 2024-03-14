@@ -1,0 +1,108 @@
+---
+title: How to Set up User Self-Registration
+description: How to Set up User Self-Registration
+sidebar_label: Self-Registration
+hide_table_of_contents: false
+---
+
+import Figure from '/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+### How to set up user Self Registration
+
+The purpose of this guide is to show you how to set up user Self Registration on your passbolt installation as an admin and for users how to register.
+
+## Admin Guide
+<b>Step 1.</b> Log in with an administrator account
+
+<b>Step 2.</b> Navigate to the administration tab
+
+<Figure
+  src={
+    'https://help.passbolt.com/assets/img/help/2023/02/self-registration/Admin1.png'
+  }
+  caption="fig. Navigate to admin tab"
+  alt="Admin tab"
+/>
+
+<b>Step 3.</b> Select the Self Registration option on the left
+
+<Figure
+  src={
+    'https://help.passbolt.com/assets/img/help/2023/02/self-registration/Admin2.png'
+  }
+  caption="fig. Navigate to self registration"
+  alt="Self registration tab"
+/>
+
+<b>Step 4.</b> Click the toggle to enable
+
+<Figure
+  src={
+    'https://help.passbolt.com/assets/img/help/2023/02/self-registration/Admin3.png'
+  }
+  caption="fig. Toggle self registration"
+  alt="Toggle self registration"
+/>
+
+<b>Step 5.</b> Enter the domains you want to allow to self register.
+
+This section will require that you specify the domains you want to allow self registration on. This is used to only allow users with an email address at that domain to register.
+
+
+:::warning
+This will allow ANY user with an email address at that domain to register. So, it is recommended to not use a free or common domain such as gmail.com here.
+:::
+
+<Figure
+  src={
+    'https://help.passbolt.com/assets/img/help/2023/02/self-registration/Admin4.png'
+  }
+  caption="fig. Enter domains"
+  alt="Enter domains"
+/>
+
+<b>Step 6.</b> Save your settings
+
+Congrats! At this point you have user Self Registration set up and configured and you can let your users know!
+
+## User Guide
+<b>Step 1.</b> Navigate to your Passbolt URL
+
+<b>Step 2.</b> Enter your email address
+
+<Figure
+  src={
+    'https://help.passbolt.com/assets/img/help/2023/02/self-registration/User1.png'
+  }
+  caption="fig. Enter your email address"
+  alt="Enter your email address"
+/>
+
+<b>Step 3.</b> Enter your name
+
+<Figure
+  src={
+    'https://help.passbolt.com/assets/img/help/2023/02/self-registration/User2.png'
+  }
+  caption="fig. Enter your name"
+  alt="Enter your name"
+/>
+
+<b>Step 4.</b> Proceed with the standard sign up process.
+
+### Other frequently asked questions in the same category
+<ul>
+    <li>
+        <a href={`/docs/admin/faq/enable-disable-import-export-plugins`}>How can I enable or disable import / export plugins</a>
+    </li>
+    <li>
+        <a href={`/docs/hosting/faq/configure/performance-tweaks`}>Some potential performance tweaks</a>
+    </li>
+</ul>

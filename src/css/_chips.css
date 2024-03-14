@@ -1,0 +1,10 @@
+:root {
+  --chips-default-hover-background-color: #1D1D1D;
+  --chips-default-hover-border-color: #292929;
+  --chips-default-active-background-color: var(--passbolt-red);
+  --chips-default-active-border-color: var(--passbolt-red);
+  --chips-default-active-color: white;
+  --chips-default-border-color: var(--passbolt-red);
+  --chips-default-color: white;
+  --chips-default-hover-color: white;
+}

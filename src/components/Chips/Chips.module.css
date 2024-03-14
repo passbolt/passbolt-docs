@@ -1,0 +1,31 @@
+.chips {
+  color: var(--chips-default-color);
+  border: 1px solid var(--chips-default-border-color);
+  padding: .25rem 1rem;
+  border-radius: 6.3rem;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.4rem;
+}
+
+.link {
+  text-decoration: none !important;
+}
+
+.link:hover{
+  color: var(--chips-default-hover-color);
+  background-color: var(--chips-default-hover-background-color);
+  border-color: var(--chips-default-hover-border-color);
+}
+
+.link:active {
+  color: var(--chips-default-active-color);
+  background-color: var(--chips-default-active-background-color);
+  border-color: var(--chips-default-active-border-color);
+}
+
+.under-main-menu {
+  display: flex;
+  margin-top: calc(.8rem + (-1 * var(--ifm-h1-vertical-rhythm-bottom)* var(--ifm-leading))) !important;
+  margin-bottom: 1.5rem;
+}

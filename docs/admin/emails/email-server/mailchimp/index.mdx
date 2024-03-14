@@ -1,0 +1,41 @@
+---
+title: Configure Email authentication with Mailchimp
+description: Configuration of the authentication methods that is used with SMTP for Mailchimp
+sidebar_label: Mailchimp
+sidebar_position: 040
+hide_table_of_contents: true
+---
+import EmailServerConfigurationIntroduction from '/docs/admin/_includes/email/email-server/introduction.mdx';
+import TestYourEmailConfiguration from '/docs/admin/_includes/email/email-server/test-your-email-configuration.mdx';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+<EmailServerConfigurationIntroduction/>
+
+## Mailchimp
+
+- Administration panel
+
+When you are using Mailchimp, once logged in, you will be automatically redirected to the administration panel dashboard.
+
+You will need to navigate to *Transactionnal > SMTP & API > SMTP Credentials* and click on Create A Key.
+
+- Create your SMTP Credentials
+
+Give your new SMTP key a name that is easy to remember, such as the name of your web application. When you create an SMTP key, you will be prompted to give it a name that will help you remember what it's for. This is important because you may have multiple SMTP keys for different applications, and you don't want to get them confused. Make sure to choose a name that is descriptive and easy to remember, such as the name of your web application.
+
+Copy the generated SMTP key as you will need it to authenticate your SMTP requests. After you have created your SMTP key, Mailchimp will generate a unique key string that you will need to copy and use to authenticate your SMTP requests. Make sure to copy the entire key string exactly as it appears, as any errors or omissions could prevent your SMTP requests from being authenticated.
+
+Your SMTP username is the same as the login credentials to your Mailchimp account. Make sure that it remain, with the correct capitalization and any special characters.
+
+- Authentication on Passbolt GUI
+
+On your Passbolt instance, you can navigate to *Administration > Email server*.
+
+You will need to fill in your smtp credentials to match your authentication method (username & password).
+
+<TestYourEmailConfiguration/>

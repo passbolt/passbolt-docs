@@ -1,0 +1,45 @@
+---
+title: Lastpass
+description: lastpass resources import
+---
+
+import ImportSteps from '@site/src/components/ImportSteps/ImportSteps';
+import CheckMarkSuccess from '@site/src/components/Icon/CheckMarkSuccess/CheckMarkSuccess';
+import CheckMarkNone from '@site/src/components/Icon/CheckMarkNone/CheckMarkNone';
+import CodeBlock from "@site/src/components/CodeBlock/CodeBlock";
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+## Steps
+
+<ImportSteps />
+
+## Example
+
+<CodeBlock>
+
+url,username,password,extra,name,grouping,fav
+https://test.url,account1,P4ssw0Rd!,,Account1,,0
+https://test.url,account1,P4ssw0Rd!,,Account2,,0
+,,P4ssw0Rd!,,Account3,,1
+
+</CodeBlock>
+
+## Matrix
+
+|   |  Supported |
+|---|---|
+| URL | <CheckMarkSuccess/>  |
+| username  | <CheckMarkSuccess/> |
+| password  | <CheckMarkSuccess/>  |
+| extra | <CheckMarkSuccess/> |
+| name | <CheckMarkSuccess/> |
+| grouping | <CheckMarkSuccess/> |
+| fav | <CheckMarkNone/> |
+| totp | <CheckMarkNone/>  |
+

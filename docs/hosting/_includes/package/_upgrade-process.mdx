@@ -9,7 +9,7 @@ import CodeBlock from '@site/src/components/CodeBlock/CodeBlock';
   <code>
     {`sudo systemctl stop nginx`}
   </code>
-</pre> 
+</pre>
 
 ### 2. Backup your database
 It is recommended to always perform a backup of your passbolt installation. Please check the [backup article](/docs/hosting/backup/from-packages.mdx)
@@ -23,16 +23,16 @@ You should copy your subscription key to `/etc/passbolt/subscription_key.txt` an
     {`sudo chown root:www-data /etc/passbolt/subscription_key.txt
 sudo chmod 640 /etc/passbolt/subscription_key.txt`}
   </code>
-</pre> 
+</pre>
 
 ### 4. Uninstall passbolt CE
 
-Passbolt CE package should be removed prior to installing passbolt Pro.
+Passbolt CE package should be removed prior to installing Passbolt Pro.
 <pre className="prism-code language-bash">
   <code>
     {`sudo apt-get remove passbolt-ce-server`}
   </code>
-</pre> 
+</pre>
 
 
 ### 5. Upgrade passbolt package repository
@@ -44,53 +44,53 @@ __Step 1.__ Download our dependencies installation script:
   <code>
     {`wget "https://download.passbolt.com/pro/installer/passbolt-repo-setup.pro.sh"`}
   </code>
-</pre> 
+</pre>
 
 __Step 2.__ Download our SHA512SUM for the installation script:
 <pre className="prism-code language-bash">
   <code>
     {`wget https://github.com/passbolt/passbolt-dep-scripts/releases/latest/download/passbolt-pro-SHA512SUM.txt`}
   </code>
-</pre> 
+</pre>
 
 __Step 3.__ Ensure that the script is valid and execute it:
 <pre className="prism-code language-bash">
   <code>
     {`sha512sum -c passbolt-pro-SHA512SUM.txt && sudo bash ./passbolt-repo-setup.pro.sh  --passbolt-migrate  || echo \"Bad checksum. Aborting\" && rm -f passbolt-repo-setup.pro.sh`}
   </code>
-</pre> 
-   
+</pre>
+
 ### 6. Install passbolt PRO
 
-Now you can install the passbolt Pro package.
+Now you can install the Passbolt Pro package.
 <pre className="prism-code language-bash">
   <code>
     {`sudo apt-get install passbolt-pro-server`}
   </code>
-</pre> 
+</pre>
 
-As you have already configured passbolt CE, and passbolt Pro relies on the same configuration, you should reply:
+As you have already configured passbolt CE, and Passbolt Pro relies on the same configuration, you should reply:
 
 * __No__ for mariadb configuration
 * __No__ to nginx configuration
 
-### 7. Migrate the data 
-Once the package installed, run the following command to migrate the data to passbolt Pro:
+### 7. Migrate the data
+Once the package installed, run the following command to migrate the data to Passbolt Pro:
 
 <pre className="prism-code language-bash">
   <code>
     {`sudo -H -u www-data /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt migrate"`}
   </code>
-</pre> 
+</pre>
 
-### 8. Clear the cache 
+### 8. Clear the cache
 Make sure you clear the application cache, to make sure any changes in the database structure are reflected in model cache files:
 
 <pre className="prism-code language-bash">
   <code>
     {`sudo -H -u www-data /bin/bash -c "/usr/share/php/passbolt/bin/cake cache clear_all"`}
   </code>
-</pre> 
+</pre>
 
 ### 9. Ensure you don’t have duplicate cron jobs
 As you are upgrading from CE to Pro you will need to make sure you don’t have duplicate cronjobs.
@@ -104,7 +104,7 @@ You may see:
     {`/etc/cron.d/passbolt-ce-server
 /etc/cron.d/passbolt-pro-server`}
   </code>
-</pre> 
+</pre>
 
 If this is the case you’ll want to run:
 
@@ -112,7 +112,7 @@ If this is the case you’ll want to run:
   <code>
     {`rm /etc/cron.d/passbolt-ce-server`}
   </code>
-</pre> 
+</pre>
 
 As this will clear out the no longer needed CE job to send emails. If you leave this you may experience receiving duplicate emails.
 
@@ -125,7 +125,7 @@ You may see:
     {`/etc/logrotate.d/passbolt-ce-server
 /etc/logrotate.d/passbolt-pro-server`}
   </code>
-</pre> 
+</pre>
 
 If this is the case you'll want to run:
 
@@ -133,7 +133,7 @@ If this is the case you'll want to run:
   <code>
     {`rm /etc/logrotate.d/passbolt-ce-server`}
   </code>
-</pre> 
+</pre>
 
 This will clean up the no longer needed log rotation job.
 
@@ -143,4 +143,4 @@ Almost done:
   <code>
     {`sudo systemctl start nginx`}
   </code>
-</pre> 
+</pre>

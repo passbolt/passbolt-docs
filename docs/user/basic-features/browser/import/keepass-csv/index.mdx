@@ -1,0 +1,42 @@
+---
+title: Keepass (CSV)
+description: keepass csv resources import
+---
+
+import ImportSteps from '@site/src/components/ImportSteps/ImportSteps';
+import CheckMarkSuccess from '@site/src/components/Icon/CheckMarkSuccess/CheckMarkSuccess';
+import CodeBlock from "@site/src/components/CodeBlock/CodeBlock";
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+## Steps
+
+<ImportSteps />
+
+## Example
+
+<CodeBlock>
+
+"Group","Title","Username","Password","URL","Notes"
+"My Servers","Account1","account1","P4ssw0Rd!","https://test.url","this is the description"
+"My Servers","Account2","account2","P4ssw0Rd!","https://test.url","this is the description"
+"My Servers","Account2","","P4ssw0Rd!","https://test.url",""
+
+</CodeBlock>
+
+## Matrix
+
+|   |  Supported |
+|---|---|
+| Group | <CheckMarkSuccess/>  |
+| Title  | <CheckMarkSuccess/> |
+| Username  | <CheckMarkSuccess/>  |
+| Password | <CheckMarkSuccess/> |
+| URL | <CheckMarkSuccess/> |
+| Notes | <CheckMarkSuccess/> |
+| TOTP | <CheckMarkSuccess/> |

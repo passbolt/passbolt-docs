@@ -1,0 +1,150 @@
+---
+title: How can I import an SSL certificate on mobile application?
+description: How to import SSL certificate on mobile application
+sidebar_label: How can I import an SSL certificate on mobile application?
+sidebar_class_name: hidden
+hide_table_of_contents: false
+---
+
+import Figure from '/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+Your passbolt server must have HTTPS enabled to be able to use passbolt mobile app.
+
+If you are using self-signed certificates, you must import your server certificate to your mobile device.
+
+The screenshots below assume you are importing a root CA certificate (in case your self-signed certificates are trusted by a local certification authority), but the procedure remains the same in case you import server certificate.
+
+## Import certificate on iOS
+
+Put certificate on your device and select it to install. You will be asked to review it in Setting app:
+
+<Figure
+  src="/img/help/2022/01/ios/ios-01.jpg"
+  size={{ width: '450px', height: 'auto' }}
+  alt="Download profile"
+  caption="fig. Download profile"
+  />
+
+Go to Settings app and select **Profile Downloaded**
+<Figure
+  src="/img/help/2022/01/ios/ios-02.jpg"
+  size={{ width: '450px', height: 'auto' }}
+  alt="Select Profile Downloaded"
+  caption="fig. Select Profile Downloaded"
+/>
+
+
+Your certificate informations will be displayed, select **Install** to install it:
+<Figure
+  src="/img/help/2022/01/ios/ios-03.jpg"
+  size={{ width: '450px', height: 'auto' }}
+  alt="Install profile"
+  caption="fig. Install profile"
+/>
+
+
+Enter your iOS passcode:
+<Figure
+  src="/img/help/2022/01/ios/ios-04.jpg"
+  size={{ width: '450px', height: 'auto' }}
+  alt="Enter your iOS passcode"
+  caption="fig. Enter your iOS passcode"
+/>
+
+
+Be warned than certificate won’t be usuable until you have enable it Certificate Trust Settings, select **Install**
+<Figure
+  src="/img/help/2022/01/ios/ios-05.jpg"
+  size={{ width: '450px', height: 'auto' }}
+  alt="Install profile warning"
+  caption="fig. Install profile warning"
+/>
+
+
+Select **Install**:
+<Figure
+  src="/img/help/2022/01/ios/ios-06.jpg"
+  size={{ width: '450px', height: 'auto' }}
+  alt="Install profile"
+  caption="fig. Install profile"
+/>
+
+
+Profile is installed, select **Done**:
+<Figure
+  src="/img/help/2022/01/ios/ios-07.jpg"
+  size={{ width: '450px', height: 'auto' }}
+  alt="Profile installed"
+  caption="fig. Profile installed"
+/>
+
+
+To enable your certificate, go to Setting app > General > About and select **Certificate Trust Settings**:
+<Figure
+  src="/img/help/2022/01/ios/ios-08.jpg"
+  size={{ width: '450px', height: 'auto' }}
+  alt="Select Certificate trust Settings"
+  caption="fig. Select Certificate trust Settings"
+/>
+
+
+Enable your new certificate and confirm by selecting **Continue**:
+<Figure
+  src="/img/help/2022/01/ios/ios-09.jpg"
+  size={{ width: '450px', height: 'auto' }}
+  alt="Select Certificate trust Settings"
+  caption="fig. Select Certificate trust Settings"
+/>
+
+
+## Import certificate on Android
+
+Go to Settings > Security > Encryption & credentials and select **Install a certificate**:
+<Figure
+  src="/img/help/2022/01/android/android-01.jpg"
+  size={{ width: '450px', height: 'auto' }}
+  alt="Install a certificate"
+  caption="fig. Install a certificate"
+/>
+
+
+Select **CA certificate**:
+<Figure
+  src="/img/help/2022/01/android/android-02.jpg"
+  size={{ width: '450px', height: 'auto' }}
+  alt="Select CA certificate"
+  caption="fig. Select CA certificate"
+/>
+
+
+A warning is displayed, read it and only if you agree with it, select **Install Anyway**
+<Figure
+  src="/img/help/2022/01/android/android-03.jpg"
+  size={{ width: '450px', height: 'auto' }}
+  alt="Displayed warning "
+  caption="fig. Displayed warning"
+/>
+
+
+Select your certificate:
+<Figure
+  src="/img/help/2022/01/android/android-04.jpg"
+  size={{ width: '450px', height: 'auto' }}
+  alt="Select your certificate "
+  caption="fig. Select your certificate"
+/>
+
+
+Your certificate is installed:
+<Figure
+  src="https://help.passbolt.com/assets/img/help/2022/01/android/android-05.jpg"
+  size={{ width: '450px', height: 'auto' }}
+  alt="Installed certificate"
+  caption="fig. Installed certificate "
+/>

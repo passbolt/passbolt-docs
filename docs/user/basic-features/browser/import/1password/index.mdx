@@ -1,0 +1,42 @@
+---
+title: 1Password
+description: 1Password resources import
+---
+
+import ImportSteps from '@site/src/components/ImportSteps/ImportSteps';
+import CheckMarkSuccess from '@site/src/components/Icon/CheckMarkSuccess/CheckMarkSuccess';
+import CheckMarkNone from '@site/src/components/Icon/CheckMarkNone/CheckMarkNone';
+import CodeBlock from "@site/src/components/CodeBlock/CodeBlock";
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+## Steps
+
+<ImportSteps />
+
+## Example
+
+<CodeBlock>
+
+Title,Username,URL,Password,Notes,Type
+Account1,account1,https://test.url,P4ssw0Rd!,Notes Account2,server
+Account2,account2,https://test.url,P4ssw0Rd!,Notes Account2,shell
+Account3,,,P4ssw0Rd!,Notes Account3,server
+
+</CodeBlock>
+
+## Matrix
+
+|   |  Supported |
+|---|---|
+| Title | <CheckMarkSuccess/>  |
+| Username  | <CheckMarkSuccess/> |
+| URL  | <CheckMarkSuccess/>  |
+| Password | <CheckMarkSuccess/> |
+| Notes | <CheckMarkSuccess/> |
+| Type | <CheckMarkSuccess/> |

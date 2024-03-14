@@ -12,6 +12,8 @@
 @import url('./_tabs.css');
 @import url('./_badge.css');
 @import url('./_list.css');
+@import url('./_table.css');
+@import url('./_chips.css');
 
 /**
  * Any CSS included here will be global. The classic template

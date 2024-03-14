@@ -7,6 +7,12 @@ hide_table_of_contents: true
 
 import DockerWarning from '/docs/hosting/_includes/warning/_docker-warning.mdx';
 import SystemRequirements from '/docs/hosting/_includes/docker/_docker-system-requirements.mdx';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
 
 <DockerWarning />
 <SystemRequirements />
@@ -17,7 +23,7 @@ To update passbolt, you would just need to change the image tag in your docker-c
 
 ```yaml
  image: passbolt/passbolt:<IMAGE_TAG>
-``` 
+```
 Then relaunch your docker containers:
 
 ```bash

@@ -1,0 +1,42 @@
+---
+title: Import
+description: Passbolt import resources
+sidebar_position: 1
+sidebar_label: Import
+hide_table_of_contents: true
+---
+
+import ImportCard from '/src/components/ImportCard/ImportCard.js';
+import importResources from '/data/import-resources.json';
+import styles from '/src/components/DistributionCard/DistributionCard.module.css';
+import Video from '@site/src/components/Video/Video';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+## How to import passwords in passbolt
+
+<Video
+  src="/docs/video/import-video-example.mp4"
+  title="Passbolt GUI - Import passwords"
+  caption="fig. Passbolt GUI - Import passwords"
+/>
+<div className={styles.grid}>
+  {importResources.map((importResource) => {
+    return (
+      <ImportCard
+        key={importResource.slug}
+        logo={importResource.logo}
+        name={importResource.name}
+        links={importResource.formats.map((format) => ({
+          slug: `/user/basic-features/browser/import/${importResource.slug}${importResource.formats.length > 1 ? "-" + format.toLowerCase() : "" }`,
+          label: format
+       }))}
+      />
+    );
+   })}
+</div>

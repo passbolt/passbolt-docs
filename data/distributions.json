@@ -9,8 +9,9 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": true,
-    "canMigratePackage": true, 
-    "canUpgrade": true
+    "canMigratePackage": true,
+    "canUpgrade": true,
+    "canUpdate": true
   },
   {
     "name": "Ubuntu",
@@ -22,8 +23,9 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": true,
-    "canMigratePackage": true, 
-    "canUpgrade": true
+    "canMigratePackage": true,
+    "canUpgrade": true,
+    "canUpdate": true
   },
   {
     "name": "Helm Chart",
@@ -35,8 +37,9 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": false,
-    "canMigratePackage": false, 
-    "canUpgrade": false
+    "canMigratePackage": false,
+    "canUpgrade": false,
+    "canUpdate": false
   },
   {
     "name": "Docker",
@@ -48,8 +51,9 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": true,
-    "canMigratePackage": false, 
-    "canUpgrade": true
+    "canMigratePackage": false,
+    "canUpgrade": true,
+    "canUpdate": true
   },
   {
     "name": "Raspberry",
@@ -61,8 +65,9 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": false,
-    "canMigratePackage": false, 
-    "canUpgrade": false
+    "canMigratePackage": false,
+    "canUpgrade": false,
+    "canUpdate": true
   },
   {
     "name": "Virtual Appliance",
@@ -74,8 +79,9 @@
     "ce": false,
     "pro": true,
     "canMigrateServer": true,
-    "canMigratePackage": false, 
-    "canUpgrade": false
+    "canMigratePackage": false,
+    "canUpgrade": false,
+    "canUpdate": true
   },
   {
     "name": "AWS AMI",
@@ -87,8 +93,9 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": false,
-    "canMigratePackage": false, 
-    "canUpgrade": false
+    "canMigratePackage": false,
+    "canUpgrade": false,
+    "canUpdate": true
   },
   {
     "name": "Digital Ocean",
@@ -100,8 +107,9 @@
     "ce": true,
     "pro": false,
     "canMigrateServer": false,
-    "canMigratePackage": false, 
-    "canUpgrade": false
+    "canMigratePackage": false,
+    "canUpgrade": false,
+    "canUpdate": true
   },
   {
     "name": "Red Hat",
@@ -113,8 +121,9 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": true,
-    "canMigratePackage": false, 
-    "canUpgrade": false
+    "canMigratePackage": false,
+    "canUpgrade": false,
+    "canUpdate": true
   },
   {
     "name": "CentOS",
@@ -126,8 +135,9 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": true,
-    "canMigratePackage": true, 
-    "canUpgrade": false
+    "canMigratePackage": true,
+    "canUpgrade": false,
+    "canUpdate": true
   },
   {
     "name": "AlmaLinux",
@@ -139,8 +149,9 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": true,
-    "canMigratePackage": false, 
-    "canUpgrade": false
+    "canMigratePackage": false,
+    "canUpgrade": false,
+    "canUpdate": true
   },
   {
     "name": "RockyLinux",
@@ -152,11 +163,12 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": true,
-    "canMigratePackage": false, 
-    "canUpgrade": false
+    "canMigratePackage": false,
+    "canUpgrade": false,
+    "canUpdate": true
   },
   {
-    "name": "openSUSE Leap",
+    "name": "OpenSUSE Leap",
     "slug": "opensuse",
     "version": 15,
     "package": "zypper",
@@ -165,8 +177,9 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": true,
-    "canMigratePackage": false, 
-    "canUpgrade": false
+    "canMigratePackage": false,
+    "canUpgrade": false,
+    "canUpdate": true
   },
   {
     "name": "Fedora",
@@ -178,8 +191,9 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": true,
-    "canMigratePackage": false, 
-    "canUpgrade": false
+    "canMigratePackage": false,
+    "canUpgrade": false,
+    "canUpdate": true
   },
   {
     "name": "OracleLinux",
@@ -191,8 +205,9 @@
     "ce": true,
     "pro": true,
     "canMigrateServer": true,
-    "canMigratePackage": false, 
-    "canUpgrade": false
+    "canMigratePackage": false,
+    "canUpgrade": false,
+    "canUpdate": true
   },
   {
     "name": "From source",
@@ -205,6 +220,7 @@
     "pro": false,
     "canMigrateServer": false,
     "canMigratePackage": false,
-    "canUpgrade": false
+    "canUpgrade": false,
+    "canUpdate": true
   }
-] 
+]

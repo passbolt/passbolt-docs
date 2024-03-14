@@ -1,0 +1,29 @@
+---
+title: Update database credentials with Docker
+description: How to update the database credentials with Docker
+sidebar_label: Docker
+hide_table_of_contents: false
+---
+
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+Database credentials are set in environment variables and you will need to edit them for each container:
+
+For the MariaDB container:
+```yaml
+MYSQL_DATABASE: "passboltdb"
+MYSQL_USER: "passbolt"
+MYSQL_PASSWORD: "very-strong-password"
+```
+
+For the passbolt container:
+```yaml
+DATASOURCES_DEFAULT_DATABASE: "passboltdb"
+DATASOURCES_DEFAULT_USERNAME: "passbolt"
+DATASOURCES_DEFAULT_PASSWORD: "very-strong-password"
+```

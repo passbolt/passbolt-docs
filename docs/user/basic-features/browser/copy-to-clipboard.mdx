@@ -1,0 +1,31 @@
+---
+title: How to Copy a Password to Clipboard
+sidebar_label: Copy to Clipboard
+description: How to Copy a Password to Clipboard
+slug: copy-to-clipboard
+sidebar_position: 3
+---
+
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+:::note
+A clipboard, in computer terms, is a buffer that some operating systems provide for short-term storage and transfer
+within and between application programs.
+:::
+
+1.  Log in to your passbolt account
+2.  Select a password you wish to copy to clipboard
+3.  Click the “more” button” on top of your password list
+4.  Select option “copy password to clipboard”
+5.  If required, enter your master password and lick "Ok" to confirm.
+6.  Your password will be copied to clipboard.
+
+:::info
+This action is controlled by [RBAC](/docs/admin/role-based-access-control) (Role-Based Access Control). Access may vary according to your organization's policy, so if you require access, please contact your administrator.
+:::

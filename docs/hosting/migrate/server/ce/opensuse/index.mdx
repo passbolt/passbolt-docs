@@ -1,7 +1,7 @@
 ---
-title: Migrate to a new openSUSE Server
+title: Migrate to a new OpenSUSE Server
 # description:
-sidebar_label: openSUSE Leap 15
+sidebar_label: OpenSUSE Leap 15
 hide_table_of_contents: true
 ---
 
@@ -11,13 +11,16 @@ import Prerequisites from '/docs/hosting/_includes/package/_prerequisites.mdx';
 import ServerComponents from '/docs/hosting/_includes/package/_install-server-components.mdx';
 import PackageConfiguration from '/docs/hosting/_includes/package/_package-configuration.mdx';
 import RpmPackageConfiguration from '/docs/hosting/_includes/package/_configure-rpm-package.mdx';
+import Chips from "/src/components/Chips/Chips";
 
-<Prerequisites distributionLabel={'openSUSE'} distributionVersion={'15'} />
+<Chips link="https://www.passbolt.com/ce/opensuse" isUnderMainTitle={true}>CE</Chips>
+
+<Prerequisites distributionLabel={'OpenSUSE'} distributionVersion={'15'} />
 <ServerComponents productName={'CE'} distributionPackage={'zypper'} />
-<PackageConfiguration productName={'CE'} distributionLabel={'openSUSE'} />
+<PackageConfiguration productName={'CE'} distributionLabel={'OpenSUSE'} />
 <RpmPackageConfiguration
     productName={'CE'}
-    distributionLabel={'openSUSE'}
+    distributionLabel={'OpenSUSE'}
     distributionVersion={'15'}
 />
 <MigrateData productName={'CE'} webServerUser={'nginx'}/>

@@ -1,7 +1,7 @@
 ---
 title: Install Passbolt on OpenSUSE
 # description:
-sidebar_label: openSUSE Leap 15
+sidebar_label: OpenSUSE Leap 15
 hide_table_of_contents: true
 ---
 
@@ -10,13 +10,16 @@ import ServerComponents from '/docs/hosting/_includes/package/_install-server-co
 import RpmPackageConfiguration from '/docs/hosting/_includes/package/_configure-rpm-package.mdx';
 import WizardConfiguration from '/docs/hosting/_includes/wizard/_server.mdx';
 import AdminConfiguration from '/docs/hosting/_includes/wizard/_admin.mdx';
+import Chips from "/src/components/Chips/Chips";
 
-<Prerequisites distributionLabel={'openSUSE'} distributionVersion={'15'} />
+<Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+
+<Prerequisites distributionLabel={'OpenSUSE'} distributionVersion={'15'} />
 <ServerComponents productName={'PRO'} distributionPackage={'zypper'} />
 <RpmPackageConfiguration
   productName={'PRO'}
-  distributionLabel={'openSUSE'}
+  distributionLabel={'OpenSUSE'}
   distributionVersion={'15'}
 />
-<WizardConfiguration productLabel={'PRO'} distributionLabel={'openSUSE'} />
+<WizardConfiguration productLabel={'PRO'} distributionLabel={'OpenSUSE'} />
 <AdminConfiguration />

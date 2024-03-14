@@ -1,0 +1,49 @@
+---
+title: How can I enable or disable import / export plugins
+sidebar_label: How can I enable or disable import / export plugins
+description: How can I enable or disable import / export plugins
+hide_table_of_contents: true
+sidebar_class_name: hidden
+---
+
+import CodeBlock from "/src/components/CodeBlock/CodeBlock";
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+By default, the import and export plugins are enabled for all your users, which can be an issue for some admins.
+
+### Toggle the import or export plugin
+You can either remove the corresponding entries inside the plugins section, since the plugins are activated by default.
+Otherwise, if you prefer it to be explicit, you can add the section below to your `/etc/passbolt/passbolt.php` file:
+
+
+<CodeBlock>
+{
+  `   /* Locate or add the passbolt section */
+      'passbolt' => [
+          /* Locate or add the plugins section */
+          'plugins' => [
+              'import' => [
+                  'enabled' => false,
+              ],
+              'export' => [
+                  'enabled' => false,
+              ],
+          ]
+      ]`
+ }
+</CodeBlock>
+
+### Other frequently asked questions in the same category
+<ul>
+    <li>
+        <a href={`/docs/admin/user-provisioning/self-registration`}>User Self Registration Set Up</a>
+    </li>
+    <li>
+        <a href={`/docs/hosting/faq/configure/performance-tweaks`}>Some potential performance tweaks</a>
+    </li>
+</ul>

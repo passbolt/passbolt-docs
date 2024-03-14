@@ -21,19 +21,19 @@ On this example we will assume the user is generating a self-signed certificate 
 While connected to your passbolt instance you can generate a SSL certificate in the following way:
 <CodeBlock>
 {`openssl req -x509 \
-  
+
     -newkey rsa:4096 \
-  
+
     -days 120 \
-  
+
     -subj "/C=LU/ST=Luxembourg/L=Esch-Sur-Alzette/O=Passbolt SA/OU=Passbolt IT Team/CN=passbolt.domain.tld/" \
-  
+
     -nodes \
-  
+
     -addext "subjectAltName = DNS:passbolt.domain.tld" \
-  
+
     -keyout key.pem \
-  
+
     -out cert.pem`}
 </CodeBlock>
 
@@ -62,15 +62,15 @@ You should select 'YES' for the nginx setup:
 {props.productName == 'PRO' && (
   <Figure
     size={{ width: '450px', height: 'auto' }}
-    src="https://help.passbolt.com/assets/img/help/2020/05/debian-package/configure_nginx_pro.png"      
+    src="/img/help/2020/05/debian-package/configure_nginx_pro.png"
     alt="Nginx configuration message"
     caption="fig. Nginx configuration message"
   />
   )}
 {props.productName == 'CE' && (
-  <Figure 
+  <Figure
     size={{ width: '450px', height: 'auto' }}
-    src="https://help.passbolt.com/assets/img/help/2020/05/debian-package/configure_nginx.png"      
+    src="/img/help/2020/05/debian-package/configure_nginx.png"
     alt="Nginx configuration message"
     caption="fig. Nginx configuration message"
   />
@@ -83,78 +83,78 @@ Choose ‘manual’ for the SSL setup method:
 {props.productName == 'PRO' && (
   <Figure
     size={{ width: '450px', height: 'auto' }}
-    src="https://help.passbolt.com/assets/img/help/2020/09/debian-package/ssl_method_select_pro.png"      
+    src="/img/help/2020/09/debian-package/ssl_method_select_pro.png"
     alt="SSL method selection"
     caption="fig. SSL method selection"
   />
   )}
 {props.productName == 'CE' && (
-  <Figure 
+  <Figure
     size={{ width: '450px', height: 'auto' }}
-    src="https://help.passbolt.com/assets/img/help/2020/09/debian-package/ssl_method_select.png"      
+    src="/img/help/2020/09/debian-package/ssl_method_select.png"
     alt="SSL method selection"
     caption="fig. SSL method selection"
   />
   )}
 </>
- 
+
 
 Provide the domain name you plan to use for your passbolt server. On this example and as we are using a self-signed certificate the domain name is not as important as if you are planning to use a proper SSL certificate. In the later escenario DNS domain name and SSL domain name must match.
 <>
 {props.productName == 'PRO' && (
   <Figure
     size={{ width: '450px', height: 'auto' }}
-    src="https://help.passbolt.com/assets/img/help/2020/09/debian-package/ssl_domain_pro.png"      
+    src="/img/help/2020/09/debian-package/ssl_domain_pro.png"
     alt="Domain for nginx setup"
     caption="fig. Domain for nginx setup"
   />
   )}
 {props.productName == 'CE' && (
-  <Figure 
+  <Figure
     size={{ width: '450px', height: 'auto' }}
-    src="https://help.passbolt.com/assets/img/help/2020/09/debian-package/ssl_domain.png"      
+    src="/img/help/2020/09/debian-package/ssl_domain.png"
     alt="Domain for nginx setup"
     caption="fig. Domain for nginx setup"
   />
   )}
 </>
- 
+
 
 Provide the full path of the SSL certificate you created on previous steps: `cert.pem`
 <>
 {props.productName == 'PRO' && (
   <Figure
     size={{ width: '450px', height: 'auto' }}
-    src="https://help.passbolt.com/assets/img/help/2020/09/debian-package/ssl_cert_pro.png"      
+    src="/img/help/2020/09/debian-package/ssl_cert_pro.png"
     alt="SSL certificate path"
     caption="fig. SSL certificate path"
   />
   )}
 {props.productName == 'CE' && (
-  <Figure 
+  <Figure
     size={{ width: '450px', height: 'auto' }}
-    src="https://help.passbolt.com/assets/img/help/2020/09/debian-package/ssl_cert.png"      
+    src="/img/help/2020/09/debian-package/ssl_cert.png"
     alt="SSL certificate path"
     caption="fig. SSL certificate path"
   />
   )}
 </>
- 
+
 
 Now provide the full path of the SSL key: `key.pem`
 <>
 {props.productName == 'PRO' && (
   <Figure
     size={{ width: '450px', height: 'auto' }}
-    src="https://help.passbolt.com/assets/img/help/2020/09/debian-package/key_ssl_pro.png"      
+    src="/img/help/2020/09/debian-package/key_ssl_pro.png"
     alt="SSL private key path"
     caption="fig. SSL private key path"
   />
   )}
 {props.productName == 'CE' && (
-  <Figure 
+  <Figure
     size={{ width: '450px', height: 'auto' }}
-    src="https://help.passbolt.com/assets/img/help/2020/09/debian-package/key_ssl.png"      
+    src="/img/help/2020/09/debian-package/key_ssl.png"
     alt="SSL private key path"
     caption="fig. SSL private key path"
   />

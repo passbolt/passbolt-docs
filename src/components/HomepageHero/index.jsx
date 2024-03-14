@@ -2,44 +2,31 @@ import React from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './HomepageHero.module.css';
 import Link from '@docusaurus/Link';
-import Icon from '@site/src/components/Icon';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import SearchBar from '@easyops-cn/docusaurus-search-local/dist/client/client/theme/SearchBar/index.js';
 
 const HomepageHero = () => {
-  const { siteConfig } = useDocusaurusContext();
-
-  const sidebarData = siteConfig.themeConfig?.navbar?.items || [];
-
-  const getSidebarUrl = (sidebarId, fallback) => {
-    const { href = fallback } = sidebarData.filter(
-      (sidebar) => sidebar.sidebarId === sidebarId,
-    )[0];
-
-    return href;
-  };
 
   const guides = [
     {
       id: 'user',
-      icon: 'user',
-      href: useBaseUrl(getSidebarUrl('userGuideSidebar', '/user')),
+      icon: <img src={useBaseUrl('/icons/lucide/user.svg')} width={24} alt='User guide illustrated with a user icon' />,
+      href: '/user',
       title: 'User guide',
       description:
         'All you need to know about the functionalities available to every users.',
     },
     {
       id: 'admin',
-      icon: 'settings',
-      href: useBaseUrl(getSidebarUrl('adminGuideSidebar', '/admin')),
+      icon: <img src={useBaseUrl('/icons/lucide/settings.svg')} width={24} alt='Admin guide illustrated with a gear icon' />,
+      href: '/admin',
       title: 'Admin guide',
       description:
         'All the information for users with the administrator role, e.g. all about the user and admin workspaces',
     },
     {
       id: 'hosting',
-      icon: 'server',
-      href: useBaseUrl(getSidebarUrl('hostingGuideSidebar', '/hosting')),
+      icon: <img src={useBaseUrl('/icons/lucide/server.svg')} width={24} alt='Hosting guide illustrated with a server icon' />,
+      href: '/hosting',
       title: 'Hosting guide',
       description:
         'All the technical information related to the setup and update of your passbolt self-hosted server',
@@ -65,8 +52,8 @@ const HomepageHero = () => {
       </div>
       <div className={styles.grid}>
         {guides.map((item) => (
-          <Link key={item.id} to={item.href} className={styles.card}>
-            <Icon name={item.icon} stroke="#d40101" />
+          <Link key={item.id} to={item.href} className={styles.card} autoAddBaseUrl>
+            {item.icon}
             <h3 className={styles.title}>{item.title}</h3>
             <p className={styles.description}>{item.description}</p>
           </Link>

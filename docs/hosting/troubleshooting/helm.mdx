@@ -4,6 +4,9 @@ description: A guide for how to troubleshoot your Passbolt instance on Helm
 sidebar_label: Helm
 hide_table_of_contents: false
 ---
+
+import CodeBlock from '@theme/CodeBlock';
+
 ## Prerequisite Steps
 
 Connect yourself inside passbolt docker container (replace passbolt-container-name with your own):
@@ -24,7 +27,9 @@ export PASSBOLT_GPG_SERVER_KEY_FINGERPRINT="$(gpg \
 ```
 ## Healthcheck
 
-`./bin/cake passbolt healthcheck`
+<CodeBlock>
+  {`./bin/cake passbolt healthcheck`}
+</CodeBlock>
 
 ## Send a test email
 ```
@@ -32,12 +37,15 @@ export PASSBOLT_GPG_SERVER_KEY_FINGERPRINT="$(gpg \
   --recipient=youremail@domain.com
 ```
 ## Datacheck
-
-`./bin/cake passbolt datacheck --hide-success-details`
+<CodeBlock>
+  {`./bin/cake passbolt datacheck --hide-success-details`}
+</CodeBlock>
 
 ## Database migrations status
 
-`./bin/cake migrations status`
+<CodeBlock>
+  {`./bin/cake migrations status`}
+</CodeBlock>
 
 ## Database container
 

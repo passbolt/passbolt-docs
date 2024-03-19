@@ -5,11 +5,15 @@ sidebar_label: Docker
 hide_table_of_contents: false
 ---
 
+import CodeBlock from '@theme/CodeBlock';
+
 ## Prerequisite Steps
 
 Connect yourself inside passbolt docker container (replace passbolt-container-name with your own):
 
-`$ docker exec -ti passbolt-container-name bash`
+<CodeBlock>
+  {`docker exec -ti passbolt-container-name bash`}
+</CodeBlock>
 
 All troubleshooting commands must be launched as `www-data` user. It is the case if you are running non-root docker images but for root images, switch as `www-data` user:
 
@@ -25,11 +29,15 @@ export PASSBOLT_GPG_SERVER_KEY_FINGERPRINT="$(gpg \
 ```
 Alternatively if you are using Docker Secrets you’ll need to run the following to access the secrets as environment variables:
 
-`source /etc/environment`
+<CodeBlock>
+  {`source /etc/environment`}
+</CodeBlock>
 
 ## Healthcheck
 
-`./bin/cake passbolt healthcheck`
+<CodeBlock>
+  {`./bin/cake passbolt healthcheck`}
+</CodeBlock>
 
 ## Send a test email
 ```
@@ -37,12 +45,15 @@ Alternatively if you are using Docker Secrets you’ll need to run the following
   --recipient=youremail@domain.com
 ```
 ## Datacheck
-
-`./bin/cake passbolt datacheck --hide-success-details`
+<CodeBlock>
+  {`./bin/cake passbolt datacheck --hide-success-details`}
+</CodeBlock>
 
 ## Database migrations status
 
-`./bin/cake migrations status`
+<CodeBlock>
+  {`./bin/cake migrations status`}
+</CodeBlock>
 
 ## Database container
 

@@ -31,6 +31,46 @@ const HomepageHero = () => {
       description:
         'All the technical information related to the setup and update of your passbolt self-hosted server',
     },
+    {
+      id: 'contributor',
+      icon: <img src={useBaseUrl('/icons/lucide/contributor.svg')} width={24} alt='Contributor guide illustrated with a handshake.' />,
+      href: 'https://help.passbolt.com/contribute',
+      title: 'Contributor guide',
+      description:
+        'All the information to get started to contribute to the project as a translator, developer, tester, etc.',
+    },
+    {
+      id: 'developer',
+      icon: <img src={useBaseUrl('/icons/lucide/developer.svg')} width={24} alt='Contributor guide illustrated with {}.' />,
+      href: 'https://help.passbolt.com/api',
+      title: 'Developer guide',
+      description:
+        'All the technical information to integrate and call the passbolt API.',
+    },
+    {
+      id: 'releases',
+      icon: <img src={useBaseUrl('/icons/lucide/tag.svg')} width={24} alt='Release notes illustrated with a tag.' />,
+      href: 'https://help.passbolt.com/releases',
+      title: 'Release notes',
+      description:
+        'What was shipped in the latest release? Was it a bug or a feature? Let\'s find out!',
+    },
+    {
+      id: 'incidents',
+      icon: <img src={useBaseUrl('/icons/lucide/fire.svg')} width={24} alt='Incident reports illustrated with a fire.' />,
+      href: 'https://help.passbolt.com/incidents',
+      title: 'Incident reports',
+      description:
+        'A retrospective of what went wrong and what we did to fix it!',
+    },
+    {
+      id: 'contact',
+      icon: <img src={useBaseUrl('/icons/lucide/contact.svg')} width={24} alt='Contact us illustrated with a speech bubble.' />,
+      href: 'https://www.passbolt.com/contact',
+      title: 'Talk to a human',
+      description:
+        'If you cannot find what you need here, you can always ask the community or support.',
+    },
   ];
 
   return (

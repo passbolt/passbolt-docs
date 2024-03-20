@@ -6,11 +6,9 @@ import AptMySQLWarning from '/docs/hosting/_includes/warning/_apt-mysql-warning.
 ### 1. Take down your site
    It is generally a good idea to stop running the site prior to the upgrade. This is to avoid having side effects such as active users corrupting the data in the middle of an upgrade.
 
-<pre className="prism-code language-bash">
-  <code>
-    {`sudo systemctl stop nginx`}
-  </code>
-</pre> 
+<CodeBlock>
+  {`sudo systemctl stop nginx`}
+</CodeBlock>
 
 ### 2. Backup your database
 It is recommended to always perform a backup of your passbolt installation. Please check the backup article
@@ -42,16 +40,12 @@ sudo apt upgrade`}
 
 ### 4. Clear the cache
 Finally make sure you clear the application cache, to make sure any changes in the database structure are reflected in model cache files:
-<pre className="prism-code language-bash">
-  <code>
+  <CodeBlock>
     {`sudo -H -u ${props.distributionWebUser} bash -c "/usr/share/php/passbolt/bin/cake cache clear_all"`}
-  </code>
-</pre>
+  </CodeBlock>
 
 ### 5. Bring your site back online
 Almost done:
-<pre className="prism-code language-bash">
-  <code>
+  <CodeBlock>
     {`sudo systemctl start nginx`}
-  </code>
-</pre> 
+  </CodeBlock>

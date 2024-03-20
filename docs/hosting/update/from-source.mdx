@@ -10,6 +10,7 @@ import SystemRequirements from '/docs/hosting/_includes/fromSource/_system-requi
 import Troubleshooting from '/docs/hosting/_includes/default/_troubleshooting.mdx';
 import InCaseOfIssues from '/docs/hosting/_includes/default/_in-case-of-issues.mdx';
 import Chips from "/src/components/Chips/Chips";
+import CodeBlock from '@theme/CodeBlock';
 
 <div style={{display: "flex", gap: "1rem"}}>
   <Chips link="https://github.com/passbolt" isUnderMainTitle={true}>CE</Chips>
@@ -122,9 +123,10 @@ To get the latest version of composer, you can check the composer installation i
 ### 1. Take down your site
 It is generally a good idea to stop running the site prior to the upgrade. This is to avoid having side effects such as active users corrupting the data in the middle of an upgrade. For example if you are using nginx as a webserver:
 
-```bash
-sudo systemctl stop nginx
-```
+<CodeBlock>
+  {`sudo systemctl stop nginx`}
+</CodeBlock>
+
 If you feel a bit more fancy, you can change your web server configuration to point to an "under maintenance" page. It is a good practice to announce such maintenance window to your users in advance, so that they can also plan for the update, for example by downloading some key passwords they may need.
 
 ### 2. Get the latest code version
@@ -166,9 +168,9 @@ This backup will be placed in ```./tmp/cache/database/backup/backup_timestamp.sq
 ### 5. Clear the cache
 Finally make sure you clear the application cache, to make sure any changes in the database structure are reflected in model cache files:
 
-```bash
-sudo -H -u www-data bash -c "./bin/cake cache clear_all"
-```
+<CodeBlock>
+{`sudo -H -u www-data bash -c "./bin/cake cache clear_all"`}
+</CodeBlock>
 
 ### 6. Bring your site back online
 Almost done:

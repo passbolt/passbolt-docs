@@ -11,7 +11,7 @@ import Chips from "/src/components/Chips/Chips";
 <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
 
 <Figure
-  src="https://help.passbolt.com/assets/img/help/2018/09/AD_ldap_overview.png"
+  src="/img/help/2018/09/AD_ldap_overview.png"
   alt="LDAP illustration"
   caption=""
 />
@@ -58,8 +58,9 @@ The following improvements will also be shipped gradually and will be available 
 ## Setup guide
 
 :::caution[Please note]
-This guide explains how to configure the Ldap connector through the UI. For complex configurations (for example
-custom field mapping in openldap) you will need to [configure ldap directly through the configuration file](https://help.passbolt.com/configure/ldap/ldap-from-configuration-file).
+This guide explains how to configure the Ldap connector through the UI. More complex configurations (for example
+custom field mapping in openldap) can be achieved via file-based configuration. File based configuration and support
+is part of Enterprise services, please [contact us](https://www.passbolt.com/contact) for more information.
 :::
 
 ### Activate the plugin
@@ -68,7 +69,7 @@ The plugin is deactivated by default. You need to activate it to be able to use 
 click on the administration menu item in the top menu, and then click on "Users Directory".
 
 <Figure
-  src="https://help.passbolt.com/assets/img/help/2018/12/AD_directory_sync_settings_disabled.png"
+  src="/img/help/2018/12/AD_directory_sync_settings_disabled.png"
   alt="LDAP directory settings screen (disabled)"
   caption="fig. LDAP directory settings screen (disabled)"
 />
@@ -76,7 +77,7 @@ click on the administration menu item in the top menu, and then click on "Users 
 Click on the switch next to "Users Directory" to enable the plugin.
 
 <Figure
-  src="https://help.passbolt.com/assets/img/help/2018/12/AD_directory_sync_settings_enabled.png"
+  src="/img/help/2018/12/AD_directory_sync_settings_enabled.png"
   alt="LDAP directory settings screen (enabled)"
   caption="fig. LDAP directory settings screen (enabled)"
 />
@@ -286,7 +287,7 @@ configuration will be saved only if passbolt managed to connect to your director
 message.
 
 <Figure
-  src="https://help.passbolt.com/assets/img/help/2018/12/AD_directory_sync_settings_saved.png"
+  src="/img/help/2018/12/AD_directory_sync_settings_saved.png"
   alt="LDAP directory settings have been saved"
   caption="fig. LDAP directory settings have been saved"
 />
@@ -299,7 +300,7 @@ Before we actually do a real synchronization, we will first simulate one. Click 
 a few seconds. Once the simulation is complete, a report such as the one below will be displayed.
 
 <Figure
-  src="https://help.passbolt.com/assets/img/help/2018/12/AD_directory_sync_simulation.png"
+  src="/img/help/2018/12/AD_directory_sync_simulation.png"
   alt="LDAP directory sync simulation"
   caption="fig. LDAP directory sync simulation"
 />
@@ -326,8 +327,7 @@ If you delete this user in LDAP, he will be deleted from Passbolt on next synchr
 
 ## Going further
 ### How to synchronize my directory automatically?
-If you want to automate the synchronization, you (or the person in charge of hosting) will need to setup a cron job.
-See the how to in the [hosting guide](/hosting/configure/ldap/ldap-cron).
+If you want to automate the synchronization, you (or the person in charge of hosting) will need to [setup a cron job](/docs/hosting/configure/ldap/ldap-cron/).
 
 ### Configure LDAP with SSL (LDAPS)
 

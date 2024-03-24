@@ -82,7 +82,7 @@ For more information on which environment variables are available on passbolt, p
   <>
     <pre className="prism-code language-bash">
       <code>
-        docker-compose -f docker-compose-{props.productName.toLowerCase()}.yaml
+        docker compose -f docker-compose-{props.productName.toLowerCase()}.yaml \
         exec passbolt su -m -c "/usr/share/php/passbolt/bin/cake \
         <br />
         passbolt register_user \

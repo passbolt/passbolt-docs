@@ -8,14 +8,14 @@ For this tutorial, you will need:
 
 ## Backup the existing data
 
-Prior to the migration you will need to backup the existing passbolt instance data. Please refer to [the official backup documentations](/docs/hosting/backup).
+Prior to the migration you will need to backup the existing passbolt instance data. Please refer to [the official backup documentations](/hosting/backup/).
 
 Depending on your SSL configuration you might need to copy the certificate and key from the existing instance.
 
 Don't delete the existing instance yet!
 
 ## Prepare the new server
-Create a fresh new Passbolt instance on Docker following <a href={`/docs/hosting/install/${props.productName.toLowerCase()}/docker`}>this documentation</a>.
+Create a fresh new Passbolt instance on Docker following <a href={`/hosting/install/${props.productName.toLowerCase()}/docker/`}>this documentation</a>.
 
 ## Migrate the data
 
@@ -129,4 +129,4 @@ docker exec -it your-passbolt-container chown -R www-data:www-data /usr/share/ph
 ### That's it
 
 If your passbolt URL has changed, you will have to proceed to the same process than when setting up the browser
-extension on a new browser aka, follw the [account recovery](/docs/user/quickstart/browser/setup-on-another-machine) process.
+extension on a new browser aka, follw the [account recovery](/user/quickstart/browser/setup-on-another-machine/) process.

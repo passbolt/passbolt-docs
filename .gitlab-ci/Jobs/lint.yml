@@ -8,13 +8,13 @@
     - npm run lint:mdx
   allow_failure: true
 
-audit-staging:
+lint-staging:
   extends: .lint
   rules:
     - if: '$ENV == "STAGING"'
       when: on_success
 
-audit-production:
+lint-production:
   extends: .lint
   rules:
     - if: '$ENV == "PRODUCTION"'

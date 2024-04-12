@@ -6,6 +6,12 @@
     paths:
       - build
   script:
+    - |
+      echo "********************************************"
+      echo "Build details"
+      echo "============================================"
+      echo "Running build for ${ENV}"
+      echo "********************************************"
     - npm ci
     - npm run build
 

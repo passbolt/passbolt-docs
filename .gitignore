@@ -9,7 +9,6 @@
 .cache-loader
 
 # Misc
-.eslintrc
 .prettierrc
 .DS_Store
 .env.local

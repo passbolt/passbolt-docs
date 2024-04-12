@@ -1,0 +1,21 @@
+.lint:
+  stage: lint
+  image: node:20
+  extends: .shared_rules
+  script:
+    - npm ci --include=dev
+    - npm run lint
+    - npm run lint:mdx
+  allow_failure: true
+
+lint-staging:
+  extends: .lint
+  rules:
+    - if: '$ENV == "STAGING"'
+      when: on_success
+
+lint-production:
+  extends: .lint
+  rules:
+    - if: '$ENV == "PRODUCTION"'
+      when: on_success

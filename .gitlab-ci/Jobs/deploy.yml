@@ -12,7 +12,7 @@
     - gsutil -m setmeta -r  -h "Cache-Control:no-cache" "gs://$BUCKET"
 
 deploy-staging:
-  extends: .build
+  extends: .deploy
   variables:
     BUCKET: "passbolt-docs-staging"
   rules:
@@ -20,7 +20,7 @@ deploy-staging:
       when: on_success
 
 deploy-production:
-  extends: .build
+  extends: .deploy
   variables:
     BUCKET: "passbolt-docs-production"
   rules:

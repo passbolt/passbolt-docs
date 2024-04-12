@@ -316,7 +316,7 @@ const config = {
         (function() {
           var u="https://passbolt.matomo.cloud/";
           _paq.push(['setTrackerUrl', u+'matomo.php']);
-          _paq.push(['setSiteId', '1']);
+          _paq.push(['setSiteId', '${process.env?.ENV === 'PRODUCTION' ? 1 : 7}']);
           var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
           g.async=true; g.src='https://cdn.matomo.cloud/passbolt.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
         })();

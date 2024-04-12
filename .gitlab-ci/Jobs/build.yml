@@ -1,0 +1,24 @@
+.build:
+  stage: build
+  image: node:20
+  extends: .shared_rules
+  artifacts:
+    paths:
+      - build
+  script:
+    - npm ci
+    - npm run build
+
+build-staging:
+  extends: .build
+  rules:
+    - if: '$ENV == "STAGING"'
+      when: on_success
+
+build-production:
+  extends: .build
+  before_script:
+    - export ENV=PRODUCTION
+  rules:
+    - if: '$ENV == "PRODUCTION"'
+      when: on_success

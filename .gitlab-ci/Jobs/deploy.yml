@@ -10,7 +10,7 @@
     - /usr/bin/gsutil -m rsync -d -r ./docs "gs://$BUCKET/docs"
     - gsutil -m setmeta -r  -h "Cache-Control:no-cache" "gs://$BUCKET"
   rules:
-    - if: '($CI_PIPELINE_SOURCE == "schedule" || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $TARGET_BRANCH )'
+    - if: '$CI_COMMIT_BRANCH == $TARGET_BRANCH'
       when: on_success
 
 deploy-staging:

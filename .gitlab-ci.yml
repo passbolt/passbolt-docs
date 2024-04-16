@@ -1,14 +1,5 @@
 image: node:lts-slim
 
-.shared_rules:
-  variables:
-    ENV: "STAGING"
-  rules:
-    - if: ('$CI_COMMIT_BRANCH == "main"' || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main")
-      variables:
-        ENV: "PRODUCTION"
-      when: always
-
 stages:
   - lint
   - audit

@@ -14,7 +14,7 @@
     - npm ci
     - npm run build
   rules:
-    - if: '$CI_COMMIT_BRANCH == $TARGET_BRANCH'
+    - if: '($CI_PIPELINE_SOURCE == "schedule" || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $TARGET_BRANCH )'
       when: on_success
 
 build-staging:

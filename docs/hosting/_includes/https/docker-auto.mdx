@@ -6,12 +6,12 @@ import LetsEncryptWarning from '/docs/hosting/_includes/warning/_https-valid-dom
 <LetsEncryptWarning />
 
 ## Requirements
-  - <a href={`/docs/hosting/install/${props.productName.toLowerCase()}/docker`}>docker setup with docker-compose</a>.
+  - <a href={`/docs/hosting/install/${props.productName.toLowerCase()}/docker/`}>docker setup with docker-compose</a>.
   - A domain name reachable over the internet
 
 ## Add traefik service to handle https
 
-If you have followed our  <a href={`/docs/hosting/install/${props.productName.toLowerCase()}/docker`}>installation documentation</a>, you should have defined `db` and `passbolt` services for your passbolt stack.
+If you have followed our  <a href={`/docs/hosting/install/${props.productName.toLowerCase()}/docker/`}>installation documentation</a>, you should have defined `db` and `passbolt` services for your passbolt stack.
 
 To handle HTTPS setup with Let’s Encrypt, add a traefik service as follow:
 

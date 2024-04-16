@@ -1,0 +1,20 @@
+.audit:
+  stage: audit
+  image: node:20
+  extends: .shared_rules
+  script:
+    - npm ci --include=dev
+    - npm audit
+    - npm run lint:lockfile
+
+audit-staging:
+  extends: .audit
+  rules:
+    - if: '$ENV == "STAGING"'
+      when: on_success
+
+audit-production:
+  extends: .audit
+  rules:
+    - if: '$ENV == "PRODUCTION"'
+      when: on_success

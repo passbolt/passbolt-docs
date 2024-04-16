@@ -1,4 +1,5 @@
 import Incrementor from '/docs/components/incrementor';
+import CodeBlock from '@theme/CodeBlock';
 
 ## Docker Compose
 
@@ -9,23 +10,22 @@ The easiest and recommended way to deploy your passbolt stack is to use docker-c
   resetCounter={true}
 />
 
-<pre className="prism-code language-bash">
-  <code>{`wget https://download.passbolt.com/${props.productName.toLowerCase()}/docker/docker-compose-${props.productName.toLowerCase()}.yaml`}</code>
-  <br />
-  <code>{`wget https://github.com/passbolt/passbolt_docker/releases/latest/download/docker-compose-${props.productName.toLowerCase()}-SHA512SUM.txt`}</code>
-</pre>
+<CodeBlock>
+  {`wget https://download.passbolt.com/${props.productName.toLowerCase()}/docker/docker-compose-${props.productName.toLowerCase()}.yaml
+wget https://github.com/passbolt/passbolt_docker/releases/latest/download/docker-compose-${props.productName.toLowerCase()}-SHA512SUM.txt`}
+</CodeBlock>
 
 <Incrementor title="Ensure the file has not been corrupted by verifying its shasum" />
 
-<pre className="prism-code language-bash">
-  <code>{`sha512sum -c docker-compose-${props.productName.toLowerCase()}-SHA512SUM.txt`}</code>
-</pre>
+<CodeBlock>
+  {`sha512sum -c docker-compose-${props.productName.toLowerCase()}-SHA512SUM.txt`}
+</CodeBlock>
 
 Must return:
 
-<pre className="prism-code language-bash">
-  <code>{`docker-compose-${props.productName.toLowerCase()}.yaml: OK`}</code>
-</pre>
+<CodeBlock>
+  {`docker-compose-${props.productName.toLowerCase()}.yaml: OK`}
+</CodeBlock>
 
 :::caution
 If the <i>shasum</i> command output is not correct, the downloaded file has been corrupted. Retry step 1 or ask for support on <a href='https://community.passbolt.com'>our community forum</a>.
@@ -68,36 +68,32 @@ the most used environment variables for this purpose:
 | EMAIL_TRANSPORT_DEFAULT_TLS      | Set tls                        | `null`            |
 
 For more information on which environment variables are available on passbolt, please check the
-[environment variable reference](/docs/hosting/configure/environment-reference)
+[environment variable reference](/hosting/configure/environment-reference/)
 
 <Incrementor title="Start your containers" />
 
-<pre className="prism-code language-bash">
-  <code>{`docker compose -f docker-compose-${props.productName.toLowerCase()}.yaml up -d`}</code>
-</pre>
+<CodeBlock>
+  {`docker compose -f docker-compose-${props.productName.toLowerCase()}.yaml up -d`}
+</CodeBlock>
 
 <Incrementor title="Create first admin user" />
 
-<div>
-  <>
-    <pre className="prism-code language-bash">
-      <code>
-        docker-compose -f docker-compose-{props.productName.toLowerCase()}.yaml
-        exec passbolt su -m -c "/usr/share/php/passbolt/bin/cake \
-        <br />
-        passbolt register_user \
-        <br />
-        -u YOUR_EMAIL \
-        <br />
-        -f YOUR_NAME \
-        <br />
-        -l YOUR_LASTNAME \
-        <br />
-        -r admin" -s /bin/sh www-data
-      </code>
-    </pre>
-  </>
-</div>
+<CodeBlock>
+  {`docker-compose -f docker-compose-${props.productName.toLowerCase()}.yaml \\
+
+exec passbolt su -m -c "/usr/share/php/passbolt/bin/cake \\
+
+passbolt register_user \\
+
+-u YOUR_EMAIL \\
+
+-f YOUR_NAME \\
+
+-l YOUR_LASTNAME \\
+
+-r admin" -s /bin/sh www-data`}
+</CodeBlock>
+
 
 It will output a link similar to the below one that can be pasted on the browser to finalize user registration:
 

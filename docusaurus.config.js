@@ -148,6 +148,9 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      metadata: [
+        { name: 'og:type', content: 'website' }
+      ],
       image: 'img/og.jpg',
       docs: {
         sidebar: {
@@ -241,6 +244,86 @@ const config = {
       }
     ],
   ],
+  scripts: [
+    {
+      src: 'https://consent.cookiebot.com/uc.js',
+      defer: true,
+      'data-cbid': '900808a8-f178-4994-b2ad-66bf3ccca5f7',
+      'data-blockingmode': 'auto',
+    },
+    {
+      src: 'https://plausible.io/js/plausible.js',
+      defer: true,
+      'data-domain': 'passbolt.com',
+    }
+  ],
+  headTags: [
+    {
+      tagName: 'script',
+      attributes: {
+        type: 'text/javascript',
+        id: 'cookiebot-tracking-configuration',
+      },
+      innerHTML: `
+        function CookiebotCallback_OnAccept() {
+          if (Cookiebot.consent.statistics) {
+            enableStatisticsCookies();
+          } else {
+            disableStatisticsCookies();
+          }
+        }
+        function CookiebotCallback_OnDecline() {
+          if (!Cookiebot.consent.statistics) {
+            disableStatisticsCookies();
+          }
+        }
+        function enableStatisticsCookies() {
+          _paq.push(['setCookieConsentGiven']);
+        }
+        function disableStatisticsCookies() {
+          _paq.push(['forgetCookieConsentGiven']);
+        }
+      `
+    },
+    {
+      tagName: 'script',
+      attributes: {
+        type: 'text/javascript',
+        id: 'matomo-tag-manager',
+      },
+      innerHTML: `
+        <!-- Matomo Tag Manager -->
+        var _mtm = window._mtm = window._mtm || [];
+        _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.async=true; g.src='https://cdn.matomo.cloud/passbolt.matomo.cloud/container_C0l5nxM2.js'; s.parentNode.insertBefore(g,s);
+        <!-- End Matomo Tag Manager -->
+      `
+    },
+    {
+      tagName: 'script',
+      attributes: {
+        type: 'text/javascript',
+        id: 'matomo-analytics',
+      },
+      innerHTML: `
+        <!-- Matomo -->
+        var _paq = window._paq = window._paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        _paq.push(['requireCookieConsent']);
+        (function() {
+          var u="https://passbolt.matomo.cloud/";
+          _paq.push(['setTrackerUrl', u+'matomo.php']);
+          _paq.push(['setSiteId', '${process.env?.ENV === 'PRODUCTION' ? 1 : 7}']);
+          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+          g.async=true; g.src='https://cdn.matomo.cloud/passbolt.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+        <!-- End Matomo Code -->
+      `
+    }
+  ]
 };
 
 module.exports = config;

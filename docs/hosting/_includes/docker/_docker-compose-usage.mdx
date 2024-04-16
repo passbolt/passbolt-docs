@@ -79,7 +79,7 @@ For more information on which environment variables are available on passbolt, p
 <Incrementor title="Create first admin user" />
 
 <CodeBlock>
-  {`docker-compose -f docker-compose-${props.productName.toLowerCase()}.yaml
+  {`docker-compose -f docker-compose-${props.productName.toLowerCase()}.yaml \\
 
 exec passbolt su -m -c "/usr/share/php/passbolt/bin/cake \\
 

@@ -1,4 +1,4 @@
-import Incrementor from '/docs/components/incrementor';
+  import Incrementor from '/docs/components/incrementor';
 
 ## Docker Compose
 
@@ -78,26 +78,16 @@ For more information on which environment variables are available on passbolt, p
 
 <Incrementor title="Create first admin user" />
 
-<div>
-  <>
-    <pre className="prism-code language-bash">
-      <code>
-        docker-compose -f docker-compose-{props.productName.toLowerCase()}.yaml
-        exec passbolt su -m -c "/usr/share/php/passbolt/bin/cake \
-        <br />
-        passbolt register_user \
-        <br />
-        -u YOUR_EMAIL \
-        <br />
-        -f YOUR_NAME \
-        <br />
-        -l YOUR_LASTNAME \
-        <br />
-        -r admin" -s /bin/sh www-data
-      </code>
-    </pre>
-  </>
-</div>
+
+```
+docker-compose -f docker-compose-ce.yaml \
+  exec passbolt su -m -c "/usr/share/php/passbolt/bin/cake \
+  passbolt register_user \
+  -u YOUR_EMAIL \
+  -f YOUR_NAME \
+  -l YOUR_LASTNAME \
+  -r admin" -s /bin/sh www-data
+```
 
 It will output a link similar to the below one that can be pasted on the browser to finalize user registration:
 

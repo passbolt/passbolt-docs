@@ -1,0 +1,24 @@
+---
+title: Install Passbolt on SLES 15 SP6
+# description:
+sidebar_label: SLES 15 SP6
+hide_table_of_contents: true
+sidebar_class_name: hidden
+---
+
+import Prerequisites from '/docs/hosting/_includes/package/_prerequisites.mdx';
+import ServerComponents from '/docs/hosting/_includes/package/_install-server-components.mdx';
+import RpmPackageConfiguration from '/docs/hosting/_includes/package/_configure-rpm-package.mdx';
+import WizardConfiguration from '/docs/hosting/_includes/wizard/_server.mdx';
+import AdminConfiguration from '/docs/hosting/_includes/wizard/_admin.mdx';
+import Chips from "/src/components/Chips/Chips";
+
+<Prerequisites distributionLabel={'SLES'} distributionVersion={'15 SP6'} />
+<ServerComponents productName={'CE'} distributionPackage={'zypper'} />
+<RpmPackageConfiguration
+  productName={'CE'}
+  distributionLabel={'SLES'}
+  distributionVersion={'15 SP6'}
+/>
+<WizardConfiguration productLabel={'cE'} distributionLabel={'SLES'} />
+<AdminConfiguration />

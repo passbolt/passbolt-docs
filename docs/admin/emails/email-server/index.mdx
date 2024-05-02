@@ -38,9 +38,9 @@ You can follow this procedure if you are meeting the following requirements:
 
 ## How does it work?
 
-Configuring email server, but through the UI is a feature introduced with Passbolt v3.8.0 that as for aim to help all administrators who needs to change their SMTP server settings the easiest way.
+Configuring the email server through the UI is a feature introduced with Passbolt v3.8.0 to help all administrators manage their SMTP server settings easily.
 
-We moved the email configuration from *`config/passbolt.php`* directly into the database and your credentials are encrypted with the server GPG public key.
+We moved the email configuration from `config/passbolt.php` directly into the database and your credentials are encrypted with the server GPG public key.
 
 ## Access to email server configuration
 
@@ -90,6 +90,92 @@ You can test your configuration by clicking on the *send test email* button. You
 
 If the email has been successfully sent and you haven't received anything you should check your spam folder.
 The logs are also available in a text area if you unfolds the logs section.
+
+## Configure SMTP server using custom/self-signed certificate
+
+With the v4.7 release, we have introduced support for SMTP servers using self-signed certificates.
+
+You can set SSL/TLS options in your `passbolt.php` or environment variables to specify your custom root CA certificate or skip verification (not recommended).
+
+### Allow self-signed certificate verification
+
+```php
+// config/passbolt.php
+
+return [
+    'passbolt' => [
+        ...
+
+        'plugins' => [
+            ...
+
+            'smtpSettings' => [
+                ...
+                'security' => [
+                    'sslVerifyPeer' => true,
+                    'sslVerifyPeerName' => true,
+                    'sslAllowSelfSigned' => true, // default = false
+                    'sslCafile' => '/path/to/ca.crt'
+                ],
+            ],
+
+            ...
+
+        ],
+
+        ...
+    ],
+];
+```
+
+Or, you can also use environment variables:
+
+```bash
+export PASSBOLT_PLUGINS_SMTP_SETTINGS_SECURITY_SSL_VERIFY_PEER=true
+export PASSBOLT_PLUGINS_SMTP_SETTINGS_SECURITY_SSL_VERIFY_PEER_NAME=true
+export PASSBOLT_PLUGINS_SMTP_SETTINGS_SECURITY_SSL_ALLOW_SELF_SIGNED=true
+export PASSBOLT_PLUGINS_SMTP_SETTINGS_SECURITY_SSL_CAFILE="/path/to/ca.crt"
+```
+
+### Skip TLS/SSL verification
+
+The approach of skipping TLS/SSL verification is *not recommended* but can be useful if you want to test if you are able to connect to your SMTP server.
+
+```php
+// config/passbolt.php
+
+return [
+    'passbolt' => [
+        ...
+
+        'plugins' => [
+            ...
+
+            'smtpSettings' => [
+                ...
+                'security' => [
+                    'sslVerifyPeer' => false, // default true
+                    'sslVerifyPeerName' => false, // default true
+                    'sslAllowSelfSigned' => true, // default false
+                ],
+            ],
+
+            ...
+
+        ],
+
+        ...
+    ],
+];
+```
+
+Or, via environment variables:
+
+```bash
+export PASSBOLT_PLUGINS_SMTP_SETTINGS_SECURITY_SSL_VERIFY_PEER=false
+export PASSBOLT_PLUGINS_SMTP_SETTINGS_SECURITY_SSL_VERIFY_PEER_NAME=false
+export PASSBOLT_PLUGINS_SMTP_SETTINGS_SECURITY_SSL_ALLOW_SELF_SIGNED=true
+```
 
 ## Configure SMTP with Passbolt 3.7.3 or earlier version
 

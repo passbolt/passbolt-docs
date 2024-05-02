@@ -27,7 +27,7 @@ instance unless otherwise specified by your SSL provider.
 
 Most of the time in this scenario your passbolt instance will not require any extra configuration.
 
-### Your LDAP server is offering a SSL certificate obtained from a private Certficate Authority
+### Your LDAP server is offering a SSL certificate obtained from a private Certficate Authority or a self-signed certificate
 
 Some organizations run LDAP on a private network on-premises. In these scenarios it is very common that your
 organization has a private SSL certificate authority that generates SSL certificates valid only on the private network.
@@ -115,6 +115,60 @@ Follow the README instructions, retrieve your certificate and move to step 2.
 
 ### Step 4: Tell OpenLDAP to use the right certificate
 
+#### Using passbolt.php or environment variables (beta)
+
+With the v4.7 release, we have introduced a configuration where you can specify your custom root CA certificate details.
+
+```php
+// config/passbolt.php
+
+return [
+    'passbolt' => [
+        ...
+
+        'plugins' => [
+            ...
+
+              'directorySync' => [
+                ...
+                'security' => [
+                    'sslCustomOptions' => [
+                        'enabled' => true,
+                        'verifyPeer' => true,
+                        'cadir' => '/etc/ssl/certs',
+                        'cafile' => '/etc/ssl/certs/cert.crt',
+                    ],
+                ],
+            ],
+
+            ...
+
+        ],
+
+        ...
+    ],
+];
+```
+
+Or, you can also set the above values via environment variables as well:
+
+```bash
+export PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_ENABLED=true
+export PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_VERIFY_PEER=true
+export PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_CADIR="/etc/ssl/certs"
+export PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_CAFILE="/etc/ssl/certs/cert.crt"
+```
+
+:::info
+You should either set the root CA certificate via `ldap.conf` or via passbolt configurations(`passbolt.php` / env variables), not both.
+:::
+
+That's it. It should work now. Go back to step 1 and execute the ldapsearch command again. You should see a
+successful connection to your LDAPS server happening. If that's the case, you can get back to Passbolt and try
+the synchronization again.
+
+#### Using LDAP extension configuration file (deprecated)
+
 In Debian:
 
 ```bash
@@ -147,22 +201,61 @@ TLS_CACERT      /etc/ssl/certs/cert.crt
 
 Edit the line with `TLS_CACERT` to make it point to the right certificate.
 
-That's it. It should work now. Go back to step 1 and execute the ldapsearch command again. You should see a
-successful connection to your LDAPS server happening. If that's the case, you can get back to Passbolt and try
-the synchronization again.
+### Alternatively, disable SSL certificate verification
 
-### Alternatively
-
-If for some obscure reasons OpenLDAP was still refusing to cooperate, you can try telling him to ignore the certificate.
+If for some obscure reason, OpenLDAP was still refusing to cooperate, you can try telling him to ignore the certificate.
 
 :::warning
-Do this for tests purpose only. This practice is insecure and could make your server prone to MITM attacks.
+Do this for test purposes only. This practice is insecure and could make your server prone to MITM attacks.
 :::
+
+#### Using passbolt.php or environment variables (beta)
+
+```php
+// config/passbolt.php
+
+return [
+    'passbolt' => [
+        ...
+
+        'plugins' => [
+            ...
+
+              'directorySync' => [
+                ...
+                'security' => [
+                    'sslCustomOptions' => [
+                        'enabled' => true,
+                        'verifyPeer' => false,
+                    ],
+                ],
+            ],
+
+            ...
+
+        ],
+
+        ...
+    ],
+];
+```
+
+Or, you can also set the above values via environment variables as well:
+
+```bash
+export PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_ENABLED=true
+export PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_VERIFY_PEER=false
+```
+
+Now after ignoring the certificate if the connection is going through, it means that there might be some issues with your certificate.
+
+#### Using LDAP extension configuration file (deprecated)
 
 ```bash
 nano /etc/ldap/ldap.conf
 ```
 
-Then add the line: `TLS_REQCERT` never, and try again.
-
-If now the connection is going through, it means that there is still an issue with your certificate.
+Then add the below line:
+```bash
+TLS_REQCERT never
+```

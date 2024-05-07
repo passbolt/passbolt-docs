@@ -11,8 +11,8 @@ The easiest and recommended way to deploy your passbolt stack is to use docker-c
 />
 
 <CodeBlock>
-  {`wget https://download.passbolt.com/${props.productName.toLowerCase()}/docker/docker-compose-${props.productName.toLowerCase()}.yaml
-wget https://github.com/passbolt/passbolt_docker/releases/latest/download/docker-compose-${props.productName.toLowerCase()}-SHA512SUM.txt`}
+  {`curl -LO https://download.passbolt.com/${props.productName.toLowerCase()}/docker/docker-compose-${props.productName.toLowerCase()}.yaml
+curl -LO https://github.com/passbolt/passbolt_docker/releases/latest/download/docker-compose-${props.productName.toLowerCase()}-SHA512SUM.txt`}
 </CodeBlock>
 
 <Incrementor title="Ensure the file has not been corrupted by verifying its shasum" />

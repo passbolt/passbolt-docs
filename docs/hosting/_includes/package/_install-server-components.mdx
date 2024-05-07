@@ -14,13 +14,13 @@ import CodeBlock from "/src/components/CodeBlock/CodeBlock";
 **Step 1.** Download our dependencies installation script:
 
 <CodeBlock>
-    {`wget https://download.passbolt.com/${props.productName.toLowerCase()}/installer/passbolt-repo-setup.${props.productName.toLowerCase()}.sh`}
+    {`curl -LO https://download.passbolt.com/${props.productName.toLowerCase()}/installer/passbolt-repo-setup.${props.productName.toLowerCase()}.sh`}
 </CodeBlock>
 
 **Step 2.** Download our SHA512SUM for the installation script:
 
 <CodeBlock>
-{`wget https://github.com/passbolt/passbolt-dep-scripts/releases/latest/download/passbolt-${props.productName.toLowerCase()}-SHA512SUM.txt`}
+{`curl -LO https://github.com/passbolt/passbolt-dep-scripts/releases/latest/download/passbolt-${props.productName.toLowerCase()}-SHA512SUM.txt`}
 </CodeBlock>
 
 **Step 3.** Ensure that the script is valid and execute it:

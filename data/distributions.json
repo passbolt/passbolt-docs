@@ -196,6 +196,20 @@
     "canUpdate": true
   },
   {
+    "name": "SUSE Linux Entreprise Server",
+    "slug": "sles",
+    "version": "15 SP6",
+    "package": "zypper",
+    "db_engine": "mariadb",
+    "logo": "/img/distributions/suse.svg",
+    "ce": true,
+    "pro": true,
+    "canMigrateServer": true,
+    "canMigratePackage": false,
+    "canUpgrade": false,
+    "canUpdate": true
+  },
+  {
     "name": "OracleLinux",
     "slug": "oraclelinux",
     "version": 8,

@@ -1,0 +1,52 @@
+---
+title: Purge Action Logs Command
+sidebar_label: Purge Action Logs Command
+description: Purge Action Logs Command
+hide_table_of_contents: false
+---
+
+import Figure from '/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+As your instance ages, you will want to reduce the size of the `action_logs` table by dropping old entries persisted in the database.
+At least the ones that do not log sensitive actions. Passbolt provides a command to do so.
+This will enhance the performance of your instance, without compromise on security, user or password history.
+
+### Purge
+
+The retention period in days is provided with the `-r` option. Action logs
+older than this argument will be irrevocably purged.
+
+```bash
+su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt action_logs_purge -r 90" www-data
+```
+
+<Figure
+  src={
+    '/img/help/2024/05/purge-action-logs-command.png'
+  }
+  caption="fig. Purge Action Logs Command"
+  alt="Purge Action Logs Command"
+/>
+
+### Dry Run
+
+The command has a `--dry-run` option. The command will not purge the action logs, but instead provide the number of entries
+that would be purged if not in dry-run mode.
+
+```bash
+su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt action_logs_purge --dry-run -r 90" www-data
+```
+
+<Figure
+  src={
+    '/img/help/2024/05/purge-action-logs-command-dry-run.png'
+  }
+  caption="fig. Purge Action Logs Command Dry Run"
+  alt="Purge Action Logs Command Dry Run"
+/>

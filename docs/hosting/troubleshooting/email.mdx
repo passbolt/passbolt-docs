@@ -66,3 +66,29 @@ sudo -H -u www-data bash -c "/usr/share/php/passbolt/bin/cake cache clear_all"
 ## Reason 5: You are using credentials password instead of application password
 
 Some email providers will not let you use the password from your organization account for security purposes. It means that if you’re trying to use the authentication method “Username & Password” it will result in a failure if you are using something other than an application password.
+
+## Listing email queue entries
+
+You can use the `show_queued_emails` passbolt command to display email queue entries from the database. This is useful when there is an issue sending emails as it will output any errors that have been logged with sending emails.
+
+```bash
+sudo -H -u www-data bash -c "/usr/share/php/passbolt/bin/cake passbolt show_queued_emails"
+```
+
+<Figure
+  src="/img/help/2024/05/show_queued_emails_plain.png"
+  alt="Show queued emails command"
+  caption="fig. Show queued emails command"
+/>
+
+By default, the 15 most recent records from the `email_queue` table will be displayed; however, it is also possible to filter the records further. See all the available options below:
+
+* `--limit` = Number of records to show (Range: min 1 & max 100). Default is 15.
+* `--failed` = Return only records with an error.
+* `--oldest` = Displays older records first (sorted by date).
+
+<Figure
+  src="/img/help/2024/05/show_queued_emails_with_all_options.png"
+  alt="Show queued emails command with all options"
+  caption="fig. Show queued emails command with all options"
+/>

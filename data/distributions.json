@@ -16,7 +16,7 @@
   {
     "name": "Ubuntu",
     "slug": "ubuntu",
-    "version": 22.04,
+    "version": 24.04,
     "package": "apt",
     "db_engine": "mysql",
     "logo": "/img/distributions/ubuntu.svg",

@@ -36,11 +36,6 @@ const adminSidebar = [
     label: "Role Based Access Control",
   },
   {
-    type: "doc",
-    id: 'admin/purge-action-logs-command',
-    label: "Purge Action Logs Command",
-  },
-  {
     type: "category",
     label: "Emails",
     collapsed: true,

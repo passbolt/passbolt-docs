@@ -13,9 +13,9 @@ import Chips from "/src/components/Chips/Chips";
   <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
 </div>
 
-As your instance ages, you will want to reduce the size of the `action_logs` table by dropping old entries persisted in the database.
-At least the ones that do not log sensitive actions. Passbolt provides a command to do so.
-This will enhance the performance of your instance, without compromise on security, user or password history.
+As your instance ages, you may want to reduce the size of the `action_logs` table by dropping old nonsensitive entries from the database.
+Passbolt provides a command to do so.
+This will enhance the performance of your instance, without compromising the security, user, or password history.
 
 ### Purge
 
@@ -36,8 +36,8 @@ su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt action_logs_purge 
 
 ### Dry Run
 
-The command has a `--dry-run` option. The command will not purge the action logs, but instead provide the number of entries
-that would be purged if not in dry-run mode.
+The command has a `--dry-run` option as well. The command will not purge the action logs, but will instead provide the number of entries
+that would be purged if you were to run it not in dry-run mode.
 
 ```bash
 su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt action_logs_purge --dry-run -r 90" www-data

@@ -1,0 +1,34 @@
+---
+title: Update Passbolt on SLES 15 SP6
+description: Update Passbolt on SLES 15 SP6
+sidebar_label: SLES 15 SP6
+hide_table_of_contents: true
+---
+
+import Prerequisites from '/docs/hosting/_includes/package/_prerequisites.mdx';
+import UpdateProcess from '/docs/hosting/_includes/package/_update-process.mdx';
+import Troubleshooting from '/docs/hosting/_includes/default/_troubleshooting.mdx';
+import InCaseOfIssues from '/docs/hosting/_includes/default/_in-case-of-issues.mdx';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/opensuse" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+<Prerequisites
+  distributionLabel={'SLES'}
+  distributionVersion={'15 SP6'}
+  type={'updatePackage'}
+/>
+
+<UpdateProcess
+  distributionPackage={'zypper'}
+  distributionLabel={'SLES'}
+  distributionVersion={'15 SP6'}
+  distributionWebUser={'nginx'}
+/>
+
+<Troubleshooting distributionPackage={'zypper'} webServerUser={'nginx'} />
+
+<InCaseOfIssues />

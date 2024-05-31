@@ -7,6 +7,7 @@ hide_table_of_contents: false
 
 import Figure from '@site/src/components/Figure/Figure';
 import Chips from "/src/components/Chips/Chips";
+import AdvancedSettings from "/docs/admin/_includes/sso/advanced-settings.mdx";
 
 <div style={{display: "flex", gap: "1rem"}}>
   <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
@@ -114,3 +115,5 @@ In your passbolt instance:
 />
 
 Please note that users must successfully perform a login using their current passphrase _after SSO has been activated_ in order for the SSO option to be proposed to them at future logins.
+
+<AdvancedSettings />

@@ -45,19 +45,24 @@ You should have:
 </>
 
 {props.productName === 'PRO' ? (
+<>
 <CodeBlock>
     {`sudo mv ~/backup/passbolt.php /etc/passbolt
 sudo chown ${props.webServerUser}:${props.webServerUser} /etc/passbolt/passbolt.php
 sudo chmod 440 /etc/passbolt/passbolt.php
 sudo chown ${props.webServerUser}:${props.webServerUser} /etc/passbolt/subscription_key.txt`}
 </CodeBlock>
+  <b style={{ color: 'red' }}>Pro tips:</b> If you didn't the old server database credentials while configuring MariaDB, you might want to update <code>Datasources</code> from <i>/etc/passbolt/passbolt.php</i>
+  </>
 ) : (
+<>
 <CodeBlock>
     {`sudo mv ~/backup/passbolt.php /etc/passbolt
 sudo chown ${props.webServerUser}:${props.webServerUser} /etc/passbolt/passbolt.php
 sudo chmod 440 /etc/passbolt/passbolt.php`}
 </CodeBlock>
-
+  <b style={{ color: 'red' }}>Pro tips:</b> If you didn't use the old server database credentials while configuring MariaDB, you might want to update <code>Datasources</code> from <i>/etc/passbolt/passbolt.php</i>
+  </>
 )}
 
 

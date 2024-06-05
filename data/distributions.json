@@ -182,7 +182,7 @@
     "canUpdate": true
   },
   {
-    "name": "SUSE Linux Entreprise Server",
+    "name": "SLES",
     "slug": "sles",
     "version": "15 SP6",
     "package": "zypper",

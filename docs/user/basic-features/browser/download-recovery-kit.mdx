@@ -1,0 +1,34 @@
+---
+title: How to Download the Account Recovery Kit
+sidebar_label: Download the Account Recovery Kit
+description: How to download the Account recovery kit
+slug: download-recovery-kit
+sidebar_position: 3
+---
+
+import Chips from "/src/components/Chips/Chips";
+import Figure from '/src/components/Figure/Figure';
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+:::danger
+The recovery kit also known as your private PGP key associated to your passphrase is something that could grant access to your account if for any reason the passphrase is corrupted, it is really important to keep this downloaded file **somewhere safe** and encrypted if possible.
+:::
+
+:::note
+When the [account recovery feature](/admin/authentication/account-recovery/) is not enabled, losing this kit means that when an account recovery process is needed, you will have no more access to the account and you will lose all the unshared passwords.
+:::
+
+The account recovery kit is downloadable navigating in *Profile > Keys Inspector* and clicking on the **Private** button.
+
+
+<Figure
+  src="/img/help/2024/05/download-recovery-kit.png"
+  alt="Download the account recovery kit"
+  caption="fig. Download the account recovery kit"
+/>
+

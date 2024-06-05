@@ -126,20 +126,6 @@
     "canUpdate": true
   },
   {
-    "name": "CentOS",
-    "slug": "centos",
-    "version": 7,
-    "package": "yum",
-    "db_engine": "mariadb",
-    "logo": "/img/distributions/centos.svg",
-    "ce": true,
-    "pro": true,
-    "canMigrateServer": true,
-    "canMigratePackage": true,
-    "canUpgrade": false,
-    "canUpdate": true
-  },
-  {
     "name": "AlmaLinux",
     "slug": "almalinux",
     "version": 8,

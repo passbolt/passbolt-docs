@@ -1,0 +1,14 @@
+### Advanced Settings
+#### Email claim
+This field will help in order to set which email claim should be used for the authentication, you can chose between:
+- UPN (userPrincipalName)
+  - This will require some extra configuration on azure side as it is an [optional claim](https://learn.microsoft.com/en-us/entra/identity-platform/optional-claims)
+- Email
+- Preferred username
+  - This is the primary username that represents the user on azure, this could be an email address, phone number or a generic username without a specified format. It is needed to use the `profile` scope for this option, you can learn more [here](https://learn.microsoft.com/en-us/entra/identity-platform/access-token-claims-reference#payload-claims).
+#### Prompt
+This will help you to configure the authentication method for the users
+- Login
+  - The default prompt method, this is will prompt the user to authenticate with their azure credentials every time they are logging out or being logged out.
+- None
+  - This method will use the active azure session instead and will not ask the azure credentials

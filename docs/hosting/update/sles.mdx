@@ -1,38 +1,34 @@
 ---
-title: Update Passbolt on Centos 7
-description: Update Passbolt on Centos 7
-sidebar_label: Centos 7
+title: Update Passbolt on SLES 15 SP6
+description: Update Passbolt on SLES 15 SP6
+sidebar_label: SLES 15 SP6
 hide_table_of_contents: true
-sidebar_class_name: hidden
 ---
 
 import Prerequisites from '/docs/hosting/_includes/package/_prerequisites.mdx';
 import UpdateProcess from '/docs/hosting/_includes/package/_update-process.mdx';
 import Troubleshooting from '/docs/hosting/_includes/default/_troubleshooting.mdx';
 import InCaseOfIssues from '/docs/hosting/_includes/default/_in-case-of-issues.mdx';
-import CentOSWarning from '/docs/hosting/_includes/warning/_dont-install-CentOS.mdx';
 import Chips from "/src/components/Chips/Chips";
 
 <div style={{display: "flex", gap: "1rem"}}>
-  <Chips link="https://www.passbolt.com/ce/centos" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/ce/opensuse" isUnderMainTitle={true}>CE</Chips>
   <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
 </div>
 
-<CentOSWarning />
-
 <Prerequisites
-  distributionLabel={'Centos'}
-  distributionVersion={'7'}
+  distributionLabel={'SLES'}
+  distributionVersion={'15 SP6'}
   type={'updatePackage'}
 />
 
 <UpdateProcess
-  distributionPackage={'yum'}
-  distributionLabel={'Centos'}
-  distributionVersion={'7'}
+  distributionPackage={'zypper'}
+  distributionLabel={'SLES'}
+  distributionVersion={'15 SP6'}
   distributionWebUser={'nginx'}
 />
 
-<Troubleshooting distributionPackage={'yum'} webServerUser={'nginx'} />
+<Troubleshooting distributionPackage={'zypper'} webServerUser={'nginx'} />
 
 <InCaseOfIssues />

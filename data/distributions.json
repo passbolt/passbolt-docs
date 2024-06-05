@@ -126,20 +126,6 @@
     "canUpdate": true
   },
   {
-    "name": "CentOS",
-    "slug": "centos",
-    "version": 7,
-    "package": "yum",
-    "db_engine": "mariadb",
-    "logo": "/img/distributions/centos.svg",
-    "ce": true,
-    "pro": true,
-    "canMigrateServer": true,
-    "canMigratePackage": true,
-    "canUpgrade": false,
-    "canUpdate": true
-  },
-  {
     "name": "AlmaLinux",
     "slug": "almalinux",
     "version": 8,
@@ -188,6 +174,20 @@
     "package": "dnf",
     "db_engine": "mariadb",
     "logo": "/img/distributions/fedora.svg",
+    "ce": true,
+    "pro": true,
+    "canMigrateServer": true,
+    "canMigratePackage": false,
+    "canUpgrade": false,
+    "canUpdate": true
+  },
+  {
+    "name": "SLES",
+    "slug": "sles",
+    "version": "15 SP6",
+    "package": "zypper",
+    "db_engine": "mariadb",
+    "logo": "/img/distributions/suse.svg",
     "ce": true,
     "pro": true,
     "canMigrateServer": true,

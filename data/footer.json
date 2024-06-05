@@ -61,6 +61,21 @@
       {
         "label": "Copan Group",
         "href": "https://www.passbolt.com/case-studies/copan-group"
+      },
+      {
+        "label": "TU Graz",
+        "href": "https://www.passbolt.com/case-studies/tu-graz"
+      },
+      {
+        "label": "Numadic",
+        "href": "https://www.passbolt.com/case-studies/numadic"
+      },
+      {
+        "html": "Solutions"
+      },
+      {
+        "label": "For universities",
+        "href": "https://www.passbolt.com/solutions/for-universities"
       }
     ]
   },

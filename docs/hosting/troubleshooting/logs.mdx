@@ -97,12 +97,32 @@ The server logs contains mostly error and warnings such as bad request, invalid 
 <Webserverprotip />
 
 ## Browser Extension
-### Google Chrome
+### Google Chrome MV3
+You can learn more about the migration to Manifest V3 [here](https://www.passbolt.com/blog/passbolt-browser-extension-migration-to-manifest-v3).
 
-    - You will need to navigate to your extensions
+    - Go to [chrome://extensions](chrome://extensions)
     - Activate the Developer mode in the top right corner
     - Look for Passbolt and click details button
-    - Look for the Inspect views and the index.html link
+    - Open the *offscreens/fetch.html* link
+    - The new windows will appear, this is the debugger of the browser extension
+    - You can see from here, if there is any issue in the console tab
+    - Go to the network tab
+    - Try to reproduce the error
+    - Export the logs by clicking the down arrow
+
+<Harwarning />
+<Figure
+  src="/img/help/2023/05/browser-extension-logs.png"
+  alt="Browser Extension Network Logs"
+  caption="fig. Browser Extension Network Logs (Chrome MV3)"
+/>
+
+### Google Chrome MV2
+
+    - Go to [chrome://extensions](chrome://extensions)
+    - Activate the Developer mode in the top right corner
+    - Look for Passbolt and click details button
+    - Look for the Inspect views and the *index.html* link
     - A new window will appear this is the debugger of the browser extension
     - You can see from here, if there is any issue in the console tab
     - Go to the network tab
@@ -113,28 +133,43 @@ The server logs contains mostly error and warnings such as bad request, invalid 
 <Figure
   src="/img/help/2023/05/browser-extension-logs.png"
   alt="Browser Extension Network Logs"
-  caption="fig. Browser Extension Network Logs"
+  caption="fig. Browser Extension Network Logs (Chrome MV2)"
 />
 
 ### Firefox
 
-    - You will need to navigate to your extensions
+    - Navigate to your extensions by clicking on the little puzzle icon
+    - Click on "Manage extensions"
+    - You will be redirected to the extensions page, click on the little gear icon on bottom right then "Debug Add-ons"
+    - You will be redirected to the debugging page
     - Locate Passbolt and click Inspect
     - A new window will appear this is the debugger of the browser extension
     - You can see from here, if there is any issue in the console tab
     - Go to the network tab
     - Try to reproduce the error
-    - Export logs by clicking right on the logs and select Save all As HAR
+    - Export logs by clicking right the gear icon on bottom-right then on "Import HAR file"
 
 <Harwarning />
+
+<Figure
+  src="/img/help/2024/06/firefox-browser-extension-logs.png"
+  alt="Browser Extension Network Logs"
+  caption="fig. Browser Extension Network Logs (Firefox)"
+/>
 
 ### Edge
 
     - Go to [edge://extensions/](edge://extensions/)
-    - Activate Developer mode with the toggle on  the left
-    - Open up Developer Tools
+    - Activate Developer mode with the toggle on the left panel
+    - Open up "index.html" on the Passbolt card
     - Go to network tab
     - Try to reproduce the error
     - Export logs by clicking the down arrow
 
 <Harwarning />
+
+<Figure
+  src="/img/help/2024/06/edge-browser-extension-logs.png"
+  alt="Browser Extension Network Logs"
+  caption="fig. Browser Extension Network Logs (Microsoft Edge)"
+/>

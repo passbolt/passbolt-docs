@@ -1,0 +1,108 @@
+---
+title: Troubleshooting Windows Application
+description: A guide for how to troubleshoot your Passbolt Windows Application
+sidebar_label: Windows Application
+hide_table_of_contents: false
+---
+
+import Figure from '/src/components/Figure/Figure';
+
+
+Passbolt Windows Application is something that has been a lot requested from the community, this page is dedicated to troubleshoot the potential errors that can happen throughout the configuration process.
+
+## Account-Kit
+The account kit is needed in order to configure the windows application, this can be downloaded from *Profile > Desktop app setup > Download your account kit*
+
+<Figure
+  src={
+    '/img/help/2024/06/account-kit.png'
+  }
+  alt={'Download the Account Kit'}
+  caption={'fig. Download the Account Kit'}
+/>
+
+## Certificates
+:::info[IMPORTANT]
+The windows application requires HTTPS to work.
+:::
+
+### Which certificate are you using?
+
+#### Let's Encrypt
+There is usually no server issues with a certificate issued by rootCA (here, Let's Encrypt), you should be able to upload the account kit and proceed further without any issues.
+
+#### Self-signed certificate
+If you've chose to use a self-signed certificate, you need to trust it on your OS, but before proceeding, you have to download the certificate.
+
+
+- Navigate to the instance URL and click on "Unsecure connexion"
+
+<Figure
+  src={
+    '/img/help/2024/06/not-secure-windows-app.png'
+  }
+  alt={'Unsecure connexion on Browser'}
+  caption={'fig. Unsecure connexion on Browser'}
+/>
+
+- Click on the "Show certificate" Icon, usually where it is written "Certificate is not valid"
+
+<Figure
+  src={
+    '/img/help/2024/06/download-certificate-windows-app.png'
+  }
+  alt={'Downloading the certificate on Browser'}
+  caption={'fig. Downloading the certificate on Browser'}
+/>
+
+- Make sure that you are setting the extension file to ".cer"
+
+<Figure
+  src={
+    '/img/help/2024/06/file-extension-windows-app.png'
+  }
+  alt={'Set the file extension to .cer'}
+  caption={'fig. Set the file extension to .cer'}
+/>
+
+
+Now that the file has been downloaded:
+- Double-click on the file
+- Install Certificate
+- Choose Local Machine (otherwise it will ask to do it every two weeks)
+  - Click "Yes"
+- Place all certificate in the following store
+- Browse the folder path
+  - Trusted Root Certification Authorities
+- Click on "Finish"
+
+That's it! You should not face any errors while configuring the windows application and importing your account kit.
+
+## Server error
+If after following the steps above, it is not working, you might be encountering a server internal error.
+<Figure
+  src={
+    '/img/help/2024/06/server-internal-error.png'
+  }
+  alt={'Passbolt Server Internal Error'}
+  caption={'Passbolt Server Internal Error'}
+/>
+
+You may have to manually clear the windows credentials manager.
+
+- Search for "Credentials Manager"
+- Go to "Web Credentials"
+  - It should have only three web credentials object
+    - Delete them
+- Proceed again to the installation of the certificate
+
+### Still not working?
+
+If you run into any issues, this is usually related to one of these three behaviour.
+
+- There is still cache data in *Credentials Manager > Web Credentials* on Windows
+  - Delete the three objects inside
+- The folder path is wrong when installing the certificate
+  - The certificate should be imported in **Trusted Root Certification Authorities**
+- The certificate hasn't been properly imported
+  - You have to re-download the certificate and trust the certificate again.

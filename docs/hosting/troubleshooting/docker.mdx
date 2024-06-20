@@ -33,32 +33,52 @@ Alternatively if you are using Docker Secrets you’ll need to run the following
   {`source /etc/environment`}
 </CodeBlock>
 
-## Healthcheck
+## Passbolt commands
+
+### Status report
+<CodeBlock>
+  {`./bin/status-report`}
+</CodeBlock>
+
+### Healthcheck
 
 <CodeBlock>
   {`./bin/cake passbolt healthcheck`}
 </CodeBlock>
 
-## Send a test email
+### Send a test email
 ```
 ./bin/cake passbolt send_test_email \
   --recipient=youremail@domain.com
 ```
-## Datacheck
+### Datacheck
 <CodeBlock>
   {`./bin/cake passbolt datacheck --hide-success-details`}
 </CodeBlock>
 
-## Database migrations status
+### Server logs
+
+To retrieve the server logs, run this command outside of the container (replace passbolt-container-name with your own):
+<CodeBlock>
+  {`docker logs passbolt-container-name`}
+</CodeBlock>
+
+To create a file that contain these logs, you can run:
+<CodeBlock>
+  {`docker logs passbolt-container-name > error_logs 2>&1`}
+</CodeBlock>
+
+### Database migrations status
 
 <CodeBlock>
   {`./bin/cake migrations status`}
 </CodeBlock>
 
-## Database container
+### Database container
 
 To connect into mysql container console (replace db-container-name with your own):
 ```
 docker exec -ti db-container-name bash -c \
   'mysql -u${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE}'
 ```
+

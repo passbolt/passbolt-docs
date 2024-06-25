@@ -1,5 +1,9 @@
 import CodeBlock from '@site/src/components/CodeBlock/CodeBlock';
 import AptMySQLWarning from '/docs/hosting/_includes/warning/_apt-mysql-warning.mdx';
+import UpdateCE from '/docs/hosting/_includes/update/_CEaptDistribution.mdx';
+import UpdatePRO from '/docs/hosting/_includes/update/_PROaptDistribution.mdx';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 ## Update passbolt
 
@@ -18,15 +22,22 @@ It is recommended to always perform a backup of your passbolt installation. Plea
 <>
 {(props.distributionLabel === 'Debian') || (props.distributionLabel === 'Ubuntu') || (props.distributionLabel === 'Raspberry') ? (
   <>
-      <AptMySQLWarning />
 
-    <p>This command will trigger an upgrade on your whole Debian system, choose between <strong>passbolt-ce-server</strong> and <strong>passbolt-pro-server</strong> based on your installation:</p>
-    <CodeBlock>
-      {`sudo apt update
-sudo apt --only-upgrade install PASSBOLT_PACKAGE
-sudo apt upgrade`}
-    </CodeBlock>
+    <AptMySQLWarning />
+    <Tabs groupId="editions">
+      <TabItem value="CE Edition">
+        <UpdateCE />
+      </TabItem>
+      <TabItem value="PRO Edition">
+        <UpdatePRO />
+      </TabItem>
+    </Tabs>
+
   </>
+) : props.distributionLabel === 'Virtual Appliance' ? (
+  <UpdatePRO />
+) : props.distributionLabel === 'Digital Ocean' ? (
+  <UpdateCE />
 ) : (
   <>
     <p>This commands will trigger an upgrade on your whole {`${props.distributionLabel} ${props.distributionVersion}`} system:</p>

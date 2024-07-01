@@ -108,3 +108,26 @@ At this point, you should have a working docker setup running on the **latest** 
 Passbolt docker repository:
 
 - [https://github.com/passbolt/passbolt_docker/](https://github.com/passbolt/passbolt_docker/)
+
+Configure HTTPS:
+<>
+  {props.productName === 'PRO' ? (
+  <ul>
+    <li>
+      <a href="/docs/hosting/configure/https/pro/docker-auto/">Configure HTTPS for Docker with Let's Encrypt</a>
+    </li>
+    <li>
+      <a href="/docs/hosting/configure/https/pro/docker-manual/">Configure HTTPS for Docker with a self-signed certificate</a>
+    </li>
+  </ul>
+  ) : (
+  <ul>
+    <li>
+      <a href="/docs/hosting/configure/https/ce/docker-auto/">Configure HTTPS for Docker with Let's Encrypt</a>
+    </li>
+    <li>
+       <a href="/docs/hosting/configure/https/ce/docker-manual/">Configure HTTPS for Docker with a self-signed certificate</a>
+    </li>
+  </ul>
+  )}
+</>

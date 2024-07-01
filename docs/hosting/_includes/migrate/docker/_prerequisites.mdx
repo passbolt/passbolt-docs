@@ -23,10 +23,10 @@ Create a fresh new Passbolt instance on Docker following <a href={`/docs/hosting
 
 At this step, you should have a running empty Passbolt instance running on your server. We will now stop it and delete the database volume.
 
-If you have chosen the `docker-compose` install, you just have to delete the volumes you created with this command (don't forget the `-v`):
+If you have chosen the `docker compose` install, you just have to delete the volumes you created with this command (don't forget the `-v`):
 
 <CodeBlock>
-    {`docker-compose -f docker-compose-${props.productName.toLowerCase()}.yaml down -v`}
+    {`docker compose -f docker-compose-${props.productName.toLowerCase()}.yaml down -v`}
 </CodeBlock>
 
 If you have chosen to run docker containers, stop them and delete the database volume:

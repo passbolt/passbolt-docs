@@ -3,7 +3,7 @@ import CodeBlock from '@theme/CodeBlock';
 
 ## Docker Compose
 
-The easiest and recommended way to deploy your passbolt stack is to use docker-compose.
+The easiest and recommended way to deploy your passbolt stack is to use docker compose.
 
 <Incrementor
   title="Download our docker-compose.yml example file"
@@ -79,7 +79,7 @@ For more information on which environment variables are available on passbolt, p
 <Incrementor title="Create first admin user" />
 
 <CodeBlock>
-  {`docker-compose -f docker-compose-${props.productName.toLowerCase()}.yaml \\
+  {`docker compose -f docker-compose-${props.productName.toLowerCase()}.yaml \\
 
 exec passbolt su -m -c "/usr/share/php/passbolt/bin/cake \\
 
@@ -108,3 +108,26 @@ At this point, you should have a working docker setup running on the **latest** 
 Passbolt docker repository:
 
 - [https://github.com/passbolt/passbolt_docker/](https://github.com/passbolt/passbolt_docker/)
+
+Configure HTTPS:
+<>
+  {props.productName === 'PRO' ? (
+  <ul>
+    <li>
+      <a href="/docs/hosting/configure/https/pro/docker-auto/">Configure HTTPS for Docker with Let's Encrypt</a>
+    </li>
+    <li>
+      <a href="/docs/hosting/configure/https/pro/docker-manual/">Configure HTTPS for Docker with a self-signed certificate</a>
+    </li>
+  </ul>
+  ) : (
+  <ul>
+    <li>
+      <a href="/docs/hosting/configure/https/ce/docker-auto/">Configure HTTPS for Docker with Let's Encrypt</a>
+    </li>
+    <li>
+       <a href="/docs/hosting/configure/https/ce/docker-manual/">Configure HTTPS for Docker with a self-signed certificate</a>
+    </li>
+  </ul>
+  )}
+</>

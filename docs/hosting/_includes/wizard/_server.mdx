@@ -325,7 +325,33 @@ Your user account is now created. You will see a redirection page for a few seco
 </>
 <Counter chapter={2} title="HTTPS setup process" />
 
-Passbolt Pro VM uses passbolt debian package. Depending on your needs there are two different options to setup nginx and SSL using the debian package:
+  <>
+    {(() => {
+      switch (props.distributionLabel) {
+        case 'Virtual Appliance':
+          return (
+            <p>Passbolt Pro VM uses passbolt debian package. Depending on your needs there are two different options to setup nginx and SSL using the debian package:</p>
+          );
+        case 'Digital Ocean':
+          return (
+            <p>Passbolt Digital Ocean uses passbolt ubuntu package. Depending on your needs there are two different options to setup nginx and SSL using the ubuntu package:</p>
+          );
+        case 'Ubuntu':
+          return (
+            <p>Passbolt uses passbolt ubuntu package. Depending on your needs there are two different options to setup nginx and SSL using the ubuntu package:</p>
+          );
+        case 'Debian':
+          return (
+            <p>Passbolt uses passbolt debian package. Depending on your needs there are two different options to setup nginx and SSL using the Debian package:</p>
+          );
+        default:
+          return (
+            <p>Depending on your needs there are two different options to setup nginx and SSL using the package:</p>
+          );
+      }
+    })()}
+  </>
+
 
 <div>
     <ul>

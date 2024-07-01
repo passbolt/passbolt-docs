@@ -6,7 +6,7 @@ import LetsEncryptWarning from '/docs/hosting/_includes/warning/_https-valid-dom
 <LetsEncryptWarning />
 
 ## Requirements
-  - <a href={`/docs/hosting/install/${props.productName.toLowerCase()}/docker/`}>docker setup with docker-compose</a>.
+  - <a href={`/docs/hosting/install/${props.productName.toLowerCase()}/docker/`}>docker setup with docker compose</a>.
   - A domain name reachable over the internet
 
 ## Add traefik service to handle https
@@ -186,4 +186,4 @@ services:
 
 That’s it
 
-Launch `docker-compose up -d` and you should be able to reach passbolt with HTTPS and a Let’s Encrypt certificate. The renewal of the certificate will be handled automatically by Traefik daemon.
+Launch `docker compose up -d` and you should be able to reach passbolt with HTTPS and a Let’s Encrypt certificate. The renewal of the certificate will be handled automatically by Traefik daemon.

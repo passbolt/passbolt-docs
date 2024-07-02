@@ -1,5 +1,6 @@
 import React from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import Heading from '@theme/Heading'; // Import the Heading component
 import styles from './HomepageHero.module.css';
 import Link from '@docusaurus/Link';
 import SearchBar from '@easyops-cn/docusaurus-search-local/dist/client/client/theme/SearchBar/index.js';
@@ -76,15 +77,15 @@ const HomepageHero = () => {
   return (
     <div className={styles.root}>
       <div className={styles.header}>
-        <h1 className={styles.heading}>
+        <Heading as="h1" className={styles.heading}>
           Welcome to the passbolt{' '}
           <span className={styles.red}>documentation</span>!
-        </h1>
+        </Heading>
 
-        <h2 className={styles.lead}>
+        <Heading as="h2" className={styles.lead}>
           The documentation for Passbolt contains several main sections, all
           accessible from the top navigation bar or from the links below.
-        </h2>
+        </Heading>
 
         <div className={styles.search_bar}>
           <SearchBar />
@@ -94,7 +95,7 @@ const HomepageHero = () => {
         {guides.map((item) => (
           <Link key={item.id} to={item.href} className={styles.card} autoAddBaseUrl>
             {item.icon}
-            <h3 className={styles.title}>{item.title}</h3>
+            <Heading as="h3" className={styles.title}>{item.title}</Heading>
             <p className={styles.description}>{item.description}</p>
           </Link>
         ))}

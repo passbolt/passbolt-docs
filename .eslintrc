@@ -8,5 +8,15 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "extends": ["eslint:recommended", "plugin:mdx/recommended", "plugin:react/recommended", "plugin:@docusaurus/recommended"]
+  "extends": [
+    "eslint:recommended",
+    "plugin:mdx/recommended",
+    "plugin:react/recommended",
+    "plugin:@docusaurus/recommended"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
 }

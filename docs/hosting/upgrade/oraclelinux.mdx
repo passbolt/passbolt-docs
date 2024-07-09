@@ -1,0 +1,34 @@
+---
+title: OracleLinux
+description: How to upgrade on OracleLinux 8 from CE to PRO
+sidebar_position: 1
+hide_table_of_contents: true
+---
+
+import Prerequisites from '/docs/hosting/_includes/package/_prerequisites.mdx';
+import UpgradeProcess from '/docs/hosting/_includes/package/_upgrade-process.mdx';
+import Troubleshooting from '/docs/hosting/_includes/default/_troubleshooting.mdx';
+import InCaseOfIssues from '/docs/hosting/_includes/default/_in-case-of-issues.mdx';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/oraclelinux" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+<Prerequisites
+  distributionLabel={'OracleLinux'}
+  distributionVersion={'8'}
+  type={'updatePackage'}
+/>
+
+<UpgradeProcess
+  distributionPackage={'dnf'}
+  distributionLabel={'OracleLinux'}
+  distributionVersion={'8'}
+  distributionWebUser={'nginx'}
+/>
+
+<Troubleshooting distributionPackage={'dnf'} webServerUser={'nginx'} />
+
+<InCaseOfIssues />

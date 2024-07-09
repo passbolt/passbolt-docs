@@ -1,0 +1,41 @@
+---
+title: How to configure MFA Policy
+sidebar_label: MFA Policy
+description: How to configure MFA Policy
+hide_table_of_contents: false
+---
+
+import Figure from '/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+Since version 3.10.0, Passbolt Pro Edition supports MFA Policy.
+
+<Figure
+  src="/img/help/2024/07/mfa-policy.png"
+  alt="MFA Policy Administration"
+  caption="fig. MFA Policy Administration"
+/>
+
+## Defined the default multi factor authentication policy
+
+Administrators are now able to set the default behaviour of the [multi factor authentication](/admin/authentication/mfa/) for all their users.
+
+:::tip[Good to know]
+Passbolt is already using Multi-Factor Authentication by default, because you have to provide the recovery kit which is the private key and you have to know the passphrase associated to it. It means that you have the knowledge factor which is the passphrase and you have the possession factor which is the private key. With any Multi-Factor Authenticator configured, it is adding another good layer of security.
+:::
+
+### Prompt
+
+Passbolt will not enforce users to configure the multi factor authentication, however it will remind all of the users to do so every time they are logging in.
+
+### Opt-in (default)
+
+This will give the opportunity to the users to enable or not the multi-factor authentication. They will not be reminded after that.
+
+## Remember the device for a month
+With this option, administrators are able to allow users to remember their device for a month after successfully logging in with their multi factor authentication.

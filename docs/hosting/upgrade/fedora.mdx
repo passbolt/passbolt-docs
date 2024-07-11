@@ -1,0 +1,34 @@
+---
+title: Fedora 38
+description: How to upgrade on Fedora 38 from CE to PRO
+sidebar_position: 1
+hide_table_of_contents: true
+---
+
+import Prerequisites from '/docs/hosting/_includes/package/_prerequisites.mdx';
+import UpgradeProcess from '/docs/hosting/_includes/package/_upgrade-process.mdx';
+import Troubleshooting from '/docs/hosting/_includes/default/_troubleshooting.mdx';
+import InCaseOfIssues from '/docs/hosting/_includes/default/_in-case-of-issues.mdx';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/fedora" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+<Prerequisites
+  distributionLabel={'Fedora'}
+  distributionVersion={'38'}
+  type={'updatePackage'}
+/>
+
+<UpgradeProcess
+  distributionPackage={'dnf'}
+  distributionLabel={'Fedora'}
+  distributionVersion={'38'}
+  distributionWebUser={'nginx'}
+/>
+
+<Troubleshooting distributionPackage={'dnf'} webServerUser={'nginx'} />
+
+<InCaseOfIssues />

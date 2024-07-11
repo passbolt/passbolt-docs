@@ -2,6 +2,10 @@ import CodeBlock from '@site/src/components/CodeBlock/CodeBlock';
 
 ## Upgrade passbolt
 
+:::warning
+While this documentation provides guidance on upgrading your Passbolt instance from CE to PRO, we highly recommend considering a [migration to a new server](/hosting/migrate/server/). This approach ensures a cleaner transition and avoids potential issues that may persist from your current setup.
+:::
+
 ### 1. Take down your site
    It is generally a good idea to stop running the site prior to the upgrade. This is to avoid having side effects such as active users corrupting the data in the middle of an upgrade.
 
@@ -18,7 +22,7 @@ It is recommended to always perform a backup of your passbolt installation. Plea
 You should copy your subscription key to `/etc/passbolt/subscription_key.txt` and ensure the permissions are correct.
 
 <CodeBlock>
-    {`sudo chown root:www-data /etc/passbolt/subscription_key.txt
+    {`sudo chown root:${props.distributionWebUser} /etc/passbolt/subscription_key.txt
 sudo chmod 640 /etc/passbolt/subscription_key.txt`}
 </CodeBlock>
 
@@ -26,7 +30,7 @@ sudo chmod 640 /etc/passbolt/subscription_key.txt`}
 
 Passbolt CE package should be removed prior to installing Passbolt Pro.
 <CodeBlock>
-  {`sudo apt-get remove passbolt-ce-server`}
+  {`sudo ${props.distributionPackage} remove passbolt-ce-server`}
 </CodeBlock>
 
 
@@ -53,26 +57,33 @@ __Step 3.__ Ensure that the script is valid and execute it:
 
 Now you can install the Passbolt Pro package.
 <CodeBlock>
-  {`sudo apt-get install passbolt-pro-server`}
+  {`sudo ${props.distributionPackage} install passbolt-pro-server`}
 </CodeBlock>
 
-As you have already configured passbolt CE, and Passbolt Pro relies on the same configuration, you should reply:
-
-* __No__ for mariadb configuration
-* __No__ to nginx configuration
+<>
+  {props.distributionPackage == 'apt' && (
+    <div>
+      <p>As you have already configured passbolt CE, and Passbolt Pro relies on the same configuration, you should reply:</p>
+      <ul>
+        <li><b>No</b> for MariaDB configuration</li>
+        <li><b>No</b> to NGINX configuration</li>
+      </ul>
+    </div>
+  )}
+</>
 
 ### 7. Migrate the data
 Once the package installed, run the following command to migrate the data to Passbolt Pro:
 
 <CodeBlock>
-  {`sudo -H -u www-data /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt migrate"`}
+  {`sudo -H -u ${props.distributionWebUser} /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt migrate"`}
 </CodeBlock>
 
 ### 8. Clear the cache
 Make sure you clear the application cache, to make sure any changes in the database structure are reflected in model cache files:
 
 <CodeBlock>
-  {`sudo -H -u www-data /bin/bash -c "/usr/share/php/passbolt/bin/cake cache clear_all"`}
+  {`sudo -H -u ${props.distributionWebUser} /bin/bash -c "/usr/share/php/passbolt/bin/cake cache clear_all"`}
 </CodeBlock>
 
 ### 9. Ensure you don’t have duplicate cron jobs

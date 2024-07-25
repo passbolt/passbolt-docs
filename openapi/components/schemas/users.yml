@@ -1,0 +1,79 @@
+user:
+  type: "object"
+  required:
+    - id
+    - role_id
+    - username
+    - active
+    - deleted
+    - created
+    - modified
+    - disabled
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    role_id:
+      type: "string"
+      format: "uuid"
+    username:
+      type: "string"
+    active:
+      type: "boolean"
+    deleted:
+      type: "boolean"
+    created:
+      type: "string"
+      format: "date-time"
+    modified:
+      type: "string"
+      format: "date-time"
+    disabled:
+      type: "string"
+      format: "date-time"
+      x-nullable: true
+    profile:
+      type: "object"
+      required:
+        - id
+        - user_id
+        - first_name
+        - last_name
+        - created
+        - modified
+        - avatar
+      properties:
+        id:
+          type: "string"
+          format: "uuid"
+        user_id:
+          type: "string"
+          format: "uuid"
+        first_name:
+          type: "string"
+        last_name:
+          type: "string"
+        created:
+          type: "string"
+          format: "date-time"
+        modified:
+          type: "string"
+          format: "date-time"
+        avatar:
+          type: "object"
+          required:
+            - url
+          properties:
+            url:
+              type: "object"
+              required:
+                - medium
+                - small
+              properties:
+                medium:
+                  type: "string"
+                  format: "url"
+                small:
+                  type: "string"
+                  format: "url"
+                

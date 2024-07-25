@@ -1,0 +1,30 @@
+group:
+  type: "object"
+  required:
+    - id
+    - name
+    - deleted
+    - created
+    - modified
+    - created_by
+    - modified_by
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    name:
+      type: "string"
+    deleted:
+      type: "boolean"
+    created:
+      type: "string"
+      format: "date-time"
+    modified:
+      type: "string"
+      format: "date-time"
+    created_by:
+      type: "string"
+      format: "uuid"
+    modified_by:
+      type: "string"
+      format: "uuid"

@@ -1,0 +1,67 @@
+authenticationRequired:
+  description: "Authentication required."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "schemas.yml#/header"
+          body:
+            type: "string"
+      examples:
+        $ref: "examples.yml#/authenticationRequired"
+
+emptyBody:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "schemas.yml#/header"
+          body:
+            type: "null"
+      examples:
+        $ref: "examples.yml#/emptyBody"
+
+badRequest:
+  description: "Bad request"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "schemas.yml#/header"
+          body:
+            type: "string"
+      examples:
+        $ref: "examples.yml#/badRequest/response"
+
+notFound:
+  description: "Not found"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            type: "string"
+      examples:
+        $ref: "../examples/resources.yml#/notFound/response"

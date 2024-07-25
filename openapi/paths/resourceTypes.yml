@@ -1,0 +1,16 @@
+get:
+  summary: "Get multiple resource types."
+  operationId: "resourceTypesIndex"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/resourceTypes.yml#/index"
+  tags:
+    - "Resource types"
+  responses:
+    200:
+      $ref: "../components/responses/resourceTypes.yml#/index"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"

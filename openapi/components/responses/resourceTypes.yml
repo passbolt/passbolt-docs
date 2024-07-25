@@ -1,0 +1,35 @@
+show:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/resourceTypes.yml#/resourceType"
+      examples:
+        $ref: "../examples/resourceTypes.yml#/resourceTypeShow/response"
+
+index:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            type: "array"
+            items:
+              $ref: "../schemas/resourceTypes.yml#/resourceType"
+      examples:
+        $ref: "../examples/resourceTypes.yml#/resourceTypesIndex/response"

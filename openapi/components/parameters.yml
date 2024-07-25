@@ -1,0 +1,306 @@
+resourceId:
+  name: "resourceId"
+  description: "ID for the resource being manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
+resourceTypeId:
+  name: "resourceTypeId"
+  description: "ID for the resource type being manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
+containCreator:
+  name: "contain[creator]"
+  description: "Add creator to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+
+containTag:
+  name: "contain[tag]"
+  description: "Add tags to response body."
+  in: "query"
+  required: false
+  deprecated: true
+  schema:
+    type: "integer"
+    enum:
+      - 1
+
+containFavorite:
+  name: "contain[favorite]"
+  description: "Add favorite to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+
+containModifier:
+  name: "contain[modifier]"
+  description: "Add modifier to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+
+containSecret:
+  name: "contain[secret]"
+  description: "Add secrets to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+
+containResourceType:
+  name: "contain[resource-type]"
+  description: "Add resource type to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+
+containPermission:
+  name: "contain[permission]"
+  description: "Add permission to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+
+containPermissions:
+  name: "contain[permissions]"
+  description: "Add permissions to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+
+containPermissionsUserProfile:
+  name: "contain[permissions.user.profile]"
+  description: "Add user profile to permissions in response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+
+containPermissionsGroup:
+  name: "contain[permissions.group]"
+  description: "Add group to permissions in response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+
+filterSearch:
+  name: "filter[search]"
+  description: "Filter using a keyword or a string."
+  in: "query"
+  required: false
+  schema:
+    type: "string"
+
+filterHasAccess:
+  name: "filter[has-access]"
+  description: "Only return elements where specified elements have access."
+  in: "query"
+  required: false
+  schema:
+    type: "array"
+    items:
+      type: "string"
+      format: "uuid"
+      description: "User UUID"
+
+filterHasUsers:
+  name: "filter[has-users]"
+  description: "Only return elements filtered by users."
+  in: "query"
+  required: false
+  schema:
+    type: "array"
+    items:
+      type: "string"
+      format: "uuid"
+      description: "User UUID"
+
+filterHasManagers:
+  name: "filter[has-managers]"
+  description: "Only return elements filtered by managers."
+  in: "query"
+  required: false
+  schema:
+    type: "array"
+    items:
+      type: "string"
+      format: "uuid"
+      description: "Manager UUID"
+
+filterHasGroups:
+  name: "filter[has-groups]"
+  description: "Only return elements filtered by groups."
+  in: "query"
+  required: false
+  schema:
+    type: "array"
+    items:
+      type: "string"
+      format: "uuid"
+      description: "Group UUID"
+
+filterHasParent:
+  name: "filter[has-parent]"
+  description: "Only return elements filtered by parent."
+  in: "query"
+  required: false
+  schema:
+    type: "string"
+    format: "uuid"
+
+filterHasId:
+  name: "filter[has-id]"
+  description: "Only return elements filtered by their id."
+  in: "query"
+  required: false
+  schema:
+    type: "string"
+    format: "uuid"
+
+filterHasTag:
+  name: "filter[has-tag]"
+  description: "Only return elements filtered by their tag."
+  in: "query"
+  required: false
+  schema:
+    type: "string"
+
+filterFrequency:
+  name: "filter[frequency]"
+  description: "Only return elements filtered by their frequency."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+
+filterIsSharedWithGroup:
+  name: "filter[is-shared-with-group]"
+  description: "Only show elements shared with group."
+  in: "query"
+  required: false
+  schema:
+    type: "string"
+    format: "uuid"
+    description: "Group UUID"
+  
+filterFrom:
+  name: "filter[from]"
+  description: "Only show elements from a specific date-time."
+  in: "query"
+  required: false
+  schema:
+    type: "string"
+
+filterCreatedAfter:
+  name: "filter[created-after]"
+  description: "Only show elements created after a specific date-time."
+  in: "query"
+  required: false
+  schema:
+    type: "string"
+
+filterCreatedBefore:
+  name: "filter[created-before]"
+  description: "Only show elements created before a specific date-time."
+  in: "query"
+  required: false
+  schema:
+    type: "string"
+
+filterModifiedAfter:
+  name: "filter[modified-after]"
+  description: "Only show elements modified after a timestamp."
+  in: "query"
+  required: false
+  schema:
+    type: "string"
+
+filterIsSuccess:
+  name: "filter[is-success]"
+  description: "Only show success elements."
+  in: "query"
+  required: false
+  schema:
+    type: "boolean"
+
+filterIsDeleted:
+  name: "filter[is-deleted]"
+  description: "Only show deleted elements."
+  in: "query"
+  required: false
+  schema:
+    type: "boolean"
+
+filterIsFavorite:
+  name: "filter[is-favorite]"
+  description: "Only show favorite elements."
+  in: "query"
+  required: false
+  schema:
+    type: "boolean"
+
+filterIsAdmin:
+  name: "filter[is-admin]"
+  description: "Only show admin users."
+  in: "query"
+  required: false
+  schema:
+    type: "boolean"
+
+filterIsActive:
+  name: "filter[is-active]"
+  description: "Only show active elements."
+  in: "query"
+  required: false
+  schema:
+    type: "boolean"
+
+filterIsOwnedByMe:
+  name: "filter[is-owned-by-me]"
+  description: "Only show elements owned by yourself."
+  in: "query"
+  required: false
+  schema:
+    type: "boolean"
+
+filterIsSharedWithMe:
+  name: "filter[is-shared-with-me]"
+  description: "Only show elements shared to yourself."
+  in: "query"
+  required: false
+  schema:
+    type: "boolean"

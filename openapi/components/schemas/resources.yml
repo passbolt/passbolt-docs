@@ -1,0 +1,152 @@
+resourceIndexShow:
+  type: "object"
+  required:
+    - id
+    - name
+    - username
+    - uri
+    - description
+    - deleted
+    - created
+    - created_by
+    - modified_by
+    - resource_type_id
+    - expired
+    - folder_parent_id
+    - personal
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    name:
+      type: "string"
+    username:
+      type: "string"
+    uri:
+      type: "string"
+    description:
+      type: "string"
+    deleted:
+      type: boolean
+    created:
+      type: "string"
+      format: "date-time"
+    created_by:
+      type: "string"
+      format: "uuid"
+    modified_by:
+      type: "string"
+      format: "uuid"
+    resource_type_id:
+      type: "string"
+      format: "uuid"
+    expired:
+      type: "string"
+      format: "date-time"
+      x-nullable: true
+    folder_parent_id:
+      type: "string"
+      format: "uuid"
+      x-nullable: true
+    personal:
+      type: boolean
+    favorite:
+      type: "object"
+      required:
+        - id
+        - user_id
+        - foreign_key
+        - foreign_model
+        - created
+        - modified
+      properties:
+        id:
+          type: "string"
+          format: "uuid"
+        user_id:
+          type: "string"
+          format: "uuid"
+        foreign_key:
+          type: "string"
+          format: "uuid"
+        foreign_model:
+          type: "string"
+        created:
+          type: "string"
+          format: "date-time"
+        modified:
+          type: "string"
+          format: "date-time"
+    modifier:
+      $ref: "users.yml#/user"
+    creator:
+      $ref: "users.yml#/user"
+    secrets:
+      type: "array"
+      items:
+        $ref: "secrets.yml#/secretIndex"
+    resource_type:
+      $ref: "resourceTypes.yml#/resourceType"
+    permission:
+      $ref: "permissions.yml#/permission"
+    permissions:
+      type: "array"
+      items:
+        $ref: "permissions.yml#/permission"
+
+resourceCreate:
+  type: "object"
+  required:
+    - name
+    - username
+    - uri
+    - resource_type_id
+  properties:
+    name:
+      type: "string"
+    username:
+      type: "string"
+    uri:
+      type: "string"
+    description:
+      type: "string"
+    resource_type_id:
+      type: "string"
+      format: "uuid"
+    expired:
+      type: "string"
+      format: "date-time"
+      x-nullable: true
+    secrets:
+      type: "array"
+      items:
+        $ref: "secrets.yml#/secretCreate"
+
+resourceUpdate:
+  type: "object"
+  required:
+    - name
+    - username
+    - uri
+    - resource_type_id
+  properties:
+    name:
+      type: "string"
+    username:
+      type: "string"
+    uri:
+      type: "string"
+    description:
+      type: "string"
+    resource_type_id:
+      type: "string"
+      format: "uuid"
+    expired:
+      type: "string"
+      format: "date-time"
+      x-nullable: true
+    secrets:
+      type: "array"
+      items:
+        $ref: "secrets.yml#/secretUpdate"
+

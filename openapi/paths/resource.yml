@@ -1,0 +1,70 @@
+get:
+  summary: "Get a resource."
+  description: Return data about one specific resource.
+  operationId: "showResource"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/resources.yml#/show"
+  tags:
+    - "Resources"
+  parameters:
+    - $ref: "../components/parameters.yml#/resourceId"
+    - $ref: "../components/parameters.yml#/containCreator"
+    - $ref: "../components/parameters.yml#/containFavorite"
+    - $ref: "../components/parameters.yml#/containModifier"
+    - $ref: "../components/parameters.yml#/containSecret"
+    - $ref: "../components/parameters.yml#/containResourceType"
+    - $ref: "../components/parameters.yml#/containPermission"
+    - $ref: "../components/parameters.yml#/containPermissions"
+    - $ref: "../components/parameters.yml#/containPermissionsUserProfile"
+    - $ref: "../components/parameters.yml#/containPermissionsGroup"
+  responses:
+    200:
+      $ref: "../components/responses/resources.yml#/show"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+
+put:
+  summary: "Update a resource."
+  description: Update data about one specific resource.
+  operationId: "updateResource"
+  x-codeSamples:
+    $ref: "../components/codeSamples/resources.yml#/update"
+  security:
+    - bearerHttpAuthentication: []
+  parameters:
+    - $ref: "../components/parameters.yml#/resourceId"
+  tags:
+    - "Resources"
+  responses:
+    200:
+      $ref: "../components/responses/resources.yml#/createUpdate"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+  requestBody:
+    $ref: "../components/requestBodies/resources.yml#/resourceUpdate"
+
+delete:
+  summary: "Delete a resource."
+  description: Delete one specific resource.
+  operationId: "deleteResource"
+  x-codeSamples:
+    $ref: "../components/codeSamples/resources.yml#/delete"
+  security:
+    - bearerHttpAuthentication: []
+  parameters:
+    - $ref: "../components/parameters.yml#/resourceId"
+  tags:
+    - "Resources"
+  responses:
+    200:
+      $ref: "../components/responses.yml#/emptyBody"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"

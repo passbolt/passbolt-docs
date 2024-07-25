@@ -1,0 +1,53 @@
+authenticationRequired:
+  base:
+    value:
+      header:
+        id: "f7be85c0-afb1-4d8e-a9e1-e05abb0bb71a"
+        status: "error"
+        servertime: 1721727753
+        action: "e2aa01a9-84ec-55f8-aaed-24ee23259339"
+        message: "Authentication is required to continue."
+        url: "/resource-types.json"
+        code: 401
+      body: ""
+
+emptyBody:
+  base:
+    value:
+      header:
+        id: "f7be85c0-afb1-4d8e-a9e1-e05abb0bb71a"
+        status: "error"
+        servertime: 1721727753
+        action: "e2aa01a9-84ec-55f8-aaed-24ee23259339"
+        message: "The resource has been deleted successfully."
+        url: "/resources/43051c9f-7122-4887-81e8-3b390cf0f04a.json"
+        code: 200
+      body: null
+
+badRequest:
+  response:
+    example:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "error"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "Invalid filter. \"1\" is not a valid parent id for filter has-parent."
+          url: "/resources.json?filter[has-parent]=1"
+          code: 400
+        body: ""
+
+notFound:
+  response:
+    example:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "error"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The resource does not exist."
+          url: "/resources/12ae8729-919e-4f16-8f5e-8e91426b1781.json"
+          code: 404
+        body: ""

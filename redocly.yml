@@ -1,0 +1,12 @@
+# NOTE: Only supports options marked as "Supported in Redoc CE"
+# See https://redocly.com/docs/cli/configuration/ for more information.
+
+extends:
+  - recommended
+
+theme:
+  # See https://redocly.com/docs/redoc/config/
+  openapi:
+    disableSearch: true
+    hideSchemaTitles: true
+    pagination: "section"

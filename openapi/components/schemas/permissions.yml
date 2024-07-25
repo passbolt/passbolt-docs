@@ -1,0 +1,46 @@
+permission:
+  type: "object"
+  required:
+    - id
+    - aco
+    - aco_foreign_key
+    - aro
+    - aro_foreign_key
+    - type
+    - created
+    - modified
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    aco:
+      type: "string"
+    aco_foreign_key:
+      type: "string"
+      format: "uuid"
+    aro:
+      type: "string"
+    aro_foreign_key:
+      type: "string"
+      format: "uuid"
+    type:
+      description: |
+        * `1` - Read
+        * `7` - Update
+        * `15` - Owner
+      type: "integer"
+      enum:
+        - 1
+        - 7
+        - 15
+    created:
+      type: "string"
+      format: "date-time"
+    modified:
+      type: "string"
+      format: "date-time"
+    user:
+      $ref: "users.yml#/user"
+    group:
+      $ref: "groups.yml#/group"
+      x-nullable: true

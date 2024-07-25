@@ -1,0 +1,284 @@
+index:
+  - lang: cURL
+    source: |
+      curl --request GET \
+        --url {{API_BASE_URL}}/resources.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/resources.json';
+      const options = {method: 'GET', headers: {Authorization: 'Bearer {{JWT_TOKEN}}'}};
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/resources.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+create:
+  - lang: cURL
+    source: |
+      curl --request POST \
+        --url {{API_BASE_URL}}/resources.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+        --data '{
+          "name": "AWS",
+          "username": "ada@passbolt.com",
+          "uri": "https://aws.amazon.com/",
+          "resource_type_id": "a28a04cd-6f53-518a-967c-9963bf9cec51",
+          "secrets": [{
+            "data": "-----BEGIN PGP MESSAGE-----"
+          }]
+        }'      
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/resources.json';
+      const options = {
+        method: 'POST',
+        headers: {Authorization: 'Bearer {{JWT_TOKEN}}'},
+        body: '{"name":"AWS","username":"ada@passbolt.com","uri":"https://aws.amazon.com/","resource_type_id":"a28a04cd-6f53-518a-967c-9963bf9cec51","secrets":[{"data":"-----BEGIN PGP MESSAGE-----"}]}'
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/resources.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => json_encode([
+          'name' => 'AWS',
+          'username' => 'ada@passbolt.com',
+          'uri' => 'https://aws.amazon.com/',
+          'resource_type_id' => 'a28a04cd-6f53-518a-967c-9963bf9cec51',
+          'secrets' => [
+              [
+                      'data' => '-----BEGIN PGP MESSAGE-----'
+              ]
+          ]
+        ]),
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+update:
+  - lang: cURL
+    source: |
+      curl --request PUT \
+      --url {{API_BASE_URL}}/resources/43051c9f-7122-4887-81e8-3b390cf0f04a.json \
+      --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+      --data '{
+        "name": "AWS",
+        "username": "ada@passbolt.com",
+        "uri": "https://aws.amazon.com/",
+        "resource_type_id": "a28a04cd-6f53-518a-967c-9963bf9cec51",
+        "secrets": [{
+          "id": "f1b79505-2371-422f-88d8-9c6326806b3d",
+          "data": "-----BEGIN PGP MESSAGE-----"
+        }]
+      }'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/resources/43051c9f-7122-4887-81e8-3b390cf0f04a.json';
+      const options = {
+        method: 'PUT',
+        headers: {Authorization: 'Bearer {{JWT_TOKEN}}'},
+        body: '{"name":"AWS","username":"ada@passbolt.com","uri":"https://aws.amazon.com/","resource_type_id":"a28a04cd-6f53-518a-967c-9963bf9cec51","secrets":[{"id":"f1b79505-2371-422f-88d8-9c6326806b3d","data":"-----BEGIN PGP MESSAGE-----"}]}'
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/resources/43051c9f-7122-4887-81e8-3b390cf0f04a.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "PUT",
+        CURLOPT_POSTFIELDS => json_encode([
+          'name' => 'AWS',
+          'username' => 'ada@passbolt.com',
+          'uri' => 'https://aws.amazon.com/',
+          'resource_type_id' => 'a28a04cd-6f53-518a-967c-9963bf9cec51',
+          'secrets' => [
+              [
+                      'id' => 'f1b79505-2371-422f-88d8-9c6326806b3d',
+                      'data' => '-----BEGIN PGP MESSAGE-----'
+              ]
+          ]
+        ]),
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+delete:
+  - lang: cURL
+    source: |
+      curl --request DELETE \
+        --url {{API_BASE_URL}}/resources/43051c9f-7122-4887-81e8-3b390cf0f04a.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/resources/43051c9f-7122-4887-81e8-3b390cf0f04a.json';
+      const options = {method: 'DELETE', headers: {Authorization: 'Bearer {{JWT_TOKEN}}'}};
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/resources/43051c9f-7122-4887-81e8-3b390cf0f04a.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "DELETE",
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+show:
+  - lang: cURL
+    source: |
+      curl --request GET \
+        --url {{API_BASE_URL}}/resources/ae60d89c-f13b-4fb1-b2dc-c8dc806cac88.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/resources/ae60d89c-f13b-4fb1-b2dc-c8dc806cac88.json';
+      const options = {method: 'GET', headers: {Authorization: 'Bearer {{JWT_TOKEN}}'}};
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "https://passbolt.localhost/resources/ae60d89c-f13b-4fb1-b2dc-c8dc806cac88.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }

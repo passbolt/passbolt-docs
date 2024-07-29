@@ -25,6 +25,8 @@ get:
       $ref: "../components/responses.yml#/badRequest"
     401:
       $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"
 
 put:
   summary: "Update a resource."
@@ -48,6 +50,8 @@ put:
       $ref: "../components/responses.yml#/badRequest"
     401:
       $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"
   requestBody:
     $ref: "../components/requestBodies/resources.yml#/resourceUpdate"
 
@@ -70,3 +74,5 @@ delete:
       $ref: "../components/responses.yml#/badRequest"
     401:
       $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"

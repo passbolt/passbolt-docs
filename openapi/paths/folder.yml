@@ -67,6 +67,7 @@ delete:
     - bearerHttpAuthentication: []
   parameters:
     - $ref: "../components/parameters.yml#/folderId"
+    - $ref: "../components/parameters.yml#/cascade"
   tags:
     - "Folders"
   responses:

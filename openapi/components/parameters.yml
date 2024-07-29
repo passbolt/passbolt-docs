@@ -45,6 +45,16 @@ folderId:
     type: "string"
     format: "uuid"
 
+cascade:
+  name: "cascade"
+  description: "Delete element and its children elements."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+
 containCreator:
   name: "contain[creator]"
   description: "Add creator to response body."

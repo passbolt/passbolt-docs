@@ -1,6 +1,5 @@
 get:
   summary: "Get a resource."
-  description: Return data about one specific resource.
   operationId: "showResource"
   security:
     - bearerHttpAuthentication: []
@@ -29,7 +28,10 @@ get:
 
 put:
   summary: "Update a resource."
-  description: Update data about one specific resource.
+  description: |
+    If the password you are updating has been shared with 7 users, the `secrets` key will need to be an array of 7 objects.
+  
+    You must encrypt and sign the new plaintext passwords using the recipient public key and the current user secret key. You can then create a list which include one object per user: the `data` key holds the encrypted plaintext password and `user_id` holds the user UUID.
   operationId: "updateResource"
   x-codeSamples:
     $ref: "../components/codeSamples/resources.yml#/update"

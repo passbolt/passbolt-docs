@@ -27,6 +27,8 @@ get:
       $ref: "../components/responses.yml#/badRequest"
     401:
       $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"
 
 put:
   summary: "Update a folder."
@@ -57,6 +59,8 @@ put:
       $ref: "../components/responses.yml#/badRequest"
     401:
       $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"
 
 delete:
   summary: "Delete a folder."
@@ -77,3 +81,5 @@ delete:
       $ref: "../components/responses.yml#/badRequest"
     401:
       $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"

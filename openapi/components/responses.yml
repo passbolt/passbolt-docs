@@ -60,8 +60,8 @@ notFound:
           - body
         properties:
           header:
-            $ref: "../schemas.yml#/header"
+            $ref: "schemas.yml#/header"
           body:
             type: "string"
       examples:
-        $ref: "../examples/resources.yml#/notFound/response"
+        $ref: "examples.yml#/notFound/response"

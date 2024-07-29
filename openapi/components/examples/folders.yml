@@ -1,0 +1,73 @@
+foldersIndex:
+  response:
+    index:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/folders.json"
+          code: 200
+          pagination:
+            count: 2
+            page: 1
+            limit: null
+        body:
+          - id: "162e4717-59a2-439b-86c6-fc651e989939"
+            name: "Bob"
+            created: "2024-07-08T10:13:20+00:00"
+            modified: "2024-07-08T10:13:20+00:00"
+            created_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+            modified_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+            folder_parent_id: null
+            personal: true
+          - id: "b2a72cb2-508c-43ad-b96f-697f7ad21635"
+            name: "Dylan"
+            created: "2024-07-26T08:10:49+00:00"
+            modified: "2024-07-26T08:10:49+00:00"
+            created_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+            modified_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+            folder_parent_id: "162e4717-59a2-439b-86c6-fc651e989939"
+            personal: true
+
+folderCreate:
+  request:
+    without_parent:
+      summary: "Without a parent folder."
+      value:
+        name: "folder name"
+    with_parent:
+      summary: "With a parent folder."
+      value:
+        name: "folder name"
+        folder_parent_id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+
+folderUpdate:
+  request:
+    without_parent:
+      value:
+        name: "folder's new name"
+    
+folderShow:
+  response:
+    index:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/folders/162e4717-59a2-439b-86c6-fc651e989939.json"
+          code: 200
+        body:
+          id: "162e4717-59a2-439b-86c6-fc651e989939"
+          name: "Bob"
+          created: "2024-07-08T10:13:20+00:00"
+          modified: "2024-07-08T10:13:20+00:00"
+          created_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+          modified_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+          folder_parent_id: null
+          personal: true

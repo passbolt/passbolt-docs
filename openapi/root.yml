@@ -17,6 +17,10 @@ servers:
     description: "API Passbolt"
 
 paths:
+  /folders.json:
+    $ref: "paths/folders.yml"
+  /folders/{folderId}.json:
+    $ref: "paths/folder.yml"
   /resources.json:
     $ref: "paths/resources.yml"
   /resources/{resourceId}.json:

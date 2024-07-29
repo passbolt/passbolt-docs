@@ -1,0 +1,69 @@
+index:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/headerWithPagination"
+          body:
+            type: "array"
+            items:
+              $ref: "../schemas/folders.yml#/folderIndexShow"
+      examples:
+        $ref: "../examples/folders.yml#/foldersIndex/response"
+
+show:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/folders.yml#/folderIndexShow"
+      examples:
+        $ref: "../examples/folders.yml#/folderShow/response"
+
+create:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/folders.yml#/folderIndexShow"
+      examples:
+        $ref: "../examples/folders.yml#/folderShow/response"
+
+update:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/folders.yml#/folderIndexShow"
+      examples:
+        $ref: "../examples/folders.yml#/folderShow/response"

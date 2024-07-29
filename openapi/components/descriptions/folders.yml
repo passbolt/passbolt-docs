@@ -1,0 +1,8 @@
+tag: |
+  The API allows you to create, update, delete, and share folders.
+
+  Folders can be either shared or personal. Whether they are personal or shared depends on their permissions. One folder (or resource) can only be in one folder for a given user perspective. However, a folder can be in multiple parent folder if you look at all users as a whole. This is to allow users to re-organize folders shared with them in a way that makes sense to them.
+
+  A given folder visibility in the tree is therefore dependent on multiple factors, including if the parent folder is also shared.
+
+  You can learn more about the folder dynamics in [this dedicated blog post](https://www.passbolt.com/blog/introducing-the-new-folders-feature).

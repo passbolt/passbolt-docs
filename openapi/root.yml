@@ -21,12 +21,16 @@ paths:
     $ref: "paths/resources.yml"
   /resources/{resourceId}.json:
     $ref: "paths/resource.yml"
+  /move/{foreignModel}/{foreignId}.json:
+    $ref: "paths/move.yml"
   /resource-types.json:
     $ref: "paths/resourceTypes.yml"
   /resource-types/{resourceTypeId}.json:
     $ref: "paths/resourceType.yml"
 
 tags:
+  - name: "Move"
+    description: "Move a folder or a resource across folders."
   - name: "Resources"
     description:
       $ref: "components/descriptions/resources.yml#/tag"

@@ -16,6 +16,26 @@ resourceTypeId:
     type: "string"
     format: "uuid"
 
+foreignModel:
+  name: "foreignModel"
+  description: "Type for the foreign model being manupulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    enum:
+      - "resource"
+      - "folder"
+  
+foreignId:
+  name: "foreignId"
+  description: "ID for the foreign element being manupulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
 containCreator:
   name: "contain[creator]"
   description: "Add creator to response body."

@@ -1,0 +1,7 @@
+type: "object"
+required:
+  - folder_parent_id
+properties:
+  folder_parent_id:
+    type: "string"
+    format: "uuid"

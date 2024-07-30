@@ -1,0 +1,26 @@
+get:
+  summary: "Get multiple groups."
+  operationId: "indexGroups"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/groups.yml#/index"
+  tags:
+    - "Groups"
+  parameters:
+    - $ref: "../components/parameters.yml#/containModifier"
+    - $ref: "../components/parameters.yml#/containModifierProfile"
+    - $ref: "../components/parameters.yml#/containMyGroupUser"
+    - $ref: "../components/parameters.yml#/containGroupsUsers"
+    - $ref: "../components/parameters.yml#/containGroupsUsersUser"
+    - $ref: "../components/parameters.yml#/containGroupsUsersUserProfile"
+    - $ref: "../components/parameters.yml#/containGroupsUsersUserGpgkey"
+    - $ref: "../components/parameters.yml#/filterHasUsers"
+    - $ref: "../components/parameters.yml#/filterHasManagers"
+  responses:
+    200:
+      $ref: "../components/responses/groups.yml#/index"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"

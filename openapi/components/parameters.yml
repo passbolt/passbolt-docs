@@ -1,3 +1,12 @@
+groupId:
+  name: "groupId"
+  description: "ID for the group being manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
 resourceId:
   name: "resourceId"
   description: "ID for the resource being manipulated."
@@ -210,6 +219,66 @@ containPermissionsGroup:
     enum:
       - 1
       - 0
+
+containUsers:
+  name: "contain[users]"
+  description: "Add users to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+
+containMyGroupUser:
+  name: "contain[my_group_user]"
+  description: "Add `my_group_user` to groups in response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+
+containGroupsUsers:
+  name: "contain[groups_users]"
+  description: "Add group users to groups in response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+
+containGroupsUsersUser:
+  name: "contain[groups_users.user]"
+  description: "Add group users' user data to groups in response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+
+containGroupsUsersUserProfile:
+  name: "contain[groups_users.user.profile]"
+  description: "Add group users' user profiles to groups in response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+
+containGroupsUsersUserGpgkey:
+  name: "contain[groups_users.user.gpgkey]"
+  description: "Add group users' user gpg key to groups in response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
 
 filterSearch:
   name: "filter[search]"

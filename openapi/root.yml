@@ -21,6 +21,10 @@ paths:
     $ref: "paths/folders.yml"
   /folders/{folderId}.json:
     $ref: "paths/folder.yml"
+  /groups.json:
+    $ref: "paths/groups.yml"
+  /groups/{groupId}.json:
+    $ref: "paths/group.yml"
   /resources.json:
     $ref: "paths/resources.yml"
   /resources/{resourceId}.json:
@@ -33,6 +37,9 @@ paths:
     $ref: "paths/resourceType.yml"
 
 tags:
+  - name: "Groups"
+    description:
+      $ref: "components/descriptions/groups.yml#/tag"
   - name: "Move"
     description: "Move a folder or a resource across folders."
   - name: "Resources"

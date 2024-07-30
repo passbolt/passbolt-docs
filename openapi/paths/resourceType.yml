@@ -1,6 +1,5 @@
 get:
   summary: "Get a resource type."
-  description: Return data about one specific resource type.
   operationId: "showResourceType"
   security:
     - bearerHttpAuthentication: []

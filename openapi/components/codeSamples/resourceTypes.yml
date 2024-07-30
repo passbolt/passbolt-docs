@@ -45,7 +45,7 @@ index:
         echo $response;
       }
 
-show:
+view:
   - lang: cURL
     source: |
       curl --request GET \

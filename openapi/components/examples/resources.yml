@@ -103,7 +103,7 @@ resourcesIndex:
                 created: "2024-07-08T08:06:25+00:00"
                 modified: "2024-07-08T08:06:25+00:00"
 
-resourceCreate:
+resourceAdd:
   request:
     base:
       value:
@@ -114,7 +114,7 @@ resourceCreate:
         secrets:
           - data: "-----BEGIN PGP MESSAGE-----"
 
-resourceUpdate:
+resourceEdit:
   request:
     base:
       value:
@@ -126,7 +126,7 @@ resourceUpdate:
           - user_id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
             data: "-----BEGIN PGP MESSAGE-----"
 
-resourceCreateUpdate:
+resourceAddAndEdit:
   response:
     base:
       value:
@@ -181,7 +181,7 @@ resourceCreateUpdate:
           created: "2024-07-23T09:55:39+00:00"
           modified: "2024-07-23T09:55:39+00:00"
 
-resourceShow:
+resourceView:
   response:
     resourceWithoutSecret:
       summary: "Resource without any extra data"

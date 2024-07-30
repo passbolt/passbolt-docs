@@ -1,10 +1,10 @@
 get:
   summary: "Get a folder."
-  operationId: "showFolder"
+  operationId: "viewFolder"
   security:
     - bearerHttpAuthentication: []
   x-codeSamples:
-    $ref: "../components/codeSamples/folders.yml#/show"
+    $ref: "../components/codeSamples/folders.yml#/view"
   tags:
     - "Folders"
   parameters:
@@ -22,7 +22,7 @@ get:
     - $ref: "../components/parameters.yml#/filterHasId"
   responses:
     200:
-      $ref: "../components/responses/folders.yml#/show"
+      $ref: "../components/responses/folders.yml#/view"
     400:
       $ref: "../components/responses.yml#/badRequest"
     401:
@@ -33,9 +33,9 @@ get:
 put:
   summary: "Update a folder."
   description: "The current user must have the “update” or “owner” permission on the folder."
-  operationId: "updateFolder"
+  operationId: "editFolder"
   x-codeSamples:
-    $ref: "../components/codeSamples/folders.yml#/update"
+    $ref: "../components/codeSamples/folders.yml#/edit"
   security:
     - bearerHttpAuthentication: []
   parameters:
@@ -51,10 +51,10 @@ put:
   tags:
     - "Folders"
   requestBody:
-    $ref: "../components/requestBodies/folders.yml#/folderUpdate"
+    $ref: "../components/requestBodies/folders.yml#/folderEdit"
   responses:
     200:
-      $ref: "../components/responses/folders.yml#/update"
+      $ref: "../components/responses/folders.yml#/edit"
     400:
       $ref: "../components/responses.yml#/badRequest"
     401:

@@ -1,19 +1,19 @@
-folderCreate:
+folderAdd:
   description: The folder you want to create
   required: true
   content:
     application/json:
       schema:
-        $ref: "../schemas/folders.yml#/folderCreate"
+        $ref: "../schemas/folders.yml#/folderAdd"
       examples:
-        $ref: "../examples/folders.yml#/folderCreate/request"
+        $ref: "../examples/folders.yml#/folderAdd/request"
 
-folderUpdate:
+folderEdit:
   description: The folder you want to update
   required: true
   content:
     application/json:
       schema:
-        $ref: "../schemas/folders.yml#/folderUpdate"
+        $ref: "../schemas/folders.yml#/folderEdit"
       examples:
-        $ref: "../examples/folders.yml#/folderUpdate/request"
+        $ref: "../examples/folders.yml#/folderEdit/request"

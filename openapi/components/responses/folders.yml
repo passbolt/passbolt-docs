@@ -13,11 +13,11 @@ index:
           body:
             type: "array"
             items:
-              $ref: "../schemas/folders.yml#/folderIndexShow"
+              $ref: "../schemas/folders.yml#/folderIndexAndView"
       examples:
         $ref: "../examples/folders.yml#/foldersIndex/response"
 
-show:
+view:
   description: "Operation is successful"
   content:
     application/json:
@@ -30,11 +30,11 @@ show:
           header:
             $ref: "../schemas.yml#/header"
           body:
-            $ref: "../schemas/folders.yml#/folderIndexShow"
+            $ref: "../schemas/folders.yml#/folderIndexAndView"
       examples:
-        $ref: "../examples/folders.yml#/folderShow/response"
+        $ref: "../examples/folders.yml#/folderView/response"
 
-create:
+add:
   description: "Operation is successful"
   content:
     application/json:
@@ -47,11 +47,11 @@ create:
           header:
             $ref: "../schemas.yml#/header"
           body:
-            $ref: "../schemas/folders.yml#/folderIndexShow"
+            $ref: "../schemas/folders.yml#/folderIndexAndView"
       examples:
-        $ref: "../examples/folders.yml#/folderShow/response"
+        $ref: "../examples/folders.yml#/folderView/response"
 
-update:
+edit:
   description: "Operation is successful"
   content:
     application/json:
@@ -64,6 +64,6 @@ update:
           header:
             $ref: "../schemas.yml#/header"
           body:
-            $ref: "../schemas/folders.yml#/folderIndexShow"
+            $ref: "../schemas/folders.yml#/folderIndexAndView"
       examples:
-        $ref: "../examples/folders.yml#/folderShow/response"
+        $ref: "../examples/folders.yml#/folderView/response"

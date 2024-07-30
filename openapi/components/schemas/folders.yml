@@ -1,4 +1,4 @@
-folderIndexShow:
+folderIndexAndView:
   type: "object"
   required:
     - id
@@ -30,11 +30,11 @@ folderIndexShow:
     children_resources:
       type: "array"
       items:
-        $ref: "resources.yml#/resourceIndexShow"
+        $ref: "resources.yml#/resourceIndexAndView"
     children_folders:
       type: "array"
       items:
-        $ref: "#/folderIndexShow"
+        $ref: "#/folderIndexAndView"
     modifier:
       $ref: "users.yml#/user"
     creator:
@@ -52,7 +52,7 @@ folderIndexShow:
       format: "uuid"
       x-nullable: true
 
-folderCreate:
+folderAdd:
   type: "object"
   required:
     - name
@@ -65,7 +65,7 @@ folderCreate:
       x-nullable: true
 
 
-folderUpdate:
+folderEdit:
   type: "object"
   required:
     - name

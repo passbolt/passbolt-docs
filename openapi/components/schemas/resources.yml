@@ -113,6 +113,9 @@ resourceCreate:
     resource_type_id:
       type: "string"
       format: "uuid"
+    folder_parent_id:
+      type: "string"
+      format: "uuid"
     expired:
       type: "string"
       format: "date-time"

@@ -1,0 +1,35 @@
+index:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            type: "array"
+            items:
+              $ref: "../schemas/groups.yml#/group"
+      examples:
+        $ref: "../examples/groups.yml#/groupsIndex/response"
+
+view:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/groups.yml#/group"
+      examples:
+        $ref: "../examples/groups.yml#/groupView/response"

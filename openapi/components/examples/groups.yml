@@ -1,0 +1,127 @@
+groupsIndex:
+  response:
+    base:
+      summary: "Base without any extra data"
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/groups.json"
+          code: 200
+        body:
+          - id: "8a3c5c4e-e931-4e6b-854a-9b2e9afcd3bc"
+            name: "Groupe B"
+            deleted: true
+            created: "2024-07-08T10:13:20+00:00"
+            modified: "2024-07-08T10:13:20+00:00"
+            created_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+            modified_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+    withGroupsUsersProfiles:
+      summary: "Groups index with users profile"
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/groups.json"
+          code: 200
+        body:
+          - id: "8a3c5c4e-e931-4e6b-854a-9b2e9afcd3bc"
+            name: "Groupe B"
+            deleted: true
+            created: "2024-07-08T10:13:20+00:00"
+            modified: "2024-07-08T10:13:20+00:00"
+            created_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+            modified_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+            group_users:
+              - id: "3b9b9757-1ccb-444a-a3cf-4090364fac4f"
+                group_id: "8a3c5c4e-e931-4e6b-854a-9b2e9afcd3bc"
+                user_id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+                is_admin: true
+                created: "2024-07-22T16:01:07+00:00"
+                user:
+                  id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+                  role_id: "639b50cf-66f9-4b23-8d55-d0609710cd9d"
+                  username: "ada@passbolt.com"
+                  active: true
+                  deleted: false
+                  created: "2024-07-03T12:52:06+00:00"
+                  modified: "2024-07-03T12:52:06+00:00"
+                  disabled: null
+                  profile:
+                    id: "920edf1e-5ce8-4da4-a8fc-21040fe78d09"
+                    user_id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+                    first_name: "Ada"
+                    last_name: "Lovelace"
+                    created: "2024-07-03T12:52:06+00:00"
+                    modified: ""
+                  last_logged_in: null
+
+groupView:
+  response:
+    base:
+      summary: "Base without any extra data"
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/groups.json"
+          code: 200
+        body:
+          id: "8a3c5c4e-e931-4e6b-854a-9b2e9afcd3bc"
+          name: "Groupe B"
+          deleted: true
+          created: "2024-07-08T10:13:20+00:00"
+          modified: "2024-07-08T10:13:20+00:00"
+          created_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+          modified_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+    withGroupsUsersProfiles:
+      summary: "Groups index with users profile"
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/groups.json"
+          code: 200
+        body:
+          id: "8a3c5c4e-e931-4e6b-854a-9b2e9afcd3bc"
+          name: "Groupe B"
+          deleted: true
+          created: "2024-07-08T10:13:20+00:00"
+          modified: "2024-07-08T10:13:20+00:00"
+          created_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+          modified_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+          group_users:
+            - id: "3b9b9757-1ccb-444a-a3cf-4090364fac4f"
+              group_id: "8a3c5c4e-e931-4e6b-854a-9b2e9afcd3bc"
+              user_id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+              is_admin: true
+              created: "2024-07-22T16:01:07+00:00"
+              user:
+                id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+                role_id: "639b50cf-66f9-4b23-8d55-d0609710cd9d"
+                username: "ada@passbolt.com"
+                active: true
+                deleted: false
+                created: "2024-07-03T12:52:06+00:00"
+                modified: "2024-07-03T12:52:06+00:00"
+                disabled: null
+                profile:
+                  id: "920edf1e-5ce8-4da4-a8fc-21040fe78d09"
+                  user_id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+                  first_name: "Ada"
+                  last_name: "Lovelace"
+                  created: "2024-07-03T12:52:06+00:00"
+                  modified: ""
+                last_logged_in: null

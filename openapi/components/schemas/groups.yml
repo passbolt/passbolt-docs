@@ -28,3 +28,35 @@ group:
     modified_by:
       type: "string"
       format: "uuid"
+    my_group_user:
+      $ref: "#/group_user"
+    group_users:
+      type: "array"
+      items:
+        $ref: "#/group_user"
+
+group_user:
+  type: "object"
+  required:
+    - id
+    - group_id
+    - user_id
+    - is_admin
+    - created
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    group_id:
+      type: "string"
+      format: "uuid"
+    user_id:
+      type: "string"
+      format: "uuid"
+    is_admin:
+      type: "boolean"
+    created:
+      type: "string"
+      format: "date-time"
+    user:
+      $ref: "users.yml#/user"

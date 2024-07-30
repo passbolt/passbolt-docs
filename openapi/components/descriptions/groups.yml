@@ -1,0 +1,2 @@
+tag: |
+  Groups are logical collection of users. They can be used for example to represents departments or projects in an organization. They are especially useful when you want to share `Resources` with multiple users at once.

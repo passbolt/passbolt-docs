@@ -204,13 +204,13 @@ const config = {
             position: 'left',
             label: 'Hosting guide',
           },
-          {
-            type: 'docSidebar',
-            href: '/development',
-            sidebarId: 'developmentGuideSidebar',
-            position: 'left',
-            label: 'Dev guide',
-          },
+          // {
+          //   type: 'docSidebar',
+          //   href: '/development',
+          //   sidebarId: 'developmentGuideSidebar',
+          //   position: 'left',
+          //   label: 'Dev guide',
+          // },
           // {
           //   type: 'docSidebar',
           //   sidebarId: 'contributeGuideSidebar',

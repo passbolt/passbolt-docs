@@ -33,20 +33,20 @@ get:
 
 post:
   summary: "Create a resource."
-  operationId: "createResource"
+  operationId: "addResource"
   security:
     - bearerHttpAuthentication: []
   x-codeSamples:
-    $ref: "../components/codeSamples/resources.yml#/create"
+    $ref: "../components/codeSamples/resources.yml#/add"
   tags:
     - "Resources"
   responses:
     200:
-      $ref: "../components/responses/resources.yml#/createUpdate"
+      $ref: "../components/responses/resources.yml#/addAndEdit"
     400:
       $ref: "../components/responses.yml#/badRequest"
     401:
       $ref: "../components/responses.yml#/authenticationRequired"
   requestBody:
-    $ref: "../components/requestBodies/resources.yml#/resourceCreate"
+    $ref: "../components/requestBodies/resources.yml#/resourceAdd"
 

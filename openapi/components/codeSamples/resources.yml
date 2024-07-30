@@ -45,7 +45,7 @@ index:
         echo $response;
       }
 
-create:
+add:
   - lang: cURL
     source: |
       curl --request POST \
@@ -116,7 +116,7 @@ create:
         echo $response;
       }
 
-update:
+edit:
   - lang: cURL
     source: |
       curl --request PUT \
@@ -236,7 +236,7 @@ delete:
         echo $response;
       }
 
-show:
+view:
   - lang: cURL
     source: |
       curl --request GET \

@@ -1,4 +1,4 @@
-show:
+view:
   description: "Operation is successful"
   content:
     application/json:
@@ -11,11 +11,11 @@ show:
           header:
             $ref: "../schemas.yml#/header"
           body:
-            $ref: "../schemas/resources.yml#/resourceIndexShow"
+            $ref: "../schemas/resources.yml#/resourceIndexAndView"
       examples:
-        $ref: "../examples/resources.yml#/resourceShow/response"
+        $ref: "../examples/resources.yml#/resourceView/response"
 
-createUpdate:
+addAndEdit:
   description: "Operation is successful"
   content:
     application/json:
@@ -28,9 +28,9 @@ createUpdate:
           header:
             $ref: "../schemas.yml#/header"
           body:
-            $ref: "../schemas/resources.yml#/resourceIndexShow"
+            $ref: "../schemas/resources.yml#/resourceIndexAndView"
       examples:
-        $ref: "../examples/resources.yml#/resourceCreateUpdate/response"
+        $ref: "../examples/resources.yml#/resourceAddAndEdit/response"
 
 index:
   description: "Operation is successful"
@@ -47,6 +47,6 @@ index:
           body:
             type: "array"
             items:
-              $ref: "../schemas/resources.yml#/resourceIndexShow"
+              $ref: "../schemas/resources.yml#/resourceIndexAndView"
       examples:
         $ref: "../examples/resources.yml#/resourcesIndex/response"

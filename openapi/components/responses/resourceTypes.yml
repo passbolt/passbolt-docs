@@ -1,4 +1,4 @@
-show:
+view:
   description: "Operation is successful"
   content:
     application/json:
@@ -13,7 +13,7 @@ show:
           body:
             $ref: "../schemas/resourceTypes.yml#/resourceType"
       examples:
-        $ref: "../examples/resourceTypes.yml#/resourceTypeShow/response"
+        $ref: "../examples/resourceTypes.yml#/resourceTypeView/response"
 
 index:
   description: "Operation is successful"

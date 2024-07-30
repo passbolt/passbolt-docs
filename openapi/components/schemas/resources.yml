@@ -1,4 +1,4 @@
-resourceIndexShow:
+resourceIndexAndView:
   type: "object"
   required:
     - id
@@ -94,7 +94,7 @@ resourceIndexShow:
       items:
         $ref: "permissions.yml#/permission"
 
-resourceCreate:
+resourceAdd:
   type: "object"
   required:
     - name
@@ -123,9 +123,9 @@ resourceCreate:
     secrets:
       type: "array"
       items:
-        $ref: "secrets.yml#/secretCreate"
+        $ref: "secrets.yml#/secretAdd"
 
-resourceUpdate:
+resourceEdit:
   type: "object"
   required:
     - name
@@ -151,5 +151,5 @@ resourceUpdate:
     secrets:
       type: "array"
       items:
-        $ref: "secrets.yml#/secretUpdate"
+        $ref: "secrets.yml#/secretEdit"
 

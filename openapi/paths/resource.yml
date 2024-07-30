@@ -1,10 +1,10 @@
 get:
   summary: "Get a resource."
-  operationId: "showResource"
+  operationId: "viewResource"
   security:
     - bearerHttpAuthentication: []
   x-codeSamples:
-    $ref: "../components/codeSamples/resources.yml#/show"
+    $ref: "../components/codeSamples/resources.yml#/view"
   tags:
     - "Resources"
   parameters:
@@ -20,7 +20,7 @@ get:
     - $ref: "../components/parameters.yml#/containPermissionsGroup"
   responses:
     200:
-      $ref: "../components/responses/resources.yml#/show"
+      $ref: "../components/responses/resources.yml#/view"
     400:
       $ref: "../components/responses.yml#/badRequest"
     401:
@@ -34,9 +34,9 @@ put:
     If the password you are updating has been shared with 7 users, the `secrets` key will need to be an array of 7 objects.
   
     You must encrypt and sign the new plaintext passwords using the recipient public key and the current user secret key. You can then create a list which include one object per user: the `data` key holds the encrypted plaintext password and `user_id` holds the user UUID.
-  operationId: "updateResource"
+  operationId: "editResource"
   x-codeSamples:
-    $ref: "../components/codeSamples/resources.yml#/update"
+    $ref: "../components/codeSamples/resources.yml#/edit"
   security:
     - bearerHttpAuthentication: []
   parameters:
@@ -45,7 +45,7 @@ put:
     - "Resources"
   responses:
     200:
-      $ref: "../components/responses/resources.yml#/createUpdate"
+      $ref: "../components/responses/resources.yml#/addAndEdit"
     400:
       $ref: "../components/responses.yml#/badRequest"
     401:
@@ -53,7 +53,7 @@ put:
     404:
       $ref: "../components/responses.yml#/notFound"
   requestBody:
-    $ref: "../components/requestBodies/resources.yml#/resourceUpdate"
+    $ref: "../components/requestBodies/resources.yml#/resourceEdit"
 
 delete:
   summary: "Delete a resource."

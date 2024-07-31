@@ -51,7 +51,7 @@ add:
       examples:
         $ref: "../examples/folders.yml#/folderView/response"
 
-edit:
+update:
   description: "Operation is successful"
   content:
     application/json:

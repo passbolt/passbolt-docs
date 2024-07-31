@@ -65,7 +65,7 @@ folderAdd:
       x-nullable: true
 
 
-folderEdit:
+folderUpdate:
   type: "object"
   required:
     - name

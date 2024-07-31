@@ -198,7 +198,7 @@ add:
         echo $response;
       }
 
-edit:
+update:
   - lang: cURL
     source: |
       curl --request PUT \

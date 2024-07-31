@@ -45,6 +45,7 @@ containCreator:
     type: "integer"
     enum:
       - 1
+      - 0
 
 containTag:
   name: "contain[tag]"
@@ -56,6 +57,7 @@ containTag:
     type: "integer"
     enum:
       - 1
+      - 0
 
 containFavorite:
   name: "contain[favorite]"
@@ -66,6 +68,7 @@ containFavorite:
     type: "integer"
     enum:
       - 1
+      - 0
 
 containModifier:
   name: "contain[modifier]"
@@ -76,6 +79,7 @@ containModifier:
     type: "integer"
     enum:
       - 1
+      - 0
 
 containSecret:
   name: "contain[secret]"
@@ -86,6 +90,7 @@ containSecret:
     type: "integer"
     enum:
       - 1
+      - 0
 
 containResourceType:
   name: "contain[resource-type]"
@@ -96,6 +101,7 @@ containResourceType:
     type: "integer"
     enum:
       - 1
+      - 0
 
 containPermission:
   name: "contain[permission]"
@@ -106,6 +112,7 @@ containPermission:
     type: "integer"
     enum:
       - 1
+      - 0
 
 containPermissions:
   name: "contain[permissions]"
@@ -116,6 +123,7 @@ containPermissions:
     type: "integer"
     enum:
       - 1
+      - 0
 
 containPermissionsUserProfile:
   name: "contain[permissions.user.profile]"
@@ -126,6 +134,7 @@ containPermissionsUserProfile:
     type: "integer"
     enum:
       - 1
+      - 0
 
 containPermissionsGroup:
   name: "contain[permissions.group]"
@@ -136,6 +145,7 @@ containPermissionsGroup:
     type: "integer"
     enum:
       - 1
+      - 0
 
 filterSearch:
   name: "filter[search]"

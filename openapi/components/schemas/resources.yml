@@ -125,7 +125,7 @@ resourceAdd:
       items:
         $ref: "secrets.yml#/secretAdd"
 
-resourceEdit:
+resourceUpdate:
   type: "object"
   properties:
     name:
@@ -146,5 +146,5 @@ resourceEdit:
     secrets:
       type: "array"
       items:
-        $ref: "secrets.yml#/secretEdit"
+        $ref: "secrets.yml#/secretUpdate"
 

@@ -114,7 +114,7 @@ resourceAdd:
         secrets:
           - data: "-----BEGIN PGP MESSAGE-----"
 
-resourceEdit:
+resourceUpdate:
   request:
     base:
       value:
@@ -126,7 +126,7 @@ resourceEdit:
           - user_id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
             data: "-----BEGIN PGP MESSAGE-----"
 
-resourceAddAndEdit:
+resourceAddAndUpdate:
   response:
     base:
       value:

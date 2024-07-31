@@ -42,7 +42,7 @@ post:
     - "Resources"
   responses:
     200:
-      $ref: "../components/responses/resources.yml#/addAndEdit"
+      $ref: "../components/responses/resources.yml#/addAndUpdate"
     400:
       $ref: "../components/responses.yml#/badRequest"
     401:

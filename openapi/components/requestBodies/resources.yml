@@ -8,12 +8,12 @@ resourceAdd:
       examples:
         $ref: "../examples/resources.yml#/resourceAdd/request"
 
-resourceEdit:
+resourceUpdate:
   description: The resource you want to update
   required: true
   content:
     application/json:
       schema:
-        $ref: "../schemas/resources.yml#/resourceEdit"
+        $ref: "../schemas/resources.yml#/resourceUpdate"
       examples:
-        $ref: "../examples/resources.yml#/resourceEdit/request"
+        $ref: "../examples/resources.yml#/resourceUpdate/request"

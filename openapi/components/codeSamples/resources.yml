@@ -52,9 +52,9 @@ add:
         --url {{API_BASE_URL}}/resources.json \
         --header 'Authorization: Bearer {{JWT_TOKEN}}' \
         --data '{
-          "name": "AWS",
+          "name": "NextClould",
           "username": "ada@passbolt.com",
-          "uri": "https://aws.amazon.com/",
+          "uri": "https://nextcloud.com/",
           "resource_type_id": "a28a04cd-6f53-518a-967c-9963bf9cec51",
           "secrets": [{
             "data": "-----BEGIN PGP MESSAGE-----"
@@ -66,7 +66,7 @@ add:
       const options = {
         method: 'POST',
         headers: {Authorization: 'Bearer {{JWT_TOKEN}}'},
-        body: '{"name":"AWS","username":"ada@passbolt.com","uri":"https://aws.amazon.com/","resource_type_id":"a28a04cd-6f53-518a-967c-9963bf9cec51","secrets":[{"data":"-----BEGIN PGP MESSAGE-----"}]}'
+        body: '{"name":"NextCloud","username":"ada@passbolt.com","uri":"https://nextcloud.com/","resource_type_id":"a28a04cd-6f53-518a-967c-9963bf9cec51","secrets":[{"data":"-----BEGIN PGP MESSAGE-----"}]}'
       };
 
       try {
@@ -90,9 +90,9 @@ add:
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
         CURLOPT_POSTFIELDS => json_encode([
-          'name' => 'AWS',
+          'name' => 'NextCloud',
           'username' => 'ada@passbolt.com',
-          'uri' => 'https://aws.amazon.com/',
+          'uri' => 'https://nextcloud.com/',
           'resource_type_id' => 'a28a04cd-6f53-518a-967c-9963bf9cec51',
           'secrets' => [
               [
@@ -123,9 +123,9 @@ edit:
       --url {{API_BASE_URL}}/resources/43051c9f-7122-4887-81e8-3b390cf0f04a.json \
       --header 'Authorization: Bearer {{JWT_TOKEN}}' \
       --data '{
-        "name": "AWS",
+        "name": "NextCloud",
         "username": "ada@passbolt.com",
-        "uri": "https://aws.amazon.com/",
+        "uri": "https://nextcloud.com/",
         "resource_type_id": "a28a04cd-6f53-518a-967c-9963bf9cec51",
         "secrets": [{
           "id": "f1b79505-2371-422f-88d8-9c6326806b3d",
@@ -138,7 +138,7 @@ edit:
       const options = {
         method: 'PUT',
         headers: {Authorization: 'Bearer {{JWT_TOKEN}}'},
-        body: '{"name":"AWS","username":"ada@passbolt.com","uri":"https://aws.amazon.com/","resource_type_id":"a28a04cd-6f53-518a-967c-9963bf9cec51","secrets":[{"id":"f1b79505-2371-422f-88d8-9c6326806b3d","data":"-----BEGIN PGP MESSAGE-----"}]}'
+        body: '{"name":"NextCloud","username":"ada@passbolt.com","uri":"https://nextcloud.com/","resource_type_id":"a28a04cd-6f53-518a-967c-9963bf9cec51","secrets":[{"id":"f1b79505-2371-422f-88d8-9c6326806b3d","data":"-----BEGIN PGP MESSAGE-----"}]}'
       };
 
       try {
@@ -162,9 +162,9 @@ edit:
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "PUT",
         CURLOPT_POSTFIELDS => json_encode([
-          'name' => 'AWS',
+          'name' => 'NextCloud',
           'username' => 'ada@passbolt.com',
-          'uri' => 'https://aws.amazon.com/',
+          'uri' => 'https://nextcloud.com/',
           'resource_type_id' => 'a28a04cd-6f53-518a-967c-9963bf9cec51',
           'secrets' => [
               [

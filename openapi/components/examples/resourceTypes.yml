@@ -12,13 +12,14 @@ resourceTypesIndex:
           code: 200
         body:
           - id: "669f8c64-242a-59fb-92fc-81f660975fd3"
-            slug: "password-string"
-            name: "Simple password"
-            description: "The original passbolt resource type, where the secret is a non empty string."
+            slug: "password-and-description"
+            name: "Password with description"
+            description: "A resource with the password and the description encrypted."
             definition:
               resource:
                 type: "object"
-                required: "name"
+                required:
+                  - "name"
                 properties:
                   name:
                     type: "string"
@@ -33,14 +34,19 @@ resourceTypesIndex:
                       - type: "string"
                         maxLength: 1024
                       - type: "null"
+              secret:
+                type: "object"
+                required:
+                  - "password"
+                properties:
+                  password:
+                    type: "string"
+                    maxLength: 4096
                   description:
                     anyOf:
                       - type: "string"
                         maxLength: 10000
-                      - type: "null"
-              secret:
-                type: "string"
-                maxLength: 4096
+                      - type: null
             created: "2024-07-08T08:06:25+00:00"
             modified: "2024-07-08T08:06:25+00:00"
 
@@ -58,13 +64,14 @@ resourceTypeView:
           code: 200
         body:
           id: "669f8c64-242a-59fb-92fc-81f660975fd3"
-          slug: "password-string"
-          name: "Simple password"
-          description: "The original passbolt resource type, where the secret is a non empty string."
+          slug: "password-and-description"
+          name: "Password with description"
+          description: "A resource with the password and the description encrypted."
           definition:
             resource:
               type: "object"
-              required: "name"
+              required:
+                - "name"
               properties:
                 name:
                   type: "string"
@@ -79,14 +86,19 @@ resourceTypeView:
                     - type: "string"
                       maxLength: 1024
                     - type: "null"
+            secret:
+              type: "object"
+              required:
+                - "password"
+              properties:
+                password:
+                  type: "string"
+                  maxLength: 4096
                 description:
                   anyOf:
                     - type: "string"
                       maxLength: 10000
-                    - type: "null"
-            secret:
-              type: "string"
-              maxLength: 4096
+                    - type: null
           created: "2024-07-08T08:06:25+00:00"
           modified: "2024-07-08T08:06:25+00:00"
     

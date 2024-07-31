@@ -25,6 +25,8 @@ paths:
     $ref: "paths/groups.yml"
   /groups/{groupId}.json:
     $ref: "paths/group.yml"
+  /groups/{groupId}/dry-run.json:
+    $ref: "paths/groupDryRun.yml"
   /resources.json:
     $ref: "paths/resources.yml"
   /resources/{resourceId}.json:

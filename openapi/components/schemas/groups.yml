@@ -1,4 +1,4 @@
-group:
+groupIndexAndView:
   type: "object"
   required:
     - id
@@ -29,13 +29,56 @@ group:
       type: "string"
       format: "uuid"
     my_group_user:
-      $ref: "#/group_user"
-    group_users:
+      $ref: "#/groupsUsersIndexAndView"
+    groups_users:
       type: "array"
       items:
-        $ref: "#/group_user"
+        $ref: "#/groupsUsersIndexAndView"
 
-group_user:
+groupAdd:
+  type: "object"
+  required:
+    - name
+    - groups_users
+  properties:
+    name:
+      type: "string"
+    groups_users:
+      type: "array"
+      items:
+        $ref: "#/groupsUsersAdd"
+
+groupDeleteDryRunError:
+  type: "object"
+  properties:
+    resources:
+      type: "object"
+      properties:
+        sole_owner:
+          type: "array"
+          items:
+            $ref: "resources.yml#/resourceIndexAndView"
+    folders:
+      type: "object"
+      properties:
+        sole_owner:
+          type: "array"
+          items:
+            $ref: "folders.yml#/folderIndexAndView"
+
+groupsUsersAdd:
+  type: "object"
+  required:
+    - user_id
+    - is_admin
+  properties:
+    user_id:
+      type: "string"
+      format: "uuid"
+    is_admin:
+      type: "boolean"
+
+groupsUsersIndexAndView:
   type: "object"
   required:
     - id

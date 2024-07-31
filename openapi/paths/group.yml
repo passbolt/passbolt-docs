@@ -1,5 +1,5 @@
 get:
-  summary: "Get one group."
+  summary: "Get a group."
   operationId: "viewGroup"
   security:
     - bearerHttpAuthentication: []
@@ -20,6 +20,29 @@ get:
   responses:
     200:
       $ref: "../components/responses/groups.yml#/view"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"
+
+delete:
+  summary: "Delete a group."
+  description:
+    $ref: "../components/descriptions/groups.yml#/delete"
+  operationId: "deleteGroup"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/groups.yml#/delete"
+  tags:
+    - "Groups"
+  parameters:
+    - $ref: "../components/parameters.yml#/groupId"
+  responses:
+    200:
+      $ref: "../components/responses.yml#/nullBody"
     400:
       $ref: "../components/responses.yml#/badRequest"
     401:

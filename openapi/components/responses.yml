@@ -15,7 +15,7 @@ authenticationRequired:
       examples:
         $ref: "examples.yml#/authenticationRequired"
 
-emptyBody:
+nullBody:
   description: "Operation is successful."
   content:
     application/json:
@@ -30,7 +30,26 @@ emptyBody:
           body:
             type: "null"
       examples:
-        $ref: "examples.yml#/emptyBody"
+        $ref: "examples.yml#/nullBody"
+
+emptyArrayBody:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "schemas.yml#/header"
+          body:
+            type: "array"
+            items:
+              type: "object"
+      examples:
+        $ref: "examples.yml#/emptyArrayBody"
 
 badRequest:
   description: "Bad request"

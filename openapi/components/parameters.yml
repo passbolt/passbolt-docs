@@ -229,6 +229,7 @@ containUsers:
     type: "integer"
     enum:
       - 1
+      - 0
 
 containMyGroupUser:
   name: "contain[my_group_user]"
@@ -239,6 +240,7 @@ containMyGroupUser:
     type: "integer"
     enum:
       - 1
+      - 0
 
 containGroupsUsers:
   name: "contain[groups_users]"
@@ -249,6 +251,7 @@ containGroupsUsers:
     type: "integer"
     enum:
       - 1
+      - 0
 
 containGroupsUsersUser:
   name: "contain[groups_users.user]"
@@ -259,6 +262,7 @@ containGroupsUsersUser:
     type: "integer"
     enum:
       - 1
+      - 0
 
 containGroupsUsersUserProfile:
   name: "contain[groups_users.user.profile]"
@@ -269,6 +273,7 @@ containGroupsUsersUserProfile:
     type: "integer"
     enum:
       - 1
+      - 0
 
 containGroupsUsersUserGpgkey:
   name: "contain[groups_users.user.gpgkey]"
@@ -279,6 +284,7 @@ containGroupsUsersUserGpgkey:
     type: "integer"
     enum:
       - 1
+      - 0
 
 filterSearch:
   name: "filter[search]"

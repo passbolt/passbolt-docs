@@ -33,9 +33,9 @@ get:
 put:
   summary: "Update a folder."
   description: "The current user must have the “update” or “owner” permission on the folder."
-  operationId: "editFolder"
+  operationId: "updateFolder"
   x-codeSamples:
-    $ref: "../components/codeSamples/folders.yml#/edit"
+    $ref: "../components/codeSamples/folders.yml#/update"
   security:
     - bearerHttpAuthentication: []
   parameters:
@@ -51,10 +51,10 @@ put:
   tags:
     - "Folders"
   requestBody:
-    $ref: "../components/requestBodies/folders.yml#/folderEdit"
+    $ref: "../components/requestBodies/folders.yml#/folderUpdate"
   responses:
     200:
-      $ref: "../components/responses/folders.yml#/edit"
+      $ref: "../components/responses/folders.yml#/update"
     400:
       $ref: "../components/responses.yml#/badRequest"
     401:

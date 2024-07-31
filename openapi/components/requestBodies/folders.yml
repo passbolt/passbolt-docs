@@ -8,12 +8,12 @@ folderAdd:
       examples:
         $ref: "../examples/folders.yml#/folderAdd/request"
 
-folderEdit:
+folderUpdate:
   description: The folder you want to update
   required: true
   content:
     application/json:
       schema:
-        $ref: "../schemas/folders.yml#/folderEdit"
+        $ref: "../schemas/folders.yml#/folderUpdate"
       examples:
-        $ref: "../examples/folders.yml#/folderEdit/request"
+        $ref: "../examples/folders.yml#/folderUpdate/request"

@@ -44,7 +44,7 @@ folderAdd:
         name: "folder name"
         folder_parent_id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
 
-folderEdit:
+folderUpdate:
   request:
     without_parent:
       value:

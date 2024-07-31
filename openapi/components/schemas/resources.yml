@@ -127,11 +127,6 @@ resourceAdd:
 
 resourceEdit:
   type: "object"
-  required:
-    - name
-    - username
-    - uri
-    - resource_type_id
   properties:
     name:
       type: "string"

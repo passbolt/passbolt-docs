@@ -1,0 +1,20 @@
+delete:
+  summary: "Dry run a group deletion."
+  operationId: "dryRunDeleteGroup"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/groups.yml#/delete"
+  tags:
+    - "Groups"
+  parameters:
+    - $ref: "../components/parameters.yml#/groupId"
+  responses:
+    200:
+      $ref: "../components/responses.yml#/emptyArrayBody"
+    400:
+      $ref: "../components/responses/groups.yml#/deleteDryRun"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"

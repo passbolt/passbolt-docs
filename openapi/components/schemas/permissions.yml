@@ -48,5 +48,5 @@ permission:
     user:
       $ref: "users.yml#/user"
     group:
-      $ref: "groups.yml#/group"
+      $ref: "groups.yml#/groupIndexAndView"
       x-nullable: true

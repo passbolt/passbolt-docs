@@ -24,3 +24,23 @@ get:
       $ref: "../components/responses.yml#/badRequest"
     401:
       $ref: "../components/responses.yml#/authenticationRequired"
+
+post:
+  summary: "Create a group."
+  description: "Please note that only users with Admin role can create a group."
+  operationId: "addGroup"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/groups.yml#/add"
+  tags:
+    - "Groups"
+  responses:
+    200:
+      $ref: "../components/responses/groups.yml#/addAndUpdate"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+  requestBody:
+    $ref: "../components/requestBodies/groups.yml#/groupAdd"

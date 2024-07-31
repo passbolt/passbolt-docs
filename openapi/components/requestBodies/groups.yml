@@ -1,0 +1,9 @@
+groupAdd:
+  description: The group you want to create
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/groups.yml#/groupAdd"
+      examples:
+        $ref: "../examples/groups.yml#/groupAdd/request"

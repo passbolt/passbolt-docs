@@ -38,7 +38,7 @@ groupsIndex:
             modified: "2024-07-08T10:13:20+00:00"
             created_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
             modified_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
-            group_users:
+            groups_users:
               - id: "3b9b9757-1ccb-444a-a3cf-4090364fac4f"
                 group_id: "8a3c5c4e-e931-4e6b-854a-9b2e9afcd3bc"
                 user_id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
@@ -102,7 +102,7 @@ groupView:
           modified: "2024-07-08T10:13:20+00:00"
           created_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
           modified_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
-          group_users:
+          groups_users:
             - id: "3b9b9757-1ccb-444a-a3cf-4090364fac4f"
               group_id: "8a3c5c4e-e931-4e6b-854a-9b2e9afcd3bc"
               user_id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
@@ -125,3 +125,37 @@ groupView:
                   created: "2024-07-03T12:52:06+00:00"
                   modified: ""
                 last_logged_in: null
+
+groupAdd:
+  request:
+    base:
+      value:
+        name: "Groupe B"
+        groups_users:
+          - user_id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+            is_admin: true
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/groups.json"
+          code: 200
+        body:
+          id: "8a3c5c4e-e931-4e6b-854a-9b2e9afcd3bc"
+          name: "Groupe B"
+          deleted: false
+          created: "2024-07-08T10:13:20+00:00"
+          modified: "2024-07-08T10:13:20+00:00"
+          created_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+          modified_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+          groups_users:
+            - id: "3b9b9757-1ccb-444a-a3cf-4090364fac4f"
+              group_id: "8a3c5c4e-e931-4e6b-854a-9b2e9afcd3bc"
+              user_id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+              is_admin: true
+              created: "2024-07-22T16:01:07+00:00"

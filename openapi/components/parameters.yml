@@ -157,7 +157,7 @@ filterSearch:
 
 filterHasAccess:
   name: "filter[has-access]"
-  description: "Only return elements where specified elements have access."
+  description: "Only return elements where specified users have access."
   in: "query"
   required: false
   schema:
@@ -189,7 +189,7 @@ filterHasManagers:
     items:
       type: "string"
       format: "uuid"
-      description: "Manager UUID"
+      description: "User UUID"
 
 filterHasGroups:
   name: "filter[has-groups]"
@@ -205,7 +205,7 @@ filterHasGroups:
 
 filterHasParent:
   name: "filter[has-parent]"
-  description: "Only return elements filtered by parent."
+  description: "Only return elements filtered by parent folder."
   in: "query"
   required: false
   schema:
@@ -239,7 +239,7 @@ filterFrequency:
 
 filterIsSharedWithGroup:
   name: "filter[is-shared-with-group]"
-  description: "Only show elements shared with group."
+  description: "Only return elements shared with group."
   in: "query"
   required: false
   schema:
@@ -249,7 +249,7 @@ filterIsSharedWithGroup:
   
 filterFrom:
   name: "filter[from]"
-  description: "Only show elements from a specific date-time."
+  description: "Only return elements from a specific date-time."
   in: "query"
   required: false
   schema:
@@ -257,7 +257,7 @@ filterFrom:
 
 filterCreatedAfter:
   name: "filter[created-after]"
-  description: "Only show elements created after a specific date-time."
+  description: "Only return elements created after a specific date-time."
   in: "query"
   required: false
   schema:
@@ -265,7 +265,7 @@ filterCreatedAfter:
 
 filterCreatedBefore:
   name: "filter[created-before]"
-  description: "Only show elements created before a specific date-time."
+  description: "Only return elements created before a specific date-time."
   in: "query"
   required: false
   schema:
@@ -273,7 +273,7 @@ filterCreatedBefore:
 
 filterModifiedAfter:
   name: "filter[modified-after]"
-  description: "Only show elements modified after a timestamp."
+  description: "Only return elements modified after a timestamp."
   in: "query"
   required: false
   schema:
@@ -281,7 +281,7 @@ filterModifiedAfter:
 
 filterIsSuccess:
   name: "filter[is-success]"
-  description: "Only show success elements."
+  description: "Only return success elements."
   in: "query"
   required: false
   schema:
@@ -289,7 +289,7 @@ filterIsSuccess:
 
 filterIsDeleted:
   name: "filter[is-deleted]"
-  description: "Only show deleted elements."
+  description: "Only return deleted elements."
   in: "query"
   required: false
   schema:
@@ -297,7 +297,7 @@ filterIsDeleted:
 
 filterIsFavorite:
   name: "filter[is-favorite]"
-  description: "Only show favorite elements."
+  description: "Only return favorite elements."
   in: "query"
   required: false
   schema:
@@ -305,7 +305,7 @@ filterIsFavorite:
 
 filterIsAdmin:
   name: "filter[is-admin]"
-  description: "Only show admin users."
+  description: "Only return admin users."
   in: "query"
   required: false
   schema:
@@ -313,7 +313,7 @@ filterIsAdmin:
 
 filterIsActive:
   name: "filter[is-active]"
-  description: "Only show active elements."
+  description: "Only return active elements."
   in: "query"
   required: false
   schema:
@@ -321,7 +321,7 @@ filterIsActive:
 
 filterIsOwnedByMe:
   name: "filter[is-owned-by-me]"
-  description: "Only show elements owned by yourself."
+  description: "Only return elements owned by yourself."
   in: "query"
   required: false
   schema:
@@ -329,7 +329,7 @@ filterIsOwnedByMe:
 
 filterIsSharedWithMe:
   name: "filter[is-shared-with-me]"
-  description: "Only show elements shared to yourself."
+  description: "Only return elements shared to yourself and you are not owner."
   in: "query"
   required: false
   schema:

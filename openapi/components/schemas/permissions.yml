@@ -15,11 +15,17 @@ permission:
       format: "uuid"
     aco:
       type: "string"
+      enum:
+        - "Resource"
+        - "Folder"
     aco_foreign_key:
       type: "string"
       format: "uuid"
     aro:
       type: "string"
+      enum:
+        - "User"
+        - "Group"
     aro_foreign_key:
       type: "string"
       format: "uuid"

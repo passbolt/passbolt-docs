@@ -65,3 +65,39 @@ deleteDryRun:
             $ref: "../schemas.yml#/header"
           body:
             $ref: "../schemas/groups.yml#/groupDeleteDryRunError"
+      examples:
+        $ref: "../examples/groups.yml#/groupDeleteDryRun/response"
+
+updateDryRunSuccess:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/groups.yml#/groupUpdateDryRun"
+      examples:
+        $ref: "../examples/groups.yml#/groupUpdateDryRunSuccess/response"
+
+updateDryRunError:
+  description: "The dry-run failed."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/groups.yml#/groupUpdateDryRun"
+      examples:
+        $ref: "../examples/groups.yml#/groupUpdateDryRunError/response"

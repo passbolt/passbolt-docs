@@ -46,7 +46,56 @@ groupAdd:
     groups_users:
       type: "array"
       items:
-        $ref: "#/groupsUsersAdd"
+        type: "object"
+        required:
+          - user_id
+          - is_admin
+        properties:
+          user_id:
+            type: "string"
+            format: "uuid"
+          is_admin:
+            type: "boolean"
+
+groupUpdate:
+  type: "object"
+  required:
+    - name
+    - groups_users
+  properties:
+    name:
+      type: "string"
+    groups_users:
+      type: "array"
+      items:
+        type: "object"
+        required:
+          - user_id
+        properties:
+          user_id:
+            type: "string"
+            format: "uuid"
+          is_admin:
+            type: "boolean"
+          delete:
+            type: "boolean"
+    secrets:
+      type: "array"
+      items:
+        type: "object"
+        required:
+          - resource_id
+          - user_id
+          - data
+        properties:
+          resource_id:
+            type: "string"
+            format: "uuid"
+          user_id:
+            type: "string"
+            format: "uuid"
+          data:
+            type: "string"
 
 groupDeleteDryRunError:
   type: "object"
@@ -66,17 +115,62 @@ groupDeleteDryRunError:
           items:
             $ref: "folders.yml#/folderIndexAndView"
 
-groupsUsersAdd:
+groupUpdateDryRun:
   type: "object"
   required:
-    - user_id
-    - is_admin
+    - dry-run
   properties:
-    user_id:
-      type: "string"
-      format: "uuid"
-    is_admin:
-      type: "boolean"
+    dry-run:
+      type: "object"
+      required:
+        - SecretsNeeded
+        - Secrets
+      properties:
+        SecretsNeeded:
+          type: "array"
+          items:
+            type: "object"
+            required:
+              - Secret
+            properties:
+              Secret:
+                type: "object"
+                required:
+                  - resource_id
+                  - user_id
+                properties:
+                  resource_id:
+                    type: "string"
+                    format: "uuid"
+                  user_id:
+                    type: "string"
+                    format: "uuid"
+        Secrets:
+          type: "object"
+          items:
+            type: "object"
+            required:
+              - Secret
+            properties:
+              Secret:
+                type: "object"
+                required:
+                  - id
+                  - resource_id
+                  - user_id
+                  - data
+                properties:
+                  id:
+                    type: "string"
+                    format: "uuid"
+                  resource_id:
+                    type: "string"
+                    format: "uuid"
+                  user_id:
+                    type: "string"
+                    format: "uuid"
+                  data:
+                    type: "string"
 
 groupsUsersIndexAndView:
   type: "object"

@@ -54,6 +54,7 @@ cascade:
     type: "integer"
     enum:
       - 1
+      - 0
 
 containCreator:
   name: "contain[creator]"

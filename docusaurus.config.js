@@ -5,6 +5,7 @@
 // const passboltTheme = require('./src/lib/prism-passbolt');
 import { themes as prismThemes } from 'prism-react-renderer';
 import footerLinks from './data/footer.json';
+import * as Redocusaurus from 'redocusaurus';
 
 const ROUTES = {
   HELPSITE_URL: 'https://www.passbolt.com/docs',
@@ -69,6 +70,17 @@ const config = {
           ignorePatterns: ['/components/**'],
         },
       }),
+    ],
+    [
+      'redocusaurus',
+      {
+        specs: [
+          {
+            spec: 'openapi/root.yml',
+            route: '/development/api'
+          },
+        ],
+      },
     ],
   ],
   customFields: {
@@ -192,6 +204,13 @@ const config = {
             position: 'left',
             label: 'Hosting guide',
           },
+          // {
+          //   type: 'docSidebar',
+          //   href: '/development',
+          //   sidebarId: 'developmentGuideSidebar',
+          //   position: 'left',
+          //   label: 'Dev guide',
+          // },
           // {
           //   type: 'docSidebar',
           //   sidebarId: 'contributeGuideSidebar',

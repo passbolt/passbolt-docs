@@ -1,0 +1,55 @@
+- lang: cURL
+  source: |
+    curl --request PUT \
+      --url {{API_BASE_URL}}/move/folder/162e4717-59a2-439b-86c6-fc651e989939.json \
+      --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+      --data '{
+        "folder_parent_id": "58cd7e9d-1c27-4f67-9266-4156dea94e80"
+      }'
+- lang: JavaScript
+  source: |
+    const url = '{{API_BASE_URL}}/move/folder/162e4717-59a2-439b-86c6-fc651e989939.json';
+    const options = {
+      method: 'PUT',
+      headers: {Authorization: 'Bearer {{JWT_TOKEN}}'},
+      body: '{"folder_parent_id":"58cd7e9d-1c27-4f67-9266-4156dea94e80"}'
+    };
+
+    try {
+      const response = await fetch(url, options);
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+- lang: PHP
+  source: |
+    <?php
+    $curl = curl_init();
+
+    curl_setopt_array($curl, [
+      CURLOPT_URL => "{{API_BASE_URL}}/move/folder/162e4717-59a2-439b-86c6-fc651e989939.json",
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "PUT",
+      CURLOPT_POSTFIELDS => json_encode([
+        'folder_parent_id' => '58cd7e9d-1c27-4f67-9266-4156dea94e80'
+      ]),
+      CURLOPT_HTTPHEADER => [
+        "Authorization: Bearer {{JWT_TOKEN}}"
+      ],
+    ]);
+
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+
+    curl_close($curl);
+
+    if ($err) {
+      echo "cURL Error #:" . $err;
+    } else {
+      echo $response;
+    }

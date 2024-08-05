@@ -1,0 +1,86 @@
+header:
+  type: "object"
+  required:
+    - id
+    - status
+    - servertime
+    - action
+    - message
+    - url
+    - code
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    status:
+      type: "string"
+      enum:
+        - "success"
+        - "error"
+    servertime:
+      type: "integer"
+      example: 1720702619
+    action:
+      type: "string"
+      format: "uuid"
+    message:
+      type: "string"
+      example: "The operation was successful."
+    url:
+      type: "string"
+      format: "uri"
+      example: "/auth/verify.json"
+    code:
+      type: "integer"
+      example: 200
+
+headerWithPagination:
+    type: "object"
+    required:
+      - id
+      - status
+      - servertime
+      - action
+      - message
+      - url
+      - code
+      - pagination
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      status:
+        type: "string"
+        enum:
+          - "success"
+          - "error"
+      servertime:
+        type: "integer"
+        example: 1720702619
+      action:
+        type: "string"
+        format: "uuid"
+      message:
+        type: "string"
+        example: "The operation was successful."
+      url:
+        type: "string"
+        format: "uri"
+        example: "/auth/verify.json"
+      code:
+        type: "integer"
+        example: 200
+      pagination:
+        type: "object"
+        required:
+          - count
+          - page
+          - limit
+        properties:
+          count:
+            type: "integer"
+          page:
+            type: "integer"
+          limit:
+            type: "integer"
+            x-nullable: true

@@ -1,0 +1,37 @@
+resourceType:
+  type: "object"
+  required:
+    - id
+    - slug
+    - name
+    - description
+    - definition
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    slug:
+      type: "string"
+      description: |
+        * `password-string` - The original passbolt resource type, where the secret is a non empty string.
+        * `password-and-description` - A resource with the password and the description encrypted.
+        * `totp` - A resource with standalone TOTP fields.
+        * `password-description-totp` - A resource with encrypted password, description and TOTP fields.
+      enum:
+        - "password-string"
+        - "password-and-description"
+        - "totp"
+        - "password-description-totp"
+    name:
+      type: "string"
+    description:
+      type: "string"
+    definition:
+      type: "object"
+      description: "Schema for the expected data for this kind of resources."
+    created:
+      type: "string"
+      format: "date-time"
+    modified:
+      type: "string"
+      format: "date-time"

@@ -17,6 +17,7 @@ const sidebars = {
   contributeGuideSidebar: require('./contribute.sidebar'),
   hostingGuideSidebar: require('./hosting.sidebar'),
   userGuideSidebar: require('./user.sidebar'),
+  developmentGuideSidebar: require('./development.sidebar')
 };
 
 module.exports = sidebars;

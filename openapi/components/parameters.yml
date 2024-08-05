@@ -65,6 +65,50 @@ cascade:
       - 1
       - 0
 
+containProfile:
+  name: "contain[profile]"
+  description: "Add profile to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containRole:
+  name: "contain[role]"
+  description: "Add role to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containGpgkey:
+  name: "contain[gpgkey]"
+  description: "Add GPG key data to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containLastLoggedIn:
+  name: "contain[last_logged_in]"
+  description: "Add last logged in to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
 containCreator:
   name: "contain[creator]"
   description: "Add creator to response body."

@@ -1,0 +1,26 @@
+role:
+  type: "object"
+  required:
+    - id
+    - name
+    - description
+    - created
+    - modified
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    name:
+      type: "string"
+      enum:
+        - admin
+        - guest
+        - user
+    description:
+      type: "string"
+    created:
+      type: "string"
+      format: "date-time"
+    modified:
+      type: "string"
+      format: "date-time"

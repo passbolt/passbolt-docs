@@ -37,6 +37,10 @@ paths:
     $ref: "paths/resourceTypes.yml"
   /resource-types/{resourceTypeId}.json:
     $ref: "paths/resourceType.yml"
+  /roles.json:
+    $ref: "paths/roles.yml"
+  /users.json:
+    $ref: "paths/users.yml"
 
 tags:
   - name: "Groups"
@@ -50,6 +54,8 @@ tags:
   - name: "Resource types"
     description:
       $ref: "components/descriptions/resourceTypes.yml#/tag"
+  - name: "Roles"
+    description: "Different categories of users."
 
 components:
   securitySchemes:

@@ -1,0 +1,58 @@
+get:
+  summary: "Get multiple folders."
+  operationId: "indexFolders"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/folders.yml#/index"
+  tags:
+    - "Folders"
+  parameters:
+    - $ref: "../components/parameters.yml#/containChildrenResources"
+    - $ref: "../components/parameters.yml#/containChildrenFolders"
+    - $ref: "../components/parameters.yml#/containCreator"
+    - $ref: "../components/parameters.yml#/containCreatorProfile"
+    - $ref: "../components/parameters.yml#/containModifier"
+    - $ref: "../components/parameters.yml#/containModifierProfile"
+    - $ref: "../components/parameters.yml#/containPermission"
+    - $ref: "../components/parameters.yml#/containPermissions"
+    - $ref: "../components/parameters.yml#/containPermissionsUserProfile"
+    - $ref: "../components/parameters.yml#/containPermissionsGroup"
+    - $ref: "../components/parameters.yml#/filterHasId"
+    - $ref: "../components/parameters.yml#/filterHasParent"
+    - $ref: "../components/parameters.yml#/filterSearch"
+  responses:
+    200:
+      $ref: "../components/responses/folders.yml#/index"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+
+post:
+  summary: "Create a folder."
+  operationId: "addFolder"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/folders.yml#/add"
+  tags:
+    - "Folders"
+  requestBody:
+    $ref: "../components/requestBodies/folders.yml#/folderAdd"
+  parameters:
+    - $ref: "../components/parameters.yml#/containChildrenResources"
+    - $ref: "../components/parameters.yml#/containChildrenFolders"
+    - $ref: "../components/parameters.yml#/containCreator"
+    - $ref: "../components/parameters.yml#/containModifier"
+    - $ref: "../components/parameters.yml#/containPermission"
+    - $ref: "../components/parameters.yml#/containPermissions"
+    - $ref: "../components/parameters.yml#/containPermissionsUserProfile"
+    - $ref: "../components/parameters.yml#/containPermissionsGroup"
+  responses:
+    200:
+      $ref: "../components/responses/folders.yml#/add"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"

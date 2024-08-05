@@ -36,9 +36,62 @@ foreignId:
     type: "string"
     format: "uuid"
 
+folderId:
+  name: "folderId"
+  description: "ID for the folder being manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
+cascade:
+  name: "cascade"
+  description: "Delete element and its children elements."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
 containCreator:
   name: "contain[creator]"
   description: "Add creator to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containCreatorProfile:
+  name: "contain[creator.profile]"
+  description: "Add creator and their profile to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containChildrenResources:
+  name: "contain[children_resources]"
+  description: "Add children resources to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containChildrenFolders:
+  name: "contain[children_folders]"
+  description: "Add children folders to response body."
   in: "query"
   required: false
   schema:
@@ -73,6 +126,17 @@ containFavorite:
 containModifier:
   name: "contain[modifier]"
   description: "Add modifier to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containModifierProfile:
+  name: "contain[modifier.profile]"
+  description: "Add modifier and their profile to response body."
   in: "query"
   required: false
   schema:

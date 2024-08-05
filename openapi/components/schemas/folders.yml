@@ -1,0 +1,74 @@
+folderIndexAndView:
+  type: "object"
+  required:
+    - id
+    - name
+    - created
+    - modified
+    - created_by
+    - modified_by
+    - personal
+    - folder_parent_id
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    name:
+      type: "string"
+    created:
+      type: "string"
+      format: "date-time"
+    modified:
+      type: "string"
+      format: "date-time"
+    created_by:
+      type: "string"
+      format: "uuid"
+    modified_by:
+      type: "string"
+      format: "uuid"
+    children_resources:
+      type: "array"
+      items:
+        $ref: "resources.yml#/resourceIndexAndView"
+    children_folders:
+      type: "array"
+      items:
+        $ref: "#/folderIndexAndView"
+    modifier:
+      $ref: "users.yml#/user"
+    creator:
+      $ref: "users.yml#/user"
+    permission:
+      $ref: "permissions.yml#/permission"
+    permissions:
+      type: "array"
+      items:
+        $ref: "permissions.yml#/permission"
+    personal:
+      type: "boolean"
+    folder_parent_id:
+      type: "string"
+      format: "uuid"
+      x-nullable: true
+
+folderAdd:
+  type: "object"
+  required:
+    - name
+  properties:
+    name:
+      type: "string"
+    folder_parent_id:
+      type: "string"
+      format: "uuid"
+      x-nullable: true
+
+
+folderUpdate:
+  type: "object"
+  required:
+    - name
+  properties:
+    name:
+      type: "string"

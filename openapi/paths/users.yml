@@ -1,0 +1,27 @@
+get:
+  summary: "Get multiple users."
+  operationId: "indexUsers"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/users.yml#/index"
+  tags:
+    - "Users"
+  parameters:
+    - $ref: "../components/parameters.yml#/containLastLoggedIn"
+    - $ref: "../components/parameters.yml#/containGroupsUsers"
+    - $ref: "../components/parameters.yml#/containGpgkey"
+    - $ref: "../components/parameters.yml#/containProfile"
+    - $ref: "../components/parameters.yml#/containRole"
+    - $ref: "../components/parameters.yml#/filterSearch"
+    - $ref: "../components/parameters.yml#/filterHasGroups"
+    - $ref: "../components/parameters.yml#/filterHasAccess"
+    - $ref: "../components/parameters.yml#/filterIsAdmin"
+    - $ref: "../components/parameters.yml#/filterIsActive"
+  responses:
+    200:
+      $ref: "../components/responses/users.yml#/index"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"

@@ -1,0 +1,49 @@
+gpgkey:
+  type: "object"
+  required:
+    - id
+    - user_id
+    - armored_key
+    - bits
+    - uid
+    - key_id
+    - fingerprint
+    - type
+    - expires
+    - key_created
+    - deleted
+    - created
+    - modified
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    user_id:
+      type: "string"
+      format: "uuid"
+    armored_key:
+      type: "string"
+    bits:
+      type: "integer"
+    uid:
+      type: "string"
+    key_id:
+      type: "string"
+    fingerprint:
+      type: "string"
+    type:
+      type: "string"
+      enum:
+        - "RSA"
+    expires:
+      type: "string"
+      format: "date-time"
+      x-nullable: true
+    delete:
+      type: "boolean"
+    created:
+      type: "string"
+      format: "date-time"
+    modified:
+      type: "string"
+      format: "date-time"

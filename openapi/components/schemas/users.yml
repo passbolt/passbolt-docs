@@ -32,10 +32,6 @@ user:
       type: "string"
       format: "date-time"
       x-nullable: true
-    last_logged_in:
-      type: "string"
-      format: "date-time"
-      x-nullable: true
     profile:
       type: "object"
       required:
@@ -80,4 +76,15 @@ user:
                 small:
                   type: "string"
                   format: "url"
+    groups_users:
+      $ref: "groups.yml#/groupsUsersIndexAndView"
+    gpgkey:
+      $ref: "gpgkeys.yml#/gpgkey"
+    role:
+      $ref: "roles.yml#/role"
+    last_logged_in:
+      type: "string"
+      format: "date-time"
+      x-nullable: true
+
                 

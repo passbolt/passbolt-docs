@@ -1,0 +1,103 @@
+index:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            type: "array"
+            items:
+              $ref: "../schemas/groups.yml#/groupIndexAndView"
+      examples:
+        $ref: "../examples/groups.yml#/groupsIndex/response"
+
+view:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/groups.yml#/groupIndexAndView"
+      examples:
+        $ref: "../examples/groups.yml#/groupView/response"
+
+addAndUpdate:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/groups.yml#/groupIndexAndView"
+      examples:
+        $ref: "../examples/groups.yml#/groupAdd/response"
+
+deleteDryRun:
+  description: "The dry-run failed."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/groups.yml#/groupDeleteDryRunError"
+      examples:
+        $ref: "../examples/groups.yml#/groupDeleteDryRun/response"
+
+updateDryRunSuccess:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/groups.yml#/groupUpdateDryRun"
+      examples:
+        $ref: "../examples/groups.yml#/groupUpdateDryRunSuccess/response"
+
+updateDryRunError:
+  description: "The dry-run failed."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/groups.yml#/groupUpdateDryRun"
+      examples:
+        $ref: "../examples/groups.yml#/groupUpdateDryRunError/response"

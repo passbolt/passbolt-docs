@@ -68,7 +68,7 @@ delete:
     - "Resources"
   responses:
     200:
-      $ref: "../components/responses.yml#/emptyBody"
+      $ref: "../components/responses.yml#/nullBody"
     400:
       $ref: "../components/responses.yml#/badRequest"
     401:

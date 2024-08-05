@@ -32,6 +32,10 @@ user:
       type: "string"
       format: "date-time"
       x-nullable: true
+    last_logged_in:
+      type: "string"
+      format: "date-time"
+      x-nullable: true
     profile:
       type: "object"
       required:

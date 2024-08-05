@@ -47,6 +47,7 @@ permission:
       format: "date-time"
     user:
       $ref: "users.yml#/user"
+      x-nullable: true
     group:
-      $ref: "groups.yml#/group"
+      $ref: "groups.yml#/groupIndexAndView"
       x-nullable: true

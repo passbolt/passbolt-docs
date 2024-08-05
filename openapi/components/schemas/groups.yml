@@ -1,4 +1,4 @@
-group:
+groupIndexAndView:
   type: "object"
   required:
     - id
@@ -28,3 +28,172 @@ group:
     modified_by:
       type: "string"
       format: "uuid"
+    my_group_user:
+      $ref: "#/groupsUsersIndexAndView"
+    groups_users:
+      type: "array"
+      items:
+        $ref: "#/groupsUsersIndexAndView"
+
+groupAdd:
+  type: "object"
+  required:
+    - name
+    - groups_users
+  properties:
+    name:
+      type: "string"
+    groups_users:
+      type: "array"
+      items:
+        type: "object"
+        required:
+          - user_id
+          - is_admin
+        properties:
+          user_id:
+            type: "string"
+            format: "uuid"
+          is_admin:
+            type: "boolean"
+
+groupUpdate:
+  type: "object"
+  required:
+    - name
+    - groups_users
+  properties:
+    name:
+      type: "string"
+    groups_users:
+      type: "array"
+      items:
+        type: "object"
+        required:
+          - user_id
+        properties:
+          user_id:
+            type: "string"
+            format: "uuid"
+          is_admin:
+            type: "boolean"
+          delete:
+            type: "boolean"
+    secrets:
+      type: "array"
+      items:
+        type: "object"
+        required:
+          - resource_id
+          - user_id
+          - data
+        properties:
+          resource_id:
+            type: "string"
+            format: "uuid"
+          user_id:
+            type: "string"
+            format: "uuid"
+          data:
+            type: "string"
+
+groupDeleteDryRunError:
+  type: "object"
+  properties:
+    resources:
+      type: "object"
+      properties:
+        sole_owner:
+          type: "array"
+          items:
+            $ref: "resources.yml#/resourceIndexAndView"
+    folders:
+      type: "object"
+      properties:
+        sole_owner:
+          type: "array"
+          items:
+            $ref: "folders.yml#/folderIndexAndView"
+
+groupUpdateDryRun:
+  type: "object"
+  required:
+    - dry-run
+  properties:
+    dry-run:
+      type: "object"
+      required:
+        - SecretsNeeded
+        - Secrets
+      properties:
+        SecretsNeeded:
+          type: "array"
+          items:
+            type: "object"
+            required:
+              - Secret
+            properties:
+              Secret:
+                type: "object"
+                required:
+                  - resource_id
+                  - user_id
+                properties:
+                  resource_id:
+                    type: "string"
+                    format: "uuid"
+                  user_id:
+                    type: "string"
+                    format: "uuid"
+        Secrets:
+          type: "object"
+          items:
+            type: "object"
+            required:
+              - Secret
+            properties:
+              Secret:
+                type: "object"
+                required:
+                  - id
+                  - resource_id
+                  - user_id
+                  - data
+                properties:
+                  id:
+                    type: "string"
+                    format: "uuid"
+                  resource_id:
+                    type: "string"
+                    format: "uuid"
+                  user_id:
+                    type: "string"
+                    format: "uuid"
+                  data:
+                    type: "string"
+
+groupsUsersIndexAndView:
+  type: "object"
+  required:
+    - id
+    - group_id
+    - user_id
+    - is_admin
+    - created
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    group_id:
+      type: "string"
+      format: "uuid"
+    user_id:
+      type: "string"
+      format: "uuid"
+    is_admin:
+      type: "boolean"
+    created:
+      type: "string"
+      format: "date-time"
+    user:
+      $ref: "users.yml#/user"

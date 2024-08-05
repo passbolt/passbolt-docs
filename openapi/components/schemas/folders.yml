@@ -36,9 +36,9 @@ folderIndexAndView:
       items:
         $ref: "#/folderIndexAndView"
     modifier:
-      $ref: "users.yml#/user"
+      $ref: "users.yml#/userIndexAndView"
     creator:
-      $ref: "users.yml#/user"
+      $ref: "users.yml#/userIndexAndView"
     permission:
       $ref: "permissions.yml#/permission"
     permissions:

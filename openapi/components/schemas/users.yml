@@ -1,4 +1,4 @@
-user:
+userIndexAndView:
   type: "object"
   required:
     - id
@@ -10,6 +10,8 @@ user:
     - modified
     - disabled
   properties:
+    is_mfa_enabled:
+      type: "boolean"
     id:
       type: "string"
       format: "uuid"
@@ -86,5 +88,3 @@ user:
       type: "string"
       format: "date-time"
       x-nullable: true
-
-                

@@ -54,6 +54,15 @@ folderId:
     type: "string"
     format: "uuid"
 
+userId:
+  name: "userId"
+  description: "ID for the user being manipulated. Can be set to `me`."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
 cascade:
   name: "cascade"
   description: "Delete element and its children elements."

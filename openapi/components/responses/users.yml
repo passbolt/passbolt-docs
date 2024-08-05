@@ -13,6 +13,25 @@ index:
           body:
             type: "array"
             items:
-              $ref: "../schemas/users.yml#/user"
+              $ref: "../schemas/users.yml#/userIndexAndView"
       examples:
         $ref: "../examples/users.yml#/usersIndex/response"
+
+view:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            type: "array"
+            items:
+              $ref: "../schemas/users.yml#/userIndexAndView"
+      examples:
+        $ref: "../examples/users.yml#/userView/response"

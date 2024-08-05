@@ -41,6 +41,8 @@ paths:
     $ref: "paths/roles.yml"
   /users.json:
     $ref: "paths/users.yml"
+  /users/{userId}.json:
+    $ref: "paths/user.yml"
 
 tags:
   - name: "Groups"

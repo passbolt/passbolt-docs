@@ -196,4 +196,4 @@ groupsUsersIndexAndView:
       type: "string"
       format: "date-time"
     user:
-      $ref: "users.yml#/user"
+      $ref: "users.yml#/userIndexAndView"

@@ -88,5 +88,6 @@ deleteDryRun:
             $ref: "../schemas.yml#/header"
           body:
             $ref: "../schemas/users.yml#/userDeleteDryRun"
+            description: "Could also be a `string` if the issue is not related to resources or groups."
       examples:
         $ref: "../examples/users.yml#/userDeleteDryRun/response"

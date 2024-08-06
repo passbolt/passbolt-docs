@@ -18,3 +18,28 @@ get:
       $ref: "../components/responses.yml#/authenticationRequired"
     404:
       $ref: "../components/responses.yml#/notFound"
+
+put:
+  summary: "Update a user."
+  operationId: "updateUser"
+  description:
+    $ref: "../components/descriptions/users.yml#/update"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/users.yml#/update"
+  tags:
+    - "Users"
+  parameters:
+    - $ref: "../components/parameters.yml#/userId"
+  responses:
+    200:
+      $ref: "../components/responses/users.yml#/update"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"
+  requestBody:
+    $ref: "../components/requestBodies/users.yml#/userUpdate"

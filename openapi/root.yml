@@ -60,6 +60,9 @@ tags:
       $ref: "components/descriptions/resourceTypes.yml#/tag"
   - name: "Roles"
     description: "Different categories of users."
+  - name: "Users"
+    description:
+      $ref: "components/descriptions/users.yml#/tag"
 
 components:
   securitySchemes:

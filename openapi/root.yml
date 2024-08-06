@@ -43,6 +43,8 @@ paths:
     $ref: "paths/users.yml"
   /users/{userId}.json:
     $ref: "paths/user.yml"
+  /users/{userId}/dry-run.json:
+    $ref: "paths/userDryRun.yml"
 
 tags:
   - name: "Groups"

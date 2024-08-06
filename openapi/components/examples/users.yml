@@ -233,3 +233,103 @@ userAdd:
             created: "2012-07-04T13:39:25+00:00"
             modified: "2012-07-04T13:39:25+00:00"
           last_logged_in: null
+
+userDeleteDryRun:
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "error"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The user cannot be deleted. You need to transfer the user group manager role to other users before deleting this user.You need to transfer the ownership for the shared passwords owned by this user before deleting this user."
+          url: "/users/f848277c-5398-58f8-a82a-72397af2d450.json"
+          code: 200
+        body:
+          errors:
+            groups:
+              sole_manager:
+                id: "73479f22-b387-4d4e-b625-b1cc0b7ed116"
+                name: "New Group"
+                deleted: false
+                created: "2019-04-08T12:10:03+00:00"
+                modified: "2019-04-08T12:10:03+00:00"
+                created_by: "d57c10f5-639d-5160-9c81-8a0c6c4ec856"
+                modified_by: "d57c10f5-639d-5160-9c81-8a0c6c4ec856"
+                groups_users:
+                  - id: "6809e727-1219-4cfa-a201-1d3e997ca351"
+                    group_id: "73479f22-b387-4d4e-b625-b1cc0b7ed116"
+                    user_id: "f848277c-5398-58f8-a82a-72397af2d450"
+                    is_admin: true
+                    created: "2019-04-08T12:10:03+00:00"
+                    user:
+                      id: "f848277c-5398-58f8-a82a-72397af2d450"
+                      role_id: "a58de6d3-f52c-5080-b79b-a601a647ac85"
+                      username: "ada@passbolt.com"
+                      active: true
+                      deleted: false
+                      created: "2019-02-04T12:05:44+00:00"
+                      modified: "2019-03-04T12:05:44+00:00"
+                      profile:
+                        id: "99522cc9-0acc-5ae2-b996-d03bded3c0a6"
+                        user_id: "f848277c-5398-58f8-a82a-72397af2d450"
+                        first_name: "Ada"
+                        last_name: "Lovelace"
+                        created: "2019-04-04T12:05:45+00:00"
+                        modified: "2019-04-04T12:05:45+00:00"
+                      last_logged_in: ""  
+            resources:
+              sole_owner:
+                id: "8e3874ae-4b40-590b-968a-418f704b9d9a"
+                name: "apache"
+                username: "www-data"
+                uri: "http://www.apache.org/"
+                description: "Apache web server software."
+                deleted": false
+                created": "2019-04-02T12:05:58+00:00"
+                modified": "2019-04-03T12:05:58+00:00"
+                created_by": "f848277c-5398-58f8-a82a-72397af2d450"
+                modified_by": "f848277c-5398-58f8-a82a-72397af2d450"
+                permissions:
+                  - id: "898ce1d0-601f-5194-976b-147a680dd472"
+                    aco: "Resource"
+                    aco_foreign_key: "8e3874ae-4b40-590b-968a-418f704b9d9a"
+                    aro: "User"
+                    aro_foreign_key: "640ebc06-5ec1-5322-a1ae-6120ed2f3a74"
+                    type: 1
+                    created: "2019-04-04T12:06:00+00:00"
+                    modified: "2019-04-04T12:06:00+00:00"
+                    group: null
+                    user:
+                      id: "640ebc06-5ec1-5322-a1ae-6120ed2f3a74"
+                      role_id: "a58de6d3-f52c-5080-b79b-a601a647ac85"
+                      username: "carol@passbolt.com"
+                      active: true
+                      deleted: false
+                      created: "2019-04-02T12:05:44+00:00"
+                      modified: "2019-04-03T12:05:44+00:00"
+                      profile:
+                        id: "48bcd9ac-a520-53e0-b3a4-9da7e57b91aa"
+                        user_id: "640ebc06-5ec1-5322-a1ae-6120ed2f3a74"
+                        first_name: "Carol"
+                        last_name: "Shaw"
+                        created: "2019-04-04T12:05:45+00:00"
+                        modified: "2019-04-04T12:05:45+00:00"
+                        avatar:
+                          id: "8ef95b32-e2a3-4b58-827c-dd67e68cfb48"
+                          profile_id: "920edf1e-5ce8-4da4-a8fc-21040fe78d09"
+                          created: "2024-08-06T14:58:09+00:00"
+                          modified: "2024-08-06T14:58:09+00:00"
+                          url:
+                            medium: "https://passbolt.local/avatars/view/8ef95b32-e2a3-4b58-827c-dd67e68cfb48/medium.jpg"
+                            small: "https://passbolt.local/avatars/view/8ef95b32-e2a3-4b58-827c-dd67e68cfb48/small.jpg"
+                      last_logged_in: null
+            groups_to_delete:
+              - id: "05b68bd2-e4e8-4838-ac21-4661b27fb23b"
+                name: "Another Group"
+                deleted: false
+                created: "2019-04-08T12:44:44+00:00"
+                modified: "2019-04-08T12:44:44+00:00"
+                created_by: "d57c10f5-639d-5160-9c81-8a0c6c4ec856"
+                modified_by: "d57c10f5-639d-5160-9c81-8a0c6c4ec856"

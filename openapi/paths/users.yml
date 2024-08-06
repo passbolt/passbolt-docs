@@ -25,3 +25,22 @@ get:
       $ref: "../components/responses.yml#/badRequest"
     401:
       $ref: "../components/responses.yml#/authenticationRequired"
+
+post:
+  summary: "Create a user."
+  operationId: "addUser"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/users.yml#/add"
+  tags:
+    - "Users"
+  requestBody:
+    $ref: "../components/requestBodies/users.yml#/userAdd"
+  responses:
+    200:
+      $ref: "../components/responses/users.yml#/add"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"

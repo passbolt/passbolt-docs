@@ -7,3 +7,13 @@ userUpdate:
         $ref: "../schemas/users.yml#/userUpdate"
       examples:
         $ref: "../examples/users.yml#/userUpdate/request"
+
+userAdd:
+  description: The user you want to create
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/users.yml#/userAdd"
+      examples:
+        $ref: "../examples/users.yml#/userAdd/request"

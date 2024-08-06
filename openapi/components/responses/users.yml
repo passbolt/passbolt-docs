@@ -54,3 +54,22 @@ update:
               $ref: "../schemas/users.yml#/userIndexAndView"
       examples:
         $ref: "../examples/users.yml#/userUpdate/response"
+
+add:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            type: "array"
+            items:
+              $ref: "../schemas/users.yml#/userIndexAndView"
+      examples:
+        $ref: "../examples/users.yml#/userAdd/response"

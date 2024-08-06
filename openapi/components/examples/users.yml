@@ -185,3 +185,51 @@ userUpdate:
             created: "2012-07-04T13:39:25+00:00"
             modified: "2012-07-04T13:39:25+00:00"
           last_logged_in: null
+
+userAdd:
+  request:
+    base:
+      value:
+        username: "ada@passbolt.com"
+        profile:
+          first_name: "Ada"
+          last_name: "Lovelace"
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The user was successfully added. This user now need to complete the setup."
+          url: "/users.json"
+          code: 200
+        body:
+          id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+          role_id: "639b50cf-66f9-4b23-8d55-d0609710cd9d"
+          active: false
+          deleted: false
+          created: "2024-07-03T12:52:06+00:00"
+          modified: "2024-07-03T12:53:52+00:00"
+          disabled: null
+          groups_users: []
+          profile:
+              id: "920edf1e-5ce8-4da4-a8fc-21040fe78d09"
+              user_id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+              first_name: "Ada"
+              last_name: "Lovelace"
+              created: "2024-07-03T12:52:06+00:00"
+              modified: "2024-07-03T12:52:06+00:00"
+              avatar:
+                url:
+                  medium: "https://passbolt.local/img/avatar/user_medium.png"
+                  small: "https://passbolt.local/img/avatar/use.png"
+          gpgkey: null
+          role:
+            id: "c2f96fb1-611d-466d-80fb-e82beba5ed87"
+            name: "user"
+            description: "Logged in user"
+            created: "2012-07-04T13:39:25+00:00"
+            modified: "2012-07-04T13:39:25+00:00"
+          last_logged_in: null

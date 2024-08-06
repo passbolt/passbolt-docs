@@ -29,6 +29,8 @@ get:
 post:
   summary: "Create a user."
   operationId: "addUser"
+  description:
+    $ref: "../components/descriptions/users.yml#/add"
   security:
     - bearerHttpAuthentication: []
   x-codeSamples:

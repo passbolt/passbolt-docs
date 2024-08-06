@@ -47,6 +47,8 @@ put:
 delete:
   summary: "Delete a user."
   operationId: "deleteUser"
+  description:
+    $ref: "../components/descriptions/users.yml#/delete"
   security:
     - bearerHttpAuthentication: []
   x-codeSamples:

@@ -82,6 +82,7 @@ userIndexAndView:
       $ref: "groups.yml#/groupsUsersIndexAndView"
     gpgkey:
       $ref: "gpgkeys.yml#/gpgkey"
+      x-nullable: true
     role:
       $ref: "roles.yml#/role"
     last_logged_in:
@@ -105,4 +106,27 @@ userUpdate:
         last_name:
           type: "string"
         avatar:
+          type: "string"
+
+userAdd:
+  type: "object"
+  required:
+    - username
+    - profile
+  properties:
+    username:
+      type: "string"
+      format: "email"
+    role_id:
+      type: "string"
+      format: "uuid"
+    profile:
+      type: "object"
+      required:
+        - first_name
+        - last_name
+      properties:
+        first_name:
+          type: "string"
+        last_name:
           type: "string"

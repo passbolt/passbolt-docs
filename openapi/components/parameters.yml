@@ -56,7 +56,7 @@ folderId:
 
 userId:
   name: "userId"
-  description: "ID for the user being manipulated. Can be set to `me`."
+  description: "ID for the user being manipulated. Can be set to `me` when viewing a user."
   in: "path"
   required: true
   schema:

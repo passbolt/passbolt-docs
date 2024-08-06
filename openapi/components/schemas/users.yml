@@ -66,6 +66,18 @@ userIndexAndView:
           required:
             - url
           properties:
+            id:
+              type: "string"
+              format: "uuid"
+            profile_id:
+              type: "string"
+              format: "uuid"
+            created:
+              type: "string"
+              format: "date-time"
+            modified:
+              type: "string"
+              format: "date-time"
             url:
               type: "object"
               required:
@@ -130,3 +142,28 @@ userAdd:
           type: "string"
         last_name:
           type: "string"
+
+userDeleteDryRun:
+  type: "object"
+  properties:
+    errors:
+      type: "object"
+      properties:
+        groups:
+          type: "object"
+          properties:
+            sole_manager:
+              type: "array"
+              items:
+                $ref: "groups.yml#/groupIndexAndView"
+        resources:
+          type: "object"
+          properties:
+            sole_owner:
+              type: "array"
+              items:
+                $ref: "resources.yml#/resourceIndexAndView"
+        groups_to_delete:
+          type: "array"
+          items:
+            $ref: "groups.yml#/groupIndexAndView"

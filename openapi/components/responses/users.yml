@@ -73,3 +73,20 @@ add:
               $ref: "../schemas/users.yml#/userIndexAndView"
       examples:
         $ref: "../examples/users.yml#/userAdd/response"
+
+deleteDryRun:
+  description: "The dry-run failed."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/users.yml#/userDeleteDryRun"
+      examples:
+        $ref: "../examples/users.yml#/userDeleteDryRun/response"

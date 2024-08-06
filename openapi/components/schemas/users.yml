@@ -88,3 +88,21 @@ userIndexAndView:
       type: "string"
       format: "date-time"
       x-nullable: true
+
+userUpdate:
+  type: "object"
+  properties:
+    role_id:
+      type: "string"
+      format: "uuid"
+    disabled:
+      type: "boolean"
+    profile:
+      type: "object"
+      properties:
+        first_name:
+          type: "string"
+        last_name:
+          type: "string"
+        avatar:
+          type: "string"

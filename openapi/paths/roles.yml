@@ -1,0 +1,16 @@
+get:
+  summary: "Get multiple roles."
+  operationId: "indexRoles"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/roles.yml#/index"
+  tags:
+    - "Roles"
+  responses:
+    200:
+      $ref: "../components/responses/roles.yml#/index"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"

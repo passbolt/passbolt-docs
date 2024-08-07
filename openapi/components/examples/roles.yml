@@ -1,0 +1,28 @@
+rolesIndex:
+  response:
+    index:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/roles.json"
+          code: 200
+        body:
+          - id: "639b50cf-66f9-4b23-8d55-d0609710cd9d"
+            name: "admin"
+            description: "Organization administrator"
+            created: "2012-07-04T13:39:25+00:00"
+            modified: "2012-07-04T13:39:25+00:00"
+          - id: "50307b17-a097-483b-b388-4bf262348180"
+            name: "guest"
+            description: "Non logged in user"
+            created: "2012-07-04T13:39:25+00:00"
+            modified: "2012-07-04T13:39:25+00:00"
+          - id: "c2f96fb1-611d-466d-80fb-e82beba5ed87"
+            name: "user"
+            description: "Logged in user"
+            created: "2012-07-04T13:39:25+00:00"
+            modified: "2012-07-04T13:39:25+00:00"

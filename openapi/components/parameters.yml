@@ -54,9 +54,62 @@ folderId:
     type: "string"
     format: "uuid"
 
+userId:
+  name: "userId"
+  description: "ID for the user being manipulated. Can be set to `me` when viewing a user."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
 cascade:
   name: "cascade"
   description: "Delete element and its children elements."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containProfile:
+  name: "contain[profile]"
+  description: "Add profile to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containRole:
+  name: "contain[role]"
+  description: "Add role to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containGpgkey:
+  name: "contain[gpgkey]"
+  description: "Add GPG key data to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containLastLoggedIn:
+  name: "contain[last_logged_in]"
+  description: "Add last logged in to response body."
   in: "query"
   required: false
   schema:

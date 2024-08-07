@@ -40,7 +40,7 @@ gpgkey:
       type: "string"
       format: "date-time"
       x-nullable: true
-    delete:
+    deleted:
       type: "boolean"
     created:
       type: "string"

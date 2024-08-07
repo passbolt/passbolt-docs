@@ -25,6 +25,10 @@ paths:
     $ref: "paths/folders.yml"
   /folders/{folderId}.json:
     $ref: "paths/folder.yml"
+  /gpgkeys.json:
+    $ref: "paths/gpgkeys.yml"
+  /gpgkeys/{gpgkeyId}.json:
+    $ref: "paths/gpgkey.yml"
   /groups.json:
     $ref: "paths/groups.yml"
   /groups/{groupId}.json:
@@ -54,6 +58,9 @@ tags:
   - name: "Favorites"
     description:
       $ref: "components/descriptions/favorites.yml#/tag"
+  - name: "GPG keys"
+    description:
+      $ref: "components/descriptions/gpgkeys.yml#/tag"
   - name: "Groups"
     description:
       $ref: "components/descriptions/groups.yml#/tag"

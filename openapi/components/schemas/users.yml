@@ -156,6 +156,13 @@ userDeleteDryRun:
               type: "array"
               items:
                 $ref: "groups.yml#/groupIndexAndView"
+        folders:
+          type: "object"
+          properties:
+            sole_owner:
+              type: "array"
+              items:
+                $ref: "folders.yml#/folderIndexAndView"
         resources:
           type: "object"
           properties:

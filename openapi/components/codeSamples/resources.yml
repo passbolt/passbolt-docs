@@ -260,7 +260,7 @@ view:
       $curl = curl_init();
 
       curl_setopt_array($curl, [
-        CURLOPT_URL => "https://passbolt.localhost/resources/ae60d89c-f13b-4fb1-b2dc-c8dc806cac88.json",
+        CURLOPT_URL => "{{API_BASE_URL}}/resources/ae60d89c-f13b-4fb1-b2dc-c8dc806cac88.json",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
         CURLOPT_MAXREDIRS => 10,

@@ -35,6 +35,7 @@ gpgkey:
       type: "string"
       enum:
         - "RSA"
+        - "ECC"
     expires:
       type: "string"
       format: "date-time"

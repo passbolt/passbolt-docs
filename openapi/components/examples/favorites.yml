@@ -1,0 +1,19 @@
+favoriteAdd:
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The resource was marked as favorite."
+          url: "/favorites/resource/42968631-0c51-4405-9f2d-c6700c5057be.json"
+          code: 200
+        body:
+          id: "90a25878-a6c1-43c1-a983-68d27f2f0be8"
+          user_id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+          foreign_key: "42968631-0c51-4405-9f2d-c6700c5057be"
+          foreign_model: "Resource"
+          created: "2024-08-07T13:39:29+00:00"
+          modified: "2024-08-07T13:39:29+00:00"

@@ -1,0 +1,20 @@
+get:
+  summary: "Get a GPG key."
+  operationId: "viewGpgkey"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/gpgkeys.yml#/view"
+  parameters:
+    - $ref: "../components/parameters.yml#/gpgkeyId"
+  tags:
+    - "GPG keys"
+  responses:
+    200:
+      $ref: "../components/responses/gpgkeys.yml#/view"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"

@@ -1,0 +1,2 @@
+tag: |
+  In order to encrypt information, the server and the clients needs the user's public keys. These OpenPGP endpoints let you query the saved public key data.

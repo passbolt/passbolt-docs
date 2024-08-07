@@ -1,0 +1,57 @@
+gpgkeysIndex:
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/gpgkeys.json"
+          code: 200
+          pagination:
+            count: 1
+            page: 1
+            limit: null
+        body:
+          - id: "ed4d9ea6-f354-4a74-ad09-4e1dd69041ec"
+            user_id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+            armored_key: "-----BEGIN PGP PUBLIC KEY BLOCK-----"
+            bits: 3072
+            uid: "Ada Lovelace <ada@passbolt.com>"
+            key_id: "D277E7A2E45418A0"
+            fingerprint: "850C6BDE59E9F126BFB4683BD277E7A2E45418A0"
+            type: "RSA"
+            expires: null
+            key_created: "2024-07-03T12:53:13+00:00"
+            deleted: false
+            created: "2024-07-03T12:53:52+00:00"
+            modified: "2024-07-03T12:53:52+00:00"
+
+gpgkeysView:
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/gpgkeys/ed4d9ea6-f354-4a74-ad09-4e1dd69041ec.json"
+          code: 200
+        body:
+          id: "ed4d9ea6-f354-4a74-ad09-4e1dd69041ec"
+          user_id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+          armored_key: "-----BEGIN PGP PUBLIC KEY BLOCK-----"
+          bits: 3072
+          uid: "Ada Lovelace <ada@passbolt.com>"
+          key_id: "D277E7A2E45418A0"
+          fingerprint: "850C6BDE59E9F126BFB4683BD277E7A2E45418A0"
+          type: "RSA"
+          expires: null
+          key_created: "2024-07-03T12:53:13+00:00"
+          deleted: false
+          created: "2024-07-03T12:53:52+00:00"
+          modified: "2024-07-03T12:53:52+00:00"

@@ -1,0 +1,29 @@
+favorite:
+  type: "object"
+  required:
+    - id
+    - user_id
+    - foreign_key
+    - foreign_model
+    - created
+    - modified
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    user_id:
+      type: "string"
+      format: "uuid"
+    foreign_key:
+      type: "string"
+      format: "uuid"
+    foreign_model:
+      type: "string"
+      enum:
+        - "Resource"
+    created:
+      type: "string"
+      format: "date-time"
+    modified:
+      type: "string"
+      format: "date-time"

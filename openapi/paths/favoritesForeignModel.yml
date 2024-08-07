@@ -1,23 +1,21 @@
-put:
-  summary: "Move an element."
-  operationId: "moveElement"
-  x-codeSamples:
-    $ref: "../components/codeSamples/move.yml"
+post:
+  summary: "Set a resource as favorite."
+  operationId: "addFavorite"
   security:
     - bearerHttpAuthentication: []
-  parameters:
-    - $ref: "../components/parameters.yml#/moveForeignModel"
-    - $ref: "../components/parameters.yml#/foreignId"
+  x-codeSamples:
+    $ref: "../components/codeSamples/favorites.yml#/add"
   tags:
-    - "Move"
+    - "Favorites"
+  parameters:
+    - $ref: "../components/parameters.yml#/favoritesForeignModel"
+    - $ref: "../components/parameters.yml#/foreignId"
   responses:
     200:
-      $ref: "../components/responses.yml#/nullBody"
+      $ref: "../components/responses/favorites.yml#/add"
     400:
       $ref: "../components/responses.yml#/badRequest"
     401:
       $ref: "../components/responses.yml#/authenticationRequired"
     404:
       $ref: "../components/responses.yml#/notFound"
-  requestBody:
-    $ref: "../components/requestBodies/move.yml"

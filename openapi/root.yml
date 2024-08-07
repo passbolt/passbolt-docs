@@ -17,6 +17,10 @@ servers:
     description: "API Passbolt"
 
 paths:
+  /favorite/{favoriteId}.json:
+    $ref: "paths/favorite.yml"
+  /favorite/{foreignModel}/{foreignId}.json:
+    $ref: "paths/favoritesForeignModel.yml"
   /folders.json:
     $ref: "paths/folders.yml"
   /folders/{folderId}.json:
@@ -47,6 +51,9 @@ paths:
     $ref: "paths/userDryRun.yml"
 
 tags:
+  - name: "Favorites"
+    description:
+      $ref: "components/descriptions/favorites.yml#/tag"
   - name: "Groups"
     description:
       $ref: "components/descriptions/groups.yml#/tag"

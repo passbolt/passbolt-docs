@@ -206,7 +206,7 @@ add:
   - lang: cURL
     source: |
       curl --request POST \
-        --url https://passbolt.localhost/users.json \
+        --url {{API_BASE_URL}}/users.json \
         --header 'Authorization: Bearer {{JWT_TOKEN}}' \
         --data '{
           "username": "ada@passbolt.com",
@@ -217,7 +217,7 @@ add:
         }'
   - lang: JavaScript
     source: |
-      const url = 'https://passbolt.localhost/users.json';
+      const url = '{{API_BASE_URL}}/users.json';
       const options = {
         method: 'POST',
         headers: {Authorization: 'Bearer {{JWT_TOKEN}}'},
@@ -237,7 +237,7 @@ add:
       $curl = curl_init();
 
       curl_setopt_array($curl, [
-        CURLOPT_URL => "https://passbolt.localhost/users.json",
+        CURLOPT_URL => "{{API_BASE_URL}}/users.json",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
         CURLOPT_MAXREDIRS => 10,

@@ -4,7 +4,7 @@ put:
   security:
     - bearerHttpAuthentication: []
   x-codeSamples:
-    $ref: "../components/codeSamples/groups.yml#/delete"
+    $ref: "../components/codeSamples/groups.yml#/updateDryRun"
   tags:
     - "Groups"
   parameters:
@@ -27,7 +27,7 @@ delete:
   security:
     - bearerHttpAuthentication: []
   x-codeSamples:
-    $ref: "../components/codeSamples/groups.yml#/delete"
+    $ref: "../components/codeSamples/groups.yml#/deleteDryRun"
   tags:
     - "Groups"
   parameters:

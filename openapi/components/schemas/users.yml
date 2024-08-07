@@ -118,7 +118,13 @@ userUpdate:
         last_name:
           type: "string"
         avatar:
-          type: "string"
+          type: "object"
+          required:
+            - file
+          properties:
+            file:
+              type: "string"
+              description: "Image file in binary format."
 
 userAdd:
   type: "object"

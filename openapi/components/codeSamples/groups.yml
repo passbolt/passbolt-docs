@@ -211,7 +211,7 @@ update:
   - lang: cURL
     source: |
       curl --request PUT \
-      --url https://passbolt.localhost/groups/8fa37ef6-f167-4342-8e1c-3488439cf7d1.json \
+      --url {{API_BASE_URL}}/groups/8fa37ef6-f167-4342-8e1c-3488439cf7d1.json \
       --header 'Authorization: Bearer {{JWT_TOKEN}}' \
       --data '{
         "name": "WRC",
@@ -224,7 +224,7 @@ update:
       }'
   - lang: JavaScript
     source: |
-      const url = 'https://passbolt.localhost/groups/8fa37ef6-f167-4342-8e1c-3488439cf7d1.json';
+      const url = '{{API_BASE_URL}}/groups/8fa37ef6-f167-4342-8e1c-3488439cf7d1.json';
       const options = {
         method: 'PUT',
         headers: {Authorization: 'Bearer {{JWT_TOKEN}}'},
@@ -244,7 +244,7 @@ update:
       $curl = curl_init();
 
       curl_setopt_array($curl, [
-        CURLOPT_URL => "https://passbolt.localhost/groups/8fa37ef6-f167-4342-8e1c-3488439cf7d1.json",
+        CURLOPT_URL => "{{API_BASE_URL}}/groups/8fa37ef6-f167-4342-8e1c-3488439cf7d1.json",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
         CURLOPT_MAXREDIRS => 10,

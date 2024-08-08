@@ -1,0 +1,71 @@
+shareUpdate:
+  type: "object"
+  properties:
+    permissions:
+      type: "array"
+      items:
+        $ref: "permissions.yml#/permissionUpdate"
+    secrets:
+      description: "Not required on simulation."
+      type: "array"
+      items:
+        $ref: "secrets.yml#/secretAdd"
+
+shareUpdateError:
+  type: "object"
+  properties:
+    permissions:
+      type: "array"
+      items:
+        type: "object"
+        properties:
+          aco_forein_key:
+            type: "object"
+            properties:
+              permission_unique:
+                type: "string"
+              aco_exists:
+                type: "string"
+              _existsIn:
+                type: "string"
+          aro_forein_key:
+            type: "object"
+            properties:
+              aro_exists:
+                type: "string"
+              _existsIn:
+                type: "string"
+
+shareUpdateDryRun:
+  type: "object"
+  required:
+    - added
+    - removed
+  properties:
+    added:
+      type: "array"
+      items:
+        type: "object"
+        properties:
+          User:
+            type: "object"
+            properties:
+              id:
+                type: "string"
+                format: "uuid"
+    removed:
+      type: "array"
+      items:
+        type: "object"
+        properties:
+          User:
+            type: "object"
+            properties:
+              id:
+                type: "string"
+                format: "uuid"
+
+shareAros:
+  oneOf:
+    - $ref: "users.yml#/userIndexAndView"
+    - $ref: "groups.yml#/groupIndexAndView"

@@ -64,6 +64,17 @@ favoritesForeignModel:
     enum:
       - "resource"
 
+sharesForeignModel:
+  name: "foreignModel"
+  description: "Type for the foreign model being shared."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    enum:
+      - "resource"
+      - "folder"
+
 foreignId:
   name: "foreignId"
   description: "ID for the foreign element being manipulated."

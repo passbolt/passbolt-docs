@@ -140,7 +140,7 @@ add:
           'groups_users' => [
             [
               'user_id' => '8bb80df5-700c-48ce-b568-85a60fc3c8f2',
-              'is_admin' => null
+              'is_admin' => true
             ]
           ]
         ]),
@@ -256,7 +256,7 @@ update:
           'groups_users' => [
             [
               'user_id' => '8bb80df5-700c-48ce-b568-85a60fc3c8f2',
-              'is_admin' => null
+              'is_admin' => true
             ]
           ]
         ]),
@@ -372,7 +372,7 @@ updateDryRun:
           'groups_users' => [
             [
               'user_id' => '8bb80df5-700c-48ce-b568-85a60fc3c8f2',
-              'is_admin' => null
+              'is_admin' => true
             ]
           ]
         ]),

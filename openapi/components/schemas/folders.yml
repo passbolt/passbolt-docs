@@ -40,11 +40,11 @@ folderIndexAndView:
     creator:
       $ref: "users.yml#/userIndexAndView"
     permission:
-      $ref: "permissions.yml#/permission"
+      $ref: "permissions.yml#/permissionIndexAndView"
     permissions:
       type: "array"
       items:
-        $ref: "permissions.yml#/permission"
+        $ref: "permissions.yml#/permissionIndexAndView"
     personal:
       type: "boolean"
     folder_parent_id:

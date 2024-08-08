@@ -1,0 +1,19 @@
+shareUpdate:
+  description: The permissions you want to apply
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/shares.yml#/shareUpdate"
+      examples:
+        $ref: "../examples/shares.yml#/shareUpdate/request"
+
+shareUpdateDryRun:
+  description: The permissions you want to apply
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/shares.yml#/shareUpdate"
+      examples:
+        $ref: "../examples/shares.yml#/shareUpdateDryRun/request"

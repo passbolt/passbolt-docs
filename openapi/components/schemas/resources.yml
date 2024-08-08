@@ -63,11 +63,11 @@ resourceIndexAndView:
     resource_type:
       $ref: "resourceTypes.yml#/resourceType"
     permission:
-      $ref: "permissions.yml#/permission"
+      $ref: "permissions.yml#/permissionIndexAndView"
     permissions:
       type: "array"
       items:
-        $ref: "permissions.yml#/permission"
+        $ref: "permissions.yml#/permissionIndexAndView"
 
 resourceAdd:
   type: "object"

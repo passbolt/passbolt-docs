@@ -47,6 +47,12 @@ paths:
     $ref: "paths/resourceType.yml"
   /roles.json:
     $ref: "paths/roles.yml"
+  /share/{foreignModel}/{foreignId}.json:
+    $ref: "paths/shareForeignModel.yml"
+  /share/search-aros.json:
+    $ref: "paths/shareSearchAros.yml"
+  /share/simulate/{foreignModel}/{foreignId}.json:
+    $ref: "paths/shareSimulateForeignModel.yml"
   /users.json:
     $ref: "paths/users.yml"
   /users/{userId}.json:
@@ -74,6 +80,9 @@ tags:
       $ref: "components/descriptions/resourceTypes.yml#/tag"
   - name: "Roles"
     description: "Different categories of users."
+  - name: "Shares"
+    description:
+      $ref: "components/descriptions/shares.yml#/tag"
   - name: "Users"
     description:
       $ref: "components/descriptions/users.yml#/tag"

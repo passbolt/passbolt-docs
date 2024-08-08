@@ -1,4 +1,4 @@
-permission:
+permissionIndexAndView:
   type: "object"
   required:
     - id
@@ -30,15 +30,7 @@ permission:
       type: "string"
       format: "uuid"
     type:
-      description: |
-        * `1` - Read
-        * `7` - Update
-        * `15` - Owner
-      type: "integer"
-      enum:
-        - 1
-        - 7
-        - 15
+      $ref: "#/permissionLevel"
     created:
       type: "string"
       format: "date-time"
@@ -51,3 +43,35 @@ permission:
     group:
       $ref: "groups.yml#/groupIndexAndView"
       x-nullable: true
+
+permissionUpdate:
+  type: "object"
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    aro:
+      type: "string"
+      enum:
+        - "User"
+        - "Group"
+    aro_foreign_key:
+      type: "string"
+      format: "uuid"
+    type:
+      $ref: "#/permissionLevel"
+    delete:
+      type: "boolean"
+    is_new:
+      type: "boolean"
+
+permissionLevel:
+  description: |
+    * `1` - Read
+    * `7` - Update
+    * `15` - Owner
+  type: "integer"
+  enum:
+    - 1
+    - 7
+    - 15

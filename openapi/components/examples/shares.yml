@@ -1,0 +1,150 @@
+shareUpdate:
+  request:
+    addUser:
+      summary: "Adding a read permission for a user"
+      value:
+        permissions:
+          - aro: "User"
+            aro_foreign_key: "c48863da-32d3-48cd-9d47-de2891386423"
+            type: 1
+            is_new: true
+        secrets:
+          - data: "-----BEGIN PGP MESSAGE-----"
+            user_id: "c48863da-32d3-48cd-9d47-de2891386423"
+    deleteUser:
+      summary: "Removing a permission for a user"
+      value:
+        permissions:
+          - aro: "User"
+            aro_foreign_key: "c48863da-32d3-48cd-9d47-de2891386423"
+            delete: true
+        secrets: []
+    updatePermissionLevel:
+      summary: "Update a permission level"
+      value:
+        permissions:
+          - id: "540174b9-90db-458c-ae90-e9a1912cc656"
+            type: 7
+    everythingAtOnce:
+      summary: "Multiple operations at the same time"
+      value:
+        permissions:
+          - aro: "User"
+            aro_foreign_key: "c48863da-32d3-48cd-9d47-de2891386423"
+            type: 1
+            is_new: true
+          - id: "540174b9-90db-458c-ae90-e9a1912cc656"
+            type: 7
+        secrets:
+          - data: "-----BEGIN PGP MESSAGE-----"
+            user_id: "c48863da-32d3-48cd-9d47-de2891386423"
+
+shareUpdateError:
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "Could not validate resource data."
+          url: "/share/resource/42968631-0c51-4405-9f2d-c6700c5057be.json"
+          code: 200
+        body:
+          permissions:
+            aco_foreign_key:
+              permission_unique: "A permission already exists for the given access control object and access request object."
+
+shareUpdateDryRun:
+  request:
+    deleteUser:
+      value:
+        permissions:
+          - id: "540174b9-90db-458c-ae90-e9a1912cc656"
+            delete: true
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/share/simulate/resource/42968631-0c51-4405-9f2d-c6700c5057be.json"
+          code: 200
+        body:
+          changes:
+            added: []
+            removed:
+              - User:
+                  id: "c48863da-32d3-48cd-9d47-de2891386423"
+
+shareAros:
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/share/search-aros.json"
+          code: 200
+        body:
+          - id: "c48863da-32d3-48cd-9d47-de2891386423"
+            role_id: "c2f96fb1-611d-466d-80fb-e82beba5ed87"
+            username: "ada@passbolt.com"
+            active: true
+            deleted: false
+            created: "2024-08-08T12:08:58+00:00"
+            modified: "2024-08-08T12:14:38+00:00"
+            disabled: null
+            groups_users:
+              - id: "95accfa0-5c2c-47af-ba63-dd9efb46f99b"
+                group_id: "8fa37ef6-f167-4342-8e1c-3488439cf7d1"
+                user_id: "c48863da-32d3-48cd-9d47-de2891386423"
+                is_admin: false
+                created: "2024-08-08T12:25:40+00:00"
+            profile:
+              id: "4d9e9297-b1ec-4aa1-af1c-c6693c3ffe36"
+              user_id: "c48863da-32d3-48cd-9d47-de2891386423"
+              first_name: "Ada"
+              last_name: "Lovelace"
+              created: "2024-08-08T12:08:58+00:00"
+              modified: "2024-08-08T12:08:58+00:00"
+              avatar:
+                url:
+                  medium: "https://passbolt.local/img/avatar/user_medium.png"
+                  small: "https://passbolt.local/img/avatar/user.png"
+            gpgkey:
+              id: "6f0f6eb6-ed74-4cb0-8872-3e96ee17b6f9"
+              user_id: "c48863da-32d3-48cd-9d47-de2891386423"
+              armored_key: "-----BEGIN PGP PUBLIC KEY BLOCK-----"
+              bits: 3072
+              uid: "Ada Lovelace <ada@passbolt.com>"
+              key_id: "08EF12596BC6B07B"
+              fingerprint: "C4D0E64738F9956CDACC6D4808EF12596BC6B07B"
+              type: "RSA"
+              expires: null
+              key_created: "2024-08-08T12:13:42+00:00"
+              deleted: false
+              created: "2024-08-08T12:14:38+00:00"
+              modified: "2024-08-08T12:14:38+00:00"
+            role:
+              id: "c2f96fb1-611d-466d-80fb-e82beba5ed87"
+              name: "user"
+              description: "Logged in user"
+              created: "2012-07-04T13:39:25+00:00"
+              modified: "2012-07-04T13:39:25+00:00"
+            last_logged_in: null
+          - user_count: 1
+            id: "8fa37ef6-f167-4342-8e1c-3488439cf7d1"
+            name: "Groupe B"
+            deleted: false
+            created: "2024-07-22T16:01:07+00:00"
+            modified: "2024-07-22T16:01:07+00:00"
+            created_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+            modified_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"

@@ -1,0 +1,23 @@
+get:
+  summary: "Get AROs for sharing."
+  operationId: "indexShareAros"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/shares.yml#/arosIndex"
+  parameters:
+    - $ref: "../components/parameters.yml#/filterSearch"
+    - $ref: "../components/parameters.yml#/containGroupsUsers"
+    - $ref: "../components/parameters.yml#/containGpgkey"
+    - $ref: "../components/parameters.yml#/containRole"
+  tags:
+    - "Shares"
+  responses:
+    200:
+      $ref: "../components/responses/shares.yml#/arosIndex"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"

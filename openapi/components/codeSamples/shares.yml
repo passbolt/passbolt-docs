@@ -1,0 +1,180 @@
+update:
+  - lang: cURL
+    source: |
+      curl --request PUT \
+      --url {{API_BASE_URL}}/share/resource/42968631-0c51-4405-9f2d-c6700c5057be.json \
+      --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+      --data '{
+        "permissions": [
+          {
+            "id": "540174b9-90db-458c-ae90-e9a1912cc656",
+            "type": 7
+          }
+        ]
+      }'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/share/resource/42968631-0c51-4405-9f2d-c6700c5057be.json';
+      const options = {
+        method: 'PUT',
+        headers: {Authorization: 'Bearer {{JWT_TOKEN}}'},
+        body: '{"permissions":[{"id":"540174b9-90db-458c-ae90-e9a1912cc656","type":7}]}'
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/share/resource/42968631-0c51-4405-9f2d-c6700c5057be.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "PUT",
+        CURLOPT_POSTFIELDS => json_encode([
+          'permissions' => [
+            [
+              'id' => '540174b9-90db-458c-ae90-e9a1912cc656',
+              'type' => 7
+            ]
+          ]
+        ]),
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+updateDryRun:
+  - lang: cURL
+    source: |
+      curl --request POST \
+        --url {{API_BASE_URL}}/share/simulate/resource/42968631-0c51-4405-9f2d-c6700c5057be.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+        --data '{
+          "permissions": [
+            {
+              "id": "540174b9-90db-458c-ae90-e9a1912cc656",
+              "delete": true
+            }
+          ]
+        }'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/share/simulate/resource/42968631-0c51-4405-9f2d-c6700c5057be.json';
+      const options = {
+        method: 'POST',
+        headers: {Authorization: 'Bearer {{JWT_TOKEN}}'},
+        body: '{"permissions":[{"id":"540174b9-90db-458c-ae90-e9a1912cc656","delete":true}]}'
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/share/simulate/resource/42968631-0c51-4405-9f2d-c6700c5057be.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => json_encode([
+          'permissions' => [
+              [
+                      'id' => '540174b9-90db-458c-ae90-e9a1912cc656',
+                      'delete' => True
+              ]
+          ]
+        ]),
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+arosIndex:
+  - lang: cURL
+    source: |
+      curl --request GET \
+        --url {{API_BASE_URL}}/share/search-aros.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/share/search-aros.json';
+      const options = {method: 'GET', headers: {Authorization: 'Bearer {{JWT_TOKEN}}'}};
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/share/search-aros.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }

@@ -50,7 +50,7 @@ const HomepageHero = () => {
     {
       id: 'releases',
       icon: <img src={useBaseUrl('/icons/lucide/tag.svg')} width={24} alt='Release notes illustrated with a tag.' />,
-      href: 'https://help.passbolt.com/releases',
+      href: 'https://www.passbolt.com/changelog',
       title: 'Release notes',
       description:
         'What was shipped in the latest release? Was it a bug or a feature? Let\'s find out!',
@@ -58,7 +58,7 @@ const HomepageHero = () => {
     {
       id: 'incidents',
       icon: <img src={useBaseUrl('/icons/lucide/fire.svg')} width={24} alt='Incident reports illustrated with a fire.' />,
-      href: 'https://help.passbolt.com/incidents',
+      href: 'https://www.passbolt.com/incidents',
       title: 'Incident reports',
       description:
         'A retrospective of what went wrong and what we did to fix it!',

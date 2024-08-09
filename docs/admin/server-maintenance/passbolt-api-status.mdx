@@ -450,7 +450,9 @@ This check is following the self registration plugin. It checks if the open regi
 This check ensure that the self registration public settings are not present in the passbolt configuration file in */etc/passbolt/passbolt.php*, if it is still there you may remove the `passbolt.registration.public` settings.
 
 #### Host availability
-It helps to check if the host availability is disabled. Passbolt assumes that the instance is not publicly available on the internet by default. There is a settings to change if its not the case.
+The passbolt server will verify the email domain names. This means that passbolt will query DNS for an MX record associated with the email addresses used. **This is disabled by default**.
+
+When it is enabled, it won't be possible to proceed to a user creation using a local email address, if you are confident about using trusted email domain addresses, you may want to enable it.
 
 - Set `PASSBOLT_EMAIL_VALIDATE_MX` environment variable to true if you are on Docker or Helm
 - Set `passbolt.email.validate.mx` to true in */etc/passbolt/passbolt.php*

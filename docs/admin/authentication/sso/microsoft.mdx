@@ -8,11 +8,15 @@ hide_table_of_contents: false
 import Figure from '@site/src/components/Figure/Figure';
 import Chips from "/src/components/Chips/Chips";
 import AdvancedSettings from "/docs/admin/_includes/sso/advanced-settings.mdx";
+import EmailMatchingWarning from "/docs/admin/_includes/sso/email-matching-warning.mdx";
+import HttpsWarning from "/docs/admin/_includes/sso/https-warning.mdx";
 
 <div style={{display: "flex", gap: "1rem"}}>
   <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
   <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
 </div>
+
+<HttpsWarning />
 
 Since version 3.9, Passbolt Pro Edition supports SSO with Microsoft via Azure AD.
 
@@ -30,9 +34,7 @@ To understand which user flows are supported currently, the risk analysis, and h
 
 ## How to configure the plugin?
 
-:::warning[Attention]
-This feature requires HTTPS to work.
-:::
+<EmailMatchingWarning />
 
 Open both the Azure portal and Passbolt:
 

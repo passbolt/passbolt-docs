@@ -7,11 +7,16 @@ hide_table_of_contents: false
 
 import Figure from '@site/src/components/Figure/Figure';
 import Chips from "/src/components/Chips/Chips";
+import EmailMatchingWarning from "/docs/admin/_includes/sso/email-matching-warning.mdx";
+import HttpsWarning from "/docs/admin/_includes/sso/https-warning.mdx";
+
 
 <div style={{display: "flex", gap: "1rem"}}>
   <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
   <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
 </div>
+
+<HttpsWarning />
 
 Since version 4.0.0, Passbolt Pro Edition supports SSO with Google via Google Cloud Identity.
 
@@ -32,6 +37,8 @@ In short Passbolt SSO leverages Google OAuth2/OpenID on top of the existing [cha
 To understand which user flows are supported currently, the risk analysis, and how it works in practice please read the [developer documentation](https://docs.google.com/document/d/1Id33XyNRxyeJ5sof5ggWNpFUq1nX6RKwU8vLIe8ROF8/edit).
 
 ## How to configure the plugin?
+
+<EmailMatchingWarning />
 
 Open both the [Google API console](https://console.developers.google.com/) and Passbolt:
 

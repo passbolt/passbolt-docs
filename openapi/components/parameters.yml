@@ -7,6 +7,15 @@ favoriteId:
     type: "string"
     format: "uuid"
 
+gpgkeyId:
+  name: "gpgkeyId"
+  description: "ID for the GPG key being manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
 groupId:
   name: "groupId"
   description: "ID for the group being manipulated."

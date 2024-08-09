@@ -1,3 +1,12 @@
+favoriteId:
+  name: "favoriteId"
+  description: "ID for the favorite being manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
 groupId:
   name: "groupId"
   description: "ID for the group being manipulated."
@@ -25,9 +34,9 @@ resourceTypeId:
     type: "string"
     format: "uuid"
 
-foreignModel:
+moveForeignModel:
   name: "foreignModel"
-  description: "Type for the foreign model being manupulated."
+  description: "Type for the foreign model being moved."
   in: "path"
   required: true
   schema:
@@ -35,10 +44,20 @@ foreignModel:
     enum:
       - "resource"
       - "folder"
-  
+
+favoritesForeignModel:
+  name: "foreignModel"
+  description: "Type for the foreign model being set as favorite."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    enum:
+      - "resource"
+
 foreignId:
   name: "foreignId"
-  description: "ID for the foreign element being manupulated."
+  description: "ID for the foreign element being manipulated."
   in: "path"
   required: true
   schema:

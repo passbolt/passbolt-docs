@@ -67,7 +67,7 @@ const config = {
           customCss: require.resolve('./src/css/custom.css'),
         },
         sitemap: {
-          ignorePatterns: ['/components/**'],
+          ignorePatterns: ['/components/**', '/docs/development/**'],
         },
       }),
     ],

@@ -17,6 +17,16 @@ servers:
     description: "API Passbolt"
 
 paths:
+  /auth/jwt/jwks.json:
+    $ref: "paths/authJwtJwks.yml"
+  /auth/jwt/login.json:
+    $ref: "paths/authJwtLogin.yml"
+  /auth/jwt/logout.json:
+    $ref: "paths/authJwtLogout.yml"
+  /auth/jwt/refresh.json:
+    $ref: "paths/authJwtRefresh.yml"
+  /auth/jwt/rsa.json:
+    $ref: "paths/authJwtRsa.yml"
   /avatars/view/{avatarId}/{avatarFormat}:
     $ref: "paths/avatarsView.yml"
   /comments/resource/{resourceId}.json:
@@ -75,6 +85,9 @@ paths:
     $ref: "paths/userDryRun.yml"
 
 tags:
+  - name: "Authentication (JWT)"
+    description:
+      $ref: "components/descriptions/authJwt.yml#/tag"
   - name: "Avatars"
     description: "Query avatar images."
   - name: "Comments"

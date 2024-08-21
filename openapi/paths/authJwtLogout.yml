@@ -1,0 +1,18 @@
+post:
+  summary: "Logout."
+  operationId: "authJwtLogout"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/authJwt.yml#/logout"
+  tags:
+    - "Authentication (JWT)"
+  requestBody:
+    $ref: "../components/requestBodies/authJwt.yml#/logout"
+  responses:
+    200:
+      $ref: "../components/responses.yml#/nullBody"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"

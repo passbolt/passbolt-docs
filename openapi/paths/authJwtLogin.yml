@@ -1,0 +1,17 @@
+post:
+  summary: "Login."
+  description:
+    $ref: "../components/descriptions/authJwt.yml#/login"
+  operationId: "authJwtLogin"
+  security: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/authJwt.yml#/login"
+  tags:
+    - "Authentication (JWT)"
+  requestBody:
+    $ref: "../components/requestBodies/authJwt.yml#/login"
+  responses:
+    200:
+      $ref: "../components/responses/authJwt.yml#/login"
+    400:
+      $ref: "../components/responses.yml#/badRequest"

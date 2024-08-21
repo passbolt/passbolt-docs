@@ -1,0 +1,75 @@
+rsa:
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/auth/jwt/rsa.json"
+          code: 200
+        body:
+          keydata: "-----BEGIN PUBLIC KEY-----"
+
+jwks:
+  response:
+    base:
+      value:
+        keys:
+          - kty: "RSA"
+            alg: "RS256"
+            use: "sig"
+            e: "AQAB"
+            n: "sP0CpKdQJF8KgPD9GOLiCssOhi8qHXp0TyyqkWNGWcZD3JTKuuWJhNn..."
+
+logout:
+  request:
+    revokeOneSession:
+      summary: "Only revoke this session."
+      value:
+        refresh_token: "ad71952e-7842-599e-a19e-3a82e6974b23"
+    revokeAllSessions:
+      summary: "Empty body to revoke all sessions."
+      value: null
+
+refresh:
+  request:
+    base:
+      value:
+        user_id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+        refresh_token: "f8cea352-6bd3-4944-9523-20b31272bef0"
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/auth/jwt/refresh.json"
+          code: 200
+        body:
+          access_token: "90c0d69c-a508-4cb6-a26c-799e52147ac0"
+
+login:
+  request:
+    base:
+      value:
+        user_id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+        challenge: "-----BEGIN PGP MESSAGE-----"
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/auth/jwt/login.json"
+          code: 200
+        body:
+          challenge: "-----BEGIN PGP MESSAGE-----"

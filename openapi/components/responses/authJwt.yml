@@ -1,0 +1,71 @@
+rsa:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/authJwt.yml#/rsa"
+      examples:
+        $ref: "../examples/authJwt.yml#/rsa/response"
+
+jwks:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - keys
+        properties:
+          keys:
+            type: "array"
+            items:
+              $ref: "../schemas/authJwt.yml#/jwk"
+      examples:
+        $ref: "../examples/authJwt.yml#/jwks/response"
+
+refresh:
+  description: "Operation is successful. A new refresh token is set via a cookie."
+  headers: 
+    Set-Cookie:
+      schema: 
+        type: string
+        example: refresh_token=12c9392a-ac65-4ccb-b4b3-2c1854ae66dd; HttpOnly
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/authJwt.yml#/refreshResponse"
+      examples:
+        $ref: "../examples/authJwt.yml#/refresh/response"
+
+login:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/authJwt.yml#/loginResponse"
+      examples:
+        $ref: "../examples/authJwt.yml#/login/response"

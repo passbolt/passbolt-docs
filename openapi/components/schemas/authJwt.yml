@@ -1,0 +1,77 @@
+rsa:
+  type: "object"
+  required:
+    - keydata
+  properties:
+    keydata:
+      type: "string"
+
+jwk:
+  type: "object"
+  required:
+    - kty
+    - alg
+    - use
+    - e
+    - n
+  properties:
+    kty:
+      type: "string"
+    alg:
+      type: "string"
+    use:
+      type: "string"
+    e:
+      type: "string"
+    n:
+      type: "string"
+
+logout:
+  type: "object"
+  properties:
+    refresh_token:
+      type: "string"
+      format: "uuid"
+
+refreshRequest:
+  type: "object"
+  required:
+    - refresh_token
+    - user_id
+  properties:
+    refresh_token:
+      type: "string"
+      format: "uuid"
+    user_id:
+      type: "string"
+      format: "uuid"
+
+refreshResponse:
+  type: "object"
+  required:
+    - access_token
+  properties:
+    access_token:
+      type: "string"
+      format: "uuid"
+
+loginRequest:
+  type: "object"
+  required:
+    - user_id
+    - challenge
+  properties:
+    user_id:
+      type: "string"
+      format: "uuid"
+    challenge:
+      type: "string"
+      description: "`gpg_encrypt(gpg_sign(challenge_message, user_key), server_key)`"
+
+loginResponse:
+  type: "object"
+  required:
+    - challenge
+  properties:
+    challenge:
+      type: "string"

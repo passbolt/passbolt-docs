@@ -1,0 +1,29 @@
+logout:
+  description: The session associated to the refresh token you want to revoke.
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/authJwt.yml#/logout"
+      examples:
+        $ref: "../examples/authJwt.yml#/logout/request"
+
+refresh:
+  description: The user and refresh token for session identification.
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/authJwt.yml#/refreshRequest"
+      examples:
+        $ref: "../examples/authJwt.yml#/refresh/request"
+
+login:
+  description: The user and refresh token for session identification.
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/authJwt.yml#/loginRequest"
+      examples:
+        $ref: "../examples/authJwt.yml#/login/request"

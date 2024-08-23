@@ -1,0 +1,33 @@
+invalidOtp:
+  description: "Invalid OTP code."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/mfaVerify.yml#/invalidOtp"
+      examples:
+        $ref: "../examples/mfaVerify.yml#/invalidOtp/response"
+
+error:
+  description: "MFA is required."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/mfaVerify.yml#/error"
+      examples:
+        $ref: "../examples/mfaVerify.yml#/error/response"

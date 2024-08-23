@@ -1,0 +1,16 @@
+get:
+  summary: "Information about MFA requirements."
+  operationId: "mfaVerifyError"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/mfaVerify.yml#/error"
+  tags:
+    - "Multi-Factor Authentication"
+  responses:
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses/mfaVerify.yml#/error"

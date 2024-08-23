@@ -27,6 +27,16 @@ avatarFormat:
       - "medium.jpg"
       - "small.jpg"
 
+mfaProviderName:
+  name: "mfaProviderName"
+  description: "Name for the MFA provider."
+  in: "path"
+  schema:
+    type: "string"
+    enum:
+      - "totp"
+      - "yubikey"
+
 favoriteId:
   name: "favoriteId"
   description: "ID for the favorite being manipulated."

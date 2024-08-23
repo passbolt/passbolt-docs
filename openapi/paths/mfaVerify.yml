@@ -1,0 +1,41 @@
+get:
+  summary: "Check multi-factor authentication."
+  operationId: "mfaVerifyCheck"
+  description:
+    $ref: "../components/descriptions/mfaVerify.yml#/check"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/mfaVerify.yml#/check"
+  tags:
+    - "Multi-Factor Authentication"
+  parameters:
+    - $ref: "../components/parameters.yml#/mfaProviderName"
+  responses:
+    200:
+      $ref: "../components/responses.yml#/nullBody"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+
+post:
+  summary: "Attempt multi-factor authentication."
+  operationId: "mfaVerifyAttempt"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/mfaVerify.yml#/attempt"
+  tags:
+    - "Multi-Factor Authentication"
+  requestBody:
+    $ref: "../components/requestBodies/mfaVerify.yml#/attempt"
+  parameters:
+    - $ref: "../components/parameters.yml#/mfaProviderName"
+  responses:
+    200:
+      $ref: "../components/responses.yml#/nullBody"
+    400:
+      $ref: "../components/responses/mfaVerify.yml#/invalidOtp"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"

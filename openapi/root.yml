@@ -55,6 +55,10 @@ paths:
     $ref: "paths/healthcheck.yml"
   /healthcheck/status.json:
     $ref: "paths/healthcheckStatus.yml"
+  /mfa/verify/{mfaProviderName}.json:
+    $ref: "paths/mfaVerify.yml"
+  /mfa/verify/error.json:
+    $ref: "paths/mfaVerifyError.yml"
   /permissions/resource/{resourceId}.json:
     $ref: "paths/permissionsResource.yml"
   /resources.json:
@@ -103,6 +107,9 @@ tags:
       $ref: "components/descriptions/groups.yml#/tag"
   - name: "Healthcheck"
     description: "Gather data about the passbolt instance's health."
+  - name: "Multi-Factor Authentication"
+    description:
+      $ref: "components/descriptions/mfaVerify.yml#/tag"
   - name: "Move"
     description: "Move a folder or a resource across folders."
   - name: "Permissions"

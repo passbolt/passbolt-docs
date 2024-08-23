@@ -1,0 +1,9 @@
+attempt:
+  description: The code for the MFA attempt.
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/mfaVerify.yml#/mfaAttempt"
+      examples:
+        $ref: "../examples/mfaVerify.yml#/mfaAttempt/request"

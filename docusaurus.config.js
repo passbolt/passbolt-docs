@@ -5,7 +5,6 @@
 // const passboltTheme = require('./src/lib/prism-passbolt');
 import { themes as prismThemes } from 'prism-react-renderer';
 import footerLinks from './data/footer.json';
-import * as Redocusaurus from 'redocusaurus';
 
 const ROUTES = {
   HELPSITE_URL: 'https://www.passbolt.com/docs',
@@ -29,18 +28,18 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: ROUTES.WEBSITE_URL,
+  url: process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : ROUTES.WEBSITE_URL,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/docs/',
+  baseUrl: process.env.VERCEL_URL ? '/' : '/docs/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'passbolt', // Usually your GitHub org/user name.
   projectName: 'passbolt-docs', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'throw',
+  onBrokenLinks: process.env.VERCEL_URL ? 'warn' : 'throw',
+  onBrokenMarkdownLinks: process.env.VERCEL_URL ? 'warn' : 'throw',
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -73,6 +72,7 @@ const config = {
     ],
     [
       'redocusaurus',
+      /** @type {import('redocusaurus').PresetEntry} */
       {
         specs: [
           {

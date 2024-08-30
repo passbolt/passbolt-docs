@@ -1,7 +1,9 @@
-th, td {
-    text-align: center;
+.theme-doc-markdown th,
+.theme-doc-markdown td {
+  text-align: center;
   min-width:10rem;
 }
+
 thead tr th:first-child,
 tbody tr td:first-child {
   width: 50%;

@@ -10,3 +10,38 @@ theme:
     disableSearch: true
     hideSchemaTitles: true
     pagination: "section"
+    theme:
+      colors:
+        border:
+          dark: '#2e2e2e'
+        accent:
+          main: '#2894DF'
+        gray:
+          50: '#1F1F1F'
+          100: '#2e2e2e'
+        success:
+          main: '#088869'
+          contrastText: '#06644d'
+        error:
+          main: '#d40101'
+        http:
+          basic: '#2e2e2e'
+          delete: '#d40101'
+          get: '#088869'
+          link: '#088869'
+          post: '#2894DF'
+
+      typography:
+        fontFamily: '"Inter", sans-serif'
+        code:
+          backgroundColor: "transparent"
+
+      sidebar:
+        width: "300px"
+        backgroundColor: "transparent"
+      rightPanel:
+        backgroundColor: "#1F1F1F"
+      schema:
+        linesColor: '#2e2e2e'
+        arrow:
+          color: '#d40101'

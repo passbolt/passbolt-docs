@@ -1,0 +1,28 @@
+get:
+  summary: "Get the server's public PGP key."
+  description: "Can be used to validate data signature."
+  operationId: "viewAuthVerify"
+  security: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/authGpg.yml#/verify"
+  tags:
+    - "Authentication (GPG)"
+  responses:
+    200:
+      $ref: "../components/responses/authGpg.yml#/verify"
+
+post:
+  summary: "Verify the server's identity."
+  operationId: "checkAuthVerify"
+  security: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/authGpg.yml#/stage0"
+  tags:
+    - "Authentication (GPG)"
+  requestBody:
+    $ref: "../components/requestBodies/authGpg.yml#/verify"
+  responses:
+    200:
+      $ref: "../components/responses/authGpg.yml#/stage0"
+    400:
+      $ref: "../components/responses.yml#/badRequest"

@@ -17,6 +17,8 @@ servers:
     description: "API Passbolt"
 
 paths:
+  /auth/is-authenticated.json:
+    $ref: "paths/authIsAuthenticated.yml"
   /auth/jwt/jwks.json:
     $ref: "paths/authJwtJwks.yml"
   /auth/jwt/login.json:
@@ -27,6 +29,12 @@ paths:
     $ref: "paths/authJwtRefresh.yml"
   /auth/jwt/rsa.json:
     $ref: "paths/authJwtRsa.yml"
+  /auth/login.json:
+    $ref: "paths/authLogin.yml"
+  /auth/logout.json:
+    $ref: "paths/authLogout.yml"
+  /auth/verify.json:
+    $ref: "paths/authVerify.yml"
   /avatars/view/{avatarId}/{avatarFormat}:
     $ref: "paths/avatarsView.yml"
   /comments/resource/{resourceId}.json:
@@ -89,6 +97,9 @@ paths:
     $ref: "paths/userDryRun.yml"
 
 tags:
+  - name: "Authentication (GPG)"
+    description:
+      $ref: "components/descriptions/authGpg.yml#/tag"
   - name: "Authentication (JWT)"
     description:
       $ref: "components/descriptions/authJwt.yml#/tag"

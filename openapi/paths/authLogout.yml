@@ -1,0 +1,16 @@
+post:
+  summary: "Log out."
+  operationId: "authLogout"
+  security:
+    - gpgCookieAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/authGpg.yml#/logout"
+  tags:
+    - "Authentication (GPG)"
+  responses:
+    200:
+      $ref: "../components/responses.yml#/nullBody"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses/authGpg.yml#/missingCsrfToken"

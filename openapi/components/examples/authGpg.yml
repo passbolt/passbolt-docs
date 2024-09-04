@@ -1,0 +1,78 @@
+verify:
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/auth/verify.json"
+          code: 200
+        body:
+          fingerprint: "5FB36DE5C8E69DD4DB185DF2BC9F2749E432CB59"
+          keydata: "-----BEGIN PUBLIC KEY-----"
+
+stage0:
+  request:
+    base:
+      value:
+        data:
+          gpg_auth:
+            keyid: "5FB36DE5C8E69DD4DB185DF2BC9F2749E432CB59"
+            server_verify_token: "-----BEGIN PGP MESSAGE-----"
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/auth/verify.json"
+          code: 200
+        body: null
+
+login:
+  request:
+    stage1:
+      summary: "Obtain a challenge token"
+      value:
+        data:
+          gpg_auth:
+            keyid: "5FB36DE5C8E69DD4DB185DF2BC9F2749E432CB59"
+    stage2:
+      summary: "Verify client's identity"
+      value:
+        data:
+          gpg_auth:
+            keyid: "5FB36DE5C8E69DD4DB185DF2BC9F2749E432CB59"
+            user_token_result: "gpgauthv1.3.0|36|10e2074b-f610-42be-8525-100d4e68c481|gpgauthv1.3.0"
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/auth/login.json"
+          code: 200
+        body: null
+
+missingCsrfToken:
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "Missing or incorrect CSRF cookie type."
+          url: "/auth/logout.json"
+          code: 403
+        body: ""

@@ -1,0 +1,15 @@
+get:
+  summary: "Check authentication status."
+  description: "Can be used as a session keep-alive."
+  operationId: "viewAuthIsAuthenticated"
+  security:
+    - gpgCookieAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/authGpg.yml#/isAuthenticated"
+  tags:
+    - "Authentication (GPG)"
+  responses:
+    200:
+      $ref: "../components/responses.yml#/nullBody"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"

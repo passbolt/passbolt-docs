@@ -47,6 +47,8 @@ paths:
     $ref: "paths/resourceType.yml"
   /roles.json:
     $ref: "paths/roles.yml"
+  /secrets/resource/{resourceId}.json:
+    $ref: "paths/secretsResource.yml"
   /share/{foreignModel}/{foreignId}.json:
     $ref: "paths/shareForeignModel.yml"
   /share/search-aros.json:
@@ -80,6 +82,8 @@ tags:
       $ref: "components/descriptions/resourceTypes.yml#/tag"
   - name: "Roles"
     description: "Different categories of users."
+  - name: "Secrets"
+    description: "Secrets associated to resources."
   - name: "Shares"
     description:
       $ref: "components/descriptions/shares.yml#/tag"

@@ -1,0 +1,52 @@
+add:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/comments.yml#/commentView"
+      examples:
+        $ref: "../examples/comments.yml#/commentAdd/response"
+
+index:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            type: "array"
+            items:
+              $ref: "../schemas/comments.yml#/commentView"
+      examples:
+        $ref: "../examples/comments.yml#/commentIndex/response"
+
+update:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/comments.yml#/commentView"
+      examples:
+        $ref: "../examples/comments.yml#/commentUpdate/response"

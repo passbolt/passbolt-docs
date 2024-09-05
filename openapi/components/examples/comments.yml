@@ -1,0 +1,80 @@
+commentUpdate:
+  request:
+    base:
+      value:
+        content: "no comment"
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The comment was successfully updated."
+          url: "/comments/41aca4aa-430c-4b60-a1f1-c0de1b52a1ce.json"
+          code: 200
+        body:
+          id: "41aca4aa-430c-4b60-a1f1-c0de1b52a1ce"
+          parent_id: null
+          foreign_key: "42968631-0c51-4405-9f2d-c6700c5057be"
+          foreign_model: "Resource"
+          content: "no comment"
+          created: "2024-09-05T14:15:47+00:00"
+          modified: "2024-09-05T14:43:22+00:00"
+          created_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+          modified_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+          user_id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+
+commentAdd:
+  request:
+    base:
+      value:
+        content: "no comment"
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The comment was successfully added."
+          url: "/comments/resource/42968631-0c51-4405-9f2d-c6700c5057be.json"
+          code: 200
+        body:
+          id: "41aca4aa-430c-4b60-a1f1-c0de1b52a1ce"
+          parent_id: null
+          foreign_key: "42968631-0c51-4405-9f2d-c6700c5057be"
+          foreign_model: "Resource"
+          content: "no comment"
+          created: "2024-09-05T14:15:47+00:00"
+          modified: "2024-09-05T14:43:22+00:00"
+          created_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+          modified_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+          user_id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+
+commentIndex:
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/comments/resource/42968631-0c51-4405-9f2d-c6700c5057be.json"
+          code: 200
+        body:
+          - id: "41aca4aa-430c-4b60-a1f1-c0de1b52a1ce"
+            parent_id: null
+            foreign_key: "42968631-0c51-4405-9f2d-c6700c5057be"
+            foreign_model: "Resource"
+            content: "no comment"
+            created: "2024-09-05T14:15:47+00:00"
+            modified: "2024-09-05T14:43:22+00:00"
+            created_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+            modified_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+            user_id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+            children: []

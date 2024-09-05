@@ -35,6 +35,8 @@ paths:
     $ref: "paths/group.yml"
   /groups/{groupId}/dry-run.json:
     $ref: "paths/groupDryRun.yml"
+  /permissions/resource/{resourceId}.json:
+    $ref: "paths/permissionsResource.yml"
   /resources.json:
     $ref: "paths/resources.yml"
   /resources/{resourceId}.json:
@@ -72,6 +74,8 @@ tags:
       $ref: "components/descriptions/groups.yml#/tag"
   - name: "Move"
     description: "Move a folder or a resource across folders."
+  - name: "Permissions"
+    description: "Query permissions for resources."
   - name: "Resources"
     description:
       $ref: "components/descriptions/resources.yml#/tag"

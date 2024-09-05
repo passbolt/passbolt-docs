@@ -1,0 +1,23 @@
+get:
+  summary: "Get permissions for a resource."
+  operationId: "indexPermissionsResource"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/permissions.yml#/index"
+  tags:
+    - "Permissions"
+  parameters:
+    - $ref: "../components/parameters.yml#/resourceId"
+    - $ref: "../components/parameters.yml#/containGroup"
+    - $ref: "../components/parameters.yml#/containUser"
+    - $ref: "../components/parameters.yml#/containUserProfile"
+  responses:
+    200:
+      $ref: "../components/responses/permissions.yml#/index"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"

@@ -17,6 +17,10 @@ servers:
     description: "API Passbolt"
 
 paths:
+  /comments/resource/{resourceId}.json:
+    $ref: "paths/comments.yml"
+  /comments/{commentId}.json:
+    $ref: "paths/comment.yml"
   /favorite/{favoriteId}.json:
     $ref: "paths/favorite.yml"
   /favorite/{foreignModel}/{foreignId}.json:
@@ -61,6 +65,8 @@ paths:
     $ref: "paths/userDryRun.yml"
 
 tags:
+  - name: "Comments"
+    description: "Manipulate comments for resources."
   - name: "Favorites"
     description:
       $ref: "components/descriptions/favorites.yml#/tag"

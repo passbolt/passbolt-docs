@@ -17,6 +17,8 @@ servers:
     description: "API Passbolt"
 
 paths:
+  /avatars/view/{avatarId}/{avatarFormat}:
+    $ref: "paths/avatarsView.yml"
   /comments/resource/{resourceId}.json:
     $ref: "paths/comments.yml"
   /comments/{commentId}.json:
@@ -69,6 +71,8 @@ paths:
     $ref: "paths/userDryRun.yml"
 
 tags:
+  - name: "Avatars"
+    description: "Query avatar images."
   - name: "Comments"
     description: "Manipulate comments for resources."
   - name: "Favorites"

@@ -1,0 +1,15 @@
+get:
+  summary: "Get an avatar as an image."
+  description: "When the avatar doesn't exist, a placeholder image is returned instead."
+  operationId: "viewAvatar"
+  security: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/avatars.yml#/view"
+  tags:
+    - "Avatars"
+  parameters:
+    - $ref: "../components/parameters.yml#/avatarId"
+    - $ref: "../components/parameters.yml#/avatarFormat"
+  responses:
+    200:
+      $ref: "../components/responses/avatars.yml#/view"

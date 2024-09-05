@@ -1,0 +1,7 @@
+view:
+  description: "Operation is successful"
+  content:
+    image/jpeg:
+      schema:
+        type: string
+        format: binary

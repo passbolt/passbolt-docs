@@ -7,6 +7,26 @@ commentId:
     type: "string"
     format: "uuid"
 
+avatarId:
+  name: "avatarId"
+  description: "ID for the avatar being manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
+avatarFormat:
+  name: "avatarFormat"
+  description: "Format for the avatar being manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    enum:
+      - "medium.jpg"
+      - "small.jpg"
+
 favoriteId:
   name: "favoriteId"
   description: "ID for the favorite being manipulated."

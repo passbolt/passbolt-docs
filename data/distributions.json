@@ -142,7 +142,7 @@
   {
     "name": "RockyLinux",
     "slug": "rockylinux",
-    "version": 8,
+    "version": 9,
     "package": "dnf",
     "db_engine": "mariadb",
     "logo": "/img/distributions/rockylinux.svg",

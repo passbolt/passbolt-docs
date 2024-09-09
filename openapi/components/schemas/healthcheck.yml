@@ -1,0 +1,295 @@
+healthcheck:
+  type: "object"
+  required:
+    - environment
+    - configFile
+    - core
+    - ssl
+    - smtpSettings
+    - gpg
+    - application
+    - database
+  properties:
+    environment:
+      type: "object"
+      required:
+        - gnupg
+        - info
+        - phpVersion
+        - nextMinPhpVersion
+        - pcre
+        - mbstring
+        - intl
+        - image
+        - tmpWritable
+        - logWritable
+      properties:
+        gnupg:
+          type: "boolean"
+        info:
+          type: "object"
+          required:
+            - phpVersion
+          properties:
+            phpVersion:
+              type: "string"
+        phpVersion:
+          type: "boolean"
+        nextMinPhpVersion:
+          type: "boolean"
+        pcre:
+          type: "boolean"
+        mbstring:
+          type: "boolean"
+        intl:
+          type: "boolean"
+        image:
+          type: "boolean"
+        tmpWritable:
+          type: "boolean"
+        logWritable:
+          type: "boolean"
+    configFile:
+      type: "object"
+      required:
+        - app
+        - passbolt
+      properties:
+        app:
+          type: "boolean"
+        passbolt:
+          type: "boolean"
+    core:
+      type: "object"
+      required:
+        - cache
+        - debugDisabled
+        - salt
+        - info
+        - fullBaseUrl
+        - validFullBaseUrl
+        - fullBaseUrlReachable
+      properties:
+        cache:
+          type: "boolean"
+        debugDisabled:
+          type: "boolean"
+        salt:
+          type: "boolean"
+        info:
+          type: "object"
+          required:
+            - fullBaseUrl
+          properties:
+            fullBaseUrl:
+              type: "string"
+        fullBaseUrl:
+          type: "boolean"
+        validFullBaseUrl:
+          type: "boolean"
+        fullBaseUrlReachable:
+          type: "boolean"
+    ssl:
+      type: "object"
+      required:
+        - info
+        - peerValid
+        - hostValid
+        - notSelfSigned
+      properties:
+        info:
+          type: "string"
+        peerValid:
+          type: "boolean"
+        hostValid:
+          type: "boolean"
+        notSelfSigned:
+          type: "boolean"
+    smtpSettings:
+      type: "object"
+      required:
+        - isEnabled
+        - errorMessage
+        - source
+        - isInDb
+        - areEndpointsDisabled
+        - customSslOptions
+      properties:
+        isEnabled:
+          type: "boolean"
+        errorMessage:
+          type: "boolean"
+        source:
+          type: "string"
+        isInDb:
+          type: "boolean"
+        areEndpointsDisabled:
+          type: "boolean"
+        customSslOptions:
+          type: "boolean"
+    gpg:
+      type: "object"
+      required:
+        - lib
+        - gpgHome
+        - gpgHomeWritable
+        - gpgKeyNotDefault
+        - gpgKeyPublicBlock
+        - gpgKeyPrivateBlock
+        - gpgKeyPublicReadable
+        - gpgKeyPrivateReadable
+        - gpgKeyPrivateFingerprint
+        - gpgKeyPublic
+        - gpgKeyPrivate
+        - gpgKey
+        - info
+        - gpgKeyPublicFingerprint
+        - gpgKeyPublicInKeyring
+        - gpgKeyPublicEmail
+        - canEncrypt
+        - canSign
+        - canEncryptSign
+        - canDecrypt
+        - canDecryptVerify
+        - canVerify
+        - isPublicServerKeyGopengpgCompatible
+        - isPrivateServerKeyGopengpgCompatible
+      properties:
+        lib:
+          type: "boolean"
+        gpgHome:
+          type: "boolean"
+        gpgHomeWritable:
+          type: "boolean"
+        gpgKeyPublicBlock:
+          type: "boolean"
+        gpgKeyPrivateBlock:
+          type: "boolean"
+        gpgKeyPublicReadable:
+          type: "boolean"
+        gpgKeyPrivateReadable:
+          type: "boolean"
+        gpgKeyPrivateFingerprint:
+          type: "boolean"
+        gpgKeyPublic:
+          type: "boolean"
+        gpgKeyPrivate:
+          type: "boolean"
+        gpgKey:
+          type: "boolean"
+        info:
+          type: "object"
+          required:
+            - gpgKeyPrivate
+            - gpgHome
+          properties:
+            gpgKeyPrivate:
+              type: "string"
+            gpgHome:
+              type: "string"
+        gpgKeyPublicFingerprint:
+          type: "boolean"
+        gpgKeyPublicInKeyring:
+          type: "boolean"
+        gpgKeyPublicEmail:
+          type: "boolean"
+        canEncrypt:
+          type: "boolean"
+        canSign:
+          type: "boolean"
+        canEncryptSign:
+          type: "boolean"
+        canDecrypt:
+          type: "boolean"
+        canDecryptVerify:
+          type: "boolean"
+        canVerify:
+          type: "boolean"
+        isPublicServerKeyGopengpgCompatible:
+          type: "boolean"
+        isPrivateServerKeyGopengpgCompatible:
+          type: "boolean"
+    application:
+      type: "object"
+      required:
+        - configPath
+        - info
+        - latestVersion
+        - sslForce
+        - sslFullBaseUrl
+        - seleniumDisabled
+        - robotsIndexDisabled
+        - registrationClosed
+        - hostAvailabilityCheckEnabled
+        - jsProd
+        - emailNotificationEnabled
+        - schema
+      properties:
+        configPath:
+          type: "string"
+        info:
+          type: "object"
+          required:
+            - remoteVersion
+            - currentVersion
+          properties:
+            remoteVersion:
+              type: "string"
+            currentVersion:
+              type: "string"
+        latestVersion:
+          type: "boolean"
+        sslForce:
+          type: "boolean"
+        sslFullBaseUrl:
+          type: "boolean"
+        seleniumDisabled:
+          type: "boolean"
+        robotsIndexDisabled:
+          type: "boolean"
+        registrationClosed:
+          type: "object"
+          required:
+            - isSelfRegistrationPluginEnabled
+            - selfRegistrationProvider
+            - isRegistrationPublicRemovedFromPassbolt
+          properties:
+            isSelfRegistrationPluginEnabled:
+              type: "boolean"
+            selfRegistrationProvider:
+              type: "string"
+              x-nullable: true
+            isRegistrationPublicRemovedFromPassbolt:
+              type: "boolean"
+        hostAvailabilityCheckEnabled:
+          type: "boolean"
+        jsProd:
+          type: "boolean"
+        emailNotificationEnabled:
+          type: "boolean"
+        schema:
+          type: "boolean"
+    database:
+      type: "object"
+      required:
+        - supportedBackend
+        - connect
+        - info
+        - tablesCount
+        - defaultContent
+      properties:
+        supportedBackend:
+          type: "boolean"
+        connect:
+          type: "boolean"
+        info:
+          type: "object"
+          required:
+            - tablesCount
+          properties:
+            tablesCount:
+              type: "integer"
+        tablesCount:
+          type: "boolean"
+        defaultContent:
+          type: "boolean"

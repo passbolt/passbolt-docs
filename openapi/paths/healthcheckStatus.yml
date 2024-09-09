@@ -1,0 +1,11 @@
+get:
+  summary: "Check if passbolt is up."
+  operationId: "viewHealthcheckStatus"
+  security: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/healthcheck.yml#/status"
+  tags:
+    - "Healthcheck"
+  responses:
+    200:
+      $ref: "../components/responses/healthcheck.yml#/status"

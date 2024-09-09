@@ -51,6 +51,19 @@ authenticationRequired:
         code: 401
       body: ""
 
+accessRestrictedToAdministrators:
+  base:
+    value:
+      header:
+        id: "f7be85c0-afb1-4d8e-a9e1-e05abb0bb71a"
+        status: "error"
+        servertime: 1721727753
+        action: "e2aa01a9-84ec-55f8-aaed-24ee23259339"
+        message: "Access restricted to administrators."
+        url: "<API ENDPOINT URL>"
+        code: 403
+      body: ""
+
 notFound:
   response:
     example:

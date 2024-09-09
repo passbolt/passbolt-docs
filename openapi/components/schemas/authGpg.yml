@@ -1,0 +1,34 @@
+verify:
+  type: "object"
+  required:
+    - fingerprint
+    - keydata
+  properties:
+    fingerprint:
+      type: "string"
+    keydata:
+      type: "string"
+
+login:
+  type: "object"
+  required:
+    - data
+  properties:
+    data:
+      type: "object"
+      required:
+        - gpg_auth
+      properties:
+        gpg_auth:
+          type: "object"
+          required:
+            - keyid
+          properties:
+            keyid:
+              type: "string"
+            server_verify_token:
+              type: "string"
+              description: "Used for server key verification."
+            user_token_result:
+              type: "string"
+              description: "Used for client key verification."

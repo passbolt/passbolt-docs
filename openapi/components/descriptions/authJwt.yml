@@ -1,0 +1,57 @@
+tag: |
+  JWT-based authentication is the preferred way to interact with the Passbolt API.
+
+  This approach provides as secure, signed, framework-agnostic and cookie-less authentication system.
+  With this authentication method, keep-alives are a thing of the past, which means less requests and greater battery life for clients, while giving
+  the server a more precise control over tokens expiry and validity.
+
+rsa: |
+  This is not the key to use when encrypting the JWT login challenge.
+
+refresh: |
+  Once the `access_token` expired, the client needs to obtain a new one from the server.
+
+  Each `refresh_token` is to be consumed only once, and a new one is provided with the new `access_token`, in a cookie.
+
+  If MFA is enabled for the account, a new `passbolt_mfa` token is also provided as a cookie.
+
+login: |
+  JWT-based login is made in only one request, in which both the server and the client's identity is verified and validated.
+
+  First, the client creates a challenge token in the form of a client-side generated UUID, and encapsulates it in a JSON object:
+
+  ```json
+  {
+    "version": "1.0.0",
+    "domain": "https://passbolt.local",
+    "verify_token": "our UUID challenge token",
+    "verify_token_expiry": "<UNIX epoch for our challenge token expiration>"
+  }
+  ```
+
+  This challenge payload is then signed using the client's key, and finally encrypted with the server's key (available at `/auth/verify.json`).
+
+  The server then decrypts the payload, checks that the payload's signature is the valid for the `user_id` provided alongside the challenge.
+  The server has now verified and validated the user attempting to log in.
+
+  The server then replies with the following payload, encrypted with the user's key:
+
+  ```json
+  {
+    "version": "1.0.0",
+    "domain": "https://passbolt.local",
+    "verify_token": "our UUID challenge token",
+    "access_token": "<JWT token which is then used for authenticating the client>"
+    "refresh_token": "a UUID used for getting a new access token once it expired"
+  }
+  ```
+
+  The user can then decrypt this payload and validate that the `verify_token` matches the one sent earlier,
+  checking that the server was able to decrypt its challenge, and by extension, the server's identity.
+
+  The log-in flow is complete.
+
+  If multi-factor authentication is enabled for the user, then client gets a list of MFA providers in the challenge response,
+  such as `"mfa_providers": ["totp", "yubikey"]`.
+  The client then has to obtain a MFA token, to be used in conjonction with the `access_token`,
+  by using the relevant endpoints in order to be fully authenticated.

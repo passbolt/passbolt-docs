@@ -1,0 +1,18 @@
+post:
+  summary: "Refresh access token."
+  description:
+    $ref: "../components/descriptions/authJwt.yml#/refresh"
+  operationId: "authJwtRefresh"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/authJwt.yml#/refresh"
+  tags:
+    - "Authentication (JWT)"
+  requestBody:
+    $ref: "../components/requestBodies/authJwt.yml#/refresh"
+  responses:
+    200:
+      $ref: "../components/responses/authJwt.yml#/refresh"
+    400:
+      $ref: "../components/responses.yml#/badRequest"

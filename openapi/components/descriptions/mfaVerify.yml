@@ -1,0 +1,5 @@
+tag: |
+  Complete and validate authentication for users with MFA enabled.
+
+check: |
+  Check if MFA validation is needed. `400` means that this kind of MFA is not required.

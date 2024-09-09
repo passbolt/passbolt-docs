@@ -1,0 +1,66 @@
+mfaAttempt:
+  anyOf:
+    - type: "object"
+      required:
+        - totp
+      properties:
+        totp:
+          type: "string"
+          description: "One-time code for TOTP-based MFA."
+        remember:
+          type: "integer"
+          enum:
+            - 0
+            - 1
+    - type: "object"
+      required:
+        - hotp
+      properties:
+        hotp:
+          type: "string"
+          description: "One-time code for Yubikey-based MFA."
+        remember:
+          type: "integer"
+          enum:
+            - 0
+            - 1
+
+invalidOtp:
+  anyOf:
+    - type: "object"
+      required:
+        - totp
+      properties:
+        totp:
+          type: "object"
+          properties:
+            numeric:
+              type: "string"
+            minLength:
+              type: "string"
+            isValidOtp:
+              type: "string"
+    - type: "object"
+      required:
+        - hotp
+      properties:
+        hotp:
+          type: "object"
+          properties:
+            isValidModhex:
+              type: "string"
+            isValidHotp:
+              type: "string"
+
+error:
+  type: "object"
+  required:
+    - mfa_providers
+  properties:
+    mfa_providers:
+      type: "array"
+      items:
+        type: "string"
+        enum:
+          - totp
+          - yubikey

@@ -1,0 +1,150 @@
+attempt:
+  - lang: cURL
+    source: |
+      curl --request POST \
+        --url {{API_BASE_URL}}/mfa/verify/totp.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+        --data '{
+          "totp": "654373"
+        }'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/mfa/verify/totp.json';
+      const options = {
+        method: 'POST',
+        headers: {Authorization: 'Bearer {{JWT_TOKEN}}'},
+        body: '{"totp":"654373"}'
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/mfa/verify/totp.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => json_encode([
+          'totp' => '654373'
+        ]),
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+check:
+  - lang: cURL
+    source: |
+      curl --request GET \
+        --url {{API_BASE_URL}}/mfa/verify/totp.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/mfa/verify/totp.json';
+      const options = {method: 'GET', headers: {Authorization: 'Bearer {{JWT_TOKEN}}'}};
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/mfa/verify/totp.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+error:
+  - lang: cURL
+    source: |
+      curl --request GET \
+        --url {{API_BASE_URL}}/mfa/verify/error.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/mfa/verify/error.json';
+      const options = {method: 'GET', headers: {Authorization: 'Bearer {{JWT_TOKEN}}'}};
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/mfa/verify/error.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }

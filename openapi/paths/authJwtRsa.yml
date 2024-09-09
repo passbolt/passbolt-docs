@@ -1,0 +1,15 @@
+get:
+  summary: "Get the JWT RSA server information."
+  operationId: "viewAuthJwtRsa"
+  description:
+    $ref: "../components/descriptions/authJwt.yml#/rsa"
+  security: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/authJwt.yml#/rsa"
+  tags:
+    - "Authentication (JWT)"
+  responses:
+    200:
+      $ref: "../components/responses/authJwt.yml#/rsa"
+    404:
+      $ref: "../components/responses.yml#/notFound"

@@ -17,6 +17,24 @@ servers:
     description: "API Passbolt"
 
 paths:
+  /auth/is-authenticated.json:
+    $ref: "paths/authIsAuthenticated.yml"
+  /auth/jwt/jwks.json:
+    $ref: "paths/authJwtJwks.yml"
+  /auth/jwt/login.json:
+    $ref: "paths/authJwtLogin.yml"
+  /auth/jwt/logout.json:
+    $ref: "paths/authJwtLogout.yml"
+  /auth/jwt/refresh.json:
+    $ref: "paths/authJwtRefresh.yml"
+  /auth/jwt/rsa.json:
+    $ref: "paths/authJwtRsa.yml"
+  /auth/login.json:
+    $ref: "paths/authLogin.yml"
+  /auth/logout.json:
+    $ref: "paths/authLogout.yml"
+  /auth/verify.json:
+    $ref: "paths/authVerify.yml"
   /avatars/view/{avatarId}/{avatarFormat}:
     $ref: "paths/avatarsView.yml"
   /comments/resource/{resourceId}.json:
@@ -45,6 +63,10 @@ paths:
     $ref: "paths/healthcheck.yml"
   /healthcheck/status.json:
     $ref: "paths/healthcheckStatus.yml"
+  /mfa/verify/{mfaProviderName}.json:
+    $ref: "paths/mfaVerify.yml"
+  /mfa/verify/error.json:
+    $ref: "paths/mfaVerifyError.yml"
   /permissions/resource/{resourceId}.json:
     $ref: "paths/permissionsResource.yml"
   /resources.json:
@@ -75,6 +97,12 @@ paths:
     $ref: "paths/userDryRun.yml"
 
 tags:
+  - name: "Authentication (GPGAuth)"
+    description:
+      $ref: "components/descriptions/authGpg.yml#/tag"
+  - name: "Authentication (JWT)"
+    description:
+      $ref: "components/descriptions/authJwt.yml#/tag"
   - name: "Avatars"
     description: "Query avatar images."
   - name: "Comments"
@@ -90,6 +118,9 @@ tags:
       $ref: "components/descriptions/groups.yml#/tag"
   - name: "Healthcheck"
     description: "Gather data about the passbolt instance's health."
+  - name: "Multi-Factor Authentication"
+    description:
+      $ref: "components/descriptions/mfaVerify.yml#/tag"
   - name: "Move"
     description: "Move a folder or a resource across folders."
   - name: "Permissions"

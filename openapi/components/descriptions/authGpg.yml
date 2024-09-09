@@ -1,9 +1,9 @@
 tag: |
-  > GPG Authentication is the legacy authentication method, and will eventually be dropped in favor of JWT-based authentication.
+  > GPGAuth is the legacy authentication method, and will eventually be dropped in favor of JWT-based authentication.
 
   ### Multi-step authentication process
 
-  When using GPG-based authentication, the whole process is divided in multiple steps, each one with a specific use-case.
+  When using GPGAuth-based authentication, the whole process is divided in multiple steps, each one with a specific use-case.
 
   
   #### Stage 0 - Server's identity verification

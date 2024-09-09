@@ -97,7 +97,7 @@ paths:
     $ref: "paths/userDryRun.yml"
 
 tags:
-  - name: "Authentication (GPG)"
+  - name: "Authentication (GPGAuth)"
     description:
       $ref: "components/descriptions/authGpg.yml#/tag"
   - name: "Authentication (JWT)"

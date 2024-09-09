@@ -57,6 +57,6 @@ This tends to happen when a user is added in a group in Passbolt prior to being 
 
 ## The user user@domain.com could not be added to the group MyGroup because membership was removed in passbolt
 
-This error happens when an user has been manually removed from a group. Passbolt then considers that the actions performed in passbolt have a higher priority and that the user was removed from the group for a good reason.
+This error occurs when a user has been manually removed from a group. Passbolt prioritizes manual actions, assuming the removal was intentional and for a valid reason.
 
-When this situation happens, the solution would be to manually re-add the user to the group in passbolt and then run the LDAP synchronization afterwards.
+To resolve this issue, manually re-add the user to the group in Passbolt and then run the LDAP synchronization afterward.

@@ -1,0 +1,57 @@
+---
+title: How can I disable MFA for a specific user?
+description: How to disable MFA for specific user
+hide_table_of_contents: true
+sidebar_class_name: hidden
+---
+
+import CodeBlock from "/src/components/CodeBlock/CodeBlock";
+import Chips from "/src/components/Chips/Chips";
+import Figure from "/src/components/Figure/Figure";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+When an user that configured MFA lose his access, it is still possible to help him as an administrator and a system administrator.
+
+# Interface
+
+In the *users* workspace, as an administrator, it is possible to right click on the user and Disable MFA.
+
+<Figure
+  src={
+    '/img/help/2024/09/disable-mfa.png'
+  }
+  alt={'Disable MFA from the users workspace'}
+  caption={'fig. Disable MFA from the users workspace'}
+/>
+
+
+# Server
+
+In the passbolt database, it is possible with an SQL query to deactivate MFA for the user
+
+<CodeBlock>
+{`SELECT id, username FROM users WHERE username='USERNAME';`}
+</CodeBlock>
+
+The placeholder **USERNAME** should be replaced with the user's email address, then copy the identifier output e.g. `20f11ac2-eabd-4e83-8ddb-0752934ca119`
+
+
+Then, replace the placeholder **ID** with the copied output, run the SQL query below and it should be done!
+<CodeBlock>
+{`DELETE FROM account_settings WHERE user_id='ID' AND property='mfa';`}
+</CodeBlock>
+
+
+### Other frequently asked questions in the same category
+<ul>
+    <li>
+        <a href={`/docs/admin/user-provisioning/self-registration/`}>User Self Registration Set Up</a>
+    </li>
+    <li>
+        <a href={`/docs/hosting/troubleshooting/performance-tweaks/`}>Some potential performance tweaks</a>
+    </li>
+</ul>

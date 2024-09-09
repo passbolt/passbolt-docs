@@ -1,0 +1,45 @@
+get:
+  summary: "Get comments for a resource."
+  operationId: "indexComments"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/comments.yml#/index"
+  tags:
+    - "Comments"
+  parameters:
+    - $ref: "../components/parameters.yml#/resourceId"
+    - $ref: "../components/parameters.yml#/containCreator"
+    - $ref: "../components/parameters.yml#/containModifier"
+  responses:
+    200:
+      $ref: "../components/responses/comments.yml#/index"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"
+
+post:
+  summary: "Add a comment."
+  operationId: "addComment"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/comments.yml#/add"
+  tags:
+    - "Comments"
+  parameters:
+    - $ref: "../components/parameters.yml#/resourceId"
+  requestBody:
+    $ref: "../components/requestBodies/comments.yml#/commentAdd"
+  responses:
+    200:
+      $ref: "../components/responses/comments.yml#/add"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"

@@ -1,3 +1,12 @@
+commentId:
+  name: "commentId"
+  description: "ID for the comment being manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
 favoriteId:
   name: "favoriteId"
   description: "ID for the favorite being manipulated."

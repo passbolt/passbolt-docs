@@ -1,0 +1,71 @@
+commentUpdate:
+  type: "object"
+  required:
+    - content
+  properties:
+    content:
+      type: "string"
+
+commentAdd:
+  type: "object"
+  required:
+    - content
+  properties:
+    content:
+      type: "string"
+    parent_id:
+      type: "string"
+      format: "uuid"
+
+commentView:
+  type: "object"
+  required:
+    - id
+    - parent_id
+    - foreign_key
+    - foreign_model
+    - content
+    - created
+    - modified
+    - created_by
+    - modified_by
+    - user_id
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    parent_id:
+      type: "string"
+      format: "uuid"
+    foreign_key:
+      type: "string"
+      format: "uuid"
+    foreign_model:
+      type: "string"
+      enum:
+        - "Resource"
+    content:
+      type: "string"
+    created:
+      type: "string"
+      format: "date-time"
+    modified:
+      type: "string"
+      format: "date-time"
+    created_by:
+      type: "string"
+      format: "uuid"
+    modified_by:
+      type: "string"
+      format: "uuid"
+    user_id:
+      type: "string"
+      format: "uuid"
+    children:
+      type: "array"
+      items:
+        $ref: "#/commentView"
+    modifier:
+      $ref: "users.yml#/userIndexAndView"
+    creator:
+      $ref: "users.yml#/userIndexAndView"

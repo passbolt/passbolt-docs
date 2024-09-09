@@ -6,7 +6,7 @@ get:
   x-codeSamples:
     $ref: "../components/codeSamples/authGpg.yml#/verify"
   tags:
-    - "Authentication (GPG)"
+    - "Authentication (GPGAuth)"
   responses:
     200:
       $ref: "../components/responses/authGpg.yml#/verify"
@@ -18,7 +18,7 @@ post:
   x-codeSamples:
     $ref: "../components/codeSamples/authGpg.yml#/stage0"
   tags:
-    - "Authentication (GPG)"
+    - "Authentication (GPGAuth)"
   requestBody:
     $ref: "../components/requestBodies/authGpg.yml#/verify"
   responses:

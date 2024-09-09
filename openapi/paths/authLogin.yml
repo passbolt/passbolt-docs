@@ -5,7 +5,7 @@ post:
   x-codeSamples:
     $ref: "../components/codeSamples/authGpg.yml#/login"
   tags:
-    - "Authentication (GPG)"
+    - "Authentication (GPGAuth)"
   requestBody:
     $ref: "../components/requestBodies/authGpg.yml#/login"
   responses:

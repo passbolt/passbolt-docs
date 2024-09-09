@@ -5,6 +5,7 @@
     - npm ci --include=dev
     - npm run lint
     - npm run lint:mdx
+    - npx @redocly/cli lint openapi/root.yml
   allow_failure: true
   rules:
     - if: '($CI_PIPELINE_SOURCE == "schedule" || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $TARGET_BRANCH )'

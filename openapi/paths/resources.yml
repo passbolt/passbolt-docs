@@ -1,0 +1,52 @@
+get:
+  summary: "Get multiple resources."
+  operationId: "indexResources"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/resources.yml#/index"
+  tags:
+    - "Resources"
+  parameters:
+    - $ref: "../components/parameters.yml#/containCreator"
+    - $ref: "../components/parameters.yml#/containFavorite"
+    - $ref: "../components/parameters.yml#/containModifier"
+    - $ref: "../components/parameters.yml#/containSecret"
+    - $ref: "../components/parameters.yml#/containResourceType"
+    - $ref: "../components/parameters.yml#/containPermission"
+    - $ref: "../components/parameters.yml#/containPermissions"
+    - $ref: "../components/parameters.yml#/containPermissionsUserProfile"
+    - $ref: "../components/parameters.yml#/containPermissionsGroup"
+    - $ref: "../components/parameters.yml#/filterIsFavorite"
+    - $ref: "../components/parameters.yml#/filterIsSharedWithGroup"
+    - $ref: "../components/parameters.yml#/filterIsOwnedByMe"
+    - $ref: "../components/parameters.yml#/filterIsSharedWithMe"
+    - $ref: "../components/parameters.yml#/filterHasId"
+    - $ref: "../components/parameters.yml#/filterHasParent"
+  responses:
+    200:
+      $ref: "../components/responses/resources.yml#/index"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+
+post:
+  summary: "Create a resource."
+  operationId: "addResource"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/resources.yml#/add"
+  tags:
+    - "Resources"
+  responses:
+    200:
+      $ref: "../components/responses/resources.yml#/addAndUpdate"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+  requestBody:
+    $ref: "../components/requestBodies/resources.yml#/resourceAdd"
+

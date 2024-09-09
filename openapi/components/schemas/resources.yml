@@ -1,0 +1,125 @@
+resourceIndexAndView:
+  type: "object"
+  required:
+    - id
+    - name
+    - username
+    - uri
+    - description
+    - deleted
+    - created
+    - created_by
+    - modified_by
+    - resource_type_id
+    - expired
+    - folder_parent_id
+    - personal
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    name:
+      type: "string"
+    username:
+      type: "string"
+    uri:
+      type: "string"
+    description:
+      type: "string"
+    deleted:
+      type: boolean
+    created:
+      type: "string"
+      format: "date-time"
+    created_by:
+      type: "string"
+      format: "uuid"
+    modified_by:
+      type: "string"
+      format: "uuid"
+    resource_type_id:
+      type: "string"
+      format: "uuid"
+    expired:
+      type: "string"
+      format: "date-time"
+      x-nullable: true
+    folder_parent_id:
+      type: "string"
+      format: "uuid"
+      x-nullable: true
+    personal:
+      type: boolean
+    favorite:
+      $ref: "favorites.yml#/favorite"
+    modifier:
+      $ref: "users.yml#/userIndexAndView"
+    creator:
+      $ref: "users.yml#/userIndexAndView"
+    secrets:
+      type: "array"
+      items:
+        $ref: "secrets.yml#/secretIndex"
+    resource_type:
+      $ref: "resourceTypes.yml#/resourceType"
+    permission:
+      $ref: "permissions.yml#/permissionIndexAndView"
+    permissions:
+      type: "array"
+      items:
+        $ref: "permissions.yml#/permissionIndexAndView"
+
+resourceAdd:
+  type: "object"
+  required:
+    - name
+    - username
+    - uri
+    - resource_type_id
+  properties:
+    name:
+      type: "string"
+    username:
+      type: "string"
+    uri:
+      type: "string"
+    description:
+      type: "string"
+    resource_type_id:
+      type: "string"
+      format: "uuid"
+    folder_parent_id:
+      type: "string"
+      format: "uuid"
+    expired:
+      type: "string"
+      format: "date-time"
+      x-nullable: true
+    secrets:
+      type: "array"
+      items:
+        $ref: "secrets.yml#/secretAdd"
+
+resourceUpdate:
+  type: "object"
+  properties:
+    name:
+      type: "string"
+    username:
+      type: "string"
+    uri:
+      type: "string"
+    description:
+      type: "string"
+    resource_type_id:
+      type: "string"
+      format: "uuid"
+    expired:
+      type: "string"
+      format: "date-time"
+      x-nullable: true
+    secrets:
+      type: "array"
+      items:
+        $ref: "secrets.yml#/secretUpdate"
+

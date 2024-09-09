@@ -1,0 +1,77 @@
+permissionIndexAndView:
+  type: "object"
+  required:
+    - id
+    - aco
+    - aco_foreign_key
+    - aro
+    - aro_foreign_key
+    - type
+    - created
+    - modified
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    aco:
+      type: "string"
+      enum:
+        - "Resource"
+        - "Folder"
+    aco_foreign_key:
+      type: "string"
+      format: "uuid"
+    aro:
+      type: "string"
+      enum:
+        - "User"
+        - "Group"
+    aro_foreign_key:
+      type: "string"
+      format: "uuid"
+    type:
+      $ref: "#/permissionLevel"
+    created:
+      type: "string"
+      format: "date-time"
+    modified:
+      type: "string"
+      format: "date-time"
+    user:
+      $ref: "users.yml#/userIndexAndView"
+      x-nullable: true
+    group:
+      $ref: "groups.yml#/groupIndexAndView"
+      x-nullable: true
+
+permissionUpdate:
+  type: "object"
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    aro:
+      type: "string"
+      enum:
+        - "User"
+        - "Group"
+    aro_foreign_key:
+      type: "string"
+      format: "uuid"
+    type:
+      $ref: "#/permissionLevel"
+    delete:
+      type: "boolean"
+    is_new:
+      type: "boolean"
+
+permissionLevel:
+  description: |
+    * `1` - Read
+    * `7` - Update
+    * `15` - Owner
+  type: "integer"
+  enum:
+    - 1
+    - 7
+    - 15

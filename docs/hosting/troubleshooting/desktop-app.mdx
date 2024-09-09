@@ -4,7 +4,7 @@ description: A guide for how to troubleshoot your Passbolt Windows Application
 sidebar_label: Windows Application
 hide_table_of_contents: false
 ---
-
+import CodeBlock from '@theme/CodeBlock';
 import Figure from '/src/components/Figure/Figure';
 
 
@@ -106,3 +106,40 @@ If you run into any issues, this is usually related to one of these three behavi
   - The certificate should be imported in **Trusted Root Certification Authorities**
 - The certificate hasn't been properly imported
   - You have to re-download the certificate and trust the certificate again.
+
+## MSIX Bundle
+
+While installing the windows application through our [GitHub releases page](https://github.com/passbolt/passbolt-windows/releases), it is possible to encounter some issues. Here is listed the one we've seen so far.
+
+### Version not supported
+Before going deeper in the investigation, we recommend double-checking that you are using a [supported version](https://learn.microsoft.com/en-us/windows/msix/supported-platforms). Windows describe the different support for the different versions of windows.
+
+### Code 0x80070005
+
+The error code **0x80070005** generally signals a permissions issue or insufficient administrative privileges when attempting to install an MSIX bundle or application package.
+
+1. Run as Administrator
+2. Disable Antivirus or Security Software
+3. Adjust User Account Control (UAC)
+
+You can read more about it [here](https://answers.microsoft.com/en-us/windows/forum/all/i-cant-install-msixbundle-file/a2dc03f8-26be-4205-be26-c6297761e965).
+
+### Windows 10 LTSC/LTSB
+In the LTSC systems, App Installer and Microsoft Store are not available. One solution is to install the [winget package](https://medium.com/@bonguides25/how-to-fix-windows-cant-open-this-type-of-file-msixbundle-068da587431b). It will install the missing AppX Desktop Deployment automatically.
+
+The other solution would be to enable it into the `service.msc`
+1. Press the Windows Key + S and type in services.msc.
+2. Find the Microsoft Store Install Service and double-click,
+3. If Disabled, change it to Automatic, click Start and click OK.
+
+If it is still not working
+1. Press the windows key + R and type in msconfig
+2. Find the services tab and search Microsoft Store Install Service
+3. Enable it
+
+### Install the bundle with the command line
+Some systems do not allow the users to install the application by clicking on it. The workaround is to go through the terminal, run it as administrator and run the following command:
+
+<CodeBlock>
+  {`Add-AppxPackage -Path C:\\Path\\App-Package.msixbundle`}
+</CodeBlock>

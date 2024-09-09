@@ -4,15 +4,25 @@ description: How to Set Up the LDAP Synchronization Cronjob
 sidebar_label: LDAP Sync Cronjob
 ---
 
+import CodeBlock from "/src/components/CodeBlock/CodeBlock.js";
+
 To synchronize the [user directory](/admin/user-provisioning/users-directory/) changes automatically you will need to add a cron job on your server. We recommend to execute
 the job once a day, but you can choose as per your preference.
 
-```bash
-0 0 * * * su -c "/var/www/passbolt/bin/cake directory_sync all --persist" -s /bin/bash www-data >> /var/log/cron.log 2>&1
-```
+## Debian/Ubuntu
 
-For debian and ubuntu systems where passbolt is installed through our supported packages:
+<CodeBlock>
+{`0 0 * * * su -c "/usr/share/php/passbolt/bin/cake directory_sync all --persist" -s /bin/bash www-data >> /var/log/cron.log 2>&1
+`}
+</CodeBlock>
 
-```bash
-0 0 * * * su -c "/usr/share/php/passbolt/bin/cake directory_sync all --persist" -s /bin/bash www-data >> /var/log/cron.log 2>&1
-```
+## RPM
+
+<CodeBlock>
+{`0 0 * * * su -c "/usr/share/php/passbolt/bin/cake directory_sync all --persist" -s /bin/bash nginx >> /var/log/cron.log 2>&1
+`}
+</CodeBlock>
+
+## Docker
+
+You will have to uncomment [line 36 and 37](https://github.com/passbolt/passbolt_docker/blob/master/docker-compose/docker-compose-pro.yaml#L36) on the `docker-compose-pro.yaml` file.

@@ -1,0 +1,74 @@
+get:
+  summary: "Get a group."
+  operationId: "viewGroup"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/groups.yml#/view"
+  tags:
+    - "Groups"
+  parameters:
+    - $ref: "../components/parameters.yml#/groupId"
+    - $ref: "../components/parameters.yml#/containModifier"
+    - $ref: "../components/parameters.yml#/containModifierProfile"
+    - $ref: "../components/parameters.yml#/containUsers"
+    - $ref: "../components/parameters.yml#/containMyGroupUser"
+    - $ref: "../components/parameters.yml#/containGroupsUsers"
+    - $ref: "../components/parameters.yml#/containGroupsUsersUser"
+    - $ref: "../components/parameters.yml#/containGroupsUsersUserProfile"
+    - $ref: "../components/parameters.yml#/containGroupsUsersUserGpgkey"
+  responses:
+    200:
+      $ref: "../components/responses/groups.yml#/view"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"
+
+put:
+  summary: "Update a group."
+  operationId: "updateGroup"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/groups.yml#/update"
+  tags:
+    - "Groups"
+  parameters:
+    - $ref: "../components/parameters.yml#/groupId"
+  responses:
+    200:
+      $ref: "../components/responses/groups.yml#/addAndUpdate"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"
+  requestBody:
+    $ref: "../components/requestBodies/groups.yml#/groupUpdate"
+
+delete:
+  summary: "Delete a group."
+  description:
+    $ref: "../components/descriptions/groups.yml#/delete"
+  operationId: "deleteGroup"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/groups.yml#/delete"
+  tags:
+    - "Groups"
+  parameters:
+    - $ref: "../components/parameters.yml#/groupId"
+  responses:
+    200:
+      $ref: "../components/responses.yml#/nullBody"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"

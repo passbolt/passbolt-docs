@@ -1,0 +1,92 @@
+openapi: "3.1.0"
+info:
+  contact:
+    email: "contact@passbolt.com"
+  summary: "Public documentation for Passbolt's API"
+  description:
+    $ref: "components/descriptions.yml#/main"
+  license:
+    name: "AGPL-3.0"
+    url: "http://www.gnu.org/licenses/agpl-3.0.html"
+  termsOfService: "https://www.passbolt.com/terms"
+  title: "Passbolt API Documentation"
+  version: "4.9.0"
+
+servers:
+  - url: "https://passbolt.local"
+    description: "API Passbolt"
+
+paths:
+  /favorite/{favoriteId}.json:
+    $ref: "paths/favorite.yml"
+  /favorite/{foreignModel}/{foreignId}.json:
+    $ref: "paths/favoritesForeignModel.yml"
+  /folders.json:
+    $ref: "paths/folders.yml"
+  /folders/{folderId}.json:
+    $ref: "paths/folder.yml"
+  /gpgkeys.json:
+    $ref: "paths/gpgkeys.yml"
+  /gpgkeys/{gpgkeyId}.json:
+    $ref: "paths/gpgkey.yml"
+  /groups.json:
+    $ref: "paths/groups.yml"
+  /groups/{groupId}.json:
+    $ref: "paths/group.yml"
+  /groups/{groupId}/dry-run.json:
+    $ref: "paths/groupDryRun.yml"
+  /resources.json:
+    $ref: "paths/resources.yml"
+  /resources/{resourceId}.json:
+    $ref: "paths/resource.yml"
+  /move/{foreignModel}/{foreignId}.json:
+    $ref: "paths/move.yml"
+  /resource-types.json:
+    $ref: "paths/resourceTypes.yml"
+  /resource-types/{resourceTypeId}.json:
+    $ref: "paths/resourceType.yml"
+  /roles.json:
+    $ref: "paths/roles.yml"
+  /share/{foreignModel}/{foreignId}.json:
+    $ref: "paths/shareForeignModel.yml"
+  /share/search-aros.json:
+    $ref: "paths/shareSearchAros.yml"
+  /share/simulate/{foreignModel}/{foreignId}.json:
+    $ref: "paths/shareSimulateForeignModel.yml"
+  /users.json:
+    $ref: "paths/users.yml"
+  /users/{userId}.json:
+    $ref: "paths/user.yml"
+  /users/{userId}/dry-run.json:
+    $ref: "paths/userDryRun.yml"
+
+tags:
+  - name: "Favorites"
+    description:
+      $ref: "components/descriptions/favorites.yml#/tag"
+  - name: "GPG keys"
+    description:
+      $ref: "components/descriptions/gpgkeys.yml#/tag"
+  - name: "Groups"
+    description:
+      $ref: "components/descriptions/groups.yml#/tag"
+  - name: "Move"
+    description: "Move a folder or a resource across folders."
+  - name: "Resources"
+    description:
+      $ref: "components/descriptions/resources.yml#/tag"
+  - name: "Resource types"
+    description:
+      $ref: "components/descriptions/resourceTypes.yml#/tag"
+  - name: "Roles"
+    description: "Different categories of users."
+  - name: "Shares"
+    description:
+      $ref: "components/descriptions/shares.yml#/tag"
+  - name: "Users"
+    description:
+      $ref: "components/descriptions/users.yml#/tag"
+
+components:
+  securitySchemes:
+    $ref: "components/securitySchemes.yml"

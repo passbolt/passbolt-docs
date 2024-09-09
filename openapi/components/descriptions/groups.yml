@@ -1,0 +1,5 @@
+tag: |
+  Groups are logical collection of users. They can be used for example to represents departments or projects in an organization. They are especially useful when you want to share `Resources` with multiple users at once.
+
+delete: |
+  Only a group manager or a user with administrator role can delete a group. A group cannot be deleted as long as it is the sole owner of a shared resource or folder.

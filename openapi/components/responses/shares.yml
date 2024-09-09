@@ -1,0 +1,52 @@
+arosIndex:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            type: "array"
+            items:
+              $ref: "../schemas/shares.yml#/shareAros"
+      examples:
+        $ref: "../examples/shares.yml#/shareAros/response"
+
+updateError:
+  description: "Bad request"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/shares.yml#/shareUpdateError"
+      examples:
+        $ref: "../examples/shares.yml#/shareUpdateError/response"
+
+updateDryRun:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/shares.yml#/shareUpdateDryRun"
+      examples:
+        $ref: "../examples/shares.yml#/shareUpdateDryRun/response"

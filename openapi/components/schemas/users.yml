@@ -1,0 +1,182 @@
+userIndexAndView:
+  type: "object"
+  required:
+    - id
+    - role_id
+    - username
+    - active
+    - deleted
+    - created
+    - modified
+    - disabled
+  properties:
+    is_mfa_enabled:
+      type: "boolean"
+    id:
+      type: "string"
+      format: "uuid"
+    role_id:
+      type: "string"
+      format: "uuid"
+    username:
+      type: "string"
+    active:
+      type: "boolean"
+    deleted:
+      type: "boolean"
+    created:
+      type: "string"
+      format: "date-time"
+    modified:
+      type: "string"
+      format: "date-time"
+    disabled:
+      type: "string"
+      format: "date-time"
+      x-nullable: true
+    profile:
+      type: "object"
+      required:
+        - id
+        - user_id
+        - first_name
+        - last_name
+        - created
+        - modified
+        - avatar
+      properties:
+        id:
+          type: "string"
+          format: "uuid"
+        user_id:
+          type: "string"
+          format: "uuid"
+        first_name:
+          type: "string"
+        last_name:
+          type: "string"
+        created:
+          type: "string"
+          format: "date-time"
+        modified:
+          type: "string"
+          format: "date-time"
+        avatar:
+          type: "object"
+          required:
+            - url
+          properties:
+            id:
+              type: "string"
+              format: "uuid"
+            profile_id:
+              type: "string"
+              format: "uuid"
+            created:
+              type: "string"
+              format: "date-time"
+            modified:
+              type: "string"
+              format: "date-time"
+            url:
+              type: "object"
+              required:
+                - medium
+                - small
+              properties:
+                medium:
+                  type: "string"
+                  format: "url"
+                small:
+                  type: "string"
+                  format: "url"
+    groups_users:
+      $ref: "groups.yml#/groupsUsersIndexAndView"
+    gpgkey:
+      $ref: "gpgkeys.yml#/gpgkey"
+      x-nullable: true
+    role:
+      $ref: "roles.yml#/role"
+    last_logged_in:
+      type: "string"
+      format: "date-time"
+      x-nullable: true
+
+userUpdate:
+  type: "object"
+  properties:
+    role_id:
+      type: "string"
+      format: "uuid"
+    disabled:
+      type: "boolean"
+    profile:
+      type: "object"
+      properties:
+        first_name:
+          type: "string"
+        last_name:
+          type: "string"
+        avatar:
+          type: "object"
+          required:
+            - file
+          properties:
+            file:
+              type: "string"
+              description: "Image file in binary format."
+
+userAdd:
+  type: "object"
+  required:
+    - username
+    - profile
+  properties:
+    username:
+      type: "string"
+      format: "email"
+    role_id:
+      type: "string"
+      format: "uuid"
+    profile:
+      type: "object"
+      required:
+        - first_name
+        - last_name
+      properties:
+        first_name:
+          type: "string"
+        last_name:
+          type: "string"
+
+userDeleteDryRun:
+  type: "object"
+  properties:
+    errors:
+      type: "object"
+      properties:
+        groups:
+          type: "object"
+          properties:
+            sole_manager:
+              type: "array"
+              items:
+                $ref: "groups.yml#/groupIndexAndView"
+        folders:
+          type: "object"
+          properties:
+            sole_owner:
+              type: "array"
+              items:
+                $ref: "folders.yml#/folderIndexAndView"
+        resources:
+          type: "object"
+          properties:
+            sole_owner:
+              type: "array"
+              items:
+                $ref: "resources.yml#/resourceIndexAndView"
+        groups_to_delete:
+          type: "array"
+          items:
+            $ref: "groups.yml#/groupIndexAndView"

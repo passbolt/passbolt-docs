@@ -1,0 +1,23 @@
+put:
+  summary: "Share a resource or folder."
+  operationId: "updateShare"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/shares.yml#/update"
+  parameters:
+    - $ref: "../components/parameters.yml#/sharesForeignModel"
+    - $ref: "../components/parameters.yml#/foreignId"
+  tags:
+    - "Shares"
+  requestBody:
+    $ref: "../components/requestBodies/shares.yml#/shareUpdate"
+  responses:
+    200:
+      $ref: "../components/responses.yml#/nullBody"
+    400:
+      $ref: "../components/responses/shares.yml#/updateError"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"

@@ -1,0 +1,6 @@
+description: The target parent folder ID
+required: true
+content:
+  application/json:
+    schema:
+      $ref: "../schemas/move.yml"

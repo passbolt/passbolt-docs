@@ -1,0 +1,21 @@
+post:
+  summary: "Set a resource as favorite."
+  operationId: "addFavorite"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/favorites.yml#/add"
+  tags:
+    - "Favorites"
+  parameters:
+    - $ref: "../components/parameters.yml#/favoritesForeignModel"
+    - $ref: "../components/parameters.yml#/foreignId"
+  responses:
+    200:
+      $ref: "../components/responses/favorites.yml#/add"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"

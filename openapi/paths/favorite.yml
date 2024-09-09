@@ -1,0 +1,20 @@
+delete:
+  summary: "Unset a resource as favorite."
+  operationId: "deleteFavorite"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/favorites.yml#/delete"
+  tags:
+    - "Favorites"
+  parameters:
+    - $ref: "../components/parameters.yml#/favoriteId"
+  responses:
+    200:
+      $ref: "../components/responses.yml#/nullBody"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"

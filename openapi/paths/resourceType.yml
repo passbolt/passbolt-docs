@@ -1,0 +1,20 @@
+get:
+  summary: "Get a resource type."
+  operationId: "viewResourceType"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/resourceTypes.yml#/view"
+  tags:
+    - "Resource types"
+  parameters:
+    - $ref: "../components/parameters.yml#/resourceTypeId"
+  responses:
+    200:
+      $ref: "../components/responses/resourceTypes.yml#/view"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"

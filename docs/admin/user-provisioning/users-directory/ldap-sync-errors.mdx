@@ -54,3 +54,9 @@ This happens when a user has been added to a group in Passbolt prior to being ad
 ## No message, but the user I removed from a group in LDAP is still in the group in Passbolt
 
 This tends to happen when a user is added in a group in Passbolt prior to being added to a group in LDAP and then later being removed from the group in LDAP. If you see any errors that are in the format of "The user userA was not synced with existing membership for group groupA because the membership was created before." there is a risk of this issue occuring. This is because Passbolt has priority over this group membership. You will have to manually remove the user from the group in Passbolt in this case.
+
+## The user user@domain.com could not be added to the group MyGroup because membership was removed in passbolt
+
+This error occurs when a user has been manually removed from a group. Passbolt prioritizes manual actions, assuming the removal was intentional and for a valid reason.
+
+To resolve this issue, manually re-add the user to the group in Passbolt and then run the LDAP synchronization afterward.

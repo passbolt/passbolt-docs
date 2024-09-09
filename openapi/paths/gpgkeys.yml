@@ -1,0 +1,19 @@
+get:
+  summary: "Get multiple GPG keys."
+  operationId: "indexGpgkeys"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/gpgkeys.yml#/index"
+  tags:
+    - "GPG keys"
+  parameters:
+    - $ref: "../components/parameters.yml#/filterModifiedAfter"
+    - $ref: "../components/parameters.yml#/filterIsDeleted"
+  responses:
+    200:
+      $ref: "../components/responses/gpgkeys.yml#/index"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"

@@ -1,0 +1,23 @@
+put:
+  summary: "Move an element."
+  operationId: "moveElement"
+  x-codeSamples:
+    $ref: "../components/codeSamples/move.yml"
+  security:
+    - bearerHttpAuthentication: []
+  parameters:
+    - $ref: "../components/parameters.yml#/moveForeignModel"
+    - $ref: "../components/parameters.yml#/foreignId"
+  tags:
+    - "Move"
+  responses:
+    200:
+      $ref: "../components/responses.yml#/nullBody"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"
+  requestBody:
+    $ref: "../components/requestBodies/move.yml"

@@ -1,0 +1,104 @@
+resourceTypesIndex:
+  response:
+    resourceTypes:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/resource-types.json"
+          code: 200
+        body:
+          - id: "669f8c64-242a-59fb-92fc-81f660975fd3"
+            slug: "password-and-description"
+            name: "Password with description"
+            description: "A resource with the password and the description encrypted."
+            definition:
+              resource:
+                type: "object"
+                required:
+                  - "name"
+                properties:
+                  name:
+                    type: "string"
+                    maxLength: 255
+                  username:
+                    anyOf:
+                      - type: "string"
+                        maxLength: 255
+                      - type: "null"
+                  uri:
+                    anyOf:
+                      - type: "string"
+                        maxLength: 1024
+                      - type: "null"
+              secret:
+                type: "object"
+                required:
+                  - "password"
+                properties:
+                  password:
+                    type: "string"
+                    maxLength: 4096
+                  description:
+                    anyOf:
+                      - type: "string"
+                        maxLength: 10000
+                      - type: null
+            created: "2024-07-08T08:06:25+00:00"
+            modified: "2024-07-08T08:06:25+00:00"
+
+resourceTypeView:
+  response:
+    resourceType:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/resource-types/669f8c64-242a-59fb-92fc-81f660975fd3.json"
+          code: 200
+        body:
+          id: "669f8c64-242a-59fb-92fc-81f660975fd3"
+          slug: "password-and-description"
+          name: "Password with description"
+          description: "A resource with the password and the description encrypted."
+          definition:
+            resource:
+              type: "object"
+              required:
+                - "name"
+              properties:
+                name:
+                  type: "string"
+                  maxLength: 255
+                username:
+                  anyOf:
+                    - type: "string"
+                      maxLength: 255
+                    - type: "null"
+                uri:
+                  anyOf:
+                    - type: "string"
+                      maxLength: 1024
+                    - type: "null"
+            secret:
+              type: "object"
+              required:
+                - "password"
+              properties:
+                password:
+                  type: "string"
+                  maxLength: 4096
+                description:
+                  anyOf:
+                    - type: "string"
+                      maxLength: 10000
+                    - type: null
+          created: "2024-07-08T08:06:25+00:00"
+          modified: "2024-07-08T08:06:25+00:00"
+    

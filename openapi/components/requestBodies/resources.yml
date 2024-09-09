@@ -1,0 +1,19 @@
+resourceAdd:
+  description: The resource you want to create
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/resources.yml#/resourceAdd"
+      examples:
+        $ref: "../examples/resources.yml#/resourceAdd/request"
+
+resourceUpdate:
+  description: The resource you want to update
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/resources.yml#/resourceUpdate"
+      examples:
+        $ref: "../examples/resources.yml#/resourceUpdate/request"

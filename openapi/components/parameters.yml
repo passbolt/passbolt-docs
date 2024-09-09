@@ -1,0 +1,567 @@
+favoriteId:
+  name: "favoriteId"
+  description: "ID for the favorite being manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
+gpgkeyId:
+  name: "gpgkeyId"
+  description: "ID for the GPG key being manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
+groupId:
+  name: "groupId"
+  description: "ID for the group being manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
+resourceId:
+  name: "resourceId"
+  description: "ID for the resource being manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
+resourceTypeId:
+  name: "resourceTypeId"
+  description: "ID for the resource type being manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
+moveForeignModel:
+  name: "foreignModel"
+  description: "Type for the foreign model being moved."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    enum:
+      - "resource"
+      - "folder"
+
+favoritesForeignModel:
+  name: "foreignModel"
+  description: "Type for the foreign model being set as favorite."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    enum:
+      - "resource"
+
+sharesForeignModel:
+  name: "foreignModel"
+  description: "Type for the foreign model being shared."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    enum:
+      - "resource"
+      - "folder"
+
+foreignId:
+  name: "foreignId"
+  description: "ID for the foreign element being manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
+folderId:
+  name: "folderId"
+  description: "ID for the folder being manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
+userId:
+  name: "userId"
+  description: "ID for the user being manipulated. Can be set to `me` when viewing a user."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
+cascade:
+  name: "cascade"
+  description: "Delete element and its children elements."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containProfile:
+  name: "contain[profile]"
+  description: "Add profile to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containRole:
+  name: "contain[role]"
+  description: "Add role to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containGpgkey:
+  name: "contain[gpgkey]"
+  description: "Add GPG key data to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containLastLoggedIn:
+  name: "contain[last_logged_in]"
+  description: "Add last logged in to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containCreator:
+  name: "contain[creator]"
+  description: "Add creator to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containCreatorProfile:
+  name: "contain[creator.profile]"
+  description: "Add creator and their profile to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containChildrenResources:
+  name: "contain[children_resources]"
+  description: "Add children resources to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containChildrenFolders:
+  name: "contain[children_folders]"
+  description: "Add children folders to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containTag:
+  name: "contain[tag]"
+  description: "Add tags to response body."
+  in: "query"
+  required: false
+  deprecated: true
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containFavorite:
+  name: "contain[favorite]"
+  description: "Add favorite to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containModifier:
+  name: "contain[modifier]"
+  description: "Add modifier to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containModifierProfile:
+  name: "contain[modifier.profile]"
+  description: "Add modifier and their profile to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containSecret:
+  name: "contain[secret]"
+  description: "Add secrets to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containResourceType:
+  name: "contain[resource-type]"
+  description: "Add resource type to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containPermission:
+  name: "contain[permission]"
+  description: "Add permission to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containPermissions:
+  name: "contain[permissions]"
+  description: "Add permissions to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containPermissionsUserProfile:
+  name: "contain[permissions.user.profile]"
+  description: "Add user profile to permissions in response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containPermissionsGroup:
+  name: "contain[permissions.group]"
+  description: "Add group to permissions in response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containUsers:
+  name: "contain[users]"
+  description: "Add users to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containMyGroupUser:
+  name: "contain[my_group_user]"
+  description: "Add `my_group_user` to groups in response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containGroupsUsers:
+  name: "contain[groups_users]"
+  description: "Add group users to groups in response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containGroupsUsersUser:
+  name: "contain[groups_users.user]"
+  description: "Add group users' user data to groups in response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containGroupsUsersUserProfile:
+  name: "contain[groups_users.user.profile]"
+  description: "Add group users' user profiles to groups in response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containGroupsUsersUserGpgkey:
+  name: "contain[groups_users.user.gpgkey]"
+  description: "Add group users' user gpg key to groups in response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+filterSearch:
+  name: "filter[search]"
+  description: "Filter using a keyword or a string."
+  in: "query"
+  required: false
+  schema:
+    type: "string"
+
+filterHasAccess:
+  name: "filter[has-access]"
+  description: "Only return elements where specified users have access."
+  in: "query"
+  required: false
+  schema:
+    type: "array"
+    items:
+      type: "string"
+      format: "uuid"
+      description: "User UUID"
+
+filterHasUsers:
+  name: "filter[has-users]"
+  description: "Only return elements filtered by users."
+  in: "query"
+  required: false
+  schema:
+    type: "array"
+    items:
+      type: "string"
+      format: "uuid"
+      description: "User UUID"
+
+filterHasManagers:
+  name: "filter[has-managers]"
+  description: "Only return elements filtered by managers."
+  in: "query"
+  required: false
+  schema:
+    type: "array"
+    items:
+      type: "string"
+      format: "uuid"
+      description: "User UUID"
+
+filterHasGroups:
+  name: "filter[has-groups]"
+  description: "Only return elements filtered by groups."
+  in: "query"
+  required: false
+  schema:
+    type: "array"
+    items:
+      type: "string"
+      format: "uuid"
+      description: "Group UUID"
+
+filterHasParent:
+  name: "filter[has-parent]"
+  description: "Only return elements filtered by parent folder."
+  in: "query"
+  required: false
+  schema:
+    type: "string"
+    format: "uuid"
+
+filterHasId:
+  name: "filter[has-id]"
+  description: "Only return elements filtered by their id."
+  in: "query"
+  required: false
+  schema:
+    type: "string"
+    format: "uuid"
+
+filterHasTag:
+  name: "filter[has-tag]"
+  description: "Only return elements filtered by their tag."
+  in: "query"
+  required: false
+  schema:
+    type: "string"
+
+filterFrequency:
+  name: "filter[frequency]"
+  description: "Only return elements filtered by their frequency."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+
+filterIsSharedWithGroup:
+  name: "filter[is-shared-with-group]"
+  description: "Only return elements shared with group."
+  in: "query"
+  required: false
+  schema:
+    type: "string"
+    format: "uuid"
+    description: "Group UUID"
+  
+filterFrom:
+  name: "filter[from]"
+  description: "Only return elements from a specific date-time."
+  in: "query"
+  required: false
+  schema:
+    type: "string"
+
+filterCreatedAfter:
+  name: "filter[created-after]"
+  description: "Only return elements created after a specific date-time."
+  in: "query"
+  required: false
+  schema:
+    type: "string"
+
+filterCreatedBefore:
+  name: "filter[created-before]"
+  description: "Only return elements created before a specific date-time."
+  in: "query"
+  required: false
+  schema:
+    type: "string"
+
+filterModifiedAfter:
+  name: "filter[modified-after]"
+  description: "Only return elements modified after a timestamp."
+  in: "query"
+  required: false
+  schema:
+    type: "string"
+
+filterIsSuccess:
+  name: "filter[is-success]"
+  description: "Only return success elements."
+  in: "query"
+  required: false
+  schema:
+    type: "boolean"
+
+filterIsDeleted:
+  name: "filter[is-deleted]"
+  description: "Only return deleted elements."
+  in: "query"
+  required: false
+  schema:
+    type: "boolean"
+
+filterIsFavorite:
+  name: "filter[is-favorite]"
+  description: "Only return favorite elements."
+  in: "query"
+  required: false
+  schema:
+    type: "boolean"
+
+filterIsAdmin:
+  name: "filter[is-admin]"
+  description: "Only return admin users."
+  in: "query"
+  required: false
+  schema:
+    type: "boolean"
+
+filterIsActive:
+  name: "filter[is-active]"
+  description: "Only return active elements."
+  in: "query"
+  required: false
+  schema:
+    type: "boolean"
+
+filterIsOwnedByMe:
+  name: "filter[is-owned-by-me]"
+  description: "Only return elements owned by yourself."
+  in: "query"
+  required: false
+  schema:
+    type: "boolean"
+
+filterIsSharedWithMe:
+  name: "filter[is-shared-with-me]"
+  description: "Only return elements shared to yourself and you are not owner."
+  in: "query"
+  required: false
+  schema:
+    type: "boolean"

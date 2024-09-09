@@ -1,0 +1,55 @@
+html.plugin-redoc .main-wrapper {
+  margin-top: 0;
+}
+
+.redocusaurus pre {
+  --ifm-pre-background: transparent;
+}
+
+.redocusaurus .menu-content {
+  top: 4.5rem !important;
+}
+
+.redocusaurus .menu-content ul[role="menu"] {
+  margin-top: 1.8rem;
+}
+
+.redocusaurus td[kind="field"] ~ td {
+  border-color: var(--passbolt-light-grey);
+}
+
+.redocusaurus td[kind="field"] ~ td p {
+  font-size: 0.8125rem;
+}
+
+.redocusaurus div[data-section-id] h5 {
+  border-bottom: none;
+}
+
+.redocusaurus div[data-section-id] > div table tbody {
+  display: flex;
+  flex-direction: column;
+}
+
+.redocusaurus div[data-section-id] > div table tr {
+  border-top: none;
+  display: flex;
+  flex: 1;
+}
+
+.redocusaurus div[data-section-id] > div table tr td {
+  flex: 1;
+}
+
+.redocusaurus div[data-section-id] > div table tr td:first-child {
+  width: 50%;
+}
+
+.redocusaurus div[id^='tag'] td[kind="field"] button + div  {
+  --ifm-color-emphasis-0: transparent
+}
+
+.redocusaurus ul[role="menu"] li label.active {
+  background: var(--true-black);
+  font-weight: var(--ifm-font-weight-bold);
+}

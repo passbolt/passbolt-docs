@@ -68,6 +68,24 @@ badRequest:
       examples:
         $ref: "examples.yml#/badRequest/response"
 
+
+accessRestrictedToAdministrators:
+  description: "Access restricted"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "schemas.yml#/header"
+          body:
+            type: "string"
+      examples:
+        $ref: "examples.yml#/accessRestrictedToAdministrators/response"
+
 notFound:
   description: "Not found"
   content:

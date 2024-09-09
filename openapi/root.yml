@@ -41,6 +41,10 @@ paths:
     $ref: "paths/group.yml"
   /groups/{groupId}/dry-run.json:
     $ref: "paths/groupDryRun.yml"
+  /healthcheck.json:
+    $ref: "paths/healthcheck.yml"
+  /healthcheck/status.json:
+    $ref: "paths/healthcheckStatus.yml"
   /permissions/resource/{resourceId}.json:
     $ref: "paths/permissionsResource.yml"
   /resources.json:
@@ -84,6 +88,8 @@ tags:
   - name: "Groups"
     description:
       $ref: "components/descriptions/groups.yml#/tag"
+  - name: "Healthcheck"
+    description: "Gather data about the passbolt instance's health."
   - name: "Move"
     description: "Move a folder or a resource across folders."
   - name: "Permissions"

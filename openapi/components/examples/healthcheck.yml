@@ -1,0 +1,115 @@
+status:
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "OK"
+          url: "/healthcheck/status.json"
+          code: 200
+        body: "OK"
+
+healthcheck:
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/healthcheck.json"
+          code: 200
+        body:
+          environment:
+            gnupg: true
+            info:
+              phpVersion: "8.2.20"
+            phpVersion: true
+            nextMinPhpVersion: true
+            pcre: true
+            mbstring: true
+            intl: true
+            image: true
+            tmpWritable: true
+            logWritable: true
+          configFile:
+            app: true
+            passbolt: false
+          core:
+            cache: true
+            debugDisabled: false
+            salt: true
+            info:
+              fullBaseUrl: "https://passbolt.localhost"
+            fullBaseUrl: true
+            validFullBaseUrl: true
+            fullBaseUrlReachable: true
+          ssl:
+            info: "cURL Error (60) SSL certificate problem: self-signed certificate"
+            peerValid: false
+            hostValid: false
+            notSelfSigned: false
+          smtpSettings:
+            isEnabled: true
+            errorMessage: false
+            source: "env variables"
+            isInDb: false
+            areEndpointsDisabled: false
+            customSslOptions: true
+          gpg:
+            lib: true
+            gpgHome: true
+            gpgHomeWritable: true
+            gpgKeyNotDefault: true
+            gpgKeyPublicBlock: true
+            gpgKeyPrivateBlock: true
+            gpgKeyPublicReadable: true
+            gpgKeyPrivateReadable: true
+            gpgKeyPrivateFingerprint: true
+            gpgKeyPublic: true
+            gpgKeyPrivate: true
+            gpgKey: true
+            info:
+              gpgKeyPrivate: "/etc/passbolt/gpg/serverkey_private.asc"
+              gpgHome: "/var/lib/passbolt/.gnupg"
+            gpgKeyPublicFingerprint: true
+            gpgKeyPublicInKeyring: true
+            gpgKeyPublicEmail: true
+            canEncrypt: true
+            canSign: true
+            canEncryptSign: true
+            canDecrypt: true
+            canDecryptVerify: true
+            canVerify: true
+            isPublicServerKeyGopengpgCompatible: true
+            isPrivateServerKeyGopengpgCompatible: true
+          applications:
+            configPath: "/etc/passbolt/passbolt.php"
+            info:
+              remoteVersion: "4.9.1"
+              currentVersion: "4.9.0"
+            latestVersion: false
+            sslForce: false
+            sslFullBaseUrl: true
+            seleniumDisabled: true
+            robotsIndexDisabled: true
+            registrationClosed:
+              isSelfRegistrationPluginEnabled: true
+              selfRegistrationProvider: null
+              isRegistrationPublicRemovedFromPassbolt: true
+            hostAvailabilityCheckEnabled: false
+            jsProd: true
+            emailNotificationEnabled: false
+            schema: true
+          database:
+            supportedBackend: true
+            connect: true
+            info:
+              tablesCount: 31
+            tablesCount: true
+            defaultContent: true

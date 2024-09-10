@@ -10,6 +10,9 @@ import BackupList from '/docs/hosting/_includes/backup/_list.mdx';
 import MigrateOldToNew from '/docs/hosting/_includes/backup/_migrate-to-new.mdx';
 import SecretKeys from '/docs/hosting/_includes/backup/_secret-keys.mdx';
 import Chips from "/src/components/Chips/Chips";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from "/src/components/CodeBlock/CodeBlock.js";
 
 <div style={{display: "flex", gap: "1rem"}}>
   <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
@@ -28,10 +31,20 @@ There are also several elements you need to backup:
 
 We made a dedicated command in order to make a backup of the database, it uses mysqldump but we recommend to use the passbolt command as it has been made to avoid any pasting or logins details errors.
 
-__Replace `WEB_SERVER_USER` with the correct one__. Depending on your OS, it could be nginx, www-data, etc.
-```bash
-sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt mysql_export" WEB_SERVER_USER
-```
+<Tabs>
+  <TabItem value="deb" label="Debian/Ubuntu" default>
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt sql_export" www-data`}
+    </CodeBlock>
+  </TabItem>
+
+  <TabItem value="rpm" label="RPM">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt sql_export" nginx`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
 
 ### 2. The server public and private keys
 

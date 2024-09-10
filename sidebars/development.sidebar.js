@@ -10,9 +10,9 @@ const developmentSidebar = [
     label: 'Introduction',
   },
   {
-    type: 'link',
-    href: 'api',
-    label: 'API Documentation',
+    type: 'doc',
+    id: 'development/getting-started',
+    label: 'Getting started',
   },
 ];
 module.exports = developmentSidebar;

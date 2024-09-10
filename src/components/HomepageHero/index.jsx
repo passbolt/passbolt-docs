@@ -43,7 +43,7 @@ const HomepageHero = () => {
     {
       id: 'developer',
       icon: <img src={useBaseUrl('/icons/lucide/developer.svg')} width={24} alt='Contributor guide illustrated with {}.' />,
-      href: '/development/api',
+      href: '/development',
       title: 'Developer guide',
       description:
         'All the technical information to integrate and call the passbolt API.',

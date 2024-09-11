@@ -1,7 +1,5 @@
 post:
   summary: "Login."
-  description:
-    $ref: "../components/descriptions/authJwt.yml#/login"
   operationId: "authJwtLogin"
   security: []
   x-codeSamples:

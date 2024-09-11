@@ -110,7 +110,7 @@ Working with OpenPGP Keys
 
 At the time of installation the passbolt server administrator generates an OpenPGP key pair and stores it in the server keyring. Similarly, clients (such as the passbolt browser extension) generate a pair of keys during the setup. At the end of the setup the client stores its secret key locally and send the public key to the server.
 
-When authenticated, it is possible for a user to gather other user’s public keys, in order to share passwords with them. Prior to sending sensitive data, secrets must be encrypted using the recipient’s public key (e.g. another user, for example) and signed using the sender’s public key.
+When authenticated, it is possible for a user to gather other user's public keys, in order to share passwords with them. Prior to sending sensitive data, secrets must be encrypted using the recipient's public key (e.g. another user, for example) and signed using the sender's public key.
 
 This serves two purposes:
 

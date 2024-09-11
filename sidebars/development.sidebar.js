@@ -14,5 +14,10 @@ const developmentSidebar = [
     id: 'development/getting-started',
     label: 'Getting started',
   },
+  {
+    type: 'doc',
+    id: 'development/authentication',
+    label: 'Authentication',
+  },
 ];
 module.exports = developmentSidebar;

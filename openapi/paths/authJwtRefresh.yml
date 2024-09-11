@@ -1,7 +1,5 @@
 post:
   summary: "Refresh access token."
-  description:
-    $ref: "../components/descriptions/authJwt.yml#/refresh"
   operationId: "authJwtRefresh"
   security:
     - bearerHttpAuthentication: []

@@ -1,13 +1,11 @@
 tag: |
-  User are entities with the ability to interact with the application. They are usually represented by one person and have a unique username (which is also their e-mail address). The `User` object returned by the API hence contains the relevant associated fields like `gpg_keys`, `roles`, `profile`, `avatar`, etc.
+  User are entities with the ability to interact with the application.
 
 add: |
   Only users with `admin` role can create other users.
 
 update: |
-  Neither the email or the username field which can be updated.
-
-  A user can update themselves. Then can change their first name and last name but not their role. An administrator can update their role. No one can update the username. If a user need to change their username, they will need to create a new user for this given email.
+  Neither the email or the username field which can be updated, and only administrators can update a user's role.
 
 delete: |
   Only a user with an administrator role can delete users. A `user` can not be deleted as long as:

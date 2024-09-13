@@ -9,15 +9,15 @@ In this guide, we will walk through how to view a resource using the Passbolt AP
 
 ## Viewing a resource
 
-Let's say we want to find a resource we created, and we named it "NextCloud".
+Let's say we want to find a resource we created, and it is named "Nextcloud".
 
 We need to make a `GET` request to `/resources.json` to get a list of all the resources we have access to.
 Because we want to get some information about how the resource data is structured, we will set the `contain[resource-type]` parameter to `1`.
 We also want to update it later in this walk-through, so we will set a parameter to tell the API to send us the secrets as well, such as `contain[secret]` to `1`.
 
-The final request looks something like this: `/resources.json?contain[resource-type]=1&contain[secret]=1`.
+The final request URL looks something like this: `/resources.json?contain[resource-type]=1&contain[secret]=1`.
 
-The server replies something that looks like this:
+The server replies with something that looks like this:
 
 ```json
 {
@@ -133,11 +133,11 @@ The server replies something that looks like this:
 }
 ```
 
-The request was a success, as indicated by the `status` field in the header, and the API returned an array with the all the resources we created in [another part of this guide](../creating).
+The request was a success, as indicated by the `status` field in the header, and the API returned an array containing the resource we created in [another part of this guide](../creating).
 
 We can now decrypt the secret associated to our account ID, `8bb80df5-700c-48ce-b568-85a60fc3c8f2`. 🎉
 
-Now that we know our resource's ID, we can query information about it through a more specific endpoint, by making a `GET` request to `/resources/fc11887b-aaa6-4600-a460-e05e99c75bce.json`.
-This way, we don't need to manipulate unneeded resources and save some CPU cycles for both our client and our server.
+Now that we know the resource ID, we can query information about it through a more specific endpoint, by making a `GET` request to `/resources/fc11887b-aaa6-4600-a460-e05e99c75bce.json`, which only returns information for the resource having this specific ID.
+This way, we don't need to parse and manipulate unneeded resources, so we save some CPU cycles for both our client and our server.
 
-Congratulations, you just queried resources! 🎉
+Congratulations, you just queried a resource! 🎉

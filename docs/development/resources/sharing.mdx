@@ -7,14 +7,14 @@ hide_table_of_contents: false
 
 In this guide, we will walk through how to share a resource to another user.
 
-For this guide, we will use a resource with an ID of `fc11887b-aaa6-4600-a460-e05e99c75bce`.
+For this, we will use a resource with an ID of `fc11887b-aaa6-4600-a460-e05e99c75bce`.
 
 ## Finding users and groups
 
-In order to share something, we need to know who to share it with.
+In order to share something, we first need to know who to share it with.
 
 For that, we can query the `/share/search-aros.json` endpoint, which returns both groups and users.
-We want to get the public key of the users in the response, so we set `contain[gpgkey]` to `1`.
+We also want to get the users' public keys in the response, as we need it for sharing the secret, so we set `contain[gpgkey]` to `1`.
 
 ```json
 {
@@ -110,8 +110,8 @@ The payload we want to send for the simulation is the following:
 ```
 
 As you can see, we are requesting an permission creation (`"is_new": true`),
-for a `User` with the ID `c48863da-32d3-48cd-9d47-de2891386423`,
-and a type of `7` (corresponding to "update").
+for a `User` with an ID of `c48863da-32d3-48cd-9d47-de2891386423`,
+and a permission level of `7` (corresponding to "update").
 
 This is now to be sent as the body of a `POST` request to the `/share/simulate/{foreignModel}/{foreignId}.json` endpoint.
 Here, the `foreignModel` is a `resource` with a `foreignId` of `fc11887b-aaa6-4600-a460-e05e99c75bce`, so the final URL is `/share/simulate/resource/fc11887b-aaa6-4600-a460-e05e99c75bce.json`.
@@ -144,7 +144,7 @@ The response will look something like this:
 }
 ```
 
-The simulation is a `success`, and tells us that we are about to remove no permission, and add an access for Betty, which is exactly what we want to do.
+The simulation is a `success`, tells us that we are about to remove no permission, and that this operation will add an access for Betty, which is exactly what we want to do!
 
 ## Sharing the resource
 
@@ -153,7 +153,7 @@ Now that we know that the share operation will likely succeed, we can do it for 
 We can reuse the previous payload as a base, but as we are adding a permission,
 we need to add the corresponding secret, or else Betty couldn't read the said resource.
 
-The `secrets` part of the payload has the same structure as the one for the update operation, leading to a final payload that looks like this:
+The `secrets` part of the payload has the same structure as the one for the [update](../updating_deleting) operation, leading to a final payload that looks like this:
 
 ```json
 {
@@ -174,7 +174,7 @@ The `secrets` part of the payload has the same structure as the one for the upda
 }
 ```
 
-This final payload is to be sent as the body of a `PUT` request to ``.
+This final payload is to be sent as the body of a `PUT` request to `/share/resource/fc11887b-aaa6-4600-a460-e05e99c75bce.json`.
 
 The API replies with the following body:
 

@@ -101,7 +101,7 @@ In order to create a resource using the Passbolt API, we have to first build a p
 As discovered earlier, the `resource_type_id` for a `password-and-description` on our instance is `669f8c64-242a-59fb-92fc-81f660975fd3`.
 Please use your own resource type ID as it changes from an instance to another.
 
-As the `name` field is required we will set it.
+As the `name` field is required, we will set it.
 For the sake of this guide, we will create a password for a [Nextcloud](https://nextcloud.com/) instance, so the `uri` field is set accordingly.
 
 At this point, our basic payload looks like this:
@@ -116,9 +116,9 @@ At this point, our basic payload looks like this:
 
 We now have to build the secret associated to this resource.
 
-Only the password field is required, as seen earlier, but we want to add a description.
+Only the `password` field is required, as seen earlier, but we want to add a description.
 
-We have something like this:
+We now have something like this:
 
 ```json
 {
@@ -127,8 +127,8 @@ We have something like this:
 }
 ```
 
-We then encrypt this data with our own public key, and sign it with our private key.
-The resulting armored string, which begins with `-----BEGIN PGP MESSAGE-----` will be the secret that we will send to the server.
+We then encrypt and sign this data with our own key.
+The resulting armored string, which begins with `-----BEGIN PGP MESSAGE-----`, will be the secret that we will send to the server.
 
 Our final payload looks like this:
 
@@ -147,11 +147,11 @@ Our final payload looks like this:
 
 ### Making the request
 
-The previously-built payload is now sent to the Passbolt's API in the body of a `POST` request.
+The previously-built payload is now sent to the Passbolt's API, in the body of a `POST` request.
 
-In this example, we sent the request to `/resources.json?api-version=v2&contain[permission]=1&contain[favorite]=1` so the answer will contain all the relevant information needed for displaying the newly-created resource.
+In this example, we sent the request to `/resources.json?api-version=v2&contain[permission]=1&contain[favorite]=1` so the response will contain all the relevant information needed for displaying the newly-created resource.
 
-The response looks something like this:
+The API replies with this:
 
 ```json
 {

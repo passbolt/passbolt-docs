@@ -1,0 +1,143 @@
+---
+title: Viewing a resource
+description: How to query a resource using the Passbolt API
+sidebar_position: 1
+hide_table_of_contents: true
+---
+
+In this guide, we will walk through how to view a resource using the Passbolt API.
+
+## Viewing a resource
+
+Let's say we want to find a resource we created, and it is named "Nextcloud".
+
+We need to make a `GET` request to `/resources.json` to get a list of all the resources we have access to.
+Because we want to get some information about how the resource data is structured, we will set the `contain[resource-type]` parameter to `1`.
+We also want to update it later in this walk-through, so we will set a parameter to tell the API to send us the secrets as well, such as `contain[secret]` to `1`.
+
+The final request URL looks something like this: `/resources.json?contain[resource-type]=1&contain[secret]=1`.
+
+The server replies with something that looks like this:
+
+```json
+{
+  "header": {
+    "id": "d5ba6e4f-f0de-459c-9a9e-e724eb4a97f3",
+    "status": "success",
+    "servertime": 1726143770,
+    "action": "c506210f-7866-5691-8fc1-58772e8f49f1",
+    "message": "The operation was successful.",
+    "url": "/resources.json?contain%5Bresource-type%5D=1&contain%5Bsecret%5D=1",
+    "code": 200,
+    "pagination": {
+      "count": 1,
+      "page": 1,
+      "limit": null
+    }
+  },
+  "body": [
+    {
+      "personal": true,
+      "id": "fc11887b-aaa6-4600-a460-e05e99c75bce",
+      "name": "Nextcloud",
+      "username": "",
+      "uri": "https://nextcloud.com",
+      "description": null,
+      "deleted": false,
+      "created": "2024-09-11T16:10:18+00:00",
+      "modified": "2024-09-11T16:10:18+00:00",
+      "created_by": "8bb80df5-700c-48ce-b568-85a60fc3c8f2",
+      "modified_by": "8bb80df5-700c-48ce-b568-85a60fc3c8f2",
+      "resource_type_id": "a28a04cd-6f53-518a-967c-9963bf9cec51",
+      "expired": null,
+      "folder_parent_id": null,
+      "resource_type": {
+        "id": "a28a04cd-6f53-518a-967c-9963bf9cec51",
+        "slug": "password-and-description",
+        "name": "Password with description",
+        "description": "A resource with the password and the description encrypted.",
+        "definition": {
+          "resource": {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "maxLength": 255
+              },
+              "username": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "maxLength": 255
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "uri": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "maxLength": 1024
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          },
+          "secret": {
+            "type": "object",
+            "required": [
+              "password"
+            ],
+            "properties": {
+              "password": {
+                "type": "string",
+                "maxLength": 4096
+              },
+              "description": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "maxLength": 10000
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "created": "2024-07-02T16:07:22+00:00",
+        "modified": "2024-07-02T16:07:22+00:00"
+      },
+      "secrets": [
+        {
+          "id": "ab793b77-bd48-4a0f-b68a-9bc191eb0f58",
+          "user_id": "8bb80df5-700c-48ce-b568-85a60fc3c8f2",
+          "resource_id": "fc11887b-aaa6-4600-a460-e05e99c75bce",
+          "data": "-----BEGIN PGP MESSAGE-----...",
+          "created": "2024-09-11T16:10:19+00:00",
+          "modified": "2024-09-11T16:10:19+00:00"
+        }
+      ]
+    }
+  ]
+}
+```
+
+The request was a success, as indicated by the `status` field in the header, and the API returned an array containing the resource we created in [another part of this guide](../creating).
+
+We can now decrypt the secret associated to our account ID, `8bb80df5-700c-48ce-b568-85a60fc3c8f2`. 🎉
+
+Now that we know the resource ID, we can query information about it through a more specific endpoint, by making a `GET` request to `/resources/fc11887b-aaa6-4600-a460-e05e99c75bce.json`, which only returns information for the resource having this specific ID.
+This way, we don't need to parse and manipulate unneeded resources, so we save some CPU cycles for both our client and our server.
+
+Congratulations, you just queried a resource! 🎉

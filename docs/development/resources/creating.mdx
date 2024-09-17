@@ -1,0 +1,229 @@
+---
+title: Creating a resource
+description: How to create a resource using the Passbolt API
+sidebar_position: 1
+hide_table_of_contents: false
+---
+
+In this guide, we will walk through the creation of a resource which would contain an encrypted password and an encrypted description.
+
+## Choosing a resource type
+
+In order to create a resource, we need to choose a resource type, which will influence how data will be stored and managed around the resource.
+
+A list of all the different resource types and their expected structure is available at `/resource-types.json`.
+
+For this guide, we will use the `password-and-description` resource type,
+as it is the default for Passbolt and is used for storing a password and a description, both encrypted.
+
+The corresponding description of said resource type is similar to this JSON object:
+
+```json
+{
+  "id": "669f8c64-242a-59fb-92fc-81f660975fd3",
+  "slug": "password-and-description",
+  "name": "Password with description",
+  "description": "A resource with the password and the description encrypted.",
+  "definition": {
+    "resource": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 255
+        },
+        "username": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 255
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "uri": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 1024
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "secret": {
+      "type": "object",
+      "required": [
+        "password"
+      ],
+      "properties": {
+        "password": {
+          "type": "string",
+          "maxLength": 4096
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 10000
+            },
+            {
+              "type": null
+            }
+          ]
+        }
+      }
+    }
+  },
+  "created": "2024-07-08T08:06:25+00:00",
+  "modified": "2024-07-08T08:06:25+00:00"
+}
+```
+
+Under the `definition` key in this JSON object is a description of the allowed and required fields in both the resource and the secret entities.
+Here, we can see that the `name` field is required, and the `username` and `uri` fields are allowed, and nullable, with the expected data format associated.
+The secret is an armored string of an encrypted JSON object with a required `password` field, and a nullable `description` field.
+
+We take note of the resource type ID as it will be used for the next step.
+
+## Building the payload
+
+In order to create a resource using the Passbolt API, we have to first build a payload that represents the said resource, so the server can be able to store it.
+
+As discovered earlier, the `resource_type_id` for a `password-and-description` on our instance is `669f8c64-242a-59fb-92fc-81f660975fd3`.
+Please use your own resource type ID as it changes from an instance to another.
+
+As the `name` field is required, we will set it.
+For the sake of this guide, we will create a password for a [Nextcloud](https://nextcloud.com/) instance, so the `uri` field is set accordingly.
+
+At this point, our basic payload looks like this:
+
+```json
+{
+    "name": "Nextcloud",
+    "resource_type_id": "669f8c64-242a-59fb-92fc-81f660975fd3",
+    "uri": "https://nextcloud.com"
+}
+```
+
+We now have to build the secret associated to this resource.
+
+Only the `password` field is required, as seen earlier, but we want to add a description.
+
+We now have something like this:
+
+```json
+{
+    "password": "Correct Horse Battery Staple",
+    "description": "My personal cloud storage"
+}
+```
+
+We then encrypt and sign this data with our own key.
+The resulting armored string, which begins with `-----BEGIN PGP MESSAGE-----`, will be the secret that we will send to the server.
+
+Our final payload looks like this:
+
+```json
+{
+    "name": "Nextcloud",
+    "resource_type_id": "669f8c64-242a-59fb-92fc-81f660975fd3",
+    "uri": "https://nextcloud.com",
+    "secrets": [
+        {
+            "data": "-----BEGIN PGP MESSAGE-----..."
+        }
+    ]
+}
+```
+
+### Making the request
+
+The previously-built payload is now sent to the Passbolt's API, in the body of a `POST` request.
+
+In this example, we sent the request to `/resources.json?api-version=v2&contain[permission]=1&contain[favorite]=1` so the response will contain all the relevant information needed for displaying the newly-created resource.
+
+The API replies with this:
+
+```json
+{
+    "header": {
+        "id": "b1c3efc3-8995-49b2-a99f-45ac674fa1ae",
+        "status": "success",
+        "servertime": 1726071019,
+        "action": "ad8bbc35-6435-538e-b1a7-80b87bcedb6a",
+        "message": "The resource has been added successfully.",
+        "url": "/resources.json?api-version=v2&contain[permission]=1&contain[favorite]=1",
+        "code": 200
+    },
+    "body": {
+        "personal": true,
+        "id": "fc11887b-aaa6-4600-a460-e05e99c75bce",
+        "name": "Nextcloud",
+        "username": "",
+        "uri": "https://nextcloud.com",
+        "description": null,
+        "deleted": false,
+        "created": "2024-09-11T16:10:18+00:00",
+        "modified": "2024-09-11T16:10:18+00:00",
+        "created_by": "8bb80df5-700c-48ce-b568-85a60fc3c8f2",
+        "modified_by": "8bb80df5-700c-48ce-b568-85a60fc3c8f2",
+        "resource_type_id": "a28a04cd-6f53-518a-967c-9963bf9cec51",
+        "expired": null,
+        "folder_parent_id": null,
+        "favorite": null,
+        "modifier": {
+            "id": "8bb80df5-700c-48ce-b568-85a60fc3c8f2",
+            "role_id": "639b50cf-66f9-4b23-8d55-d0609710cd9d",
+            "username": "ada@passbolt.com",
+            "active": true,
+            "deleted": false,
+            "created": "2024-07-03T12:52:06+00:00",
+            "modified": "2024-08-06T14:58:09+00:00",
+            "disabled": null,
+            "last_logged_in": null
+        },
+        "creator": {
+            "id": "8bb80df5-700c-48ce-b568-85a60fc3c8f2",
+            "role_id": "639b50cf-66f9-4b23-8d55-d0609710cd9d",
+            "username": "ada@passbolt.com",
+            "active": true,
+            "deleted": false,
+            "created": "2024-07-03T12:52:06+00:00",
+            "modified": "2024-08-06T14:58:09+00:00",
+            "disabled": null,
+            "last_logged_in": null
+        },
+        "secrets": [
+            {
+                "id": "ab793b77-bd48-4a0f-b68a-9bc191eb0f58",
+                "user_id": "8bb80df5-700c-48ce-b568-85a60fc3c8f2",
+                "resource_id": "fc11887b-aaa6-4600-a460-e05e99c75bce",
+                "data": "-----BEGIN PGP MESSAGE-----...",
+                "created": "2024-09-11T16:10:19+00:00",
+                "modified": "2024-09-11T16:10:19+00:00"
+            }
+        ],
+        "permission": {
+            "id": "738f47c6-2811-4d72-81b0-bd0c3d7c9b12",
+            "aco": "Resource",
+            "aco_foreign_key": "fc11887b-aaa6-4600-a460-e05e99c75bce",
+            "aro": "User",
+            "aro_foreign_key": "8bb80df5-700c-48ce-b568-85a60fc3c8f2",
+            "type": 15,
+            "created": "2024-09-11T16:10:18+00:00",
+            "modified": "2024-09-11T16:10:18+00:00"
+        }
+    }
+}
+```
+
+The `success` status in the header tells us that the creation was successful, congratulations! 🎉

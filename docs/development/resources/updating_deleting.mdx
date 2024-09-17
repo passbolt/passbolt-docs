@@ -1,0 +1,107 @@
+---
+title: Updating or deleting a resource
+description: How to update or delete a resource using the Passbolt API
+sidebar_position: 1
+hide_table_of_contents: false
+---
+
+In this guide, we will walk through how to update and delete a resource using the Passbolt API.
+
+For this example, the ID of the resource being manipulated is `fc11887b-aaa6-4600-a460-e05e99c75bce`.
+
+## Updating a resource
+
+For this article, let's say that our secret, once decrypted, contains the following data, as [created earlier](../creating):
+
+```json
+{
+    "password": "Correct Horse Battery Staple",
+    "description": "My personal cloud storage"
+}
+```
+
+We, as an API client, would like to update the resource's `username` field to "ada@passbolt.com",
+as well as update the encrypted `description` to "My remote collaboration platform".
+
+We now need to build the payload that we are going to send to the API.
+
+### Updating the secret
+
+By design, the secret can never be decrypted by the Passbolt API, so no incremental or differential update is possible: we need to update it all at once.
+
+With the updated description, the decrypted secret looks like this:
+
+```json
+{
+    "password": "Correct Horse Battery Staple",
+    "description": "My remote collaboration platform"
+}
+```
+
+Once encrypted and signed using our own key, we get an armored string starting with `-----BEGIN PGP MESSAGE-----`.
+
+> As this is a personal resource, we only need to re-encrypt our version of the secret.
+> If it was a shared one, we would need to re-encrypt the updated secret for everyone having access to this resource, using their corresponding public key.
+
+We need to tell the API which user is this secret for, so the base payload now looks like this:
+
+```json
+{
+  "secrets": [
+    {
+      "user_id": "8bb80df5-700c-48ce-b568-85a60fc3c8f2",
+      "data": "-----BEGIN PGP MESSAGE-----"
+    }
+  ]
+}
+```
+
+### Updating the metadata
+
+As the metadata isn't End-to-end encrypted (yet 😉) an incremental update can be performed.
+
+We only want to update the resource's `username` field, so the final payload looks like this:
+
+```json
+{
+  "username": "ada@passbolt.com",
+  "secrets": [
+    {
+      "user_id": "8bb80df5-700c-48ce-b568-85a60fc3c8f2",
+      "data": "-----BEGIN PGP MESSAGE-----"
+    }
+  ]
+}
+```
+
+### Making the request
+
+This payload is then sent as the body of a `PUT` request to `/resources/fc11887b-aaa6-4600-a460-e05e99c75bce.json`, with `fc11887b-aaa6-4600-a460-e05e99c75bce` being the resource ID, obtained in the initial index call.
+
+If all went well, the request is successful, congratulations! 🎉
+
+## Deleting a resource
+
+Deleting the resource is as simple as querying it!
+
+In order to do just that,
+a `DELETE` call needs to be made to the same URL as the update one, `/resource/fc11887b-aaa6-4600-a460-e05e99c75bce.json` for this resource.
+
+The API replies with:
+
+```json
+{
+    "header": {
+        "id": "3bf00865-c849-4986-ac2a-0ced43e78731",
+        "status": "success",
+        "servertime": 1726147401,
+        "action": "bf1a9a51-eb99-51b3-b15a-fe21a235585c",
+        "message": "The resource has been deleted successfully.",
+        "url": "/resources/fc11887b-aaa6-4600-a460-e05e99c75bce.json",
+        "code": 200
+    },
+    "body": null
+}
+```
+
+Congratulations, you just deleted a resource! 🎉

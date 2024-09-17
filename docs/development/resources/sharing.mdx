@@ -1,0 +1,196 @@
+---
+title: Sharing a resource
+description: How to share a resource using the Passbolt API
+sidebar_position: 1
+hide_table_of_contents: false
+---
+
+In this guide, we will walk through how to share a resource to another user.
+
+For this, we will use a resource with an ID of `fc11887b-aaa6-4600-a460-e05e99c75bce`.
+
+## Finding users and groups
+
+In order to share something, we first need to know who to share it with.
+
+For that, we can query the `/share/search-aros.json` endpoint, which returns both groups and users.
+We also want to get the users' public keys in the response, as we need it for sharing the secret, so we set `contain[gpgkey]` to `1`.
+
+```json
+{
+  "header": {
+    "id": "663fc9f2-0bc6-46db-b867-a30ca125fd72",
+    "status": "success",
+    "servertime": 1726148674,
+    "action": "10807e9e-d525-5acc-b05d-cccbbd252a93",
+    "message": "The operation was successful.",
+    "url": "/share/search-aros.json?contain%5Bgpgkey%5D=1",
+    "code": 200
+  },
+  "body": [
+    {
+      "id": "c48863da-32d3-48cd-9d47-de2891386423",
+      "role_id": "c2f96fb1-611d-466d-80fb-e82beba5ed87",
+      "username": "betty@passbolt.com",
+      "active": true,
+      "deleted": false,
+      "created": "2024-08-08T12:08:58+00:00",
+      "modified": "2024-08-08T12:14:38+00:00",
+      "disabled": null,
+      "profile": {},
+      "gpgkey": {
+        "id": "6f0f6eb6-ed74-4cb0-8872-3e96ee17b6f9",
+        "user_id": "c48863da-32d3-48cd-9d47-de2891386423",
+        "armored_key": "-----BEGIN PGP PUBLIC KEY BLOCK-----",
+        "bits": 3072,
+        "uid": "Betty <betty@passbolt.com>",
+        "key_id": "08EF12596BC6B07B",
+        "fingerprint": "C4D0E64738F9956CDACC6D4808EF12596BC6B07B",
+        "type": "RSA",
+        "expires": null,
+        "key_created": "2024-08-08T12:13:42+00:00",
+        "deleted": false,
+        "created": "2024-08-08T12:14:38+00:00",
+        "modified": "2024-08-08T12:14:38+00:00"
+      },
+      "last_logged_in": null
+    },
+    {
+      "id": "8bb80df5-700c-48ce-b568-85a60fc3c8f2",
+      "role_id": "639b50cf-66f9-4b23-8d55-d0609710cd9d",
+      "username": "ada@passbolt.com",
+      "active": true,
+      "deleted": false,
+      "created": "2024-07-03T12:52:06+00:00",
+      "modified": "2024-08-06T14:58:09+00:00",
+      "disabled": null,
+      "profile": {},
+      "gpgkey": {
+        "id": "ed4d9ea6-f354-4a74-ad09-4e1dd69041ec",
+        "user_id": "8bb80df5-700c-48ce-b568-85a60fc3c8f2",
+        "armored_key": "-----BEGIN PGP PUBLIC KEY BLOCK-----",
+        "bits": 3072,
+        "uid": "Ada <ada@passbolt.com>",
+        "key_id": "D277E7A2E45418A0",
+        "fingerprint": "850C6BDE59E9F126BFB4683BD277E7A2E45418A0",
+        "type": "RSA",
+        "expires": null,
+        "key_created": "2024-07-03T12:53:13+00:00",
+        "deleted": false,
+        "created": "2024-07-03T12:53:52+00:00",
+        "modified": "2024-07-03T12:53:52+00:00"
+      },
+      "last_logged_in": null
+    }
+  ]
+}
+```
+
+This endpoint gives us the ID and public key for the person we want to share this resource with: Betty.
+
+## Simulating the sharing operation
+
+Before sharing the resource for real, we first want to check that the operation is feasible and sound.
+
+With the precedent request, we know that Betty's user ID is `c48863da-32d3-48cd-9d47-de2891386423`.
+
+The payload we want to send for the simulation is the following:
+
+```json
+{
+  "permissions": [
+    {
+      "is_new": true,
+      "aro": "User",
+      "aro_foreign_key": "c48863da-32d3-48cd-9d47-de2891386423",
+      "type": 7
+    }
+  ]
+}
+```
+
+As you can see, we are requesting an permission creation (`"is_new": true`),
+for a `User` with an ID of `c48863da-32d3-48cd-9d47-de2891386423`,
+and a permission level of `7` (corresponding to "update").
+
+This is now to be sent as the body of a `POST` request to the `/share/simulate/{foreignModel}/{foreignId}.json` endpoint.
+Here, the `foreignModel` is a `resource` with a `foreignId` of `fc11887b-aaa6-4600-a460-e05e99c75bce`, so the final URL is `/share/simulate/resource/fc11887b-aaa6-4600-a460-e05e99c75bce.json`.
+
+The response will look something like this:
+
+```json
+{
+  "header": {
+    "id": "ec8de673-1f04-4d8e-a25d-4083a1afb0aa",
+    "status": "success",
+    "servertime": 1726150498,
+    "action": "7df37cb5-cfb9-57c2-a7a5-b65c9f573de0",
+    "message": "The operation was successful.",
+    "url": "/share/simulate/resource/fc11887b-aaa6-4600-a460-e05e99c75bce.json",
+    "code": 200
+  },
+  "body": {
+    "changes": {
+      "added": [
+        {
+          "User": {
+            "id": "c48863da-32d3-48cd-9d47-de2891386423"
+          }
+        }
+      ],
+      "removed": []
+    }
+  }
+}
+```
+
+The simulation is a `success`, tells us that we are about to remove no permission, and that this operation will add an access for Betty, which is exactly what we want to do!
+
+## Sharing the resource
+
+Now that we know that the share operation will likely succeed, we can do it for real.
+
+We can reuse the previous payload as a base, but as we are adding a permission,
+we need to add the corresponding secret, or else Betty couldn't read the said resource.
+
+The `secrets` part of the payload has the same structure as the one for the [update](../updating_deleting) operation, leading to a final payload that looks like this:
+
+```json
+{
+  "permissions": [
+    {
+      "is_new": true,
+      "aro": "User",
+      "aro_foreign_key": "c48863da-32d3-48cd-9d47-de2891386423",
+      "type": 7
+    }
+  ],
+  "secrets": [
+    {
+      "user_id": "c48863da-32d3-48cd-9d47-de2891386423",
+      "data": "-----BEGIN PGP MESSAGE-----"
+    }
+  ]
+}
+```
+
+This final payload is to be sent as the body of a `PUT` request to `/share/resource/fc11887b-aaa6-4600-a460-e05e99c75bce.json`.
+
+The API replies with the following body:
+
+```json
+{
+    "header": {
+        "id": "b7dd5022-a69a-448c-a1b5-38ad7d9bf364",
+        "status": "success",
+        "servertime": 1726152104,
+        "action": "f3b4bd12-9d43-5749-a5fe-425c4cfe3ccb",
+        "message": "The operation was successful.",
+        "url": "/share/resource/fc11887b-aaa6-4600-a460-e05e99c75bce.json",
+        "code": 200
+    },
+    "body": null
+}
+```
+
+This is a success, congratulations for sharing your first resource! 🎉

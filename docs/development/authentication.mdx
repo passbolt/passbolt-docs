@@ -1,0 +1,210 @@
+---
+title: Authenticating with the API
+description: How to authenticate against the Passbolt API?
+sidebar_position: 1
+sidebar_label: Authentication
+hide_table_of_contents: false
+---
+
+## GPGAuth
+
+> GPGAuth is the legacy authentication method, and will eventually be dropped in favor of JWT-based authentication.
+
+
+### Used headers throughout login process
+
+|Header|Meaning|
+|:-|:-|
+| `X-GPGAuth-Verify-Response` |  	The challenge response, e.g. the secret the server needed to decrypt. The client compares it with the one stored locally and confirms server's identity. |
+| `X-GPGAuth-Progress` | The current login stage. Possible values are `verify`, `stage0`, `stage1`, `complete` and `logout`. |
+| `X-GPGAuth-User-Auth-Token` | An encrypted token sent from the server for the client to decrypt in order to confirm its identity. |
+| `X-GPGAuth-Authenticated` | A boolean to tell if you are logged in or not. |
+| `X-GPGAuth-Refer` | URI of the last location which triggered the login process. Used to redirect back after a successful login. |
+| `X-GPGAuth-Error` | Any information with regards to an authentication error. |
+| `X-GPGAuth-Pubkey` | The server public key url. |
+| `X-GPGAuth-Logout-Url` | The logout URL. |
+| `X-GPGAuth-Version` | GPGAuth version. |
+
+### Multi-step authentication process
+
+When using GPGAuth-based authentication, the whole process is divided in multiple steps, each one with a specific use-case.
+
+  
+#### Stage 0 - Server's identity verification
+
+> This step is optional, although recommended.
+
+In this step, the client challenges the server's identity.
+
+In order to do that, the client generates a challenge token, composed of different parts separated by pipes:
+
+- Protocol version (`gpgauthv1.3.0`)
+- Length of UUID (`36`)
+- Said UUID
+- Protocol version again
+
+An example of said challenge string could be `gpgauthv1.3.0|36|10e2074b-f610-42be-8525-100d4e68c481|gpgauthv1.3.0`.
+  
+This challenge token is then encrypted with the sever's public key, obtained with a `GET` request to `/auth/verify.json`.
+
+The total payload for server verification has the following structure:
+
+```json
+{
+    "data": {
+      "gpg_auth": {
+        "keyid": "<user's key fingerprint>",
+        "server_verify_token": "<pgp_encrypt('gpgauthv1.3.0|36|10e2074b-f610-42be-8525-100d4e68c481|gpgauthv1.3.0', public_server_key)>"
+    }
+  }
+}
+```
+
+If the user's key fingerprint is known to the server and the server was able to decrypt and validate the challenge string and its format,
+the decrypted challenge string is sent in the reply's `X-GPGAuth-Verify-Response` header.
+
+This proves that the server is really who it says it is.
+
+
+#### Stage 1 - Getting the challenge for client's private key verification
+
+Now that we verified the server's identity, the server wants to verify our identity.
+In order to do that, we need to tell the server who the client claims to be:
+
+```json
+{
+  "data": {
+    "gpg_auth": {
+      "keyid": "<user's key fingerprint>"
+    }
+  }
+}
+```
+
+This payload is then sent in a `POST` request to the `/auth/login.json` endpoint.
+
+The server replies with an encrypted challenge string in the `X-GPGAuth-User-Auth-Token` header.
+This challenge string has the same format that the one described in stage 0.
+
+This challenge string is encrypted with the user's public key and signed with the server's key.
+
+  
+#### Stage 2 - Verifying client's private key verification
+
+Once this challenge string has been decrypted, it has to be sent to the server in a `POST`
+request to `/auth/login.json` in a payload such as:
+
+```json
+{
+  "data": {
+    "gpg_auth": {
+      "keyid": "<user's key fingerprint>",
+      "user_token_result": "<decrypted challenge string such as 'gpgauthv1.3.0|36|b0a39f7a-a09a-47d5-9180-0bb03c91406f|gpgauthv1.3.0'>"
+    }
+  }
+}
+```
+
+The server now has validated the client's identity, and sets a few headers in its reply:
+
+- `X-GPGAuth-Authenticated` is set to `true`
+- A cookie named `passbolt_session` used for session identification
+- A cookie named `csrfToken` that the client needs to send in each subsequent authenticated request as a custom header named: `X-CSRF-Token`
+
+🎉 You are fully authenticated and ready to use the API!
+
+
+## JWT Authentication
+
+JWT-based authentication is the preferred way to interact with the Passbolt API.
+
+This approach provides as secure, signed, framework-agnostic and cookie-less authentication system.
+With this authentication method, keep-alives are a thing of the past, which means less requests and greater battery life for clients, while giving
+the server a more precise control over tokens expiry and validity.
+
+JWT-based login is made in only one request, in which both the server and the client's identity is verified and validated.
+
+First, the client creates a challenge token in the form of a client-side generated UUID, and encapsulates it in a JSON object:
+
+```json
+{
+  "version": "1.0.0",
+  "domain": "https://passbolt.local",
+  "verify_token": "our UUID challenge token",
+  "verify_token_expiry": "<UNIX epoch for our challenge token expiration>"
+}
+```
+
+This challenge payload is then signed using the client's key, and finally encrypted with the server's key (available at `/auth/verify.json`).
+
+The server then decrypts the payload, checks that the payload's signature is the valid for the `user_id` provided alongside the challenge.
+It has now verified and validated the user attempting to log in.
+
+The server then replies with the following payload, encrypted with the user's key:
+
+```json
+{
+  "version": "1.0.0",
+  "domain": "https://passbolt.local",
+  "verify_token": "our UUID challenge token",
+  "access_token": "<JWT which is then used for authenticating the client>",
+  "refresh_token": "a UUID used for getting a new access token once it expired"
+}
+```
+
+The user can then decrypt this payload and validate that the `verify_token` matches the one sent earlier,
+checking that the server was able to decrypt its challenge, and by extension, the server's identity.
+
+🎉 You are fully authenticated and ready to use the API!
+
+If multi-factor authentication is enabled for the user, then client gets a list of MFA providers in the challenge response,
+such as `"mfa_providers": ["totp", "yubikey"]`.
+The client then has to obtain a MFA token, to be used in conjonction with the `access_token`,
+by using the relevant endpoints in order to be fully authenticated.
+
+### Refreshing the token
+
+Once the `access_token` expired, the client needs to obtain a new one from the server.
+
+Each `refresh_token` is to be consumed only once, and a new one is provided with the new `access_token`, in a cookie.
+
+If MFA is enabled for the account, a new `passbolt_mfa` token is also provided as a cookie.
+
+## Multi-factor authentication
+
+Passbolt supports logging in using multi factor authentication (MFA).
+
+Your client will need to cater for these scenarios if the account you are using has MFA enabled.
+After login and if MFA is required, or when the current MFA authorization session expires, the current request will be redirected using the HTTP 403 FORBIDDEN code.
+
+The response, which tells you the different MFA providers available, will look something like this:
+
+```json
+{
+  "header": {
+    "id": "7ff2828c-1092-4897-8e0a-1dc64ada889f",
+    "status": "error",
+    "servertime": 1721207029,
+    "action": "4d0c0996-ce30-4bce-9918-9062ab35c542",
+    "message": "MFA authentication is required.",
+    "url": "/mfa/verify/error.json",
+    "code": 403
+  },
+  "body": {
+    "mfa_providers": [
+      "totp"
+    ]
+  }
+}
+```
+
+Then, you have to make a `POST` request to `https://<your passbolt instance base URL>/mfa/verify/<provider>.json` with the code provided, in a body such as:
+
+```json
+{
+  "totp": "635742"
+}
+```
+
+The MFA token is set through the `passbolt_mfa` cookie.
+

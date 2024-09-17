@@ -7,7 +7,7 @@ info:
     $ref: "components/descriptions.yml#/main"
   license:
     name: "AGPL-3.0"
-    url: "http://www.gnu.org/licenses/agpl-3.0.html"
+    url: "https://www.gnu.org/licenses/agpl-3.0.html"
   termsOfService: "https://www.passbolt.com/terms"
   title: "Passbolt API Documentation"
   version: "4.9.0"
@@ -37,10 +37,10 @@ paths:
     $ref: "paths/authVerify.yml"
   /avatars/view/{avatarId}/{avatarFormat}:
     $ref: "paths/avatarsView.yml"
-  /comments/resource/{resourceId}.json:
-    $ref: "paths/comments.yml"
   /comments/{commentId}.json:
     $ref: "paths/comment.yml"
+  /comments/resource/{resourceId}.json:
+    $ref: "paths/comments.yml"
   /favorite/{favoriteId}.json:
     $ref: "paths/favorite.yml"
   /favorite/{foreignModel}/{foreignId}.json:
@@ -67,14 +67,14 @@ paths:
     $ref: "paths/mfaVerify.yml"
   /mfa/verify/error.json:
     $ref: "paths/mfaVerifyError.yml"
+  /move/{foreignModel}/{foreignId}.json:
+    $ref: "paths/move.yml"
   /permissions/resource/{resourceId}.json:
     $ref: "paths/permissionsResource.yml"
   /resources.json:
     $ref: "paths/resources.yml"
   /resources/{resourceId}.json:
     $ref: "paths/resource.yml"
-  /move/{foreignModel}/{foreignId}.json:
-    $ref: "paths/move.yml"
   /resource-types.json:
     $ref: "paths/resourceTypes.yml"
   /resource-types/{resourceTypeId}.json:
@@ -110,6 +110,8 @@ tags:
   - name: "Favorites"
     description:
       $ref: "components/descriptions/favorites.yml#/tag"
+  - name: "Folders"
+    description: "Organize your passwords and share them in bulk using folders."
   - name: "GPG keys"
     description:
       $ref: "components/descriptions/gpgkeys.yml#/tag"
@@ -118,11 +120,11 @@ tags:
       $ref: "components/descriptions/groups.yml#/tag"
   - name: "Healthcheck"
     description: "Gather data about the passbolt instance's health."
+  - name: "Move"
+    description: "Move a folder or a resource across folders."
   - name: "Multi-Factor Authentication"
     description:
       $ref: "components/descriptions/mfaVerify.yml#/tag"
-  - name: "Move"
-    description: "Move a folder or a resource across folders."
   - name: "Permissions"
     description: "Query permissions for resources."
   - name: "Resources"

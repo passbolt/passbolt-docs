@@ -42,11 +42,19 @@ const HomepageHero = () => {
     },
     {
       id: 'developer',
-      icon: <img src={useBaseUrl('/icons/lucide/developer.svg')} width={24} alt='Contributor guide illustrated with {}.' />,
+      icon: <img src={useBaseUrl('/icons/lucide/developer.svg')} width={24} alt='Developer guide illustrated with {}.' />,
       href: '/development',
       title: 'Developer guide',
       description:
-        'All the technical information to integrate and call the passbolt API.',
+        'All the high-level information to integrate and call the passbolt API.',
+    },
+    {
+      id: 'api',
+      icon: <img src={useBaseUrl('/icons/lucide/developer.svg')} width={24} alt='API guide illustrated with {}.' />,
+      href: '/api',
+      title: 'API guide',
+      description:
+        'All the low-level information to call the passbolt API and its endpoints.',
     },
     {
       id: 'releases',

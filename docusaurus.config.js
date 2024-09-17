@@ -205,13 +205,6 @@ const config = {
             label: 'Hosting guide',
           },
           {
-            type: 'docSidebar',
-            href: '/development',
-            sidebarId: 'developmentGuideSidebar',
-            position: 'left',
-            label: 'Dev guide',
-          },
-          {
             href: '/api',
             position: 'left',
             label: 'API guide',

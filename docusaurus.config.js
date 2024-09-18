@@ -66,7 +66,7 @@ const config = {
           customCss: require.resolve('./src/css/custom.css'),
         },
         sitemap: {
-          ignorePatterns: ['/components/**', '/docs/development/**'],
+          ignorePatterns: ['/docs/components/**', '/docs/development/**'],
         },
       }),
     ],
@@ -77,7 +77,7 @@ const config = {
         specs: [
           {
             spec: 'openapi/root.yml',
-            route: '/development/api'
+            route: '/api'
           },
         ],
       },
@@ -204,13 +204,11 @@ const config = {
             position: 'left',
             label: 'Hosting guide',
           },
-          // {
-          //   type: 'docSidebar',
-          //   href: '/development',
-          //   sidebarId: 'developmentGuideSidebar',
-          //   position: 'left',
-          //   label: 'Dev guide',
-          // },
+          {
+            href: '/api',
+            position: 'left',
+            label: 'API guide',
+          },
           // {
           //   type: 'docSidebar',
           //   sidebarId: 'contributeGuideSidebar',

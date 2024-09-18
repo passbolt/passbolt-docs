@@ -1,0 +1,90 @@
+verify:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/authGpg.yml#/verify"
+      examples:
+        $ref: "../examples/authGpg.yml#/verify/response"
+
+stage0:
+  description: "Operation is successful. The decrypted challenge is sent via a header."
+  headers:
+    X-GPGAuth-Verify-Response:
+      schema:
+        type: string
+        example: "gpgauthv1.3.0|36|10e2074b-f610-42be-8525-100d4e68c481|gpgauthv1.3.0"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            type: "null"
+      examples:
+        $ref: "../examples/authGpg.yml#/stage0/response"
+
+login:
+  description: "Operation is successful. Additional data is sent through cookie and headers."
+  headers:
+    X-GPGAuth-Progress:
+      schema:
+        type: string
+        enum:
+          - stage1
+          - stage2
+          - complete
+    X-GPGAuth-User-Auth-Token:
+      schema:
+        type: string
+    X-GPGAuth-Authenticated:
+      schema:
+        type: boolean
+    Set-Cookie:
+      schema:
+        type: string
+        example: "passbolt_session=9vknm8fkbqpgj8i1mnk4st332e; HttpOnly"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            type: "null"
+      examples:
+        $ref: "../examples/authGpg.yml#/login/response"
+
+missingCsrfToken:
+  description: "CSRF token is missing or invalid."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            type: "string"
+      examples:
+        $ref: "../examples/authGpg.yml#/missingCsrfToken/response"

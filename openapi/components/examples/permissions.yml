@@ -1,0 +1,29 @@
+permissionIndex:
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "The operation was successful."
+          url: "/permissions/resource/42968631-0c51-4405-9f2d-c6700c5057be.json"
+          code: 200
+        body:
+          - id: "c4cc131e-b204-41e3-8e17-0f62be7d1d80"
+            aco: "Resource"
+            aco_foreign_key: "42968631-0c51-4405-9f2d-c6700c5057be"
+            aro: "User"
+            aro_foreign_key: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+            type: 15
+            created: "2024-07-30T08:48:28+00:00"
+            modified: "2024-07-30T08:48:28+00:00"
+          - id: "4d664f1b-905e-4de4-ad2a-a7dce650565c"
+            aco: "Resource"
+            aco_foreign_key: "42968631-0c51-4405-9f2d-c6700c5057be"
+            aro: "User"
+            aro_foreign_key: "c48863da-32d3-48cd-9d47-de2891386423"
+            type: 1
+            created: "2024-08-08T15:38:26+00:00"
+            modified: "2024-08-08T15:38:26+00:00"

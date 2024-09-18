@@ -1,0 +1,5 @@
+tag: |
+  JWT-based authentication is the preferred way to interact with the Passbolt API. Find more [here](https://www.passbolt.com/docs/development)
+
+rsa: |
+  This is not the key to use when encrypting the JWT login challenge.

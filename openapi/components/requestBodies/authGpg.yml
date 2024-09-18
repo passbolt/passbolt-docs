@@ -1,0 +1,19 @@
+verify:
+  description: The user's key fingerprint and an encrypted challenge token.
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/authGpg.yml#/login"
+      examples:
+        $ref: "../examples/authGpg.yml#/stage0/request"
+
+login:
+  description: The user's key fingerprint and challenge data when required.
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/authGpg.yml#/login"
+      examples:
+        $ref: "../examples/authGpg.yml#/login/request"

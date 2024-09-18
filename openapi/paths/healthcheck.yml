@@ -1,0 +1,15 @@
+get:
+  summary: "Get healthcheck information."
+  description: "Only administrators can query this endpoint."
+  security:
+    - bearerHttpAuthentication: []
+  operationId: "viewHealthcheck"
+  x-codeSamples:
+    $ref: "../components/codeSamples/healthcheck.yml#/healthcheck"
+  tags:
+    - "Healthcheck"
+  responses:
+    200:
+      $ref: "../components/responses/healthcheck.yml#/healthcheck"
+    403:
+      $ref: "../components/responses.yml#/authenticationRequired"

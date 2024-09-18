@@ -1,0 +1,207 @@
+update:
+  - lang: cURL
+    source: |
+      curl --request PUT \
+        --url {{API_BASE_URL}}/comments/41aca4aa-430c-4b60-a1f1-c0de1b52a1ce.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+        --data '{
+          "content": "no comment"
+        }'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/comments/41aca4aa-430c-4b60-a1f1-c0de1b52a1ce.json';
+      const options = {
+        method: 'PUT',
+        headers: {Authorization: 'Bearer {{JWT_TOKEN}}'},
+        body: '{"content":"no comment"}'
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/comments/41aca4aa-430c-4b60-a1f1-c0de1b52a1ce.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "PUT",
+        CURLOPT_POSTFIELDS => json_encode([
+          'content' => 'no comment'
+        ]),
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+delete:
+  - lang: cURL
+    source: |
+      curl --request DELETE \
+        --url {{API_BASE_URL}}/comments/9149d7d7-e191-41d5-a263-cfccbd775f0b.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/comments/9149d7d7-e191-41d5-a263-cfccbd775f0b.json';
+      const options = {method: 'DELETE', headers: {Authorization: 'Bearer {{JWT_TOKEN}}'}};
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/comments/9149d7d7-e191-41d5-a263-cfccbd775f0b.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "DELETE",
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+index:
+  - lang: cURL
+    source: |
+      curl --request GET \
+        --url {{API_BASE_URL}}/comments/resource/42968631-0c51-4405-9f2d-c6700c5057be.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/comments/resource/42968631-0c51-4405-9f2d-c6700c5057be.json';
+      const options = {method: 'GET', headers: {Authorization: 'Bearer {{JWT_TOKEN}}'}};
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/comments/resource/42968631-0c51-4405-9f2d-c6700c5057be.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+add:
+  - lang: cURL
+    source: |
+      curl --request POST \
+        --url {{API_BASE_URL}}/comments/resource/42968631-0c51-4405-9f2d-c6700c5057be.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+        --data '{
+          "content": "no comment"
+        }'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/comments/resource/42968631-0c51-4405-9f2d-c6700c5057be.json';
+      const options = {
+        method: 'POST',
+        headers: {Authorization: 'Bearer {{JWT_TOKEN}}'},
+        body: '{"content":"no comment"}'
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/comments/resource/42968631-0c51-4405-9f2d-c6700c5057be.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => json_encode([
+          'content' => 'no comment'
+        ]),
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }

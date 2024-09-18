@@ -1,0 +1,180 @@
+---
+title: Getting started with the API!
+description: What exactly is this API we're talking about?
+sidebar_position: 1
+sidebar_label: Getting started
+hide_table_of_contents: false
+---
+
+The API works over HTTPS in a REST fashion, so it is language framework agnostic. You can integrate passbolt services into your existing workflow using the toolset of your choice.
+
+To get started with the passbolt REST API (hereafter referred to as “The API”) you need at least:
+
+- A running passbolt server instance.
+- A passbolt user account if you want to access protected data.
+- Some basic understanding of how public key cryptography works.
+- An [OpenPGP-compliant](https://www.openpgp.org/about/) library to build with.
+
+## Endpoints
+
+Endpoints are documented following the OpenAPI Specification, as seen in the [API guide](../../api).
+
+## Response format
+
+### Response envelope
+
+The API returns data in an envelope with `header` and `body` properties. The `header` contains response metadata like response code, server_time, error messages etc. The `body` contains the actual payload.
+
+For example, requesting a single resource by id will result in something like:
+
+```json
+{
+  "header": {
+    "id": "7ff2828c-1092-4897-8e0a-1dc64ada889f",
+    "status": "success",
+    "servertime": 1721207029,
+    "action": "4d0c0996-ce30-4bce-9918-9062ab35c542",
+    "message": "The operation was successful.",
+    "url": "/resources/ae60d89c-f13b-4fb1-b2dc-c8dc806cac88.json",
+    "code": 200
+  },
+    "body": {
+      "id": "ae60d89c-f13b-4fb1-b2dc-c8dc806cac88",
+      "name": "Hello World",
+      "username": "ada@passbolt.com",
+      "uri": "https://example.com",
+      "description": null,
+      "deleted": false,
+      "created": "2024-07-08T08:06:25+00:00",
+      "modified": "2024-07-08T08:06:25+00:00",
+      "created_by": "8bb80df5-700c-48ce-b568-85a60fc3c8f2",
+      "modified_by": "8bb80df5-700c-48ce-b568-85a60fc3c8f2",
+      "resource_type_id": "a28a04cd-6f53-518a-967c-9963bf9cec51",
+      "expired": null,
+      "folder_parent_id": null,
+      "personal": true
+    }
+}
+```
+
+
+### Error responses
+
+An unsuccessful operation will result in an error response. The error response will follow the same scheme as above with the presence of both `header` and `body` properties, only this time the status in the header will be set to `error` instead of `success`. The response body will contain the error details.
+
+```json
+{
+  "header": {
+    "id": "965c9f17-18ae-48fd-a36e-e42f04a30442",
+    "status": "error",
+    "servertime": 1554907648,
+    "action": "ad8bbc35-6435-538e-b1a7-80b87bcedb6a",
+    "message": "Could not validate resource data.",
+    "url": "/resources.json",
+    "code": 400
+  },
+  "body": {
+    "name": {
+      "_required": "A name is required."
+    },
+    "secrets": {
+      "_required": "A secret is required."
+    }
+  }
+}
+```
+
+As you can see, for validation errors, the response body contains two keys, `name` and `secrets` as they failed some validation rules. Furthermore, they also have their own JSON object with a key `_required` that represents the validation rule that failed and a value with the actual error message, here `A name is required`.
+
+## Encryption and decryption
+
+Security and privacy are the biggest concerns for a password manager and passbolt is no exception. Passbolt’s solution uses end-to-end encryption and the encryption and decryption is always done on the client. The server is mainly used to take care of relational data integrity and storage.
+
+Passbolt uses [public key cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography) and [OpenPGP](https://www.openpgp.org/about/) specifically. This guide will assume you are familiar with these concepts.
+
+![Password exchange using passbolt](/img/diagrams/howitworks.svg)
+
+
+### Which OpenPGP implementation should I use?
+
+There are several ways you can use OpenPGP. The most popular option is to use GnuPG (directly or via GPGME) or another implementation in your favorite language.
+
+There are various language libraries available such as:
+
+- [OpenPGP.js](https://openpgpjs.org/): JavaScript alone (used by passbolt extension / cli)
+- [PHP GnuPG](https://www.php.net/manual/en/book.gnupg.php): PHP with GnuPG (used by passbolt server)
+- [OpenPGP.php](https://github.com/singpolyma/openpgp-php): PHP alone (used by passbolt server).
+- [gpgme.js](https://github.com/mailvelope/gpgmejs): JavaScript for GPGME
+- [GPGME Python](http://files.au.adversary.org/crypto/gpgme-python-howto.html): Python with GnuPG.
+- [PGPy](https://github.com/SecurityInnovation/PGPy/): Python alone.
+
+You can find additional libraries on openpgp.org.
+Working with OpenPGP Keys
+
+At the time of installation the passbolt server administrator generates an OpenPGP key pair and stores it in the server keyring. Similarly, clients (such as the passbolt browser extension) generate a pair of keys during the setup. At the end of the setup the client stores its secret key locally and send the public key to the server.
+
+When authenticated, it is possible for a user to gather other user's public keys, in order to share passwords with them. Prior to sending sensitive data, secrets must be encrypted using the recipient's public key (e.g. another user, for example) and signed using the sender's public key.
+
+This serves two purposes:
+
+1. Privacy by encrypting the data
+2. Authenticity by confirming the identity of the sender.
+
+### Accessing passbolt server public key
+
+The passbolt server public key is required during the “verify” step of the authentication. This step allows the client to verify the server identity, for example to prevent the unlikely scenario where the domain was seized. Your passbolt server broadcasts its public key at `GET /auth/verify.json`.
+
+## Glossary
+
+### Folder
+
+Folders are a way to group different resources, so they can be easier to share and manage.
+
+Folders can be either shared or personal, depending on their permissions.
+One folder (or resource) can only be in one folder from a given user perspective.
+However, a folder can be in multiple parent folder if you look at all users as a whole.
+This is to allow users to re-organize folders shared with them in a way that makes sense to them.
+
+A given folder visibility in the tree is therefore dependent on multiple factors, including if the parent folder is also shared.
+
+You can learn more about the folder dynamics in [this dedicated blog post](https://www.passbolt.com/blog/introducing-the-new-folders-feature).
+
+### Group
+
+Groups are a logical collection of users.
+
+They can be used for example to represents departments or projects in an organization.
+They are especially useful when you want to share `Resources` with multiple users at once.
+
+### Resource
+
+A resource entity is an object that holds metadata for its encrypted data, and contains items such as the searchable password name,
+the associated username, the URL where the password is used, in addition to other fields.
+
+The definition of what is included in the resource and what is included in the secret is described using resource types which take the form of JSON schemas.
+
+### Resource type
+
+In passbolt, passwords are split into two different entities: Resources (the metadata in clear) and Secrets (the encrypted data).
+The resource types define what is included in the resource and what is included in the secret.
+This definition, that is part of the resource type, takes the form of JSON schemas.
+
+Since passbolt is end-to-end encrypted the server cannot validate the content of the secrets.
+Therefore, it is the responsibility of the clients to check if the secret is deserializable according to the resource type schema associated with the resource and to choose how to handle that case.
+
+### Secret
+
+The `Secret` entity is the actual password and optionally other secret information such as the encrypted description.
+Secrets can be accessed via its associated Resource object or individually. In either case, the access will be logged in the system.
+
+### User
+
+User are entities with the ability to interact with the application.
+
+They are usually represented by one person and have a unique username (which is also their e-mail address).
+The `User` object returned by the API hence contains the relevant associated fields like `gpg_keys`, `roles`, `profile`, `avatar`, etc.
+
+A user can update themselves, and change their first name and last name but not their role.
+An administrator can update their role. No one can update their username, as it is the e-mail associated to the user's GPG key-pair.
+
+If a user needs to change their username, they will need to create a new user with the said e-mail.

@@ -1,0 +1,19 @@
+commentUpdate:
+  description: The comment you want to update
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/comments.yml#/commentUpdate"
+      examples:
+        $ref: "../examples/comments.yml#/commentUpdate/request"
+
+commentAdd:
+  description: The comment you want to add
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/comments.yml#/commentAdd"
+      examples:
+        $ref: "../examples/comments.yml#/commentAdd/request"

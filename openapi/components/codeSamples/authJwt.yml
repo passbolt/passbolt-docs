@@ -1,0 +1,250 @@
+rsa:
+  - lang: cURL
+    source: |
+      curl --request GET \
+        --url {{API_BASE_URL}}/auth/jwt/rsa.json
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/auth/jwt/rsa.json';
+      const options = {method: 'GET'};
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/auth/jwt/rsa.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+jwks:
+  - lang: cURL
+    source: |
+      curl --request GET \
+        --url {{API_BASE_URL}}/auth/jwt/jwks.json
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/auth/jwt/jwks.json';
+      const options = {method: 'GET'};
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/auth/jwt/jwks.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+logout:
+  - lang: cURL
+    source: |
+      curl --request POST \
+        --url {{API_BASE_URL}}/auth/jwt/logout.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+        --data '{
+          "refresh_token": "ad71952e-7842-599e-a19e-3a82e6974b23"
+        }'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/auth/jwt/logout.json';
+      const options = {
+        method: 'POST',
+        headers: {Authorization: 'Bearer {{JWT_TOKEN}}'},
+        body: '{"refresh_token":"ad71952e-7842-599e-a19e-3a82e6974b23"}'
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/auth/jwt/logout.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => json_encode([
+          'refresh_token' => 'ad71952e-7842-599e-a19e-3a82e6974b23'
+        ]),
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+refresh:
+  - lang: cURL
+    source: |
+      curl --request POST \
+        --url {{API_BASE_URL}}/auth/jwt/refresh.json \
+        --data '{
+          "user_id": "8bb80df5-700c-48ce-b568-85a60fc3c8f2",
+          "refresh_token": "f8cea352-6bd3-4944-9523-20b31272bef0"
+        }'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/auth/jwt/refresh.json';
+      const options = {
+        method: 'POST',
+        body: '{"user_id":"8bb80df5-700c-48ce-b568-85a60fc3c8f2","refresh_token":"f8cea352-6bd3-4944-9523-20b31272bef0"}'
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/auth/jwt/refresh.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => json_encode([
+          'user_id' => '8bb80df5-700c-48ce-b568-85a60fc3c8f2',
+          'refresh_token' => 'f8cea352-6bd3-4944-9523-20b31272bef0'
+        ]),
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+login:
+  - lang: cURL
+    source: |
+      curl --request POST \
+        --url {{API_BASE_URL}}/auth/jwt/login.json \
+        --data '{
+          "user_id": "8bb80df5-700c-48ce-b568-85a60fc3c8f2",
+          "challenge": "-----BEGIN PGP MESSAGE-----"
+        }'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/auth/jwt/login.json';
+      const options = {
+        method: 'POST',
+        body: '{"user_id":"8bb80df5-700c-48ce-b568-85a60fc3c8f2","challenge":"-----BEGIN PGP MESSAGE-----"}'
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/auth/jwt/login.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => json_encode([
+          'user_id' => '8bb80df5-700c-48ce-b568-85a60fc3c8f2',
+          'challenge' => '-----BEGIN PGP MESSAGE-----'
+        ]),
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }

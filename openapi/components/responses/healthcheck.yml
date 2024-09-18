@@ -1,0 +1,33 @@
+healthcheck:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/healthcheck.yml#/healthcheck"
+      examples:
+        $ref: "../examples/healthcheck.yml#/healthcheck/response"
+
+status:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            type: "string"
+      examples:
+        $ref: "../examples/healthcheck.yml#/status/response"

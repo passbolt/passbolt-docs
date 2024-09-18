@@ -3,3 +3,9 @@ bearerHttpAuthentication:
   type: http
   scheme: Bearer
   bearerFormat: JWT
+
+gpgCookieAuthentication:
+  description: Session-based authentication. Note that a CSRF token needs to be provided through a header named `X-CSRF-Token`.
+  type: apiKey
+  in: cookie
+  name: passbolt_session

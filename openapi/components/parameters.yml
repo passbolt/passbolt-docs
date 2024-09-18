@@ -1,3 +1,42 @@
+commentId:
+  name: "commentId"
+  description: "ID for the comment being manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
+avatarId:
+  name: "avatarId"
+  description: "ID for the avatar being manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
+avatarFormat:
+  name: "avatarFormat"
+  description: "Format for the avatar being manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    enum:
+      - "medium.jpg"
+      - "small.jpg"
+
+mfaProviderName:
+  name: "mfaProviderName"
+  description: "Name for the MFA provider."
+  in: "path"
+  schema:
+    type: "string"
+    enum:
+      - "totp"
+      - "yubikey"
+
 favoriteId:
   name: "favoriteId"
   description: "ID for the favorite being manipulated."
@@ -312,6 +351,28 @@ containPermissionsGroup:
       - 1
       - 0
 
+containUser:
+  name: "contain[user]"
+  description: "Add user to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containUserProfile:
+  name: "contain[user.profile]"
+  description: "Add user profile to user data in response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
 containUsers:
   name: "contain[users]"
   description: "Add users to response body."
@@ -326,6 +387,17 @@ containUsers:
 containMyGroupUser:
   name: "contain[my_group_user]"
   description: "Add `my_group_user` to groups in response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containGroup:
+  name: "contain[group]"
+  description: "Add group to response body."
   in: "query"
   required: false
   schema:

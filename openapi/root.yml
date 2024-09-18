@@ -7,7 +7,7 @@ info:
     $ref: "components/descriptions.yml#/main"
   license:
     name: "AGPL-3.0"
-    url: "http://www.gnu.org/licenses/agpl-3.0.html"
+    url: "https://www.gnu.org/licenses/agpl-3.0.html"
   termsOfService: "https://www.passbolt.com/terms"
   title: "Passbolt API Documentation"
   version: "4.9.0"
@@ -17,6 +17,30 @@ servers:
     description: "API Passbolt"
 
 paths:
+  /auth/is-authenticated.json:
+    $ref: "paths/authIsAuthenticated.yml"
+  /auth/jwt/jwks.json:
+    $ref: "paths/authJwtJwks.yml"
+  /auth/jwt/login.json:
+    $ref: "paths/authJwtLogin.yml"
+  /auth/jwt/logout.json:
+    $ref: "paths/authJwtLogout.yml"
+  /auth/jwt/refresh.json:
+    $ref: "paths/authJwtRefresh.yml"
+  /auth/jwt/rsa.json:
+    $ref: "paths/authJwtRsa.yml"
+  /auth/login.json:
+    $ref: "paths/authLogin.yml"
+  /auth/logout.json:
+    $ref: "paths/authLogout.yml"
+  /auth/verify.json:
+    $ref: "paths/authVerify.yml"
+  /avatars/view/{avatarId}/{avatarFormat}:
+    $ref: "paths/avatarsView.yml"
+  /comments/{commentId}.json:
+    $ref: "paths/comment.yml"
+  /comments/resource/{resourceId}.json:
+    $ref: "paths/comments.yml"
   /favorite/{favoriteId}.json:
     $ref: "paths/favorite.yml"
   /favorite/{foreignModel}/{foreignId}.json:
@@ -35,18 +59,30 @@ paths:
     $ref: "paths/group.yml"
   /groups/{groupId}/dry-run.json:
     $ref: "paths/groupDryRun.yml"
+  /healthcheck.json:
+    $ref: "paths/healthcheck.yml"
+  /healthcheck/status.json:
+    $ref: "paths/healthcheckStatus.yml"
+  /mfa/verify/{mfaProviderName}.json:
+    $ref: "paths/mfaVerify.yml"
+  /mfa/verify/error.json:
+    $ref: "paths/mfaVerifyError.yml"
+  /move/{foreignModel}/{foreignId}.json:
+    $ref: "paths/move.yml"
+  /permissions/resource/{resourceId}.json:
+    $ref: "paths/permissionsResource.yml"
   /resources.json:
     $ref: "paths/resources.yml"
   /resources/{resourceId}.json:
     $ref: "paths/resource.yml"
-  /move/{foreignModel}/{foreignId}.json:
-    $ref: "paths/move.yml"
   /resource-types.json:
     $ref: "paths/resourceTypes.yml"
   /resource-types/{resourceTypeId}.json:
     $ref: "paths/resourceType.yml"
   /roles.json:
     $ref: "paths/roles.yml"
+  /secrets/resource/{resourceId}.json:
+    $ref: "paths/secretsResource.yml"
   /share/{foreignModel}/{foreignId}.json:
     $ref: "paths/shareForeignModel.yml"
   /share/search-aros.json:
@@ -61,17 +97,36 @@ paths:
     $ref: "paths/userDryRun.yml"
 
 tags:
+  - name: "Authentication (GPGAuth)"
+    description:
+      $ref: "components/descriptions/authGpg.yml#/tag"
+  - name: "Authentication (JWT)"
+    description:
+      $ref: "components/descriptions/authJwt.yml#/tag"
+  - name: "Avatars"
+    description: "Query avatar images."
+  - name: "Comments"
+    description: "Manipulate comments for resources."
   - name: "Favorites"
     description:
       $ref: "components/descriptions/favorites.yml#/tag"
+  - name: "Folders"
+    description: "Organize your passwords and share them in bulk using folders."
   - name: "GPG keys"
     description:
       $ref: "components/descriptions/gpgkeys.yml#/tag"
   - name: "Groups"
     description:
       $ref: "components/descriptions/groups.yml#/tag"
+  - name: "Healthcheck"
+    description: "Gather data about the passbolt instance's health."
   - name: "Move"
     description: "Move a folder or a resource across folders."
+  - name: "Multi-Factor Authentication"
+    description:
+      $ref: "components/descriptions/mfaVerify.yml#/tag"
+  - name: "Permissions"
+    description: "Query permissions for resources."
   - name: "Resources"
     description:
       $ref: "components/descriptions/resources.yml#/tag"
@@ -80,6 +135,8 @@ tags:
       $ref: "components/descriptions/resourceTypes.yml#/tag"
   - name: "Roles"
     description: "Different categories of users."
+  - name: "Secrets"
+    description: "Secrets associated to resources."
   - name: "Shares"
     description:
       $ref: "components/descriptions/shares.yml#/tag"

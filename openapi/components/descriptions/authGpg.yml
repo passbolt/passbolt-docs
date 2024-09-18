@@ -1,0 +1,4 @@
+tag: |
+  The legacy authentication method, using the GPGAuth protocol.
+  
+  Find more [here](https://www.passbolt.com/docs/development/authentication).

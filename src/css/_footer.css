@@ -46,18 +46,24 @@ footer.footer .slogan {
 }
 
 footer.footer .social-block {
-  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 footer.footer .social-block nav {
   padding: 0;
   list-style: none;
-  margin-top: 0.625rem;
   margin-bottom: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 1.625rem;
   color: white;
+}
+
+footer.footer .row.secondary {
+  margin-top: 4rem;
+  flex: 1;
+  flex-direction: column-reverse;
+  align-items: center;
 }
 
 footer.footer .footer__links {
@@ -68,6 +74,15 @@ footer.footer .footer__links {
 @media (min-width: 997px) {
   footer.footer .container {
     padding: 0;
+  }
+
+  footer.footer .row.secondary {
+    flex-direction: unset;
+  }
+
+  footer.footer .social-block {
+    margin-left: auto;
+    margin-bottom: unset;
   }
 
   footer.footer .copyright {

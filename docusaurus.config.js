@@ -86,9 +86,8 @@ const config = {
   customFields: {
     footer: {
       slogan:
-        'Open source password management for teams. Built for team collaboration, open source, self-hosted, api-centric, privacy-focused, developer-first.',
+        'Open source password and credential manager for teams. The all-in-one solution for all types of credentials and built for secure collaboration. Passbolt is versatile and can be self-hosted or cloud-hosted. Built for modern tech teams, trusted by mission-critical organisations, usable by everyone.',
       socialMedia: {
-        title: 'See you around:',
         links: [
           {
             href: ROUTES.GITHUB_ORG_URL,

@@ -37,6 +37,16 @@ function generateItem(item) {
   }
 }
 
+function generateColumnItems(columnLists = []) {
+  const links = []
+
+  columnLists.forEach((list) => {
+    [...list.querySelectorAll('li')].map((link) => links.push(generateItem(link)))
+  })
+
+  return links
+}
+
 async function main() {
   try {
     let response = await fetch(domain);
@@ -44,12 +54,12 @@ async function main() {
 
     const dom = new JSDOM(body);
     const footerColumns = dom.window.document.querySelectorAll(
-      '[class*="Footer_column__"]',
+      '[class*="footer_list__"]',
     );
 
     const data = Array.from(footerColumns).map((column) => ({
       title: column.querySelector('p')?.textContent,
-      items: [...column.querySelectorAll('ul li')].map((link) => generateItem(link)),
+      items: generateColumnItems([...column.querySelectorAll('ul')]),
     }));
 
     fs.writeFileSync(

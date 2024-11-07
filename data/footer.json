@@ -3,7 +3,7 @@
     "title": "Legal",
     "items": [
       {
-        "label": "Privacy Policy",
+        "label": "Privacy policy",
         "href": "https://www.passbolt.com/privacy"
       },
       {
@@ -30,6 +30,35 @@
       {
         "label": "Downloads",
         "href": "https://www.passbolt.com/downloads"
+      },
+      {
+        "label": "Changelog",
+        "href": "https://www.passbolt.com/changelog"
+      }
+    ]
+  },
+  {
+    "title": "Company",
+    "items": [
+      {
+        "label": "About",
+        "href": "https://www.passbolt.com/about"
+      },
+      {
+        "label": "Careers",
+        "href": "https://careers.passbolt.com/"
+      },
+      {
+        "label": "Contact us",
+        "href": "https://www.passbolt.com/contact"
+      },
+      {
+        "label": "Press",
+        "href": "https://www.passbolt.com/credits/press-kit"
+      },
+      {
+        "label": "Partnerships",
+        "href": "https://www.passbolt.com/reseller"
       }
     ]
   },
@@ -40,15 +69,22 @@
         "html": "Compare"
       },
       {
-        "label": "Passbolt vs KeePass",
-        "href": "https://www.passbolt.com/passbolt-vs-keepass"
-      },
-      {
         "label": "Passbolt vs Bitwarden",
         "href": "https://www.passbolt.com/vs/bitwarden/overview"
       },
       {
-        "html": "Case studies"
+        "label": "Passbolt vs KeePass",
+        "href": "https://www.passbolt.com/passbolt-vs-keepass"
+      },
+      {
+        "html": "Solutions"
+      },
+      {
+        "label": "For universities",
+        "href": "https://www.passbolt.com/solutions/for-universities"
+      },
+      {
+        "html": "Case Studies"
       },
       {
         "label": "ZIT-RLP",
@@ -75,36 +111,12 @@
         "href": "https://www.passbolt.com/case-studies/metschkoll"
       },
       {
-        "html": "Solutions"
+        "label": "CTIE",
+        "href": "https://www.passbolt.com/case-studies/ctie"
       },
       {
-        "label": "For universities",
-        "href": "https://www.passbolt.com/solutions/for-universities"
-      }
-    ]
-  },
-  {
-    "title": "Company",
-    "items": [
-      {
-        "label": "About",
-        "href": "https://www.passbolt.com/about"
-      },
-      {
-        "label": "Careers",
-        "href": "https://careers.passbolt.com"
-      },
-      {
-        "label": "Contact us",
-        "href": "https://www.passbolt.com/contact"
-      },
-      {
-        "label": "Press",
-        "href": "https://www.passbolt.com/credits/press-kit"
-      },
-      {
-        "label": "Partnerships",
-        "href": "https://www.passbolt.com/reseller"
+        "label": "LuxDev",
+        "href": "https://www.passbolt.com/case-studies/luxdev"
       }
     ]
   }

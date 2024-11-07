@@ -1,8 +1,8 @@
-import React from 'react';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 export default function FooterLayout({ links, logo, copyright }) {
   const {
@@ -18,12 +18,14 @@ export default function FooterLayout({ links, logo, copyright }) {
               {customFields.footer?.slogan && (
                 <p className="slogan">{customFields.footer.slogan}</p>
               )}
+            </div>
 
-              <div className="social-block">
-                {customFields.footer?.socialMedia?.title && (
-                  <p>{customFields.footer.socialMedia.title}</p>
-                )}
+            <div className="col col--8 col--offset-1">{links}</div>
+          </div>
 
+          <div className="row secondary">
+            <div className="copyright">{copyright}</div>
+            <div className="social-block">
                 {customFields.footer?.socialMedia?.links && (
                   <nav>
                     {customFields.footer.socialMedia.links.map((link) => (
@@ -41,12 +43,7 @@ export default function FooterLayout({ links, logo, copyright }) {
                   </nav>
                 )}
               </div>
-            </div>
-
-            <div className="col col--8 col--offset-1">{links}</div>
           </div>
-
-          <div className="copyright">{copyright}</div>
         </div>
       </footer>
     </>

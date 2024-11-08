@@ -13,7 +13,7 @@ Import the ova file using virtualbox, vmware (ESXi >= 6.0) or any other platform
 
 Once imported, it is highly recommanded to check if the VM is actually running as Debian (64-bit). In order to do that, just open VM's settings and it should show on which version it is running on. Now, you should be able to boot the VM and just point to the VM ip address with their web browser to initiate the passbolt install process.
 
-## 1.2 Credentials
+### 1.2 Credentials
 
 The appliance performs some actions on the first boot:
 
@@ -36,3 +36,26 @@ login in as root. You can however create a shell as root with the default user:
 <CodeBlock>
 {`sudo -s`}
 </CodeBlock>
+
+
+### 1.3 Configure HTTPS
+:::tip[Pro tip]
+If you prefer to proceed to the HTTP installation and re-configure HTTPS later this is likely the standard process so you don't need to follow this section.
+:::
+
+You will need to create a file containing the subscription key in */etc/passbolt/subscription_key.txt* and change the ownership to `www-data`
+<CodeBlock>
+  {`sudo chown www-data:www-data /etc/passbolt/subscription_key.txt`}
+</CodeBlock>
+
+<div>
+  <p>When it comes to SSL, the virtual appliance uses passbolt debian package. Depending on your needs there are two different options to setup HTTPS:</p>
+  <ul>
+    <li>
+      <a href={`/docs/hosting/configure/https/${props.productLabel.toLowerCase()}/debian-auto/`}>Auto (Using Let's Encrypt)</a>
+    </li>
+    <li>
+      <a href={`/docs/hosting/configure/https/${props.productLabel.toLowerCase()}/debian-manual`}>Manual (Using user-provided SSL certificates)</a>
+    </li>
+  </ul>
+</div>

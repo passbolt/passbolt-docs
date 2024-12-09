@@ -4,6 +4,7 @@ update:
       curl --request PUT \
         --url {{API_BASE_URL}}/comments/41aca4aa-430c-4b60-a1f1-c0de1b52a1ce.json \
         --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+        --header 'Content-Type: application/json' \
         --data '{
           "content": "no comment"
         }'
@@ -155,6 +156,7 @@ add:
       curl --request POST \
         --url {{API_BASE_URL}}/comments/resource/42968631-0c51-4405-9f2d-c6700c5057be.json \
         --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+        --header 'Content-Type: application/json' \
         --data '{
           "content": "no comment"
         }'

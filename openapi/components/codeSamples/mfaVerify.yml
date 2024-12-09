@@ -4,6 +4,7 @@ attempt:
       curl --request POST \
         --url {{API_BASE_URL}}/mfa/verify/totp.json \
         --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+        --header 'Content-Type: application/json' \
         --data '{
           "totp": "654373"
         }'

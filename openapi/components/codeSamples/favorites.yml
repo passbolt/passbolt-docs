@@ -4,6 +4,7 @@ add:
       curl --request POST \
         --url {{API_BASE_URL}}/favorites/resource/42968631-0c51-4405-9f2d-c6700c5057be.json \
         --header 'Authorization: Bearer {{JWT_TOKEN}}'
+        --header 'Content-Type: application/json' \
   - lang: JavaScript
     source: |
       const url = '{{API_BASE_URL}}/favorites/resource/42968631-0c51-4405-9f2d-c6700c5057be.json';

@@ -98,6 +98,7 @@ add:
       curl --request POST \
         --url {{API_BASE_URL}}/groups.json \
         --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+        --header 'Content-Type: application/json' \
         --data '{
         "name": "Groupe B",
         "groups_users": [
@@ -213,6 +214,7 @@ update:
       curl --request PUT \
       --url {{API_BASE_URL}}/groups/8fa37ef6-f167-4342-8e1c-3488439cf7d1.json \
       --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+      --header 'Content-Type: application/json' \
       --data '{
         "name": "WRC",
         "groups_users": [
@@ -329,6 +331,7 @@ updateDryRun:
       curl --request PUT \
       --url {{API_BASE_URL}}/groups/8fa37ef6-f167-4342-8e1c-3488439cf7d1/dry-run.json \
       --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+      --header 'Content-Type: application/json' \
       --data '{
         "name": "WRC",
         "groups_users": [

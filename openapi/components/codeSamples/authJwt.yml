@@ -90,6 +90,7 @@ logout:
       curl --request POST \
         --url {{API_BASE_URL}}/auth/jwt/logout.json \
         --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+        --header 'Content-Type: application/json' \
         --data '{
           "refresh_token": "ad71952e-7842-599e-a19e-3a82e6974b23"
         }'
@@ -146,6 +147,7 @@ refresh:
     source: |
       curl --request POST \
         --url {{API_BASE_URL}}/auth/jwt/refresh.json \
+        --header 'Content-Type: application/json' \
         --data '{
           "user_id": "8bb80df5-700c-48ce-b568-85a60fc3c8f2",
           "refresh_token": "f8cea352-6bd3-4944-9523-20b31272bef0"
@@ -200,6 +202,7 @@ login:
     source: |
       curl --request POST \
         --url {{API_BASE_URL}}/auth/jwt/login.json \
+        --header 'Content-Type: application/json' \
         --data '{
           "user_id": "8bb80df5-700c-48ce-b568-85a60fc3c8f2",
           "challenge": "-----BEGIN PGP MESSAGE-----"

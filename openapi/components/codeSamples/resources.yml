@@ -51,6 +51,7 @@ add:
       curl --request POST \
         --url {{API_BASE_URL}}/resources.json \
         --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+        --header 'Content-Type: application/json' \
         --data '{
           "name": "NextClould",
           "username": "ada@passbolt.com",
@@ -59,7 +60,7 @@ add:
           "secrets": [{
             "data": "-----BEGIN PGP MESSAGE-----"
           }]
-        }'      
+        }'
   - lang: JavaScript
     source: |
       const url = '{{API_BASE_URL}}/resources.json';
@@ -122,6 +123,7 @@ update:
       curl --request PUT \
       --url {{API_BASE_URL}}/resources/43051c9f-7122-4887-81e8-3b390cf0f04a.json \
       --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+      --header 'Content-Type: application/json' \
       --data '{
         "name": "NextCloud",
         "username": "ada@passbolt.com",

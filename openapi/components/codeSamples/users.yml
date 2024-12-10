@@ -98,6 +98,7 @@ update:
       curl --request PUT \
         --url {{API_BASE_URL}}/users/8c640fd5-268c-4ae0-9e35-2f120cf1a831.json \
         --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+        --header 'Content-Type: application/json' \
         --data '{
           "profile": {
             "first_name": "Freddy",
@@ -208,6 +209,7 @@ add:
       curl --request POST \
         --url {{API_BASE_URL}}/users.json \
         --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+        --header 'Content-Type: application/json' \
         --data '{
           "username": "ada@passbolt.com",
           "profile": {

@@ -145,6 +145,7 @@ add:
       curl --request POST \
         --url {{API_BASE_URL}}/folders.json \
         --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+        --header 'Content-Type: application/json' \
         --data '{
           "name": "bob",
           "folder_parent_id": "2d8142fc-5be2-463f-a6ba-e28d7d96e211"
@@ -204,6 +205,7 @@ update:
       curl --request PUT \
         --url {{API_BASE_URL}}/folders/2d8142fc-5be2-463f-a6ba-e28d7d96e211.json \
         --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+        --header 'Content-Type: application/json' \
         --data '{
           "name": "dylan2"
         }'

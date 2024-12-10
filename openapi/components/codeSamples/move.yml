@@ -3,6 +3,7 @@
     curl --request PUT \
       --url {{API_BASE_URL}}/move/folder/162e4717-59a2-439b-86c6-fc651e989939.json \
       --header 'Authorization: Bearer {{JWT_TOKEN}}' \
+      --header 'Content-Type: application/json' \
       --data '{
         "folder_parent_id": "58cd7e9d-1c27-4f67-9266-4156dea94e80"
       }'

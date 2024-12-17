@@ -66,18 +66,6 @@ If you are using docker compose, environment variables are on the env folder:
 If you are running docker container, you should have passed these variables through the command line.
 Please check the [passbolt env variable reference](/hosting/configure/environment-reference/)
 
-### 4. The avatars
-
-:::info[Since Passbolt 3.2]
-User's avatars are no longer stored on disk but on the avatars table of passbolt database.
-:::
-
-```bash
-docker exec -i passbolt-container \
-    tar cvfzp - -C /usr/share/php/passbolt/ webroot/img/avatar \
-    > passbolt-avatars.tar.gz
-```
-
 <BackupList />
 <MigrateOldToNew />
 <SecretKeys />

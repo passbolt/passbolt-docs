@@ -63,17 +63,6 @@ Be sure to remove the expiration time before importing the keys at backup restor
 
 Passbolt configuration file is located in config/passbolt.php.
 
-### 4. The avatars
-
-:::info[Since Passbolt 3.2]
-User's avatars are no longer stored on disk but on the avatars table of passbolt database.
-:::
-
-Back up `webroot/img/public` to avoid losing the profile images.
-
-```bash
-sudo tar cvfzp passbolt-avatars.tar.gz -C /var/www/passbolt/ webroot/img/avatar
-```
 
 <BackupList />
 <MigrateOldToNew />

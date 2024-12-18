@@ -57,17 +57,6 @@ The GPG server keys are stored under /etc/passbolt/gpg/ folder:
 
 Passbolt package stores all configuration files under /etc/passbolt/* but the one you need is /etc/passbolt/passbolt.php
 
-### 4. The avatars
-
-:::info[Since Passbolt 3.2]
-User's avatars are no longer stored on disk but on the avatars table of passbolt database.
-:::
-
-Back up `/usr/share/php/passbolt/webroot/img/avatar` to avoid losing the profile images.
-
-```bash
-sudo tar cvfzp passbolt-avatars.tar.gz -C /usr/share/php/passbolt/ webroot/img/avatar
-```
 
 <BackupList />
 <MigrateOldToNew />

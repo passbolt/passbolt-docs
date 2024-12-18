@@ -48,6 +48,12 @@
         "formats": ["CSV"]
     },
     {
+      "name": "Keeper",
+      "slug": "keeper",
+      "logo": "/img/import/keeper.svg",
+      "formats": ["KDBX"]
+    },
+    {
         "name": "Chrome",
         "slug": "chrome",
         "logo": "/img/import/chrome.svg",

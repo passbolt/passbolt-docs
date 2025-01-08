@@ -128,7 +128,7 @@
   {
     "name": "AlmaLinux",
     "slug": "almalinux",
-    "version": 8,
+    "version": 9,
     "package": "dnf",
     "db_engine": "mariadb",
     "logo": "/img/distributions/almalinux.svg",
@@ -198,7 +198,7 @@
   {
     "name": "OracleLinux",
     "slug": "oraclelinux",
-    "version": 8,
+    "version": 9,
     "package": "dnf",
     "db_engine": "mariadb",
     "logo": "/img/distributions/oraclelinux.svg",

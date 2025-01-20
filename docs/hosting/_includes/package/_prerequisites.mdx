@@ -7,8 +7,8 @@ import AdmonitionsInstallPrerequisites  from '/docs/hosting/_includes/package/_p
     <ul>
         {props.distributionLabel === 'Raspberry' ? (
             <>
-                <li>Any Raspberry PI from zero to 4</li>
-                <li>A minimal <a href="https://www.raspberrypi.com/software/operating-systems/">Raspberry Pi OS Lite (formerly called Raspbian)</a> server or any OS based on Debian 12 Bookworm.</li>
+                <li>Any Raspberry Pi model that supports 64-bit OS (e.g., Raspberry Pi 3, 4, or later).</li>
+                <li>A 64-bit version of Raspberry Pi OS Lite (formerly Raspbian) or any OS based on Debian 12 Bookworm. Raspberry Pi has discontinued 32-bit support for some configurations, so a 64-bit OS is required for this installation.</li>
             </>
         ) : (
             <li>A minimal {props.distributionLabel} {props.distributionVersion} server.</li>

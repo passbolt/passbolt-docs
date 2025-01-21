@@ -1,0 +1,65 @@
+---
+title: Keeper (KDBX)
+description: Keeper resources import (Workaround)
+---
+
+import ImportSteps from '@site/src/components/ImportSteps/ImportSteps';
+import Figure from '/src/components/Figure/Figure';
+import CheckMarkSuccess from '@site/src/components/Icon/CheckMarkSuccess/CheckMarkSuccess';
+import CheckMarkNone from '@site/src/components/Icon/CheckMarkNone/CheckMarkNone';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+:::warning
+Keeper's default key derivation function is argon2d which is not supported, in order to be able to import your data, a few manual iterations are needed.
+:::
+
+## Prerequisites
+- KeePass2.X
+
+## Steps to update the file
+- Open KeePass2
+- Click on *File > Database Settings*
+
+<Figure
+  src={
+    '/img/import/keeper/keepass_software.png'
+  }
+  caption="fig. Database Settings Menu"
+  alt="Database Settings Menu"
+  size={{width: 640}}
+/>
+
+- Go the *Security* tab
+- Change the "Key derivation function* to **AES-KDF**
+
+<Figure
+  src={
+    '/img/import/keeper/keepass_algorithm.png'
+  }
+  caption="fig. Key derivation function update to AES-KDF"
+  alt="Key derivation function update to AES-KDF"
+  size={{width: 640}}
+/>
+
+- Click "OK"
+- Save the file
+
+## Steps to import the file
+
+<ImportSteps />
+
+## Matrix
+
+|   |  Supported |
+|---|---|
+| Title | <CheckMarkSuccess/>  |
+| User Name  | <CheckMarkSuccess/> |
+| Password  | <CheckMarkSuccess/>  |
+| URL | <CheckMarkSuccess/> |
+| Notes | <CheckMarkSuccess/> |

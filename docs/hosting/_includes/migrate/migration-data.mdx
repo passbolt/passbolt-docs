@@ -1,6 +1,5 @@
 import Incrementor from "/docs/components/incrementor";
 import CodeBlock from "/src/components/CodeBlock/CodeBlock";
-import Troubleshooting from '/docs/hosting/_includes/default/_troubleshooting.mdx';
 
 ## Migrate data
 
@@ -14,7 +13,6 @@ You should have:
     )}
     <li>The private and public GPG keys</li>
     <li>Your database dump</li>
-    <li>The avatar archive file `passbolt-avatars.tar.gz` if you are coming from Passbolt prior to 3.2</li>
 </ul>
 
 <>
@@ -80,16 +78,15 @@ sudo chmod 440 /etc/passbolt/gpg/serverkey_private.asc`}
 </CodeBlock>
 
 <Incrementor
-    title="Extract the passbolt-avatars.tar.gz archive and set correct rights (if coming from Passbolt version prior to 3.2)"
+    title="Remove the empty inserted tables"
 />
 
 <CodeBlock>
-    {`sudo tar xzf passbolt-avatars.tar.gz -C /usr/share/php/passbolt/
-sudo chown -R ${props.webServerUser}:${props.webServerUser} /usr/share/php/passbolt/webroot/img/public`}
+    {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt drop_tables" ${props.webServerUser}`}
 </CodeBlock>
 
 <Incrementor
-    title="Load the database"
+    title="Load the backup into the database"
 />
 
 <CodeBlock>

@@ -68,10 +68,10 @@ Get them from your backed up keys:
 
 <CodeBlock>
 {`$ gpg --show-keys /path/to/serverkey.asc
-pub   rsa2048 2022-01-20 [SC]
+pub   rsa3072 2022-01-20 [SC]
       43F978AFF88B53F5ABBD12C87D5E40A4C43926ED
 uid                      Passbolt default user <passbolt@yourdomain.com>
-sub   rsa2048 2022-01-20 [E]`}
+sub   rsa3072 2022-01-20 [E]`}
 </CodeBlock>
 
 In the above output, fingerprint is `43F978AFF88B53F5ABBD12C87D5E40A4C43926ED` and email address is `passbolt@yourdomain.com`.
@@ -108,25 +108,7 @@ docker exec -it your-passbolt-container chmod 440 /etc/passbolt/gpg/serverkey.as
 docker exec -it your-passbolt-container chmod 440 /etc/passbolt/gpg/serverkey_private.asc
 ```
 
-### Restore avatars (if you are coming from prior 3.2)
-
-:::caution
-This step is needed only if you come from Passbolt version prior to 3.2. Since 3.2, avatars are stored in database
-:::
-
-Extract the avatars to the Passbolt docker container:
-
-```bash
-cat passbolt-avatars.tar.gz | docker exec -i your-passbolt-container tar -C /usr/share/php/passbolt/ -xzf -
-```
-
-Then set correct rights to the avatars:
-
-```bash
-docker exec -it your-passbolt-container chown -R www-data:www-data /usr/share/php/passbolt/webroot/img/avatar
-```
-
 ### That's it
 
 If your passbolt URL has changed, you will have to proceed to the same process than when setting up the browser
-extension on a new browser aka, follw the [account recovery](/user/quickstart/browser/setup-on-another-machine/) process.
+extension on a new browser aka, follow the [account recovery](/user/quickstart/browser/setup-on-another-machine/) process.

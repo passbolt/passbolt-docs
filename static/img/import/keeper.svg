@@ -1,0 +1,24 @@
+<svg version="1.1" id="Layer_1" xmlns:x="ns_extend;" xmlns:i="ns_ai;" xmlns:graph="ns_graphs;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 122.7 123" style="enable-background:new 0 0 122.7 123;" xml:space="preserve">
+ <style type="text/css">
+  .st0{fill:#FFC700;}
+	.st1{fill-rule:evenodd;clip-rule:evenodd;}
+ </style>
+ <metadata>
+  <sfw xmlns="ns_sfw;">
+   <slices>
+   </slices>
+   <sliceSourceBounds bottomLeftOrigin="true" height="123" width="122.7" x="-439.7" y="102.7">
+   </sliceSourceBounds>
+  </sfw>
+ </metadata>
+ <g>
+  <circle class="st0" cx="61.3" cy="61.5" r="60.2">
+  </circle>
+  <path class="st1" d="M109.7,77.5l-19.4-16l19.4-16l6,7.3l-10.5,8.7l10.5,8.7L109.7,77.5z M102.4,95.5L78.8,76.6H59.3v38.5h-9.5v-48
+		h32.4l26.1,20.9L102.4,95.5z M88.4,108.2l-10.6-8.7v13.3l-9.5,2.4V85.7l7.8,0l20.2,16.6L88.4,108.2z M40.5,100.2l-9.5,8.3V15.4
+		l9.5,8.3V100.2z M22,88.8l-9.5-8.1V44.6l9.5-8.7V88.8z M49.8,7.9h9.5v38.5h19.6l23.5-18.8l5.9,7.4L82.2,55.9H49.8V7.9z M68.3,9.2
+		l9.5,2.4v13.3l10.6-8.7l7.9,5.8L76.1,38.6l-7.8,0V9.2z M61.3,0C27.5,0,0,27.5,0,61.5c0,34,27.5,61.5,61.3,61.5
+		c33.9,0,61.3-27.5,61.3-61.5C122.7,27.5,95.2,0,61.3,0L61.3,0z M61.3,0">
+  </path>
+ </g>
+</svg>

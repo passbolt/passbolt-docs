@@ -130,7 +130,7 @@ resourceAddAndUpdate:
   response:
     base:
       value:
-        id: "ae60d89c-f13b-4fb1-b2dc-c8dc806cac88"  
+        id: "ae60d89c-f13b-4fb1-b2dc-c8dc806cac88"
         name: "NextCloud"
         username: "ada@passbolt.com"
         uri: "https://nextcloud.com/"
@@ -196,10 +196,9 @@ resourceView:
           code: 200
         body:
           id: "ae60d89c-f13b-4fb1-b2dc-c8dc806cac88"
-          name: "Hello World"
-          username: "ada@passbolt.com"
-          uri: "https://example.com"
-          description: null
+          metadata: "-----BEGIN PGP MESSAGE-----"
+          metadata_key_id: "0194fec1-65fa-7b6f-935a-9541c1c13281"
+          metadata_key_type: "shared_key"
           deleted: false
           created: "2024-07-08T08:06:25+00:00"
           modified: "2024-07-08T08:06:25+00:00"
@@ -222,10 +221,9 @@ resourceView:
           code: 200
         body:
           id: "ae60d89c-f13b-4fb1-b2dc-c8dc806cac88"
-          name: "Hello World"
-          username: "ada@passbolt.com"
-          uri: "https://example.com"
-          description: null
+          metadata: "-----BEGIN PGP MESSAGE-----"
+          metadata_key_id: "0194fec1-65fa-7b6f-935a-9541c1c13281"
+          metadata_key_type: "shared_key"
           deleted: false
           created: "2024-07-08T08:06:25+00:00"
           modified: "2024-07-08T08:06:25+00:00"

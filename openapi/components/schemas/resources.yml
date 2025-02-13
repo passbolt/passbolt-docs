@@ -6,6 +6,9 @@ resourceIndexAndView:
     - username
     - uri
     - description
+    - metadata
+    - metadata_key_id
+    - metadata_key_type
     - deleted
     - created
     - created_by
@@ -18,13 +21,12 @@ resourceIndexAndView:
     id:
       type: "string"
       format: "uuid"
-    name:
+    metadata:
       type: "string"
-    username:
+    metadata_key_id:
       type: "string"
-    uri:
-      type: "string"
-    description:
+      format: "uuid"
+    metadata_key_type:
       type: "string"
     deleted:
       type: boolean

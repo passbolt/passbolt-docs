@@ -17,30 +17,28 @@ resourcesIndex:
             limit: null
         body:
           - id: "ae60d89c-f13b-4fb1-b2dc-c8dc806cac88"
-            name: "Hello World"
-            username: "ada@passbolt.com"
-            uri: "https://example.com"
-            description: null
-            deleted: false
+            metadata: "-----BEGIN PGP MESSAGE-----"
+            metadata_key_id: "0194fec1-65fa-7b6f-935a-9541c1c13281"
+            metadata_key_type: "shared_key"
             created: "2024-07-08T08:06:25+00:00"
             modified: "2024-07-08T08:06:25+00:00"
             created_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
             modified_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
             resource_type_id: "a28a04cd-6f53-518a-967c-9963bf9cec51"
+            deleted: false
             expired: null
             folder_parent_id: null
             personal: true
-          - id: "ae60d89c-f13b-4fb1-b2dc-c8dc806cac88"
-            name: "Hello World"
-            username: "ada@passbolt.com"
-            uri: "https://example.com"
-            description: null
-            deleted: false
-            created: "2024-07-08T08:06:25+00:00"
-            modified: "2024-07-08T08:06:25+00:00"
+          - id: "ae60d89c-f13b-4fb1-b2dc-c8dc806cac89"
+            metadata: "-----BEGIN PGP MESSAGE-----"
+            metadata_key_id: "0194fec1-65fa-7b6f-935a-9541c1c13281"
+            metadata_key_type: "shared_key"
+            created: "2024-08-08T08:06:25+00:00"
+            modified: "2024-08-08T08:06:25+00:00"
             created_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
             modified_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
             resource_type_id: "a28a04cd-6f53-518a-967c-9963bf9cec51"
+            deleted: false
             expired: null
             folder_parent_id: null
             personal: true
@@ -60,14 +58,12 @@ resourcesIndex:
             page: 1
             limit: null
         body:
-          - id: "ae60d89c-f13b-4fb1-b2dc-c8dc806cac88"
-            name: "Hello World"
-            username: "ada@passbolt.com"
-            uri: "https://example.com"
-            description: null
-            deleted: false
-            created: "2024-07-08T08:06:25+00:00"
-            modified: "2024-07-08T08:06:25+00:00"
+          - id: "ae60d89c-f13b-4fb1-b2dc-c8dc806cac89"
+            metadata: "-----BEGIN PGP MESSAGE-----"
+            metadata_key_id: "0194fec1-65fa-7b6f-935a-9541c1c13281"
+            metadata_key_type: "shared_key"
+            created: "2024-08-08T08:06:25+00:00"
+            modified: "2024-08-08T08:06:25+00:00"
             created_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
             modified_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
             resource_type_id: "a28a04cd-6f53-518a-967c-9963bf9cec51"
@@ -82,11 +78,9 @@ resourcesIndex:
                 created: "2024-07-08T08:06:25+00:00"
                 modified: "2024-07-08T08:06:25+00:00"
           - id: "ae60d89c-f13b-4fb1-b2dc-c8dc806cac88"
-            name: "Hello World"
-            username: "ada@passbolt.com"
-            uri: "https://example.com"
-            description: null
-            deleted: false
+            metadata: "-----BEGIN PGP MESSAGE-----"
+            metadata_key_id: "0194fec1-65fa-7b6f-935a-9541c1c13281"
+            metadata_key_type: "shared_key"
             created: "2024-07-08T08:06:25+00:00"
             modified: "2024-07-08T08:06:25+00:00"
             created_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"

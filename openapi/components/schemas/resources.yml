@@ -2,14 +2,10 @@ resourceIndexAndView:
   type: "object"
   required:
     - id
-    - name
-    - username
-    - uri
-    - description
     - metadata
     - metadata_key_id
     - metadata_key_type
-    - deleted
+    - modified
     - created
     - created_by
     - modified_by
@@ -28,8 +24,9 @@ resourceIndexAndView:
       format: "uuid"
     metadata_key_type:
       type: "string"
-    deleted:
-      type: boolean
+    modified:
+      type: "string"
+      format: "date-time"
     created:
       type: "string"
       format: "date-time"

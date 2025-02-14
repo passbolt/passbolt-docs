@@ -515,6 +515,15 @@ filterHasParent:
     type: "string"
     format: "uuid"
 
+filterMetadataKeyType:
+  name: "filter[metadata_key_type]"
+  description: "Only return elements that match the metadata key type"
+  in: "query"
+  required: false
+  schema:
+    type: "string"
+    format: "uuid"
+
 filterHasId:
   name: "filter[has-id]"
   description: "Only return elements filtered by their id."
@@ -549,7 +558,7 @@ filterIsSharedWithGroup:
     type: "string"
     format: "uuid"
     description: "Group UUID"
-  
+
 filterFrom:
   name: "filter[from]"
   description: "Only return elements from a specific date-time."

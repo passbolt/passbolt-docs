@@ -23,11 +23,12 @@ get:
     - $ref: "../components/parameters.yml#/filterIsSharedWithMe"
     - $ref: "../components/parameters.yml#/filterHasId"
     - $ref: "../components/parameters.yml#/filterHasParent"
+    - $ref: "../components/parameters.yml#/filterMetadataKeyType"
   responses:
     200:
       $ref: "../components/responses/resources.yml#/index"
     400:
-      $ref: "../components/responses.yml#/badRequest"
+      $ref: "../components/responses.yml#/metadataKeyTypeFilterNotValid"
     401:
       $ref: "../components/responses.yml#/authenticationRequired"
 

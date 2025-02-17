@@ -71,25 +71,24 @@ resourceIndexAndView:
 resourceAdd:
   type: "object"
   required:
-    - name
-    - username
-    - uri
     - resource_type_id
   properties:
-    name:
-      type: "string"
-    username:
-      type: "string"
-    uri:
-      type: "string"
-    description:
-      type: "string"
     resource_type_id:
       type: "string"
       format: "uuid"
+    personal:
+      type: "boolean"
     folder_parent_id:
       type: "string"
       format: "uuid"
+      x-nullable: true
+    metadata_key_type:
+      type: "string"
+    metadata_key_id:
+      type: "string"
+      format: "uuid"
+    metadata:
+      type: "string"
     expired:
       type: "string"
       format: "date-time"

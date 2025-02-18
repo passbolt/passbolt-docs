@@ -91,3 +91,50 @@ view:
       } else {
         echo $response;
       }
+
+delete:
+  - lang: cURL
+    source: |
+      curl --request DELETE \
+        --url {{API_BASE_URL}}/resource-types/43051c9f-7122-4887-81e8-3b390cf0f04a.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/resource-types/43051c9f-7122-4887-81e8-3b390cf0f04a.json';
+      const options = {method: 'DELETE', headers: {Authorization: 'Bearer {{JWT_TOKEN}}'}};
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/resource-types/43051c9f-7122-4887-81e8-3b390cf0f04a.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "DELETE",
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }

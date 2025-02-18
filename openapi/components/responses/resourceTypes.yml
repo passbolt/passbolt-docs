@@ -33,3 +33,19 @@ index:
               $ref: "../schemas/resourceTypes.yml#/resourceType"
       examples:
         $ref: "../examples/resourceTypes.yml#/resourceTypesIndex/response"
+
+update:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+    examples:
+      $ref: "../examples/resourceTypes.yml#/resourceTypeUpdateResponse/response"
+
+

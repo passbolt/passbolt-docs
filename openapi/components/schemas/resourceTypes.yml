@@ -35,3 +35,9 @@ resourceType:
     modified:
       type: "string"
       format: "date-time"
+
+resourceTypeUpdate:
+  type: "object"
+  properties:
+    deleted:
+      x-nullable: true

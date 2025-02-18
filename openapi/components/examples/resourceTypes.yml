@@ -101,4 +101,22 @@ resourceTypeView:
                     - type: null
           created: "2024-07-08T08:06:25+00:00"
           modified: "2024-07-08T08:06:25+00:00"
-    
+
+resourceTypesUpdate:
+  request:
+    base:
+      value:
+        deleted: null
+
+resourceTypeUpdateResponse:
+  response:
+    index:
+      value:
+        header:
+          id: "1ad847b3-1558-4a5f-8a20-7286608e2154"
+          status: "success"
+          servertime: 1739891968
+          action: "221e54d6-e8a3-5a99-851d-ae03fa5d986f"
+          message: "The operation was successful."
+          url: "/resource-types/05ba5c75-504d-5ad6-819a-83af68867d86.json"
+          code: 200

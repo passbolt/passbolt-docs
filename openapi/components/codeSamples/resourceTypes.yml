@@ -138,3 +138,66 @@ delete:
       } else {
         echo $response;
       }
+
+put:
+  - lang: cURL
+    source: |
+      curl --request PUT \
+        --url {{API_BASE_URL}}/resource-types/05ba5c75-504d-5ad6-819a-83af68867d86.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}'
+        --header 'content-type: application/json' \
+        --data '{
+        "deleted": null
+       }'
+
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+      CURLOPT_URL => "{{API_BASE_URL}}/resource-types/05ba5c75-504d-5ad6-819a-83af68867d86.json",
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "PUT",
+      CURLOPT_POSTFIELDS => json_encode([
+      'deleted' => null
+      ]),
+      CURLOPT_HTTPHEADER => [
+        "Authorization: Bearer {{JWT_TOKEN}}"
+        "content-type: application/json"
+      ],
+      ]);
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+      echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/resource-types/05ba5c75-504d-5ad6-819a-83af68867d86.json';
+      const options = {
+      method: 'PUT',
+      headers: {
+        authorization: 'Bearer {{JWT_TOKEN}',
+        'content-type': 'application/json'
+      },
+      body: '{"deleted":null}'
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }

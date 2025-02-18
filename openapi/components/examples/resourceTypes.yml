@@ -47,6 +47,7 @@ resourceTypesIndex:
                       - type: "string"
                         maxLength: 10000
                       - type: null
+            deleted: null
             created: "2024-07-08T08:06:25+00:00"
             modified: "2024-07-08T08:06:25+00:00"
 

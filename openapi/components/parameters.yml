@@ -296,6 +296,17 @@ containSecret:
       - 1
       - 0
 
+containResourcesCount:
+  name: "contain[resources_count]"
+  description: "Get the number of count of resources associated to this type of resource."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
 containResourceType:
   name: "contain[resource-type]"
   description: "Add resource type to response body."

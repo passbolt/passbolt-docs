@@ -60,3 +60,7 @@ This tends to happen when a user is added in a group in Passbolt prior to being 
 This error occurs when a user has been manually removed from a group. Passbolt prioritizes manual actions, assuming the removal was intentional and for a valid reason.
 
 To resolve this issue, manually re-add the user to the group in Passbolt and then run the LDAP synchronization afterward.
+
+## The user user@domain.com could not be added because of data validation issues
+
+This can happen when the email is not properly formatted on the username field mapping attribute, for example maybe there is a leading space before the email address.

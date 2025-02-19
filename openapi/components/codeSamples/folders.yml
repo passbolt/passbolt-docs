@@ -49,11 +49,11 @@ view:
   - lang: cURL
     source: |
       curl --request GET \
-        --url {{API_BASE_URL}}/folders/b2a72cb2-508c-43ad-b96f-697f7ad21635.json \
+        --url {{API_BASE_URL}}/folders/27605bac-8aa8-4fe4-a80b-486d8b76c748.json \
         --header 'Authorization: Bearer {{JWT_TOKEN}}'
   - lang: JavaScript
     source: |
-      const url = '{{API_BASE_URL}}/folders/b2a72cb2-508c-43ad-b96f-697f7ad21635.json';
+      const url = '{{API_BASE_URL}}/folders/27605bac-8aa8-4fe4-a80b-486d8b76c748.json';
       const options = {method: 'GET', headers: {Authorization: 'Bearer {{JWT_TOKEN}}'}};
 
       try {
@@ -69,7 +69,7 @@ view:
       $curl = curl_init();
 
       curl_setopt_array($curl, [
-        CURLOPT_URL => "{{API_BASE_URL}}/folders/b2a72cb2-508c-43ad-b96f-697f7ad21635.json",
+        CURLOPT_URL => "{{API_BASE_URL}}/folders/27605bac-8aa8-4fe4-a80b-486d8b76c748.json",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
         CURLOPT_MAXREDIRS => 10,

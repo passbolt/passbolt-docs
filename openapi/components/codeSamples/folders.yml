@@ -203,19 +203,21 @@ update:
   - lang: cURL
     source: |
       curl --request PUT \
-        --url {{API_BASE_URL}}/folders/2d8142fc-5be2-463f-a6ba-e28d7d96e211.json \
+        --url {{API_BASE_URL}}/folders/27605bac-8aa8-4fe4-a80b-486d8b76c748.json \
         --header 'Authorization: Bearer {{JWT_TOKEN}}' \
         --header 'Content-Type: application/json' \
         --data '{
-          "name": "dylan2"
-        }'
+          "metadata": "-----BEGIN PGP MESSAGE-----",
+          "metadata_key_id": "9d9a6672-35d6-4d0f-a807-b90edf25c275",
+          "metadata_key_type": "shared_key",
+          }'
   - lang: JavaScript
     source: |
-      const url = '{{API_BASE_URL}}/folders/2d8142fc-5be2-463f-a6ba-e28d7d96e211.json';
+      const url = '{{API_BASE_URL}}/folders/27605bac-8aa8-4fe4-a80b-486d8b76c748.json';
       const options = {
         method: 'PUT',
         headers: {Authorization: 'Bearer {{JWT_TOKEN}}'},
-        body: '{"name":"dylan2"}'
+        body: '{"metadata":"-----BEGIN PGP MESSAGE-----","metadata_key_id":"9d9a6672-35d6-4d0f-a807-b90edf25c275","metadata_key_type":"shared_key"}'
       };
 
       try {
@@ -231,7 +233,7 @@ update:
       $curl = curl_init();
 
       curl_setopt_array($curl, [
-        CURLOPT_URL => "{{API_BASE_URL}}/folders/2d8142fc-5be2-463f-a6ba-e28d7d96e211.json",
+        CURLOPT_URL => "{{API_BASE_URL}}/folders/27605bac-8aa8-4fe4-a80b-486d8b76c748.json",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
         CURLOPT_MAXREDIRS => 10,
@@ -239,7 +241,9 @@ update:
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "PUT",
         CURLOPT_POSTFIELDS => json_encode([
-          'name' => 'dylan2'
+          'metadata' => '-----BEGIN PGP MESSAGE-----',
+          'metadata_key_id' => '9d9a6672-35d6-4d0f-a807-b90edf25c275',
+          'metadata_key_type' => 'shared_key',
         ]),
         CURLOPT_HTTPHEADER => [
           "Authorization: Bearer {{JWT_TOKEN}}"

@@ -48,8 +48,9 @@ folderUpdate:
   request:
     without_parent:
       value:
-        name: "folder's new name"
-
+        metadata: "----BEGIN PGP MESSAGE-----"
+        metadata_key_id: "9d9a6672-35d6-4d0f-a807-b90edf25c275"
+        metadata_key_type: "shared_key"
 folderView:
   response:
     index:

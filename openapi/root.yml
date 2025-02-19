@@ -63,6 +63,8 @@ paths:
     $ref: "paths/healthcheck.yml"
   /healthcheck/status.json:
     $ref: "paths/healthcheckStatus.yml"
+  /metadata/keys.json:
+    $ref: "paths/metadataKeys.yml"
   /metadata/upgrade/resources.json:
     $ref: "paths/metadataUpgradeResources.yml"
   /mfa/verify/{mfaProviderName}.json:
@@ -122,6 +124,8 @@ tags:
       $ref: "components/descriptions/groups.yml#/tag"
   - name: "Healthcheck"
     description: "Gather data about the passbolt instance's health."
+  - name: "Metadata keys"
+    description: "Manipulate metadata keys."
   - name: "Metadata Upgrade"
     description: "Upgrading elements to the new v5 metadata format"
   - name: "Move"

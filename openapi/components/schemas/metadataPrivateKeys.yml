@@ -1,0 +1,37 @@
+metadataPrivateKeysIndexAndView:
+  type: "object"
+  required:
+    - id
+    - metadata_key_id
+    - user_id
+    - data
+    - created
+    - modified
+    - created_by
+    - modified_by
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    metadata_key_id:
+      type: "string"
+      format: "uuid"
+    user_id:
+      type: "string"
+      format: "uuid"
+    data:
+      type: "string"
+    created:
+      type: "string"
+      format: "date-time"
+    modified:
+      type: "string"
+      format: "date-time"
+    created_by:
+      type: "string"
+      format: "uuid"
+      x-nullable: true
+    modified_by:
+      type: "string"
+      format: "uuid"
+      x-nullable: true

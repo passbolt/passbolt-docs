@@ -461,6 +461,39 @@ containGroupsUsersUserGpgkey:
       - 1
       - 0
 
+containMetadataPrivateKeys:
+  name: "contain[metadata_private_keys]"
+  description: "Add metadata private keys in response."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+filterDeleted:
+  name: "filter[deleted]"
+  description: "Filter for deleted elements."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+filterExpired:
+  name: "filter[expired]"
+  description: "Filter for expired elements."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
 filterSearch:
   name: "filter[search]"
   description: "Filter using a keyword or a string."

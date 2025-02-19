@@ -1,0 +1,30 @@
+metadataKeysIndex:
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1739979997
+          action: "e38db0b5-838d-5f43-8609-92a25843e9d3"
+          message: "OK"
+          url: "/metadata/keys.json?contain%5Bmetadata_private_keys%5D=1"
+          code: 200
+        body:
+          - id: "2e5d88cb-9b04-4010-806c-a449315ae4d5"
+            fingerprint: "17B5913BC13128674F2A6F31C79A1AB152C3C573"
+            armored_key: "-----BEGIN PGP PUBLIC KEY BLOCK-----\n\n"
+            created: "2025-02-03T09:10:47+00:00"
+            modified: "2025-02-03T09:10:47+00:00"
+            created_by: "5ea1c453-749b-43ca-8606-b85d63ab137f"
+            modified_by: "5ea1c453-749b-43ca-8606-b85d63ab137f"
+            expired: null
+            deleted: null
+            metadata_private_keys:
+              - metadata_key_id: "2e5d88cb-9b04-4010-806c-a449315ae4d5"
+                user_id: "5ea1c453-749b-43ca-8606-b85d63ab137f"
+                data: "-----BEGIN PGP MESSAGE-----\n\n"
+                created: "2025-02-03T09:10:47+00:00"
+                modified: "2025-02-03T09:10:47+00:00"
+                created_by: "5ea1c453-749b-43ca-8606-b85d63ab137f"
+                modified_by: "5ea1c453-749b-43ca-8606-b85d63ab137f"

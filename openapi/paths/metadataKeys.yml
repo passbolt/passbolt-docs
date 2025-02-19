@@ -1,0 +1,18 @@
+get:
+  summary: "Get metatadata keys."
+  operationId: "indexMetadataKeys"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataKeys.yml#/index"
+  parameters:
+    - $ref: "../components/parameters.yml#/filterDeleted"
+    - $ref: "../components/parameters.yml#/filterExpired"
+    - $ref: "../components/parameters.yml#/containMetadataPrivateKeys"
+  tags:
+    - "Metadata keys"
+  responses:
+    200:
+      $ref: "../components/responses/metadataKeys.yml#/index"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"

@@ -1,0 +1,44 @@
+metadataKeysIndexAndView:
+  type: "object"
+  required:
+    - id
+    - fingerprint
+    - armored_key
+    - created
+    - modified
+    - expired
+    - deleted
+    - created_by
+    - modified_by
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    fingerprint:
+      type: "string"
+    armored_key:
+      type: "string"
+    created:
+      type: "string"
+      format: "date-time"
+    modified:
+      type: "string"
+      format: "date-time"
+    expired:
+      type: "string"
+      format: "date-time"
+      x-nullable: true
+    deleted:
+      type: "string"
+      format: "date-time"
+      x-nullable: true
+    created_by:
+      type: "string"
+      format: "uuid"
+      x-nullable: true
+    modified_by:
+      type: "string"
+      format: "uuid"
+      x-nullable: true
+    metadata_private_Keys:
+      $ref: "metadataPrivateKeys.yml#/metadataPrivateKeysIndexAndView"

@@ -1,0 +1,7 @@
+metadataUpgradeResourcesIndexAndView:
+  type: "object"
+  required:
+    - resources
+  properties:
+    resources:
+      $ref: "resources.yml#/resourceIndexAndView"

@@ -1,0 +1,21 @@
+get:
+  summary: "Get Upgradable Resources"
+  description: "Retrieves a list of resources that are eligible for an upgrade to v5 format. Results are paginated and the page size is fixed at 20."
+  security:
+    - bearerHttpAuthentication: []
+  operationId: "viewMetadataUpgradeResources"
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataUpgrade.yml#/upgradeResources"
+  tags:
+    - "Metadata Upgrade"
+  parameters:
+    - $ref: "../components/parameters.yml#/filterIsShared"
+  responses:
+    200:
+      $ref: "../components/responses/metadataUpgrade.yml#/upgradeResources"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"

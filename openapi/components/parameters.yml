@@ -657,3 +657,11 @@ filterIsSharedWithMe:
   required: false
   schema:
     type: "boolean"
+
+filterIsShared:
+  name: "filter[is-shared]"
+  description: "Only return shared items."
+  in: "query"
+  required: false
+  schema:
+    type: "boolean"

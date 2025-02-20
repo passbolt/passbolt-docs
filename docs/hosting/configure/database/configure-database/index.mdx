@@ -1,0 +1,23 @@
+---
+title: Configure the database
+description: How to configure the database
+sidebar_label: Configure database
+hide_table_of_contents: false
+---
+
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+:::danger[WARNING]
+Configuring database is only intended for fresh installations. Do not configure it on an existing installation, as it's likely going to cause system instability or break functionality.
+:::
+
+To configure your fresh installation with Postgres or MySQL, it's important to consider the specifics of your environment. Different setups require distinct steps to ensure a smooth and secure configuration process.
+
+Select the appropriate guide below to configure your database based on your distribution method:
+- [MySQL](/hosting/configure/database/configure-database/mysql)
+- [Postgres](/hosting/configure/database/configure-database/postgres)

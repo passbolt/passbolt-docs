@@ -1,0 +1,16 @@
+MetadataRotateKeyResources:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/headerWithPagination"
+          body:
+            $ref: "../schemas/metadataRotateKey.yml#/metadataRotateKeyResourcesIndexAndView"
+      examples:
+        $ref: "../examples/metadataRotateKey.yml#/metadataRotateKeyResources/response"

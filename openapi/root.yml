@@ -65,6 +65,8 @@ paths:
     $ref: "paths/healthcheckStatus.yml"
   /metadata/keys.json:
     $ref: "paths/metadataKeys.yml"
+  /metadata/rotate-key/resources.json:
+    $ref: "paths/metadataRotateKeyResources.yml"
   /metadata/upgrade/resources.json:
     $ref: "paths/metadataUpgradeResources.yml"
   /mfa/verify/{mfaProviderName}.json:
@@ -126,6 +128,8 @@ tags:
     description: "Gather data about the passbolt instance's health."
   - name: "Metadata keys"
     description: "Manipulate metadata keys."
+  - name: "Metadata Rotate Key"
+    description: "Gather information about metadata keys that needs to be rotated"
   - name: "Metadata Upgrade"
     description: "Upgrading elements to the new v5 metadata format"
   - name: "Move"

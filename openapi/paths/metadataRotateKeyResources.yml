@@ -1,0 +1,20 @@
+get:
+  summary: "Get resources with expired keys"
+  description: "See the resources that are using an expired key that needs to/can be rotated. Only administrators can query this endpoint."
+  security:
+    - bearerHttpAuthentication: []
+  operationId: "viewMetadataUpgradeResources"
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataRotateKey.yml#/rotateMetadataKeyResources"
+  tags:
+    - "Metadata Rotate Key"
+  responses:
+    200:
+      $ref: "../components/responses/metadataRotateKey.yml#/MetadataRotateKeyResources"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
+

@@ -13,7 +13,7 @@ upgradeResources:
           pagination:
             count: 2
             page: 1
-            limit: 20
+            limit: null
         body:
           id: "97f5415f-2e09-4171-a99e-1908e876662a"
           name: "password v4 format"
@@ -54,7 +54,7 @@ upgradeMetadataResource:
           pagination:
             count: 2
             page: 1
-            limit: 20
+            limit: null
         body:
           - id: "97f5415f-2e09-4171-a99e-1908e876662b"
             name: "another password v4 format"

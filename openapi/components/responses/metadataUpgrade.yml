@@ -15,6 +15,23 @@ upgradeResources:
       examples:
         $ref: "../examples/metadataUpgrade.yml#/upgradeResources/response"
 
+upgradableFolders:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/headerWithPagination"
+          body:
+            $ref: "../schemas/metadataUpgrade.yml#/metadataUpgradeFoldersIndexAndView"
+      examples:
+        $ref: "../examples/metadataUpgrade.yml#/upgradableFolders/response"
+
 upgradedResources:
   description: "Operation is successful"
   content:

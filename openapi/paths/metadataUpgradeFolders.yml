@@ -1,0 +1,22 @@
+get:
+  summary: "Get Upgradable Folders"
+  description: "Retrieves a list of folders that are eligible for an upgrade to v5 format. Results are paginated and the page size is fixed at 20."
+  security:
+    - bearerHttpAuthentication: []
+  operationId: "viewMetadataUpgradeFolders"
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataUpgrade.yml#/upgradeFolders"
+  tags:
+    - "Metadata Upgrade"
+  parameters:
+    - $ref: "../components/parameters.yml#/filterIsShared"
+    - $ref: "../components/parameters.yml#/containPermission"
+  responses:
+    200:
+      $ref: "../components/responses/metadataUpgrade.yml#/upgradableFolders"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"

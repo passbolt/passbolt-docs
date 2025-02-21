@@ -24,10 +24,10 @@ upgradedResources:
         required:
           - header
           - body
-          - properties:
-              header:
-                $ref: "../schemas.yml#/headerWithPagination"
-              body:
-                $ref: "../schemas/metadataUpgrade.yml#/metadataUpgradeResources"
+        properties:
+          header:
+            $ref: "../schemas.yml#/headerWithPagination"
+          body:
+            $ref: "../schemas/metadataUpgrade.yml#/metadataUpgradeResources"
       examples:
         $ref: "../examples/metadataUpgrade.yml#/upgradeMetadataResource/response"

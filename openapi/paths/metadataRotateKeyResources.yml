@@ -3,7 +3,7 @@ get:
   description: "See the resources that are using an expired key that needs to/can be rotated. Only administrators can query this endpoint."
   security:
     - bearerHttpAuthentication: []
-  operationId: "viewMetadataUpgradeResources"
+  operationId: "viewMetadataRotateKeyResources"
   x-codeSamples:
     $ref: "../components/codeSamples/metadataRotateKey.yml#/rotateMetadataKeyResources"
   tags:

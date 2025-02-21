@@ -13,7 +13,7 @@ metadataRotateKeyResources:
           pagination:
             count: 0
             page: 1
-            limit: null
+            limit: 20
         body:
             - id: "ae60d89c-f13b-4fb1-b2dc-c8dc806cac88"
               metadata: "-----BEGIN PGP MESSAGE-----"
@@ -44,7 +44,7 @@ metadataRotateKeyResourcesUpgrade:
           pagination:
             count: 0
             page: 1
-            limit: null
+            limit: 20
         body:
           - id: "ae60d89c-f13b-4fb1-b2dc-c8dc806cac88"
             metadata: "-----BEGIN PGP MESSAGE-----"

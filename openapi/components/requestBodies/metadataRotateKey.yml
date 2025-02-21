@@ -1,0 +1,9 @@
+rotateMetadataKeyResources:
+  description: The resources you want to rotate the metadata key
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/metadataRotateKey.yml#/metadataRotateKeyResourcesUpgrade"
+      examples:
+        $ref: "../examples/metadataRotateKey.yml#/rotateMetadataKeyResourcesUpgrade/request"

@@ -18,3 +18,26 @@ get:
     403:
       $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
 
+post:
+  summary: "Rotate expired metadata keys"
+  description: "Rotate the metadata of a given set of resources"
+  operationId: "rotateMetadataExpiredKeys"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataRotateKey.yml#/rotateResourcesMetadataKey"
+  tags:
+    - "Metadata Rotate Key"
+  responses:
+    200:
+      $ref: "../components/responses/metadataRotateKey.yml#/RotateMetdataKeyResources"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"
+    409:
+      $ref: "../components/responses.yml#/tooManyUpdatedEntities"
+  requestBody:
+    $ref: "../components/requestBodies/metadataRotateKey.yml#/rotateMetadataKeyResources"

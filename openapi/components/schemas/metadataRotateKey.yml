@@ -7,3 +7,32 @@ metadataRotateKeyResourcesIndexAndView:
       type: "array"
       items:
         $ref: "resources.yml#/resourceIndexAndView"
+
+metadataRotateKeyResourcesUpgrade:
+  type: "array"
+  items:
+    type: "object"
+    required:
+      - id
+      - metadata_key_id
+      - metadata_key_type
+      - metadata
+      - modified
+      - modified_by
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      metadata_key_id:
+        type: "string"
+        format: "uuid"
+      metadata_key_type:
+        type: "string"
+      metadata:
+        type: "string"
+      modified:
+        type: "string"
+        format: "date-time"
+      modified_by:
+        type: "string"
+        format: "uuid"

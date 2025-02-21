@@ -79,6 +79,21 @@ notFound:
           code: 404
         body: ""
 
+
+tooManyUpdatedEntities:
+  response:
+    example:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "error"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "One or more entities were updated."
+          url: "<API ENDPOINT URL>"
+          code: 409
+        body: ""
+
 dateDoesntMatch:
   response:
     example:

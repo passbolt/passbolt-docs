@@ -71,6 +71,8 @@ paths:
     $ref: "paths/metadataRotateKeyResources.yml"
   /metadata/upgrade/resources.json:
     $ref: "paths/metadataUpgradeResources.yml"
+  /metadata/upgrade/folders.json:
+    $ref: "paths/metadataUpgradeFolders.yml"
   /mfa/verify/{mfaProviderName}.json:
     $ref: "paths/mfaVerify.yml"
   /mfa/verify/error.json:

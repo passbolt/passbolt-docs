@@ -6,6 +6,14 @@ metadataUpgradeResourcesIndexAndView:
     resources:
       $ref: "resources.yml#/resourceIndexAndView"
 
+metadataUpgradeFoldersIndexAndView:
+  type: "object"
+  required:
+    - resources
+  properties:
+    resources:
+      $ref: "folders.yml#/folderIndexAndView"
+
 metadataUpgradeResources:
   type: "array"
   items:

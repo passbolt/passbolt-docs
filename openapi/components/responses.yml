@@ -121,6 +121,23 @@ notFound:
       examples:
         $ref: "examples.yml#/notFound/response"
 
+tooManyUpdatedEntities:
+  description: "One or more entities were updated"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "schemas.yml#/header"
+          body:
+            type: "string"
+      examples:
+        $ref: "examples.yml#/tooManyUpdatedEntities/response"
+
 dateDoesntMatch:
   description: "Not found"
   content:

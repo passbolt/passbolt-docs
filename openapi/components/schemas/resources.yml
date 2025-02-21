@@ -120,4 +120,3 @@ resourceUpdate:
       type: "array"
       items:
         $ref: "secrets.yml#/secretUpdate"
-

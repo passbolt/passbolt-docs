@@ -1,0 +1,9 @@
+upgradeMetadataResources:
+  description: The resources you want to upgrade the metadata for to v5 format
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/metadataUpgrade.yml#/metadataUpgradeResources"
+      examples:
+        $ref: "../examples/metadataUpgrade.yml#/metadataUpgradedResources/request"

@@ -14,3 +14,20 @@ upgradeResources:
             $ref: "../schemas/metadataUpgrade.yml#/metadataUpgradeResourcesIndexAndView"
       examples:
         $ref: "../examples/metadataUpgrade.yml#/upgradeResources/response"
+
+upgradedResources:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+          - properties:
+              header:
+                $ref: "../schemas.yml#/headerWithPagination"
+              body:
+                $ref: "../schemas/metadataUpgrade.yml#/metadataUpgradeResources"
+      examples:
+        $ref: "../examples/metadataUpgrade.yml#/upgradeMetadataResource/response"

@@ -148,7 +148,7 @@ groupUpdateDryRun:
                     type: "string"
                     format: "uuid"
         Secrets:
-          type: "object"
+          type: "array"
           items:
             type: "object"
             required:

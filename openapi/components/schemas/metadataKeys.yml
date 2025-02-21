@@ -40,5 +40,7 @@ metadataKeysIndexAndView:
       type: "string"
       format: "uuid"
       x-nullable: true
-    metadata_private_Keys:
-      $ref: "metadataPrivateKeys.yml#/metadataPrivateKeysIndexAndView"
+    metadata_private_keys:
+      type: "array"
+      items:
+        $ref: "metadataPrivateKeys.yml#/metadataPrivateKeysIndexAndView"

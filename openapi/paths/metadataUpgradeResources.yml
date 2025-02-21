@@ -5,7 +5,7 @@ get:
     - bearerHttpAuthentication: []
   operationId: "viewMetadataUpgradeResources"
   x-codeSamples:
-    $ref: "../components/codeSamples/metadataUpgrade.yml#/upgradeResources"
+    $ref: "../components/codeSamples/metadataUpgrade.yml#/viewUpgradableResources"
   tags:
     - "Metadata Upgrade"
   parameters:
@@ -19,3 +19,31 @@ get:
       $ref: "../components/responses.yml#/authenticationRequired"
     403:
       $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
+
+
+post:
+  summary: "Upgrade a Resource"
+  description: "Upgrade resources that are eligible for an upgrade to v5 format."
+  operationId: "upgradeMetadataResources"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataUpgrade.yml#/upgradeMetadataResources"
+  tags:
+    - "Metadata Upgrade"
+  parameters:
+    - $ref: "../components/parameters.yml#/filterIsShared"
+    - $ref: "../components/parameters.yml#/containPermissions"
+  responses:
+    200:
+      $ref: "../components/responses/metadataUpgrade.yml#/upgradedResources"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"
+    409:
+      $ref: "../components/responses.yml#/dateDoesntMatch"
+  requestBody:
+    $ref: "../components/requestBodies/metadataUpgrade.yml#/upgradeMetadataResources"

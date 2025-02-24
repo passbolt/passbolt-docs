@@ -60,3 +60,17 @@ metadataKeyAdd:
       type: "array"
       items:
         $ref: "metadataPrivateKeys.yml#/metadataPrivateKeyAdd"
+
+metadataKeyUpdate:
+  required:
+    - fingerprint
+    - armored_key
+    - expired
+  properties:
+    fingerprint:
+      type: "string"
+    armored_key:
+      type: "string"
+    expired:
+      type: "string"
+      format: "date-time"

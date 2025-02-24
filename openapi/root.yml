@@ -65,6 +65,8 @@ paths:
     $ref: "paths/healthcheckStatus.yml"
   /metadata/keys.json:
     $ref: "paths/metadataKeys.yml"
+  /metadata/keys/{metadataKeyId}.json:
+    $ref: "paths/metadataKey.yml"
   /metadata/types/settings.json:
     $ref: "paths/metadataTypes.yml"
   /metadata/rotate-key/folders.json:

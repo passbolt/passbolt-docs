@@ -40,3 +40,11 @@ metadataKeyAdd:
               data: "-----BEGIN PGP MESSAGE-----"
             - user_id: "5ea1c453-749b-43ca-8606-b85d63ab137f"
               data: "-----BEGIN PGP MESSAGE-----"
+
+metadataKeyUpdate:
+  request:
+    base:
+      value:
+        fingerprint: "17B5913BC13128674F2A6F31C79A1AB152C3C573"
+        armored_key: "-----BEGIN PGP PUBLIC KEY BLOCK-----"
+        expired: "2025-02-25T09:00:00+00:00"

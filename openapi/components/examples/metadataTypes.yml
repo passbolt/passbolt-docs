@@ -1,0 +1,31 @@
+metadataTypesSettings:
+  response:
+    base:
+      value:
+        header:
+          id: "4ebbcdc6-c9b6-4257-a729-050698c1ba05"
+          status: "success"
+          servertime: 1740386027
+          action: "12c1b158-0100-53d8-a979-83d3cc4a86bc"
+          message: "The operation was successful."
+          url: "/metadata/types/settings.json"
+          code: 200
+          pagination:
+            count: 2
+            page: 1
+            limit: null
+        body:
+          default_resource_types: "v5"
+          default_folder_type: "v4"
+          default_tag_type: "v4"
+          default_comment_type: "v4"
+          allow_creation_of_v5_resources: true
+          allow_creation_of_v5_folders: false
+          allow_creation_of_v5_tags: false
+          allow_creation_of_v5_comments: false
+          allow_creation_of_v4_resources: true
+          allow_creation_of_v4_folders: true
+          allow_creation_of_v4_tags: true
+          allow_creation_of_v4_comments: true
+          allow_v5_v4_downgrade: false
+          allow_v4_v5_upgrade: true

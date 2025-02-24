@@ -1,0 +1,17 @@
+get:
+  summary: "Get metadata types settings"
+  description: "Get information from the resource types settings, as selected by the administrators."
+  security:
+    - bearerHttpAuthentication: []
+  operationId: "viewMetadataTypesSettings"
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataTypes.yml#/index"
+  tags:
+    - "Metadata types settings"
+  responses:
+    200:
+      $ref: "../components/responses/metadataTypes.yml#/viewMetadataTypesSettings"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"

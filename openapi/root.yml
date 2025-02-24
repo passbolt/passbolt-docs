@@ -65,6 +65,8 @@ paths:
     $ref: "paths/healthcheckStatus.yml"
   /metadata/keys.json:
     $ref: "paths/metadataKeys.yml"
+  /metadata/types/settings.json:
+    $ref: "paths/metadataTypes.yml"
   /metadata/rotate-key/folders.json:
     $ref: "paths/metadataRotateKeyFolders.yml"
   /metadata/rotate-key/resources.json:
@@ -132,6 +134,8 @@ tags:
     description: "Gather data about the passbolt instance's health."
   - name: "Metadata keys"
     description: "Manipulate metadata keys."
+  - name: "Metadata types settings"
+    description: "Retrieve information about the resource types settings selected by the administrators"
   - name: "Metadata Rotate Key"
     description: "Gather information about metadata keys that needs to be rotated"
   - name: "Metadata Upgrade"

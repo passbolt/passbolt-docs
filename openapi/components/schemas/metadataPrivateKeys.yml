@@ -35,3 +35,16 @@ metadataPrivateKeysIndexAndView:
       type: "string"
       format: "uuid"
       x-nullable: true
+
+metadataPrivateKeyAdd:
+  type: "object"
+  required:
+    - user_id
+    - data
+  properties:
+    user_id:
+      type: "string"
+      format: "uuid"
+      x-nullable: true
+    data:
+      type: "string"

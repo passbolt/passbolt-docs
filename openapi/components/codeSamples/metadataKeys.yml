@@ -45,3 +45,85 @@ index:
       } else {
         echo $response;
       }
+
+add:
+  - lang: cURL
+    source: |
+      curl --request POST \
+        --url '{{API_BASE_URL}}/metadata/keys.json' \
+        --header 'authorization: Bearer {{JWT_TOKEN}}' \
+        --header 'content-type: application/json' \
+        --data '{
+          "fingerprint": "17B5913BC13128674F2A6F31C79A1AB152C3C573",
+          "armored_key": "-----BEGIN PGP PUBLIC KEY BLOCK-----",
+          "metadata_private_keys": [
+            {
+              "user_id": null,
+              "data": "-----BEGIN PGP MESSAGE-----"
+            },
+            {
+              "user_id": "5ea1c453-749b-43ca-8606-b85d63ab137f",
+              "data": "-----BEGIN PGP MESSAGE-----"
+            }
+          ]
+        }'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/metadata/keys.json';
+      const options = {
+        method: 'POST',
+        headers: {authorization: 'Bearer {{JWT_TOKEN}}', 'content-type': 'application/json'},
+        body: '{"fingerprint":"17B5913BC13128674F2A6F31C79A1AB152C3C573","armored_key":"-----BEGIN PGP PUBLIC KEY BLOCK-----","metadata_private_keys":[{"user_id":null,"data":"-----BEGIN PGP MESSAGE-----"},{"user_id":"5ea1c453-749b-43ca-8606-b85d63ab137f","data":"-----BEGIN PGP MESSAGE-----"}]}'
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/metadata/keys.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => json_encode([
+          'fingerprint' => '17B5913BC13128674F2A6F31C79A1AB152C3C573',
+          'armored_key' => '-----BEGIN PGP PUBLIC KEY BLOCK-----',
+          'metadata_private_keys' => [
+              [
+                      'user_id' => null,
+                      'data' => '-----BEGIN PGP MESSAGE-----'
+              ],
+              [
+                      'user_id' => '5ea1c453-749b-43ca-8606-b85d63ab137f',
+                      'data' => '-----BEGIN PGP MESSAGE-----'
+              ]
+          ]
+        ]),
+        CURLOPT_HTTPHEADER => [
+          "authorization: Bearer {{JWT_TOKEN}}",
+          "content-type: application/json"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }

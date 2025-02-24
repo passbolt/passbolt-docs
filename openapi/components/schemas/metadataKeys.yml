@@ -44,3 +44,19 @@ metadataKeysIndexAndView:
       type: "array"
       items:
         $ref: "metadataPrivateKeys.yml#/metadataPrivateKeysIndexAndView"
+
+metadataKeyAdd:
+  type: "object"
+  required:
+    - armored_key
+    - fingerprint
+    - metadata_private_keys
+  properties:
+    armored_key:
+      type: "string"
+    fingerprint:
+      type: "string"
+    metadata_private_keys:
+      type: "array"
+      items:
+        $ref: "metadataPrivateKeys.yml#/metadataPrivateKeyAdd"

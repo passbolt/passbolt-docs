@@ -1,3 +1,13 @@
+upgradeMetadataFolders:
+  description: The folders you want to upgrade the metadata for to v5 format
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/metadataUpgrade.yml#/metadataUpgradedFolders"
+      examples:
+        $ref: "../examples/metadataUpgrade.yml#/metadataUpgradedFolders/request"
+
 upgradeMetadataResources:
   description: The resources you want to upgrade the metadata for to v5 format
   required: true

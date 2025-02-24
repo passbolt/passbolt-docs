@@ -50,7 +50,7 @@ add:
   - lang: cURL
     source: |
       curl --request POST \
-        --url '{{API_BASE_URL}}/metadata/keys.json' \
+        --url {{API_BASE_URL}}/metadata/keys.json \
         --header 'authorization: Bearer {{JWT_TOKEN}}' \
         --header 'content-type: application/json' \
         --data '{
@@ -86,7 +86,6 @@ add:
   - lang: PHP
     source: |
       <?php
-
       $curl = curl_init();
 
       curl_setopt_array($curl, [
@@ -110,6 +109,69 @@ add:
                       'data' => '-----BEGIN PGP MESSAGE-----'
               ]
           ]
+        ]),
+        CURLOPT_HTTPHEADER => [
+          "authorization: Bearer {{JWT_TOKEN}}",
+          "content-type: application/json"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+update:
+  - lang: cURL
+    source: |
+      curl --request PUT \
+        --url https://docker.pro/metadata/keys/2e5d88cb-9b04-4010-806c-a449315ae4d5.json \
+        --header 'authorization: Bearer {{JWT_TOKEN}}' \
+        --header 'content-type: application/json' \
+        --data '{
+          "fingerprint": "17B5913BC13128674F2A6F31C79A1AB152C3C573",
+          "armored_key": "-----BEGIN PGP PUBLIC KEY BLOCK-----",
+          "expired": "2025-02-25T09:00:00+00:00"
+        }'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/metadata/keys/2e5d88cb-9b04-4010-806c-a449315ae4d5.json';
+      const options = {
+        method: 'PUT',
+        headers: {authorization: 'Bearer {{JWT_TOKEN}}', 'content-type': 'application/json'},
+        body: '{"fingerprint":"17B5913BC13128674F2A6F31C79A1AB152C3C573","armored_key":"-----BEGIN PGP PUBLIC KEY BLOCK-----","expired":"2025-02-25T09:00:00+00:00"}'
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/metadata/keys/2e5d88cb-9b04-4010-806c-a449315ae4d5.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "PUT",
+        CURLOPT_POSTFIELDS => json_encode([
+          'fingerprint' => '17B5913BC13128674F2A6F31C79A1AB152C3C573',
+          'armored_key' => '-----BEGIN PGP PUBLIC KEY BLOCK-----',
+          'expired' => '2025-02-25T09:00:00+00:00'
         ]),
         CURLOPT_HTTPHEADER => [
           "authorization: Bearer {{JWT_TOKEN}}",

@@ -7,3 +7,13 @@ metadataKeyAdd:
         $ref: "../schemas/metadataKeys.yml#/metadataKeyAdd"
       examples:
         $ref: "../examples/metadataKeys.yml#/metadataKeyAdd/request"
+
+metadataKeyUpdate:
+  description: The metadata key you want to update
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/metadataKeys.yml#/metadataKeyUpdate"
+      examples:
+        $ref: "../examples/metadataKeys.yml#/metadataKeyUpdate/request"

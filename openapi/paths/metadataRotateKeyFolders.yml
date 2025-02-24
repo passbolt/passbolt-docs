@@ -1,0 +1,19 @@
+get:
+  summary: "Get folders with expired keys"
+  description: "See the folders that are using an expired key that needs to/can be rotated. Only administrators can query this endpoint."
+  security:
+    - bearerHttpAuthentication: []
+  operationId: "viewMetadataUpgradeFolders"
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataRotateKey.yml#/rotateMetadataKeyFolders"
+  tags:
+    - "Metadata Rotate Key"
+  responses:
+    200:
+      $ref: "../components/responses/metadataRotateKey.yml#/MetadataRotateKeyFolders"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"

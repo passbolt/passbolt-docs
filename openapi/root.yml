@@ -65,6 +65,8 @@ paths:
     $ref: "paths/healthcheckStatus.yml"
   /metadata/keys.json:
     $ref: "paths/metadataKeys.yml"
+  /metadata/rotate-key/folders.json:
+    $ref: "paths/metadataRotateKeyFolders.yml"
   /metadata/rotate-key/resources.json:
     $ref: "paths/metadataRotateKeyResources.yml"
   /metadata/upgrade/resources.json:

@@ -5,12 +5,12 @@ get:
     - bearerHttpAuthentication: []
   operationId: "viewMetadataRotateKeyResources"
   x-codeSamples:
-    $ref: "../components/codeSamples/metadataRotateKey.yml#/rotateMetadataKeyResources"
+    $ref: "../components/codeSamples/metadataRotateKey.yml#/indexRotateMetadataKey"
   tags:
     - "Metadata Rotate Key"
   responses:
     200:
-      $ref: "../components/responses/metadataRotateKey.yml#/MetadataRotateKeyResources"
+      $ref: "../components/responses/metadataRotateKey.yml#/indexAndAddMetadataRotateKey"
     400:
       $ref: "../components/responses.yml#/badRequest"
     401:
@@ -19,18 +19,18 @@ get:
       $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
 
 post:
-  summary: "Rotate expired metadata keys"
+  summary: "Rotate expired metadata keys for resources"
   description: "Rotate the metadata of a given set of resources"
   operationId: "rotateMetadataExpiredKeys"
   security:
     - bearerHttpAuthentication: []
   x-codeSamples:
-    $ref: "../components/codeSamples/metadataRotateKey.yml#/rotateResourcesMetadataKey"
+    $ref: "../components/codeSamples/metadataRotateKey.yml#/addMetadataRotateKey"
   tags:
     - "Metadata Rotate Key"
   responses:
     200:
-      $ref: "../components/responses/metadataRotateKey.yml#/RotateMetdataKeyResources"
+      $ref: "../components/responses/metadataRotateKey.yml#/indexAndAddMetadataRotateKey"
     400:
       $ref: "../components/responses.yml#/badRequest"
     401:
@@ -40,4 +40,4 @@ post:
     409:
       $ref: "../components/responses.yml#/tooManyUpdatedEntities"
   requestBody:
-    $ref: "../components/requestBodies/metadataRotateKey.yml#/rotateMetadataKeyResources"
+    $ref: "../components/requestBodies/metadataRotateKey.yml#/rotateMetadataKeyUpgrade"

@@ -14,3 +14,20 @@ viewMetadataTypesSettings:
             $ref: "../schemas/metadataTypes.yml#/metadataTypesSettingsIndexAndView"
       examples:
         $ref: "../examples/metadataTypes.yml#/metadataTypesSettings/response"
+
+upgradeMetadataTypesSettings:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/metadataTypes.yml#/metadataTypesSettingsIndexAndView"
+      examples:
+        $ref: "../examples/metadataTypes.yml#/metadataTypesSettings/response"

@@ -1,0 +1,9 @@
+upgradeMetadataTypesSettings:
+  description: The metadata types settings you want to update
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/metadataTypes.yml#/metadataTypesSettingsIndexAndView"
+      examples:
+        $ref: "../examples/metadataTypes.yml#/upgradeMetadataTypesSettings/request"

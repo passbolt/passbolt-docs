@@ -45,3 +45,94 @@ index:
       } else {
         echo $response;
       }
+
+upgradeMetadataTypesSettings:
+  - lang: cURL
+    source: |
+      curl --request POST \
+      --url {{API_BASE_URL}}/metadata/types/settings.json \
+      --header 'authorization: Bearer {{JWT_TOKEN}}' \
+      --header 'content-type: application/json' \
+      --data '{
+      "default_resource_types": "v5",
+      "default_folder_type": "v5",
+      "default_tag_type": "v5",
+      "default_comment_type": "v5",
+      "allow_creation_of_v5_resources": true,
+      "allow_creation_of_v5_folders": false,
+      "allow_creation_of_v5_tags": false,
+      "allow_creation_of_v5_comments": false,
+      "allow_creation_of_v4_resources": true,
+      "allow_creation_of_v4_folders": true,
+      "allow_creation_of_v4_tags": true,
+      "allow_creation_of_v4_comments": true,
+      "allow_v5_v4_downgrade": false,
+      "allow_v4_v5_upgrade": true
+      }'
+
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/metadata/types/settings.json';
+      const options = {
+      method: 'POST',
+      headers: {
+        authorization: 'Bearer {{JWT_TOKEN}}',
+        'content-type': 'application/json'
+      },
+      body: '{"default_resource_types":"v5","default_folder_type":"v5","default_tag_type":"v5","default_comment_type":"v5","allow_creation_of_v5_resources":true,"allow_creation_of_v5_folders":false,"allow_creation_of_v5_tags":false,"allow_creation_of_v5_comments":false,"allow_creation_of_v4_resources":true,"allow_creation_of_v4_folders":true,"allow_creation_of_v4_tags":true,"allow_creation_of_v4_comments":true,"allow_v5_v4_downgrade":false,"allow_v4_v5_upgrade":true}'
+      };
+
+        try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+
+  - lang: PHP
+    source: |
+      <?php
+
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+      CURLOPT_URL => "{{API_BASE_URL}}metadata/types/settings.json",
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "POST",
+      CURLOPT_POSTFIELDS => json_encode([
+      'default_resource_types' => 'v5',
+      'default_folder_type' => 'v5',
+      'default_tag_type' => 'v5',
+      'default_comment_type' => 'v5',
+      'allow_creation_of_v5_resources' => null,
+      'allow_creation_of_v5_folders' => null,
+      'allow_creation_of_v5_tags' => null,
+      'allow_creation_of_v5_comments' => null,
+      'allow_creation_of_v4_resources' => null,
+      'allow_creation_of_v4_folders' => null,
+      'allow_creation_of_v4_tags' => null,
+      'allow_creation_of_v4_comments' => null,
+      'allow_v5_v4_downgrade' => null,
+      'allow_v4_v5_upgrade' => null
+      ]),
+        CURLOPT_HTTPHEADER => [
+        "authorization: Bearer {{JWT_TOKEN}}",
+        "content-type: application/json"
+      ],
+      ]);
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }

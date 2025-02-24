@@ -1,4 +1,4 @@
-MetadataRotateKeyResources:
+indexAndAddMetadataRotateKey:
   description: "Operation is successful."
   content:
     application/json:
@@ -11,40 +11,6 @@ MetadataRotateKeyResources:
           header:
             $ref: "../schemas.yml#/headerWithPagination"
           body:
-            $ref: "../schemas/metadataRotateKey.yml#/metadataRotateKeyResourcesIndexAndView"
+            $ref: "../schemas/metadataRotateKey.yml#/metadataRotateKeyIndexViewAndAdd"
       examples:
-        $ref: "../examples/metadataRotateKey.yml#/metadataRotateKeyResources/response"
-
-RotateMetdataKeyResources:
-  description: "Operation is successful."
-  content:
-    application/json:
-      schema:
-        type: object
-        required:
-          - header
-          - body
-        properties:
-          header:
-            $ref: "../schemas.yml#/headerWithPagination"
-          body:
-            $ref: "../schemas/metadataRotateKey.yml#/metadataRotateKeyResourcesUpgrade"
-      examples:
-        $ref: "../examples/metadataRotateKey.yml#/metadataRotateKeyResourcesUpgrade/response"
-
-MetadataRotateKeyFolders:
-  description: "Operation is successful."
-  content:
-    application/json:
-      schema:
-        type: object
-        required:
-          - header
-          - body
-        properties:
-          header:
-            $ref: "../schemas.yml#/headerWithPagination"
-          body:
-            $ref: "../schemas/metadataRotateKey.yml#/metadataRotateKeyFoldersIndexAndView"
-      examples:
-        $ref: "../examples/metadataRotateKey.yml#/metadataRotateKeyFolders/response"
+        $ref: "../examples/metadataRotateKey.yml#/metadataRotateKeyIndexAndAdd/response"

@@ -1,12 +1,12 @@
-rotateMetadataKeyResources:
+indexRotateMetadataKey:
   - lang: cURL
     source: |
       curl --request GET \
-        --url {{API_BASE_URL}}/metadata/rotate-key/resources.json \
+        --url {{API_BASE_URL}}/metadata/rotate-key/{{MODEL}}.json \
         --header 'Authorization: Bearer {{JWT_TOKEN}}'
   - lang: JavaScript
     source: |
-      const url = '{{API_BASE_URL}}/metadata/rotate-key/resources.json';
+      const url = '{{API_BASE_URL}}/metadata/rotate-key/{{MODEL}}.json';
       const options = {method: 'GET', headers: {Authorization: 'Bearer {{JWT_TOKEN}}'}};
 
       try {
@@ -22,7 +22,7 @@ rotateMetadataKeyResources:
       $curl = curl_init();
 
       curl_setopt_array($curl, [
-        CURLOPT_URL => "{{API_BASE_URL}}/metadata/rotate-key/resources.json",
+        CURLOPT_URL => "{{API_BASE_URL}}/metadata/rotate-key/{{MODEL}}.json",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
         CURLOPT_MAXREDIRS => 10,
@@ -45,11 +45,11 @@ rotateMetadataKeyResources:
         echo $response;
       }
 
-rotateResourcesMetadataKey:
+addMetadataRotateKey:
   - lang: cURL
     source: |
       curl --request POST \
-      --url {{API_BASE_URL}}/metadata/rotate-key/resources.json \
+      --url {{API_BASE_URL}}/metadata/rotate-key/{{MODEL}}.json \
       --header 'Authorization: Bearer {{JWT_TOKEN}}'
       --header 'content-type: application/json' \
       --data '[{
@@ -63,7 +63,7 @@ rotateResourcesMetadataKey:
 
   - lang: JavaScript
     source: |
-      const url = '{{API_BASE_URL}}/metadata/rotate-key/resources.json';
+      const url = '{{API_BASE_URL}}/metadata/rotate-key/{{MODEL}}.json';
       const options = {
       method: 'POST',
       headers: {
@@ -88,7 +88,7 @@ rotateResourcesMetadataKey:
       $curl = curl_init();
 
       curl_setopt_array($curl, [
-      CURLOPT_URL => "{{API_BASE_URL}}/metadata/rotate-key/resources.json",
+      CURLOPT_URL => "{{API_BASE_URL}}/metadata/rotate-key/{{MODEL}}.json",
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => "",
       CURLOPT_MAXREDIRS => 10,
@@ -122,50 +122,3 @@ rotateResourcesMetadataKey:
         echo $response;
       }
 
-
-rotateMetadataKeyFolders:
-  - lang: cURL
-    source: |
-      curl --request GET \
-        --url {{API_BASE_URL}}/metadata/rotate-key/folders.json \
-        --header 'Authorization: Bearer {{JWT_TOKEN}}'
-  - lang: JavaScript
-    source: |
-      const url = '{{API_BASE_URL}}/metadata/rotate-key/folders.json';
-      const options = {method: 'GET', headers: {Authorization: 'Bearer {{JWT_TOKEN}}'}};
-
-      try {
-        const response = await fetch(url, options);
-        const data = await response.json();
-        console.log(data);
-      } catch (error) {
-        console.error(error);
-      }
-  - lang: PHP
-    source: |
-      <?php
-      $curl = curl_init();
-
-      curl_setopt_array($curl, [
-        CURLOPT_URL => "{{API_BASE_URL}}/metadata/rotate-key/folders.json",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "GET",
-        CURLOPT_HTTPHEADER => [
-          "Authorization: Bearer {{JWT_TOKEN}}"
-        ],
-      ]);
-
-      $response = curl_exec($curl);
-      $err = curl_error($curl);
-
-      curl_close($curl);
-
-      if ($err) {
-        echo "cURL Error #:" . $err;
-      } else {
-        echo $response;
-      }

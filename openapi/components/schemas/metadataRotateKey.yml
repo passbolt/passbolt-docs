@@ -1,24 +1,4 @@
-metadataRotateKeyResourcesIndexAndView:
-  type: "object"
-  required:
-    - resources
-  properties:
-    resources:
-      type: "array"
-      items:
-        $ref: "resources.yml#/resourceIndexAndView"
-
-metadataRotateKeyFoldersIndexAndView:
-  type: "object"
-  required:
-    - resources
-  properties:
-    resources:
-      type: "array"
-      items:
-        $ref: "folders.yml#/folderIndexAndView"
-
-metadataRotateKeyResourcesUpgrade:
+metadataRotateKeyIndexViewAndAdd:
   type: "array"
   items:
     type: "object"

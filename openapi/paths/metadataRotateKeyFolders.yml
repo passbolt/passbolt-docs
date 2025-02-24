@@ -5,15 +5,39 @@ get:
     - bearerHttpAuthentication: []
   operationId: "viewMetadataRotateKeyFolders"
   x-codeSamples:
-    $ref: "../components/codeSamples/metadataRotateKey.yml#/rotateMetadataKeyFolders"
+    $ref: "../components/codeSamples/metadataRotateKey.yml#/indexRotateMetadataKey"
   tags:
     - "Metadata Rotate Key"
   responses:
     200:
-      $ref: "../components/responses/metadataRotateKey.yml#/MetadataRotateKeyFolders"
+      $ref: "../components/responses/metadataRotateKey.yml#/indexAndAddMetadataRotateKey"
     400:
       $ref: "../components/responses.yml#/badRequest"
     401:
       $ref: "../components/responses.yml#/authenticationRequired"
     403:
       $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
+
+post:
+  summary: "Rotate expired metadata keys for folders"
+  description: "Rotate the metadata of a given set of folders"
+  operationId: "rotateMetadataExpiredKeysFolders"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataRotateKey.yml#/addMetadataRotateKey"
+  tags:
+    - "Metadata Rotate Key"
+  responses:
+    200:
+      $ref: "../components/responses/metadataRotateKey.yml#/indexAndAddMetadataRotateKey"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"
+    409:
+      $ref: "../components/responses.yml#/tooManyUpdatedEntities"
+  requestBody:
+    $ref: "../components/requestBodies/metadataRotateKey.yml#/rotateMetadataKeyUpgrade"

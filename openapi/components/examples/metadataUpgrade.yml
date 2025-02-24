@@ -95,3 +95,32 @@ upgradeMetadataResource:
             modified_by: "ae48ed02-54ea-4be4-9ae8-229bf8c04739"
             resource_type_id: "a28a04cd-6f53-518a-967c-9963bf9cec51"
 
+
+metadataUpgradedFolders:
+  request:
+    base:
+      value:
+        - id: "0e840721-58ea-4649-b603-2d9cf4f2213c"
+          metadata_key_id: "9d9a6672-35d6-4d0f-a807-b90edf25c275"
+          metadata_key_type: "shared_key"
+          metadata: "-----BEGIN PGP MESSAGE-----"
+          modified: "2025-02-18T15:52:17+00:00"
+          modified_by: "ae48ed02-54ea-4be4-9ae8-229bf8c04739"
+
+upgradeMetadataFolders:
+  response:
+    base:
+      value:
+        header:
+          id: "0e840721-58ea-4649-b603-2d9cf4f2213c"
+          status: "success"
+          servertime: 1740046035
+          action: "8d061841-cef0-509a-8ee3-de91c7390d99"
+          message: "The operation was successful."
+          url: "/metadata/upgrade/folders.json"
+          code: 200
+          pagination:
+            count: 2
+            page: 1
+            limit: null
+        body: []

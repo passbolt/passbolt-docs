@@ -154,3 +154,20 @@ dateDoesntMatch:
             type: "string"
       examples:
         $ref: "examples.yml#/dateDoesntMatch/response"
+
+entityWasUpdated:
+  description: "Entity was updated"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "schemas.yml#/header"
+          body:
+            type: "string"
+      examples:
+        $ref: "examples.yml#/entityWasUpdated/response"

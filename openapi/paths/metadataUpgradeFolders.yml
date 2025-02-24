@@ -20,3 +20,29 @@ get:
       $ref: "../components/responses.yml#/authenticationRequired"
     403:
       $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
+
+post:
+  summary: "Upgrade a folder"
+  description: "Upgrade folders that are eligible for an upgrade to v5 format."
+  operationId: "upgradeMetadataFolders"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataUpgrade.yml#/upgradeMetadataFolders"
+  tags:
+    - "Metadata Upgrade"
+  parameters:
+    - $ref: "../components/parameters.yml#/containPermissions"
+  responses:
+    200:
+      $ref: "../components/responses/metadataUpgrade.yml#/upgradedFolders"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"
+    409:
+      $ref: "../components/responses.yml#/entityWasUpdated"
+  requestBody:
+    $ref: "../components/requestBodies/metadataUpgrade.yml#/upgradeMetadataFolders"

@@ -1,4 +1,4 @@
-index:
+addAndIndex:
   description: "Operation is successful"
   content:
     application/json:

@@ -1,0 +1,9 @@
+metadataKeyAdd:
+  description: The metadata key you want to create
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/metadataKeys.yml#/metadataKeyAdd"
+      examples:
+        $ref: "../examples/metadataKeys.yml#/metadataKeyAdd/request"

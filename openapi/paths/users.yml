@@ -13,6 +13,7 @@ get:
     - $ref: "../components/parameters.yml#/containGpgkey"
     - $ref: "../components/parameters.yml#/containProfile"
     - $ref: "../components/parameters.yml#/containRole"
+    - $ref: "../components/parameters.yml#/containMissingMetadataKeyIds"
     - $ref: "../components/parameters.yml#/filterSearch"
     - $ref: "../components/parameters.yml#/filterHasGroups"
     - $ref: "../components/parameters.yml#/filterHasAccess"
@@ -25,6 +26,8 @@ get:
       $ref: "../components/responses.yml#/badRequest"
     401:
       $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
 
 post:
   summary: "Create a user."

@@ -97,6 +97,11 @@ userIndexAndView:
       x-nullable: true
     role:
       $ref: "roles.yml#/role"
+    missing_metadata_key_ids:
+      type: "array"
+      items:
+        type: "string"
+        format: "uuid"
     last_logged_in:
       type: "string"
       format: "date-time"

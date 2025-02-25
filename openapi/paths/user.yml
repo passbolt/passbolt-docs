@@ -9,6 +9,7 @@ get:
     - "Users"
   parameters:
     - $ref: "../components/parameters.yml#/userId"
+    - $ref: "../components/parameters.yml#/containMissingMetadataKeyIds"
   responses:
     200:
       $ref: "../components/responses/users.yml#/view"
@@ -16,6 +17,8 @@ get:
       $ref: "../components/responses.yml#/badRequest"
     401:
       $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
     404:
       $ref: "../components/responses.yml#/notFound"
 

@@ -66,7 +66,7 @@ deleteDryRun:
           body:
             $ref: "../schemas/groups.yml#/groupDeleteDryRunError"
       examples:
-        $ref: "../examples/groups.yml#/groupDeleteDryRun/response"
+        $ref: "../examples/groups.yml#/groupDeleteDryRunError/response"
 
 updateDryRunSuccess:
   description: "Operation is successful."

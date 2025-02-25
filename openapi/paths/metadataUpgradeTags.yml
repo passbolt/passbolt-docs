@@ -1,0 +1,23 @@
+post:
+  summary: "Upgrade a tag"
+  description: "Upgrade tags that are eligible for an upgrade to v5 format."
+  operationId: "processeMetadataUpgradeTags"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataUpgrade.yml#/upgradeMetadataTags"
+  tags:
+    - "Metadata Upgrade"
+  parameters:
+    - $ref: "../components/parameters.yml#/filterIsShared"
+  responses:
+    200:
+      $ref: "../components/responses/metadataUpgrade.yml#/upgradeMetadataTags"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
+  requestBody:
+    $ref: "../components/requestBodies/metadataUpgrade.yml#/upgradeMetadataTags"

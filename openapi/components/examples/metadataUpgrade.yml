@@ -95,7 +95,6 @@ upgradeMetadataResource:
             modified_by: "ae48ed02-54ea-4be4-9ae8-229bf8c04739"
             resource_type_id: "a28a04cd-6f53-518a-967c-9963bf9cec51"
 
-
 metadataUpgradedFolders:
   request:
     base:
@@ -124,3 +123,34 @@ upgradeMetadataFolders:
             page: 1
             limit: null
         body: []
+
+upgradeMetadataTags:
+  response:
+    base:
+      value:
+        header:
+          id: "2b6024fb-2915-47e6-84e6-8988217b14e7"
+          status: "success"
+          servertime: 1740046035
+          action: "8d061841-cef0-509a-8ee3-de91c7390d99"
+          message: "The operation was successful."
+          url: "/metadata/upgrade/resources.json"
+          code: 200
+          pagination:
+            count: 1
+            page: 1
+            limit: 20
+        body:
+          - id: "97f5415f-2e09-4171-a99e-1908e876662b"
+            user_id: null
+            slug: "important tag in v4 format"
+            is_shared: true
+
+processMetadataUpgradeTags:
+  request:
+    base:
+      value:
+        - id: "97f5415f-2e09-4171-a99e-1908e876662a"
+          metadata_key_id: "9d9a6672-35d6-4d0f-a807-b90edf25c275"
+          metadata_key_type: "shared_key"
+          metadata: "-----BEGIN PGP MESSAGE-----"

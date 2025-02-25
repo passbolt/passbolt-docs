@@ -1,39 +1,7 @@
 tagIndexAndView:
   anyOf:
-    - type: "object"
-      required:
-        - id
-        - slug
-        - is_shared
-      properties:
-        id:
-          type: "string"
-          format: "uuid"
-        slug:
-          type: "string"
-        is_shared:
-          type: "boolean"
-    - type: "object"
-      required:
-        - id
-        - metadata
-        - metadata_key_id
-        - metadata_key_type
-        - is_shared
-      properties:
-        id:
-          type: "string"
-          format: "uuid"
-        metadata:
-          type: "string"
-        metadata_key_id:
-          type: "string"
-          format: "uuid"
-          x-nullable: true
-        metadata_key_type:
-          type: "string"
-        is_shared:
-          type: "boolean"
+    - $ref: "#/tagLegacy"
+    - $ref: "#/tagV5"
 
 tagAddResource:
   anyOf:
@@ -62,3 +30,45 @@ tagAddResource:
         is_shared:
           type: "boolean"
     - type: "string"
+
+tagLegacy:
+  type: "object"
+  required:
+    - id
+    - slug
+    - is_shared
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    user_id:
+      type: "string"
+      format: "uuid"
+      x-nullable: true
+    slug:
+      type: "string"
+    is_shared:
+      type: "boolean"
+
+tagV5:
+  type: "object"
+  required:
+    - id
+    - metadata
+    - metadata_key_id
+    - metadata_key_type
+    - is_shared
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    metadata:
+      type: "string"
+    metadata_key_id:
+      type: "string"
+      format: "uuid"
+      x-nullable: true
+    metadata_key_type:
+      type: "string"
+    is_shared:
+      type: "boolean"

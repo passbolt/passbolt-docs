@@ -17,3 +17,15 @@ upgradeMetadataResources:
         $ref: "../schemas/metadataUpgrade.yml#/metadataUpgradeResources"
       examples:
         $ref: "../examples/metadataUpgrade.yml#/metadataUpgradedResources/request"
+
+upgradeMetadataTags:
+  description: The tags you want to upgrade the metadata for to v5 format
+  required: true
+  content:
+    application/json:
+      schema:
+        type: "array"
+        items:
+          $ref: "../schemas/tags.yml#/tagV5"
+      examples:
+        $ref: "../examples/metadataUpgrade.yml#/processMetadataUpgradeTags/request"

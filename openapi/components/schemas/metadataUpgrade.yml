@@ -71,5 +71,3 @@ metadataUpgradeResources:
       modified_by:
         type: "string"
         format: "uuid"
-
-

@@ -1,0 +1,25 @@
+tagAddResource:
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1740497420
+          action: "acef8942-0c23-5de8-92e8-76ed8c5664f2"
+          message: "The operation was successful."
+          url: "/tags/b4651f60-392d-4af7-b204-0f8d26798b9b.json"
+          code: 200
+        body:
+          - id: "52ca9f92-4115-4759-a965-89e6b41b36fd"
+            slug: "important"
+            is_shared: false
+          - metadata: "-----BEGIN PGP MESSAGE-----"
+            metadata_key_id: null
+            metadata_key_type: user_key
+            is_shared: false
+  request:
+    base:
+      value:
+        - "important"
+

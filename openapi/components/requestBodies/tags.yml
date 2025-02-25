@@ -1,0 +1,9 @@
+addResource:
+  description: The tags to set for the resource.
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/tags.yml#/tagAddResource"
+      examples:
+        $ref: "../examples/tags.yml#/tagAddResource/request"

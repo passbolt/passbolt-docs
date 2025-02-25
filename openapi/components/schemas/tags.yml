@@ -1,0 +1,64 @@
+tagIndexAndView:
+  anyOf:
+    - type: "object"
+      required:
+        - id
+        - slug
+        - is_shared
+      properties:
+        id:
+          type: "string"
+          format: "uuid"
+        slug:
+          type: "string"
+        is_shared:
+          type: "boolean"
+    - type: "object"
+      required:
+        - id
+        - metadata
+        - metadata_key_id
+        - metadata_key_type
+        - is_shared
+      properties:
+        id:
+          type: "string"
+          format: "uuid"
+        metadata:
+          type: "string"
+        metadata_key_id:
+          type: "string"
+          format: "uuid"
+          x-nullable: true
+        metadata_key_type:
+          type: "string"
+        is_shared:
+          type: "boolean"
+
+tagAddResource:
+  anyOf:
+    - type: "object"
+      required:
+        - id
+      properties:
+        id:
+          type: "string"
+          format: "uuid"
+    - type: "object"
+      required:
+        - metadata
+        - metadata_key_id
+        - metadata_key_type
+        - is_shared
+      properties:
+        metadata:
+          type: "string"
+        metadata_key_id:
+          type: "string"
+          format: "uuid"
+          x-nullable: true
+        metadata_key_type:
+          type: "string"
+        is_shared:
+          type: "boolean"
+    - type: "string"

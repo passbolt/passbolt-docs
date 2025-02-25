@@ -1,0 +1,20 @@
+post:
+  summary: "Add tags to a resource."
+  operationId: "addTagsResource"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/tags.yml#/addResource"
+  tags:
+    - "Tags"
+  parameters:
+    - $ref: "../components/parameters.yml#/resourceId"
+  responses:
+    200:
+      $ref: "../components/responses/tags.yml#/addResource"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+  requestBody:
+    $ref: "../components/requestBodies/tags.yml#/addResource"

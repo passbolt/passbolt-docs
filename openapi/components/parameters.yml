@@ -481,6 +481,17 @@ containMetadataPrivateKeys:
       - 1
       - 0
 
+containMissingMetadataKeyIds:
+  name: "contain[missing_metadata_key_ids]"
+  description: "Add missing metadata key IDs to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
 filterDeleted:
   name: "filter[deleted]"
   description: "Filter for deleted elements."

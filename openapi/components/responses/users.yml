@@ -30,9 +30,7 @@ view:
           header:
             $ref: "../schemas.yml#/header"
           body:
-            type: "array"
-            items:
-              $ref: "../schemas/users.yml#/userIndexAndView"
+            $ref: "../schemas/users.yml#/userIndexAndView"
       examples:
         $ref: "../examples/users.yml#/userView/response"
 

@@ -121,6 +121,7 @@ userView:
             created: "2012-07-04T13:39:25+00:00"
             modified: "2012-07-04T13:39:25+00:00"
           last_logged_in: null
+          missing_metadata_key_ids: []
 
 userUpdate:
   request:

@@ -79,6 +79,8 @@ paths:
     $ref: "paths/metadataUpgradeResources.yml"
   /metadata/upgrade/folders.json:
     $ref: "paths/metadataUpgradeFolders.yml"
+  /metadata/upgrade/tags.json:
+    $ref: "paths/metadataUpgradeTags.yml"
   /mfa/verify/{mfaProviderName}.json:
     $ref: "paths/mfaVerify.yml"
   /mfa/verify/error.json:

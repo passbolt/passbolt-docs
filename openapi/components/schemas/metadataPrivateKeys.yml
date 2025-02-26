@@ -65,3 +65,8 @@ metadataPrivateKeysUpdate:
       format: "uuid"
     data:
       type: "string"
+
+metadataPrivateKeysAdd:
+  type: "array"
+  items:
+    $ref: "#/metadataPrivateKeysUpdate"

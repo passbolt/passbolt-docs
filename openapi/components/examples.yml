@@ -24,6 +24,19 @@ emptyArrayBody:
         code: 200
       body: []
 
+emptyBody:
+  base:
+    value:
+      header:
+        id: "f7be85c0-afb1-4d8e-a9e1-e05abb0bb71a"
+        status: "success"
+        servertime: 1721727753
+        action: "e2aa01a9-84ec-55f8-aaed-24ee23259339"
+        message: "<SUCCESS MESSAGE>"
+        url: "<API ENDPOINT URL>"
+        code: 200
+      body: {}
+
 badRequest:
   response:
     example:

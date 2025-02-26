@@ -50,6 +50,28 @@ metadataPrivateKeyAdd:
     data:
       type: "string"
 
+metadataPrivateKeysShortIndex:
+  type: "object"
+  required:
+    - user_id
+    - data
+    - created_by
+    - modified_by
+  properties:
+    user_id:
+      type: "string"
+      format: "uuid"
+    data:
+      type: "string"
+    created_by:
+      type: "string"
+      format: "uuid"
+      x-nullable: true
+    modified_by:
+      type: "string"
+      format: "uuid"
+      x-nullable: true
+
 metadataPrivateKeysUpdate:
   type: "object"
   required:
@@ -63,6 +85,14 @@ metadataPrivateKeysUpdate:
     user_id:
       type: "string"
       format: "uuid"
+    data:
+      type: "string"
+
+metadataPrivateKeyShortUpdate:
+  type: "object"
+  required:
+    - data
+  properties:
     data:
       type: "string"
 

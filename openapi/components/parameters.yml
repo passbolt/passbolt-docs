@@ -168,6 +168,15 @@ resourceOrTagId:
     type: "string"
     format: "uuid"
 
+metadataPrivateKeyId:
+  name: "metadataPrivateKeyId"
+  description: "ID for the metadata private key manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
 cascade:
   name: "cascade"
   description: "Delete element and its children elements."

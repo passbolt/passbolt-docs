@@ -1,0 +1,22 @@
+put:
+  summary: "Update a metatadata private key."
+  operationId: "updateMetadataPrivateKey"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataPrivateKeys.yml#/update"
+  tags:
+    - "Metadata private keys"
+  parameters:
+    - $ref: "../components/parameters.yml#/metadataPrivateKeyId"
+  requestBody:
+    $ref: "../components/requestBodies/metadataPrivateKeys.yml#/metadataPrivateKeysUpdate"
+  responses:
+    200:
+      $ref: "../components/responses/metadataPrivateKeys.yml#/metadataPrivateKeysUpdate"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"

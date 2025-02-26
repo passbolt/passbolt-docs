@@ -7,3 +7,13 @@ metadataPrivateKeysAdd:
         $ref: "../schemas/metadataPrivateKeys.yml#/metadataPrivateKeysAdd"
       examples:
         $ref: "../examples/metadataPrivateKeys.yml#/metadataPrivateKeysAdd/request"
+
+metadataPrivateKeysUpdate:
+  description: The metadata private keys that you want to update.
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/metadataPrivateKeys.yml#/metadataPrivateKeyShortUpdate"
+      examples:
+        $ref: "../examples/metadataPrivateKeys.yml#/metadataPrivateKeyUpdate/request"

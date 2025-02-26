@@ -67,6 +67,8 @@ paths:
     $ref: "paths/metadataKeys.yml"
   /metadata/keys/{metadataKeyId}.json:
     $ref: "paths/metadataKey.yml"
+  /metadata/keys/privates.json:
+    $ref: "paths/metadataKeysPrivates.yml"
   /metadata/keys/settings.json:
     $ref: "paths/metadataKeysSettings.yml"
   /metadata/types/settings.json:
@@ -148,6 +150,8 @@ tags:
     description: "Gather data about the passbolt instance's health."
   - name: "Metadata keys"
     description: "Manipulate metadata keys."
+  - name: "Metadata private keys"
+    description: "Manipulate private keys for metadata."
   - name: "Metadata types settings"
     description: "Retrieve information about the resource types settings selected by the administrators"
   - name: "Metadata Rotate Key"

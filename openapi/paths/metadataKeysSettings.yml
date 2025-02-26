@@ -9,7 +9,26 @@ get:
     - "Metadata keys"
   responses:
     200:
-      $ref: "../components/responses/metadataKeys.yml#/indexSettings"
+      $ref: "../components/responses/metadataKeys.yml#/indexAndUpdateSettings"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"
+
+post:
+  summary: "Update metatadata keys settings."
+  operationId: "updateMetadataKeysSettings"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataKeys.yml#/updateSettings"
+  tags:
+    - "Metadata keys"
+  requestBody:
+    $ref: "../components/requestBodies/metadataKeys.yml#/updateMetadataKeysSettings"
+  responses:
+    200:
+      $ref: "../components/responses/metadataKeys.yml#/indexAndUpdateSettings"
     401:
       $ref: "../components/responses.yml#/authenticationRequired"
     404:

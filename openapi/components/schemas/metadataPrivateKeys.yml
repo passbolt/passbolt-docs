@@ -49,3 +49,19 @@ metadataPrivateKeyAdd:
       x-nullable: true
     data:
       type: "string"
+
+metadataPrivateKeysUpdate:
+  type: "object"
+  required:
+    - metadata_key_id
+    - user_id
+    - data
+  properties:
+    metadata_key_id:
+      type: "string"
+      format: "uuid"
+    user_id:
+      type: "string"
+      format: "uuid"
+    data:
+      type: "string"

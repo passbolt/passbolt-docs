@@ -17,7 +17,7 @@ addAndIndex:
       examples:
         $ref: "../examples/metadataKeys.yml#/metadataKeysIndex/response"
 
-indexSettings:
+indexAndUpdateSettings:
   description: "Operation is successful"
   content:
     application/json:

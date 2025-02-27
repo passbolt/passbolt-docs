@@ -1,0 +1,16 @@
+get:
+  summary: "Get metatadata keys settings."
+  operationId: "indexMetadataKeysSettings"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataKeys.yml#/indexSettings"
+  tags:
+    - "Metadata keys"
+  responses:
+    200:
+      $ref: "../components/responses/metadataKeys.yml#/indexSettings"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"

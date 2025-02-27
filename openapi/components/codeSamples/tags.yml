@@ -6,17 +6,25 @@ addResource:
         --header 'authorization: Bearer {{JWT_TOKEN}}' \
         --header 'content-type: application/json' \
         --data '{
-          "tags": [
-              "important"
-          ]
-        }'
+        "tags": [
+          {
+            "metadata": "-----BEGIN PGP MESSAGE-----",
+            "metadata_key_id": null,
+            "metadata_key_type": "shared_key",
+            "is_shared": true
+          },
+          {
+            "id": "4879d401-c242-458d-91a0-dba864c36535"
+          }
+        ]
+      }'
   - lang: JavaScript
     source: |
       const url = '{{API_BASE_URL}}/tags/b4651f60-392d-4af7-b204-0f8d26798b9b.json';
       const options = {
         method: 'POST',
         headers: {authorization: 'Bearer {{JWT_TOKEN}}', 'content-type': 'application/json'},
-        body: '{"tags":["important"]}'
+        body: '{"tags":[{"metadata":"-----BEGIN PGP MESSAGE-----","metadata_key_id":null,"metadata_key_type":"shared_key","is_shared":true},{"id":"4879d401-c242-458d-91a0-dba864c36535"}]}'
       };
 
       try {
@@ -32,7 +40,7 @@ addResource:
       $curl = curl_init();
 
       curl_setopt_array($curl, [
-        CURLOPT_URL => "{{API_BASE_URL}}/tags/b4651f60-392d-4af7-b204-0f8d26798b9b.json",
+        CURLOPT_URL => "https://docker.pro/tags/b4651f60-392d-4af7-b204-0f8d26798b9b.json",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
         CURLOPT_MAXREDIRS => 10,
@@ -41,7 +49,15 @@ addResource:
         CURLOPT_CUSTOMREQUEST => "POST",
         CURLOPT_POSTFIELDS => json_encode([
           'tags' => [
-              'important'
+              [
+                      'metadata' => '-----BEGIN PGP MESSAGE-----',
+                      'metadata_key_id' => null,
+                      'metadata_key_type' => 'shared_key',
+                      'is_shared' => null
+              ],
+              [
+                      'id' => '4879d401-c242-458d-91a0-dba864c36535'
+              ]
           ]
         ]),
         CURLOPT_HTTPHEADER => [

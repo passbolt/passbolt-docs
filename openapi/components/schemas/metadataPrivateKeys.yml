@@ -19,6 +19,7 @@ metadataPrivateKeysIndexAndView:
     user_id:
       type: "string"
       format: "uuid"
+      x-nullable: true
     data:
       type: "string"
     created:

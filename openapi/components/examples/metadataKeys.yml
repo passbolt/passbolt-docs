@@ -48,3 +48,19 @@ metadataKeyUpdate:
         fingerprint: "17B5913BC13128674F2A6F31C79A1AB152C3C573"
         armored_key: "-----BEGIN PGP PUBLIC KEY BLOCK-----"
         expired: "2025-02-25T09:00:00+00:00"
+
+metadataKeysSettingsIndex:
+  response:
+    base:
+      value:
+        header:
+          id: "1911b18b-cf68-48cf-b69f-ec9dba39aff4"
+          status: "success"
+          servertime: 1740413047
+          action: "b20e3cc2-e4ea-5b42-804b-7edc9878ef3d"
+          message: "The operation was successful."
+          url: "/metadata/keys/settings.json"
+          code: 200
+        body:
+          allow_usage_of_personal_keys: true
+          zero_knowledge_key_share: false

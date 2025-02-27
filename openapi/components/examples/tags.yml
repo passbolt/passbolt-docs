@@ -21,5 +21,9 @@ tagAddResource:
   request:
     base:
       value:
-        - "important"
-
+        tags:
+          - metadata: "-----BEGIN PGP MESSAGE-----"
+            metadata_key_id: null
+            metadata_key_type: "shared_key"
+            is_shared: true
+          - id: "4879d401-c242-458d-91a0-dba864c36535"

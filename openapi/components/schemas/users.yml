@@ -154,6 +154,20 @@ userAdd:
         last_name:
           type: "string"
 
+userDelete:
+  type: "object"
+  properties:
+    errors:
+      type: "object"
+      properties:
+        resources:
+          type: "object"
+          properties:
+            sole_owner:
+              type: "array"
+              items:
+                $ref: "resources.yml#/resourceIndexAndView"
+
 userDeleteDryRun:
   type: "object"
   properties:

@@ -188,3 +188,20 @@ entityWasUpdated:
             type: "string"
       examples:
         $ref: "examples.yml#/entityWasUpdated/response"
+
+modifiedDateIsNotMatching:
+  description: "The modified date is not equal to the persisted session key one"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "schemas.yml#/header"
+          body:
+            type: "string"
+      examples:
+        $ref: "examples.yml#/modifiedDateIsNotMatching/response"

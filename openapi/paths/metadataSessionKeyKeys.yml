@@ -1,0 +1,24 @@
+post:
+  summary: "Update a given session-key entry."
+  operationId: "updateMetadataSessionKey"
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataSessionKey.yml#/updateSessionKey"
+  security:
+    - bearerHttpAuthentication: []
+  parameters:
+    - $ref: "../components/parameters.yml#/sessionKeyId"
+  tags:
+    - "Metadata session key"
+  responses:
+    200:
+      $ref: "../components/responses/metadataSessionKey.yml#/update"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"
+    409:
+      $ref: "../components/responses.yml#/modifiedDateIsNotMatching"
+  requestBody:
+    $ref: "../components/requestBodies/metadataSessionKey.yml#/update"

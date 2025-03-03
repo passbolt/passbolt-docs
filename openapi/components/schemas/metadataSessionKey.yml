@@ -1,0 +1,11 @@
+update:
+  type: "object"
+  required:
+    - data
+    - modified
+  properties:
+    data:
+      type: "string"
+    modified:
+      type: "string"
+      format: "date-time"

@@ -147,8 +147,9 @@ add:
         --header 'Authorization: Bearer {{JWT_TOKEN}}' \
         --header 'Content-Type: application/json' \
         --data '{
-          "name": "bob",
-          "folder_parent_id": "2d8142fc-5be2-463f-a6ba-e28d7d96e211"
+          "metadata": "-----BEGIN PGP MESSAGE-----",
+          "metadata_key_id": "e3dabc04-cfbd-45c1-9f7d-827c61603e20",
+          "metadata_key_type": "shared_key"
         }'
   - lang: JavaScript
     source: |
@@ -156,7 +157,7 @@ add:
       const options = {
         method: 'POST',
         headers: {Authorization: 'Bearer {{JWT_TOKEN}}'},
-        body: '{"name":"bob","folder_parent_id":"2d8142fc-5be2-463f-a6ba-e28d7d96e211"}'
+        body: '{"metadata": "-----BEGIN PGP MESSAGE-----", "metadata_key_id": "e3dabc04-cfbd-45c1-9f7d-827c61603e20", "metadata_key_type": "shared_key"}'
       };
 
       try {
@@ -180,8 +181,9 @@ add:
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
         CURLOPT_POSTFIELDS => json_encode([
-          'name' => 'bob',
-          'folder_parent_id' => '2d8142fc-5be2-463f-a6ba-e28d7d96e211'
+          'metadata' => '-----BEGIN PGP MESSAGE-----',
+          'metadata_key_id' => 'e3dabc04-cfbd-45c1-9f7d-827c61603e20',
+          'metadata_key_type' => 'shared_key'
         ]),
         CURLOPT_HTTPHEADER => [
           "Authorization: Bearer {{JWT_TOKEN}}"

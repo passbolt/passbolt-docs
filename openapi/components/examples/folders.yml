@@ -40,12 +40,16 @@ folderAdd:
     without_parent:
       summary: "Without a parent folder."
       value:
-        name: "folder name"
+        metadata: "-----BEGIN PGP MESSAGE-----"
+        metadata_key_id: "e3dabc04-cfbd-45c1-9f7d-827c61603e20"
+        metadata_key_type: "shared_key"
     with_parent:
       summary: "With a parent folder."
       value:
-        name: "folder name"
-        folder_parent_id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+        metadata: "-----BEGIN PGP MESSAGE-----"
+        metadata_key_id: "e3dabc04-cfbd-45c1-9f7d-827c61603e20"
+        metadata_key_type: "shared_key"
+        folder_parent_id: "3a003c3e-d000-4068-a6cf-96e15a41e18f"
 
 folderUpdate:
   request:
@@ -54,6 +58,7 @@ folderUpdate:
         metadata: "----BEGIN PGP MESSAGE-----"
         metadata_key_id: "9d9a6672-35d6-4d0f-a807-b90edf25c275"
         metadata_key_type: "shared_key"
+
 folderView:
   response:
     index:

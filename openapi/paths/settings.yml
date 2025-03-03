@@ -1,0 +1,16 @@
+get:
+  summary: "Get the server settings."
+  operationId: "indexSettings"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/settings.yml#/index"
+  tags:
+    - "Settings"
+  responses:
+    200:
+      $ref: "../components/responses/settings.yml#/index"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"

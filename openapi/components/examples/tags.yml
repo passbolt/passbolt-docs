@@ -27,3 +27,27 @@ tagAddResource:
             metadata_key_type: "shared_key"
             is_shared: true
           - id: "4879d401-c242-458d-91a0-dba864c36535"
+
+index:
+  response:
+    base:
+      value:
+        header:
+          id: "15a7d119-07c7-4fcb-8afc-ee8eba41fdc0"
+          status: "success"
+          servertime: 1721207029
+          action: "43efcc1ec-5cc1-5d2a-a16e-234f23b70719"
+          message: "The operation was successful."
+          url: "/tags.json"
+        body:
+          - id: "c9e3b8e0-5ea9-4f40-a5e9-e3e4d2002be2"
+            slug: "#sharedTag"
+            is_shared: true
+          - id: "9b3ffebf-f3a2-40dc-9e73-2c9b3a927932"
+            slug: "v4 format tag"
+            is_shared: false
+          - id: "04b87425-160e-4e31-b42f-89c455650331"
+            metadata: "-----BEGIN PGP MESSAGE-----"
+            metadata_key_id: "ed94010c-6a97-488c-a60c-cfc6558f3ed7"
+            metadata_key_type: "shared_key"
+            is_shared: false

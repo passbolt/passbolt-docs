@@ -109,6 +109,8 @@ paths:
     $ref: "paths/shareSearchAros.yml"
   /share/simulate/{foreignModel}/{foreignId}.json:
     $ref: "paths/shareSimulateForeignModel.yml"
+  /tags.json:
+    $ref: "paths/tags.yml"
   /tags/{resourceId}.json:
     $ref: "paths/tagsResource.yml"
   /users.json:
@@ -173,7 +175,7 @@ tags:
     description:
       $ref: "components/descriptions/shares.yml#/tag"
   - name: "Tags"
-    description: "Add tags to resources to categorize them."
+    description: "Get tags and add tags to resources to categorize them."
   - name: "Users"
     description:
       $ref: "components/descriptions/users.yml#/tag"

@@ -1,0 +1,16 @@
+get:
+  summary: "Get personal tags and shared tags."
+  operationId: "indexTags"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/tags.yml#/index"
+  tags:
+    - "Tags"
+  responses:
+    200:
+      $ref: "../components/responses/tags.yml#/index"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"

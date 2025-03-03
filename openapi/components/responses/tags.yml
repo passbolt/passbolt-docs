@@ -1,3 +1,20 @@
+index:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/tags.yml#/tagIndexAndView"
+      examples:
+        $ref: "../examples/tags.yml#/index/response"
+
 addResource:
   description: "Operation is successful"
   content:

@@ -7,3 +7,13 @@ addResource:
         $ref: "../schemas/tags.yml#/tagAddResource"
       examples:
         $ref: "../examples/tags.yml#/tagAddResource/request"
+
+update:
+  description: The tag to update.
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/tags.yml#/tagV5Update"
+      examples:
+        $ref: "../examples/tags.yml#/update/request"

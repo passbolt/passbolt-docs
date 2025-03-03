@@ -51,3 +51,28 @@ index:
             metadata_key_id: "ed94010c-6a97-488c-a60c-cfc6558f3ed7"
             metadata_key_type: "shared_key"
             is_shared: false
+
+update:
+  response:
+    base:
+      value:
+        header:
+          id: "15a7d119-07c7-4fcb-8afc-ee8eba41fdc0"
+          status: "success"
+          servertime: 1721207029
+          action: "43efcc1ec-5cc1-5d2a-a16e-234f23b70719"
+          message: "The operation was successful."
+          url: "/tags/04b87425-160e-4e31-b42f-89c455650331.json"
+        body:
+          id: "04b87425-160e-4e31-b42f-89c455650331"
+          metadata: "-----BEGIN PGP MESSAGE-----"
+          metadata_key_id: "ed94010c-6a97-488c-a60c-cfc6558f3ed7"
+          metadata_key_type: "shared_key"
+          is_shared: false
+  request:
+    base:
+      value:
+        metadata: "-----BEGIN PGP MESSAGE-----"
+        metadata_key_id: "ed94010c-6a97-488c-a60c-cfc6558f3ed7"
+        metadata_key_type: "shared_key"
+        is_shared: false

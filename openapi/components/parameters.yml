@@ -150,6 +150,15 @@ metadataKeyId:
     type: "string"
     format: "uuid"
 
+resourceOrTagId:
+  name: "resourceOrTagId"
+  description: "The tag (for `PUT`) or resource (for `POST`) identifier being manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
 cascade:
   name: "cascade"
   description: "Delete element and its children elements."

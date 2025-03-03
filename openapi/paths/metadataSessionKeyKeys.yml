@@ -22,3 +22,22 @@ post:
       $ref: "../components/responses.yml#/modifiedDateIsNotMatching"
   requestBody:
     $ref: "../components/requestBodies/metadataSessionKey.yml#/update"
+
+delete:
+  summary: "Delete a given session-key entry."
+  operationId: "deleteSessionKey"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataSessionKey.yml#/delete"
+  tags:
+    - "Metadata session key"
+  parameters:
+    - $ref: "../components/parameters.yml#/sessionKeyId"
+  responses:
+    200:
+      $ref: "../components/responses.yml#/nullBody"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"

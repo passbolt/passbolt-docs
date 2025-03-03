@@ -1,0 +1,9 @@
+update:
+  description: The metadata session key you want to update
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/metadataSessionKey.yml#/update"
+      examples:
+        $ref: "../examples/metadataSessionKey.yml#/metadataSessionKeyUpdate/request"

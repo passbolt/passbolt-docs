@@ -1,0 +1,20 @@
+metadataSessionKeyUpdate:
+  request:
+    base:
+      value:
+        data: "----BEGIN PGP MESSAGE-----"
+        modified: "2025-02-18T15:52:17+00:00"
+  response:
+    base:
+      value:
+        header:
+          id: "26c1344a-22ef-4c49-90a0-130a9c82a648"
+          status: "success"
+          servertime: 1740143504
+          action: "c5969bdd-018f-552b-b20d-01636766a81f"
+          message: "The operation was successful."
+          url: "/metadata/session-keys/16c1344a-33ae-4c49-90a0-130a9c82a091"
+          code: 200
+        body:
+          data: "----BEGIN PGP MESSAGE-----"
+          modified: "2025-02-18T15:52:17+00:00"

@@ -77,6 +77,8 @@ paths:
     $ref: "paths/metadataRotateKeyFolders.yml"
   /metadata/rotate-key/resources.json:
     $ref: "paths/metadataRotateKeyResources.yml"
+  /metadata/session-key/{sessionKeyId}.json:
+    $ref: "paths/metadataSessionKeyKeys.yml"
   /metadata/rotate-key/tags.json:
     $ref: "paths/metadataRotateKeyTags.yml"
   /metadata/upgrade/resources.json:
@@ -156,6 +158,8 @@ tags:
     description: "Retrieve information about the resource types settings selected by the administrators"
   - name: "Metadata Rotate Key"
     description: "Gather information about metadata keys that needs to be rotated"
+  - name: "Metadata session key"
+    description: "Gather information on the saved encrypted session keys cache"
   - name: "Metadata Upgrade"
     description: "Upgrading elements to the new v5 metadata format"
   - name: "Move"

@@ -82,6 +82,15 @@ resourceTypeId:
     type: "string"
     format: "uuid"
 
+sessionKeyId:
+  name: "sessionKeyId"
+  description: "ID for the session key being manipulated"
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
 moveForeignModel:
   name: "foreignModel"
   description: "Type for the foreign model being moved."

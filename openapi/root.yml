@@ -113,8 +113,8 @@ paths:
     $ref: "paths/shareSimulateForeignModel.yml"
   /tags.json:
     $ref: "paths/tags.yml"
-  /tags/{resourceId}.json:
-    $ref: "paths/tagsResource.yml"
+  /tags/{resourceOrTagId}.json:
+    $ref: "paths/tag.yml"
   /users.json:
     $ref: "paths/users.yml"
   /users/{userId}.json:

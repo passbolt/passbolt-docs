@@ -72,3 +72,22 @@ tagV5:
       type: "string"
     is_shared:
       type: "boolean"
+
+tagV5Update:
+  type: "object"
+  required:
+    - metadata
+    - metadata_key_id
+    - metadata_key_type
+    - is_shared
+  properties:
+    metadata:
+      type: "string"
+    metadata_key_id:
+      type: "string"
+      format: "uuid"
+      x-nullable: true
+    metadata_key_type:
+      type: "string"
+    is_shared:
+      type: "boolean"

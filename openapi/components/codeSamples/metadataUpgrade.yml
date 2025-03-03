@@ -255,7 +255,7 @@ upgradeMetadataTags:
         --header 'authorization: Bearer {{JWT_TOKEN}}' \
         --header 'content-type: application/json' \
         --data '[
-          { 
+          {
             "id": "52ca9f92-4115-4759-a965-89e6b41b36fd",
             "metadata_key_id": "edf0a845-94ea-4281-8d45-7d64fa06e894",
             "metadata_key_type": "shared_key",
@@ -302,6 +302,51 @@ upgradeMetadataTags:
         CURLOPT_HTTPHEADER => [
           "authorization: Bearer {{JWT_TOKEN}}",
           "content-type: application/json"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      if ($err) {
+      echo "cURL Error #:" . $err;
+      } else {
+      echo $response;
+      }
+
+viewUpgradableTags:
+  - lang: cURL
+    source: |
+      curl --request GET \
+        --url {{API_BASE_URL}}/metadata/upgrade/tags.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/metadata/upgrade/tags.json';
+      const options = {method: 'GET', headers: {Authorization: 'Bearer {{JWT_TOKEN}}'}};
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/metadata/upgrade/tags.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
         ],
       ]);
 

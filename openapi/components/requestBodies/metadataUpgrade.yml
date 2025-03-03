@@ -4,7 +4,7 @@ upgradeMetadataFolders:
   content:
     application/json:
       schema:
-        $ref: "../schemas/metadataUpgrade.yml#/metadataUpgradedFolders"
+        $ref: "../schemas/metadataUpgrade.yml#/metadataUpgrade"
       examples:
         $ref: "../examples/metadataUpgrade.yml#/metadataUpgradedFolders/request"
 
@@ -14,7 +14,7 @@ upgradeMetadataResources:
   content:
     application/json:
       schema:
-        $ref: "../schemas/metadataUpgrade.yml#/metadataUpgradeResources"
+        $ref: "../schemas/metadataUpgrade.yml#/metadataUpgrade"
       examples:
         $ref: "../examples/metadataUpgrade.yml#/metadataUpgradedResources/request"
 

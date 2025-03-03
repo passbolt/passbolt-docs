@@ -81,10 +81,10 @@ paths:
     $ref: "paths/metadataSessionKeyKeys.yml"
   /metadata/rotate-key/tags.json:
     $ref: "paths/metadataRotateKeyTags.yml"
-  /metadata/upgrade/resources.json:
-    $ref: "paths/metadataUpgradeResources.yml"
   /metadata/upgrade/folders.json:
     $ref: "paths/metadataUpgradeFolders.yml"
+  /metadata/upgrade/resources.json:
+    $ref: "paths/metadataUpgradeResources.yml"
   /metadata/upgrade/tags.json:
     $ref: "paths/metadataUpgradeTags.yml"
   /mfa/verify/{mfaProviderName}.json:

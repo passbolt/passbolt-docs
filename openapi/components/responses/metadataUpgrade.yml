@@ -45,7 +45,7 @@ upgradedFolders:
           header:
             $ref: "../schemas.yml#/headerWithPagination"
           body:
-            $ref: "../schemas/metadataUpgrade.yml#/metadataUpgradedFolders"
+            $ref: "../schemas/metadataUpgrade.yml#/metadataUpgrade"
       examples:
         $ref: "../examples/metadataUpgrade.yml#/upgradeMetadataFolders/response"
 
@@ -62,7 +62,7 @@ upgradedResources:
           header:
             $ref: "../schemas.yml#/headerWithPagination"
           body:
-            $ref: "../schemas/metadataUpgrade.yml#/metadataUpgradeResources"
+            $ref: "../schemas/metadataUpgrade.yml#/metadataUpgrade"
       examples:
         $ref: "../examples/metadataUpgrade.yml#/upgradeMetadataResource/response"
 
@@ -84,3 +84,20 @@ upgradeMetadataTags:
               $ref: "../schemas/tags.yml#/tagLegacy"
       examples:
         $ref: "../examples/metadataUpgrade.yml#/upgradeMetadataTags/response"
+
+upgradableTags:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/headerWithPagination"
+          body:
+            $ref: "../schemas/metadataUpgrade.yml#/metadataUpgrade"
+      examples:
+        $ref: "../examples/metadataUpgrade.yml#/indexMetadataUpgradeTags/response"

@@ -154,3 +154,27 @@ processMetadataUpgradeTags:
           metadata_key_id: "9d9a6672-35d6-4d0f-a807-b90edf25c275"
           metadata_key_type: "shared_key"
           metadata: "-----BEGIN PGP MESSAGE-----"
+
+indexMetadataUpgradeTags:
+  response:
+    base:
+      value:
+        header:
+          id: "0e840721-58ea-4649-b603-2d9cf4f2213c"
+          status: "success"
+          servertime: 1740046035
+          action: "8d061841-cef0-509a-8ee3-de91c7390d99"
+          message: "The operation was successful."
+          url: "/metadata/upgrade/folders.json"
+          code: 200
+          pagination:
+            count: 2
+            page: 1
+            limit: null
+        body:
+          - id: "5f186a1f-785b-475c-99fe-7dbc01bd63a3"
+            user_id: null
+            slug: "v4_tag_to_upgrade_to_v5_format"
+            is_shared: false
+
+

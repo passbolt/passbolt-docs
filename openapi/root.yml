@@ -75,6 +75,8 @@ paths:
     $ref: "paths/metadataRotateKeyFolders.yml"
   /metadata/rotate-key/resources.json:
     $ref: "paths/metadataRotateKeyResources.yml"
+  /metadata/rotate-key/tags.json:
+    $ref: "paths/metadataRotateKeyTags.yml"
   /metadata/upgrade/resources.json:
     $ref: "paths/metadataUpgradeResources.yml"
   /metadata/upgrade/folders.json:

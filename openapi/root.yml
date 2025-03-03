@@ -101,6 +101,8 @@ paths:
     $ref: "paths/roles.yml"
   /secrets/resource/{resourceId}.json:
     $ref: "paths/secretsResource.yml"
+  /settings.json:
+    $ref: "paths/settings.yml"
   /share/{foreignModel}/{foreignId}.json:
     $ref: "paths/shareForeignModel.yml"
   /share/search-aros.json:
@@ -165,6 +167,8 @@ tags:
     description: "Different categories of users."
   - name: "Secrets"
     description: "Secrets associated to resources."
+  - name: "Settings"
+    description: "Retrieve the server settings"
   - name: "Shares"
     description:
       $ref: "components/descriptions/shares.yml#/tag"

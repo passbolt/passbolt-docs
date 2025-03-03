@@ -1,0 +1,86 @@
+index:
+  response:
+    base:
+      value:
+        header:
+          id: "2103c923-6b0c-42f9-b23f-0cceda9a2963"
+          status: "success"
+          servertime: 1740993528
+          action: "bef9f3ca-86ef-5c6a-9b38-320e03ceb5df"
+          message: "The operation was successful."
+          url: "/settings.json"
+          code: 200
+          pagination:
+            count: 2
+            page: 1
+            limit: null
+        body:
+          app:
+            url: "https://{API_BASE_URL}"
+            locale: "en-UK"
+          passbolt:
+            legal:
+              privacy_policy:
+                url: ""
+              terms:
+                url: "https://www.passbolt.com/terms"
+            edition: "pro"
+            plugins:
+              jwtAuthentication:
+                enabled: true
+              accountRecoveryRequestHelp:
+                enabled: true
+              accountRecovery:
+                enabled: true
+              selfRegistration:
+                enabled: true
+              sso:
+                enabled: true
+              mfaPolicies:
+                enabled: true
+              ssoRecover:
+                enabled: true
+              userPassPhrasePolicies:
+                enabled: true
+              inFormIntegration:
+                enabled: true
+              metadata:
+                version: "1.0.0"
+                enabled: true
+              locale:
+                options:
+                  - locale: "de-DE"
+                    label: "Deutsch"
+                  - locale: "en-UK"
+                    label: "English"
+                  - locale: "en-ES"
+                    label: "Español"
+                  - locale: "fr-FR"
+                    label: "Français"
+                  - locale: "it-IT"
+                    label: "Italiano (beta)"
+                  - locale: "ja-JP"
+                    label: "日本語"
+                  - locale: "ko-KR"
+                    label: "한국어 (beta)"
+                  - locale: "lt-LT"
+                    label: "Lietuvių"
+                  - locale: "nl-NL"
+                    label: "Nederlands"
+                  - locale: "pl-PL"
+                    label: "Polski"
+                  - locale: "pt-PR"
+                    label: "Português Brasil (beta)"
+                  - locale: "ro-RO"
+                    label: "Română (beta)"
+                  - locale: "ru-RU"
+                    label: "Pусский (beta)"
+                  - locale: "sv-SE"
+                    label: "Svenska"
+              rememberMe:
+                options:
+                  300: "5 minutes"
+                  900: "15 minutes"
+                  1800: "30 minutes"
+                  3600: "1 hour"
+                  -1: "Until I log out"

@@ -4,7 +4,7 @@ folderAdd:
   content:
     application/json:
       schema:
-        $ref: "../schemas/folders.yml#/folderAdd"
+        $ref: "../schemas/folders.yml#/folderAddAndUpdate"
       examples:
         $ref: "../examples/folders.yml#/folderAdd/request"
 
@@ -14,6 +14,6 @@ folderUpdate:
   content:
     application/json:
       schema:
-        $ref: "../schemas/folders.yml#/folderUpdate"
+        $ref: "../schemas/folders.yml#/folderAddAndUpdate"
       examples:
         $ref: "../examples/folders.yml#/folderUpdate/request"

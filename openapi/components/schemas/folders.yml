@@ -59,20 +59,7 @@ folderIndexAndView:
       format: "uuid"
       x-nullable: true
 
-folderAdd:
-  type: "object"
-  required:
-    - name
-  properties:
-    name:
-      type: "string"
-    folder_parent_id:
-      type: "string"
-      format: "uuid"
-      x-nullable: true
-
-
-folderUpdate:
+folderAddAndUpdate:
   type: "object"
   required:
     - metadata

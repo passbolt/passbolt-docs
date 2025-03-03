@@ -47,7 +47,7 @@ add:
           header:
             $ref: "../schemas.yml#/header"
           body:
-            $ref: "../schemas/folders.yml#/folderIndexAndView"
+            $ref: "../schemas/folders.yml#/folderAddAndUpdate"
       examples:
         $ref: "../examples/folders.yml#/folderView/response"
 

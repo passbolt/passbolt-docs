@@ -23,14 +23,17 @@ foldersIndex:
             modified_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
             folder_parent_id: null
             personal: true
-          - id: "b2a72cb2-508c-43ad-b96f-697f7ad21635"
-            name: "Dylan"
-            created: "2024-07-26T08:10:49+00:00"
-            modified: "2024-07-26T08:10:49+00:00"
-            created_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
-            modified_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
-            folder_parent_id: "162e4717-59a2-439b-86c6-fc651e989939"
+          - id: "9eb60ab8-afb9-4daa-bd38-35c7926da577"
+            metadata: "-----BEGIN PGP MESSAGE-----"
+            metadata_key_id: "cc8140b3-6ecb-40b5-a977-a5eece53806c"
+            metadata_key_type: "shared_key"
+            created: "2021-04-30T05:56:06+00:00"
+            modified: "2021-04-30T05:56:06+00:00"
+            created_by: "f848277c-5398-58f8-a82a-72397af2d450"
+            modified_by: "f848277c-5398-58f8-a82a-72397af2d450"
+            folder_parent_id: null
             personal: true
+
 
 folderAdd:
   request:

@@ -131,7 +131,7 @@ update:
   - lang: cURL
     source: |
       curl --request PUT \
-        --url https://docker.pro/metadata/keys/2e5d88cb-9b04-4010-806c-a449315ae4d5.json \
+        --url {{API_BASE_URL}}/metadata/keys/2e5d88cb-9b04-4010-806c-a449315ae4d5.json \
         --header 'authorization: Bearer {{JWT_TOKEN}}' \
         --header 'content-type: application/json' \
         --data '{

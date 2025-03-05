@@ -1,0 +1,14 @@
+get:
+  summary: "Get a list of available encrypted session keys in cache for the given user."
+  security:
+    - bearerHttpAuthentication: []
+  operationId: "viewMetadataSessionKeys"
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataSessionKey.yml#/index"
+  tags:
+    - "Metadata session key"
+  responses:
+    200:
+      $ref: "../components/responses/metadataSessionKey.yml#/index"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"

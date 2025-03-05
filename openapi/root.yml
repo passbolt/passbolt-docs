@@ -79,6 +79,8 @@ paths:
     $ref: "paths/metadataRotateKeyFolders.yml"
   /metadata/rotate-key/resources.json:
     $ref: "paths/metadataRotateKeyResources.yml"
+  /metadata/session-keys.json:
+    $ref: "paths/metadataSessionKeys.yml"
   /metadata/session-key/{sessionKeyId}.json:
     $ref: "paths/metadataSessionKeyKeys.yml"
   /metadata/rotate-key/tags.json:

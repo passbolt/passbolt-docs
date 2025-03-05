@@ -87,7 +87,7 @@ addResource:
       $curl = curl_init();
 
       curl_setopt_array($curl, [
-        CURLOPT_URL => "https://docker.pro/tags/b4651f60-392d-4af7-b204-0f8d26798b9b.json",
+        CURLOPT_URL => "{{API_BASE_URL}}/tags/b4651f60-392d-4af7-b204-0f8d26798b9b.json",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
         CURLOPT_MAXREDIRS => 10,

@@ -12,3 +12,22 @@ get:
       $ref: "../components/responses/metadataSessionKey.yml#/index"
     401:
       $ref: "../components/responses.yml#/authenticationRequired"
+
+post:
+  summary: "Add a session key."
+  security:
+    - bearerHttpAuthentication: []
+  operationId: "addMetadataSessionKey"
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataSessionKey.yml#/add"
+  tags:
+    - "Metadata session key"
+  requestBody:
+    $ref: "../components/requestBodies/metadataSessionKey.yml#/add"
+  responses:
+    200:
+      $ref: "../components/responses/metadataSessionKey.yml#/add"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"

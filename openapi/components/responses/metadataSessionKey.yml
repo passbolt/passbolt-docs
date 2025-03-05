@@ -28,6 +28,25 @@ index:
           header:
             $ref: "../schemas.yml#/header"
           body:
-            $ref: "../schemas/metadataSessionKey.yml#/index"
+            type: "array"
+            items:
+              $ref: "../schemas/metadataSessionKey.yml#/index"
       examples:
         $ref: "../examples/metadataSessionKey.yml#/metadataSessionKeyIndexAndView/response"
+
+add:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/metadataSessionKey.yml#/index"
+      examples:
+        $ref: "../examples/metadataSessionKey.yml#/metadataSessionKeyAdd/response"

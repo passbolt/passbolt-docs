@@ -10,7 +10,7 @@ info:
     url: "https://www.gnu.org/licenses/agpl-3.0.html"
   termsOfService: "https://www.passbolt.com/terms"
   title: "Passbolt API Documentation"
-  version: "4.9.0"
+  version: "5.0.0"
 
 servers:
   - url: "https://passbolt.local"

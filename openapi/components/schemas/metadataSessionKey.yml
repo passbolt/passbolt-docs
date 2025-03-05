@@ -10,28 +10,34 @@ update:
       type: "string"
       format: "date-time"
 
+add:
+  type: "object"
+  required:
+    - data
+  properties:
+    data:
+      type: "string"
+
 index:
-  type: "array"
-  items:
-    type: "object"
-    required:
-      - id
-      - user_id
-      - data
-      - created
-      - modified
-    properties:
-      id:
-        type: "string"
-        format: "uuid"
-      user_id:
-        type: "string"
-        format: "uuid"
-      data:
-        type: "string"
-      created:
-        type: "string"
-        format: "date-time"
-      modified:
-        type: "string"
-        format: "date-time"
+  type: "object"
+  required:
+    - id
+    - user_id
+    - data
+    - created
+    - modified
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    user_id:
+      type: "string"
+      format: "uuid"
+    data:
+      type: "string"
+    created:
+      type: "string"
+      format: "date-time"
+    modified:
+      type: "string"
+      format: "date-time"

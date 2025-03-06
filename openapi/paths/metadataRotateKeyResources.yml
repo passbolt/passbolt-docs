@@ -7,7 +7,7 @@ get:
   x-codeSamples:
     $ref: "../components/codeSamples/metadataRotateKey.yml#/indexRotateMetadataKey"
   tags:
-    - "Metadata Rotate Key"
+    - "Metadata rotate key"
   responses:
     200:
       $ref: "../components/responses/metadataRotateKey.yml#/indexAndAddMetadataRotateKey"
@@ -27,7 +27,7 @@ post:
   x-codeSamples:
     $ref: "../components/codeSamples/metadataRotateKey.yml#/addMetadataRotateKey"
   tags:
-    - "Metadata Rotate Key"
+    - "Metadata rotate key"
   responses:
     200:
       $ref: "../components/responses/metadataRotateKey.yml#/indexAndAddMetadataRotateKey"

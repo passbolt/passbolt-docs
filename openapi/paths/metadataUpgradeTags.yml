@@ -7,7 +7,7 @@ get:
   x-codeSamples:
     $ref: "../components/codeSamples/metadataUpgrade.yml#/viewUpgradableTags"
   tags:
-    - "Metadata Upgrade"
+    - "Metadata upgrade"
   parameters:
     - $ref: "../components/parameters.yml#/filterIsShared"
   responses:
@@ -30,7 +30,7 @@ post:
   x-codeSamples:
     $ref: "../components/codeSamples/metadataUpgrade.yml#/upgradeMetadataTags"
   tags:
-    - "Metadata Upgrade"
+    - "Metadata upgrade"
   parameters:
     - $ref: "../components/parameters.yml#/filterIsShared"
   responses:

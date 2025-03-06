@@ -14,6 +14,6 @@ metadataPrivateKeysUpdate:
   content:
     application/json:
       schema:
-        $ref: "../schemas/metadataPrivateKeys.yml#/metadataPrivateKeyShortUpdate"
+        $ref: "../schemas/e2eeObjects.yml#/e2eeDataCreated"
       examples:
         $ref: "../examples/metadataPrivateKeys.yml#/metadataPrivateKeyUpdate/request"

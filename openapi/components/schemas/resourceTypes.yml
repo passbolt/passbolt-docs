@@ -51,4 +51,5 @@ resourceTypeUpdate:
   type: "object"
   properties:
     deleted:
+      type: "boolean"
       x-nullable: true

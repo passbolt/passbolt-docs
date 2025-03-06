@@ -7,15 +7,13 @@ commentUpdate:
       type: "string"
 
 commentAdd:
-  type: "object"
-  required:
-    - content
-  properties:
-    content:
-      type: "string"
-    parent_id:
-      type: "string"
-      format: "uuid"
+  allOf:
+    - $ref: "#/commentUpdate"
+    - type: "object"
+      properties:
+        parent_id:
+          type: "string"
+          format: "uuid"
 
 commentView:
   type: "object"

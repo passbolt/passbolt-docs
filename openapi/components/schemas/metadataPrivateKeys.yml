@@ -1,102 +1,44 @@
 metadataPrivateKeysIndexAndView:
-  type: "object"
-  required:
-    - id
-    - metadata_key_id
-    - user_id
-    - data
-    - created
-    - modified
-    - created_by
-    - modified_by
-  properties:
-    id:
-      type: "string"
-      format: "uuid"
-    metadata_key_id:
-      type: "string"
-      format: "uuid"
-    user_id:
-      type: "string"
-      format: "uuid"
-      x-nullable: true
-    data:
-      type: "string"
-    created:
-      type: "string"
-      format: "date-time"
-    modified:
-      type: "string"
-      format: "date-time"
-    created_by:
-      type: "string"
-      format: "uuid"
-      x-nullable: true
-    modified_by:
-      type: "string"
-      format: "uuid"
-      x-nullable: true
-
-metadataPrivateKeyAdd:
-  type: "object"
-  required:
-    - user_id
-    - data
-  properties:
-    user_id:
-      type: "string"
-      format: "uuid"
-      x-nullable: true
-    data:
-      type: "string"
+  allOf:
+    - $ref: "#/metadataPrivateKeysShortIndex"
+    - type: "object"
+      required:
+        - id
+        - metadata_key_id
+        - created
+        - modified
+      properties:
+        id:
+          type: "string"
+          format: "uuid"
+        metadata_key_id:
+          type: "string"
+          format: "uuid"
+        created:
+          type: "string"
+          format: "date-time"
+        modified:
+          type: "string"
+          format: "date-time"
 
 metadataPrivateKeysShortIndex:
-  type: "object"
-  required:
-    - user_id
-    - data
-    - created_by
-    - modified_by
-  properties:
-    user_id:
-      type: "string"
-      format: "uuid"
-    data:
-      type: "string"
-    created_by:
-      type: "string"
-      format: "uuid"
-      x-nullable: true
-    modified_by:
-      type: "string"
-      format: "uuid"
-      x-nullable: true
-
-metadataPrivateKeysUpdate:
-  type: "object"
-  required:
-    - metadata_key_id
-    - user_id
-    - data
-  properties:
-    metadata_key_id:
-      type: "string"
-      format: "uuid"
-    user_id:
-      type: "string"
-      format: "uuid"
-    data:
-      type: "string"
-
-metadataPrivateKeyShortUpdate:
-  type: "object"
-  required:
-    - data
-  properties:
-    data:
-      type: "string"
+  allOf:
+    - $ref: "e2eeObjects.yml#/e2eeDataUserId"
+    - type: "object"
+      required:
+        - created_by
+        - modified_by
+      properties:
+        created_by:
+          type: "string"
+          format: "uuid"
+          x-nullable: true
+        modified_by:
+          type: "string"
+          format: "uuid"
+          x-nullable: true
 
 metadataPrivateKeysAdd:
   type: "array"
   items:
-    $ref: "#/metadataPrivateKeysUpdate"
+    $ref: "e2eeObjects.yml#/e2eeDataUserIdMetadataKeyId"

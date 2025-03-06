@@ -4,7 +4,9 @@ upgradeMetadataFolders:
   content:
     application/json:
       schema:
-        $ref: "../schemas/metadataUpgrade.yml#/metadataUpgrade"
+        type: "array"
+        items:
+          $ref: "../schemas/e2eeObjects.yml#/e2eeMetadataBasedIdModifiedModifiedBy"
       examples:
         $ref: "../examples/metadataUpgrade.yml#/metadataUpgradedFolders/request"
 
@@ -14,7 +16,9 @@ upgradeMetadataResources:
   content:
     application/json:
       schema:
-        $ref: "../schemas/metadataUpgrade.yml#/metadataUpgrade"
+        type: "array"
+        items:
+          $ref: "../schemas/e2eeObjects.yml#/e2eeMetadataBasedIdModifiedModifiedBy"
       examples:
         $ref: "../examples/metadataUpgrade.yml#/metadataUpgradedResources/request"
 

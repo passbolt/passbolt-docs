@@ -11,6 +11,6 @@ indexAndAddMetadataRotateKey:
           header:
             $ref: "../schemas.yml#/headerWithPagination"
           body:
-            $ref: "../schemas/metadataRotateKey.yml#/metadataRotateKeyIndexViewAndAdd"
+            $ref: "../schemas/e2eeObjects.yml#/e2eeMetadataBasedIdModifiedModifiedBy"
       examples:
         $ref: "../examples/metadataRotateKey.yml#/metadataRotateKeyIndexAndAdd/response"

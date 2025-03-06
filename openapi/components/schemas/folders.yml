@@ -1,75 +1,13 @@
 folderIndexAndView:
-  type: "object"
-  required:
-    - id
-    - metadata
-    - metadata_key_id
-    - metadata_key_type
-    - created
-    - modified
-    - created_by
-    - modified_by
-    - personal
-    - folder_parent_id
-  properties:
-    id:
-      type: "string"
-      format: "uuid"
-    metadata:
-      type: "string"
-    metadata_key_id:
-      type: "string"
-      format: "uuid"
-    metadata_key_type:
-      type: "string"
-    created:
-      type: "string"
-      format: "date-time"
-    modified:
-      type: "string"
-      format: "date-time"
-    created_by:
-      type: "string"
-      format: "uuid"
-    modified_by:
-      type: "string"
-      format: "uuid"
-    children_resources:
-      type: "array"
-      items:
-        $ref: "resources.yml#/resourceIndexAndView"
-    children_folders:
-      type: "array"
-      items:
-        $ref: "#/folderIndexAndView"
-    modifier:
-      $ref: "users.yml#/userIndexAndView"
-    creator:
-      $ref: "users.yml#/userIndexAndView"
-    permission:
-      $ref: "permissions.yml#/permissionIndexAndView"
-    permissions:
-      type: "array"
-      items:
-        $ref: "permissions.yml#/permissionIndexAndView"
-    personal:
-      type: "boolean"
-    folder_parent_id:
-      type: "string"
-      format: "uuid"
-      x-nullable: true
-
-folderAddAndUpdate:
-  type: "object"
-  required:
-    - metadata
-    - metadata_key_id
-    - metadata_key_type
-  properties:
-    metadata:
-      type: "string"
-    metadata_key_id:
-      type: "string"
-      format: "uuid"
-    metadata_key_type:
-      type: "string"
+  allOf:
+    - $ref: "e2eeObjects.yml#/e2eeMetadataBasedCommon"
+    - type: "object"
+      properties:
+        children_resources:
+          type: "array"
+          items:
+            $ref: "resources.yml#/resourceIndexAndView"
+        children_folders:
+          type: "array"
+          items:
+            $ref: "#/folderIndexAndView"

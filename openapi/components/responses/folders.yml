@@ -47,7 +47,7 @@ add:
           header:
             $ref: "../schemas.yml#/header"
           body:
-            $ref: "../schemas/folders.yml#/folderAddAndUpdate"
+            $ref: "../schemas/e2eeObjects.yml#/e2eeMetadataBased"
       examples:
         $ref: "../examples/folders.yml#/folderView/response"
 

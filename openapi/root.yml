@@ -2,14 +2,13 @@ openapi: "3.1.0"
 info:
   contact:
     email: "contact@passbolt.com"
-  summary: "Public documentation for Passbolt's API"
   description:
     $ref: "components/descriptions.yml#/main"
   license:
     name: "AGPL-3.0"
     url: "https://www.gnu.org/licenses/agpl-3.0.html"
   termsOfService: "https://www.passbolt.com/terms"
-  title: "Passbolt API Documentation"
+  title: "Passbolt API"
   version: "5.0.0"
 
 servers:

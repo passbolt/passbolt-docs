@@ -4,7 +4,7 @@ update:
   content:
     application/json:
       schema:
-        $ref: "../schemas/metadataSessionKey.yml#/update"
+        $ref: "../schemas/e2eeObjects.yml#/e2eeDataCreated"
       examples:
         $ref: "../examples/metadataSessionKey.yml#/metadataSessionKeyUpdate/request"
 
@@ -14,6 +14,6 @@ add:
   content:
     application/json:
       schema:
-        $ref: "../schemas/metadataSessionKey.yml#/add"
+        $ref: "../schemas/e2eeObjects.yml#/e2eeDataOnly"
       examples:
         $ref: "../examples/metadataSessionKey.yml#/metadataSessionKeyAdd/request"

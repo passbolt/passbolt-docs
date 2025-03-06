@@ -11,7 +11,9 @@ upgradeResources:
           header:
             $ref: "../schemas.yml#/headerWithPagination"
           body:
-            $ref: "../schemas/metadataUpgrade.yml#/metadataUpgradeResourcesIndexAndView"
+            type: "array"
+            items:
+              $ref: "../schemas/resources.yml#/resourceIndexAndView"
       examples:
         $ref: "../examples/metadataUpgrade.yml#/upgradeResources/response"
 
@@ -28,7 +30,9 @@ upgradableFolders:
           header:
             $ref: "../schemas.yml#/headerWithPagination"
           body:
-            $ref: "../schemas/metadataUpgrade.yml#/metadataUpgradeFoldersIndexAndView"
+            type: "array"
+            items:
+              $ref: "../schemas/folders.yml#/folderIndexAndView"
       examples:
         $ref: "../examples/metadataUpgrade.yml#/upgradableFolders/response"
 
@@ -45,7 +49,9 @@ upgradedFolders:
           header:
             $ref: "../schemas.yml#/headerWithPagination"
           body:
-            $ref: "../schemas/metadataUpgrade.yml#/metadataUpgrade"
+            type: "array"
+            items:
+              $ref: "../schemas/e2eeObjects.yml#/e2eeMetadataBasedIdModifiedModifiedBy"
       examples:
         $ref: "../examples/metadataUpgrade.yml#/upgradeMetadataFolders/response"
 
@@ -62,7 +68,9 @@ upgradedResources:
           header:
             $ref: "../schemas.yml#/headerWithPagination"
           body:
-            $ref: "../schemas/metadataUpgrade.yml#/metadataUpgrade"
+            type: "array"
+            items:
+              $ref: "../schemas/e2eeObjects.yml#/e2eeMetadataBasedIdModifiedModifiedBy"
       examples:
         $ref: "../examples/metadataUpgrade.yml#/upgradeMetadataResource/response"
 
@@ -98,6 +106,8 @@ upgradableTags:
           header:
             $ref: "../schemas.yml#/headerWithPagination"
           body:
-            $ref: "../schemas/metadataUpgrade.yml#/metadataUpgrade"
+            type: "array"
+            items:
+              $ref: "../schemas/e2eeObjects.yml#/e2eeMetadataBasedIdModifiedModifiedBy"
       examples:
         $ref: "../examples/metadataUpgrade.yml#/indexMetadataUpgradeTags/response"

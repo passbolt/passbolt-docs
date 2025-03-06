@@ -12,23 +12,7 @@ tagAddResource:
         id:
           type: "string"
           format: "uuid"
-    - type: "object"
-      required:
-        - metadata
-        - metadata_key_id
-        - metadata_key_type
-        - is_shared
-      properties:
-        metadata:
-          type: "string"
-        metadata_key_id:
-          type: "string"
-          format: "uuid"
-          x-nullable: true
-        metadata_key_type:
-          type: "string"
-        is_shared:
-          type: "boolean"
+    - $ref: "#/tagV5Update"
     - type: "string"
 
 tagLegacy:
@@ -51,43 +35,21 @@ tagLegacy:
       type: "boolean"
 
 tagV5:
-  type: "object"
-  required:
-    - id
-    - metadata
-    - metadata_key_id
-    - metadata_key_type
-    - is_shared
-  properties:
-    id:
-      type: "string"
-      format: "uuid"
-    metadata:
-      type: "string"
-    metadata_key_id:
-      type: "string"
-      format: "uuid"
-      x-nullable: true
-    metadata_key_type:
-      type: "string"
-    is_shared:
-      type: "boolean"
+  allOf:
+    - $ref: "e2eeObjects.yml#/e2eeMetadataBasedId"
+    - type: "object"
+      required:
+        - is_shared
+      properties:
+        is_shared:
+          type: "boolean"
 
 tagV5Update:
-  type: "object"
-  required:
-    - metadata
-    - metadata_key_id
-    - metadata_key_type
-    - is_shared
-  properties:
-    metadata:
-      type: "string"
-    metadata_key_id:
-      type: "string"
-      format: "uuid"
-      x-nullable: true
-    metadata_key_type:
-      type: "string"
-    is_shared:
-      type: "boolean"
+  allOf:
+    - $ref: "e2eeObjects.yml#/e2eeMetadataBased"
+    - type: "object"
+      required:
+        - is_shared
+      properties:
+        is_shared:
+          type: "boolean"

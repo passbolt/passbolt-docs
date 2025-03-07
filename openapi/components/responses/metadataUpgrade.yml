@@ -1,4 +1,4 @@
-upgradeResources:
+upgradeMetadataResources:
   description: "Operation is successful."
   content:
     application/json:
@@ -15,9 +15,9 @@ upgradeResources:
             items:
               $ref: "../schemas/resources.yml#/resourceIndexAndView"
       examples:
-        $ref: "../examples/metadataUpgrade.yml#/upgradeResources/response"
+        $ref: "../examples/metadataUpgrade.yml#/metadataUpgradeResources/response"
 
-upgradableFolders:
+upgradeMetadataFolders:
   description: "Operation is successful."
   content:
     application/json:
@@ -34,45 +34,7 @@ upgradableFolders:
             items:
               $ref: "../schemas/folders.yml#/folderIndexAndView"
       examples:
-        $ref: "../examples/metadataUpgrade.yml#/upgradableFolders/response"
-
-upgradedFolders:
-  description: "Operation is successful"
-  content:
-    application/json:
-      schema:
-        type: object
-        required:
-          - header
-          - body
-        properties:
-          header:
-            $ref: "../schemas.yml#/headerWithPagination"
-          body:
-            type: "array"
-            items:
-              $ref: "../schemas/e2eeObjects.yml#/e2eeMetadataBasedIdModifiedModifiedBy"
-      examples:
-        $ref: "../examples/metadataUpgrade.yml#/upgradeMetadataFolders/response"
-
-upgradedResources:
-  description: "Operation is successful"
-  content:
-    application/json:
-      schema:
-        type: object
-        required:
-          - header
-          - body
-        properties:
-          header:
-            $ref: "../schemas.yml#/headerWithPagination"
-          body:
-            type: "array"
-            items:
-              $ref: "../schemas/e2eeObjects.yml#/e2eeMetadataBasedIdModifiedModifiedBy"
-      examples:
-        $ref: "../examples/metadataUpgrade.yml#/upgradeMetadataResource/response"
+        $ref: "../examples/metadataUpgrade.yml#/metadataUpgradeFolders/response"
 
 upgradeMetadataTags:
   description: "Operation is successful."
@@ -91,23 +53,4 @@ upgradeMetadataTags:
             items:
               $ref: "../schemas/tags.yml#/tagLegacy"
       examples:
-        $ref: "../examples/metadataUpgrade.yml#/upgradeMetadataTags/response"
-
-upgradableTags:
-  description: "Operation is successful"
-  content:
-    application/json:
-      schema:
-        type: object
-        required:
-          - header
-          - body
-        properties:
-          header:
-            $ref: "../schemas.yml#/headerWithPagination"
-          body:
-            type: "array"
-            items:
-              $ref: "../schemas/e2eeObjects.yml#/e2eeMetadataBasedIdModifiedModifiedBy"
-      examples:
-        $ref: "../examples/metadataUpgrade.yml#/indexMetadataUpgradeTags/response"
+        $ref: "../examples/metadataUpgrade.yml#/metadataUpgradeTags/response"

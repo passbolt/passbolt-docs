@@ -12,7 +12,7 @@ get:
     - $ref: "../components/parameters.yml#/filterIsShared"
   responses:
     200:
-      $ref: "../components/responses/metadataUpgrade.yml#/upgradeResources"
+      $ref: "../components/responses/metadataUpgrade.yml#/upgradeMetadataResources"
     400:
       $ref: "../components/responses.yml#/badRequest"
     401:
@@ -36,7 +36,7 @@ post:
     - $ref: "../components/parameters.yml#/containPermissions"
   responses:
     200:
-      $ref: "../components/responses/metadataUpgrade.yml#/upgradedResources"
+      $ref: "../components/responses/metadataUpgrade.yml#/upgradeMetadataResources"
     400:
       $ref: "../components/responses.yml#/badRequest"
     401:

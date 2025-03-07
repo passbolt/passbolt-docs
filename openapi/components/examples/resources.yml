@@ -127,7 +127,7 @@ resourceAddAndUpdate:
   response:
     base:
       value:
-        personal: true,
+        personal: true
         id: "aff3b089-b860-49e1-9d98-3799f61d4776"
         metadata: "-----BEGIN PGP MESSAGE-----"
         metadata_key_id: "9d9a6672-35d6-4d0f-a807-b90edf25c275"

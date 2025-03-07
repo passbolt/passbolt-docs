@@ -13,7 +13,7 @@ get:
     - $ref: "../components/parameters.yml#/containPermission"
   responses:
     200:
-      $ref: "../components/responses/metadataUpgrade.yml#/upgradableFolders"
+      $ref: "../components/responses/metadataUpgrade.yml#/upgradeMetadataFolders"
     400:
       $ref: "../components/responses.yml#/badRequest"
     401:
@@ -35,7 +35,7 @@ post:
     - $ref: "../components/parameters.yml#/containPermissions"
   responses:
     200:
-      $ref: "../components/responses/metadataUpgrade.yml#/upgradedFolders"
+      $ref: "../components/responses/metadataUpgrade.yml#/upgradeMetadataFolders"
     400:
       $ref: "../components/responses.yml#/badRequest"
     401:

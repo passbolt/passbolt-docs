@@ -60,6 +60,8 @@ put:
       $ref: "../components/responses.yml#/badRequest"
     401:
       $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
     404:
       $ref: "../components/responses.yml#/notFound"
   requestBody:

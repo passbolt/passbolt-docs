@@ -29,6 +29,8 @@ post:
   responses:
     200:
       $ref: "../components/responses/metadataKeys.yml#/indexAndUpdateSettings"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
     401:
       $ref: "../components/responses.yml#/authenticationRequired"
     404:

@@ -35,6 +35,8 @@ post:
       $ref: "../components/responses.yml#/badRequest"
     401:
       $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses/mfaVerify.yml#/error"
     404:
       $ref: "../components/responses.yml#/notFound"
     409:

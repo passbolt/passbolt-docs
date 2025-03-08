@@ -14,6 +14,8 @@ get:
   responses:
     200:
       $ref: "../components/responses/metadataKeys.yml#/addAndIndex"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
     401:
       $ref: "../components/responses.yml#/authenticationRequired"
 

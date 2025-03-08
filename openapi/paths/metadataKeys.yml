@@ -1,5 +1,5 @@
 get:
-  summary: "Get metatadata keys."
+  summary: "Get metadata keys."
   operationId: "indexMetadataKeys"
   security:
     - bearerHttpAuthentication: []
@@ -20,7 +20,7 @@ get:
       $ref: "../components/responses.yml#/authenticationRequired"
 
 post:
-  summary: "Create a metatadata key."
+  summary: "Create a metadata key."
   operationId: "addMetadataKey"
   security:
     - bearerHttpAuthentication: []

@@ -1,5 +1,5 @@
 get:
-  summary: "Get metatadata keys settings."
+  summary: "Get metadata keys settings."
   operationId: "indexMetadataKeysSettings"
   security:
     - bearerHttpAuthentication: []
@@ -16,7 +16,7 @@ get:
       $ref: "../components/responses.yml#/notFound"
 
 post:
-  summary: "Update metatadata keys settings."
+  summary: "Update metadata keys settings."
   operationId: "updateMetadataKeysSettings"
   security:
     - bearerHttpAuthentication: []

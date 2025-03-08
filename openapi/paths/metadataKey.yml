@@ -24,7 +24,7 @@ put:
     $ref: "../components/requestBodies/metadataKeys.yml#/metadataKeyUpdate"
 
 delete:
-  summary: "Delete a metatadata key."
+  summary: "Delete a metadata key."
   operationId: "deleteMetadataKey"
   security:
     - bearerHttpAuthentication: []

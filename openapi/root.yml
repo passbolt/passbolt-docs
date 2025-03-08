@@ -68,7 +68,7 @@ paths:
     $ref: "paths/metadataKey.yml"
   /metadata/keys/privates.json:
     $ref: "paths/metadataKeysPrivates.yml"
-  /metadata/keys/privates/{metadataPrivateKeyId}.json:
+  /metadata/keys/private/{metadataPrivateKeyId}.json:
     $ref: "paths/metadataKeysPrivate.yml"
   /metadata/keys/settings.json:
     $ref: "paths/metadataKeysSettings.yml"

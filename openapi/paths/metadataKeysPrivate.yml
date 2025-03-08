@@ -1,5 +1,5 @@
 put:
-  summary: "Update a metatadata private key."
+  summary: "Update a metadata private key."
   operationId: "updateMetadataPrivateKey"
   security:
     - bearerHttpAuthentication: []

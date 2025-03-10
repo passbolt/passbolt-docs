@@ -69,3 +69,32 @@ rotateMetadataKeyUpgrade:
           metadata: "-----BEGIN PGP MESSAGE-----"
           modified: "2025-02-18T15:52:17+00:00"
           modified_by: "ae48ed02-54ea-4be4-9ae8-229bf8c04739"
+
+metadataRotateKeyIndexAndAddTags:
+  request:
+    base:
+      value:
+        - id: "97f5415f-2e09-4171-a99e-1908e876662a"
+          metadata_key_id: "9d9a6672-35d6-4d0f-a807-b90edf25c275"
+          metadata_key_type: "shared_key"
+          metadata: "-----BEGIN PGP MESSAGE-----"
+  response:
+    base:
+      value:
+        header:
+          id: "26c1344a-22ef-4c49-90a0-130a9c82a648"
+          status: "success"
+          servertime: 1740143504
+          action: "c5969bdd-018f-552b-b20d-01636766a81f"
+          message: "The operation was successful."
+          url: "/metadata/rotate-key/tags.json"
+          code: 200
+          pagination:
+            count: 0
+            page: 1
+            limit: 20
+        body:
+            - id: "ae60d89c-f13b-4fb1-b2dc-c8dc806cac88"
+              metadata: "-----BEGIN PGP MESSAGE-----"
+              metadata_key_id: "0194fec1-65fa-7b6f-935a-9541c1c13281"
+              metadata_key_type: "shared_key"

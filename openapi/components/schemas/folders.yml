@@ -1,4 +1,4 @@
-folderIndexAndView:
+folderV5IndexAndView:
   allOf:
     - $ref: "e2eeObjects.yml#/e2eeMetadataBasedCommon"
     - type: "object"
@@ -10,7 +10,9 @@ folderIndexAndView:
         children_folders:
           type: "array"
           items:
-            $ref: "#/folderIndexAndView"
+            anyOf:
+              - $ref: "#/folderV4IndexAndView"
+              - $ref: "#/folderV5IndexAndView"
 
 folderV4IndexAndView:
   type: "object"
@@ -21,7 +23,6 @@ folderV4IndexAndView:
     - modified
     - created_by
     - modified_by
-    - permissions
     - folder_parent_id
     - personal
   properties:
@@ -42,13 +43,29 @@ folderV4IndexAndView:
     modified_by:
       type: "string"
       format: "uuid"
-    permissions:
-      type: "array"
-      items:
-        $ref: "permissions.yml#/permissionIndexAndView"
     folder_parent_id:
       type: "string"
       format: "uuid"
       x-nullable: true
     personal:
       type: "boolean"
+    modifier:
+      $ref: "users.yml#/userIndexAndView"
+    creator:
+      $ref: "users.yml#/userIndexAndView"
+    permission:
+      $ref: "permissions.yml#/permissionIndexAndView"
+    permissions:
+      type: "array"
+      items:
+        $ref: "permissions.yml#/permissionIndexAndView"
+    children_resources:
+      type: "array"
+      items:
+        $ref: "resources.yml#/resourceIndexAndView"
+    children_folders:
+      type: "array"
+      items:
+        anyOf:
+          - $ref: "#/folderV4IndexAndView"
+          - $ref: "#/folderV5IndexAndView"

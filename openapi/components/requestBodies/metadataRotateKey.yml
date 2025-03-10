@@ -4,6 +4,8 @@ rotateMetadataKeyUpgrade:
   content:
     application/json:
       schema:
-        $ref: "../schemas/e2eeObjects.yml#/e2eeMetadataBasedIdModifiedModifiedBy"
+        type: "array"
+        items:
+          $ref: "../schemas/e2eeObjects.yml#/e2eeMetadataBasedIdModifiedModifiedBy"
       examples:
         $ref: "../examples/metadataRotateKey.yml#/rotateMetadataKeyUpgrade/request"

@@ -30,7 +30,7 @@ index:
           body:
             type: "array"
             items:
-              $ref: "../schemas/e2eeObjects.yml#/e2eeIdCreatedDataModifiedUserId"
+              $ref: "../schemas/metadataSessionKeys.yml#/metadataSessionKeyIndexAndView"
       examples:
         $ref: "../examples/metadataSessionKey.yml#/metadataSessionKeyIndexAndView/response"
 
@@ -47,6 +47,6 @@ add:
           header:
             $ref: "../schemas.yml#/header"
           body:
-            $ref: "../schemas/e2eeObjects.yml#/e2eeIdCreatedDataModifiedUserId"
+            $ref: "../schemas/metadataSessionKeys.yml#/metadataSessionKeyIndexAndView"
       examples:
         $ref: "../examples/metadataSessionKey.yml#/metadataSessionKeyAdd/response"

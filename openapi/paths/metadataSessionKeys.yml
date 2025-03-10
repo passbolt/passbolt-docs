@@ -1,5 +1,6 @@
 get:
-  summary: "Get a list of available encrypted session keys in cache for the given user."
+  summary: "Get session keys."
+  description: "Get a list of available encrypted session keys in cache for the given user."
   security:
     - bearerHttpAuthentication: []
   operationId: "viewMetadataSessionKeys"

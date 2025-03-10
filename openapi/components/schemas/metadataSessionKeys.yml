@@ -1,0 +1,7 @@
+metadataSessionKeyIndexAndView:
+  allOf:
+    - $ref: "e2eeObjects.yml#/e2eeIdCreatedDataModifiedUserId"
+    - type: "object"
+      properties:
+        user_id:
+          x-nullable: false

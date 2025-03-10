@@ -51,7 +51,7 @@ add:
           header:
             $ref: "../schemas.yml#/header"
           body:
-            $ref: "../schemas/e2eeObjects.yml#/e2eeMetadataBased"
+            $ref: "../schemas/folders.yml#/folderV5IndexAndView"
       examples:
         $ref: "../examples/folders.yml#/folderView/response"
 

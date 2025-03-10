@@ -6,6 +6,9 @@ resourceType:
     - name
     - description
     - definition
+    - deleted
+    - created
+    - modified
   properties:
     id:
       type: "string"

@@ -11,8 +11,6 @@ index:
           header:
             $ref: "../schemas.yml#/header"
           body:
-            type: "array"
-            items:
-              $ref: "../schemas/settings.yml#/index"
+            $ref: "../schemas/settings.yml#/index"
       examples:
         $ref: "../examples/settings.yml#/index/response"

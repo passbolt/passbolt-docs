@@ -32,7 +32,7 @@ upgradeMetadataFolders:
           body:
             type: "array"
             items:
-              $ref: "../schemas/folders.yml#/folderIndexAndView"
+              $ref: "../schemas/folders.yml#/folderV4IndexAndView"
       examples:
         $ref: "../examples/metadataUpgrade.yml#/metadataUpgradeFolders/response"
 

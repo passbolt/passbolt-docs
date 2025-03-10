@@ -11,3 +11,44 @@ folderIndexAndView:
           type: "array"
           items:
             $ref: "#/folderIndexAndView"
+
+folderV4IndexAndView:
+  type: "object"
+  required:
+    - id
+    - name
+    - created
+    - modified
+    - created_by
+    - modified_by
+    - permissions
+    - folder_parent_id
+    - personal
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    name:
+      type: "string"
+    created:
+      type: "string"
+      format: "date-time"
+    modified:
+      type: "string"
+      format: "date-time"
+    created_by:
+      type: "string"
+      format: "uuid"
+    modified_by:
+      type: "string"
+      format: "uuid"
+    permissions:
+      type: "array"
+      items:
+        $ref: "permissions.yml#/permissionIndexAndView"
+    folder_parent_id:
+      type: "string"
+      format: "uuid"
+      x-nullable: true
+    personal:
+      type: "boolean"

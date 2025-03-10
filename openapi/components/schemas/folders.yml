@@ -6,7 +6,9 @@ folderV5IndexAndView:
         children_resources:
           type: "array"
           items:
-            $ref: "resources.yml#/resourceIndexAndView"
+            anyOf:
+              - $ref: "resources.yml#/resourceV4IndexAndView"
+              - $ref: "resources.yml#/resourceV5IndexAndView"
         children_folders:
           type: "array"
           items:
@@ -62,7 +64,9 @@ folderV4IndexAndView:
     children_resources:
       type: "array"
       items:
-        $ref: "resources.yml#/resourceIndexAndView"
+        anyOf:
+          - $ref: "resources.yml#/resourceV4IndexAndView"
+          - $ref: "resources.yml#/resourceV5IndexAndView"
     children_folders:
       type: "array"
       items:

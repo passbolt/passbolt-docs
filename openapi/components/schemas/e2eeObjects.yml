@@ -17,7 +17,7 @@ e2eeDataUserId:
           format: "uuid"
           x-nullable: true
 
-e2eeDataCreated:
+e2eeDataModified:
   allOf:
     - $ref: "#/e2eeDataOnly"
     - type: "object"

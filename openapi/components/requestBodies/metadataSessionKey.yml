@@ -4,7 +4,7 @@ update:
   content:
     application/json:
       schema:
-        $ref: "../schemas/e2eeObjects.yml#/e2eeDataCreated"
+        $ref: "../schemas/e2eeObjects.yml#/e2eeDataModified"
       examples:
         $ref: "../examples/metadataSessionKey.yml#/metadataSessionKeyUpdate/request"
 

@@ -37,8 +37,14 @@ metadataPrivateKeysShortIndex:
           type: "string"
           format: "uuid"
           x-nullable: true
+        user_id:
+          x-nullable: false
 
 metadataPrivateKeysAdd:
   type: "array"
   items:
-    $ref: "e2eeObjects.yml#/e2eeDataUserIdMetadataKeyId"
+    allOf:
+      - $ref: "e2eeObjects.yml#/e2eeDataUserIdMetadataKeyId"
+      - properties:
+          user_id:
+            x-nullable: false

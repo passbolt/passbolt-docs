@@ -18,7 +18,7 @@ resourceV5IndexAndView:
         secrets:
           type: "array"
           items:
-            $ref: "secrets.yml#/secretIndex"
+            type: "string"
         resource_type:
           $ref: "resourceTypes.yml#/resourceType"
 
@@ -93,59 +93,31 @@ resourceV4IndexAndView:
       items:
         $ref: "permissions.yml#/permissionIndexAndView"
 
-
-resourceAdd:
-  type: "object"
-  required:
-    - resource_type_id
-  properties:
-    resource_type_id:
-      type: "string"
-      format: "uuid"
-    personal:
-      type: "boolean"
-    folder_parent_id:
-      type: "string"
-      format: "uuid"
-      x-nullable: true
-    metadata_key_type:
-      type: "string"
-    metadata_key_id:
-      type: "string"
-      format: "uuid"
-    metadata:
-      type: "string"
-    expired:
-      type: "string"
-      format: "date-time"
-      x-nullable: true
-    secrets:
-      type: "array"
-      items:
-        $ref: "secrets.yml#/secretAdd"
-
-resourceUpdate:
-  type: "object"
-  properties:
-    name:
-      type: "string"
-    username:
-      type: "string"
-    uri:
-      type: "string"
-    description:
-      type: "string"
-    resource_type_id:
-      type: "string"
-      format: "uuid"
-    expired:
-      type: "string"
-      format: "date-time"
-      x-nullable: true
-    secrets:
-      type: "array"
-      items:
-        $ref: "secrets.yml#/secretUpdate"
+resourceAddAndUpdate:
+  allOf:
+    - $ref: "e2eeObjects.yml#/e2eeMetadataBased"
+    - type: "object"
+      required:
+        - expired
+        - folder_parent_id
+        - resource_type_id
+        - secrets
+      properties:
+        expired:
+          type: "string"
+          format: "date-time"
+          x-nullable: true
+        folder_parent_id:
+          type: "string"
+          format: "uuid"
+          x-nullable: true
+        resource_type_id:
+          type: "string"
+          format: "uuid"
+        secrets:
+          type: "array"
+          items:
+            type: "string"
 
 resourceMetadataRotateKey:
   allOf:

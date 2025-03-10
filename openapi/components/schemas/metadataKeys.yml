@@ -54,7 +54,6 @@ metadataKeyUpdate:
     expired:
       type: "string"
       format: "date-time"
-      x-nullable: true
 
 metadataKeysSettingsIndex:
   type: "object"

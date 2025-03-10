@@ -50,6 +50,18 @@ resourceType:
       type: "string"
       format: "date-time"
 
+resourceTypeIndex:
+  allOf:
+    - $ref: "#/resourceType"
+    - type: "object"
+      required:
+        - default
+      properties:
+        default:
+          type: "boolean"
+        resources_count:
+          type: "integer"
+
 resourceTypeUpdate:
   type: "object"
   properties:

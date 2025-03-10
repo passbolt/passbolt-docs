@@ -30,7 +30,7 @@ index:
           body:
             type: "array"
             items:
-              $ref: "../schemas/resourceTypes.yml#/resourceType"
+              $ref: "../schemas/resourceTypes.yml#/resourceTypeIndex"
       examples:
         $ref: "../examples/resourceTypes.yml#/resourceTypesIndex/response"
 

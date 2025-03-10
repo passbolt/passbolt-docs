@@ -10,7 +10,7 @@ get:
     - "Metadata rotate key"
   responses:
     200:
-      $ref: "../components/responses/metadataRotateKey.yml#/indexAndAddMetadataRotateKey"
+      $ref: "../components/responses/metadataRotateKey.yml#/indexAndAddMetadataRotateKeyTags"
     400:
       $ref: "../components/responses.yml#/badRequest"
     401:
@@ -30,7 +30,7 @@ post:
     - "Metadata rotate key"
   responses:
     200:
-      $ref: "../components/responses/metadataRotateKey.yml#/indexAndAddMetadataRotateKey"
+      $ref: "../components/responses/metadataRotateKey.yml#/indexAndAddMetadataRotateKeyTags"
     400:
       $ref: "../components/responses.yml#/badRequest"
     401:
@@ -40,4 +40,4 @@ post:
     404:
       $ref: "../components/responses.yml#/notFound"
   requestBody:
-    $ref: "../components/requestBodies/metadataRotateKey.yml#/rotateMetadataKeyUpgrade"
+    $ref: "../components/requestBodies/metadataRotateKey.yml#/rotateMetadataKeyUpgradeTags"

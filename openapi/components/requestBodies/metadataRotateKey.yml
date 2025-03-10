@@ -9,3 +9,15 @@ rotateMetadataKeyUpgrade:
           $ref: "../schemas/e2eeObjects.yml#/e2eeMetadataBasedIdModifiedModifiedBy"
       examples:
         $ref: "../examples/metadataRotateKey.yml#/rotateMetadataKeyUpgrade/request"
+
+rotateMetadataKeyUpgradeTags:
+  description: The tags you want to rotate the metadata key
+  required: true
+  content:
+    application/json:
+      schema:
+        type: "array"
+        items:
+          $ref: "../schemas/tags.yml#/tagV5MetadataRotateKey"
+      examples:
+        $ref: "../examples/metadataRotateKey.yml#/metadataRotateKeyIndexAndAddTags/request"

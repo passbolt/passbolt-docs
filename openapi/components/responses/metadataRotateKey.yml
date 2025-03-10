@@ -35,3 +35,22 @@ indexAndAddMetadataRotateKeyResources:
               $ref: "../schemas/resources.yml#/resourceMetadataRotateKey"
       examples:
         $ref: "../examples/metadataRotateKey.yml#/metadataRotateKeyIndexAndAddResources/response"
+
+indexAndAddMetadataRotateKeyTags:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/headerWithPagination"
+          body:
+            type: "array"
+            items:
+              $ref: "../schemas/tags.yml#/tagV5MetadataRotateKey"
+      examples:
+        $ref: "../examples/metadataRotateKey.yml#/metadataRotateKeyIndexAndAddTags/response"

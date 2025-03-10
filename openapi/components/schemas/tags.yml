@@ -53,3 +53,14 @@ tagV5Update:
       properties:
         is_shared:
           type: "boolean"
+
+tagV5MetadataRotateKey:
+  allOf:
+    - $ref: "e2eeObjects.yml#/e2eeMetadataBased"
+    - type: "object"
+      required:
+        - id
+      properties:
+        id:
+          type: "string"
+          format: "uuid"

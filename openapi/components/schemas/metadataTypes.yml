@@ -18,12 +18,24 @@ metadataTypesSettingsIndexAndView:
   properties:
     default_resource_types:
       type: "string"
-    default_folder_types:
+      enum:
+        - "v4"
+        - "v5"
+    default_folder_type:
       type: "string"
-    default_tag_types:
+      enum:
+        - "v4"
+        - "v5"
+    default_tag_type:
       type: "string"
-    default_comment_types:
+      enum:
+        - "v4"
+        - "v5"
+    default_comment_type:
       type: "string"
+      enum:
+        - "v4"
+        - "v5"
     allow_creation_of_v5_resources:
       type: "boolean"
     allow_creation_of_v5_folders:

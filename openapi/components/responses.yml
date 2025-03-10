@@ -49,6 +49,23 @@ emptyBody:
       examples:
         $ref: "examples.yml#/emptyBody"
 
+emptyStringBody:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "schemas.yml#/header"
+          body:
+            type: "string"
+      examples:
+        $ref: "examples.yml#/emptyStringBody"
+
 emptyArrayBody:
   description: "Operation is successful."
   content:

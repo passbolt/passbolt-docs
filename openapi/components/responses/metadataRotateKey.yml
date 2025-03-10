@@ -13,6 +13,25 @@ indexAndAddMetadataRotateKey:
           body:
             type: "array"
             items:
-              $ref: "../schemas/e2eeObjects.yml#/e2eeMetadataBasedIdModifiedModifiedBy"
+              $ref: "../schemas/e2eeObjects.yml#/e2eeMetadataBasedCommon"
       examples:
         $ref: "../examples/metadataRotateKey.yml#/metadataRotateKeyIndexAndAdd/response"
+
+indexAndAddMetadataRotateKeyResources:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/headerWithPagination"
+          body:
+            type: "array"
+            items:
+              $ref: "../schemas/resources.yml#/resourceMetadataRotateKey"
+      examples:
+        $ref: "../examples/metadataRotateKey.yml#/metadataRotateKeyIndexAndAddResources/response"

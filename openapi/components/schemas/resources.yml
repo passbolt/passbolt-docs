@@ -74,3 +74,14 @@ resourceUpdate:
       type: "array"
       items:
         $ref: "secrets.yml#/secretUpdate"
+
+resourceMetadataRotateKey:
+  allOf:
+    - $ref: "e2eeObjects.yml#/e2eeMetadataBasedCommon"
+    - type: "object"
+      required:
+        - resource_type_id
+      properties:
+        resource_type_id:
+          type: "string"
+          format: "uuid"

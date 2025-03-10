@@ -49,5 +49,5 @@ post:
     401:
       $ref: "../components/responses.yml#/authenticationRequired"
   requestBody:
-    $ref: "../components/requestBodies/resources.yml#/resourceAdd"
+    $ref: "../components/requestBodies/resources.yml#/resourceAddAndUpdate"
 

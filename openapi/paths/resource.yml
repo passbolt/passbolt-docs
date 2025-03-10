@@ -53,7 +53,7 @@ put:
     404:
       $ref: "../components/responses.yml#/notFound"
   requestBody:
-    $ref: "../components/requestBodies/resources.yml#/resourceUpdate"
+    $ref: "../components/requestBodies/resources.yml#/resourceAddAndUpdate"
 
 delete:
   summary: "Delete a resource."

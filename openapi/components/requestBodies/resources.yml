@@ -1,19 +1,9 @@
-resourceAdd:
-  description: The resource you want to create
+resourceAddAndUpdate:
+  description: The resource you want to create or update
   required: true
   content:
     application/json:
       schema:
-        $ref: "../schemas/resources.yml#/resourceAdd"
+        $ref: "../schemas/resources.yml#/resourceAddAndUpdate"
       examples:
-        $ref: "../examples/resources.yml#/resourceAdd/request"
-
-resourceUpdate:
-  description: The resource you want to update
-  required: true
-  content:
-    application/json:
-      schema:
-        $ref: "../schemas/resources.yml#/resourceUpdate"
-      examples:
-        $ref: "../examples/resources.yml#/resourceUpdate/request"
+        $ref: "../examples/resources.yml#/resourceAddAndUpdate/request"

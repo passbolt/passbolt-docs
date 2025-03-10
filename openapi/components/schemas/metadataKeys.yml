@@ -8,6 +8,8 @@ metadataKeysIndexAndView:
         - created_by
         - modified_by
       properties:
+        user_id:
+          x-nullable: false
         deleted:
           type: "string"
           format: "date-time"

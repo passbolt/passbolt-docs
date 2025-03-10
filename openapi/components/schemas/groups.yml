@@ -115,7 +115,7 @@ groupDeleteDryRunError:
         sole_owner:
           type: "array"
           items:
-            $ref: "folders.yml#/folderIndexAndView"
+            $ref: "folders.yml#/folderV5IndexAndView"
 
 groupUpdateDryRun:
   type: "object"

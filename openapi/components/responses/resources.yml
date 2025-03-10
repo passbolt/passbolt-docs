@@ -11,7 +11,9 @@ view:
           header:
             $ref: "../schemas.yml#/header"
           body:
-            $ref: "../schemas/resources.yml#/resourceIndexAndView"
+            anyOf:
+              - $ref: "../schemas/resources.yml#/resourceV4IndexAndView"
+              - $ref: "../schemas/resources.yml#/resourceV5IndexAndView"
       examples:
         $ref: "../examples/resources.yml#/resourceView/response"
 
@@ -28,7 +30,9 @@ addAndUpdate:
           header:
             $ref: "../schemas.yml#/header"
           body:
-            $ref: "../schemas/resources.yml#/resourceIndexAndView"
+            anyOf:
+              - $ref: "../schemas/resources.yml#/resourceV4IndexAndView"
+              - $ref: "../schemas/resources.yml#/resourceV5IndexAndView"
       examples:
         $ref: "../examples/resources.yml#/resourceAddAndUpdate/response"
 
@@ -47,6 +51,8 @@ index:
           body:
             type: "array"
             items:
-              $ref: "../schemas/resources.yml#/resourceIndexAndView"
+              anyOf:
+                - $ref: "../schemas/resources.yml#/resourceV4IndexAndView"
+                - $ref: "../schemas/resources.yml#/resourceV5IndexAndView"
       examples:
         $ref: "../examples/resources.yml#/resourcesIndex/response"

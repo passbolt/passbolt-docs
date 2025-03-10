@@ -166,7 +166,9 @@ userDelete:
             sole_owner:
               type: "array"
               items:
-                $ref: "resources.yml#/resourceIndexAndView"
+                anyOf:
+                  - $ref: "resources.yml#/resourceV4IndexAndView"
+                  - $ref: "resources.yml#/resourceV5IndexAndView"
 
 userDeleteDryRun:
   type: "object"
@@ -194,7 +196,9 @@ userDeleteDryRun:
             sole_owner:
               type: "array"
               items:
-                $ref: "resources.yml#/resourceIndexAndView"
+                anyOf:
+                  - $ref: "resources.yml#/resourceV4IndexAndView"
+                  - $ref: "resources.yml#/resourceV5IndexAndView"
         groups_to_delete:
           type: "array"
           items:

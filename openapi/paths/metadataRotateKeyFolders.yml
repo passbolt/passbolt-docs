@@ -19,6 +19,7 @@ get:
       $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
     404:
       $ref: "../components/responses.yml#/notFound"
+
 post:
   summary: "Rotate expired metadata keys for folders"
   description: "Rotate the metadata of a given set of folders"

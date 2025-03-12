@@ -355,8 +355,8 @@ containResourceType:
       - 0
 
 containPermission:
-  name: "contain[permissions]"
-  description: "Add permissions to response body."
+  name: "contain[permission]"
+  description: "Add permission to response body."
   in: "query"
   required: false
   schema:

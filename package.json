@@ -20,37 +20,37 @@
     "lint:lockfile": "lockfile-lint --path package-lock.json --allowed-hosts npm --allowed-schemes \"https:\" --empty-hostname false"
   },
   "dependencies": {
-    "@docusaurus/core": "^3.6.2",
-    "@docusaurus/plugin-content-docs": "^3.6.2",
-    "@docusaurus/preset-classic": "^3.6.2",
+    "@docusaurus/core": "^3.7.0",
+    "@docusaurus/plugin-content-docs": "^3.7.0",
+    "@docusaurus/preset-classic": "^3.7.0",
     "@easyops-cn/docusaurus-search-local": "^0.40.1",
     "@mdx-js/react": "^3.1.0",
     "clsx": "^1.2.1",
     "lucide-react": "^0.343.0",
-    "prism-react-renderer": "^2.3.1",
+    "prism-react-renderer": "^2.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "redocusaurus": "^2.2.0"
+    "redocusaurus": "^2.2.1"
   },
   "devDependencies": {
-    "@docusaurus/eslint-plugin": "^3.6.2",
+    "@docusaurus/eslint-plugin": "^3.7.0",
     "@docusaurus/module-type-aliases": "^3.5.2",
-    "@docusaurus/tsconfig": "^3.6.2",
+    "@docusaurus/tsconfig": "^3.7.0",
     "@docusaurus/types": "^3.5.2",
-    "@eslint/js": "^9.15.0",
-    "@redocly/cli": "^1.25.11",
+    "@eslint/js": "^9.22.0",
+    "@redocly/cli": "^1.33.1",
     "@typescript-eslint/eslint-plugin": "^6.16.0",
     "@typescript-eslint/parser": "^6.16.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-mdx": "^3.1.1",
-    "eslint-plugin-prettier": "^5.1.2",
-    "eslint-plugin-react": "^7.37.2",
-    "globals": "^15.12.0",
+    "eslint-plugin-mdx": "^3.2.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-react": "^7.37.4",
+    "globals": "^15.15.0",
     "jsdom": "^24.0.0",
     "lockfile-lint": "^4.13.2",
-    "prettier": "^3.1.1",
-    "typescript": "^5.6.3"
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2"
   },
   "browserslist": {
     "production": [

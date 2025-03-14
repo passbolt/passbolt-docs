@@ -1,6 +1,9 @@
 get:
   summary: "Get tags with expired keys"
-  description: "See the tags that are using an expired key that needs to/can be rotated. Only administrators can query this endpoint."
+  description: |
+    > *This endpoint is available since version 5.1.*
+    
+    See the tags that are using an expired key that needs to/can be rotated. Only administrators can query this endpoint.
   security:
     - bearerHttpAuthentication: []
   operationId: "viewMetadataRotateKeyTags"
@@ -20,7 +23,10 @@ get:
 
 post:
   summary: "Rotate expired metadata keys for tags"
-  description: "Rotate the metadata key of a given set of tags"
+  description: |
+    > *This endpoint is available since version 5.1.*
+
+    Rotate the metadata key of a given set of tags.
   operationId: "rotateMetadataKeysTags"
   security:
     - bearerHttpAuthentication: []

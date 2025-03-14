@@ -1,6 +1,9 @@
 get:
   summary: "Get Upgradable Folders"
-  description: "Retrieves a list of folders that are eligible for an upgrade to v5 format. Results are paginated and the page size is fixed at 20."
+  description: |
+    > *Encrypted metadata for this item is not supported on all clients.*
+
+    Retrieves a list of folders that are eligible for an upgrade to v5 format. Results are paginated and the page size is fixed at 20.
   security:
     - bearerHttpAuthentication: []
   operationId: "viewMetadataUpgradeFolders"
@@ -23,7 +26,10 @@ get:
 
 post:
   summary: "Upgrade a folder"
-  description: "Upgrade folders that are eligible for an upgrade to v5 format."
+  description: |
+    > *Encrypted metadata for this item is not supported on all clients.*
+
+    Upgrade folders that are eligible for an upgrade to v5 format.
   operationId: "upgradeMetadataFolders"
   security:
     - bearerHttpAuthentication: []

@@ -1,6 +1,8 @@
 put:
   summary: "Update a tag."
   operationId: "updateTag"
+  description: |
+    > *Encrypted metadata for tags is available since version 5.1, and is not supported on all clients.*
   security:
     - bearerHttpAuthentication: []
   x-codeSamples:
@@ -22,6 +24,8 @@ put:
 post:
   summary: "Add tags to a resource."
   operationId: "addTagsResource"
+  description: |
+    > *Encrypted metadata for tags is available since version 5.1, and is not supported on all clients.*
   security:
     - bearerHttpAuthentication: []
   x-codeSamples:

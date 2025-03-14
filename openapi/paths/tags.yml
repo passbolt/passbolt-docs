@@ -1,5 +1,7 @@
 get:
   summary: "Get personal tags and shared tags."
+  description: |
+    > *Encrypted metadata for tags is available since version 5.1, and is not supported on all clients.*
   operationId: "indexTags"
   security:
     - bearerHttpAuthentication: []

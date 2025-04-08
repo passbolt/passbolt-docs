@@ -1,13 +1,40 @@
 import CodeBlock from "@site/src/components/CodeBlock/CodeBlock";
-import Figure from '@site/src/components/Figure/Figure';
 
-<Figure
-    src="/img/screenshots/AD_healthcheck.jpg"
-    alt="Example of healthcheck screen"
-    caption="fig. Example of healthcheck screen"
-/>
+### 6. Troubleshooting
 
-You can also run the following command:
+After the update, the server should automatically ran a dry run of the cleanup to let you know if there is any data integrity issues.
+
+#### No issues found
+If you see an output that looks like this:
+
+<CodeBlock>
+{`Open source password manager for teams
+-------------------------------------------------------------------------------
+Cleanup shell (dry-run)
+-------------------------------------------------------------------------------
+No issue found, data looks squeaky clean!`}
+</CodeBlock>
+
+It means that you don't have any database integrity issues, you can move forward and run the healthCheck!
+
+#### Issues found
+
+<CodeBlock>
+  {`Open source password manager for teams
+-------------------------------------------------------------------------------
+Cleanup shell (dry-run)
+-------------------------------------------------------------------------------
+N issues found in table Y (data integrity message)
+N issues detected, please re-run without --dry-run to fix.`}
+</CodeBlock>
+
+Some data integrity issues have been found, to resolve them, you need to re-run the cleanup without the dry run flags:
+
+<CodeBlock>
+  {`sudo -H -u ${props.webServerUser.toLowerCase()} bash -c "/usr/share/php/passbolt/bin/cake passbolt cleanup"`}
+</CodeBlock>
+
+You can also run the following command to ensure everything is working properly:
 
 <CodeBlock>
     {`sudo -H -u ${props.webServerUser.toLowerCase()} bash -c "/usr/share/php/passbolt/bin/cake passbolt healthcheck"`}

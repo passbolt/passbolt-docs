@@ -104,7 +104,9 @@ div.menu__list-item a.main-website-link:hover {
   margin: auto .5rem;
 }
 
-.navbar__items .navbar__link.navbar__link--active,
+.navbar__items .navbar__link.navbar__link--active {
+  color: var(--ifm-color-primary) !important;
+}
 .navbar__items .navbar__link:hover {
   color: var(--ifm-navbar-link-color);
   text-decoration: underline;

@@ -30,15 +30,15 @@
     "prism-react-renderer": "^2.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "redocusaurus": "^2.2.1"
+    "redocusaurus": "^2.2.2"
   },
   "devDependencies": {
     "@docusaurus/eslint-plugin": "^3.7.0",
     "@docusaurus/module-type-aliases": "^3.5.2",
     "@docusaurus/tsconfig": "^3.7.0",
     "@docusaurus/types": "^3.5.2",
-    "@eslint/js": "^9.22.0",
-    "@redocly/cli": "^1.33.1",
+    "@eslint/js": "^9.24.0",
+    "@redocly/cli": "^1.34.1",
     "@typescript-eslint/eslint-plugin": "^6.16.0",
     "@typescript-eslint/parser": "^6.16.0",
     "eslint": "^8.57.0",
@@ -50,7 +50,7 @@
     "jsdom": "^24.0.0",
     "lockfile-lint": "^4.13.2",
     "prettier": "^3.5.3",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3"
   },
   "browserslist": {
     "production": [

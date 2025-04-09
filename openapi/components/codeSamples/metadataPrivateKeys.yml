@@ -1,0 +1,135 @@
+add:
+  - lang: cURL
+    source: |
+      curl --request POST \
+        --url {{API_BASE_URL}}/metadata/keys/privates.json \
+        --header 'authorization: Bearer {{JWT_TOKEN}}' \
+        --header 'content-type: application/json' \
+        --data '[
+          {
+            "metadata_key_id": "d00efe12-0892-4111-b08a-fb42d9e0a5de",
+            "user_id": "eca7c94a-02ac-4e08-a7e1-035981c34868",
+            "data": "-----BEGIN PGP MESSAGE-----"
+          },
+          {
+            "metadata_key_id": "7d316bc3-0cca-4b5d-9d77-3eb9c408f9df",
+            "user_id": "4448fee0-2eef-4d47-b221-2101317f60d1",
+            "data": "-----BEGIN PGP MESSAGE-----"
+          }
+        ]'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/metadata/keys/privates.json';
+      const options = {
+        method: 'POST',
+        headers: {authorization: 'Bearer {{JWT_TOKEN}}', 'content-type': 'application/json'},
+        body: '[{"metadata_key_id":"d00efe12-0892-4111-b08a-fb42d9e0a5de","user_id":"eca7c94a-02ac-4e08-a7e1-035981c34868","data":"-----BEGIN PGP MESSAGE-----"},{"metadata_key_id":"7d316bc3-0cca-4b5d-9d77-3eb9c408f9df","user_id":"4448fee0-2eef-4d47-b221-2101317f60d1","data":"-----BEGIN PGP MESSAGE-----"}]'
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/metadata/keys/privates.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => json_encode([
+          [
+              'metadata_key_id' => 'd00efe12-0892-4111-b08a-fb42d9e0a5de',
+              'user_id' => 'eca7c94a-02ac-4e08-a7e1-035981c34868',
+              'data' => '-----BEGIN PGP MESSAGE-----'
+          ],
+          [
+              'metadata_key_id' => '7d316bc3-0cca-4b5d-9d77-3eb9c408f9df',
+              'user_id' => '4448fee0-2eef-4d47-b221-2101317f60d1',
+              'data' => '-----BEGIN PGP MESSAGE-----'
+          ]
+        ]),
+        CURLOPT_HTTPHEADER => [
+          "authorization: Bearer {{JWT_TOKEN}}",
+          "content-type: application/json"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+update:
+  - lang: cURL
+    source: |
+      curl --request PUT \
+        --url {{API_BASE_URL}}/metadata/keys/privates/2e5d88cb-9b04-4010-806c-a449315ae4d5.json \
+        --header 'authorization: Bearer {{JWT_TOKEN}}' \
+        --header 'content-type: application/json' \
+        --data '{
+          "data": "-----BEGIN PGP MESSAGE-----"
+        }'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/metadata/keys/privates/2e5d88cb-9b04-4010-806c-a449315ae4d5.json';
+      const options = {
+        method: 'PUT',
+        headers: {authorization: 'Bearer {{JWT_TOKEN}}', 'content-type': 'application/json'},
+        body: '{"data":"-----BEGIN PGP MESSAGE-----"}'
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/metadata/keys/privates/2e5d88cb-9b04-4010-806c-a449315ae4d5.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "PUT",
+        CURLOPT_POSTFIELDS => json_encode([
+          'data' => '-----BEGIN PGP MESSAGE-----'
+        ]),
+        CURLOPT_HTTPHEADER => [
+          "authorization: Bearer {{JWT_TOKEN}}",
+          "content-type: application/json"
+        ],
+      ]);
+      
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+      
+      curl_close($curl);
+      
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }

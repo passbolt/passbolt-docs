@@ -1,0 +1,18 @@
+get:
+  summary: "Get personal tags and shared tags."
+  description: |
+    > *Encrypted metadata for tags is available since version 5.1, and is not supported on all clients.*
+  operationId: "indexTags"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/tags.yml#/index"
+  tags:
+    - "Tags"
+  responses:
+    200:
+      $ref: "../components/responses/tags.yml#/index"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"

@@ -1,0 +1,40 @@
+get:
+  summary: "Get metadata types settings"
+  description: "Get information from the resource types settings, as selected by the administrators."
+  security:
+    - bearerHttpAuthentication: []
+  operationId: "viewMetadataTypesSettings"
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataTypes.yml#/index"
+  tags:
+    - "Metadata types settings"
+  responses:
+    200:
+      $ref: "../components/responses/metadataTypes.yml#/viewMetadataTypesSettings"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"
+
+
+post:
+  summary: "Upgrade a resource types settings"
+  description: "Administrators can define which resource type is the default"
+  operationId: "upgradeMetadataTypesSettings"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataTypes.yml#/upgradeMetadataTypesSettings"
+  tags:
+    - "Metadata types settings"
+  responses:
+    200:
+      $ref: "../components/responses/metadataTypes.yml#/upgradeMetadataTypesSettings"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components//responses.yml#/accessRestrictedToAdministrators"
+  requestBody:
+    $ref: "../components/requestBodies/metadataTypes.yml#/upgradeMetadataTypesSettings"

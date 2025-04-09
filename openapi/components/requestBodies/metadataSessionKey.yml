@@ -1,0 +1,19 @@
+update:
+  description: The metadata session key you want to update
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/e2eeObjects.yml#/e2eeDataModified"
+      examples:
+        $ref: "../examples/metadataSessionKey.yml#/metadataSessionKeyUpdate/request"
+
+add:
+  description: The metadata session key you want to add
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/e2eeObjects.yml#/e2eeDataOnly"
+      examples:
+        $ref: "../examples/metadataSessionKey.yml#/metadataSessionKeyAdd/request"

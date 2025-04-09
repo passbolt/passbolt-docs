@@ -43,10 +43,19 @@ You will see on the right side that we've introduced a color-coded legend.
 ### Environment
 These checks are related to the environment itself e.g. **PHP version, PHP module**, etc.
 
+#### Kernel
+The kernel version check ensures that your system is running a modern and stable Linux kernel. A recent and maintained kernel version helps provide security updates, bug fixes, and compatibility with required software dependencies.
+
+#### System architecture
+This checks whether your system is running on a 64-bit architecture. A 64-bit system provides better performance, allowing full compatibility with PHP and GPG requirements.
+
 #### PHP Version
-It helps to ensure you are not running an unsupported PHP version. It should be green if you are running PHP > 7.4 as it is the minimum version recommended to run Passbolt.
+It helps to ensure you are not running an unsupported PHP version. It should be green if you are running PHP > 8.2 as it is the minimum version recommended to run Passbolt.
 
 However, with the upcoming Passbolt v5, if you are still on PHP 7.4 we recommend [migrating to a new server](/hosting/migrate/server/) already to ensure a smooth future update.
+
+#### Gnupg Version
+The software relies on gnupg for cryptographic operations, such as key management and encryption. Ensuring that you are running an up-to-date version of GPG is essential for security and performance.
 
 #### PCRE
 
@@ -87,6 +96,10 @@ The Intl module is needed for the internationalisation. If you have any error wi
 #### Mbstring
 Mbstring is designed for safe and efficient handling of multibyte strings, allowing passbolt to work with textual data in various encodings. If you encounter some errors related to this module, you can take a look at [this documentation](https://secure.php.net/manual/en/book.mbstring.php)
 
+#### NTP
+The server requires accurate system time for cryptographic operations and security measures. If the system clock is not synchronized, it may lead to authentication errors, expiration issues, and other unexpected behavior.
+
+If the check fails, it means that NTP could be inactive, and your system clock may not be synchronized. You can take a look at our [dedicated documentation](/hosting/configure/ntp/) for that.
 ### Config Files
 :::tip[PRO TIP]
 If you are on Docker or Helm, you should not manually iterate on the configuration files. Restarting the container or the pod should resolve the file conflicts except if they have been mounted.

@@ -32,7 +32,10 @@ get:
 
 put:
   summary: "Update a folder."
-  description: "The current user must have the “update” or “owner” permission on the folder."
+  description: |
+    > *Encrypted metadata for this item is not supported on all clients.*
+
+    The current user must have the “update” or “owner” permission on the folder.
   operationId: "updateFolder"
   x-codeSamples:
     $ref: "../components/codeSamples/folders.yml#/update"

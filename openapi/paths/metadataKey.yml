@@ -1,0 +1,47 @@
+put:
+  summary: "Mark a metadata key as expired."
+  operationId: "updateMetadataKey"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataKeys.yml#/update"
+  parameters:
+    - $ref: "../components/parameters.yml#/metadataKeyId"
+  tags:
+    - "Metadata keys"
+  responses:
+    200:
+      $ref: "../components/responses.yml#/nullBody"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
+    404:
+      $ref: "../components/responses.yml#/notFound"
+  requestBody:
+    $ref: "../components/requestBodies/metadataKeys.yml#/metadataKeyUpdate"
+
+delete:
+  summary: "Delete a metadata key."
+  operationId: "deleteMetadataKey"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataKeys.yml#/delete"
+  tags:
+    - "Metadata keys"
+  parameters:
+    - $ref: "../components/parameters.yml#/metadataKeyId"
+  responses:
+    200:
+      $ref: "../components/responses.yml#/nullBody"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
+    404:
+      $ref: "../components/responses.yml#/notFound"

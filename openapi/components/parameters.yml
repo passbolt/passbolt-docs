@@ -82,6 +82,15 @@ resourceTypeId:
     type: "string"
     format: "uuid"
 
+sessionKeyId:
+  name: "sessionKeyId"
+  description: "ID for the session key being manipulated"
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
 moveForeignModel:
   name: "foreignModel"
   description: "Type for the foreign model being moved."
@@ -135,6 +144,33 @@ folderId:
 userId:
   name: "userId"
   description: "ID for the user being manipulated. Can be set to `me` when viewing a user."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
+metadataKeyId:
+  name: "metadataKeyId"
+  description: "The metadata key identifier being manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
+resourceOrTagId:
+  name: "resourceOrTagId"
+  description: "The tag (for `PUT`) or resource (for `POST`) identifier being manipulated."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
+metadataPrivateKeyId:
+  name: "metadataPrivateKeyId"
+  description: "ID for the metadata private key manipulated."
   in: "path"
   required: true
   schema:
@@ -288,6 +324,17 @@ containModifierProfile:
 containSecret:
   name: "contain[secret]"
   description: "Add secrets to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containResourcesCount:
+  name: "contain[resources_count]"
+  description: "Get the number of count of resources associated to this type of resource."
   in: "query"
   required: false
   schema:
@@ -450,6 +497,50 @@ containGroupsUsersUserGpgkey:
       - 1
       - 0
 
+containMetadataPrivateKeys:
+  name: "contain[metadata_private_keys]"
+  description: "Add metadata private keys in response."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containMissingMetadataKeyIds:
+  name: "contain[missing_metadata_key_ids]"
+  description: "Add missing metadata key IDs to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+filterDeleted:
+  name: "filter[deleted]"
+  description: "Filter for deleted elements."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+filterExpired:
+  name: "filter[expired]"
+  description: "Filter for expired elements."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
 filterSearch:
   name: "filter[search]"
   description: "Filter using a keyword or a string."
@@ -515,6 +606,15 @@ filterHasParent:
     type: "string"
     format: "uuid"
 
+filterMetadataKeyType:
+  name: "filter[metadata_key_type]"
+  description: "Only return elements that match the metadata key type"
+  in: "query"
+  required: false
+  schema:
+    type: "string"
+    format: "uuid"
+
 filterHasId:
   name: "filter[has-id]"
   description: "Only return elements filtered by their id."
@@ -549,7 +649,7 @@ filterIsSharedWithGroup:
     type: "string"
     format: "uuid"
     description: "Group UUID"
-  
+
 filterFrom:
   name: "filter[from]"
   description: "Only return elements from a specific date-time."
@@ -596,7 +696,10 @@ filterIsDeleted:
   in: "query"
   required: false
   schema:
-    type: "boolean"
+    type: "integer"
+    enum:
+      - 1
+      - 0
 
 filterIsFavorite:
   name: "filter[is-favorite]"
@@ -633,6 +736,14 @@ filterIsOwnedByMe:
 filterIsSharedWithMe:
   name: "filter[is-shared-with-me]"
   description: "Only return elements shared to yourself and you are not owner."
+  in: "query"
+  required: false
+  schema:
+    type: "boolean"
+
+filterIsShared:
+  name: "filter[is-shared]"
+  description: "Only return shared items."
   in: "query"
   required: false
   schema:

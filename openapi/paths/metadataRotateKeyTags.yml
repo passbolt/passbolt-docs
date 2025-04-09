@@ -1,0 +1,49 @@
+get:
+  summary: "Get tags with expired keys"
+  description: |
+    > *This endpoint is available since version 5.1.*
+    
+    See the tags that are using an expired key that needs to/can be rotated. Only administrators can query this endpoint.
+  security:
+    - bearerHttpAuthentication: []
+  operationId: "viewMetadataRotateKeyTags"
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataRotateKey.yml#/indexRotateMetadataKey"
+  tags:
+    - "Metadata rotate key"
+  responses:
+    200:
+      $ref: "../components/responses/metadataRotateKey.yml#/indexAndAddMetadataRotateKeyTags"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
+
+post:
+  summary: "Rotate expired metadata keys for tags"
+  description: |
+    > *This endpoint is available since version 5.1.*
+
+    Rotate the metadata key of a given set of tags.
+  operationId: "rotateMetadataKeysTags"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataRotateKey.yml#/addMetadataRotateKey"
+  tags:
+    - "Metadata rotate key"
+  responses:
+    200:
+      $ref: "../components/responses/metadataRotateKey.yml#/indexAndAddMetadataRotateKeyTags"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
+    404:
+      $ref: "../components/responses.yml#/notFound"
+  requestBody:
+    $ref: "../components/requestBodies/metadataRotateKey.yml#/rotateMetadataKeyUpgradeTags"

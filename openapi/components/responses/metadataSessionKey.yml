@@ -1,0 +1,52 @@
+update:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/e2eeObjects.yml#/e2eeDataModified"
+      examples:
+        $ref: "../examples/metadataSessionKey.yml#/metadataSessionKeyUpdate/response"
+
+index:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            type: "array"
+            items:
+              $ref: "../schemas/metadataSessionKeys.yml#/metadataSessionKeyIndexAndView"
+      examples:
+        $ref: "../examples/metadataSessionKey.yml#/metadataSessionKeyIndexAndView/response"
+
+add:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/metadataSessionKeys.yml#/metadataSessionKeyIndexAndView"
+      examples:
+        $ref: "../examples/metadataSessionKey.yml#/metadataSessionKeyAdd/response"

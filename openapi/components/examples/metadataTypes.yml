@@ -1,0 +1,46 @@
+metadataTypesSettings:
+  response:
+    base:
+      value:
+        header:
+          id: "0b2c4b00-561b-4d37-a27d-7499dc659b5f"
+          status: "success"
+          servertime: 1740387841
+          action: "11ffb449-cd7d-5dc0-8dae-501ef3c9e8a7"
+          message: "The operation was successful."
+          url: "/metadata/types/settings.json"
+          code: 200
+        body:
+          default_resource_types: "v5"
+          default_folder_type: "v4"
+          default_tag_type: "v4"
+          default_comment_type: "v4"
+          allow_creation_of_v5_resources: true
+          allow_creation_of_v5_folders: false
+          allow_creation_of_v5_tags: false
+          allow_creation_of_v5_comments: false
+          allow_creation_of_v4_resources: true
+          allow_creation_of_v4_folders: true
+          allow_creation_of_v4_tags: true
+          allow_creation_of_v4_comments: true
+          allow_v5_v4_downgrade: false
+          allow_v4_v5_upgrade: true
+
+upgradeMetadataTypesSettings:
+  request:
+    base:
+      value:
+        default_resource_types: "v5"
+        default_folder_type: "v4"
+        default_tag_type: "v4"
+        default_comment_type: "v4"
+        allow_creation_of_v5_resources: true
+        allow_creation_of_v5_folders: false
+        allow_creation_of_v5_tags: false
+        allow_creation_of_v5_comments: false
+        allow_creation_of_v4_resources: true
+        allow_creation_of_v4_folders: true
+        allow_creation_of_v4_tags: true
+        allow_creation_of_v4_comments: true
+        allow_v5_v4_downgrade: false
+        allow_v4_v5_upgrade: true

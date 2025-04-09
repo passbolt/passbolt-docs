@@ -1,0 +1,346 @@
+index:
+  - lang: cURL
+    source: |
+      curl --request GET \
+        --url {{API_BASE_URL}}/metadata/keys.json \
+        --header 'authorization: Bearer {{JWT_TOKEN}}'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/metadata/keys.json';
+      const options = {method: 'GET', headers: {authorization: 'Bearer {{JWT_TOKEN}}'}};
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/metadata/keys.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => [
+          "authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+add:
+  - lang: cURL
+    source: |
+      curl --request POST \
+        --url {{API_BASE_URL}}/metadata/keys.json \
+        --header 'authorization: Bearer {{JWT_TOKEN}}' \
+        --header 'content-type: application/json' \
+        --data '{
+          "fingerprint": "17B5913BC13128674F2A6F31C79A1AB152C3C573",
+          "armored_key": "-----BEGIN PGP PUBLIC KEY BLOCK-----",
+          "metadata_private_keys": [
+            {
+              "user_id": null,
+              "data": "-----BEGIN PGP MESSAGE-----"
+            },
+            {
+              "user_id": "5ea1c453-749b-43ca-8606-b85d63ab137f",
+              "data": "-----BEGIN PGP MESSAGE-----"
+            }
+          ]
+        }'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/metadata/keys.json';
+      const options = {
+        method: 'POST',
+        headers: {authorization: 'Bearer {{JWT_TOKEN}}', 'content-type': 'application/json'},
+        body: '{"fingerprint":"17B5913BC13128674F2A6F31C79A1AB152C3C573","armored_key":"-----BEGIN PGP PUBLIC KEY BLOCK-----","metadata_private_keys":[{"user_id":null,"data":"-----BEGIN PGP MESSAGE-----"},{"user_id":"5ea1c453-749b-43ca-8606-b85d63ab137f","data":"-----BEGIN PGP MESSAGE-----"}]}'
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/metadata/keys.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => json_encode([
+          'fingerprint' => '17B5913BC13128674F2A6F31C79A1AB152C3C573',
+          'armored_key' => '-----BEGIN PGP PUBLIC KEY BLOCK-----',
+          'metadata_private_keys' => [
+              [
+                      'user_id' => null,
+                      'data' => '-----BEGIN PGP MESSAGE-----'
+              ],
+              [
+                      'user_id' => '5ea1c453-749b-43ca-8606-b85d63ab137f',
+                      'data' => '-----BEGIN PGP MESSAGE-----'
+              ]
+          ]
+        ]),
+        CURLOPT_HTTPHEADER => [
+          "authorization: Bearer {{JWT_TOKEN}}",
+          "content-type: application/json"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+update:
+  - lang: cURL
+    source: |
+      curl --request PUT \
+        --url {{API_BASE_URL}}/metadata/keys/2e5d88cb-9b04-4010-806c-a449315ae4d5.json \
+        --header 'authorization: Bearer {{JWT_TOKEN}}' \
+        --header 'content-type: application/json' \
+        --data '{
+          "fingerprint": "17B5913BC13128674F2A6F31C79A1AB152C3C573",
+          "armored_key": "-----BEGIN PGP PUBLIC KEY BLOCK-----",
+          "expired": "2025-02-25T09:00:00+00:00"
+        }'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/metadata/keys/2e5d88cb-9b04-4010-806c-a449315ae4d5.json';
+      const options = {
+        method: 'PUT',
+        headers: {authorization: 'Bearer {{JWT_TOKEN}}', 'content-type': 'application/json'},
+        body: '{"fingerprint":"17B5913BC13128674F2A6F31C79A1AB152C3C573","armored_key":"-----BEGIN PGP PUBLIC KEY BLOCK-----","expired":"2025-02-25T09:00:00+00:00"}'
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/metadata/keys/2e5d88cb-9b04-4010-806c-a449315ae4d5.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "PUT",
+        CURLOPT_POSTFIELDS => json_encode([
+          'fingerprint' => '17B5913BC13128674F2A6F31C79A1AB152C3C573',
+          'armored_key' => '-----BEGIN PGP PUBLIC KEY BLOCK-----',
+          'expired' => '2025-02-25T09:00:00+00:00'
+        ]),
+        CURLOPT_HTTPHEADER => [
+          "authorization: Bearer {{JWT_TOKEN}}",
+          "content-type: application/json"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+indexSettings:
+  - lang: cURL
+    source: |
+      curl --request GET \
+        --url {{API_BASE_URL}}/metadata/keys/settings.json \
+        --header 'authorization: Bearer {{JWT_TOKEN}}'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/metadata/keys/settings.json';
+      const options = {method: 'GET', headers: {authorization: 'Bearer {{JWT_TOKEN}}'}};
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/metadata/keys/settings.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => [
+          "authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+delete:
+  - lang: cURL
+    source: |
+      curl --request DELETE \
+        --url {{API_BASE_URL}}/metadata/keys/6c598bc2-8354-4d47-8844-37bae9fed02f.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/metadata/keys/6c598bc2-8354-4d47-8844-37bae9fed02f.json';
+      const options = {method: 'DELETE', headers: {Authorization: 'Bearer {{JWT_TOKEN}}'}};
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/metadata/keys/6c598bc2-8354-4d47-8844-37bae9fed02f.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "DELETE",
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+updateSettings:
+  - lang: cURL
+    source: |
+      curl --request POST \
+        --url {{API_BASE_URL}}/metadata/keys/settings.json \
+        --header 'authorization: Bearer {{JWT_TOKEN}}' \
+        --header 'content-type: application/json' \
+        --data '{
+          "allow_usage_of_personal_keys": true,
+          "zero_knowledge_key_share": false
+        }'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/metadata/keys/settings.json';
+      const options = {
+        method: 'POST',
+        headers: {authorization: 'Bearer {{JWT_TOKEN}}', 'content-type': 'application/json'},
+        body: '{"allow_usage_of_personal_keys":true,"zero_knowledge_key_share":false}'
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/metadata/keys/settings.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => json_encode([
+          'allow_usage_of_personal_keys' => null,
+          'zero_knowledge_key_share' => null
+        ]),
+        CURLOPT_HTTPHEADER => [
+          "authorization: Bearer {{JWT_TOKEN}}",
+          "content-type: application/json"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }

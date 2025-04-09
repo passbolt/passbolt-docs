@@ -1,0 +1,45 @@
+put:
+  summary: "Update a tag."
+  operationId: "updateTag"
+  description: |
+    > *Encrypted metadata for tags is available since version 5.1, and is not supported on all clients.*
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/tags.yml#/update"
+  tags:
+    - "Tags"
+  parameters:
+    - $ref: "../components/parameters.yml#/resourceOrTagId"
+  requestBody:
+    $ref: "../components/requestBodies/tags.yml#/update"
+  responses:
+    200:
+      $ref: "../components/responses/tags.yml#/update"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+
+post:
+  summary: "Add tags to a resource."
+  operationId: "addTagsResource"
+  description: |
+    > *Encrypted metadata for tags is available since version 5.1, and is not supported on all clients.*
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/tags.yml#/addResource"
+  tags:
+    - "Tags"
+  parameters:
+    - $ref: "../components/parameters.yml#/resourceOrTagId"
+  responses:
+    200:
+      $ref: "../components/responses/tags.yml#/addResource"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+  requestBody:
+    $ref: "../components/requestBodies/tags.yml#/addResource"

@@ -1,0 +1,144 @@
+e2eeDataOnly:
+  required:
+    - data
+  properties:
+    data:
+      type: "string"
+
+e2eeDataUserId:
+  allOf:
+    - $ref: "#/e2eeDataOnly"
+    - type: "object"
+      required:
+        - user_id
+      properties:
+        user_id:
+          type: "string"
+          format: "uuid"
+          x-nullable: true
+
+e2eeDataModified:
+  allOf:
+    - $ref: "#/e2eeDataOnly"
+    - type: "object"
+      required:
+        - modified
+      properties:
+        modified:
+          type: "string"
+          format: "date-time"
+
+e2eeDataUserIdMetadataKeyId:
+  allOf:
+    - $ref: "#/e2eeDataUserId"
+    - type: "object"
+      required:
+        - metadata_key_id
+      properties:
+        metadata_key_id:
+          type: "string"
+          format: "uuid"
+
+e2eeIdCreatedDataModifiedUserId:
+  allOf:
+    - $ref: "#/e2eeDataUserId"
+    - type: "object"
+      required:
+        - id
+        - created
+        - modified
+      properties:
+        id:
+          type: "string"
+          format: "uuid"
+        created:
+          type: "string"
+          format: "date-time"
+        modified:
+          type: "string"
+          format: "date-time"
+
+e2eeMetadataBased:
+  type: "object"
+  required:
+    - metadata
+    - metadata_key_id
+    - metadata_key_type
+  properties:
+    metadata:
+      type: "string"
+    metadata_key_id:
+      type: "string"
+      format: "uuid"
+    metadata_key_type:
+      type: "string"
+      enum:
+        - user_key
+        - shared_key
+
+e2eeMetadataBasedId:
+  allOf:
+    - $ref: "#/e2eeMetadataBased"
+    - type: "object"
+      required:
+        - id
+      properties:
+        id:
+          type: "string"
+          format: "uuid"
+
+e2eeMetadataBasedIdModifiedModifiedBy:
+  allOf:
+    - $ref: "#/e2eeMetadataBasedId"
+    - type: "object"
+      required:
+        - modified
+        - modified_by
+      properties:
+        modified:
+          type: "string"
+          format: "date-time"
+        modified_by:
+          type: "string"
+          format: "uuid"
+
+e2eeMetadataBasedCommon:
+  allOf:
+    - $ref: "#/e2eeMetadataBasedId"
+    - type: "object"
+      required:
+        - created
+        - modified
+        - created_by
+        - modified_by
+        - personal
+        - folder_parent_id
+      properties:
+        created:
+          type: "string"
+          format: "date-time"
+        modified:
+          type: "string"
+          format: "date-time"
+        created_by:
+          type: "string"
+          format: "uuid"
+        modified_by:
+          type: "string"
+          format: "uuid"
+        personal:
+          type: "boolean"
+        folder_parent_id:
+          type: "string"
+          format: "uuid"
+          x-nullable: true
+        modifier:
+          $ref: "users.yml#/userIndexAndView"
+        creator:
+          $ref: "users.yml#/userIndexAndView"
+        permission:
+          $ref: "permissions.yml#/permissionIndexAndView"
+        permissions:
+          type: "array"
+          items:
+            $ref: "permissions.yml#/permissionIndexAndView"

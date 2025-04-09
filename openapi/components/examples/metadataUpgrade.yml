@@ -1,0 +1,102 @@
+metadataUpgradeResources:
+  request:
+    base:
+      value:
+        - id: "97f5415f-2e09-4171-a99e-1908e876662a"
+          metadata_key_id: "9d9a6672-35d6-4d0f-a807-b90edf25c275"
+          metadata_key_type: "shared_key"
+          metadata: "-----BEGIN PGP MESSAGE-----"
+          modified: "2025-02-18T15:52:17+00:00"
+          modified_by: "ae48ed02-54ea-4be4-9ae8-229bf8c04739"
+  response:
+    base:
+      value:
+        header:
+          id: "2b6024fb-2915-47e6-84e6-8988217b14e7"
+          status: "success"
+          servertime: 1740046035
+          action: "8d061841-cef0-509a-8ee3-de91c7390d99"
+          message: "The operation was successful."
+          url: "/metadata/upgrade/resources.json"
+          code: 200
+          pagination:
+            count: 2
+            page: 1
+            limit: 20
+        body:
+          - id: "97f5415f-2e09-4171-a99e-1908e876662a"
+            name: "password v4 format"
+            username: "anakin"
+            uri: "https://passbolt.com"
+            description: null
+            deleted: false
+            expired: null
+            created: "2025-02-19T10:34:07+00:00"
+            modified: "2025-02-19T10:34:07+00:00"
+            created_by: "ae48ed02-54ea-4be4-9ae8-229bf8c04739"
+            modified_by: "ae48ed02-54ea-4be4-9ae8-229bf8c04739"
+            resource_type_id: "a28a04cd-6f53-518a-967c-9963bf9cec51"
+
+metadataUpgradeFolders:
+  request:
+    base:
+      value:
+        - id: "0e840721-58ea-4649-b603-2d9cf4f2213c"
+          metadata_key_id: "9d9a6672-35d6-4d0f-a807-b90edf25c275"
+          metadata_key_type: "shared_key"
+          metadata: "-----BEGIN PGP MESSAGE-----"
+          modified: "2025-02-18T15:52:17+00:00"
+          modified_by: "ae48ed02-54ea-4be4-9ae8-229bf8c04739"
+  response:
+    base:
+      value:
+        header:
+          id: "2b6024fb-2915-47e6-84e6-8988217b14e7"
+          status: "success"
+          servertime: 1740046035
+          action: "8d061841-cef0-509a-8ee3-de91c7390d99"
+          message: "The operation was successful."
+          url: "/metadata/upgrade/folders.json"
+          code: 200
+          pagination:
+            count: 2
+            page: 1
+            limit: null
+        body:
+          - personal: true
+            id: "27605bac-8aa8-4fe4-a80b-486d8b76c748"
+            name: "folder v4 format"
+            created: "2025-02-19T13:50:53+00:00"
+            modified: "2025-02-19T14:36:51+00:00"
+            created_by: "ae48ed02-54ea-4be4-9ae8-229bf8c04739"
+            modified_by: "ae48ed02-54ea-4be4-9ae8-229bf8c04739"
+            folder_parent_id: null
+
+metadataUpgradeTags:
+  request:
+    base:
+      value:
+        - id: "97f5415f-2e09-4171-a99e-1908e876662a"
+          metadata_key_id: "9d9a6672-35d6-4d0f-a807-b90edf25c275"
+          metadata_key_type: "shared_key"
+          metadata: "-----BEGIN PGP MESSAGE-----"
+  response:
+    base:
+      value:
+        header:
+          id: "2b6024fb-2915-47e6-84e6-8988217b14e7"
+          status: "success"
+          servertime: 1740046035
+          action: "8d061841-cef0-509a-8ee3-de91c7390d99"
+          message: "The operation was successful."
+          url: "/metadata/upgrade/resources.json"
+          code: 200
+          pagination:
+            count: 1
+            page: 1
+            limit: 20
+        body:
+          - id: "97f5415f-2e09-4171-a99e-1908e876662b"
+            user_id: null
+            slug: "important tag in v4 format"
+            is_shared: true

@@ -1,0 +1,59 @@
+metadataTypesSettingsIndexAndView:
+  type: "object"
+  required:
+    - default_resource_types
+    - default_folder_type
+    - default_tag_type
+    - default_comment_type
+    - allow_creation_of_v5_resources
+    - allow_creation_of_v5_folders
+    - allow_creation_of_v5_tags
+    - allow_creation_of_v5_comments
+    - allow_creation_of_v4_resources
+    - allow_creation_of_v4_folders
+    - allow_creation_of_v4_tags
+    - allow_creation_of_v4_comments
+    - allow_v5_v4_downgrade
+    - allow_v4_v5_upgrade
+  properties:
+    default_resource_types:
+      type: "string"
+      enum:
+        - "v4"
+        - "v5"
+    default_folder_type:
+      type: "string"
+      enum:
+        - "v4"
+        - "v5"
+    default_tag_type:
+      type: "string"
+      enum:
+        - "v4"
+        - "v5"
+    default_comment_type:
+      type: "string"
+      enum:
+        - "v4"
+        - "v5"
+    allow_creation_of_v5_resources:
+      type: "boolean"
+    allow_creation_of_v5_folders:
+      type: "boolean"
+    allow_creation_of_v5_tags:
+      type: "boolean"
+    allow_creation_of_v5_comments:
+      type: "boolean"
+    allow_creation_of_v4_resources:
+      type: "boolean"
+    allow_creation_of_v4_folders:
+      type: "boolean"
+    allow_creation_of_v4_tags:
+      type: "boolean"
+    allow_creation_of_v4_comments:
+      type: "boolean"
+    allow_v5_v4_downgrade:
+      type: "boolean"
+    allow_v4_v5_upgrade:
+      type: "boolean"
+

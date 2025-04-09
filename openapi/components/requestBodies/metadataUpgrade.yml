@@ -1,0 +1,35 @@
+upgradeMetadataFolders:
+  description: The folders you want to upgrade the metadata for to v5 format
+  required: true
+  content:
+    application/json:
+      schema:
+        type: "array"
+        items:
+          $ref: "../schemas/e2eeObjects.yml#/e2eeMetadataBasedIdModifiedModifiedBy"
+      examples:
+        $ref: "../examples/metadataUpgrade.yml#/metadataUpgradeFolders/request"
+
+upgradeMetadataResources:
+  description: The resources you want to upgrade the metadata for to v5 format
+  required: true
+  content:
+    application/json:
+      schema:
+        type: "array"
+        items:
+          $ref: "../schemas/e2eeObjects.yml#/e2eeMetadataBasedIdModifiedModifiedBy"
+      examples:
+        $ref: "../examples/metadataUpgrade.yml#/metadataUpgradeResources/request"
+
+upgradeMetadataTags:
+  description: The tags you want to upgrade the metadata for to v5 format
+  required: true
+  content:
+    application/json:
+      schema:
+        type: "array"
+        items:
+          $ref: "../schemas/tags.yml#/tagV5"
+      examples:
+        $ref: "../examples/metadataUpgrade.yml#/metadataUpgradeTags/request"

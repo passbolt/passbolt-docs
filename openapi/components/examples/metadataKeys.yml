@@ -1,0 +1,73 @@
+metadataKeysIndex:
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1739979997
+          action: "e38db0b5-838d-5f43-8609-92a25843e9d3"
+          message: "OK"
+          url: "/metadata/keys.json?contain%5Bmetadata_private_keys%5D=1"
+          code: 200
+        body:
+          - id: "2e5d88cb-9b04-4010-806c-a449315ae4d5"
+            fingerprint: "17B5913BC13128674F2A6F31C79A1AB152C3C573"
+            armored_key: "-----BEGIN PGP PUBLIC KEY BLOCK-----\n\n"
+            created: "2025-02-03T09:10:47+00:00"
+            modified: "2025-02-03T09:10:47+00:00"
+            created_by: "5ea1c453-749b-43ca-8606-b85d63ab137f"
+            modified_by: "5ea1c453-749b-43ca-8606-b85d63ab137f"
+            expired: null
+            deleted: null
+            metadata_private_keys:
+              - metadata_key_id: "2e5d88cb-9b04-4010-806c-a449315ae4d5"
+                user_id: "5ea1c453-749b-43ca-8606-b85d63ab137f"
+                data: "-----BEGIN PGP MESSAGE-----\n\n"
+                created: "2025-02-03T09:10:47+00:00"
+                modified: "2025-02-03T09:10:47+00:00"
+                created_by: "5ea1c453-749b-43ca-8606-b85d63ab137f"
+                modified_by: "5ea1c453-749b-43ca-8606-b85d63ab137f"
+
+metadataKeyAdd:
+  request:
+    base:
+      value:
+          fingerprint: "17B5913BC13128674F2A6F31C79A1AB152C3C573"
+          armored_key: "-----BEGIN PGP PUBLIC KEY BLOCK-----"
+          metadata_private_keys:
+            - user_id: null
+              data: "-----BEGIN PGP MESSAGE-----"
+            - user_id: "5ea1c453-749b-43ca-8606-b85d63ab137f"
+              data: "-----BEGIN PGP MESSAGE-----"
+
+metadataKeyUpdate:
+  request:
+    base:
+      value:
+        fingerprint: "17B5913BC13128674F2A6F31C79A1AB152C3C573"
+        armored_key: "-----BEGIN PGP PUBLIC KEY BLOCK-----"
+        expired: "2025-02-25T09:00:00+00:00"
+
+metadataKeysSettingsIndex:
+  response:
+    base:
+      value:
+        header:
+          id: "1911b18b-cf68-48cf-b69f-ec9dba39aff4"
+          status: "success"
+          servertime: 1740413047
+          action: "b20e3cc2-e4ea-5b42-804b-7edc9878ef3d"
+          message: "The operation was successful."
+          url: "/metadata/keys/settings.json"
+          code: 200
+        body:
+          allow_usage_of_personal_keys: true
+          zero_knowledge_key_share: false
+
+metadataKeysSettingsUpdate:
+  request:
+    base:
+      value:
+        allow_usage_of_personal_keys: true
+        zero_knowledge_key_share: false

@@ -1,0 +1,45 @@
+get:
+  summary: "Get resources with expired keys"
+  description: "See the resources that are using an expired key that needs to/can be rotated. Only administrators can query this endpoint."
+  security:
+    - bearerHttpAuthentication: []
+  operationId: "viewMetadataRotateKeyResources"
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataRotateKey.yml#/indexRotateMetadataKey"
+  tags:
+    - "Metadata rotate key"
+  responses:
+    200:
+      $ref: "../components/responses/metadataRotateKey.yml#/indexAndAddMetadataRotateKeyResources"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
+
+post:
+  summary: "Rotate expired metadata keys for resources"
+  description: "Rotate the metadata of a given set of resources"
+  operationId: "rotateMetadataExpiredKeys"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataRotateKey.yml#/addMetadataRotateKey"
+  tags:
+    - "Metadata rotate key"
+  responses:
+    200:
+      $ref: "../components/responses/metadataRotateKey.yml#/indexAndAddMetadataRotateKeyResources"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses/mfaVerify.yml#/error"
+    404:
+      $ref: "../components/responses.yml#/notFound"
+    409:
+      $ref: "../components/responses.yml#/tooManyUpdatedEntities"
+  requestBody:
+    $ref: "../components/requestBodies/metadataRotateKey.yml#/rotateMetadataKeyUpgrade"

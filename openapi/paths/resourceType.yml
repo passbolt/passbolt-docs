@@ -18,3 +18,51 @@ get:
       $ref: "../components/responses.yml#/authenticationRequired"
     404:
       $ref: "../components/responses.yml#/notFound"
+
+delete:
+  summary: "Delete a resource type."
+  operationId: "deleteResourceType"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/resourceTypes.yml#/delete"
+  tags:
+    - "Resource types"
+  parameters:
+    - $ref: "../components/parameters.yml#/resourceTypeId"
+  responses:
+    200:
+      $ref: "../components/responses.yml#/nullBody"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
+    404:
+      $ref: "../components/responses.yml#/notFound"
+
+put:
+  summary: "Update resource type."
+  operationId: "updateResourceType"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/resourceTypes.yml#/put"
+  tags:
+    - "Resource types"
+  parameters:
+    - $ref: "../components/parameters.yml#/resourceTypeId"
+  responses:
+    200:
+      $ref: "../components/responses.yml#/emptyStringBody"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
+    404:
+      $ref: "../components/responses.yml#/notFound"
+  requestBody:
+    $ref: "../components/requestBodies/resourceTypes.yml#/resourceUpdate"

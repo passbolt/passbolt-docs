@@ -48,9 +48,9 @@ shareUpdateError:
           status: "success"
           servertime: 1721207029
           action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
-          message: "Could not validate resource data."
+          message: "Resource metadata key type is invalid."
           url: "/share/resource/42968631-0c51-4405-9f2d-c6700c5057be.json"
-          code: 200
+          code: 400
         body:
           permissions:
             aco_foreign_key:

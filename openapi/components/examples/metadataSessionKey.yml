@@ -1,0 +1,62 @@
+metadataSessionKeyUpdate:
+  request:
+    base:
+      value:
+        data: "----BEGIN PGP MESSAGE-----"
+        modified: "2025-02-18T15:52:17+00:00"
+  response:
+    base:
+      value:
+        header:
+          id: "26c1344a-22ef-4c49-90a0-130a9c82a648"
+          status: "success"
+          servertime: 1740143504
+          action: "c5969bdd-018f-552b-b20d-01636766a81f"
+          message: "The operation was successful."
+          url: "/metadata/session-keys/16c1344a-33ae-4c49-90a0-130a9c82a091"
+          code: 200
+        body:
+          data: "----BEGIN PGP MESSAGE-----"
+          modified: "2025-02-18T15:52:17+00:00"
+
+metadataSessionKeyIndexAndView:
+  response:
+    base:
+      value:
+        header:
+          id: "26c1344a-22ef-4c49-90a0-130a9c82a648"
+          status: "success"
+          servertime: 1740143504
+          action: "c5969bdd-018f-552b-b20d-01636766a81f"
+          message: "The operation was successful."
+          url: "/metadata/session-keys.json"
+          code: 200
+        body:
+          - id: "922216c5-fa6c-4487-9e4c-b2a9215f7f17"
+            user_id: "bf5dc039-314d-4ac1-938f-c1ad8331e28a"
+            data: "-----BEGIN PGP MESSAGE-----"
+            created: "2025-01-18T15:52:17+00:00"
+            modified: "2025-02-18T15:52:17+00:00"
+
+metadataSessionKeyAdd:
+  request:
+    base:
+      value:
+        data: "-----BEGIN PGP MESSAGE-----"
+  response:
+    base:
+      value:
+        header:
+          id: "26c1344a-22ef-4c49-90a0-130a9c82a648"
+          status: "success"
+          servertime: 1740143504
+          action: "c36e894d-ed63-5434-aa70-4b777f9fdf32"
+          message: "The operation was successful."
+          url: "/metadata/session-keys.json"
+          code: 200
+        body:
+          id: "5ea1c453-749b-43ca-8606-b85d63ab137f"
+          user_id: "bf5dc039-314d-4ac1-938f-c1ad8331e28a"
+          data: "-----BEGIN PGP MESSAGE-----"
+          created: "2025-03-05T14:22:33+00:00"
+          modified: "2025-03-05T14:22:33+00:00"

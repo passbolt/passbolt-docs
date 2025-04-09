@@ -1,0 +1,52 @@
+index:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/tags.yml#/tagIndexAndView"
+      examples:
+        $ref: "../examples/tags.yml#/index/response"
+
+update:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/tags.yml#/tagV5"
+      examples:
+        $ref: "../examples/tags.yml#/update/response"
+
+addResource:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            type: "array"
+            items:
+              $ref: "../schemas/tags.yml#/tagIndexAndView"
+      examples:
+        $ref: "../examples/tags.yml#/tagAddResource/response"

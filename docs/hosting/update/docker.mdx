@@ -17,6 +17,10 @@ import Chips from "/src/components/Chips/Chips";
 <DockerWarning />
 <SystemRequirements />
 
+:::tip[Pro tip]
+If you are trying to update the mariadb version in the docker compose file, you might face some errors. To complete the mariadb upgrade, you need to run **mariadb-upgrade -u root -p** in the database container.
+:::
+
 It is recommended that users pull the tags pointing to specific passbolt versions when running in environments other than testing.
 
 To update passbolt, you would just need to change the image tag in your docker-compose.yml file:

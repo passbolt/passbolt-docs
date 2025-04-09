@@ -30,9 +30,7 @@ view:
           header:
             $ref: "../schemas.yml#/header"
           body:
-            type: "array"
-            items:
-              $ref: "../schemas/users.yml#/userIndexAndView"
+            $ref: "../schemas/users.yml#/userIndexAndView"
       examples:
         $ref: "../examples/users.yml#/userView/response"
 
@@ -73,6 +71,24 @@ add:
               $ref: "../schemas/users.yml#/userIndexAndView"
       examples:
         $ref: "../examples/users.yml#/userAdd/response"
+
+delete:
+  description: "The deletion failed."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/users.yml#/userDelete"
+            description: "Could also be a `string` if the issue is not related to resources or groups."
+      examples:
+        $ref: "../examples/users.yml#/userDelete/response"
 
 deleteDryRun:
   description: "The dry-run failed."

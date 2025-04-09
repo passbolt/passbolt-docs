@@ -1,0 +1,157 @@
+---
+title: Configure Postgres
+description: How to install Passbolt with Postgres
+sidebar_label: Postgres
+hide_table_of_contents: true
+---
+
+import CodeBlock from '@theme/CodeBlock';
+import Chips from "/src/components/Chips/Chips";
+import Figure from '/src/components/Figure/Figure';
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+:::danger[WARNING]
+Do not configure Postgres on an existing installation, as it's likely going to cause system instability or break functionality.
+:::
+
+## Debian, Ubuntu
+:::tip
+Since you are following this PostgreSQL guide, when prompted by the installation wizard about database configuration, select **"No"** as we plan to use an external database. However, during this process, refer to the [installation guide](/hosting/install) for Nginx configuration and note the URL to reach after Postgres configuration.
+:::
+
+To set up PostgreSQL, install the required packages and configure the database:
+
+1. **Install PostgreSQL:**
+<CodeBlock>
+{`sudo apt update
+sudo apt install -y postgresql postgresql-contrib`}
+</CodeBlock>
+
+2. **Start and enable PostgreSQL service:**
+<CodeBlock>
+{`sudo systemctl enable --now postgresql`}
+</CodeBlock>
+
+3. **Create a PostgreSQL user and database for Passbolt:**
+<CodeBlock>
+{`sudo -u postgres psql`}
+</CodeBlock>
+
+Then, inside the PostgreSQL prompt, run:
+<CodeBlock>
+{`CREATE DATABASE passbolt;
+CREATE USER passbolt WITH ENCRYPTED PASSWORD 'P4ssb0lt';
+GRANT ALL PRIVILEGES ON DATABASE passbolt TO passbolt;`}
+</CodeBlock>
+
+4. **Save and restart PostgreSQL:**
+<CodeBlock>
+{`sudo systemctl restart postgresql`}
+</CodeBlock>
+
+5. **Continue the installation of passbolt:**
+
+You will need to navigate on your browser to the URL of your passbolt instance, from there, you will be able to configure the database section with Postgres instead of MySQL.
+
+<Figure
+  src="/img/screenshots/configure_pgsql.png"
+  alt="Configure Postgres on the webInstaller"
+  caption="fig. Configuring Postgres on the webInstaller"
+  size={{width: 640}}
+/>
+
+## RPM
+:::tip
+Since you are following this PostgreSQL guide, when prompted by the installation wizard about database configuration, select **"No"** as we plan to use an external database. However, during this process, refer to the [installation guide](/hosting/install) for Nginx configuration.
+:::
+
+1. **Install PostgreSQL:**
+<CodeBlock>
+{`sudo dnf install -y postgresql-server postgresql-contrib`}
+</CodeBlock>
+
+2. **Initialize the database:**
+<CodeBlock>
+{`sudo postgresql-setup --initdb`}
+</CodeBlock>
+
+3. **Start and enable PostgreSQL service:**
+<CodeBlock>
+{`sudo systemctl enable --now postgresql`}
+</CodeBlock>
+
+4. **Create a PostgreSQL user and database for Passbolt:**
+<CodeBlock>
+{`sudo -u postgres psql`}
+</CodeBlock>
+
+Then, inside the PostgreSQL prompt, run:
+<CodeBlock>
+{`CREATE DATABASE passbolt;
+CREATE USER passbolt WITH ENCRYPTED PASSWORD 'P4ssb0lt';
+GRANT ALL PRIVILEGES ON DATABASE passbolt TO passbolt;`}
+</CodeBlock>
+
+5. **Continue the installation of passbolt:**
+
+You will need to navigate on your browser to the URL of your passbolt instance, from there, you will be able to configure the database section with Postgres instead of MySQL.
+
+<Figure
+  src="/img/screenshots/configure_pgsql.png"
+  alt="Configure Postgres on the webInstaller"
+  caption="fig. Configuring Postgres on the webInstaller"
+  size={{width: 640}}
+/>
+
+## Docker
+In order to download the docker compose file based on your edition e.g., CE,PRO. You can follow our [Docker](/hosting/install) installation guide.
+
+### Updating the docker compose file
+
+The default `db` container needs to be changed and there is also a few changes that needs to be done on the `passbolt` container.
+
+#### Database container
+
+You can replace the existing `db` container with the one below in order to use Postgres latest image.
+
+<CodeBlock>
+{`db:
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: "passbolt"
+      POSTGRES_USER: "passbolt"
+      POSTGRES_PASSWORD: "P4ssb0lt"
+    volumes:
+      - database_volume:/var/lib/postgresql/data
+`}
+</CodeBlock>
+
+#### Passbolt container
+
+Some changes needs to be done on the environment variable, indeed we will no longer use:
+- DATASOURCES_DEFAULT_HOST
+- DATASOURCES_DEFAULT_USERNAME
+- DATASOURCES_DEFAULT_PASSWORD
+- DATASOURCES_DEFAULT_DATABASE
+
+Instead, we will be using these environment variable:
+
+<CodeBlock>
+{`DATASOURCES_DEFAULT_DRIVER: Cake\\Database\\Driver\\Postgres
+  DATASOURCES_DEFAULT_ENCODING: "utf8"
+  DATASOURCES_DEFAULT_URL: "postgres://POSTGRES_USER:POSTGRES_PASSWORD@db:5432/POSTGRES_DB?schema=passbolt"
+`}
+</CodeBlock>
+
+We also need to update the wait-for.sh script in the entrypoint configuration, as we no longer use port 3306 for MariaDB but instead use port 5432 for Postgres:
+
+<CodeBlock>
+  {`/usr/bin/wait-for.sh -t 0 db:5432 -- /docker-entrypoint.sh`}
+</CodeBlock>
+
+Then you should be good to go! Docker installation will now work with Postgres database management system.

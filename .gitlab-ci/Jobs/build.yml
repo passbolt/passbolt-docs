@@ -19,9 +19,6 @@
 
 build-staging:
   extends: .build
-  before_script:
-    - npm ci --include=dev
-    - npm run generate:footer
   variables:
     TARGET_BRANCH: develop
 

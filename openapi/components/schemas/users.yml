@@ -97,6 +97,11 @@ userIndexAndView:
       x-nullable: true
     role:
       $ref: "roles.yml#/role"
+    missing_metadata_key_ids:
+      type: "array"
+      items:
+        type: "string"
+        format: "uuid"
     last_logged_in:
       type: "string"
       format: "date-time"
@@ -149,6 +154,22 @@ userAdd:
         last_name:
           type: "string"
 
+userDelete:
+  type: "object"
+  properties:
+    errors:
+      type: "object"
+      properties:
+        resources:
+          type: "object"
+          properties:
+            sole_owner:
+              type: "array"
+              items:
+                anyOf:
+                  - $ref: "resources.yml#/resourceV4IndexAndView"
+                  - $ref: "resources.yml#/resourceV5IndexAndView"
+
 userDeleteDryRun:
   type: "object"
   properties:
@@ -168,14 +189,16 @@ userDeleteDryRun:
             sole_owner:
               type: "array"
               items:
-                $ref: "folders.yml#/folderIndexAndView"
+                $ref: "folders.yml#/folderV5IndexAndView"
         resources:
           type: "object"
           properties:
             sole_owner:
               type: "array"
               items:
-                $ref: "resources.yml#/resourceIndexAndView"
+                anyOf:
+                  - $ref: "resources.yml#/resourceV4IndexAndView"
+                  - $ref: "resources.yml#/resourceV5IndexAndView"
         groups_to_delete:
           type: "array"
           items:

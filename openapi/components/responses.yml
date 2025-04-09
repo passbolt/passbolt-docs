@@ -32,6 +32,40 @@ nullBody:
       examples:
         $ref: "examples.yml#/nullBody"
 
+emptyBody:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "schemas.yml#/header"
+          body:
+            type: "object"
+      examples:
+        $ref: "examples.yml#/emptyBody"
+
+emptyStringBody:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "schemas.yml#/header"
+          body:
+            type: "string"
+      examples:
+        $ref: "examples.yml#/emptyStringBody"
+
 emptyArrayBody:
   description: "Operation is successful."
   content:
@@ -68,6 +102,24 @@ badRequest:
       examples:
         $ref: "examples.yml#/badRequest/response"
 
+metadataKeyTypeFilterNotValid:
+  description: "metadata_key_type filter is not valid"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "schemas.yml#/header"
+          body:
+            type: "string"
+      examples:
+        $ref: "examples.yml#/badRequest/response"
+
+
 
 accessRestrictedToAdministrators:
   description: "Access restricted"
@@ -102,3 +154,71 @@ notFound:
             type: "string"
       examples:
         $ref: "examples.yml#/notFound/response"
+
+tooManyUpdatedEntities:
+  description: "One or more entities were updated"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "schemas.yml#/header"
+          body:
+            type: "string"
+      examples:
+        $ref: "examples.yml#/tooManyUpdatedEntities/response"
+
+dateDoesntMatch:
+  description: "Not found"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "schemas.yml#/header"
+          body:
+            type: "string"
+      examples:
+        $ref: "examples.yml#/dateDoesntMatch/response"
+
+entityWasUpdated:
+  description: "Entity was updated"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "schemas.yml#/header"
+          body:
+            type: "string"
+      examples:
+        $ref: "examples.yml#/entityWasUpdated/response"
+
+modifiedDateIsNotMatching:
+  description: "The modified date is not equal to the persisted session key one"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "schemas.yml#/header"
+          body:
+            type: "string"
+      examples:
+        $ref: "examples.yml#/modifiedDateIsNotMatching/response"

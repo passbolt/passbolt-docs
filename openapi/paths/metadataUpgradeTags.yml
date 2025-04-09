@@ -1,0 +1,58 @@
+get:
+  summary: "Get Upgradable Tags"
+  description: |
+    > *This endpoint is available since version 5.1.*
+
+    > *Encrypted metadata for this item is not supported on all clients.*
+    
+    Retrieves a list of tags that are eligible for an upgrade to v5 format. Results are paginated and the page size is fixed at 20.
+  security:
+    - bearerHttpAuthentication: []
+  operationId: "viewMetadataUpgradeTags"
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataUpgrade.yml#/viewUpgradableTags"
+  tags:
+    - "Metadata upgrade"
+  parameters:
+    - $ref: "../components/parameters.yml#/filterIsShared"
+  responses:
+    200:
+      $ref: "../components/responses/metadataUpgrade.yml#/upgradeMetadataTags"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
+
+
+post:
+  summary: "Upgrade a tag"
+  description: |
+    > *This endpoint is available since version 5.1.*
+
+    > *Encrypted metadata for this item is not supported on all clients.*
+    
+    Upgrade tags that are eligible for an upgrade to v5 format.
+  operationId: "processeMetadataUpgradeTags"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataUpgrade.yml#/upgradeMetadataTags"
+  tags:
+    - "Metadata upgrade"
+  parameters:
+    - $ref: "../components/parameters.yml#/filterIsShared"
+  responses:
+    200:
+      $ref: "../components/responses/metadataUpgrade.yml#/upgradeMetadataTags"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
+    404:
+      $ref: "../components/responses.yml#/notFound"
+  requestBody:
+    $ref: "../components/requestBodies/metadataUpgrade.yml#/upgradeMetadataTags"

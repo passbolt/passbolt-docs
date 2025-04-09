@@ -1,0 +1,79 @@
+metadataKeysIndexAndView:
+  allOf:
+    - $ref: "#/metadataKeyUpdate"
+    - $ref: "e2eeObjects.yml#/e2eeIdCreatedDataModifiedUserId"
+    - type: "object"
+      required:
+        - deleted
+        - created_by
+        - modified_by
+      properties:
+        user_id:
+          x-nullable: false
+        deleted:
+          type: "string"
+          format: "date-time"
+          x-nullable: true
+        created_by:
+          type: "string"
+          format: "uuid"
+          x-nullable: true
+        modified_by:
+          type: "string"
+          format: "uuid"
+          x-nullable: true
+        metadata_private_keys:
+          type: "array"
+          items:
+            $ref: "metadataPrivateKeys.yml#/metadataPrivateKeysIndexAndView"
+
+metadataKeyAdd:
+  type: "object"
+  required:
+    - armored_key
+    - fingerprint
+    - metadata_private_keys
+  properties:
+    armored_key:
+      type: "string"
+    fingerprint:
+      type: "string"
+    metadata_private_keys:
+      type: "array"
+      items:
+        $ref: "e2eeObjects.yml#/e2eeDataUserId"
+
+metadataKeyUpdate:
+  required:
+    - fingerprint
+    - armored_key
+    - expired
+  properties:
+    fingerprint:
+      type: "string"
+    armored_key:
+      type: "string"
+    expired:
+      type: "string"
+      format: "date-time"
+
+metadataKeysSettingsIndex:
+  type: "object"
+  required:
+    - allow_usage_of_personal_keys
+    - zero_knowledge_key_share
+  properties:
+    allow_usage_of_personal_keys:
+      type: "boolean"
+    zero_knowledge_key_share:
+      type: "boolean"
+
+metadataKeysSettingsUpdate:
+  allOf:
+    - $ref: "#/metadataKeysSettingsIndex"
+    - type: "object"
+      properties:
+        metadata_private_keys:
+          type: "array"
+          items:
+            $ref: "e2eeObjects.yml#/e2eeDataUserIdMetadataKeyId"

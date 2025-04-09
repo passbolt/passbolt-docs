@@ -13,7 +13,9 @@ index:
           body:
             type: "array"
             items:
-              $ref: "../schemas/folders.yml#/folderIndexAndView"
+              anyOf:
+                - $ref: "../schemas/folders.yml#/folderV4IndexAndView"
+                - $ref: "../schemas/folders.yml#/folderV5IndexAndView"
       examples:
         $ref: "../examples/folders.yml#/foldersIndex/response"
 
@@ -30,7 +32,9 @@ view:
           header:
             $ref: "../schemas.yml#/header"
           body:
-            $ref: "../schemas/folders.yml#/folderIndexAndView"
+            anyOf:
+              - $ref: "../schemas/folders.yml#/folderV4IndexAndView"
+              - $ref: "../schemas/folders.yml#/folderV5IndexAndView"
       examples:
         $ref: "../examples/folders.yml#/folderView/response"
 
@@ -47,7 +51,7 @@ add:
           header:
             $ref: "../schemas.yml#/header"
           body:
-            $ref: "../schemas/folders.yml#/folderIndexAndView"
+            $ref: "../schemas/folders.yml#/folderV5IndexAndView"
       examples:
         $ref: "../examples/folders.yml#/folderView/response"
 
@@ -64,6 +68,6 @@ update:
           header:
             $ref: "../schemas.yml#/header"
           body:
-            $ref: "../schemas/folders.yml#/folderIndexAndView"
+            $ref: "../schemas/folders.yml#/folderV5IndexAndView"
       examples:
         $ref: "../examples/folders.yml#/folderView/response"

@@ -1,0 +1,362 @@
+viewUpgradableResources:
+  - lang: cURL
+    source: |
+      curl --request GET \
+        --url {{API_BASE_URL}}/metadata/upgrade/resources.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/metadata/upgrade/resources.json';
+      const options = {method: 'GET', headers: {Authorization: 'Bearer {{JWT_TOKEN}}'}};
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/metadata/upgrade/resources.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+upgradeFolders:
+  - lang: cURL
+    source: |
+      curl --request GET \
+        --url {{API_BASE_URL}}/metadata/upgrade/folders.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/metadata/upgrade/folders.json';
+      const options = {method: 'GET', headers: {Authorization: 'Bearer {{JWT_TOKEN}}'}};
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/metadata/upgrade/folders.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+
+upgradeMetadataFolders:
+  - lang: cURL
+    source: |
+      curl --request POST \
+      --url {{API_BASE_URL}}/metadata/upgrade/folders.json \
+      --header 'authorization: Bearer {{JWT_TOKEN}}' \
+      --header 'content-type: application/json' \
+      --data '[{
+      "id": "0e840721-58ea-4649-b603-2d9cf4f2213c",
+      "metadata_key_id": "9d9a6672-35d6-4d0f-a807-b90edf25c275",
+      "metadata_key_type": "shared_key",
+      "metadata": "-----BEGIN PGP MESSAGE-----",
+      "modified": "2025-02-18T15:52:17+00:00",
+      "modified_by": "ae48ed02-54ea-4be4-9ae8-229bf8c04739"
+       }]'
+
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/metadata/upgrade/folders.json';
+      const options = {
+      method: 'POST',
+      headers: {
+        authorization: 'Bearer {{JWT_TOKEN}}',
+        'content-type': 'application/json'
+      },
+      body: '[{"id":"0e840721-58ea-4649-b603-2d9cf4f2213c","metadata_key_id":"9d9a6672-35d6-4d0f-a807-b90edf25c275","metadata_key_type":"shared_key","metadata":"-----BEGIN PGP MESSAGE-----","modified":"2025-02-18T15:52:17+00:00","modified_by":"ae48ed02-54ea-4be4-9ae8-229bf8c04739"}]'
+      };
+
+        try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+
+  - lang: PHP
+    source: |
+      <?php
+
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+      CURLOPT_URL => "{{API_BASE_URL}}/metadata/upgrade/folders.json",
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "POST",
+      CURLOPT_POSTFIELDS => json_encode([
+      [
+        'id' => '0e840721-58ea-4649-b603-2d9cf4f2213c',
+        'metadata_key_id' => '9d9a6672-35d6-4d0f-a807-b90edf25c275',
+        'metadata_key_type' => 'shared_key',
+        'metadata' => '-----BEGIN PGP MESSAGE-----',
+        'modified' => '2025-02-18T15:52:17+00:00',
+        'modified_by' => 'ae48ed02-54ea-4be4-9ae8-229bf8c04739'
+      ]
+       ]),
+          CURLOPT_HTTPHEADER => [
+          "authorization: Bearer {{JWT_TOKEN}}",
+          "content-type: application/json"
+        ],
+        ]);
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+        echo "cURL Error #:" . $err;
+        } else {
+          echo $response;
+        }
+
+upgradeMetadataResources:
+  - lang: cURL
+    source : |
+      curl --request POST \
+      --url {{API_BASE_URL}}/metadata/upgrade/resources.json \
+      --header 'authorization: Bearer {{JWT_TOKEN}}' \
+      --header 'content-type: application/json' \
+      --data '[{
+      "id": "97f5415f-2e09-4171-a99e-1908e876662a",
+      "metadata_key_id": "9d9a6672-35d6-4d0f-a807-b90edf25c275",
+      "metadata_key_type": "shared_key",
+      "metadata": "-----BEGIN PGP MESSAGE-----",
+      "modified": "2025-02-18T15:52:17+00:00",
+      "modified_by": "ae48ed02-54ea-4be4-9ae8-229bf8c04739"
+       }]'
+
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/metadata/upgrade/resources.json';
+      const options = {
+      method: 'POST',
+      headers: {
+        authorization: 'Bearer {{JWT_TOKEN}}',
+        'content-type': 'application/json'
+      },
+      body: '[{"id":"97f5415f-2e09-4171-a99e-1908e876662a","metadata_key_id":"9d9a6672-35d6-4d0f-a807-b90edf25c275","metadata_key_type":"shared_key","metadata":"-----BEGIN PGP MESSAGE-----","modified":"2025-02-18T15:52:17+00:00","modified_by":"ae48ed02-54ea-4be4-9ae8-229bf8c04739"}]'
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+
+  - lang: PHP
+    source: |
+      <?php
+
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+      CURLOPT_URL => "{{API_BASE_URL}}/metadata/upgrade/resources.json",
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "POST",
+      CURLOPT_POSTFIELDS => json_encode([
+      [
+        'id' => '97f5415f-2e09-4171-a99e-1908e876662a',
+        'metadata_key_id' => '9d9a6672-35d6-4d0f-a807-b90edf25c275',
+        'metadata_key_type' => 'shared_key',
+        'metadata' => '-----BEGIN PGP MESSAGE-----',
+        'modified' => '2025-02-18T15:52:17+00:00',
+        'modified_by' => 'ae48ed02-54ea-4be4-9ae8-229bf8c04739'
+      ]
+      ]),
+        CURLOPT_HTTPHEADER => [
+        "authorization: {{JWT_TOKEN}}",
+        "content-type: application/json"
+      ],
+      ]);
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+upgradeMetadataTags:
+  - lang: cURL
+    source : |
+      curl --request POST \
+        --url {{API_BASE_URL}}/metadata/upgrade/tags.json \
+        --header 'authorization: Bearer {{JWT_TOKEN}}' \
+        --header 'content-type: application/json' \
+        --data '[
+          {
+            "id": "52ca9f92-4115-4759-a965-89e6b41b36fd",
+            "metadata_key_id": "edf0a845-94ea-4281-8d45-7d64fa06e894",
+            "metadata_key_type": "shared_key",
+            "metadata": "-----BEGIN PGP MESSAGE-----"
+          }
+        ]'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/metadata/upgrade/tags.json';
+      const options = {
+        method: 'POST',
+        headers: {authorization: 'Bearer {{JWT_TOKEN}}', 'content-type': 'application/json'},
+        body: '[{"id":"52ca9f92-4115-4759-a965-89e6b41b36fd","metadata_key_id":"edf0a845-94ea-4281-8d45-7d64fa06e894","metadata_key_type":"shared_key","metadata":"-----BEGIN PGP MESSAGE-----"}]'
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/metadata/upgrade/tags.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => json_encode([
+          [
+              'id' => '52ca9f92-4115-4759-a965-89e6b41b36fd',
+              'metadata_key_id' => 'edf0a845-94ea-4281-8d45-7d64fa06e894',
+              'metadata_key_type' => 'shared_key',
+              'metadata' => '-----BEGIN PGP MESSAGE-----'
+          ]
+        ]),
+        CURLOPT_HTTPHEADER => [
+          "authorization: Bearer {{JWT_TOKEN}}",
+          "content-type: application/json"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      if ($err) {
+      echo "cURL Error #:" . $err;
+      } else {
+      echo $response;
+      }
+
+viewUpgradableTags:
+  - lang: cURL
+    source: |
+      curl --request GET \
+        --url {{API_BASE_URL}}/metadata/upgrade/tags.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/metadata/upgrade/tags.json';
+      const options = {method: 'GET', headers: {Authorization: 'Bearer {{JWT_TOKEN}}'}};
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/metadata/upgrade/tags.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }

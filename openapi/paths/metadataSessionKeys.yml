@@ -1,0 +1,34 @@
+get:
+  summary: "Get session keys."
+  description: "Get a list of available encrypted session keys in cache for the given user."
+  security:
+    - bearerHttpAuthentication: []
+  operationId: "viewMetadataSessionKeys"
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataSessionKey.yml#/index"
+  tags:
+    - "Metadata session key"
+  responses:
+    200:
+      $ref: "../components/responses/metadataSessionKey.yml#/index"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+
+post:
+  summary: "Add a session key."
+  security:
+    - bearerHttpAuthentication: []
+  operationId: "addMetadataSessionKey"
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataSessionKey.yml#/add"
+  tags:
+    - "Metadata session key"
+  requestBody:
+    $ref: "../components/requestBodies/metadataSessionKey.yml#/add"
+  responses:
+    200:
+      $ref: "../components/responses/metadataSessionKey.yml#/add"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"

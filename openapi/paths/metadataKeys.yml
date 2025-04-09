@@ -1,0 +1,39 @@
+get:
+  summary: "Get metadata keys."
+  operationId: "indexMetadataKeys"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataKeys.yml#/index"
+  parameters:
+    - $ref: "../components/parameters.yml#/filterDeleted"
+    - $ref: "../components/parameters.yml#/filterExpired"
+    - $ref: "../components/parameters.yml#/containMetadataPrivateKeys"
+  tags:
+    - "Metadata keys"
+  responses:
+    200:
+      $ref: "../components/responses/metadataKeys.yml#/addAndIndex"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+
+post:
+  summary: "Create a metadata key."
+  operationId: "addMetadataKey"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataKeys.yml#/add"
+  tags:
+    - "Metadata keys"
+  responses:
+    200:
+      $ref: "../components/responses/metadataKeys.yml#/addAndIndex"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+  requestBody:
+    $ref: "../components/requestBodies/metadataKeys.yml#/metadataKeyAdd"

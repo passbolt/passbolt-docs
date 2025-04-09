@@ -1,0 +1,190 @@
+index:
+  - lang: cURL
+    source: |
+      curl --request GET \
+        --url {{API_BASE_URL}}/tags.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/tags.json';
+      const options = {method: 'GET', headers: {Authorization: 'Bearer {{JWT_TOKEN}}'}};
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/tags.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => [
+          "Authorization: Bearer {{JWT_TOKEN}}"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+addResource:
+  - lang: cURL
+    source: |
+      curl --request POST \
+        --url {{API_BASE_URL}}/tags/b4651f60-392d-4af7-b204-0f8d26798b9b.json \
+        --header 'authorization: Bearer {{JWT_TOKEN}}' \
+        --header 'content-type: application/json' \
+        --data '{
+        "tags": [
+          {
+            "metadata": "-----BEGIN PGP MESSAGE-----",
+            "metadata_key_id": null,
+            "metadata_key_type": "shared_key",
+            "is_shared": true
+          },
+          {
+            "id": "4879d401-c242-458d-91a0-dba864c36535"
+          }
+        ]
+      }'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/tags/b4651f60-392d-4af7-b204-0f8d26798b9b.json';
+      const options = {
+        method: 'POST',
+        headers: {authorization: 'Bearer {{JWT_TOKEN}}', 'content-type': 'application/json'},
+        body: '{"tags":[{"metadata":"-----BEGIN PGP MESSAGE-----","metadata_key_id":null,"metadata_key_type":"shared_key","is_shared":true},{"id":"4879d401-c242-458d-91a0-dba864c36535"}]}'
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/tags/b4651f60-392d-4af7-b204-0f8d26798b9b.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => json_encode([
+          'tags' => [
+              [
+                      'metadata' => '-----BEGIN PGP MESSAGE-----',
+                      'metadata_key_id' => null,
+                      'metadata_key_type' => 'shared_key',
+                      'is_shared' => null
+              ],
+              [
+                      'id' => '4879d401-c242-458d-91a0-dba864c36535'
+              ]
+          ]
+        ]),
+        CURLOPT_HTTPHEADER => [
+          "authorization: Bearer {{JWT_TOKEN}}",
+          "content-type: application/json"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+
+update:
+  - lang: cURL
+    source: |
+      curl --request PUT \
+        --url {{API_BASE_URL}}/tags/2e5d88cb-9b04-4010-806c-a449315ae4d5.json \
+        --header 'authorization: Bearer {{JWT_TOKEN}}' \
+        --header 'content-type: application/json' \
+        --data '{
+          "metadata": "-----BEGIN PGP MESSAGE-----",
+          "metadata_key_id": "7902f423-decb-4b09-b5e4-d4136f1813ea",
+          "metadata_key_type": "shared_key",
+          "is_shared": true
+        }'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/tags/2e5d88cb-9b04-4010-806c-a449315ae4d5.json';
+      const options = {
+        method: 'PUT',
+        headers: {authorization: 'Bearer {{JWT_TOKEN}}', 'content-type': 'application/json'},
+        body: '{"metadata":"-----BEGIN PGP MESSAGE-----","metadata_key_id":"7902f423-decb-4b09-b5e4-d4136f1813ea","metadata_key_type":"shared_key","is_shared":true}'
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+  - lang: PHP
+    source: |
+      <?php
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "{{API_BASE_URL}}/tags/2e5d88cb-9b04-4010-806c-a449315ae4d5.json",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "PUT",
+        CURLOPT_POSTFIELDS => json_encode([
+          'metadata' => '-----BEGIN PGP MESSAGE-----',
+          'metadata_key_id' => '7902f423-decb-4b09-b5e4-d4136f1813ea',
+          'metadata_key_type' => 'shared_key',
+          'is_shared' => true
+        ]),
+        CURLOPT_HTTPHEADER => [
+          "authorization: Bearer {{JWT_TOKEN}}",
+          "content-type: application/json"
+        ],
+      ]);
+
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }

@@ -2,15 +2,14 @@ openapi: "3.1.0"
 info:
   contact:
     email: "contact@passbolt.com"
-  summary: "Public documentation for Passbolt's API"
   description:
     $ref: "components/descriptions.yml#/main"
   license:
     name: "AGPL-3.0"
     url: "https://www.gnu.org/licenses/agpl-3.0.html"
   termsOfService: "https://www.passbolt.com/terms"
-  title: "Passbolt API Documentation"
-  version: "4.9.0"
+  title: "Passbolt API"
+  version: "5.0.0"
 
 servers:
   - url: "https://passbolt.local"
@@ -63,6 +62,34 @@ paths:
     $ref: "paths/healthcheck.yml"
   /healthcheck/status.json:
     $ref: "paths/healthcheckStatus.yml"
+  /metadata/keys.json:
+    $ref: "paths/metadataKeys.yml"
+  /metadata/keys/{metadataKeyId}.json:
+    $ref: "paths/metadataKey.yml"
+  /metadata/keys/privates.json:
+    $ref: "paths/metadataKeysPrivates.yml"
+  /metadata/keys/private/{metadataPrivateKeyId}.json:
+    $ref: "paths/metadataKeysPrivate.yml"
+  /metadata/keys/settings.json:
+    $ref: "paths/metadataKeysSettings.yml"
+  /metadata/types/settings.json:
+    $ref: "paths/metadataTypes.yml"
+  /metadata/rotate-key/folders.json:
+    $ref: "paths/metadataRotateKeyFolders.yml"
+  /metadata/rotate-key/resources.json:
+    $ref: "paths/metadataRotateKeyResources.yml"
+  /metadata/session-keys.json:
+    $ref: "paths/metadataSessionKeys.yml"
+  /metadata/session-key/{sessionKeyId}.json:
+    $ref: "paths/metadataSessionKeyKeys.yml"
+  /metadata/rotate-key/tags.json:
+    $ref: "paths/metadataRotateKeyTags.yml"
+  /metadata/upgrade/folders.json:
+    $ref: "paths/metadataUpgradeFolders.yml"
+  /metadata/upgrade/resources.json:
+    $ref: "paths/metadataUpgradeResources.yml"
+  /metadata/upgrade/tags.json:
+    $ref: "paths/metadataUpgradeTags.yml"
   /mfa/verify/{mfaProviderName}.json:
     $ref: "paths/mfaVerify.yml"
   /mfa/verify/error.json:
@@ -83,12 +110,18 @@ paths:
     $ref: "paths/roles.yml"
   /secrets/resource/{resourceId}.json:
     $ref: "paths/secretsResource.yml"
+  /settings.json:
+    $ref: "paths/settings.yml"
   /share/{foreignModel}/{foreignId}.json:
     $ref: "paths/shareForeignModel.yml"
   /share/search-aros.json:
     $ref: "paths/shareSearchAros.yml"
   /share/simulate/{foreignModel}/{foreignId}.json:
     $ref: "paths/shareSimulateForeignModel.yml"
+  /tags.json:
+    $ref: "paths/tags.yml"
+  /tags/{resourceOrTagId}.json:
+    $ref: "paths/tag.yml"
   /users.json:
     $ref: "paths/users.yml"
   /users/{userId}.json:
@@ -120,6 +153,18 @@ tags:
       $ref: "components/descriptions/groups.yml#/tag"
   - name: "Healthcheck"
     description: "Gather data about the passbolt instance's health."
+  - name: "Metadata keys"
+    description: "Manipulate metadata keys."
+  - name: "Metadata private keys"
+    description: "Manipulate private keys for metadata."
+  - name: "Metadata types settings"
+    description: "Retrieve information about the resource types settings selected by the administrators"
+  - name: "Metadata rotate key"
+    description: "Gather information about metadata keys that needs to be rotated"
+  - name: "Metadata session key"
+    description: "Gather information on the saved encrypted session keys cache"
+  - name: "Metadata upgrade"
+    description: "Upgrading elements to the new v5 metadata format"
   - name: "Move"
     description: "Move a folder or a resource across folders."
   - name: "Multi-Factor Authentication"
@@ -137,9 +182,13 @@ tags:
     description: "Different categories of users."
   - name: "Secrets"
     description: "Secrets associated to resources."
+  - name: "Settings"
+    description: "Retrieve the server settings"
   - name: "Shares"
     description:
       $ref: "components/descriptions/shares.yml#/tag"
+  - name: "Tags"
+    description: "Get tags and add tags to resources to categorize them."
   - name: "Users"
     description:
       $ref: "components/descriptions/users.yml#/tag"

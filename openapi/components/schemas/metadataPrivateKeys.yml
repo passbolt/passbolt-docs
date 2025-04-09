@@ -1,0 +1,50 @@
+metadataPrivateKeysIndexAndView:
+  allOf:
+    - $ref: "#/metadataPrivateKeysShortIndex"
+    - type: "object"
+      required:
+        - id
+        - metadata_key_id
+        - created
+        - modified
+      properties:
+        id:
+          type: "string"
+          format: "uuid"
+        metadata_key_id:
+          type: "string"
+          format: "uuid"
+        created:
+          type: "string"
+          format: "date-time"
+        modified:
+          type: "string"
+          format: "date-time"
+
+metadataPrivateKeysShortIndex:
+  allOf:
+    - $ref: "e2eeObjects.yml#/e2eeDataUserId"
+    - type: "object"
+      required:
+        - created_by
+        - modified_by
+      properties:
+        created_by:
+          type: "string"
+          format: "uuid"
+          x-nullable: true
+        modified_by:
+          type: "string"
+          format: "uuid"
+          x-nullable: true
+        user_id:
+          x-nullable: false
+
+metadataPrivateKeysAdd:
+  type: "array"
+  items:
+    allOf:
+      - $ref: "e2eeObjects.yml#/e2eeDataUserIdMetadataKeyId"
+      - properties:
+          user_id:
+            x-nullable: false

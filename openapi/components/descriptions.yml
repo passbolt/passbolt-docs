@@ -1,10 +1,1 @@
-main: |
-  ---
-
-  ### Welcome
-
-  This document is a raw low-level overview describing the API and its endpoints. For a higher-level overview of the API and some guides on interacting with the different endpoints, please follow the [Developer guide](../development).
-
-  ### Base URL
-
-  The API is served over HTTPS. All occurrences of `{{API_BASE_URL}}` referenced in the following documentation should be replaced by the base url of your passbolt installation domain, such as: `https://<passbolt.your-organization.com>`.
+main: "This is a low-level overview of the API and its endpoints, if you need higher-level guides for interacting with the endpoints, use the Developer guide."

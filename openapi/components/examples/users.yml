@@ -60,6 +60,7 @@ usersIndex:
               created: "2012-07-04T13:39:25+00:00"
               modified: "2012-07-04T13:39:25+00:00"
             last_logged_in: null
+            missing_metadata_key_ids: []
 
 userView:
   response:
@@ -120,6 +121,7 @@ userView:
             created: "2012-07-04T13:39:25+00:00"
             modified: "2012-07-04T13:39:25+00:00"
           last_logged_in: null
+          missing_metadata_key_ids: []
 
 userUpdate:
   request:
@@ -234,6 +236,67 @@ userAdd:
             modified: "2012-07-04T13:39:25+00:00"
           last_logged_in: null
 
+userDelete:
+  response:
+    base:
+      value:
+        header:
+          id: "e21690a1-c494-4bdc-ad9d-84552a26bf68"
+          status: "error"
+          servertime: 1740020945
+          action: "4a1f3ff7-02ff-5120-b08b-e13f4369df3f"
+          message: "The user cannot be deleted. The user should not be sole owner of shared content, transfer the ownership to other users."
+          url: "/users/f08012ca-4e2b-3f39-a35c-23d41c10fc20.json"
+          code: 400
+        body:
+          errors:
+            resources:
+              sole_owner:
+                - id: "8e3874ae-4b40-590b-968a-418f704b9d9a"
+                  metadata: "-----BEGIN PGP MESSAGE-----"
+                  metadata_key_id: "9d9a6672-35d6-4d0f-a807-b90edf25c275"
+                  metadata_key_type: "shared_key"
+                  expired: null
+                  deleted: false
+                  created: "2019-04-02T12:05:58+00:00"
+                  modified: "2019-04-03T12:05:58+00:00"
+                  created_by: "f848277c-5398-58f8-a82a-72397af2d450"
+                  modified_by: "f848277c-5398-58f8-a82a-72397af2d450"
+                  permissions:
+                    - id: "898ce1d0-601f-5194-976b-147a680dd472"
+                      aco: "Resource"
+                      aco_foreign_key: "8e3874ae-4b40-590b-968a-418f704b9d9a"
+                      aro: "User"
+                      aro_foreign_key: "640ebc06-5ec1-5322-a1ae-6120ed2f3a74"
+                      type: 1
+                      created: "2019-04-04T12:06:00+00:00"
+                      modified: "2019-04-04T12:06:00+00:00"
+                      group: null
+                      user:
+                        id: "640ebc06-5ec1-5322-a1ae-6120ed2f3a74"
+                        role_id: "a58de6d3-f52c-5080-b79b-a601a647ac85"
+                        username: "carol@passbolt.com"
+                        active: true
+                        deleted: false
+                        created: "2019-04-02T12:05:44+00:00"
+                        modified: "2019-04-03T12:05:44+00:00"
+                        profile:
+                          id: "48bcd9ac-a520-53e0-b3a4-9da7e57b91aa"
+                          user_id: "640ebc06-5ec1-5322-a1ae-6120ed2f3a74"
+                          first_name: "Carol"
+                          last_name: "Shaw"
+                          created: "2019-04-04T12:05:45+00:00"
+                          modified: "2019-04-04T12:05:45+00:00"
+                          avatar:
+                            id: "8ef95b32-e2a3-4b58-827c-dd67e68cfb48"
+                            profile_id: "920edf1e-5ce8-4da4-a8fc-21040fe78d09"
+                            created: "2024-08-06T14:58:09+00:00"
+                            modified: "2024-08-06T14:58:09+00:00"
+                            url:
+                              medium: "https://passbolt.local/avatars/view/8ef95b32-e2a3-4b58-827c-dd67e68cfb48/medium.jpg"
+                              small: "https://passbolt.local/avatars/view/8ef95b32-e2a3-4b58-827c-dd67e68cfb48/small.jpg"
+                        last_logged_in: null
+
 userDeleteDryRun:
   response:
     base:
@@ -245,7 +308,7 @@ userDeleteDryRun:
           action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
           message: "The user cannot be deleted. You need to transfer the user group manager role to other users before deleting this user.You need to transfer the ownership for the shared passwords owned by this user before deleting this user."
           url: "/users/f848277c-5398-58f8-a82a-72397af2d450.json"
-          code: 200
+          code: 400
         body:
           errors:
             groups:
@@ -278,19 +341,19 @@ userDeleteDryRun:
                         last_name: "Lovelace"
                         created: "2019-04-04T12:05:45+00:00"
                         modified: "2019-04-04T12:05:45+00:00"
-                      last_logged_in: ""  
+                      last_logged_in: ""
             resources:
               sole_owner:
                 id: "8e3874ae-4b40-590b-968a-418f704b9d9a"
-                name: "apache"
-                username: "www-data"
-                uri: "http://www.apache.org/"
-                description: "Apache web server software."
-                deleted": false
-                created": "2019-04-02T12:05:58+00:00"
-                modified": "2019-04-03T12:05:58+00:00"
-                created_by": "f848277c-5398-58f8-a82a-72397af2d450"
-                modified_by": "f848277c-5398-58f8-a82a-72397af2d450"
+                metadata: "-----BEGIN PGP MESSAGE-----"
+                metadata_key_id: "9d9a6672-35d6-4d0f-a807-b90edf25c275"
+                metadata_key_type: "shared_key"
+                expired: null
+                deleted: false
+                created: "2019-04-02T12:05:58+00:00"
+                modified: "2019-04-03T12:05:58+00:00"
+                created_by: "f848277c-5398-58f8-a82a-72397af2d450"
+                modified_by: "f848277c-5398-58f8-a82a-72397af2d450"
                 permissions:
                   - id: "898ce1d0-601f-5194-976b-147a680dd472"
                     aco: "Resource"

@@ -1,4 +1,28 @@
-resourceIndexAndView:
+resourceV5IndexAndView:
+  allOf:
+    - $ref: "e2eeObjects.yml#/e2eeMetadataBasedCommon"
+    - type: "object"
+      required:
+        - resource_type_id
+        - expired
+      properties:
+        resource_type_id:
+          type: "string"
+          format: "uuid"
+        expired:
+          type: "string"
+          format: "date-time"
+          x-nullable: true
+        favorite:
+          $ref: "favorites.yml#/favorite"
+        secrets:
+          type: "array"
+          items:
+            type: "string"
+        resource_type:
+          $ref: "resourceTypes.yml#/resourceType"
+
+resourceV4IndexAndView:
   type: "object"
   required:
     - id
@@ -69,57 +93,39 @@ resourceIndexAndView:
       items:
         $ref: "permissions.yml#/permissionIndexAndView"
 
-resourceAdd:
-  type: "object"
-  required:
-    - name
-    - username
-    - uri
-    - resource_type_id
-  properties:
-    name:
-      type: "string"
-    username:
-      type: "string"
-    uri:
-      type: "string"
-    description:
-      type: "string"
-    resource_type_id:
-      type: "string"
-      format: "uuid"
-    folder_parent_id:
-      type: "string"
-      format: "uuid"
-    expired:
-      type: "string"
-      format: "date-time"
-      x-nullable: true
-    secrets:
-      type: "array"
-      items:
-        $ref: "secrets.yml#/secretAdd"
+resourceAddAndUpdate:
+  allOf:
+    - $ref: "e2eeObjects.yml#/e2eeMetadataBased"
+    - type: "object"
+      required:
+        - expired
+        - folder_parent_id
+        - resource_type_id
+        - secrets
+      properties:
+        expired:
+          type: "string"
+          format: "date-time"
+          x-nullable: true
+        folder_parent_id:
+          type: "string"
+          format: "uuid"
+          x-nullable: true
+        resource_type_id:
+          type: "string"
+          format: "uuid"
+        secrets:
+          type: "array"
+          items:
+            type: "string"
 
-resourceUpdate:
-  type: "object"
-  properties:
-    name:
-      type: "string"
-    username:
-      type: "string"
-    uri:
-      type: "string"
-    description:
-      type: "string"
-    resource_type_id:
-      type: "string"
-      format: "uuid"
-    expired:
-      type: "string"
-      format: "date-time"
-      x-nullable: true
-    secrets:
-      type: "array"
-      items:
-        $ref: "secrets.yml#/secretUpdate"
-
+resourceMetadataRotateKey:
+  allOf:
+    - $ref: "e2eeObjects.yml#/e2eeMetadataBasedCommon"
+    - type: "object"
+      required:
+        - resource_type_id
+      properties:
+        resource_type_id:
+          type: "string"
+          format: "uuid"

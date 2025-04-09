@@ -7,6 +7,9 @@ get:
     $ref: "../components/codeSamples/resourceTypes.yml#/index"
   tags:
     - "Resource types"
+  parameters:
+    - $ref: "../components/parameters.yml#/containResourcesCount"
+    - $ref: "../components/parameters.yml#/filterIsDeleted"
   responses:
     200:
       $ref: "../components/responses/resourceTypes.yml#/index"

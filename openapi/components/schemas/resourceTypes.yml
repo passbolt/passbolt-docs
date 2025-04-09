@@ -6,6 +6,9 @@ resourceType:
     - name
     - description
     - definition
+    - deleted
+    - created
+    - modified
   properties:
     id:
       type: "string"
@@ -17,11 +20,19 @@ resourceType:
         * `password-and-description` - A resource with the password and the description encrypted.
         * `totp` - A resource with standalone TOTP fields.
         * `password-description-totp` - A resource with encrypted password, description and TOTP fields.
+        * `v5-default-with-totp` - The new default resource type with a TOTP introduced with v5.
+        * `v5-password-string (Deprecated)` - The original passbolt resource type, kept for backward compatibility reasons.
+        * `v5-totp-standalone` - The new standalone TOTP resource type introduced with v5.
+        * `v5-default` - The new default resource type introduced with v5.
       enum:
         - "password-string"
         - "password-and-description"
         - "totp"
         - "password-description-totp"
+        - "v5-default-with-totp"
+        - "v5-password-string (Deprecated)"
+        - "v5-totp-standalone"
+        - "v5-default"
     name:
       type: "string"
     description:
@@ -29,9 +40,31 @@ resourceType:
     definition:
       type: "object"
       description: "Schema for the expected data for this kind of resources."
+    deleted:
+      type: "string"
+      x-nullable: true
     created:
       type: "string"
       format: "date-time"
     modified:
       type: "string"
       format: "date-time"
+
+resourceTypeIndex:
+  allOf:
+    - $ref: "#/resourceType"
+    - type: "object"
+      required:
+        - default
+      properties:
+        default:
+          type: "boolean"
+        resources_count:
+          type: "integer"
+
+resourceTypeUpdate:
+  type: "object"
+  properties:
+    deleted:
+      type: "boolean"
+      x-nullable: true

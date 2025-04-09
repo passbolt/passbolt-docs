@@ -1,4 +1,22 @@
-folderIndexAndView:
+folderV5IndexAndView:
+  allOf:
+    - $ref: "e2eeObjects.yml#/e2eeMetadataBasedCommon"
+    - type: "object"
+      properties:
+        children_resources:
+          type: "array"
+          items:
+            anyOf:
+              - $ref: "resources.yml#/resourceV4IndexAndView"
+              - $ref: "resources.yml#/resourceV5IndexAndView"
+        children_folders:
+          type: "array"
+          items:
+            anyOf:
+              - $ref: "#/folderV4IndexAndView"
+              - $ref: "#/folderV5IndexAndView"
+
+folderV4IndexAndView:
   type: "object"
   required:
     - id
@@ -7,8 +25,8 @@ folderIndexAndView:
     - modified
     - created_by
     - modified_by
-    - personal
     - folder_parent_id
+    - personal
   properties:
     id:
       type: "string"
@@ -27,14 +45,12 @@ folderIndexAndView:
     modified_by:
       type: "string"
       format: "uuid"
-    children_resources:
-      type: "array"
-      items:
-        $ref: "resources.yml#/resourceIndexAndView"
-    children_folders:
-      type: "array"
-      items:
-        $ref: "#/folderIndexAndView"
+    folder_parent_id:
+      type: "string"
+      format: "uuid"
+      x-nullable: true
+    personal:
+      type: "boolean"
     modifier:
       $ref: "users.yml#/userIndexAndView"
     creator:
@@ -45,30 +61,15 @@ folderIndexAndView:
       type: "array"
       items:
         $ref: "permissions.yml#/permissionIndexAndView"
-    personal:
-      type: "boolean"
-    folder_parent_id:
-      type: "string"
-      format: "uuid"
-      x-nullable: true
-
-folderAdd:
-  type: "object"
-  required:
-    - name
-  properties:
-    name:
-      type: "string"
-    folder_parent_id:
-      type: "string"
-      format: "uuid"
-      x-nullable: true
-
-
-folderUpdate:
-  type: "object"
-  required:
-    - name
-  properties:
-    name:
-      type: "string"
+    children_resources:
+      type: "array"
+      items:
+        anyOf:
+          - $ref: "resources.yml#/resourceV4IndexAndView"
+          - $ref: "resources.yml#/resourceV5IndexAndView"
+    children_folders:
+      type: "array"
+      items:
+        anyOf:
+          - $ref: "#/folderV4IndexAndView"
+          - $ref: "#/folderV5IndexAndView"

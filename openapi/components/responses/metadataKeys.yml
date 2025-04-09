@@ -1,0 +1,35 @@
+addAndIndex:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            type: "array"
+            items:
+              $ref: "../schemas/metadataKeys.yml#/metadataKeysIndexAndView"
+      examples:
+        $ref: "../examples/metadataKeys.yml#/metadataKeysIndex/response"
+
+indexAndUpdateSettings:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/metadataKeys.yml#/metadataKeysSettingsIndex"
+      examples:
+        $ref: "../examples/metadataKeys.yml#/metadataKeysSettingsIndex/response"

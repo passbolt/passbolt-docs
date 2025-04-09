@@ -1,0 +1,9 @@
+resourceUpdate:
+  description: The resource types you want to update
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/resourceTypes.yml#/resourceTypeUpdate"
+      examples:
+        $ref: "../examples/resourceTypes.yml#/resourceTypesUpdate/request"

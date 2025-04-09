@@ -23,33 +23,42 @@ foldersIndex:
             modified_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
             folder_parent_id: null
             personal: true
-          - id: "b2a72cb2-508c-43ad-b96f-697f7ad21635"
-            name: "Dylan"
-            created: "2024-07-26T08:10:49+00:00"
-            modified: "2024-07-26T08:10:49+00:00"
-            created_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
-            modified_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
-            folder_parent_id: "162e4717-59a2-439b-86c6-fc651e989939"
+          - id: "9eb60ab8-afb9-4daa-bd38-35c7926da577"
+            metadata: "-----BEGIN PGP MESSAGE-----"
+            metadata_key_id: "cc8140b3-6ecb-40b5-a977-a5eece53806c"
+            metadata_key_type: "shared_key"
+            created: "2021-04-30T05:56:06+00:00"
+            modified: "2021-04-30T05:56:06+00:00"
+            created_by: "f848277c-5398-58f8-a82a-72397af2d450"
+            modified_by: "f848277c-5398-58f8-a82a-72397af2d450"
+            folder_parent_id: null
             personal: true
+
 
 folderAdd:
   request:
     without_parent:
       summary: "Without a parent folder."
       value:
-        name: "folder name"
+        metadata: "-----BEGIN PGP MESSAGE-----"
+        metadata_key_id: "e3dabc04-cfbd-45c1-9f7d-827c61603e20"
+        metadata_key_type: "shared_key"
     with_parent:
       summary: "With a parent folder."
       value:
-        name: "folder name"
-        folder_parent_id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+        metadata: "-----BEGIN PGP MESSAGE-----"
+        metadata_key_id: "e3dabc04-cfbd-45c1-9f7d-827c61603e20"
+        metadata_key_type: "shared_key"
+        folder_parent_id: "3a003c3e-d000-4068-a6cf-96e15a41e18f"
 
 folderUpdate:
   request:
     without_parent:
       value:
-        name: "folder's new name"
-    
+        metadata: "----BEGIN PGP MESSAGE-----"
+        metadata_key_id: "9d9a6672-35d6-4d0f-a807-b90edf25c275"
+        metadata_key_type: "shared_key"
+
 folderView:
   response:
     index:
@@ -60,14 +69,16 @@ folderView:
           servertime: 1721207029
           action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
           message: "The operation was successful."
-          url: "/folders/162e4717-59a2-439b-86c6-fc651e989939.json"
+          url: "/folders/27605bac-8aa8-4fe4-a80b-486d8b76c748.json"
           code: 200
         body:
-          id: "162e4717-59a2-439b-86c6-fc651e989939"
-          name: "Bob"
-          created: "2024-07-08T10:13:20+00:00"
-          modified: "2024-07-08T10:13:20+00:00"
-          created_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
-          modified_by: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
+          id: "27605bac-8aa8-4fe4-a80b-486d8b76c748"
+          metadata: "-----BEGIN PGP MESSAGE-----"
+          metadata_key_id: "dd1f723d-0d1e-513f-8218-4055dc0530d0"
+          metadata_key_type: "shared_key"
+          created: "2025-02-19T13:50:53+00:00"
+          modified: "2025-02-19T13:50:53+00:00"
+          created_by: "ae48ed02-54ea-4be4-9ae8-229bf8c04739"
+          modified_by: "ae48ed02-54ea-4be4-9ae8-229bf8c04739"
           folder_parent_id: null
           personal: true

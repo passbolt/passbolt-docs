@@ -31,6 +31,8 @@ get:
 
 post:
   summary: "Create a folder."
+  description: |
+    > *Encrypted metadata for this item is not supported on all clients.*
   operationId: "addFolder"
   security:
     - bearerHttpAuthentication: []

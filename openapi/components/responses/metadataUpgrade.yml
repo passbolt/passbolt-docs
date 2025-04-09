@@ -1,0 +1,56 @@
+upgradeMetadataResources:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/headerWithPagination"
+          body:
+            type: "array"
+            items:
+              $ref: "../schemas/resources.yml#/resourceV4IndexAndView"
+      examples:
+        $ref: "../examples/metadataUpgrade.yml#/metadataUpgradeResources/response"
+
+upgradeMetadataFolders:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/headerWithPagination"
+          body:
+            type: "array"
+            items:
+              $ref: "../schemas/folders.yml#/folderV4IndexAndView"
+      examples:
+        $ref: "../examples/metadataUpgrade.yml#/metadataUpgradeFolders/response"
+
+upgradeMetadataTags:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/headerWithPagination"
+          body:
+            type: "array"
+            items:
+              $ref: "../schemas/tags.yml#/tagLegacy"
+      examples:
+        $ref: "../examples/metadataUpgrade.yml#/metadataUpgradeTags/response"

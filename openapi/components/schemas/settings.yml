@@ -1,0 +1,116 @@
+index:
+  type: "object"
+  required:
+    - app
+    - passbolt
+  properties:
+    app:
+      type: "object"
+      properties:
+        url:
+          type: "string"
+        locale:
+          type: "string"
+    passbolt:
+      type: "object"
+      properties:
+        legal:
+          type: "object"
+          properties:
+            privacy_policy:
+              type: "object"
+              properties:
+                url:
+                  type: "string"
+                  x-nullable: true
+            terms:
+              type: "object"
+              properties:
+                url:
+                  type: "string"
+        edition:
+          type: "string"
+        plugins:
+          type: "object"
+          properties:
+            jwtAuthentication:
+              type: "object"
+              properties:
+                enabled:
+                  type: "boolean"
+            accountRecoveryRequestHelp:
+              type: "object"
+              properties:
+                enabled:
+                  type: "boolean"
+            accountRecovery:
+              type: "object"
+              properties:
+                enabled:
+                  type: "boolean"
+            selfRegistration:
+              type: "object"
+              properties:
+                enabled:
+                  type: "boolean"
+            sso:
+              type: "object"
+              properties:
+                enabled:
+                  type: "boolean"
+            mfaPolicies:
+              type: "object"
+              properties:
+                enabled:
+                  type: "boolean"
+            ssoRecover:
+              type: "object"
+              properties:
+                enabled:
+                  type: "boolean"
+            userPassphrasePolicies:
+              type: "object"
+              properties:
+                enabled:
+                  type: "boolean"
+            inFormIntegration:
+              type: "object"
+              properties:
+                enabled:
+                  type: "boolean"
+            metadata:
+              type: "object"
+              properties:
+                version:
+                  type: "string"
+                enabled:
+                  type: "boolean"
+            locale:
+              type: "object"
+              properties:
+                options:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      locale:
+                        type: "string"
+                      label:
+                        type: "string"
+            rememberMe:
+              type: "object"
+              properties:
+                options:
+                  type: "object"
+                  properties:
+                    300:
+                      type: "string"
+                    900:
+                      type: "string"
+                    1800:
+                      type: "string"
+                    3600:
+                      type: "string"
+                    -1:
+                      type: "string"
+

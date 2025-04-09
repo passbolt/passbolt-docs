@@ -1,0 +1,21 @@
+post:
+  summary: "Create a metadata private key."
+  description: "Can also be used for sharing a missing private key for one or more users."
+  operationId: "addMetadataPrivateKey"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/metadataPrivateKeys.yml#/add"
+  tags:
+    - "Metadata private keys"
+  requestBody:
+    $ref: "../components/requestBodies/metadataPrivateKeys.yml#/metadataPrivateKeysAdd"
+  responses:
+    200:
+      $ref: "../components/responses.yml#/emptyBody"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"

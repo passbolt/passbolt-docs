@@ -1,0 +1,66 @@
+tagIndexAndView:
+  anyOf:
+    - $ref: "#/tagLegacy"
+    - $ref: "#/tagV5"
+
+tagAddResource:
+  anyOf:
+    - type: "object"
+      required:
+        - id
+      properties:
+        id:
+          type: "string"
+          format: "uuid"
+    - $ref: "#/tagV5Update"
+    - type: "string"
+
+tagLegacy:
+  type: "object"
+  required:
+    - id
+    - slug
+    - is_shared
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    user_id:
+      type: "string"
+      format: "uuid"
+      x-nullable: true
+    slug:
+      type: "string"
+    is_shared:
+      type: "boolean"
+
+tagV5:
+  allOf:
+    - $ref: "e2eeObjects.yml#/e2eeMetadataBasedId"
+    - type: "object"
+      required:
+        - is_shared
+      properties:
+        is_shared:
+          type: "boolean"
+
+tagV5Update:
+  allOf:
+    - $ref: "e2eeObjects.yml#/e2eeMetadataBased"
+    - type: "object"
+      required:
+        - is_shared
+      properties:
+        is_shared:
+          type: "boolean"
+
+tagV5MetadataRotateKey:
+  allOf:
+    - $ref: "e2eeObjects.yml#/e2eeMetadataBased"
+    - type: "object"
+      required:
+        - id
+      properties:
+        id:
+          type: "string"
+          format: "uuid"

@@ -1,0 +1,23 @@
+metadataPrivateKeysAdd:
+  request:
+    base:
+      value:
+        - metadata_key_id: "d00efe12-0892-4111-b08a-fb42d9e0a5de"
+          user_id: "eca7c94a-02ac-4e08-a7e1-035981c34868"
+          data: "-----BEGIN PGP MESSAGE-----"
+        - metadata_key_id: "7d316bc3-0cca-4b5d-9d77-3eb9c408f9df"
+          user_id: "4448fee0-2eef-4d47-b221-2101317f60d1"
+          data: "-----BEGIN PGP MESSAGE-----"
+
+metadataPrivateKeyUpdate:
+  request:
+    base:
+      value:
+        data: "-----BEGIN PGP MESSAGE-----"
+  response:
+    base:
+      value:
+        user_id: "eca7c94a-02ac-4e08-a7e1-035981c34868"
+        data: "-----BEGIN PGP MESSAGE-----"
+        created_by: "eca7c94a-02ac-4e08-a7e1-035981c34868"
+        modified_by: "4448fee0-2eef-4d47-b221-2101317f60d1"

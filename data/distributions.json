@@ -168,20 +168,6 @@
     "canUpdate": true
   },
   {
-    "name": "Fedora",
-    "slug": "fedora",
-    "version": "38",
-    "package": "dnf",
-    "db_engine": "mariadb",
-    "logo": "/img/distributions/fedora.svg",
-    "ce": true,
-    "pro": true,
-    "canMigrateServer": true,
-    "canMigratePackage": false,
-    "canUpgrade": true,
-    "canUpdate": true
-  },
-  {
     "name": "SLES",
     "slug": "sles",
     "version": "15 SP6",

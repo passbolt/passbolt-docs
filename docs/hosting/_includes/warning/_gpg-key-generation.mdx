@@ -1,12 +1,16 @@
 import CodeBlock from '@site/src/components/CodeBlock/CodeBlock';
 
+:::warning
+Since GnuPG 2.2.0+, the default key type is ECC (Curve25519/Ed25519) instead of RSA. However, ECC keys may not support passphrase-less generation reliably across all environments or configurations. We recommend using RSA explicitly to ensure consistent passphrase-less key generation.
+:::
+
 To create a new GnuPG key without passphrase:
 
 <CodeBlock>
 {`gpg --batch --no-tty --gen-key <<EOF
-    Key-Type: default
+    Key-Type: RSA
     Key-Length: 3072
-    Subkey-Type: default
+    Subkey-Type: RSA
     Subkey-Length: 3072
     Name-Real: John Doe
     Name-Email: email@domain.tld

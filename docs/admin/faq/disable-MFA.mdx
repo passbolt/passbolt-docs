@@ -8,6 +8,7 @@ sidebar_class_name: hidden
 import CodeBlock from "/src/components/CodeBlock/CodeBlock";
 import Chips from "/src/components/Chips/Chips";
 import Figure from "/src/components/Figure/Figure";
+import Link from '@docusaurus/Link';
 
 <div style={{display: "flex", gap: "1rem"}}>
   <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
@@ -49,9 +50,13 @@ Then, replace the placeholder **ID** with the copied output, run the SQL query b
 ### Other frequently asked questions in the same category
 <ul>
     <li>
-        <a href={`/docs/admin/user-provisioning/self-registration/`}>User Self Registration Set Up</a>
+        <Link to={`/docs/admin/user-provisioning/self-registration/`}>
+          User Self Registration Set Up
+        </Link>
     </li>
     <li>
-        <a href={`/docs/hosting/troubleshooting/performance-tweaks/`}>Some potential performance tweaks</a>
+        <Link to={`/docs/hosting/troubleshooting/performance-tweaks/`}>
+          Some potential performance tweaks
+        </Link>
     </li>
 </ul>

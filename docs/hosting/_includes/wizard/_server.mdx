@@ -1,6 +1,7 @@
 import Figure from '/src/components/Figure/Figure';
 import GpgKeyGeneration from '/docs/hosting/_includes/warning/_gpg-key-generation.mdx';
 import Counter from '/docs/components/counter';
+import Link from '@docusaurus/Link';
 
 ## 2. Configure passbolt
 
@@ -356,10 +357,14 @@ Your user account is now created. You will see a redirection page for a few seco
 <div>
     <ul>
         <li>
-            <a href={`/docs/hosting/configure/https/${props.productLabel.toLowerCase()}/debian-auto/`}>Auto (Using Let's Encrypt)</a>
+            <Link to={`/docs/hosting/configure/https/${props.productLabel.toLowerCase()}/debian-auto/`}>
+              Auto (Using Let's Encrypt)
+            </Link>
         </li>
         <li>
-            <a href={`/docs/hosting/configure/https/${props.productLabel.toLowerCase()}/debian-manual`}>Manual (Using user-provided SSL certificates)</a>
+            <Link to={`/docs/hosting/configure/https/${props.productLabel.toLowerCase()}/debian-manual`}>
+              Manual (Using user-provided SSL certificates)
+            </Link>
         </li>
     </ul>
 </div>

@@ -5,9 +5,9 @@ import styles from '/src/components/ProviderCard/ProviderCard.module.css';
 export const ProviderCardWrapper = ({providers}) => {
   return (
     <div className={styles.grid}>
-      {providers.map(provider => {
+      {providers.map((provider, index) => {
         return (
-          <ProviderCard {...provider}/>
+          <ProviderCard key={index} {...provider}/>
         );
       })}
     </div>

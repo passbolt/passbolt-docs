@@ -7,6 +7,7 @@ hide_table_of_contents: false
 
 import Figure from '/src/components/Figure/Figure';
 import Chips from "/src/components/Chips/Chips";
+import Link from '@docusaurus/Link';
 
 <div style={{display: "flex", gap: "1rem"}}>
   <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
@@ -104,9 +105,9 @@ Congrats! At this point you have user Self Registration set up and configured an
 ### Other frequently asked questions in the same category
 <ul>
     <li>
-        <a href={`/docs/admin/faq/enable-disable-import-export-plugins/`}>How can I enable or disable import / export plugins</a>
+        <Link to={`/docs/admin/faq/enable-disable-import-export-plugins/`}>How can I enable or disable import / export plugins</Link>
     </li>
     <li>
-        <a href={`/docs/hosting/troubleshooting/performance-tweaks/`}>Some potential performance tweaks</a>
+        <Link to={`/docs/hosting/troubleshooting/performance-tweaks/`}>Some potential performance tweaks</Link>
     </li>
 </ul>

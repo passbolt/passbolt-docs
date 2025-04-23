@@ -1,6 +1,7 @@
 import Figure from '/src/components/Figure/Figure';
 import WizardConfiguration from '/docs/hosting/_includes/wizard/_server.mdx';
 import AdminConfiguration from '/docs/hosting/_includes/wizard/_admin.mdx';
+import Link from '@docusaurus/Link';
 
 Since march 2019 it is possible to install passbolt easily directly from Digital Ocean.
 Digital Ocean is an hosting provider based in the USA. In order to run passbolt
@@ -74,10 +75,10 @@ If you are planning to use this AWS instance in production, it is highly recomme
 <div>
   <ul>
     <li>
-      <a href={`/docs/hosting/configure/https/${props.productName.toLowerCase()}/aws-auto/`}> Auto (Using Let's Encrypt) </a>
+      <Link to={`/docs/hosting/configure/https/${props.productName.toLowerCase()}/aws-auto/`}> Auto (Using Let's Encrypt) </Link>
     </li>
     <li>
-      <a href={`/docs/hosting/configure/https/${props.productName.toLowerCase()}/debian-manual/`}> Manual (Using user-provided SSL certificates)</a>
+      <Link to={`/docs/hosting/configure/https/${props.productName.toLowerCase()}/debian-manual/`}> Manual (Using user-provided SSL certificates)</Link>
     </li>
   </ul>
 </div>

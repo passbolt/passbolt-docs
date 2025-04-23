@@ -1,4 +1,5 @@
 import AdmonitionsInstallPrerequisites  from '/docs/hosting/_includes/package/_prerequisites_ad.mdx';
+import Link from '@docusaurus/Link';
 
  ## Prerequisites
 
@@ -38,13 +39,11 @@ FAQ pages:
 <div>
     <ul>
         {props.distributionLabel !== 'Debian' && props.distributionLabel !== 'Ubuntu' && props.distributionLabel !== 'Raspberry' && (
-            <li><a href={"/docs/hosting/faq/why-should-I-install-haveged-on-vms"}>Considerations about entropy</a></li>
+            <li><Link to={"/docs/hosting/faq/why-should-I-install-haveged-on-vms"}>Considerations about entropy</Link></li>
         )}
-    <li><a href={"/docs/hosting/configure/ntp"}>Set up NTP</a></li>
-    <li><a href={"/docs/hosting/configure/firewall-rules"}>Firewall rules</a></li>
+    <li><Link to={"/docs/hosting/configure/ntp"}>Set up NTP</Link></li>
+    <li><Link to={"/docs/hosting/configure/firewall-rules"}>Firewall rules</Link></li>
     </ul>
 </div>
 
-{props.type !== 'updatePackage' && (
-  <AdmonitionsInstallPrerequisites />
-)}
+{props.type !== 'updatePackage' ? <AdmonitionsInstallPrerequisites /> : null}

@@ -4,22 +4,20 @@ import styles from './Badge.module.css';
 import PropTypes from 'prop-types';
 import Link from '@docusaurus/Link';
 
-const Badge = ({ children, href = null, variant = 'primary' }) => {
+const Badge = ({ children, href, variant = 'primary' }) => {
   if (!children) return null;
 
-  return (
-    <>
-      {href ? (
-        <Link href={href} className={clsx([styles.badge, styles[variant]])}>
-          {children}
-        </Link>
-      ) : (
-        <a href={href} className={clsx([styles.badge, styles[variant]])}>
-          {children}
-        </a>
-      )}
-    </>
-  );
+  const className = clsx([styles.badge, styles[variant]]);
+
+  if (href) {
+    return (
+      <Link href={href} className={className}>
+        {children}
+      </Link>
+    );
+  }
+
+  return <span className={className}>{children}</span>;
 };
 
 Badge.propTypes = {

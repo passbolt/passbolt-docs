@@ -18,7 +18,6 @@
     "react": {
       "version": "detect"
     }
-<<<<<<< HEAD
   },
   "rules": {
     "react/no-unescaped-entities": ["error", { "forbid": [">", "}"] }],
@@ -33,7 +32,5 @@
   },
   "globals": {
     "props": "readonly"
-=======
->>>>>>> 15b8d69 (fix(*): fix linter warning)
   }
 }

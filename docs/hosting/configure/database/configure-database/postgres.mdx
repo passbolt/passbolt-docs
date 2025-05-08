@@ -45,7 +45,9 @@ Then, inside the PostgreSQL prompt, run:
 <CodeBlock>
 {`CREATE DATABASE passbolt;
 CREATE USER passbolt WITH ENCRYPTED PASSWORD 'P4ssb0lt';
-GRANT ALL PRIVILEGES ON DATABASE passbolt TO passbolt;`}
+GRANT ALL PRIVILEGES ON DATABASE passbolt TO passbolt;
+\\c passbolt;
+GRANT ALL PRIVILEGES ON SCHEMA public TO passbolt;`}
 </CodeBlock>
 
 4. **Save and restart PostgreSQL:**
@@ -93,7 +95,9 @@ Then, inside the PostgreSQL prompt, run:
 <CodeBlock>
 {`CREATE DATABASE passbolt;
 CREATE USER passbolt WITH ENCRYPTED PASSWORD 'P4ssb0lt';
-GRANT ALL PRIVILEGES ON DATABASE passbolt TO passbolt;`}
+GRANT ALL PRIVILEGES ON DATABASE passbolt TO passbolt;
+\\c passbolt;
+GRANT ALL PRIVILEGES ON SCHEMA public TO passbolt;`}
 </CodeBlock>
 
 5. **Continue the installation of passbolt:**

@@ -6,23 +6,55 @@ sidebar_label: LDAP Sync Cronjob
 
 import CodeBlock from "/src/components/CodeBlock/CodeBlock.js";
 
-To synchronize the [user directory](/admin/user-provisioning/users-directory/) changes automatically you will need to add a cron job on your server. We recommend to execute
-the job once a day, but you can choose as per your preference.
+## Automating Directory Sync with Cron
 
-## Debian/Ubuntu
+To keep your [user directory](/admin/provisioning/users-directory/) in sync automatically, you’ll need to schedule a cron job on your server.  
+We recommend running it once per day, but you can adjust the frequency as needed.
 
-<CodeBlock>
-{`0 0 * * * su -c "/usr/share/php/passbolt/bin/cake directory_sync all --persist" -s /bin/bash www-data >> /var/log/cron.log 2>&1
-`}
-</CodeBlock>
+---
 
-## RPM
+### Debian / Ubuntu
 
-<CodeBlock>
-{`0 0 * * * su -c "/usr/share/php/passbolt/bin/cake directory_sync all --persist" -s /bin/bash nginx >> /var/log/cron.log 2>&1
-`}
-</CodeBlock>
+```bash
+0 0 * * * su -c "/usr/share/php/passbolt/bin/cake directory_sync all --persist" -s /bin/bash www-data >> /var/log/cron.log 2>&1
+```
 
-## Docker
+---
 
-You will have to uncomment [line 36 and 37](https://github.com/passbolt/passbolt_docker/blob/master/docker-compose/docker-compose-pro.yaml#L36) on the `docker-compose-pro.yaml` file.
+### RHEL / CentOS / RPM-based Systems
+
+```bash
+0 0 * * * su -c "/usr/share/php/passbolt/bin/cake directory_sync all --persist" -s /bin/bash nginx >> /var/log/cron.log 2>&1
+```
+
+> Replace `nginx` with the actual web server user if your environment differs.
+
+---
+
+### Docker
+
+If you're using the official Docker deployment, uncomment the relevant cron lines in your Docker Compose file:
+
+- [Lines 36–37 of `docker-compose-pro.yaml`](https://github.com/passbolt/passbolt_docker/blob/master/docker-compose/docker-compose-pro.yaml#L36)
+
+These lines enable the sync cron task within the containerized environment.
+
+---
+
+Once configured, your directory sync will run automatically based on the schedule you’ve defined.
+
+## Looking for More Advanced Scenarios?
+
+This page provides basic examples for setting up cron jobs in both **Package** and **Docker** environments.
+
+If you're working with more complex directory configurations—such as:
+
+- multi-domain forests,
+- synchronization of deleted users or complex permission structures,
+- skipped entries, pagination handling, or memory limitations during syncs,
+
+we recommend referring to the dedicated guide on advanced LDAP scenarios:
+
+👉 [**Advanced Directory Options**](/admin/provisioning/users-directory/advanced-directory-options/)
+
+That resource offers in-depth guidance on large-scale environments, directory-specific quirks, and edge cases, and serves as the single source of truth for advanced provisioning setups.

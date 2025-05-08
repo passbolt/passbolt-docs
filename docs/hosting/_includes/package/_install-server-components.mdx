@@ -1,5 +1,6 @@
 import OpenSUSEGPGKey from '/docs/hosting/_includes/OpenSUSE/_opensuse-gpg-key.mdx';
 import CodeBlock from "/src/components/CodeBlock/CodeBlock";
+import RepoScriptSLES from "/docs/hosting/_includes/default/sles_uncomment_lines.mdx";
 
 ## Package repository setup
 
@@ -24,6 +25,12 @@ import CodeBlock from "/src/components/CodeBlock/CodeBlock";
 </CodeBlock>
 
 **Step 3.** Ensure that the script is valid and execute it:
+
+<>
+  {props.distributionPackage === "zypper" && (
+    <RepoScriptSLES productName={props.productName}/>
+  )}
+</>
 
 <>
     {props.isMigrating === true ? (

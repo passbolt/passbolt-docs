@@ -2,6 +2,7 @@ import Figure from '/src/components/Figure/Figure';
 import GpgKeyGeneration from '/docs/hosting/_includes/warning/_gpg-key-generation.mdx';
 import Counter from '/docs/components/counter';
 import Link from '@docusaurus/Link';
+import DigitalOceanSMTPWarning from '/docs/hosting/_includes/warning/_digital-ocean-smtp.mdx';
 
 ## 2. Configure passbolt
 
@@ -197,6 +198,12 @@ Import a key if you already have one and you want your server to use it.
 </>
 
 <Counter chapter={2} title="Mail Server (SMTP)" />
+
+<>
+  {props.distributionLabel === 'Digital Ocean' && (
+    <DigitalOceanSMTPWarning />
+  )}
+</>
 
 At this stage, the wizard will ask you to enter the details of your SMTP server.
 

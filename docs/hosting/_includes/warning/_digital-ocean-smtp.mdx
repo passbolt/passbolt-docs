@@ -1,0 +1,11 @@
+:::warning[Important]
+DigitalOcean blocks all outbound SMTP ports (25, 465, 587) by default on new accounts to reduce spam and abuse for a 60 days period.
+:::
+
+To send transactional or notification emails from your applications, use a dedicated email-delivery service rather than running your own SMTP server on a Droplet. Popular options include:
+
+**[SendGrid](/docs/admin/emails/email-server/sendgrid/)**: No SMTP ports required, plus built-in analytics, deliverability tools, and scalable plans.
+
+**[AWS SES](/admin/emails/email-server/aws-ses/)**: If you already use AWS, SES offers a cost-effective, high-deliverability API.
+
+**Other providers**: Services like [Mailgun](/admin/emails/email-server/mailgun/), [Mailchimp](/admin/emails/email-server/mailchimp/), or [Mailjet](/admin/emails/email-server/mailjet/) also provide SMTP-alternative APIs. Choose the one that best fits your needs.

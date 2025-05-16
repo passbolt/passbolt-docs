@@ -1,0 +1,155 @@
+---
+title: Setting up your development environment
+description: Learn how to set up your development environment for Passbolt
+sidebar_position: 3
+---
+
+## Prerequisites
+
+Before you begin, make sure you have the following installed:
+
+- [Git](https://git-scm.com/)
+- [Node.js](https://nodejs.org/) (v18 or later)
+- [PHP](https://www.php.net/) (v8.1 or later)
+- [Composer](https://getcomposer.org/)
+- [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/)
+- [DDev](https://ddev.readthedocs.io/) (recommended for local development)
+
+## Getting started
+
+### 1. Fork and clone the repositories
+
+Fork and clone the following repositories:
+
+```bash
+# API
+git clone https://github.com/YOUR_USERNAME/passbolt_api.git
+cd passbolt_api
+
+# Browser Extension
+git clone https://github.com/YOUR_USERNAME/passbolt_browser_extension.git
+cd passbolt_browser_extension
+
+# Styleguide
+git clone https://github.com/YOUR_USERNAME/passbolt_styleguide.git
+cd passbolt_styleguide
+```
+
+### 2. Set up the API
+
+#### Using DDev (Recommended)
+
+1. Navigate to the API directory:
+```bash
+cd passbolt_api
+```
+
+2. Start DDev:
+```bash
+ddev start
+```
+
+3. Install dependencies:
+```bash
+ddev composer install
+```
+
+4. Set up the database:
+```bash
+ddev exec bin/cake passbolt install
+```
+
+#### Manual Setup
+
+1. Navigate to the API directory:
+```bash
+cd passbolt_api
+```
+
+2. Install dependencies:
+```bash
+composer install
+```
+
+3. Configure your database in `config/app.php`
+
+4. Set up the database:
+```bash
+bin/cake passbolt install
+```
+
+### 3. Set up the Browser Extension
+
+1. Navigate to the browser extension directory:
+```bash
+cd passbolt_browser_extension
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Build the extension:
+```bash
+npm run build
+```
+
+### 4. Set up the Styleguide
+
+1. Navigate to the styleguide directory:
+```bash
+cd passbolt_styleguide
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+```bash
+npm run start
+```
+
+## Development workflow
+
+1. Create a new branch for your changes:
+```bash
+git checkout -b feature/your-feature-name
+```
+
+2. Make your changes
+
+3. Run tests:
+```bash
+# API
+ddev exec vendor/bin/phpunit
+
+# Browser Extension
+npm run test
+
+# Styleguide
+npm run test
+```
+
+4. Commit your changes:
+```bash
+git add .
+git commit -m "Description of your changes"
+```
+
+5. Push to your fork:
+```bash
+git push origin feature/your-feature-name
+```
+
+6. Create a pull request
+
+## Additional resources
+
+- [API Documentation](https://www.passbolt.com/api)
+- [Browser Extension Documentation](https://github.com/passbolt/passbolt_browser_extension/blob/master/README.md)
+- [Styleguide Documentation](https://github.com/passbolt/passbolt_styleguide/blob/master/README.md)
+- [Community Forum](https://community.passbolt.com)
+- [Discord Server](https://discord.gg/passbolt) 

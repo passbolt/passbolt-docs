@@ -1,4 +1,5 @@
 import ConfigureDebianPackage from './_configure-debian-package-mariadb.mdx';
+import Link from '@docusaurus/Link';
 
 <div>
   {(props.distributionLabel === 'Debian' ||
@@ -14,10 +15,10 @@ import ConfigureDebianPackage from './_configure-debian-package-mariadb.mdx';
       SSL using the {props.distributionLabel} package:
       <ul>
           <li>
-              <a href={`/docs/hosting/configure/https/${props.productName.toLowerCase()}/debian-auto/`}> Auto (Using Let's Encrypt) </a>
+              <Link to={`/docs/hosting/configure/https/${props.productName.toLowerCase()}/debian-auto/`}> Auto (Using Let's Encrypt) </Link>
           </li>
           <li>
-              <a href={`/docs/hosting/configure/https/${props.productName.toLowerCase()}/debian-manual/`}> Manual (Using user-provided SSL certificates) </a>
+              <Link to={`/docs/hosting/configure/https/${props.productName.toLowerCase()}/debian-manual/`}> Manual (Using user-provided SSL certificates) </Link>
           </li>
       </ul>
     </>

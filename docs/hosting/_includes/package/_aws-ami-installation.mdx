@@ -1,4 +1,5 @@
 import Figure from '/src/components/Figure/Figure';
+import Link from '@docusaurus/Link';
 
 Passbolt Amazon Machine Image (AMI) provides a ready to use passbolt image that you can
 use for free on your Amazon Web Services infrastructure.
@@ -25,9 +26,9 @@ leverage on third party email providers.
   <p>
     You can subscribe to Passbolt {props.productName.toUpperCase()} on the
     following{' '}
-    <a href={'https://aws.amazon.com/marketplace/pp/B08PDGS3ML'}>
+    <Link to={'https://aws.amazon.com/marketplace/pp/B08PDGS3ML'}>
       AWS marketplace listing
-    </a>
+    </Link>
     . Just click on “continue to subscribe” button on the listing page.
   </p>
   <Figure
@@ -62,9 +63,9 @@ leverage on third party email providers.
   <p>
     You can subscribe to Passbolt {props.productName.toUpperCase()} on the
     following{' '}
-    <a href={'https://aws.amazon.com/marketplace/pp/prodview-7tuiu3brmboa2'}>
+    <Link to={'https://aws.amazon.com/marketplace/pp/prodview-7tuiu3brmboa2'}>
       AWS marketplace listing
-    </a>
+    </Link>
     . Just click on “continue to subscribe” button on the listing page.
   </p>
   <Figure
@@ -131,9 +132,9 @@ If you are planning to use this AWS instance in production, it is highly recomme
 
 <ul>
   <li>
-    <a href={`/docs/hosting/configure/https/${props.productName.toLowerCase()}/aws-auto/`}> Auto (Using Let's Encrypt) </a>
+    <Link to={`/docs/hosting/configure/https/${props.productName.toLowerCase()}/aws-auto/`}> Auto (Using Let's Encrypt) </Link>
   </li>
   <li>
-    <a href={`/docs/hosting/configure/https/${props.productName.toLowerCase()}/debian-manual/`}> Manual (Using user-provided SSL certificates)</a>
+    <Link to={`/docs/hosting/configure/https/${props.productName.toLowerCase()}/debian-manual/`}> Manual (Using user-provided SSL certificates)</Link>
   </li>
 </ul>

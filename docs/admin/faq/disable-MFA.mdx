@@ -8,6 +8,7 @@ sidebar_class_name: hidden
 import CodeBlock from "/src/components/CodeBlock/CodeBlock";
 import Chips from "/src/components/Chips/Chips";
 import Figure from "/src/components/Figure/Figure";
+import Link from '@docusaurus/Link';
 
 <div style={{display: "flex", gap: "1rem"}}>
   <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
@@ -22,7 +23,7 @@ In the *users* workspace, as an administrator, it is possible to right click on 
 
 <Figure
   src={
-    '/img/help/2024/09/disable-mfa.png'
+    '/img/help/2025/04/disable-mfa.png'
   }
   alt={'Disable MFA from the users workspace'}
   caption={'fig. Disable MFA from the users workspace'}
@@ -47,11 +48,7 @@ Then, replace the placeholder **ID** with the copied output, run the SQL query b
 
 
 ### Other frequently asked questions in the same category
-<ul>
-    <li>
-        <a href={`/docs/admin/provisioning/self-registration/`}>User Self Registration Set Up</a>
-    </li>
-    <li>
-        <a href={`/docs/hosting/troubleshooting/performance-tweaks/`}>Some potential performance tweaks</a>
-    </li>
-</ul>
+
+- <Link to="/docs/admin/provisioning/self-registration/">User Self Registration Set Up</Link>
+- <Link to="/docs/hosting/troubleshooting/performance-tweaks/">Some potential performance tweaks</Link>
+

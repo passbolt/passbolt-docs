@@ -3,8 +3,8 @@ import styles from './CheckMarkPartial.module.css';
 
 const CheckMarkPartial = () => {
     return (
-        <span class={styles.checkmark}>
-            <span class={styles.filler}></span>
+        <span className={styles.checkmark}>
+            <span className={styles.filler}></span>
         </span>
     );
 };

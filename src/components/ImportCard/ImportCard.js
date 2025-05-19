@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-//Reuse the css theme from distribution
+// Reuse the css theme from distribution
 import styles from '../DistributionCard/DistributionCard.module.css';
 import Badge from '@site/src/components/Badge/Badge';
 import clsx from 'clsx';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import Heading from '@theme/Heading'; // Import the Heading component
 
 const ImportCard = ({ logo, name, links, ...props }) => {
   const imageUrl = useBaseUrl(logo);
@@ -13,14 +14,14 @@ const ImportCard = ({ logo, name, links, ...props }) => {
     <div className={styles.root} {...props}>
       {logo && (
         <div className={styles.logo}>
-          <img src={imageUrl} />
+          <img src={imageUrl} alt={`${name} logo`} />
         </div>
       )}
 
       {name && (
-        <h3 className={styles.name}>
+        <Heading as="h3" className={styles.name}>
           {name}
-        </h3>
+        </Heading>
       )}
       {links && (
         <div className={styles.links}>
@@ -42,7 +43,12 @@ const ImportCard = ({ logo, name, links, ...props }) => {
 ImportCard.propTypes = {
   logo: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  links: PropTypes.arrayOf(PropTypes.string).isRequired,
+  links: PropTypes.arrayOf(
+    PropTypes.shape({
+      slug: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default ImportCard;

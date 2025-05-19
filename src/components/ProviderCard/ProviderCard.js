@@ -2,26 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './ProviderCard.module.css';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import Link from '@docusaurus/Link';
+import Heading from '@theme/Heading';
 
 const ProviderCard = ({ logo, name, slug, ...props }) => {
   const imageUrl = useBaseUrl(logo);
 
   return (
-    <a className={styles.providerCard} href={slug} title={name} {...props}>
+    <Link className={styles.providerCard} to={slug} title={name} {...props}>
       <div className={styles.root}>
         <div className={styles.logo}>
-          <img src={imageUrl} />
+          <img src={imageUrl} alt={`${name} logo`} />
         </div>
-        <h3 className={styles.name}>{name}</h3>
+        <Heading as="h3" className={styles.name}>{name}</Heading>
       </div>
-    </a>
+    </Link>
   );
 };
 
 ProviderCard.propTypes = {
   logo: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  link: PropTypes.string.isRequired,
+  slug: PropTypes.string.isRequired,
 };
 
 export default ProviderCard;

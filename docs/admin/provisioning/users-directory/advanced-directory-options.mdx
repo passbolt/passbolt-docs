@@ -18,7 +18,7 @@ When running a sync (simulated or actual), Passbolt may display errors or warnin
 
 :::info
 **Message**  
-`The user [email protected] could not be added to group X because it is not active yet.`
+`The user [email_protected] could not be added to group X because it is not active yet.`
 
 **Explanation**  
 This means a user was synced (created) and the sync tried to add them to a Passbolt group, but the user hasn’t activated their Passbolt account yet (they haven’t clicked the invite link to finalize setup). Passbolt cannot add inactive users to groups.
@@ -29,7 +29,7 @@ No manual intervention needed with cron jobs enabled – as soon as the user act
 
 :::warning
 **Message**  
-`The user [email protected] could not be mapped with an existing user in passbolt because it was created after.`
+`The user [email_protected] could not be mapped with an existing user in passbolt because it was created after.`
 
 **Explanation**  
 This indicates a conflict where the user exists in both Passbolt and LDAP, but was first created in Passbolt (likely manually) and later appeared in LDAP. Passbolt gives priority to its existing user record and will not auto-merge or replace it via sync.
@@ -51,7 +51,7 @@ Delete the manual group in Passbolt (after confirming it’s safe), then re-run 
 
 :::info
 **Message**  
-`The previously deleted user [email protected] was not re-added to passbolt.`
+`The previously deleted user [email_protected] was not re-added to passbolt.`
 
 **Explanation**  
 This occurs when a user that exists in LDAP was manually deleted in Passbolt. Sync respects manual deletions.
@@ -62,7 +62,7 @@ Manually recreate the user in Passbolt, then run sync again.
 
 :::danger
 **Message**  
-`The user [email protected] could not be added to the group X because of an internal error.`
+`The user [email_protected] could not be added to the group X because of an internal error.`
 
 **Explanation**  
 Often this means the group didn’t exist when sync tried to add the user.
@@ -73,7 +73,7 @@ Check the sync logs for errors during group creation, fix them, and re-run sync.
 
 :::tip
 **Message**  
-`A request to add user [email protected] in group X was sent to the group manager.`
+`A request to add user [email_protected] in group X was sent to the group manager.`
 
 **Explanation**  
 Passbolt cannot auto-share existing secrets due to encryption constraints. This is expected behavior.
@@ -106,7 +106,7 @@ Manually remove the user from the Passbolt group to align with LDAP.
 
 :::info
 **Message**  
-`The user [email protected] could not be added to the group X because membership was removed in passbolt.`
+`The user [email_protected] could not be added to the group X because membership was removed in passbolt.`
 
 **Explanation**  
 The user was removed from the group manually, and Passbolt respects that decision.

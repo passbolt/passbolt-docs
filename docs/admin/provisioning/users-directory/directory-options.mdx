@@ -1,0 +1,417 @@
+---
+title: Directory Options
+sidebar_label: Directory options
+description: Directory options
+hide_table_of_contents: false
+sidebar_position: 1
+---
+
+import Figure from '@site/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+
+<Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+
+## OpenLDAP Specific Guidance
+
+When integrating with OpenLDAP, keep in mind the following specifics:
+
+
+### Schema and Attributes
+
+* Passbolt expects standard OpenLDAP schemas:
+  * **User entries** should use the `inetOrgPerson` (or a subclass) object class.
+  * **Group entries** should use `groupOfUniqueNames`.
+* If your OpenLDAP uses different object classes (e.g., `posixAccount` for users, 
+  or `groupOfNames` for groups), you can override the **User object class** and 
+  **Group object class** in the configuration.
+* Requirements:
+  * Each user must have a unique and valid email address in the attribute Passbolt 
+    maps as the username (usually `mail`). It must be properly formatted (no 
+    leading/trailing spaces).
+  * Each group must contain members via the `uniqueMember` attribute.
+* If these are not present or properly formatted, sync will report a "data validation" 
+  error.
+
+### Bind DN Permissions
+
+* The bind account must have read access to all user and group entries under the Base DN.
+* If entries are stored under different OUs, consider:
+  * Adjusting the **Base DN**
+  * Using **User Path** or **Group Path**
+  * Applying **custom filters**
+
+### Custom Filters
+
+Use the `Custom Filter` fields to fine-tune user/group selection. Examples:
+
+```ldap
+(objectClass=inetOrgPerson)
+(!(uid=service_*))
+```
+
+This helps exclude service accounts or include only specific object types.
+
+### Case Sensitivity
+
+- While LDAP DNs and attribute names are case-insensitive, values you enter in Passbolt’s filter fields (like group names) **are case-sensitive**.
+
+### Example Configuration
+
+If your OpenLDAP has:
+
+- Users: `ou=People,dc=example,dc=com`
+- Groups: `ou=Groups,dc=example,dc=com`
+
+Then set:
+
+- **Base DN**: `dc=example,dc=com`
+- **User Path**: `ou=People`
+- **Group Path**: `ou=Groups`
+
+If groups use `member` instead of `uniqueMember`, change the **group object class** accordingly and verify schema mapping in the plugin config.
+
+---
+
+## Active Directory Specific Guidance
+
+For Microsoft Active Directory integration, the Passbolt LDAP connector handles much of the heavy lifting. Keep these points in mind:
+
+### Domain and Base DN
+
+- The **Domain** field (e.g., `MYDOMAIN.LOCAL`) is used internally, possibly for constructing principal names.
+- The **Base DN** is usually the root of your AD domain: `DC=mydomain,DC=local`.
+
+You can restrict the sync scope by setting the Base DN to a specific OU.
+
+### User Attributes
+
+- By default, Passbolt uses the AD `mail` attribute as the username.
+- If `mail` is not populated, consider:
+  - Filling the `mail` field in AD.
+  - Overriding with `userPrincipalName` or `sAMAccountName`.
+
+This requires config-level changes, e.g.:
+
+```yaml
+username_attribute: sAMAccountName
+```
+
+> This cannot be changed via the UI currently—only via configuration files.
+
+### Enabled Users Only
+
+- Enable this option to ignore disabled accounts.
+- This is recommended in environments with many stale or service accounts.
+
+### Group Memberships
+
+- Passbolt reads group membership through:
+  - The `memberOf` attribute on user objects
+  - The `member` attribute on group objects
+
+Group memberships are automatically inferred.
+
+⚠️ **Note**: **Nested groups are not supported.**  
+If Group A is a member of Group B in AD, Passbolt will **not** include Group A's members in Group B.
+
+### AD Naming Attributes
+
+- Default mapping: `mail` → Passbolt username
+- Optional override: `userPrincipalName`, `sAMAccountName`
+- Manual override must be done via configuration:
+  ```yaml
+  username_attribute: userPrincipalName
+  ```
+
+Contact engineering if you require a different mapping strategy.
+
+### Site/DC Awareness
+
+- Use the appropriate **Server URL** to connect to the correct Domain Controller (DC) or global catalog.
+  - Example: `ldaps://dc1.example.corp:636`
+
+If your AD enforces secure transport:
+
+- Enable LDAPS
+- Ensure certificates are trusted on the Passbolt server
+
+### Permissions
+
+- The bind account must be a **domain user** with read access.
+- Make sure:
+  - The account can read the necessary OUs
+  - The AD configuration allows reads over the protocol you’re using (LDAP/LDAPS)
+
+Some environments enforce:
+
+- **LDAP signing**
+- **Channel binding**
+- **LDAPS-only access**
+
+### Common AD Issues
+
+Very large ADs may hit the default 1000-record page size limit.
+
+- Passbolt uses the LdapTools library, which supports automatic paged queries.
+- If AD paging is disabled, you might see errors like:
+
+```
+ldap_search(): Search: Operations error
+```
+
+✅ To resolve:
+- Enable paging on the AD server
+- Or adjust your LDAP configuration/query behavior
+
+### Example Configuration
+
+For an AD domain `example.corp`, use:
+
+- **Domain**: `example.corp`
+- **Server URL**: `ldaps://dc1.example.corp:636`
+- **Base DN**: `DC=example,DC=corp`
+- **Users parent group**: set to an AD security group (e.g., `Passbolt Users`) to restrict synced users.
+
+---
+
+
+## Configure the plugin
+
+The available options are:
+
+<table className="table-parameters">
+  <thead>
+    <tr>
+        <th width="25%">Parameter</th>
+        <th width="33%">Details</th>
+        <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td>
+        Directory Type<br/>
+        <em>(required)</em>
+        </td>
+        <td>
+        Choose here the type of your directory. Currently only Active Directory and OpenLdap are supported.
+        </td>
+        <td>
+        <code>Active Directory</code>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        Domain<br/>
+        <em>(required)</em>
+        </td>
+        <td>
+        The domain your directory is configured with.
+        </td>
+        <td>
+        <code>mydomain.local</code>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        Server URL<br/>
+        <em>(required)</em>
+        </td>
+        <td>
+        The full url to reach your server.
+        </td>
+        <td>
+        <code>ldap://198.163.0.1:389</code>
+        </td>
+     </tr>
+     <tr>
+         <td>
+         Username and password<br/>
+         <em>(required)</em>
+         </td>
+         <td>
+         Username and password to authentify on your directory
+         </td>
+         <td>
+         </td>
+     </tr>
+     <tr>
+          <td>
+          Base DN<br/>
+          <em>(required)</em>
+          </td>
+          <td>
+          The base DN (default naming context) for the domain.
+          </td>
+          <td>
+          <code>OU=OrgUsers,DC=mydomain,DC=local</code>
+          </td>
+     </tr>
+     <tr>
+        <td>
+        Group path<br/>
+        <em>(optional)</em>
+        </td>
+        <td>
+        If your groups are located in a different path than your base DN, you can specify here the complementary path.
+        <br/><br/>Default value: none
+        </td>
+        <td><code>OU=MyGroups</code></td>
+     </tr>
+     <tr>
+         <td>
+         User path<br/>
+         <em>(optional)</em>
+         </td>
+         <td>
+         If your users are located in a different path than your base DN, you can specify here the complementary path.
+         <br/><br/>Default value: none
+         </td>
+         <td><code>OU=MyUsers</code></td>
+      </tr>
+      <tr>
+      <td>
+           Group object class<br/>
+           <em>(optional)</em>
+           </td>
+           <td>
+           For OpenLdap only, you can specify here the name of the group object class that you are using in your openldap.
+           <br/><br/>Default value: groupOfUniqueNames
+           </td>
+           <td>
+           <code>groupOfUniqueNames</code>
+           </td>
+        </tr>
+        <tr>
+            <td>
+            User object class<br/>
+            <em>(optional)</em>
+            </td>
+            <td>
+            For OpenLdap only, you can specify here the name of the user object class that you are using in your openldap.
+            <br/><br/>Default value: inetOrgPerson
+            </td>
+            <td>
+            <code>inetOrgPerson</code>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            Default admin<br/>
+            <em>(required)</em>
+            </td>
+            <td>
+            Choose here the username of the passbolt admin user that will be used to perform the operations on behalf of the synchronization tools.
+            <br/><br/>You can also create a dedicated admin user in passbolt if you want to be able to track more accurately the actions related to ldap.
+            </td>
+            <td>
+            <code>passboltadmin@domain.com</code>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            Default group admin <br/>
+            <em>(required)</em>
+            </td>
+            <td>
+            Choose here the username of the default group manager. It is the user that will be assigned as a group manager to all new groups created by ldap.
+            </td>
+            <td>
+            <code>passboltadmin@domain.com</code>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            Groups parent group <br/>
+            <em>(optional)</em>
+            </td>
+            <td>
+            Using this filter will list only groups that are part of the given parent group (recursively). Enter the parent group name.
+            </td>
+            <td>
+            <code>MyGroupName</code>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            Users parent group <br/>
+            <em>(optional)</em>
+            </td>
+            <td>
+            Using this filter will list only users that are part of the given parent group (recursively). Enter the parent group name.
+            </td>
+            <td>
+            <code>MyGroupName</code>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            Enabled users only <br/>
+            <em>(optional)</em>
+            </td>
+            <td>
+            Only for AD. Synchronize only the users that are enabled (=not disabled).
+            </td>
+            <td>
+            </td>
+        </tr>
+      <tr>
+           <td>
+           Sync operations<br/>
+           <em>(optional)</em>
+           </td>
+           <td>
+           By default, the synchronization will be done for all created / deleted users and groups in your directory and all edited group members. You can enable / disable some tasks here.
+           <br/><br/>Default value: everything is enabled.
+           </td>
+           <td>
+           </td>
+        </tr>
+  </tbody>
+</table>
+
+## Groups & Users Parent Group
+
+One of the options for filtering users and groups is to use the Groups Parent Group or the Users Parent Group option. This can be found under the Synchronization options section of the Users Directory configuration page.
+
+<Figure
+  src="/img/help/2025/04/LDAP_parent_group.png"
+  alt="Ldap settings parent group fields"
+  caption="fig. Ldap settings parent group fields"
+/>
+
+This option will allow you to specify a Parent Group for your users or groups. Passbolt will then only look for Users or Groups which are part of that Parent group and use those for synchronization. This is most useful if you have directory set up where the Users or Groups you want to synchronize are all under the same group. For this field you can use just the name of the group, for example:
+
+* admins
+* testers
+* Passbolt_Users
+* Passbolt Groups
+
+## Group & User custom filters
+
+The other option we have is to use custom filters for users or groups. This can be found under the Directory configuration section of the Users Directory configuration page.
+
+<Figure
+  src="/img/help/2025/04/LDAP_custom_filter.png"
+  alt="Ldap settings custom filter fields"
+  caption="fig. Ldap settings custom filter fields"
+/>
+
+These fields will accept standard LDAP query syntax. This is useful if you need just a few groups/users or wish to exclude one which may have normally been synchronized. These fields provide more flexibility when interacting with more complicated directory structures. Some examples of the expected syntax are:
+
+* `(memberof=cn=somegroup)`
+  * This would be for the users filter for members of “somegroup”
+* `(|(cn=admins)(cn=testers))`
+  * This would be for the groups “admins” or “testers”
+* `(uid=*smith*)`
+  * This would be for any user with “smith” in their uid
+
+### Optional server tooling
+
+For testing purpose, it might be handy to have some [ldap utilities](https://wiki.debian.org/LDAP/LDAPUtils) installed
+on your system. On Debian you can use ldapsearch for example to search for and display entries:
+
+```bash
+sudo apt-get install ldap-utils
+ldapsearch -b'dc=example,dc=com' -x
+```

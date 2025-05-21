@@ -1,5 +1,6 @@
 import Incrementor from '/docs/components/incrementor';
 import CodeBlock from '@theme/CodeBlock';
+import Link from '@docusaurus/Link';
 
 ## Docker Compose
 
@@ -28,7 +29,7 @@ Must return:
 </CodeBlock>
 
 :::caution
-If the <i>shasum</i> command output is not correct, the downloaded file has been corrupted. Retry step 1 or ask for support on <a href='https://community.passbolt.com'>our community forum</a>.
+If the <i>shasum</i> command output is not correct, the downloaded file has been corrupted. Retry step 1 or ask for support on <Link to='https://community.passbolt.com'>our community forum</Link>.
 :::
 
 <div>
@@ -108,19 +109,19 @@ Configure HTTPS:
   {props.productName === 'PRO' ? (
   <ul>
     <li>
-      <a href="/docs/hosting/configure/https/pro/docker-auto/">Configure HTTPS for Docker with Let's Encrypt</a>
+      <Link to="/docs/hosting/configure/https/pro/docker-auto/">Configure HTTPS for Docker with Let's Encrypt</Link>
     </li>
     <li>
-      <a href="/docs/hosting/configure/https/pro/docker-manual/">Configure HTTPS for Docker with a self-signed certificate</a>
+      <Link to="/docs/hosting/configure/https/pro/docker-manual/">Configure HTTPS for Docker with a self-signed certificate</Link>
     </li>
   </ul>
   ) : (
   <ul>
     <li>
-      <a href="/docs/hosting/configure/https/ce/docker-auto/">Configure HTTPS for Docker with Let's Encrypt</a>
+      <Link to="/docs/hosting/configure/https/ce/docker-auto/">Configure HTTPS for Docker with Let's Encrypt</Link>
     </li>
     <li>
-       <a href="/docs/hosting/configure/https/ce/docker-manual/">Configure HTTPS for Docker with a self-signed certificate</a>
+      <Link to="/docs/hosting/configure/https/ce/docker-manual/">Configure HTTPS for Docker with a self-signed certificate</Link>
     </li>
   </ul>
   )}

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './DistributionCard.module.css';
 import Badge from '@site/src/components/Badge/Badge';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import Heading from '@theme/Heading';
 
 const DistributionCard = ({ logo, name, version, links, ...props }) => {
   const imageUrl = useBaseUrl(logo);
@@ -11,15 +12,15 @@ const DistributionCard = ({ logo, name, version, links, ...props }) => {
     <div className={styles.root} {...props}>
       {logo && (
         <div className={styles.logo}>
-          <img src={imageUrl} />
+          <img src={imageUrl} alt={name} />
         </div>
       )}
 
       {name && (
-        <h3 className={styles.name}>
+        <Heading as="h3" className={styles.name}>
           {name}
           {version && ` ${version}`}
-        </h3>
+        </Heading>
       )}
 
       {links && (
@@ -49,11 +50,17 @@ const DistributionCard = ({ logo, name, version, links, ...props }) => {
 DistributionCard.propTypes = {
   logo: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  version: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
-  link: PropTypes.shape({
-    slug: PropTypes.string,
-    label: PropTypes.string,
-  }).isRequired,
+  version: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  links: PropTypes.shape({
+    ce: PropTypes.shape({
+      slug: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    }),
+    pro: PropTypes.shape({
+      slug: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    }),
+  }),
 };
 
 export default DistributionCard;

@@ -5,6 +5,7 @@ description: How to configure Account Recovery
 hide_table_of_contents: false
 ---
 
+import CodeBlock from "@site/src/components/CodeBlock/CodeBlock";
 import Figure from '/src/components/Figure/Figure';
 import Video from '@site/src/components/Video/Video';
 import Chips from "/src/components/Chips/Chips";
@@ -41,7 +42,7 @@ By default, the feature is disabled. To enable it, choose among the proposed pol
 organization.
 
 <Figure
-src="/img/help/2022/08/account-recovery-administration-settings-choose-policy.png"
+src="/img/help/2025/04/account-recovery-administration-settings-choose-policy.png"
 alt="Choose account recovery policy"
 caption="fig. Choose account recovery policy"
 size={{ width: '550px', height: 'auto' }}
@@ -144,6 +145,27 @@ size={{ width: '450px', height: 'auto' }}
 By disabling account recovery, you will truncate all the relative data. If you decide to enable it again you and the all
 the users will have to start everything from scratch.
 :::
+
+## Reset account recovery
+
+If you ever lose the Organisation Recovery Key, you can perform a manual reset of the feature using the following command:
+
+:::info
+The webserver user will depend on the distribution, for this example it uses Debian. You might want to change www-data to **nginx** if you are using a RPM distribution.
+:::
+
+<CodeBlock>
+  {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt truncate_account_recovery_tables" www-data`}
+</CodeBlock>
+
+:::warning
+By using this command to reset account recovery, you will truncate all the relative data.
+Furthermore, any pending account recovery request will stay uncompleted forever.
+If you ever decide to enable this feature again, all previously enrolled users will need to be enrolled again.
+:::
+
+If you are using Passbolt Cloud instead of the self-hosted Pro version, you can
+[contact our support team](https://www.passbolt.com/contact/support) to obtain the relevant request form.
 
 ## Update account recovery
 

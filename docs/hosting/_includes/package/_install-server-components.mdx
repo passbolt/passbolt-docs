@@ -1,5 +1,6 @@
 import OpenSUSEGPGKey from '/docs/hosting/_includes/OpenSUSE/_opensuse-gpg-key.mdx';
 import CodeBlock from "/src/components/CodeBlock/CodeBlock";
+import RepoScriptSLES from "/docs/hosting/_includes/default/sles_uncomment_lines.mdx";
 
 ## Package repository setup
 
@@ -26,13 +27,19 @@ import CodeBlock from "/src/components/CodeBlock/CodeBlock";
 **Step 3.** Ensure that the script is valid and execute it:
 
 <>
+  {props.distributionPackage === "zypper" && (
+    <RepoScriptSLES productName={props.productName}/>
+  )}
+</>
+
+<>
     {props.isMigrating === true ? (
     <CodeBlock>
-        {`sha512sum -c passbolt-${props.productName.toLowerCase()}-SHA512SUM.txt && sudo bash ./passbolt-repo-setup.${props.productName.toLowerCase()}.sh --passbolt-migrate || echo \"Bad checksum. Aborting\" && rm -f passbolt-repo-setup.${props.productName.toLowerCase()}.sh`}
+        {`sha512sum -c passbolt-${props.productName.toLowerCase()}-SHA512SUM.txt && sudo bash ./passbolt-repo-setup.${props.productName.toLowerCase()}.sh --passbolt-migrate || echo "Bad checksum. Aborting" && rm -f passbolt-repo-setup.${props.productName.toLowerCase()}.sh`}
     </CodeBlock>
     ) : (
     <CodeBlock>
-        {`sha512sum -c passbolt-${props.productName.toLowerCase()}-SHA512SUM.txt && sudo bash ./passbolt-repo-setup.${props.productName.toLowerCase()}.sh || echo \"Bad checksum. Aborting\" && rm -f passbolt-repo-setup.${props.productName.toLowerCase()}.sh`}
+        {`sha512sum -c passbolt-${props.productName.toLowerCase()}-SHA512SUM.txt && sudo bash ./passbolt-repo-setup.${props.productName.toLowerCase()}.sh || echo "Bad checksum. Aborting" && rm -f passbolt-repo-setup.${props.productName.toLowerCase()}.sh`}
     </CodeBlock>
     )}
 </>

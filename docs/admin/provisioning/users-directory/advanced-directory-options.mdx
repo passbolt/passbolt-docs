@@ -21,7 +21,7 @@ When running a sync (simulated or actual), Passbolt may display errors or warnin
 `The user [email_protected] could not be added to group X because it is not active yet.`
 
 **Explanation**  
-This means a user was synced (created) and the sync tried to add them to a Passbolt group, but the user hasn’t activated their Passbolt account yet (they haven’t clicked the invite link to finalize setup). Passbolt cannot add inactive users to groups.
+This means a user was synced (created) and the sync tried to add them to a Passbolt group, but the user hasn't activated their Passbolt account yet (they haven't clicked the invite link to finalize setup). Passbolt cannot add inactive users to groups.
 
 **Solution**  
 No manual intervention needed with cron jobs enabled – as soon as the user activates their account, Passbolt will automatically add them to the group on the next sync.
@@ -46,7 +46,7 @@ Delete the user from Passbolt and re-run sync. Be cautious of any existing passw
 A group was created manually in Passbolt before being present in LDAP.
 
 **Solution**  
-Delete the manual group in Passbolt (after confirming it’s safe), then re-run sync to re-create it from LDAP.
+Delete the manual group in Passbolt (after confirming it's safe), then re-run sync to re-create it from LDAP.
 :::
 
 :::info
@@ -65,7 +65,7 @@ Manually recreate the user in Passbolt, then run sync again.
 `The user [email_protected] could not be added to the group X because of an internal error.`
 
 **Explanation**  
-Often this means the group didn’t exist when sync tried to add the user.
+Often this means the group didn't exist when sync tried to add the user.
 
 **Solution**  
 Check the sync logs for errors during group creation, fix them, and re-run sync.
@@ -128,15 +128,15 @@ Ensure all LDAP users have valid email addresses and fix formatting issues befor
 
 
 **Note:**  
-The sync report categorizes issues as **Errors** (actions failed) or **Ignored** (actions skipped by design). Ignored entries are usually intentional protections (e.g., avoiding deletion), while Errors require investigation.
+The sync report categorizes issues as **Errors** (actions failed) or **Ignored** (actions skipped by design). Ignored entries are usually intentional protections (e.g., avoiding deletion), while **Errors require investigation**.
 
 ---
 ## LDAPS and Certificate Issues
 
-When using **LDAPS** (LDAP over SSL/TLS) for secure directory sync, one of the most common issues is certificate trust. The Passbolt server must trust the LDAP server’s SSL certificate. If the certificate is self-signed or issued by a private CA, the connection may fail with errors like:
+When using **LDAPS** (LDAP over SSL/TLS) for secure directory sync, one of the most common issues is certificate trust. The Passbolt server must trust the LDAP server's SSL certificate. If the certificate is self-signed or issued by a private CA, the connection may fail with errors like:
 
 ```bash
-“Can’t contact LDAP server”  
+"Can't contact LDAP server"  
 ldap_sasl_bind(SIMPLE): Can't contact LDAP server (-1)
 ```
 
@@ -160,66 +160,69 @@ See: [Configure LDAP SSL (LDAPS) – Passbolt Docs](https://www.passbolt.com/doc
 
 ---
 
-### Trusting the LDAP SSL Certificate
+### Managing LDAPS Certificates
 
-If the certificate isn’t signed by a trusted public CA, you have two main options:
+If the certificate isn't signed by a trusted public CA, you'll need to configure Passbolt to trust it. The recommended approach is to use our certificate utility:
 
-#### 1. System Trust Store
+🔗 [Get the LDAPS Certificate Utility](https://github.com/passbolt/ldaps_cert_util)
 
-- Import the LDAP server's certificate or CA chain to `/etc/ssl/certs/`
-- Update `/etc/ldap/ldap.conf`:
+A Python tool that automatically retrieves and validates the complete certificate chain from your LDAP server, bundling it into a single file for Passbolt to use. The certificates are ordered in the bundle from server certificate to root CA, ensuring the complete chain of trust is maintained. This is particularly important for self-signed certificates or those issued by private CAs.
 
+**Generate and Install**:
 ```bash
-TLS_CACERT /etc/ssl/certs/ldaps_bundle.crt
+# Generate certificate bundle
+python3 get_certificate.py --server your.ldaps.server > /etc/ssl/certs/ldaps_bundle.crt
+
+# Set permissions
+sudo chown root:root /etc/ssl/certs/ldaps_bundle.crt
+sudo chmod 644 /etc/ssl/certs/ldaps_bundle.crt
 ```
 
-- File must be world-readable (`chmod 644`)
-- Use [ldaps_cert_util](https://github.com/passbolt/ldaps_cert_util) to fetch and bundle the cert:
+**Configure Passbolt** (choose one method):
 
-```bash
-php get_certificate.php > /etc/ssl/certs/ldaps_bundle.crt
-```
-
-#### 2. Passbolt Application Config
-
-Update `config/passbolt.php`:
-
+1. Using passbolt.php:
 ```php
-'sslCustomOptions' => [
-  'enabled' => true,
-  'verifyPeer' => true,
-  'cadir' => '/etc/ssl/certs',
-  'cafile' => '/etc/ssl/certs/ldaps_bundle.crt',
-],
+// config/passbolt.php
+return [
+    'passbolt' => [
+        'plugins' => [
+            'directorySync' => [
+                'security' => [
+                    'sslCustomOptions' => [
+                        'enabled' => true,
+                        'verifyPeer' => true,
+                        'cadir' => '/etc/ssl/certs',
+                        'cafile' => '/etc/ssl/certs/ldaps_bundle.crt',
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
 ```
 
-Or use environment variables:
-
+2. Using environment variables:
 ```bash
 PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_ENABLED=true
+PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_VERIFY_PEER=true
+PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_CADIR=/etc/ssl/certs
 PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_CAFILE=/etc/ssl/certs/ldaps_bundle.crt
 ```
 
-> Use either system trust config or the Passbolt-specific config—**not both**.
+> **Note**: Use either the passbolt.php configuration or environment variables—not both.
 
----
-
-### Using the LDAPS Certificate Utility
-
-1. Clone: `git clone https://github.com/passbolt/ldaps_cert_util`
-2. Run `composer install`
-3. Edit `get_certificate.php` to point to your LDAP host
-4. Run the script to output cert chain
-5. Save it to a `.crt` file and reference in config
-
-Repo: [passbolt/ldaps_cert_util](https://github.com/passbolt/ldaps_cert_util)
+**For Docker**: Mount the certificate in docker-compose.yml:
+```yaml
+volumes:
+  - ./ldaps_bundle.crt:/etc/ssl/certs/ldaps_bundle.crt:ro
+```
 
 ---
 
 ### Common LDAPS Pitfalls
 
 - Use `ldaps://` (not `ldap://`) and port 636
-- Don’t mix StartTLS and LDAPS
+- Don't mix StartTLS and LDAPS
 - Certificate CN must match the hostname
 - Avoid disabling hostname verification in production
 
@@ -251,9 +254,9 @@ Running a directory sync against a large user base can put significant load on y
 
 ### Memory and Large Directory Considerations
 
-Syncing thousands of users or groups can be memory-intensive. If PHP’s memory limit is too low, the sync may fail with errors like:
+Syncing thousands of users or groups can be memory-intensive. If PHP's memory limit is too low, the sync may fail with errors like:
 
-> _“Allowed memory size of 134217728 bytes exhausted (tried to allocate 20480 bytes)”_
+> "Allowed memory size of 134217728 bytes exhausted (tried to allocate 20480 bytes)"
 
 This typically happens when `memory_limit` is set too low (e.g., 128M).
 
@@ -272,10 +275,10 @@ memory_limit = 1024M
 
 The LdapTools library used by Passbolt relies on paged LDAP queries.
 
-If your LDAP server (e.g., Sun Directory Server or eDirectory) doesn’t support RFC 2696 pagination, sync may fail or return incomplete results.
+If your LDAP server (e.g., Sun Directory Server or eDirectory) doesn't support RFC 2696 pagination, sync may fail or return incomplete results.
 
 **Workaround**:
-- Advanced users can override LdapTools’ `ldaptools.yml` to set:
+- Advanced users can override LdapTools' `ldaptools.yml` to set:
 
 ```yaml
 use_paging: false
@@ -336,7 +339,7 @@ This checks for:
 - Configuration issues
 - General system status
 
-> It won’t catch every sync error but ensures baseline integrity is intact.
+> It won't catch every sync error but ensures baseline integrity is intact.
 
 
 
@@ -360,7 +363,7 @@ If the bind account credentials are incorrect, Active Directory may lock the acc
 Passbolt identifies users by their persistent LDAP GUID (`objectGUID` for AD, `entryUUID` for OpenLDAP). This GUID is not visible in the UI, but is used internally.
 
 - If a user's email is updated in AD, Passbolt sync updates the email based on the GUID — it does not create a new user.
-- If the email was manually changed in Passbolt or there’s a conflict, sync may not behave as expected.
+- If the email was manually changed in Passbolt or there's a conflict, sync may not behave as expected.
 
 **Tip**: Avoid manually editing synced user attributes in Passbolt. Let sync manage them.
 
@@ -383,7 +386,7 @@ Passbolt does not support syncing multiple AD domains via the UI.
 If a user is removed from LDAP, Passbolt will try to delete them on sync — unless:
 
 - The user owns passwords
-- The user’s deletion sync is disabled
+- The user's deletion sync is disabled
 
 If the user owns any secrets, deletion is skipped to avoid data loss.
 
@@ -392,7 +395,7 @@ An admin must first transfer or delete those secrets. After that, the user will 
 
 ---
 
-### “Check Request Error” When Saving Sync Settings
+### "Check Request Error" When Saving Sync Settings
 
 This generic error in the UI may be triggered by a server-side issue (e.g., PHP memory exhaustion).
 
@@ -431,7 +434,7 @@ To view ignored entries:
 
 Older LDAP servers may not support paged results (RFC 2696), causing sync to fail with:
 
-> _“Operations error”_
+> "Operations error"
 
 **Workaround**:
 
@@ -503,7 +506,7 @@ If you're experiencing LDAP synchronization issues, follow this structured check
 
 ## Logs and Diagnostic Tools
 
-If the basic connectivity and configuration checks don’t resolve the issue, move on to server-side diagnostics.
+If the basic connectivity and configuration checks don't resolve the issue, move on to server-side diagnostics.
 
 ---
 
@@ -538,12 +541,11 @@ Check logs for relevant errors at the time of the sync:
 - **Source install**: `logs/error.log` under web root
 
 Common entries to look for:
-
 - LDAP extension errors (e.g., `ldap_search` failures)
 - PHP fatal errors (e.g., memory exhaustion)
 - Exceptions during sync
 
-If logging isn’t verbose, you can update `config/log.php` to include a debug-level log.
+If logging isn't verbose, you can update `config/log.php` to include a debug-level log.
 
 > Make sure you have appropriate permissions (`sudo`) to view logs if needed.
 
@@ -572,7 +574,7 @@ sudo -u www-data /usr/share/php/passbolt/bin/status-report > /tmp/status.txt
 If you have access to your LDAP/AD server:
 
 - Look for evidence of bind attempts or errors from the Passbolt IP
-- AD’s Security logs or LDS logs may contain bind errors, DN issues, or rejected credentials
+- AD's Security logs or LDS logs may contain bind errors, DN issues, or rejected credentials
 
 ---
 
@@ -580,7 +582,7 @@ If you have access to your LDAP/AD server:
 
 Use `ldapsearch` for comparison:
 
-- If `ldapsearch` works but Passbolt doesn’t:
+- If `ldapsearch` works but Passbolt doesn't:
   - Are the same bind DN and credentials used?
   - Is the base DN identical?
   - Are filters equivalent?
@@ -606,7 +608,7 @@ After resolving the root cause of a sync issue (e.g., configuration fix, certifi
 
 - Ensure new users received invitation emails  
   > If not, confirm SMTP settings and delivery
-- If any messages mentioned “request sent to group manager”, follow up to ensure those users are added manually
+- If any messages mentioned "request sent to group manager", follow up to ensure those users are added manually
 - Review any skipped or errored entries in the sync report  
   > For details, refer to [Known Issues](#synchronization-error-messages)
 

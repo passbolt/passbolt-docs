@@ -28,7 +28,7 @@ The web extension is published on browsers extension marketplaces (Firefox, Chro
 
 ## Some points you must be aware of:
 
-* The passbolt login page is rendered by the browser extension. By entering your passphrase, you unlock your PGP private key stored in the local storage of your browser to let the extension communicate with the passbolt API and perform the user [authentication with GnuPG protocol](https://help.passbolt.com/api/authentication).
+* The passbolt login page is rendered by the browser extension. By entering your passphrase, you unlock your PGP private key stored in the local storage of your browser to let the extension communicate with the passbolt API and perform the user [authentication with GnuPG protocol](/docs/development/authentication).
 * Most of passbolt application (passwords, users, or profile namespaces) isn't rendered by the server but by the browser extension.
 * End-to-end encryption is provided by the browser extension.
 
@@ -40,8 +40,6 @@ The web extension is published on browsers extension marketplaces (Firefox, Chro
 
 ## References:
 
-* [Why does passbolt require an extension? (Blog post 2020)](https://blog.passbolt.com/why-does-passbolt-require-an-extension-d1b189133b2)
-* [API Authentication sequence diagram](/api/authentication)
+* [Why does passbolt require an extension? (Blog post 2020)](https://www.passbolt.com/blog/why-does-passbolt-require-an-extension)
+* [API Authentication](/docs/development/authentication/)
 * [Security white paper](pathname:///files/security_paper.pdf)
-
-The browser extension is responsible for the authentication with GnuPG protocol. For more information, please refer to the [API Authentication sequence diagram](/api/authentication).

@@ -65,11 +65,11 @@ const contributeGuideSidebar = [
         id: 'contribute/security/vulnerability',
         label: 'Report a Vulnerability',
       },
-      {
-        type: 'doc',
-        id: 'contribute/security/bug-bounty',
-        label: 'Bug Bounty Program',
-      },
+      // {
+      //   type: 'doc',
+      //   id: 'contribute/security/bug-bounty',
+      //   label: 'Bug Bounty Program',
+      // },
     ],
   },
 ];

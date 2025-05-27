@@ -16,116 +16,135 @@ Even with a correct setup, some issues may arise during directory synchronizatio
 ### Synchronization Error Messages
 When running a sync (simulated or actual), Passbolt may display errors or warnings for users or groups it couldn't process. These messages highlight common issues and help guide troubleshooting.
 
-:::info
 **Message**  
+:::info
 `The user [email_protected] could not be added to group X because it is not active yet.`
+:::
 
 **Explanation**  
 This means a user was synced (created) and the sync tried to add them to a Passbolt group, but the user hasn't activated their Passbolt account yet (they haven't clicked the invite link to finalize setup). Passbolt cannot add inactive users to groups.
 
 **Solution**  
 No manual intervention needed with cron jobs enabled – as soon as the user activates their account, Passbolt will automatically add them to the group on the next sync.
-:::
 
-:::warning
+---
+
 **Message**  
+:::warning
 `The user [email_protected] could not be mapped with an existing user in passbolt because it was created after.`
+:::
 
 **Explanation**  
 This indicates a conflict where the user exists in both Passbolt and LDAP, but was first created in Passbolt (likely manually) and later appeared in LDAP. Passbolt gives priority to its existing user record and will not auto-merge or replace it via sync.
 
 **Solution**  
 Delete the user from Passbolt and re-run sync. Be cautious of any existing passwords to avoid orphaning.
-:::
 
-:::warning
+---
+
 **Message**  
+:::warning
 `The group X could not be mapped with an existing group in passbolt because it was created after.`
+:::
 
 **Explanation**  
 A group was created manually in Passbolt before being present in LDAP.
 
 **Solution**  
 Delete the manual group in Passbolt (after confirming it's safe), then re-run sync to re-create it from LDAP.
-:::
 
-:::info
+---
+
 **Message**  
+:::info
 `The previously deleted user [email_protected] was not re-added to passbolt.`
+:::
 
 **Explanation**  
 This occurs when a user that exists in LDAP was manually deleted in Passbolt. Sync respects manual deletions.
 
 **Solution**  
 Manually recreate the user in Passbolt, then run sync again.
-:::
 
-:::danger
+---
+
 **Message**  
+:::danger
 `The user [email_protected] could not be added to the group X because of an internal error.`
+:::
 
 **Explanation**  
 Often this means the group didn't exist when sync tried to add the user.
 
 **Solution**  
 Check the sync logs for errors during group creation, fix them, and re-run sync.
-:::
 
-:::tip
+---
+
 **Message**  
+:::tip
 `A request to add user [email_protected] in group X was sent to the group manager.`
+:::
 
 **Explanation**  
 Passbolt cannot auto-share existing secrets due to encryption constraints. This is expected behavior.
 
 **Solution**  
 The group manager must manually add the user through the UI.
-:::
 
-:::info
+---
+
 **Message**  
+:::info
 `The user A was not synced with existing membership for group B because the membership was created before.`
+:::
 
 **Explanation**  
 A user was manually added to a group before sync tried to assign them.
 
 **Solution**  
 Remove the manual group membership and re-run sync to allow LDAP to take control.
-:::
 
-:::info
+---
+
 **Message**  
+:::info
 User removed from LDAP group remains in Passbolt group (no direct error)
+:::
 
 **Explanation**  
 Manual group membership blocks LDAP-driven removal.
 
 **Solution**  
 Manually remove the user from the Passbolt group to align with LDAP.
-:::
 
-:::info
+---
+
 **Message**  
+:::info
 `The user [email_protected] could not be added to the group X because membership was removed in passbolt.`
+:::
 
 **Explanation**  
 The user was removed from the group manually, and Passbolt respects that decision.
 
 **Solution**  
 If the user should be in the group, manually re-add them, then re-run sync.
-:::
 
-:::danger
+---
+
 **Message**  
+:::danger
 `The user undefined could not be added because of data validation issues.`
+:::
 
 **Explanation**  
 Usually caused by missing or malformed user attributes in LDAP.
 
 **Solution**  
 Ensure all LDAP users have valid email addresses and fix formatting issues before syncing again.
-:::
 
+---
 
 **Note:**  
 The sync report categorizes issues as **Errors** (actions failed) or **Ignored** (actions skipped by design). Ignored entries are usually intentional protections (e.g., avoiding deletion), while **Errors require investigation**.

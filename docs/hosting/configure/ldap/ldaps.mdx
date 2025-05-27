@@ -22,7 +22,7 @@ There are two common certificate setups:
 
 ### Public Certificate Authority (CA)
 
-If your LDAP server uses an SSL certificate from a public CA (e.g., [Let’s Encrypt](https://letsencrypt.org/)), the certificate is usually trusted by Passbolt automatically.
+If your LDAP server uses an SSL certificate from a public CA (e.g., [Let's Encrypt](https://letsencrypt.org/)), the certificate is usually trusted by Passbolt automatically.
 
 > ✅ No extra configuration is typically required.
 
@@ -79,7 +79,7 @@ Replace:
 ldap_sasl_bind(SIMPLE): Can't contact LDAP server (-1)
 ```
 
-> If you see this error, it’s likely a trust issue with the LDAPS certificate.
+> If you see this error, it's likely a trust issue with the LDAPS certificate.
 
 ---
 
@@ -204,6 +204,6 @@ However, if you're dealing with:
 
 then you should refer to the dedicated page on advanced topics:
 
-👉 [Advanced Directory Options](/admin/provisioning/users-directory/advanced-directory-options/)
+👉 [Advanced Directory Options](/admin/user-provisioning/users-directory/advanced-directory-options/)
 
 That page includes deeper coverage of sync error messages, directory-specific quirks, and diagnostics for large-scale or complex LDAP environments. We maintain that page as the single source of truth for advanced directory provisioning to avoid duplicating technical logic across guides.

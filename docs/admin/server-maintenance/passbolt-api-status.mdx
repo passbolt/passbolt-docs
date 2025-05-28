@@ -20,7 +20,7 @@ import PassboltInstall from '/docs/admin/_includes/passbolt_install.mdx';
   <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
 </div>
 
- Since Passbolt v4.6, it is now possible for both Passbolt PRO and Passbolt CE to run the [healthCheck](/hosting/troubleshooting/logs/#healthcheck) from the user interface in *Administration > Passbolt API Status*.
+ Since Passbolt v4.6, it is now possible for both Passbolt PRO and Passbolt CE to run the [healthCheck](/docs/hosting/troubleshooting/logs/#healthcheck) from the user interface in *Administration > Passbolt API Status*.
 
 <Figure
   src={
@@ -52,7 +52,7 @@ This checks whether your system is running on a 64-bit architecture. A 64-bit sy
 #### PHP Version
 It helps to ensure you are not running an unsupported PHP version. It should be green if you are running PHP > 8.2 as it is the minimum version recommended to run Passbolt.
 
-However, with the upcoming Passbolt v5, if you are still on PHP 7.4 we recommend [migrating to a new server](/hosting/migrate/server/) already to ensure a smooth future update.
+However, with the upcoming Passbolt v5, if you are still on PHP 7.4 we recommend [migrating to a new server](/docs/hosting/migrate/server/) already to ensure a smooth future update.
 
 #### Gnupg Version
 The software relies on gnupg for cryptographic operations, such as key management and encryption. Ensuring that you are running an up-to-date version of GPG is essential for security and performance.
@@ -99,7 +99,7 @@ Mbstring is designed for safe and efficient handling of multibyte strings, allow
 #### NTP
 The server requires accurate system time for cryptographic operations and security measures. If the system clock is not synchronized, it may lead to authentication errors, expiration issues, and other unexpected behavior.
 
-If the check fails, it means that NTP could be inactive, and your system clock may not be synchronized. You can take a look at our [dedicated documentation](/hosting/configure/ntp/) for that.
+If the check fails, it means that NTP could be inactive, and your system clock may not be synchronized. You can take a look at our [dedicated documentation](/docs/hosting/configure/ntp/) for that.
 ### Config Files
 :::tip[PRO TIP]
 If you are on Docker or Helm, you should not manually iterate on the configuration files. Restarting the container or the pod should resolve the file conflicts except if they have been mounted.
@@ -157,7 +157,7 @@ Helps to confirm that the fullBaseUrl is defined, if it is not defined yet, you 
 #### Full Base URL validation
 It checks that the fullBaseUrl is correct and match the expectation, if there is any error with the validation here is the two things you might want to do:
 - Edit `App.fullBaseUrl` in */etc/passbolt/passbolt.php*
-- Select a valid domain name as defined by section 2.3.1 [here](http://www.ietf.org/rfc/rfc1035.txt)
+- Select a valid domain name as defined by section 2.3.1 [here](https://www.ietf.org/rfc/rfc1035.txt)
 
 #### Healthcheck Status
 It checks that the status url is reachable. If you have any error with this check, the good news is that this warning should not limit you for running passbolt, however, in order to get rid of this warning, you will need to ensure a few things:
@@ -212,7 +212,7 @@ The database checks ensure that the application can connect to the database and 
 #### Connection to the database
 
 :::tip[PRO TIP]
-If you are on Docker or Helm, you might want to double-check the values for `DATASOURCES_DEFAULT_*`. More information available [here](/hosting/configure/environment-reference/)
+If you are on Docker or Helm, you might want to double-check the values for `DATASOURCES_DEFAULT_*`. More information available [here](/docs/hosting/configure/environment-reference/)
 :::
 
 It helps to ensure that the application is able to connect to the database. If you encounter some issues with this check, there is a few potentials reasons:
@@ -252,7 +252,7 @@ These checks helps to confirm the correct setup and functionality of GPG keys us
 
 #### GPG Module
 It ensure that the GPG module for PHP is installed and loaded, if it is not the case and you are seeing an error there is two things to be considered.
-- Install [php-gnupg](http://php.net/manual/en/gnupg.installation.php)
+- Install [php-gnupg](https://php.net/manual/en/gnupg.installation.php)
 - Make sure to add `extension=gnupg` in the */path/to/php.ini* configuration files for both php-cli and php.
 
 <Figure
@@ -407,7 +407,7 @@ These verifications validate various application settings, including SSL enforce
 #### Passbolt version
 It helps to identify which version are running and if it is the latest version. You could face some errors while having an updated version if the server is in an air gap environment and it could not connect to the passbolt repository to check versions.
 
-If the server is not up-to-date, unless you have an internal good reason, please consider [updating](/hosting/update) to the latest version.
+If the server is not up-to-date, unless you have an internal good reason, please consider [updating](/docs/hosting/update) to the latest version.
 
 #### Force SSL
 We recommend using SSL with Passbolt, this checks verify if passbolt has been configured to force SSL. If you have this error, you will need to set `passbolt.ssl.force` to true in */etc/passbolt/passbolt.php*

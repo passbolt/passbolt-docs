@@ -1,57 +1,62 @@
 ---
 title: Bug Bounty Program
 description: Learn about Passbolt's bug bounty program
-sidebar_position: 2
+sidebar_position: 3
 unlisted: true
+id: bug-bounty
 ---
+
+# Bug Bounty Program
 
 ## Overview
 
-Passbolt runs a bug bounty program to reward security researchers who help us identify and fix security vulnerabilities. We believe in working with the security community to make Passbolt more secure.
+Passbolt SA bug bounty program outlines the scope for security researchers and bug bounty hunters working on the Passbolt product. This program is designed to encourage responsible disclosure of security vulnerabilities and improve the overall security of Passbolt.
 
-## Scope
+## How to Report a Vulnerability
 
-The bug bounty program covers the following components:
+If you've found a security-related issue in Passbolt, please contact us at security@passbolt.com. In the spirit of responsible disclosure, we ask that the reporter keep the issue confidential until we announce it.
 
-- Passbolt API
-- Passbolt Browser Extension
-- Passbolt Styleguide
-- Passbolt Documentation
+The Passbolt team will take the following actions:
+
+1. Try first to reproduce the issue and confirm the vulnerability
+2. Acknowledge to the reporter that we have received the issue and are working on a fix
+3. Get a fix/patch prepared and create associated automated tests
+4. Prepare a post describing the vulnerability and the possible exploits
+5. Release new versions of all affected major versions
+6. Prominently feature the problem in the release announcement
+7. Give credit in the release announcement to the reporter if they so desire
 
 ## Rewards
 
-Rewards are based on the severity of the vulnerability and the quality of the report. We use the [CVSS](https://www.first.org/cvss/) scoring system to determine severity.
+There is currently no financial reward for identified vulnerabilities. However, we highly value your contributions to our platform's security. In recognition of your efforts, we will provide credits acknowledging your discoveries both within our vulnerability reports and across our social media channels.
 
-### Reward Tiers
+## Bug Eligibility
 
-| Severity | CVSS Score | Reward Range |
-|----------|------------|--------------|
-| Critical | 9.0 - 10.0 | $1,000 - $5,000 |
-| High     | 7.0 - 8.9  | $500 - $1,000 |
-| Medium   | 4.0 - 6.9  | $100 - $500 |
-| Low      | 0.1 - 3.9  | $50 - $100 |
+Any submitted report must involve a bug that is exploitable in the latest version of Passbolt at the time of submission for both the server application and the clients.
 
-## Eligibility
+You must be the first reporter of a valid vulnerability (any duplicate reports will not be rewarded).
 
-To be eligible for a reward:
+## Contributor License Agreement
 
-1. You must be the first to report the vulnerability
-2. The vulnerability must be in scope
-3. The vulnerability must be reproducible
-4. You must not have exploited the vulnerability
-5. You must not have disclosed the vulnerability publicly
+If you submit a fix or a test case, we will require you to sign the contributor license agreement to ensure that we, and other users of the software, are legally entitled to distribute your contributed code anywhere in the world. In effect, you will still own the copyright of any code you provide, but you are giving us a license. For more information, read our [Contributor License Agreement](https://www.passbolt.com/terms/cla).
 
-## How to participate
+## Scope
 
-1. Review our [Security Policy](/contribute/security/vulnerability)
-2. Submit your report through [GitHub Security Advisories](https://github.com/passbolt/passbolt_api/security/advisories) or email to [security@passbolt.com](mailto:security@passbolt.com)
-3. Wait for our response
-4. If eligible, we will contact you about the reward
+### In Scope
 
-## Out of scope
+| Repository | Type | Security Requirement |
+|------------|------|---------------------|
+| [passbolt_browser_extension](https://github.com/passbolt/passbolt_browser_extension) | web-application | default |
+| [passbolt_styleguide](https://github.com/passbolt/passbolt_styleguide) | web-application | default |
+| [passbolt-windows](https://github.com/passbolt/passbolt-windows) | desktop | default |
+| [passbolt_pro_api](https://bitbucket.org/passbolt/passbolt_pro_api) | web-application | default |
+| [passbolt_api](https://github.com/passbolt/passbolt_api) | web-application | default |
+| [mobile-passbolt-ios](https://github.com/passbolt/mobile-passbolt-ios) | Mobile | default |
+| [mobile-passbolt-android](https://github.com/passbolt/mobile-passbolt-android) | Mobile | default |
 
-The following are not eligible for rewards:
+### Out of Scope
 
+- Passbolt network, online services, websites, and related 3rd party services/providers
 - Vulnerabilities in third-party dependencies
 - Vulnerabilities in development environments
 - Vulnerabilities that require physical access
@@ -60,13 +65,65 @@ The following are not eligible for rewards:
 - Vulnerabilities that are already known to us
 - Vulnerabilities that are not reproducible
 
-## Terms and conditions
+## Qualifying Vulnerabilities
+
+- Access to sensitive data (private key, passphrase)
+- Cross-Site Scripting (XSS)
+- Cross-site Request Forgery (CSRF)
+- Server-Side Request Forgery (SSRF)
+- SQL Injection
+- Remote Code Execution (RCE)
+- Local File Disclosure (LFD)
+- Access Control Issues (permission bypass, etc.)
+- Directory Traversal Issues
+- Exposure of configuration files or secrets (server private key)
+
+## Non-qualifying Vulnerabilities
+
+- Bugs that have been publicly reported in previous security audits and currently not fixed
+- Outdated development dependencies
+- Bugs that are reliant on pre-existing control of the victim's operating system (keylogger, memory dumping)
+- Bugs requiring the use of another malicious 3rd party browser add-on
+- Bugs resulting of the impersonation of another user when the passbolt registration is set to open
+- Bugs requiring the manual installation of a modified version of the passbolt web extension (by email, etc.)
+- Email content spoofing prompting a user to perform an account recovery on a different passbolt instance
+- Self inflicted password deletion or data damage even if they affect other users
+- Self inflicted XSS (using dev tools / console)
+- Issues related to baseline webserver such as the SSL certificate or configuration, outdated operating system and libraries, unsecure php configuration, etc.
+- Issues related to unsecure and non recommended baseline passbolt configuration such as the use of default OpenPGP keys, disabled https, or debug or selenium testing modes enabled
+- Issues related to email configuration (DKIM, SPF)
+- Denial of service
+- Bugs that involve physical attacks or social engineering against passbolt contributors or add-ons / app store reviewers
+- Lack of Secure/HTTPOnly flags on non-sensitive cookies
+- Vulnerabilities in outdated versions of Passbolt
+- Username/email enumeration
+- CSV injection (OS Command Injection in CSV file export)
+
+## How to Test
+
+Please do not use the public website for vulnerability testing. You can find instructions on how to install Passbolt server components online. We offer a wide range of options including installation scripts, docker images, docker compose, virtual machines, etc.
+
+[Installation Guide](https://www.passbolt.com/help/tech/install)
+
+If you need help installing the software, we'll be more than happy to help you. Passbolt Pro Edition requires a subscription key to be installed. You can request a free subscription key at security@passbolt.com.
+
+## Terms and Conditions
 
 - We reserve the right to modify or cancel the program at any time
 - We reserve the right to reject any submission
 - We reserve the right to determine the severity and reward amount
 - We reserve the right to modify the scope at any time
 - We reserve the right to modify the terms and conditions at any time
+
+## Change History
+
+| Date | Author | Changes |
+|------|--------|---------|
+| 21/06/2017 | Remy | Initial brief |
+| 21/09/2021 | Remy | Review |
+| 16/02/2022 | Remy | Refresh + add mobile app |
+| 20/02/2023 | Cedric | Refresh + Windows app |
+| 17/04/2024 | Remy | Refresh |
 
 ## Contact
 

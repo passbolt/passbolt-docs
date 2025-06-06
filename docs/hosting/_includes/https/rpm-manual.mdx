@@ -1,5 +1,6 @@
 import HTTPSWarning from '/docs/hosting/_includes/warning/_https-url-change.mdx';
 import CodeBlock from "/src/components/CodeBlock/CodeBlock";
+import CertificateWarning from '/docs/hosting/_includes/warning/_passphrase-protected-private-key.mdx';
 
 <HTTPSWarning />
 
@@ -52,6 +53,8 @@ Setting up SSL...
 </CodeBlock>
 
 If you choose 1, you will be prompted for the full path of your certificates:
+
+<CertificateWarning />
 
 <CodeBlock>
     {`Enter the path to the SSL certificate: /path/to/certs/cert.pem

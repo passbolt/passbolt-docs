@@ -14,29 +14,25 @@ import Chips from "/src/components/Chips/Chips";
 
 ## Introduction
 
-To run LDAPS your LDAP server must offer a valid SSL certificate to the client which in this case that client
-is the passbolt server. It is also required that the SSL certificate is trusted by your passbolt instance.
+To use **LDAPS**, your LDAP server must present a valid SSL certificate to the client — in this case, the **Passbolt server**. The certificate must also be **trusted by Passbolt**.
 
-There are two ways of obtaining your SSL certificate, listed below.
+There are two common certificate setups:
 
-### Your LDAP server is offering a SSL certificate obtained by a public Certificate Authority
+---
 
-If your SSL certificate has been obtained through a public and well known SSL certificate authority such
-as [Let's encrypt](https://letsencrypt.org/) your certificate would be automatically trusted by the passbolt
-instance unless otherwise specified by your SSL provider.
+### Public Certificate Authority (CA)
 
-Most of the time in this scenario your passbolt instance will not require any extra configuration.
+If your LDAP server uses an SSL certificate from a public CA (e.g., [Let's Encrypt](https://letsencrypt.org/)), the certificate is usually trusted by Passbolt automatically.
 
-### Your LDAP server is offering a SSL certificate obtained from a private Certficate Authority or a self-signed certificate
+> ✅ No extra configuration is typically required.
 
-Some organizations run LDAP on a private network on-premises. In these scenarios it is very common that your
-organization has a private SSL certificate authority that generates SSL certificates valid only on the private network.
+---
 
-If this is your scenario you probably will need a CA certificate to trust the private SSL certificate offered
-by your LDAP server if the LDAP SSL certificate is not chained correctly.
+### Private CA or Self-Signed Certificate
 
-If the LDAP SSL certificate is not chained correctly meaning that it is not offering both the CA certificate
-and SSL certificate on connection you must obtain and upload the CA certificate to your passbolt instance.
+In many on-premises environments, LDAP runs on a private network with self-signed or privately issued certificates.
+
+If your LDAP server does not present a **chained certificate** (i.e., missing CA), you must manually upload the **CA certificate** to the Passbolt server.
 
 <Figure
   src="/img/help/2020/01/AD_ldaps_ssl_certificate_error.png"
@@ -44,113 +40,79 @@ and SSL certificate on connection you must obtain and upload the CA certificate 
   caption="fig. LDAP with ssl - certificate error message"
 />
 
-## Configure passbolt server to trust a private LDAPS certificate
+---
 
-### Step 1: Ping the server
+## Configure Passbolt to Trust a Private LDAPS Certificate
 
-The first step is to understand what is causing the issue and be sure that it's related to a certificate issue.
+### Step 1: Ping the Server
 
-We first try to ping the server and see if it goes through.
+First, confirm basic connectivity:
 
 ```bash
 ping your_ldap_server.com
 ```
 
-If it does not go through, check that there is a corresponding entry for your domain / server ip in `/etc/hosts`.
-If it's not there add it.
+- If ping fails, check or add the IP in `/etc/hosts`
+- If ping works, proceed to test LDAPS with `ldapsearch`
 
-If it goes through, we will then try to execute a similar LDAP query to what passbolt does using ldapsearch.
+---
 
-### Step 2: Connect with ldapsearch
+### Step 2: Test LDAPS with ldapsearch
 
 :::warning
-As passbolt will connect to your LDAP server as the web user, it is important to execute the ldapsearch command
-as this user (**www-data** for Debian/Ubuntu, **wwwrun** for OpenSUSE, **nginx** for RHEL based Linux distributions).
+Run the command as the web server user:  
+**`www-data`** (Debian/Ubuntu), **`wwwrun`** (OpenSUSE), or **`nginx`** (RHEL-based).
 :::
 
 ```bash
 sudo su -s /bin/bash -c 'ldapsearch -x -D "username" -W -H ldaps://your_ldap_server.com -b "dc=domain,dc=com" -d 9' www-data
 ```
 
-Do not forget to replace the 'username', 'your_ldap_server.com', 'domain' and 'com' variables with the real ones.
+Replace:
+- `username`
+- `your_ldap_server.com`
+- `domain`, `com`
 
-If after this command is executed you see your objects returned, it means that the LDAPS connection is going
-through and that there must be an issue with the parameters you entered in passbolt LDAP plugin. You should
-check them again and make sure that they are alright.
-
-If this command returns something as displayed below, then you most likely have a LDAPS certificate issue.
+#### Example of a certificate trust failure:
 
 ```bash
-$ sudo su -s /bin/bash -c 'ldapsearch -x -D "ada" -W -H ldaps://your_ldap_server.com -b "dc=passbolt,dc=local" -d 9' www-data
-
-ldap_url_parse_ext(ldaps://your_ldap_server.com)
-ldap_create
-ldap_url_parse_ext(ldaps://your_ldap_server.com:636/??base)
-Enter LDAP Password:
-ldap_sasl_bind
-ldap_send_initial_request
-ldap_new_connection 1 1 0
-ldap_int_open_connection
-ldap_connect_to_host: TCP your_ldap_server.com:636
-ldap_new_socket: 3
-ldap_prepare_socket: 3
-ldap_connect_to_host: Trying 172.16.0.50:636
-ldap_pvt_connect: fd: 3 tm: -1 async: 0
-attempting to connect:
-connect success
-ldap_err2string
 ldap_sasl_bind(SIMPLE): Can't contact LDAP server (-1)
 ```
 
-If that's the case, the good news is that it's quite easy to fix. The issue is that the client is not trusting
-the certificate provided by the server. Let's fix this by moving forward to the next step.
+> If you see this error, it's likely a trust issue with the LDAPS certificate.
 
-### Step 3: Download a correctly chained SSL certificate
+---
 
-OpenLDAP requires usually the entire chained certificate. We have developed a quick utility that aims to help
-retrieve all the parts of a LDAPS certificate and bundle them together. You can access this tool
-[here](https://github.com/passbolt/ldaps_cert_util).
+### Step 3: Download a Chained Certificate
 
-Follow the README instructions, retrieve your certificate and move to step 2.
+Use our open-source utility to retrieve a complete LDAPS certificate chain:  
+🔗 [passbolt/ldaps_cert_util](https://github.com/passbolt/ldaps_cert_util)
 
-### Step 4: Tell OpenLDAP to use the right certificate
+Follow the README to bundle and save the `.crt` file.
 
-#### Using passbolt.php or environment variables (beta)
+---
 
-With the v4.7 release, we have introduced a configuration where you can specify your custom root CA certificate details.
+### Step 4: Configure Certificate Trust
+
+#### Option 1: Via `passbolt.php`
 
 ```php
 // config/passbolt.php
-
-return [
-    'passbolt' => [
-        ...
-
-        'plugins' => [
-            ...
-
-              'directorySync' => [
-                ...
-                'security' => [
-                    'sslCustomOptions' => [
-                        'enabled' => true,
-                        'verifyPeer' => true,
-                        'cadir' => '/etc/ssl/certs',
-                        'cafile' => '/etc/ssl/certs/cert.crt',
-                    ],
-                ],
-            ],
-
-            ...
-
-        ],
-
-        ...
+'plugins' => [
+  'directorySync' => [
+    'security' => [
+      'sslCustomOptions' => [
+        'enabled' => true,
+        'verifyPeer' => true,
+        'cadir' => '/etc/ssl/certs',
+        'cafile' => '/etc/ssl/certs/cert.crt',
+      ],
     ],
-];
+  ],
+]
 ```
 
-Or, you can also set the above values via environment variables as well:
+#### Option 2: Via Environment Variables
 
 ```bash
 export PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_ENABLED=true
@@ -160,102 +122,88 @@ export PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_CAFILE="/etc/
 ```
 
 :::info
-You should either set the root CA certificate via `ldap.conf` or via passbolt configurations(`passbolt.php` / env variables), not both.
+Use either the Passbolt config OR `ldap.conf` (below), **not both**.
 :::
 
-That's it. It should work now. Go back to step 1 and execute the ldapsearch command again. You should see a
-successful connection to your LDAPS server happening. If that's the case, you can get back to Passbolt and try
-the synchronization again.
+---
 
-#### Using LDAP extension configuration file (deprecated)
+### (Deprecated) Option: Use `ldap.conf`
 
-In Debian:
+On Debian:
 
 ```bash
 nano /etc/ldap/ldap.conf
 ```
 
-_Note that the `ldap.conf` can also be found in `/etc/ldap/ldap.conf`, depending on your distro._
+Add or update:
 
-The content of the file should look like:
+```bash
+TLS_CACERT /etc/ssl/certs/cert.crt
+```
 
-<CodeBlock>
-{`#
-# LDAP Defaults
-#
+---
 
-# See ldap.conf(5) for details
-# This file should be world readable but not world writable.
-
-#BASE   dc=example,dc=com
-#URI    ldap://ldap.example.com ldap://ldap-master.example.com:666
-
-#SIZELIMIT      12
-#TIMELIMIT      15
-#DEREF          never
-
-# TLS certificates (needed for GnuTLS)
-TLS_CACERT      /etc/ssl/certs/cert.crt
-`}
-</CodeBlock>
-
-Edit the line with `TLS_CACERT` to make it point to the right certificate.
-
-### Alternatively, disable SSL certificate verification
-
-If for some obscure reason, OpenLDAP was still refusing to cooperate, you can try telling him to ignore the certificate.
+## Optional: Disable Certificate Verification (Test Only)
 
 :::warning
-Do this for test purposes only. This practice is insecure and could make your server prone to MITM attacks.
+This is insecure and should only be used temporarily for testing. It exposes you to MITM attacks.
 :::
 
-#### Using passbolt.php or environment variables (beta)
+#### Option 1: Via `passbolt.php`
 
 ```php
 // config/passbolt.php
-
-return [
-    'passbolt' => [
-        ...
-
-        'plugins' => [
-            ...
-
-              'directorySync' => [
-                ...
-                'security' => [
-                    'sslCustomOptions' => [
-                        'enabled' => true,
-                        'verifyPeer' => false,
-                    ],
-                ],
-            ],
-
-            ...
-
-        ],
-
-        ...
+'plugins' => [
+  'directorySync' => [
+    'security' => [
+      'sslCustomOptions' => [
+        'enabled' => true,
+        'verifyPeer' => false,
+      ],
     ],
-];
+  ],
+]
 ```
 
-Or, you can also set the above values via environment variables as well:
+#### Option 2: Via Environment Variables
 
 ```bash
 export PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_ENABLED=true
 export PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_VERIFY_PEER=false
 ```
 
-Now after ignoring the certificate if the connection is going through, it means that there might be some issues with your certificate.
-
-#### Using LDAP extension configuration file (deprecated)
+#### Option 3: Via `ldap.conf` (deprecated)
 
 ```bash
 nano /etc/ldap/ldap.conf
 ```
 
-Then add the below line:
+Add:
+
 ```bash
 TLS_REQCERT never
 ```
+
+---
+
+### Final Step: Re-Test with ldapsearch
+
+Re-run the ldapsearch command from Step 2.  
+If the certificate issue is resolved, the connection should succeed. You can now return to Passbolt and test the sync.
+
+---
+
+## Looking for More Advanced Scenarios?
+
+This page covers the essentials for setting up and troubleshooting LDAPS in a typical environment.  
+However, if you're dealing with:
+
+- edge cases like multi-domain forests,
+- sync behavior involving deleted users or group permissions,
+- ignored entries, pagination issues, or memory constraints during syncs,
+
+then you should refer to the dedicated page on advanced topics:
+
+👉 [Advanced Directory Options](/admin/user-provisioning/users-directory/advanced-directory-options/)
+
+That page includes deeper coverage of sync error messages, directory-specific quirks, and diagnostics for large-scale or complex LDAP environments. We maintain that page as the single source of truth for advanced directory provisioning to avoid duplicating technical logic across guides.

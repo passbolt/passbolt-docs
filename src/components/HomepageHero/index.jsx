@@ -35,7 +35,7 @@ const HomepageHero = () => {
     {
       id: 'contributor',
       icon: <img src={useBaseUrl('/icons/lucide/contributor.svg')} width={24} alt='Contributor guide illustrated with a handshake.' />,
-      href: 'https://help.passbolt.com/contribute',
+      href: '/contribute',
       title: 'Contributor guide',
       description:
         'All the information to get started to contribute to the project as a translator, developer, tester, etc.',

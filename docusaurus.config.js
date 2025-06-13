@@ -208,12 +208,12 @@ const config = {
             position: 'left',
             label: 'API guide',
           },
-          // {
-          //   type: 'docSidebar',
-          //   sidebarId: 'contributeGuideSidebar',
-          //   position: 'left',
-          //   label: 'Contribute guide',
-          // },
+          {
+            type: 'docSidebar',
+            sidebarId: 'contributeGuideSidebar',
+            position: 'left',
+            label: 'Contribute guide',
+          },
           {
             href: ROUTES.GITHUB_URL,
             position: 'right',

@@ -1,7 +1,7 @@
 import CodeBlock from "/src/components/CodeBlock/CodeBlock";
 import HTTPSWarning from '/docs/hosting/_includes/warning/_https-url-change.mdx';
 import Link from '@docusaurus/Link';
-
+import CertificateWarning from '/docs/hosting/_includes/warning/_passphrase-protected-private-key.mdx';
 
 <HTTPSWarning />
 
@@ -10,6 +10,8 @@ import Link from '@docusaurus/Link';
   - <Link to={`/docs/hosting/install/${props.productName.toLowerCase()}/docker/`}>docker setup with docker compose</Link>.
 
 ## HTTPS configuration
+
+<CertificateWarning />
 
 You need to bind-mount your certificates inside passbolt container to use them.
 

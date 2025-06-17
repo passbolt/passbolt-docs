@@ -34,6 +34,8 @@ In many on-premises environments, LDAP runs on a private network with self-signe
 
 If your LDAP server does not present a **chained certificate** (i.e., missing CA), you must manually upload the **CA certificate** to the Passbolt server.
 
+> 💡 Passbolt provides an official [certificate bundler tool](https://github.com/passbolt/passbolt-ldap-certificate-bundler) to simplify retrieving and formatting certificates from LDAPS servers.
+
 <Figure
   src="/img/help/2020/01/AD_ldaps_ssl_certificate_error.png"
   alt="LDAP with ssl - certificate error message"
@@ -85,10 +87,50 @@ ldap_sasl_bind(SIMPLE): Can't contact LDAP server (-1)
 
 ### Step 3: Download a Chained Certificate
 
-Use our open-source utility to retrieve a complete LDAPS certificate chain:  
-🔗 [passbolt/ldaps_cert_util](https://github.com/passbolt/ldaps_cert_util)
+Use our official utility to retrieve and bundle LDAPS certificates:  
+🔗 [passbolt/passbolt-ldap-certificate-bundler](https://github.com/passbolt/passbolt-ldap-certificate-bundler)
 
-Follow the README to bundle and save the `.crt` file.
+#### Quick Setup:
+
+```bash
+# Clone the repository
+git clone https://github.com/passbolt/passbolt-ldap-certificate-bundler.git
+cd passbolt-ldap-certificate-bundler
+
+# Set up the environment
+chmod +x setup_python_env.sh
+./setup_python_env.sh
+
+# Activate the virtual environment
+source venv/bin/activate
+
+# Run the tool to get the certificate bundle
+python3 ldaps_cert_chain_retriever.py --server your.ldaps.server > /etc/ssl/certs/ldaps_bundle.crt
+
+# Set proper permissions
+sudo chown root:root /etc/ssl/certs/ldaps_bundle.crt
+sudo chmod 644 /etc/ssl/certs/ldaps_bundle.crt
+```
+
+#### Docker Option:
+
+If you prefer using Docker:
+
+```bash
+# Using the provided Makefile
+make build
+make save SERVER=your.ldaps.server
+
+# Manual Docker commands
+docker build -t ldaps-cert-tool .
+docker run --rm -v $(pwd):/out ldaps-cert-tool --server your.ldaps.server --output /out/ldaps_bundle.crt
+```
+
+The utility automatically handles:
+- Certificate chain retrieval
+- Self-signed certificates
+- Chain validation
+- Proper formatting for Passbolt
 
 ---
 
@@ -105,7 +147,7 @@ Follow the README to bundle and save the `.crt` file.
         'enabled' => true,
         'verifyPeer' => true,
         'cadir' => '/etc/ssl/certs',
-        'cafile' => '/etc/ssl/certs/cert.crt',
+        'cafile' => '/etc/ssl/certs/ldaps_bundle.crt',
       ],
     ],
   ],
@@ -118,7 +160,7 @@ Follow the README to bundle and save the `.crt` file.
 export PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_ENABLED=true
 export PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_VERIFY_PEER=true
 export PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_CADIR="/etc/ssl/certs"
-export PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_CAFILE="/etc/ssl/certs/cert.crt"
+export PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_CAFILE="/etc/ssl/certs/ldaps_bundle.crt"
 ```
 
 :::info
@@ -138,7 +180,7 @@ nano /etc/ldap/ldap.conf
 Add or update:
 
 ```bash
-TLS_CACERT /etc/ssl/certs/cert.crt
+TLS_CACERT /etc/ssl/certs/ldaps_bundle.crt
 ```
 
 ---

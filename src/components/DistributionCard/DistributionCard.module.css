@@ -89,3 +89,16 @@
     font-size: 2.75rem;
   }
 }
+
+.newBadge {
+  color: white;
+  border: none;
+  padding: 0.25em 1em;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  cursor: default;
+  border-radius: 1rem;
+  background: #4B92D9;
+}
+
+

@@ -1,5 +1,20 @@
 [
   {
+    "name": "Ansible",
+    "slug": "ansible",
+    "version": null,
+    "package": null,
+    "db_engine": null,
+    "logo": "/img/distributions/ansible.png",
+    "ce": true,
+    "pro": true,
+    "canMigrateServer": false,
+    "canMigratePackage": false,
+    "canUpgrade": false,
+    "canUpdate": false,
+    "isNew": true
+  },
+  {
     "name": "Debian",
     "slug": "debian",
     "version": 12,
@@ -11,7 +26,8 @@
     "canMigrateServer": true,
     "canMigratePackage": true,
     "canUpgrade": true,
-    "canUpdate": true
+    "canUpdate": true,
+    "isNew": false
   },
   {
     "name": "Ubuntu",
@@ -25,7 +41,9 @@
     "canMigrateServer": true,
     "canMigratePackage": true,
     "canUpgrade": true,
-    "canUpdate": true
+    "canUpdate": true,
+    "isNew": false
+
   },
   {
     "name": "Helm Chart",
@@ -39,7 +57,9 @@
     "canMigrateServer": false,
     "canMigratePackage": false,
     "canUpgrade": false,
-    "canUpdate": false
+    "canUpdate": false,
+    "isNew": false
+
   },
   {
     "name": "Docker",
@@ -53,7 +73,9 @@
     "canMigrateServer": true,
     "canMigratePackage": false,
     "canUpgrade": true,
-    "canUpdate": true
+    "canUpdate": true,
+    "isNew": false
+
   },
   {
     "name": "Raspberry",
@@ -67,7 +89,9 @@
     "canMigrateServer": false,
     "canMigratePackage": false,
     "canUpgrade": false,
-    "canUpdate": true
+    "canUpdate": true,
+    "isNew": false
+
   },
   {
     "name": "Virtual Appliance",
@@ -81,7 +105,9 @@
     "canMigrateServer": true,
     "canMigratePackage": false,
     "canUpgrade": false,
-    "canUpdate": true
+    "canUpdate": true,
+    "isNew": false
+
   },
   {
     "name": "AWS AMI",
@@ -95,7 +121,9 @@
     "canMigrateServer": false,
     "canMigratePackage": false,
     "canUpgrade": false,
-    "canUpdate": true
+    "canUpdate": true,
+    "isNew": false
+
   },
   {
     "name": "Digital Ocean",
@@ -109,7 +137,9 @@
     "canMigrateServer": false,
     "canMigratePackage": false,
     "canUpgrade": false,
-    "canUpdate": true
+    "canUpdate": true,
+    "isNew": false
+
   },
   {
     "name": "Red Hat",
@@ -123,7 +153,9 @@
     "canMigrateServer": true,
     "canMigratePackage": false,
     "canUpgrade": true,
-    "canUpdate": true
+    "canUpdate": true,
+    "isNew": false
+
   },
   {
     "name": "AlmaLinux",
@@ -137,7 +169,9 @@
     "canMigrateServer": true,
     "canMigratePackage": false,
     "canUpgrade": true,
-    "canUpdate": true
+    "canUpdate": true,
+    "isNew": false
+
   },
   {
     "name": "RockyLinux",
@@ -151,7 +185,9 @@
     "canMigrateServer": true,
     "canMigratePackage": false,
     "canUpgrade": true,
-    "canUpdate": true
+    "canUpdate": true,
+    "isNew": false
+
   },
   {
     "name": "OpenSUSE Leap",
@@ -165,7 +201,9 @@
     "canMigrateServer": true,
     "canMigratePackage": false,
     "canUpgrade": false,
-    "canUpdate": true
+    "canUpdate": true,
+    "isNew": false
+
   },
   {
     "name": "SLES",
@@ -179,7 +217,9 @@
     "canMigrateServer": true,
     "canMigratePackage": false,
     "canUpgrade": false,
-    "canUpdate": true
+    "canUpdate": true,
+    "isNew": false
+
   },
   {
     "name": "OracleLinux",
@@ -193,7 +233,9 @@
     "canMigrateServer": true,
     "canMigratePackage": false,
     "canUpgrade": true,
-    "canUpdate": true
+    "canUpdate": true,
+    "isNew": false
+
   },
   {
     "name": "From source",
@@ -207,6 +249,7 @@
     "canMigrateServer": false,
     "canMigratePackage": false,
     "canUpgrade": false,
-    "canUpdate": true
+    "canUpdate": true,
+    "isNew": false
   }
 ]

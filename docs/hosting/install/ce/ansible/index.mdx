@@ -1,0 +1,22 @@
+---
+title: Install Passbolt with an Ansible playbook
+sidebar_label: Ansible
+hide_table_of_contents: true
+---
+import Chips from "/src/components/Chips/Chips";
+
+import Prerequisites from '/docs/hosting/_includes/ansible/_prerequisites.mdx';
+import CloneRepo from '/docs/hosting/_includes/ansible/_clone-repo.mdx';
+import ConfigureEnvironment from '/docs/hosting/_includes/ansible/_configure-environment.mdx';
+import ConfigureInventories from '/docs/hosting/_includes/ansible/_configure-inventory.mdx';
+import RunPlaybook from '/docs/hosting/_includes/ansible/_running-playbook.mdx';
+import AdminConfiguration from '/docs/hosting/_includes/ansible/_user-registration.mdx';
+
+<Chips link="https://www.passbolt.com/ce/debian" isUnderMainTitle={true}>CE</Chips>
+
+<Prerequisites/>
+<CloneRepo />
+<ConfigureInventories />
+<ConfigureEnvironment productName={'CE'}/>
+<RunPlaybook productName={'CE'}/>
+<AdminConfiguration />

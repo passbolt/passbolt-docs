@@ -20,6 +20,7 @@ export const DistributionCardWrapper = () => {
             logo={distribution.logo}
             name={distribution.name}
             version={distribution.version}
+            isNew={distribution.isNew}
             links={{
               ...(distribution.ce && {
                 ce: {

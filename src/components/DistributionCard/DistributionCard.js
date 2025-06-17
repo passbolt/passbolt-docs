@@ -5,7 +5,7 @@ import Badge from '@site/src/components/Badge/Badge';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import Heading from '@theme/Heading';
 
-const DistributionCard = ({ logo, name, version, links, ...props }) => {
+const DistributionCard = ({ logo, name, isNew, version, links, ...props }) => {
   const imageUrl = useBaseUrl(logo);
 
   return (
@@ -23,9 +23,14 @@ const DistributionCard = ({ logo, name, version, links, ...props }) => {
         </Heading>
       )}
 
-      {links && (
+      {(isNew || (links && (links.ce || links.pro))) && (
         <div className={styles.links}>
-          {links.ce && (
+          {isNew && (
+            <div className={styles.newBadge}>
+              NEW
+            </div>
+          )}
+          {links?.ce && (
             <Badge
               className={styles.link}
               href={links.ce.slug}
@@ -33,7 +38,7 @@ const DistributionCard = ({ logo, name, version, links, ...props }) => {
               {links.ce.label}
             </Badge>
           )}
-          {links.pro && (
+          {links?.pro && (
             <Badge
               className={styles.link}
               href={links.pro.slug}
@@ -61,6 +66,12 @@ DistributionCard.propTypes = {
       label: PropTypes.string.isRequired,
     }),
   }),
+  isNew: PropTypes.bool,
+};
+
+DistributionCard.defaultProps = {
+  links: null,
+  isNew: false,
 };
 
 export default DistributionCard;

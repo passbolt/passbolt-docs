@@ -5,22 +5,25 @@ sidebar_label: Firewall Rules
 hide_table_of_contents: true
 ---
 
-You must allow these rules to make Passbolt work in a firewalled environment:
+These rules should be considered in a firewalled environment:
 
-## Inbound rules
+## Inbound Rules
 
-| Protocol name | Port number | Transport Layer Protocol | Comment                                              |
-| ------------- | ----------- | ------------------------ | ---------------------------------------------------- |
-| HTTP          | 80          | TCP                      | Optional, should be used only to redirect to HTTPS   |
-| HTTPS         | 443         | TCP                      | To serve Passbolt through HTTPS                      |
+| Purpose | Protocol Name | Port Number | Transport Layer Protocol |
+| ------- | ------------- | ----------- | ------------------------ |
+| <span style={{wordBreak: "keep-all"}}>Used for redirecting HTTP traffic to HTTPS for secure communication</span> | HTTP | 80 | TCP |
+| <span style={{wordBreak: "keep-all"}}>Enables secure connections to the Passbolt server using SSL/TLS</span> | HTTPS | 443 | TCP |
 
-## Outbound rules
+## Outbound Rules
 
-| Protocol name | Port number | Transport Layer Protocol | Comment                                                                                                              |
-| ------------- | ----------- | ------------------------ | -------------------------------------------------------------------------------------------------------------------- |
-| HTTP          | 80          | TCP                      | To be able to connect to operating system repositories who don't use https (Ubuntu) |
-| HTTPS         | 443         | TCP                      | To be able to connect to package repository or bitbucket repository |
-| SMTP          | usually 587 | TCP                      | To send email notifications, used port depends of your SMTP server configuration, usually 25/TCP, 587/TCP or 465/TCP |
-| DNS           | 53          | UDP                      | To be able to resolve SMTP server name, or download.passbolt.com to check for updates                                |
-| NTP           | 123         | UDP                      | To make server synchronized to a NTP server. Mandatory to make GPG or MFA/OTP work                                   |
-| HKPS          | 11371       | TCP                      | HKPS protocol for receiving GPG keys |
+| Purpose | Protocol Name | Port Number | Transport Layer Protocol |
+| ------- | ------------- | ----------- | ------------------------ |
+| <span style={{wordBreak: "keep-all"}}>Used for legacy systems or specific cases where HTTPS is not supported</span> | HTTP | 80 | TCP |
+| <span style={{wordBreak: "keep-all"}}>Facilitates secure outbound connections for various services, including:</span> <ul><li><span style={{wordBreak: "keep-all"}}>Passbolt's online resources:</span> <ul><li><span style={{wordBreak: "keep-all"}}>`fullBaseUrl` for self-referencing healthcheck</span></li><li><span style={{wordBreak: "keep-all"}}>download.passbolt.com</span></li></ul></li><li><span style={{wordBreak: "keep-all"}}>Secure package repositories</span></li><li><span style={{wordBreak: "keep-all"}}>Bitbucket</span></li><li><span style={{wordBreak: "keep-all"}}>Operating system and software updates</span></li></ul> | HTTPS | 443 | TCP |
+| <span style={{wordBreak: "keep-all"}}>Connects to Unique DUO authentication endpoint</span> | HTTPS | 443 | TCP |
+| <span style={{wordBreak: "keep-all"}}>Connects to Yubico API endpoints:</span> <ul><li><span style={{wordBreak: "keep-all"}}>api.yubico.com</span></li><li><span style={{wordBreak: "keep-all"}}>api2.yubico.com</span></li><li><span style={{wordBreak: "keep-all"}}>api3.yubico.com</span></li><li><span style={{wordBreak: "keep-all"}}>api4.yubico.com</span></li><li><span style={{wordBreak: "keep-all"}}>api5.yubico.com</span></li></ul> | HTTPS | 443 | TCP |
+| <span style={{wordBreak: "keep-all"}}>Connects to other APIs and services:</span> <ul><li><span style={{wordBreak: "keep-all"}}>api.github.com</span></li><li><span style={{wordBreak: "keep-all"}}>api.pwnedpasswords.com</span> (see [Have I Been Pwned FAQs](https://haveibeenpwned.com/FAQs))</li></ul> | HTTPS | 443 | TCP |
+| <span style={{wordBreak: "keep-all"}}>Sends email notifications through your configured SMTP server</span> | SMTP | Usually 587 | TCP |
+| <span style={{wordBreak: "keep-all"}}>Resolves domain names for SMTP servers and updates from download.passbolt.com</span> | DNS | 53 | UDP |
+| <span style={{wordBreak: "keep-all"}}>Synchronizes server time with an NTP server, essential for GPG and MFA/OTP functionality</span> | NTP | 123 | UDP |
+| <span style={{wordBreak: "keep-all"}}>Retrieves GPG keys securely from key servers:</span> <ul><li><span style={{wordBreak: "keep-all"}}>keys.mailvelope.com</span></li><li><span style={{wordBreak: "keep-all"}}>keys.openpgp.org</span></li><li><span style={{wordBreak: "keep-all"}}>pgp.mit.edu</span></li></ul> | HKPS | 11371 | TCP |

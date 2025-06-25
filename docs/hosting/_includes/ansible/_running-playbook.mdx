@@ -1,0 +1,45 @@
+import CodeBlock from '@theme/CodeBlock';
+import Link from '@docusaurus/Link';
+
+## Running the Ansible playbook
+When you set all the necessary variables and configured the hosts, you will be able to run the Ansible playbook.
+
+In the main directory file, you can run:
+
+<CodeBlock>
+  {`ansible-playbook -i $YOUR_INVENTORY install.yml`}
+</CodeBlock>
+
+After running the playbook, it should display one of multiple registration URLs based on your hosts file. In the example below, passbolt has been installed on a Debian 12 server and is prompting the URL:
+<>
+  {props.productName === 'PRO' ? (
+    <CodeBlock>
+      {`TASK [passbolt : Complete the administrator registration on a web browser] ***************************************************
+
+ok: [YOUR_SERVER_IP] => {
+    "msg": "In order to complete your full admin registration, please navigate to https://pro.debian12.local/setup/start/089c209e-5518-4240-997d-b1c354e2a450/13067e51-fc61-49ce-b8de-54f5d3fad43e"
+}`}
+    </CodeBlock>
+  ) : (
+    <CodeBlock>
+      {`TASK [passbolt : Complete the administrator registration on a web browser] ***************************************************
+
+ok: [YOUR_SERVER_IP] => {
+    "msg": "In order to complete your full admin registration, please navigate to https://ce.debian12.local/setup/start/089c209e-5518-4240-997d-b1c354e2a450/13067e51-fc61-49ce-b8de-54f5d3fad43e"
+}`}
+    </CodeBlock>
+  )}
+</>
+
+You will need to copy this URL and paste it to your web browser, then you can follow the next instructions.
+
+### Debugging
+
+  <>
+    {props.productName === 'PRO' ? (
+      <p>If you run into any issues, we would recommend running <code>ansible-playbook -i $YOUR_INVENTORY -vvv</code> and share the output on the <Link to='https://passbolt.com/contact/support'>PRO contact form</Link>.  Please, make sure that you censor any sensitive information before sending it.</p>
+      ) : (
+     <p>If you run into any issues, we would recommend running <code>ansible-playbook -i $YOUR_INVENTORY -vvv</code>  and share the output on a dedicated thread on our <Link to='https://community.passbolt.com'>community forum</Link>.  Please, make sure that you censor any sensitive information before sending it.</p>
+     )}
+  </>
+

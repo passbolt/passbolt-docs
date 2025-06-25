@@ -2,7 +2,7 @@ import Figure from '@site/src/components/Figure/Figure';
 import CodeBlock from "/src/components/CodeBlock/CodeBlock";
 import HTTPSWarning from '/docs/hosting/_includes/warning/_https-url-change.mdx';
 import NginxSuccess from '/docs/hosting/_includes/https/nginx-success.mdx'
-
+import CertificateWarning from '/docs/hosting/_includes/warning/_passphrase-protected-private-key.mdx';
 
 <HTTPSWarning />
 
@@ -135,6 +135,9 @@ Provide the full path of the SSL certificate you created on previous steps: `cer
 
 
 Now provide the full path of the SSL key: `key.pem`
+
+<CertificateWarning />
+
 <>
 {props.productName == 'PRO' && (
   <Figure

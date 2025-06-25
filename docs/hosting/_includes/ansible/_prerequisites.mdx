@@ -1,0 +1,33 @@
+import Warning from '/docs/hosting/_includes/ansible/_ansible-advanced-warning.mdx';
+import DistributionsInfo from '/docs/hosting/_includes/ansible/_tested-distro.mdx';
+
+<Warning />
+<DistributionsInfo />
+
+## Prerequisites
+
+#### Server
+
+You will need on the server:
+
+:::caution[Please note]
+It is important that you use a vanilla server with no other services or tools already installed on it. The playbook could potentially damage any existing data on your server.
+:::
+
+- A minimal Debian 12 or Red Hat 9 server
+- A domain/hostname pointing to your server (or at least a static IP)
+- A working SMTP server for email notifications
+- Privilege access (sudo or equivalent)
+
+The recommended server requirements are:
+- 2 CPU cores
+- 2 GB RAM
+
+#### Controller
+
+You will need on the client where the Ansible playbook is ran from:
+- A supported OS (Linux or macOS)
+- SSHPass (macOS only)
+- [Ansible installed](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
+- An SSH client
+

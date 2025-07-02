@@ -35,12 +35,21 @@ If the <i>shasum</i> command output is not correct, the downloaded file has been
 <div>
   <>
     {props.productName === 'PRO' && (
-      <Incrementor title="Create a subscription_key.txt file containing your subscription key." />
+      <>
+      <Incrementor title="Mount the subscription key or use the dedicated environment variable" />
+        <p> Regarding the subscription key, you can either mount the subscription key (default) or use the dedicated SUBSCRIPTION_KEY environment variable.</p>
+      <p>It's important to note that either mounting the subscription key or using the <code>SUBSCRIPTION_KEY</code> environment variable has to be set before running the container. <br /> If you want to mount the subscription key you can create in the same directory than the docker-compose-pro.yaml file a <code>subscription_key.txt</code> with the subscription key content. <br /> With the environment variable you will need to paste the base64-encoded subscription key content that has been sent from our sales team. Please replace the placeholder below with your own subscription key content:</p>
+<CodeBlock>{`(..)
+ passbolt:
+  (...)
+  environment:
+    SUBSCRIPTION_KEY: "YOUR_SUBSSCRIPTION_KEY_HERE"
+    (...)
+  (...)`}</CodeBlock>
+      </>
     )}
   </>
 </div>
-
-<br />
 
 <Incrementor
   productName={props.productName}

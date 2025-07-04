@@ -11,19 +11,19 @@ These rules should be considered in a firewalled environment:
 
 | Purpose | Protocol Name | Port Number | Transport Layer Protocol |
 | ------- | ------------- | ----------- | ------------------------ |
-| <span style={{wordBreak: "keep-all"}}>Used for redirecting HTTP traffic to HTTPS for secure communication</span> | HTTP | 80 | TCP |
-| <span style={{wordBreak: "keep-all"}}>Enables secure connections to the Passbolt server using SSL/TLS</span> | HTTPS | 443 | TCP |
+| Used for redirecting HTTP traffic to HTTPS for secure communication | HTTP | 80 | TCP |
+| Enables secure connections to the Passbolt server using SSL/TLS | HTTPS | 443 | TCP |
 
 ## Outbound Rules
 
 | Purpose | Protocol Name | Port Number | Transport Layer Protocol |
 | ------- | ------------- | ----------- | ------------------------ |
-| <span style={{wordBreak: "keep-all"}}>Used for legacy systems or specific cases where HTTPS is not supported</span> | HTTP | 80 | TCP |
-| <span style={{wordBreak: "keep-all"}}>Facilitates secure outbound connections for various services, including:</span> <ul><li><span style={{wordBreak: "keep-all"}}>Passbolt's online resources:</span> <ul><li><span style={{wordBreak: "keep-all"}}>`fullBaseUrl` for self-referencing healthcheck</span></li><li><span style={{wordBreak: "keep-all"}}>download.passbolt.com</span></li></ul></li><li><span style={{wordBreak: "keep-all"}}>Secure package repositories</span></li><li><span style={{wordBreak: "keep-all"}}>Bitbucket</span></li><li><span style={{wordBreak: "keep-all"}}>Operating system and software updates</span></li></ul> | HTTPS | 443 | TCP |
-| <span style={{wordBreak: "keep-all"}}>Connects to Unique DUO authentication endpoint</span> | HTTPS | 443 | TCP |
-| <span style={{wordBreak: "keep-all"}}>Connects to Yubico API endpoints:</span> <ul><li><span style={{wordBreak: "keep-all"}}>api.yubico.com</span></li><li><span style={{wordBreak: "keep-all"}}>api2.yubico.com</span></li><li><span style={{wordBreak: "keep-all"}}>api3.yubico.com</span></li><li><span style={{wordBreak: "keep-all"}}>api4.yubico.com</span></li><li><span style={{wordBreak: "keep-all"}}>api5.yubico.com</span></li></ul> | HTTPS | 443 | TCP |
-| <span style={{wordBreak: "keep-all"}}>Connects to other APIs and services:</span> <ul><li><span style={{wordBreak: "keep-all"}}>api.github.com</span></li><li><span style={{wordBreak: "keep-all"}}>api.pwnedpasswords.com</span> (see [Have I Been Pwned FAQs](https://haveibeenpwned.com/FAQs))</li></ul> | HTTPS | 443 | TCP |
-| <span style={{wordBreak: "keep-all"}}>Sends email notifications through your configured SMTP server</span> | SMTP | Usually 587 | TCP |
-| <span style={{wordBreak: "keep-all"}}>Resolves domain names for SMTP servers and updates from download.passbolt.com</span> | DNS | 53 | UDP |
-| <span style={{wordBreak: "keep-all"}}>Synchronizes server time with an NTP server, essential for GPG and MFA/OTP functionality</span> | NTP | 123 | UDP |
-| <span style={{wordBreak: "keep-all"}}>Retrieves GPG keys securely from key servers:</span> <ul><li><span style={{wordBreak: "keep-all"}}>keys.mailvelope.com</span></li><li><span style={{wordBreak: "keep-all"}}>keys.openpgp.org</span></li><li><span style={{wordBreak: "keep-all"}}>pgp.mit.edu</span></li></ul> | HKPS | 11371 | TCP |
+| Used for legacy systems or specific cases where HTTPS is not supported | HTTP | 80 | TCP |
+| Facilitates secure outbound connections for various services, including: <ul><li>Passbolt's online resources: <ul><li>`fullBaseUrl` for self-referencing healthcheck</li><li>download.passbolt.com</li></ul></li><li>Secure package repositories</li><li>Bitbucket</li><li>Operating system and software updates</li></ul> | HTTPS | 443 | TCP |
+| Connects to Unique DUO authentication endpoint | HTTPS | 443 | TCP |
+| Connects to Yubico API endpoints: <ul><li>api.yubico.com</li><li>api2.yubico.com</li><li>api3.yubico.com</li><li>api4.yubico.com</li><li>api5.yubico.com</li></ul> | HTTPS | 443 | TCP |
+| Connects to other APIs and services: <ul><li>api.github.com</li><li>api.pwnedpasswords.com (see [Have I Been Pwned FAQs](https://haveibeenpwned.com/FAQs))</li></ul> | HTTPS | 443 | TCP |
+| Sends email notifications through your configured SMTP server | SMTP | Usually 587 | TCP |
+| Resolves domain names for SMTP servers and updates from download.passbolt.com | DNS | 53 | UDP |
+| Synchronizes server time with an NTP server, essential for GPG and MFA/OTP functionality | NTP | 123 | UDP |
+| Retrieves GPG keys securely from key servers: <ul><li>keys.mailvelope.com</li><li>keys.openpgp.org</li><li>pgp.mit.edu</li></ul> | HKPS | 11371 | TCP |

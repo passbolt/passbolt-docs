@@ -1,0 +1,54 @@
+---
+title: Migrate Metadata
+description: Learn how to migrate metadata encryption in Passbolt
+sidebar_position: 3
+---
+
+import Figure from '@site/src/components/Figure/Figure';
+
+# Migrate Metadata
+
+This section enables administrators to migrate existing resource metadata from legacy cleartext format to encrypted format.
+
+<Figure
+  src="/img/help/2025/06/migrate-metadata.png"
+  alt="Metadata migration interface"
+  caption="Metadata migration interface in Passbolt"
+/>
+
+## Configuration Options
+
+### Items to Migrate
+
+Toggle whether to include resource metadata in the migration. When enabled, the following fields will be encrypted:
+
+- **Name**
+- **Username**
+- **URI**
+- **Cleartext Description**
+
+If disabled, these fields remain in cleartext form. Passwords are always encrypted regardless of this setting.
+
+### Migration Scope
+
+Choose which types of resources to include in the migration:
+
+- **All content** - Includes both shared and personal resources.
+- **Shared content only** - Only shared resources are migrated.
+
+## Important Considerations
+
+Before initiating migration, ensure:
+- Encrypted metadata is enabled in the [Encrypted Metadata](./encrypted-metadata.mdx) settings
+- A shared metadata key has been generated in the [Metadata Key](./manage-metadata-key.mdx) settings
+- All users who need access to the migrated resources have received the shared metadata key
+
+:::tip Best Practice
+Always perform a complete backup before starting the migration process. This ensures you can recover if any issues occur during migration.
+:::
+
+:::warning
+Migrating content to encrypted metadata might affect integrations that rely on accessing resource metadata in cleartext format.
+:::
+
+ 

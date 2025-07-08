@@ -1,0 +1,58 @@
+---
+title: Allow Content Types
+description: Configure which content types can use metadata encryption
+sidebar_position: 4
+---
+
+import Figure from '@site/src/components/Figure/Figure';
+
+# Allow Content Types
+
+This section controls which content types (e.g., Password, TOTP) can be used with encrypted or cleartext metadata when creating new resources.
+
+## Configuration Options
+
+### Encrypted Metadata Content Types
+
+Each content type can be individually enabled or disabled:
+
+- **Password**
+- **TOTP**
+
+:::note
+These checkboxes are only available if "Enable Encrypted Metadata" is turned on in the [Encrypted Metadata](./encrypted-metadata.mdx) settings.
+:::
+
+### Legacy Cleartext Metadata Content Types
+
+Each content type can be individually enabled or disabled:
+
+- **Password**
+- **TOTP**
+
+:::note
+These checkboxes are only available if "Enable Legacy Cleartext Metadata" is turned on in the [Encrypted Metadata](./encrypted-metadata.mdx) settings.
+:::
+
+:::warning
+If the global toggle for legacy cleartext metadata is off, these options are visible but disabled, and the UI shows:
+"Creation of content type v4 is not allowed."
+
+<Figure
+  src="/img/help/2025/06/allow-content-types-warning.png"
+  alt="Warning about content type v4 not being allowed"
+  caption="Warning message when legacy cleartext metadata is disabled"
+/>
+:::
+
+## Important Considerations
+
+:::caution
+Legacy metadata formats are deprecated and not recommended for new resources. Use only during transition or migration phases.
+:::
+
+To enable the creation of resources with encrypted metadata:
+1. Enable encrypted metadata in the [Encrypted Metadata](./encrypted-metadata.mdx) settings
+2. Generate a metadata key in the [Metadata Key](./manage-metadata-key.mdx) settings
+3. Enable the desired content types on this page
+

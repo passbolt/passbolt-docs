@@ -1,0 +1,116 @@
+---
+title: Metadata Key
+description: Learn how to manage metadata encryption keys in Passbolt
+sidebar_position: 1
+---
+
+import Figure from '@site/src/components/Figure/Figure';
+
+# Metadata Key
+
+This section controls the layer of encryption that is used to protect metadata such as the name of a resource, URIs, Custom Fields, and all fields defined in [Allow Content Types](./allowed-content-types.mdx).
+
+## Overview
+
+The Metadata Key settings allow administrators to:
+- Generate the organization's shared metadata key
+- Control the policy regarding the privacy of resources that are not shared
+
+<Figure
+  src="/img/help/2025/06/metadata-key.png"
+  alt="Metadata key management interface"
+  caption="Metadata key management interface in Passbolt"
+/>
+
+:::important
+A metadata key should be enabled to allow users to create resources with encrypted metadata.
+:::
+
+## Configuration Options
+
+### Metadata Key Policy
+
+Choose one of the following modes:
+
+#### Allow the use of personal keys (recommended)
+
+Personal (non-shared) resources metadata are encrypted with the user's OpenPGP key. Shared content uses the shared key.
+
+Use these settings if you want to:
+- Offer maximum privacy to your users
+- Not allow the organizations to access their personal resources metadata
+
+Note that with these settings, the personal resources of the users won't be auditable.
+
+#### Enforce the use of shared metadata keys
+
+All metadata is encrypted using the shared metadata key. Personal keys are not used for metadata encryption under this policy.
+
+Use these settings if you need auditability on all resources stored in Passbolt.
+
+:::warning
+If you try to save the page with "Enforce use of shared metadata keys" set but haven't generated a metadata key yet, you'll receive an error message.
+:::
+
+### Zero Knowledge (Coming soon)
+
+This setting allows administrators to define the way the shared metadata key will be distributed to end-users.
+
+#### User-Friendly Mode (coming soon)
+
+The API will have access to the shared metadata key in order to distribute it to users when they are registering for the first time.
+
+Benefits:
+- Prioritizes onboarding ease
+- Still protects against database breach
+
+Limitations:
+- Not full zero-knowledge as it does not protect the metadata information in case of API breach
+
+#### Zero-Knowledge Mode (coming soon)
+
+The API does not have access to the shared metadata key, and the API won't be able to share it with users after they registered.
+
+Requirements:
+- Administrators will have to manually share the metadata key after a user registered
+- Key rotation is advised when switching modes
+
+Benefits:
+- Protects against database and API breach
+
+### Shared Metadata Keys
+
+To generate a shared metadata key:
+
+1. Navigate to Organisation settings > Content types > Metadata key
+2. Click "Generate key"
+3. Click "Save" to confirm the key creation
+
+:::note
+The generated key is only 'Pending' until the page is saved.
+:::
+
+## Key Information
+
+After generating a key, detailed information about the shared metadata key is shown:
+
+| Property | Example |
+|----------|---------|
+| **Fingerprint** | DC6A 4B28 58CF 2C58 6859<br/>C505 7DEB 3F99 EE06 979B |
+| **Algorithm** | eddsa ed25519 |
+| **Key length** | 256 |
+| **Created** | 30 days ago |
+
+## Important Considerations
+
+:::important
+A shared metadata key is required to enable any metadata encrypted resources as shared resources require the shared key.
+:::
+
+To fully implement encrypted metadata:
+1. Generate a metadata key on this page
+2. Configure the encryption settings in [Encrypted Metadata](./encrypted-metadata.mdx)
+3. Enable the desired content types in [Allow Content Types](./allowed-content-types.mdx)
+4. Migrate existing resources using [Migrate Metadata](./migrate-metadata.mdx) if needed
+
+ 

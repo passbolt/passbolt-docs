@@ -1,0 +1,114 @@
+---
+title: Encrypted Metadata
+description: Enable and configure metadata encryption in Passbolt
+sidebar_position: 2
+---
+
+import Figure from '@site/src/components/Figure/Figure';
+import Link from '@docusaurus/Link';
+
+# Encrypted Metadata
+
+This section defines the global metadata encryption strategy for the instance. Administrators can enable encrypted and legacy formats, choose defaults, and permit user-driven migration.
+
+<Link to="https://www.youtube.com/watch?v=_MVae-qgo04" target="_blank" rel="noreferrer">
+  <Figure
+    src="/img/help/2024/02/video-tour.png"
+    alt="Watch the metadata encryption video"
+    caption="Watch the metadata encryption video (Youtube)"
+  />
+</Link>
+
+## What is Metadata Encryption?
+
+Metadata encryption allows you to encrypt various types of content:
+
+- Resource metadata (names, usernames, URLs)
+- Folder names and structure
+- Tag names and labels
+- Comments and notes
+- Custom fields and values
+
+## Supported Content Types
+
+When encrypted metadata is enabled, the following content types are protected:
+
+| Content Type | Protected Fields | Notes |
+|--------------|------------------|-------|
+| **Password Resources** | • Name<br/>• Username<br/>• URI<br/>• Description<br/>• Custom fields | Most common resource type |
+| **TOTP Resources** | • Name<br/>• Username<br/>• URI<br/>• Description<br/>• Custom fields | For time-based one-time passwords |
+| **Custom Fields** | • Field name<br/>• Field value<br/>• Field type<br/>• Field description | Can be added to any resource |
+| **Resource Metadata** | • Tags<br/>• Categories<br/>• Properties<br/>• Relationships | Additional resource information |
+
+:::note
+All content types use the same encryption method, ensuring consistent security across your metadata.
+:::
+
+## Requirements and Warnings
+
+**Requirements:**
+- API version v5.2 or higher
+
+**Warnings:**
+- Enabling encrypted metadata has an impact on the auditability of resource metadata that won't be stored in clear anymore
+- Migrating content to encrypted metadata might break your in-house integration with Passbolt
+- A metadata key should be enabled to allow users to create resources with encrypted metadata. See [Metadata Key](./manage-metadata-key.mdx)
+
+## Configuration Options
+
+Navigate to Organisation settings > Content types > Encrypted metadata to configure metadata encryption options:
+
+<Figure
+  src="/img/help/2025/06/encrypted-metadata.png"
+  alt="Encrypted metadata configuration options"
+  caption="Encrypted metadata configuration options in Passbolt"
+/>
+
+:::warning
+If you enable encrypted metadata but haven't generated a shared key on the [Metadata Key](./manage-metadata-key.mdx) page, you'll see a warning message.
+:::
+
+### Enable Encrypted Metadata
+Enables support for encrypted metadata. New resources can store fields like name, username, and URI securely.
+
+:::note
+This setting will not take effect until a metadata key is created on the [Metadata Key](./manage-metadata-key.mdx) page.
+:::
+
+### Enable Legacy Cleartext Metadata
+Enables support for legacy v4 formats with unencrypted metadata. When enabled, legacy metadata formats can be selectively re-enabled by content type on the [Allow Content Types](./allowed-content-types.mdx) page.
+
+### Default Metadata Type
+Choose the default metadata format for newly created resources:
+
+- **Encrypted metadata** (recommended)
+- **Legacy cleartext metadata**
+
+:::note
+This option is only visible and configurable when both "Enable Encrypted Metadata" and "Enable Legacy Cleartext Metadata" options are enabled above.
+:::
+
+### Self-Served Migration
+Allow users to manage their own format changes:
+
+- **Upgrade from cleartext to encrypted**: Users can convert their existing resources from cleartext to encrypted format
+- **Downgrade from encrypted to cleartext**: Users can convert their existing resources from encrypted to cleartext format
+
+:::note
+These migration options are only relevant when both metadata formats are enabled.
+:::
+
+## Important Considerations
+
+:::caution
+Legacy cleartext metadata is less secure and not recommended for new resources. Consider using encrypted metadata for all new resources.
+:::
+
+To fully implement encrypted metadata:
+1. Generate a metadata key on the [Metadata Key](./manage-metadata-key.mdx) page
+2. Configure the encryption settings on this page
+3. Enable the desired content types in [Allow Content Types](./allowed-content-types.mdx)
+4. Migrate existing resources using [Migrate Metadata](./migrate-metadata.mdx) if needed
+
+
+

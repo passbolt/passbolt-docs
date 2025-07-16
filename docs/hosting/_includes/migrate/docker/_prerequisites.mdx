@@ -103,10 +103,15 @@ docker cp serverkey.asc your-passbolt-container:/etc/passbolt/gpg/serverkey.asc
 Then set correct rights:
 
 ```bash
-docker exec -it your-passbolt-container chown www-data:www-data /etc/passbolt/gpg/serverkey.asc
-docker exec -it your-passbolt-container chown www-data:www-data /etc/passbolt/gpg/serverkey_private.asc
-docker exec -it your-passbolt-container chmod 440 /etc/passbolt/gpg/serverkey.asc
-docker exec -it your-passbolt-container chmod 440 /etc/passbolt/gpg/serverkey_private.asc
+docker run --rm your-passbolt-container chown -R www-data:www-data /etc/passbolt/gpg
+docker run --rm your-passbolt-container chmod -R 550 /etc/passbolt/gpg
+```
+
+To test if user `www-data` can read the files:
+
+```bash
+docker run --rm your-passbolt-container -u www-data cat /etc/passbolt/gpg/serverkey.asc
+docker run --rm your-passbolt-container -u www-data cat /etc/passbolt/gpg/serverkey_private.asc
 ```
 
 ### That's it

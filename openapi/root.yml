@@ -40,6 +40,10 @@ paths:
     $ref: "paths/comment.yml"
   /comments/resource/{resourceId}.json:
     $ref: "paths/comments.yml"
+  /directorysync/synchronize/dry-run.json:
+    $ref: "paths/directorySyncDryRun.yml"
+  /directorysync/synchronize.json:
+    $ref: "paths/directorySync.yml"
   /favorite/{favoriteId}.json:
     $ref: "paths/favorite.yml"
   /favorite/{foreignModel}/{foreignId}.json:
@@ -140,6 +144,8 @@ tags:
     description: "Query avatar images."
   - name: "Comments"
     description: "Manipulate comments for resources."
+  - name: "Directory Sync"
+    description: "Run directory synchronization."
   - name: "Favorites"
     description:
       $ref: "components/descriptions/favorites.yml#/tag"

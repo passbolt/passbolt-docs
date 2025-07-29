@@ -34,6 +34,10 @@ Generate new GPG keys:
 gpg --homedir /tmp/gpg-temp --batch --no-tty --gen-key <<EOF
     Key-Type: RSA
     Key-Length: ${PASSBOLT_KEY_LENGTH:-3072}
+    Key-Usage: sign,cert
+    Subkey-Type: RSA
+    Subkey-Length: ${PASSBOLT_SUBKEY_LENGTH:-3072}
+    Subkey-Usage: encrypt
     Name-Real: ${PASSBOLT_KEY_NAME:-Passbolt default user}
     Name-Email: ${PASSBOLT_KEY_EMAIL:-passbolt@yourdomain.com}
     Expire-Date: ${PASSBOLT_KEY_EXPIRATION:-0}

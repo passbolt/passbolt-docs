@@ -23,13 +23,13 @@ import CodeBlock from '@theme/CodeBlock';
 <SystemRequirements
 />
 
-## Find out where is your passbolt directory
-All the commands hereafter should be done from inside your passbolt directory:
+## Find out where is your Passbolt directory
+All the commands hereafter should be done from inside your Passbolt directory:
 
 ```bash
 cd /var/www/passbolt
 ```
-By default passbolt should be installed under ```/var/www/passbolt``` but it could be different if you installed from source manually. We will assume for the rest of this tutorial that it is located in ```/var/www/passbolt```.
+By default Passbolt should be installed under ```/var/www/passbolt``` but it could be different if you installed from source manually. We will assume for the rest of this tutorial that it is located in ```/var/www/passbolt```.
 
 ## Find out the name of your webserver user
 Some commands need to be run as the same user running the web server. Generally on Debian systems it will be ```www-data``` but on other distributions like Centos it could be for example ```nginx``` or ```httpd```. For the rest of this tutorial we will assume that the user named ```www-data```.
@@ -43,15 +43,15 @@ This command for example, will run the healthcheck command as ```www-data``` use
 
 ## Make sure the permissions are right for your current user
 :::caution
-Do not run the commands as ```root``` when updating passbolt. It can render your installation unusable.
+Do not run the commands as ```root``` when updating Passbolt. It can render your installation unusable.
 :::
-Running commands as ```root``` can make your installation unusable until the permissions are repaired. We recommend you use another user for this purpose. The whoami command will let you know which user you are logged in as. In our case below, it is the user passbolt.
+Running commands as ```root``` can make your installation unusable until the permissions are repaired. We recommend you use another user for this purpose. The whoami command will let you know which user you are logged in as. In our case below, it is the user Passbolt.
 
 ```bash
 $ whoami
 passbolt
 ```
-You need to make sure that this user have access to the passbolt directory. The easiest way to do this would be to add such user to the ```www-data``` and sudo groups, so for example for a passbolt user, you could execute as ```root```:
+You need to make sure that this user have access to the `passbolt` directory. The easiest way to do this would be to add such user to the ```www-data``` and sudo groups, so for example for a `passbolt` user, you could execute as ```root```:
 ```bash
 sudo usermod -a -G www-data passbolt
 sudo usermod -a -G sudo passbolt
@@ -62,7 +62,7 @@ You can check if the user is included in the group (you may need to logout / log
 $ groups passbolt
 passbolt : passbolt www-data sudo
 ```
-Make sure the passbolt directory is owned by the passbolt user and accessible to the ```www-data``` group. You can set the permissions as follow:
+Make sure the `passbolt` directory is owned by the `passbolt` user and accessible to the ```www-data``` group. You can set the permissions as follow:
 
 ```bash
 sudo chown -R passbolt:www-data .
@@ -85,7 +85,7 @@ drwxr-x--- 2 passbolt www-data  .
 drwx------ 6 root root          ..
 drwxr-x--- 6 passbolt www-data  config
 ```
-Make sure the passbolt directory doesn't contain any changes. If you have altered the passbolt code, stash your changes before executing the following command.
+Make sure the `passbolt` directory doesn't contain any changes. If you have altered the Passbolt code, stash your changes before executing the following command.
 
 ```bash
 git checkout HEAD .
@@ -119,7 +119,7 @@ composer.phar --version
 ```
 To get the latest version of composer, you can check the composer installation instructions.
 
-## Updating passbolt
+## Updating Passbolt
 ### 1. Take down your site
 It is generally a good idea to stop running the site prior to the upgrade. This is to avoid having side effects such as active users corrupting the data in the middle of an upgrade. For example if you are using nginx as a webserver:
 
@@ -149,7 +149,7 @@ git checkout tags/v2.13.0
 ```
 
 ### 3. Update the dependencies
-Some libraries are not packaged with the software but need to be updated using composer, based on what is recommended in the composer.lock. This file is provided by passbolt.
+Some libraries are not packaged with the software but need to be updated using composer, based on what is recommended in the composer.lock. This file is provided by Passbolt.
 
 ```bash
 php -d allow_url_fopen=on /usr/bin/composer.phar install --no-dev -n -o

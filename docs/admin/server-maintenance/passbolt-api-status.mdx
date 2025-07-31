@@ -88,13 +88,13 @@ sudo chmod -R 664 $(find /var/log/passbolt -type f)`}
 </CodeBlock>
 
 #### GD or Imagick
-GD **or** Imagick module have to be installed in order for passbolt to manipulate images. If you have some errors with this check, you can take a look at [this documentation](https://secure.php.net/manual/en/book.image.php)
+GD **or** Imagick module have to be installed in order for Passbolt to manipulate images. If you have some errors with this check, you can take a look at [this documentation](https://secure.php.net/manual/en/book.image.php)
 
 #### Intl
 The Intl module is needed for the internationalisation. If you have any error with this check, you should take a look [this documentation](https://secure.php.net/manual/en/book.intl.php)
 
 #### Mbstring
-Mbstring is designed for safe and efficient handling of multibyte strings, allowing passbolt to work with textual data in various encodings. If you encounter some errors related to this module, you can take a look at [this documentation](https://secure.php.net/manual/en/book.mbstring.php)
+Mbstring is designed for safe and efficient handling of multibyte strings, allowing Passbolt to work with textual data in various encodings. If you encounter some errors related to this module, you can take a look at [this documentation](https://secure.php.net/manual/en/book.mbstring.php)
 
 #### NTP
 The server requires accurate system time for cryptographic operations and security measures. If the system clock is not synchronized, it may lead to authentication errors, expiration issues, and other unexpected behavior.
@@ -104,7 +104,7 @@ If the check fails, it means that NTP could be inactive, and your system clock m
 :::tip[PRO TIP]
 If you are on Docker or Helm, you should not manually iterate on the configuration files. Restarting the container or the pod should resolve the file conflicts except if they have been mounted.
 :::
-This section is there to ensure that both application and passbolt configuration file are present.
+This section is there to ensure that both application and Passbolt configuration file are present.
 
 #### Application Configuration File
 
@@ -114,7 +114,7 @@ This file is critical for the application, if it is missing, you should do a cop
 </CodeBlock>
 
 #### Passbolt Configuration File
-This is the passbolt configuration file, it is needed to ensure that passbolt have been completely configured.
+This is the Passbolt configuration file, it is needed to ensure that Passbolt have been completely configured.
 
 <CodeBlock>
   {`sudo cp /etc/passbolt/passbolt.default.php /etc/passbolt/passbolt.php`}
@@ -150,8 +150,8 @@ Helps to confirm that the fullBaseUrl is defined, if it is not defined yet, you 
   src={
     '/img/help/2024/06/update-fullbaseurl.png'
   }
-  caption="fig. Update the fullBaseUrl in the passbolt configuration file"
-  alt="Update the fullBaseUrl in the passbolt configuration file"
+  caption="fig. Update the fullBaseUrl in the Passbolt configuration file"
+  alt="Update the fullBaseUrl in the Passbolt configuration file"
 />
 
 #### Full Base URL validation
@@ -160,7 +160,7 @@ It checks that the fullBaseUrl is correct and match the expectation, if there is
 - Select a valid domain name as defined by section 2.3.1 [here](https://www.ietf.org/rfc/rfc1035.txt)
 
 #### Healthcheck Status
-It checks that the status url is reachable. If you have any error with this check, the good news is that this warning should not limit you for running passbolt, however, in order to get rid of this warning, you will need to ensure a few things:
+It checks that the status url is reachable. If you have any error with this check, the good news is that this warning should not limit you for running Passbolt, however, in order to get rid of this warning, you will need to ensure a few things:
 - `App.fullBaseUrl` is correct inside */etc/passbolt/passbolt.php* or with the environment variable `APP_FUL_BASE_URL` if you are on Docker or Helm.
 - The server is able to ping the domain with `ping YOUR_DOMAIN`
 
@@ -405,19 +405,19 @@ Ensure that the private server key format is compatible with Gopengpg, errors ar
 These verifications validate various application settings, including SSL enforcement, versioning, and plugin configurations.
 
 #### Passbolt version
-It helps to identify which version are running and if it is the latest version. You could face some errors while having an updated version if the server is in an air gap environment and it could not connect to the passbolt repository to check versions.
+It helps to identify which version are running and if it is the latest version. You could face some errors while having an updated version if the server is in an air gap environment and it could not connect to the Passbolt repository to check versions.
 
 If the server is not up-to-date, unless you have an internal good reason, please consider [updating](/docs/hosting/update) to the latest version.
 
 #### Force SSL
-We recommend using SSL with Passbolt, this checks verify if passbolt has been configured to force SSL. If you have this error, you will need to set `passbolt.ssl.force` to true in */etc/passbolt/passbolt.php*
+We recommend using SSL with Passbolt, this checks verify if Passbolt has been configured to force SSL. If you have this error, you will need to set `passbolt.ssl.force` to true in */etc/passbolt/passbolt.php*
 
 <Figure
   src={
     '/img/help/2024/06/force-ssl.png'
   }
-  caption="fig. Add forcing SSL to the passbolt configuration file"
-  alt="Add forcing SSL to the passbolt configuration file"
+  caption="fig. Add forcing SSL to the Passbolt configuration file"
+  alt="Add forcing SSL to the Passbolt configuration file"
 />
 
 #### Full Base URL HTTPS
@@ -460,10 +460,10 @@ Enabled by default, it check if the self registration plugin is enabled as expec
 This check is following the self registration plugin. It checks if the open registration is closed and only the admins are allowed to create users or if the self registration plugin is enabled and it has been configured in the user interface through *Administration > Self registration*. You should be able to see which self registration provider is set.
 
 #### Deprecated self registration public settings
-This check ensure that the self registration public settings are not present in the passbolt configuration file in */etc/passbolt/passbolt.php*, if it is still there you may remove the `passbolt.registration.public` settings.
+This check ensure that the self registration public settings are not present in the Passbolt configuration file in */etc/passbolt/passbolt.php*, if it is still there you may remove the `passbolt.registration.public` settings.
 
 #### Host availability
-The passbolt server will verify the email domain names. This means that passbolt will query DNS for an MX record associated with the email addresses used. **This is disabled by default**.
+The Passbolt server will verify the email domain names. This means that Passbolt will query DNS for an MX record associated with the email addresses used. **This is disabled by default**.
 
 When it is enabled, it won't be possible to proceed to a user creation using a local email address, if you are confident about using trusted email domain addresses, you may want to enable it.
 

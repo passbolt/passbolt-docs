@@ -15,7 +15,7 @@ This can come from a variety of reasons, here are the most common ones.
 
 There may be an issue with some of the SMTP configuration items, such as credentials, or the hostname, or the port for the selected protocol.
 
-By default passbolt is quite discrete on why a given configuration is not working. You can use the following command to send a test email and get more debug information (replace www-data with nginx if you are running a RHEL-like server, or wwwrun in case you are using OpenSUSE):
+By default Passbolt is quite discrete on why a given configuration is not working. You can use the following command to send a test email and get more debug information (replace www-data with nginx if you are running a RHEL-like server, or wwwrun in case you are using OpenSUSE):
 ```bash
 sudo -H -u www-data bash -c "/usr/share/php/passbolt/bin/cake passbolt send_test_email --recipient=youremail@domain.com"
 ```
@@ -25,7 +25,7 @@ If this fails you should double check what is the recommended configuration in y
 
 ## Reason 2: Email notifications are disabled in the config
 
-Another reason could be because email notifications are disabled in your configuration. You can review such settings in the administration panel, when you are logged in as an administrator in passbolt.
+Another reason could be because email notifications are disabled in your configuration. You can review such settings in the administration panel, when you are logged in as an administrator in Passbolt.
 
 <Figure
   src="/img/help/2025/04/AD_email_notification_send_settings.png"
@@ -69,7 +69,7 @@ Some email providers will not let you use the password from your organization ac
 
 ## Listing email queue entries
 
-You can use the `show_queued_emails` passbolt command to display email queue entries from the database. This is useful when there is an issue sending emails as it will output any errors that have been logged with sending emails.
+You can use the `show_queued_emails` Passbolt command to display email queue entries from the database. This is useful when there is an issue sending emails as it will output any errors that have been logged with sending emails.
 
 ```bash
 sudo -H -u www-data bash -c "/usr/share/php/passbolt/bin/cake passbolt show_queued_emails"

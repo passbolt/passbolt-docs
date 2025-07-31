@@ -29,7 +29,7 @@ This assumes you are running your database on the same host as your Passbolt ins
 
 One database improvement that can be made is to skip the reverse DNS lookup in MySQL/MariaDB. To do this you will need to:
 
-Ensure the passbolt user in the database is allowed to connect via `127.0.0.1` and not just `localhost`:
+Ensure the Passbolt user in the database is allowed to connect via `127.0.0.1` and not just `localhost`:
 ```bash
 [mysql]> GRANT USAGE ON *.* TO `passboltadmin`@`127.0.0.1` IDENTIFIED BY PASSWORD `<insert password hash here>`;
 [mysql]> GRANT ALL PRIVILEGES ON `passboltdb`.* TO `passboltadmin`@`127.0.0.1`;

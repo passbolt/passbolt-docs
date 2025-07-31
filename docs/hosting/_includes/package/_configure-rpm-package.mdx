@@ -6,7 +6,7 @@ Passbolt {props.productName} RPM package on {props.distributionLabel} {props.dis
 
 You must prepare beforehand your SSL certificates before launching the tool. Be sure to write down the full path to your cert/key combo, as it will be needed in the nginx configuration process.
 
-Please, notice that for security matters we highly recommend to setup SSL to serve passbolt.
+Please, notice that for security matters we highly recommend to setup SSL to serve Passbolt.
 
 Launch `passbolt-configure` tool and answer to the questions:
 
@@ -17,7 +17,7 @@ Launch `passbolt-configure` tool and answer to the questions:
 ### MariaDB
 
 :::tip
-If you prefer installing passbolt with Postgres, you can follow our dedicated [configuration guide](/hosting/configure/database/configure-database/postgres/#rpm).
+If you prefer installing Passbolt with Postgres, you can follow our dedicated [configuration guide](/hosting/configure/database/configure-database/postgres/#rpm).
 :::
 
 <CodeBlock>
@@ -40,16 +40,16 @@ Please enter a new password for the root database user:
 MariaDB Root Password: ****
 MariaDB Root Password (verify): ****
 ======================================================
-Please enter a name for the passbolt database username
+Please enter a name for the Passbolt database username
 ======================================================
 Passbolt database user name:passboltuser
 =======================================================
-Please enter a new password for the mysql passbolt user
+Please enter a new password for the mysql Passbolt user
 =======================================================
-MariaDB passbolt user password: ****
-MariaDB passbolt user password (verify): ****
+MariaDB Passbolt user password: ****
+MariaDB Passbolt user password (verify): ****
 ==============================================
-Please enter a name for the passbolt database:
+Please enter a name for the Passbolt database:
 ==============================================
 Passbolt database name:passboltdb`}
 </CodeBlock>
@@ -71,7 +71,7 @@ Install Haveged ?
 
 ### Nginx
 
-Please enter the domain name under which passbolt will run.
+Please enter the domain name under which Passbolt will run.
 
 Note this hostname will be used as server_name for nginx and as the domain name to register a SSL certificate with let's encrypt if you don't have your own SSL certificates.
 

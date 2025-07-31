@@ -1,7 +1,7 @@
 ---
 title: Roles and Permissions
 sidebar_label: Roles and Permissions
-description: In depth information about roles and permission in passbolt
+description: In depth information about roles and permission in Passbolt
 hide_table_of_contents: false
 sidebar_position: 1
 ---
@@ -68,7 +68,7 @@ Each group must have at least one group manager in charge of adding and removing
 />
 
 
-Due to the nature of the encryption in passbolt, only someone with access to the secrets of a given group can add a member to that group (as they need to be able to decrypt and encrypt the secret for the new member).
+Due to the nature of the encryption in Passbolt, only someone with access to the secrets of a given group can add a member to that group (as they need to be able to decrypt and encrypt the secret for the new member).
 
 | Action                       | Group manager | Group member |
 |------------------------------|---------------|--------------|
@@ -79,7 +79,7 @@ Due to the nature of the encryption in passbolt, only someone with access to the
 
 ### Additional resources:
 
-* [Blog post: How passbolt will implement groups (2017)](https://www.passbolt.com/blog/how-passbolt-will-implement-groups)
+* [Blog post: How Passbolt will implement groups (2017)](https://www.passbolt.com/blog/how-passbolt-will-implement-groups)
 * [Groups functional specifications (2020)](https://docs.google.com/document/d/1b7hwleV0VrU45ARErCutgNBQTD48mjoFVfD_OEE4le8/)
 
 ## Resource level roles
@@ -127,7 +127,7 @@ Once an item is inside a folder what can be done with the items does not depend 
 
 One of the key requirements is to be able to apply a given folder permission to the items inside it. For example when a user “share” a folder or create a new item in that folder, or drop an existing resource in a folder, the folder permissions will be applied to the items where possible.
 
-The “where possible” is important here. While folders in passbolt can be used to organize resources and apply permissions, folders do not enforce the permission on its enclosed content at all times, but serve as a guide when an operation such as create or move is performed. As we have seen exceptions can be created, i.e. it is possible for a user to have more rights on an item than they have on a given folder. The opposite is also possible, the same way it is possible to create a hidden or restricted file in a shared folder in a traditional filesystem.
+The “where possible” is important here. While folders in Passbolt can be used to organize resources and apply permissions, folders do not enforce the permission on its enclosed content at all times, but serve as a guide when an operation such as create or move is performed. As we have seen exceptions can be created, i.e. it is possible for a user to have more rights on an item than they have on a given folder. The opposite is also possible, the same way it is possible to create a hidden or restricted file in a shared folder in a traditional filesystem.
 
 One should picture a folder permission list as a permission mask, i.e. a predefined set of group/user rights, that could be applied to the folder content whenever a user is interacting with it. Applying permissions on a folder is the equivalent of selecting all the resources the user has the right to share inside the given folder and apply a new set of permission to this selection. Items where the user does not have access to (or cannot edit the permissions) will be ignored.
 

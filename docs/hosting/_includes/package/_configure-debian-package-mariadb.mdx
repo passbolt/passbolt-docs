@@ -2,11 +2,11 @@ import Figure from '/src/components/Figure/Figure';
 
 ## Configure {props.databaseEngine}
 :::tip
-If you prefer installing passbolt with Postgres, you can follow our dedicated [configuration guide](/hosting/configure/database/configure-database/postgres/#debian-ubuntu).
+If you prefer installing Passbolt with Postgres, you can follow our dedicated [configuration guide](/hosting/configure/database/configure-database/postgres/#debian-ubuntu).
 :::
 
-If not instructed otherwise passbolt {props.distributionLabel} package will install {props.databaseEngine}-server locally. This step will help you create
-an empty {props.databaseEngine} database for passbolt to use.
+If not instructed otherwise Passbolt {props.distributionLabel} package will install {props.databaseEngine}-server locally. This step will help you create
+an empty {props.databaseEngine} database for Passbolt to use.
 
 <Figure
   src={
@@ -40,26 +40,26 @@ an empty {props.databaseEngine} database for passbolt to use.
 
 <span>
   Now we need to create a {props.databaseEngine} user with reduced permissions
-  for passbolt to connect. These values will also be requested later on the
-  webconfiguration tool of passbolt so please keep them in mind.
+  for Passbolt to connect. These values will also be requested later on the
+  webconfiguration tool of Passbolt so please keep them in mind.
 </span>
 
 <Figure
   src={
     '/img/help/2020/05/debian-package/passbolt_db_user_name.png'
   }
-  alt={'Database passbolt user dialog'}
-  caption={'fig. Database passbolt user dialog'}
+  alt={'Database Passbolt user dialog'}
+  caption={'fig. Database Passbolt user dialog'}
 />
 <Figure
   src={
     '/img/help/2020/05/debian-package/passbolt_db_user_pass.png'
   }
-  alt={'Database passbolt user dialog'}
-  caption={'fig. Database passbolt user pass dialog'}
+  alt={'Database Passbolt user dialog'}
+  caption={'fig. Database Passbolt user pass dialog'}
 />
 
-Lastly we need to create a database for passbolt to use, for that we need to name it:
+Lastly we need to create a database for Passbolt to use, for that we need to name it:
 
 <Figure
   src={

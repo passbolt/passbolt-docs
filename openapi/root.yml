@@ -152,7 +152,7 @@ tags:
     description:
       $ref: "components/descriptions/groups.yml#/tag"
   - name: "Healthcheck"
-    description: "Gather data about the passbolt instance's health."
+    description: "Gather data about the Passbolt instance's health."
   - name: "Metadata keys"
     description: "Manipulate metadata keys."
   - name: "Metadata private keys"

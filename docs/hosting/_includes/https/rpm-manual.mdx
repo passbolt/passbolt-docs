@@ -4,14 +4,14 @@ import CertificateWarning from '/docs/hosting/_includes/warning/_passphrase-prot
 
 <HTTPSWarning />
 
-If you are reconfiguring passbolt you most likely want to say **‘NO’** to the mariadb or havaged setup questions and go for the nginx setup
+If you are reconfiguring Passbolt you most likely want to say **‘NO’** to the mariadb or havaged setup questions and go for the nginx setup
 ## MariaDB / Nginx / SSL settings
 
 Passbolt {props.productName} RPM package on come with a configuration helper tool to prepare MariaDB, Nginx and SSL settings.
 
 You must prepare your SSL certificates before launching the tool. Be sure to write down the full path to your cert/key combo, as it will be needed in the nginx configuration process.
 
-Please, notice that for security matters we highly recommend to setup SSL to serve passbolt.
+Please, notice that for security matters we highly recommend to setup SSL to serve Passbolt.
 
 Launch passbolt-configure tool and answer to the questions:
 
@@ -21,7 +21,7 @@ Launch passbolt-configure tool and answer to the questions:
 
 ## Nginx
 
-Please enter the domain name under which passbolt will run.
+Please enter the domain name under which Passbolt will run.
 
 :::important[Note]
 This hostname will be used as server_name for nginx and as the domain name to register a SSL certificate with let’s encrypt if you don’t have your own SSL certificates.

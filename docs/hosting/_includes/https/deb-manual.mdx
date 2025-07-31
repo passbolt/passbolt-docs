@@ -8,17 +8,17 @@ import CertificateWarning from '/docs/hosting/_includes/warning/_passphrase-prot
 
 Passbolt debian and ubuntu packages currently supports the configuration of nginx. It comes with a default configuration that supports:
 
-  -  Serve passbolt on port 80 (http)
-  -  Serve passbolt on port 443 (https)
+  -  Serve Passbolt on port 80 (http)
+  -  Serve Passbolt on port 443 (https)
 
 On this context ‘manually’ means that the user will provide the SSL certificates, this is the main difference with the ‘auto’ method where [Let’s Encrypt](https://letsencrypt.org/) will issue the SSL certificate for you.
 
-This manual method is often useful on private network installations with private CA where the system admin issues a new private SSL certificate and uploads it to the passbolt server. It is also a method often used with self-signed SSL certificates for test installations.
+This manual method is often useful on private network installations with private CA where the system admin issues a new private SSL certificate and uploads it to the Passbolt server. It is also a method often used with self-signed SSL certificates for test installations.
 
-On this example we will assume the user is generating a self-signed certificate on the passbolt server.
+On this example we will assume the user is generating a self-signed certificate on the Passbolt server.
 ## Generate the SSL certificate
 
-While connected to your passbolt instance you can generate a SSL certificate in the following way:
+While connected to your Passbolt instance you can generate a SSL certificate in the following way:
 <CodeBlock>
 {`openssl req -x509 \\
     -newkey rsa:4096 \\
@@ -32,17 +32,17 @@ While connected to your passbolt instance you can generate a SSL certificate in 
 
 This command will output two files: `key.pem` and `cert.pem`. Identify the absolute path where these files are located as you will need them in next steps.
 
-Of course, replace `-subj` values with your own. It is important to set your passbolt FQDN in both `CN` and `subjectAltName`. In this way, you will be able to import the generated certificate in your operating system keychain and make your self-signed domain trusted in your browser.
+Of course, replace `-subj` values with your own. It is important to set your Passbolt FQDN in both `CN` and `subjectAltName`. In this way, you will be able to import the generated certificate in your operating system keychain and make your self-signed domain trusted in your browser.
 
 :::important[Pro tip:]
 You can use an IP address instead of a domain name for your self-signed certificate. If you do that, replace DNS with IP in `subjectAltName`.
 :::
 
-## Install or reconfigure passbolt
+## Install or reconfigure Passbolt
 
-If you don’t have passbolt installed please check on the hosting section for more information on how to install passbolt on debian.
+If you don’t have Passbolt installed please check on the hosting section for more information on how to install Passbolt on debian.
 
-If you have already installed passbolt then you want to execute the following command to start the configuration process for SSL:
+If you have already installed Passbolt then you want to execute the following command to start the configuration process for SSL:
 
 <CodeBlock>
     {`sudo dpkg-reconfigure passbolt-${props.productName.toLowerCase()}-server`}
@@ -92,7 +92,7 @@ Choose ‘manual’ for the SSL setup method:
 </>
 
 
-Provide the domain name you plan to use for your passbolt server. On this example and as we are using a self-signed certificate the domain name is not as important as if you are planning to use a proper SSL certificate. In the later escenario DNS domain name and SSL domain name must match.
+Provide the domain name you plan to use for your Passbolt server. On this example and as we are using a self-signed certificate the domain name is not as important as if you are planning to use a proper SSL certificate. In the later escenario DNS domain name and SSL domain name must match.
 <>
 {props.productName == 'PRO' && (
   <Figure

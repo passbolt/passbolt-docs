@@ -19,12 +19,12 @@ This tutorial assumes your machine has a valid domain name assigned in order to 
 :::
 
 :::note Note
-The configuration does not support serving passbolt on a subdirectory fashion. For example, scenarios like https://mydomain.com/passbolt are not supported by default
+The configuration does not support serving Passbolt on a subdirectory fashion. For example, scenarios like https://mydomain.com/passbolt are not supported by default
 :::
 
 ## Edit nginx configuration file
 
-By default, our nginx configuration file ensure all domain names will match with our passbolt virtual appliance but to obtain a valid Let's Encrypt SSL certificate, you will have to manually set your passbolt domain name.
+By default, our nginx configuration file ensure all domain names will match with our Passbolt virtual appliance but to obtain a valid Let's Encrypt SSL certificate, you will have to manually set your Passbolt domain name.
 
 Open `/etc/nginx/sites-enabled/nginx-passbolt.conf` and search for this line:
 
@@ -32,13 +32,13 @@ Open `/etc/nginx/sites-enabled/nginx-passbolt.conf` and search for this line:
 server_name _;
 ```
 
-Replace the underscore with your passbolt domain name:
+Replace the underscore with your Passbolt domain name:
 
 ```bash
 server_name passbolt.domain.tld;
 ```
 
-## Reconfigure passbolt
+## Reconfigure Passbolt
 
 <Tabs groupId="editions">
   <TabItem value="CE Edition">

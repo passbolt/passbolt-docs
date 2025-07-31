@@ -21,15 +21,15 @@ When integrating with OpenLDAP, keep in mind the following specifics:
 * Passbolt expects standard OpenLDAP schemas:
   * **User entries** should use the `inetOrgPerson` (or a subclass) object class.
   * **Group entries** should use `groupOfUniqueNames`.
-* If your OpenLDAP uses different object classes (e.g., `posixAccount` for users, 
-  or `groupOfNames` for groups), you can override the **User object class** and 
+* If your OpenLDAP uses different object classes (e.g., `posixAccount` for users,
+  or `groupOfNames` for groups), you can override the **User object class** and
   **Group object class** in the configuration.
 * Requirements:
-  * Each user must have a unique and valid email address in the attribute Passbolt 
-    maps as the username (usually `mail`). It must be properly formatted (no 
+  * Each user must have a unique and valid email address in the attribute Passbolt
+    maps as the username (usually `mail`). It must be properly formatted (no
     leading/trailing spaces).
   * Each group must contain members via the `uniqueMember` attribute.
-* If these are not present or properly formatted, sync will report a "data validation" 
+* If these are not present or properly formatted, sync will report a "data validation"
   error.
 
 ### Bind DN Permissions
@@ -111,7 +111,7 @@ username_attribute: sAMAccountName
 
 Group memberships are automatically inferred.
 
-⚠️ **Note**: **Nested groups are not supported.**  
+⚠️ **Note**: **Nested groups are not supported.**
 If Group A is a member of Group B in AD, Passbolt will **not** include Group A's members in Group B.
 
 ### AD Naming Attributes
@@ -301,8 +301,8 @@ The available options are:
             <em>(required)</em>
             </td>
             <td>
-            Choose here the username of the passbolt admin user that will be used to perform the operations on behalf of the synchronization tools.
-            <br/><br/>You can also create a dedicated admin user in passbolt if you want to be able to track more accurately the actions related to ldap.
+            Choose here the username of the Passbolt admin user that will be used to perform the operations on behalf of the synchronization tools.
+            <br/><br/>You can also create a dedicated admin user in Passbolt if you want to be able to track more accurately the actions related to ldap.
             </td>
             <td>
             <code>passboltadmin@domain.com</code>

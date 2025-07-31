@@ -47,10 +47,10 @@ Open both the Entra admin center and Passbolt:
   caption="fig. Passbolt administration"
 />
 
-You must ensure users are present both in passbolt and Entra ID, the email is used to correlate accounts.
+You must ensure users are present both in Passbolt and Entra ID, the email is used to correlate accounts.
 
-* Users that are not present in Entra ID but are present in passbolt will not be able to use SSO (a message on Microsoft side will be shown).
-* Users that are not present in passbolt but are present in Entra ID will not be able to login in passbolt (a message on passbolt side will be shown).
+* Users that are not present in Entra ID but are present in Passbolt will not be able to use SSO (a message on Microsoft side will be shown).
+* Users that are not present in Passbolt but are present in Entra ID will not be able to login in Passbolt (a message on Passbolt side will be shown).
 
 <Figure
   src="/img/help/2024/10/just_logged_onEntra.png"
@@ -63,8 +63,8 @@ You must ensure users are present both in passbolt and Entra ID, the email is us
 In your Entra ID portal:
 
 * Go to *Identity > Overview* from the left panel menu.
-  * Make sure your user email in Azure Directory matches the one in passbolt
-* Copy your Tenant ID (a UUID) and paste it in passbolt
+  * Make sure your user email in Azure Directory matches the one in Passbolt
+* Copy your Tenant ID (a UUID) and paste it in Passbolt
 * Click on *Add > App registration*
 
 <Figure
@@ -80,7 +80,7 @@ Register a new application
 * Copy the redirect url from Passbolt to Entra, it should be something like `https://yourdomain.com/sso/azure/redirect`.
 * In "Select a platform", select "Web"
 * Click register, you should be back on the Entra application page
-* Copy the application (client) ID back to your passbolt instance
+* Copy the application (client) ID back to your Passbolt instance
 
 <Figure
   src="/img/help/2024/10/register_application_onEntra.png"
@@ -94,7 +94,7 @@ Add a secret for the application
 * Click on "New client secret"
 * Choose a name like "Passbolt SSO Secret"
 * Select an expiry date
-* Copy the secret value and expiry back to your passbolt instance
+* Copy the secret value and expiry back to your Passbolt instance
 
 <Figure
   src="/img/help/2024/10/create_secret_onEntra.png"
@@ -102,7 +102,7 @@ Add a secret for the application
   caption="fig. App secret creation"
 />
 
-In your passbolt instance:
+In your Passbolt instance:
 
 * Click save settings
 * A dialog will open with Microsoft button, click on it

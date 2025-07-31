@@ -13,7 +13,7 @@ import CertificateWarning from '/docs/hosting/_includes/warning/_passphrase-prot
 
 <CertificateWarning />
 
-You need to bind-mount your certificates inside passbolt container to use them.
+You need to bind-mount your certificates inside Passbolt container to use them.
 
 Create a certs folder and put your certificates there:
 
@@ -23,10 +23,10 @@ mv /path/to/your/certificate.crt certs/cert.pem
 mv /path/to/your/certificate.key certs/key.pem`}
 </CodeBlock>
 
-The bind-mount configuration will differ depending which passbolt image you are using.
+The bind-mount configuration will differ depending which Passbolt image you are using.
 ### Standard images
 
-If you are using standard passbolt image, add your certificates in the volumes definition of the passbolt service and ensure ports are well mapped:
+If you are using standard Passbolt image, add your certificates in the volumes definition of the Passbolt service and ensure ports are well mapped:
 
 <CodeBlock>
     {`version: '3.7'

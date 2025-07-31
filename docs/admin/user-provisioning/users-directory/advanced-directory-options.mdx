@@ -16,137 +16,137 @@ Even with a correct setup, some issues may arise during directory synchronizatio
 ### Synchronization Error Messages
 When running a sync (simulated or actual), Passbolt may display errors or warnings for users or groups it couldn't process. These messages highlight common issues and help guide troubleshooting.
 
-**Message**  
+**Message**
 :::info
 `The user [email_protected] could not be added to group X because it is not active yet.`
 :::
 
-**Explanation**  
+**Explanation**
 This means a user was synced (created) and the sync tried to add them to a Passbolt group, but the user hasn't activated their Passbolt account yet (they haven't clicked the invite link to finalize setup). Passbolt cannot add inactive users to groups.
 
-**Solution**  
+**Solution**
 No manual intervention needed with cron jobs enabled – as soon as the user activates their account, Passbolt will automatically add them to the group on the next sync.
 
 ---
 
-**Message**  
+**Message**
 :::warning
-`The user [email_protected] could not be mapped with an existing user in passbolt because it was created after.`
+`The user [email_protected] could not be mapped with an existing user in Passbolt because it was created after.`
 :::
 
-**Explanation**  
+**Explanation**
 This indicates a conflict where the user exists in both Passbolt and LDAP, but was first created in Passbolt (likely manually) and later appeared in LDAP. Passbolt gives priority to its existing user record and will not auto-merge or replace it via sync.
 
-**Solution**  
+**Solution**
 Delete the user from Passbolt and re-run sync. Be cautious of any existing passwords to avoid orphaning.
 
 ---
 
-**Message**  
+**Message**
 :::warning
-`The group X could not be mapped with an existing group in passbolt because it was created after.`
+`The group X could not be mapped with an existing group in Passbolt because it was created after.`
 :::
 
-**Explanation**  
+**Explanation**
 A group was created manually in Passbolt before being present in LDAP.
 
-**Solution**  
+**Solution**
 Delete the manual group in Passbolt (after confirming it's safe), then re-run sync to re-create it from LDAP.
 
 ---
 
-**Message**  
+**Message**
 :::info
-`The previously deleted user [email_protected] was not re-added to passbolt.`
+`The previously deleted user [email_protected] was not re-added to Passbolt.`
 :::
 
-**Explanation**  
+**Explanation**
 This occurs when a user that exists in LDAP was manually deleted in Passbolt. Sync respects manual deletions.
 
-**Solution**  
+**Solution**
 Manually recreate the user in Passbolt, then run sync again.
 
 ---
 
-**Message**  
+**Message**
 :::danger
 `The user [email_protected] could not be added to the group X because of an internal error.`
 :::
 
-**Explanation**  
+**Explanation**
 Often this means the group didn't exist when sync tried to add the user.
 
-**Solution**  
+**Solution**
 Check the sync logs for errors during group creation, fix them, and re-run sync.
 
 ---
 
-**Message**  
+**Message**
 :::tip
 `A request to add user [email_protected] in group X was sent to the group manager.`
 :::
 
-**Explanation**  
+**Explanation**
 Passbolt cannot auto-share existing secrets due to encryption constraints. This is expected behavior.
 
-**Solution**  
+**Solution**
 The group manager must manually add the user through the UI.
 
 ---
 
-**Message**  
+**Message**
 :::info
 `The user A was not synced with existing membership for group B because the membership was created before.`
 :::
 
-**Explanation**  
+**Explanation**
 A user was manually added to a group before sync tried to assign them.
 
-**Solution**  
+**Solution**
 Remove the manual group membership and re-run sync to allow LDAP to take control.
 
 ---
 
-**Message**  
+**Message**
 :::info
 User removed from LDAP group remains in Passbolt group (no direct error)
 :::
 
-**Explanation**  
+**Explanation**
 Manual group membership blocks LDAP-driven removal.
 
-**Solution**  
+**Solution**
 Manually remove the user from the Passbolt group to align with LDAP.
 
 ---
 
-**Message**  
+**Message**
 :::info
-`The user [email_protected] could not be added to the group X because membership was removed in passbolt.`
+`The user [email_protected] could not be added to the group X because membership was removed in Passbolt.`
 :::
 
-**Explanation**  
+**Explanation**
 The user was removed from the group manually, and Passbolt respects that decision.
 
-**Solution**  
+**Solution**
 If the user should be in the group, manually re-add them, then re-run sync.
 
 ---
 
-**Message**  
+**Message**
 :::danger
 `The user undefined could not be added because of data validation issues.`
 :::
 
-**Explanation**  
+**Explanation**
 Usually caused by missing or malformed user attributes in LDAP.
 
-**Solution**  
+**Solution**
 Ensure all LDAP users have valid email addresses and fix formatting issues before syncing again.
 
 ---
 
-**Note:**  
+**Note:**
 The sync report categorizes issues as **Errors** (actions failed) or **Ignored** (actions skipped by design). Ignored entries are usually intentional protections (e.g., avoiding deletion), while **Errors require investigation**.
 
 ---
@@ -155,7 +155,7 @@ The sync report categorizes issues as **Errors** (actions failed) or **Ignored**
 When using **LDAPS** (LDAP over SSL/TLS) for secure directory sync, one of the most common issues is certificate trust. The Passbolt server must trust the LDAP server's SSL certificate. If the certificate is self-signed or issued by a private CA, the connection may fail with errors like:
 
 ```bash
-"Can't contact LDAP server"  
+"Can't contact LDAP server"
 ldap_sasl_bind(SIMPLE): Can't contact LDAP server (-1)
 ```
 
@@ -204,7 +204,7 @@ For detailed setup instructions, please refer to the [LDAPS page](/docs/hosting/
 
 ### Example: Works in CLI, Fails in UI
 
-If `ldapsearch` works but the Passbolt UI fails, PHP may not trust the certificate.  
+If `ldapsearch` works but the Passbolt UI fails, PHP may not trust the certificate.
 Fix: Add the cert to the system trust store or configure it in Passbolt.
 
 ---
@@ -364,7 +364,7 @@ If a user is removed from LDAP, Passbolt will try to delete them on sync — unl
 
 If the user owns any secrets, deletion is skipped to avoid data loss.
 
-**Solution**:  
+**Solution**:
 An admin must first transfer or delete those secrets. After that, the user will be removed on the next sync.
 
 ---
@@ -376,7 +376,7 @@ This generic error in the UI may be triggered by a server-side issue (e.g., PHP 
 - Check the Passbolt error log immediately after seeing this error.
 - Example: A low PHP `memory_limit` can cause a fatal error masked as a client-side failure.
 
-**Solution**:  
+**Solution**:
 Resolve the underlying error (e.g., increase memory) and retry.
 
 ---
@@ -444,36 +444,36 @@ If you're experiencing LDAP synchronization issues, follow this structured check
 
 ### Connectivity and Configuration Checks
 
-1. **Basic reachability**  
+1. **Basic reachability**
    Ensure the Passbolt server can reach the LDAP or AD server:
    - Confirm correct IP or hostname
    - Check firewall rules (e.g., port 389 or 636 is open)
-   - Run: `telnet <ldap_host> <port>` or `ping <ldap_host>` (if ICMP is allowed)  
+   - Run: `telnet <ldap_host> <port>` or `ping <ldap_host>` (if ICMP is allowed)
    _💡 Network or DNS misconfigurations are a common cause in production._
 
-2. **Credentials and binding**  
+2. **Credentials and binding**
    Verify the bind DN and password using an LDAP client:
    - Use `ldapsearch` (see LDAPS section)
    - If the password was changed in AD and not updated in Passbolt, binding will fail
 
-3. **Check Passbolt configuration values**  
+3. **Check Passbolt configuration values**
    In the Admin UI, double-check:
    - Base DN format and proper `,` separators (not `;`)
    - No trailing spaces
-   - Avoid duplicating the Base DN in the User/Group paths  
-     **Example**:  
-     ✅ Base DN: `DC=example,DC=com`  
-     ✅ User Path: `OU=Users`  
+   - Avoid duplicating the Base DN in the User/Group paths
+     **Example**:
+     ✅ Base DN: `DC=example,DC=com`
+     ✅ User Path: `OU=Users`
      ❌ User Path: `OU=Users,DC=example,DC=com`
 
-4. **Use "Test Settings" and "Simulate Synchronize"**  
-   - **Test Settings**: Checks the connection and basic LDAP queries  
-   - **Simulate Synchronize**: Runs a dry sync (no data is saved)  
+4. **Use "Test Settings" and "Simulate Synchronize"**
+   - **Test Settings**: Checks the connection and basic LDAP queries
+   - **Simulate Synchronize**: Runs a dry sync (no data is saved)
    _These are safe tools to confirm configuration before syncing._
 
-5. **Check the API Status page**  
-   Go to **Organisation Settings → Passbolt API Status**.  
-    * If "Directory Sync" is failing, the plugin may be disabled or misconfigured  
+5. **Check the API Status page**
+   Go to **Organisation Settings → Passbolt API Status**.
+    * If "Directory Sync" is failing, the plugin may be disabled or misconfigured
 
     [📘 Directory Sync Healthcheck – Docs](/docs/admin/server-maintenance/passbolt-api-status/#directory-sync)
 
@@ -578,17 +578,17 @@ After resolving the root cause of a sync issue (e.g., configuration fix, certifi
 
 ### 2. Verify Critical Outcomes
 
-- Ensure new users received invitation emails  
+- Ensure new users received invitation emails
   > If not, confirm SMTP settings and delivery
 - If any messages mentioned "request sent to group manager", follow up to ensure those users are added manually
-- Review any skipped or errored entries in the sync report  
+- Review any skipped or errored entries in the sync report
   > For details, refer to [Known Issues](#synchronization-error-messages)
 
 ---
 
 ### 3. Document Manual Actions
 
-- Keep a record of any users or groups manually added, removed, or ignored during recovery  
+- Keep a record of any users or groups manually added, removed, or ignored during recovery
   > Useful for auditing and future troubleshooting
 
 ---

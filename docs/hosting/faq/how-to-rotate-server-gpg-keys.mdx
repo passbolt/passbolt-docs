@@ -14,12 +14,12 @@ import Chips from "/src/components/Chips/Chips";
 
 ## Docker installation
 
-It is quite simple with docker to rotate your passbolt server GPG keys. Connect yourself inside the passbolt container and delete the keys:
+It is quite simple with docker to rotate your Passbolt server GPG keys. Connect yourself inside the Passbolt container and delete the keys:
 ```bash
 rm /etc/passbolt/gpg/serverkey.asc
 rm /etc/passbolt/gpg/serverkey_private.asc
 ```
-Destroy then recreate passbolt container and new GPG server keys will be generated.
+Destroy then recreate Passbolt container and new GPG server keys will be generated.
 
 `docker compose up -d --force-recreate`
 
@@ -72,7 +72,7 @@ sudo cat /etc/passbolt/gpg/serverkey.asc | gpg --with-fingerprint - | grep -Ev "
 # private key fingerprint
 sudo cat /etc/passbolt/gpg/serverkey_private.asc | gpg --with-fingerprint - | grep -Ev "^(pub|sub|uid|$|sec|ssb)" | tr -d ' ' | sed 's/Keyfingerprint=//'
 ```
-Open `/etc/passbolt/passbolt.php` configuration file and replace old fingerprint with the new one in the passbolt section:
+Open `/etc/passbolt/passbolt.php` configuration file and replace old fingerprint with the new one in the Passbolt section:
 ```bash
     'passbolt' => [
         // GPG Configuration.
@@ -88,7 +88,7 @@ Open `/etc/passbolt/passbolt.php` configuration file and replace old fingerprint
             ],
         ],
 ```
-Launch a healthcheck command to get passbolt GNUPGHOME folder (usually `/var/lib/passbolt/.gnupg` but can be different if you installed passbolt from source):
+Launch a healthcheck command to get Passbolt GNUPGHOME folder (usually `/var/lib/passbolt/.gnupg` but can be different if you installed Passbolt from source):
 
 ```bash
 sudo -H -u www-data bash -c "/usr/share/php/passbolt/bin/cake passbolt healthcheck --gpg" | grep GNUPGHOME

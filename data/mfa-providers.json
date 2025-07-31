@@ -5,7 +5,7 @@
     "logo": "/img/mfa-providers/duo.svg"
   },
   {
-    "name": "Yubikey",
+    "name": "YubiKey",
     "slug": "yubikey",
     "logo": "/img/mfa-providers/yubikey.svg"
   },

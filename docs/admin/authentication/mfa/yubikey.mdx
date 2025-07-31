@@ -1,5 +1,5 @@
 ---
-title: How to configure passbolt to use Yubikey
+title: How to configure Passbolt to use Yubikey
 sidebar_label: Yubikey
 description: How to configure YubiKey with Passbolt
 hide_table_of_contents: false
@@ -39,7 +39,7 @@ Another key point to consider is that Passbolt verifies whether the key ID used 
 
 ## Register to YubiCloud
 
-In order to use YubiKey to authenticate to passbolt you first need get an API key for YubiCloud, Yubico’s web service for verifying one time passwords (OTPs).
+In order to use YubiKey to authenticate to Passbolt you first need get an API key for YubiCloud, Yubico’s web service for verifying one time passwords (OTPs).
 
 Navigate to [upgrade.yubico.com](https://upgrade.yubico.com/getapikey) and signup to the service using your email and your Yubikey.
 
@@ -53,7 +53,7 @@ Please note that it is no longer possible to [host yourself the OTP validation s
 
 ## Allow connections to YubiCloud
 
-To authenticate with Yubikey, passbolt will establish a connection with the YubiCloud service. Make sure that the passbolt server allows outgoing connections to the following domains:
+To authenticate with Yubikey, Passbolt will establish a connection with the YubiCloud service. Make sure that the Passbolt server allows outgoing connections to the following domains:
 
 - api.yubico.com
 - api2.yubico.com
@@ -102,7 +102,7 @@ The next step will require you to plug your YubiKey and touch it to release a Yu
 
 ## Authenticate with YubiKey
 
-After setting up YubiKey, each time you sign-in to Passbolt, you'll be prompted to plug your device and touch it to release a Yubico OTP. Additionally, if permitted by the "Multi-factor Authentication Policy", passbolt can remember your MFA authentication for a month.
+After setting up YubiKey, each time you sign-in to Passbolt, you'll be prompted to plug your device and touch it to release a Yubico OTP. Additionally, if permitted by the "Multi-factor Authentication Policy", Passbolt can remember your MFA authentication for a month.
 
 <Figure
   src="/img/help/2025/04/yubikey-passbolt-user-authenticate.png"

@@ -12,8 +12,8 @@ To get started please read Docusaurus [getting started guide](https://docusaurus
 ### Installation
 
 ```bash
-git clone https://github.com/passbolt/passbolt_help.git
-cd passbolt_help
+git clone https://github.com/passbolt/passbolt-docs.git
+cd passbolt-docs
 npm install
 ```
 
@@ -63,7 +63,7 @@ Our doc is separated into two main categories: Admin guide, User guide.
 
 The first level of each category are registered in their respective *.sidebar.js (e.g.: admin.sidebar.js handles the admin guide sidebar). It offers the ability to define the order of the first levels.
 
-All the other levels are auto-generated, which means they will appear automatically under the first level item. 
+All the other levels are auto-generated, which means they will appear automatically under the first level item.
 
 > See Docusaurus documentation about the sidebar: [https://docusaurus.io/docs/sidebar](https://docusaurus.io/docs/sidebar)
 

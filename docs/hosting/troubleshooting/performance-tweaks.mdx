@@ -44,13 +44,13 @@ You can find the password hash by running:
 
 Both above samples assume user is named `passboltadmin` and the database is named `passboltdb`, actual values may be different depending on what was chosen during installation.
 
-Edit your mysql configuration file, search for `[mysqld]` block and add:
+Edit your MySQL configuration file, search for `[mysqld]` block and add:
 ```bash
 # Skip reverse DNS lookup
 skip-name-resolve
 ```
 
-Then restart mysql:
+Then restart MySQL:
 ```bash
 systemctl restart mysql
 ```

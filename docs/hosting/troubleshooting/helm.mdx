@@ -49,7 +49,7 @@ export PASSBOLT_GPG_SERVER_KEY_FINGERPRINT="$(gpg \
 
 ## Database container
 
-To connect into mysql container console (replace db-container-name with your own):
+To connect into MySQL container console (replace db-container-name with your own):
 ```
 kubectl exec -ti db-container-name bash -c \
   'mysql -u${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE}'

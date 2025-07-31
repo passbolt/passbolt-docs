@@ -82,7 +82,7 @@ $ gpg --armor --export-secret-keys email@domain.tld > /var/www/passbolt/config/g
 $ gpg --armor --export email@domain.tld > /var/www/passbolt/config/gpg/serverkey.asc
 ```
 
-### 5. Initialize the gpg keyring
+### 5. Initialize the GPG keyring
 
 You no longer need to be connected as www-data from now. In order for passbolt authentication to work your server key needs to be in the keyring used by the web server.
 

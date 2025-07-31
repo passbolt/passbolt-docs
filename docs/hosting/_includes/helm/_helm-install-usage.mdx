@@ -36,7 +36,7 @@ Update this variable with the server name you plan to use. You will find at the 
   <>{props.productName === 'PRO' && <ValuesProYaml />}</>
 </div>
 
-If you are creating your own gpg keys the following commands can help convert them into a base64 encoded single line string which is what the values.yaml file expects.
+If you are creating your own GPG keys the following commands can help convert them into a base64 encoded single line string which is what the values.yaml file expects.
 
 ```bash
 gpg --armor --export-secret-keys <email you created keys with>  | base64 -w 0

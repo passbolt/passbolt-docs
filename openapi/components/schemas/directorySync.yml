@@ -1,0 +1,64 @@
+synchronizeAndSimulate:
+  type: "object"
+  required:
+    - users
+  properties:
+    users:
+      type: "array"
+      items:
+        type: "object"
+        properties:
+          message:
+            type: "string"
+          model:
+            type: "string"
+          data:
+            type: "object"
+            properties:
+              username:
+                type: "string"
+              profile:
+                type: "object"
+                properties:
+                  first_name:
+                    type: "string"
+                  last_name:
+                    type: "string"
+                  user_id:
+                    type: "string"
+                  created:
+                    type: "string"
+                    format: "date-time"
+                  modified:
+                    type: "string"
+                    format: "date-time"
+                  id:
+                    type: "string"
+                    format: "uuid"
+              role_id:
+                type: "string"
+                format: "uuid"
+              deleted:
+                type: "boolean"
+              created:
+                type: "string"
+                format: "date-time"
+              modified:
+                type: "string"
+                format: "date-time"
+              id:
+                type: "string"
+                format: "uuid"
+              last_logged_in:
+                type: "string"
+                format: "date-time"
+                x-nullable: true
+          action:
+            type: "string"
+          status:
+            type: "string"
+          created:
+            type: "string"
+            format: "date-time"
+          version:
+            type: "string"

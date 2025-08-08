@@ -4,10 +4,47 @@ import CertificateWarning from '/docs/hosting/_includes/warning/_passphrase-prot
 
 <HTTPSWarning />
 
-If you are reconfiguring passbolt you most likely want to say **‘NO’** to the mariadb or havaged setup questions and go for the nginx setup
-## MariaDB / Nginx / SSL settings
+## SSL configuration
 
-Passbolt {props.productName} RPM package on come with a configuration helper tool to prepare MariaDB, Nginx and SSL settings.
+Passbolt RPM packages currently supports the configuration of nginx. It comes with a default configuration that supports:
+
+  -  Serve passbolt on port 80 (http)
+  -  Serve passbolt on port 443 (https)
+
+On this context ‘manually’ means that the user will provide the SSL certificates, this is the main difference with the ‘auto’ method where [Let’s Encrypt](https://letsencrypt.org/) will issue the SSL certificate for you.
+
+This manual method is often useful on private network installations with private CA where the system admin issues a new private SSL certificate and uploads it to the passbolt server. It is also a method often used with self-signed SSL certificates for test installations.
+
+On this example we will assume the user is generating a self-signed certificate on the passbolt server.
+
+
+## Generate the SSL certificate
+
+While connected to your passbolt instance you can generate a SSL certificate in the following way:
+<CodeBlock>
+{`openssl req -x509 \\
+    -newkey rsa:4096 \\
+    -days 120 \\
+    -subj "/C=LU/ST=Luxembourg/L=Esch-Sur-Alzette/O=Passbolt SA/OU=Passbolt IT Team/CN=passbolt.domain.tld/" \\
+    -nodes \\
+    -addext "subjectAltName = DNS:passbolt.domain.tld" \\
+    -keyout key.pem \\
+    -out cert.pem`}
+</CodeBlock>
+
+This command will output two files: `key.pem` and `cert.pem`. Identify the absolute path where these files are located as you will need them in next steps.
+
+Of course, replace `-subj` values with your own. It is important to set your passbolt FQDN in both `CN` and `subjectAltName`. In this way, you will be able to import the generated certificate in your operating system keychain and make your self-signed domain trusted in your browser.
+
+:::important[Pro tip:]
+You can use an IP address instead of a domain name for your self-signed certificate. If you do that, replace DNS with IP in `subjectAltName`.
+:::
+
+## Install or reconfigure passbolt
+
+If you are reconfiguring passbolt you most likely want to say **‘NO’** to the mariadb or havaged setup questions and go for the nginx setup
+
+Passbolt {props.productName} RPM package come with a configuration helper tool to prepare MariaDB, Nginx and SSL settings.
 
 You must prepare your SSL certificates before launching the tool. Be sure to write down the full path to your cert/key combo, as it will be needed in the nginx configuration process.
 
@@ -19,28 +56,30 @@ Launch passbolt-configure tool and answer to the questions:
     {`sudo /usr/local/bin/passbolt-configure`}
 </CodeBlock>
 
-## Nginx
+If you are reconfiguring passbolt you most likely want to say **‘NO’** to the mariadb or havaged setup questions and go for the nginx setup
+
+<CodeBlock>
+    {`
+==============================================================
+Do you want to install a local mariadb server on this machine?
+==============================================================
+1) yes
+2) no
+#? `}
+</CodeBlock>
 
 Please enter the domain name under which passbolt will run.
 
 :::important[Note]
 This hostname will be used as server_name for nginx and as the domain name to register a SSL certificate with let’s encrypt if you don’t have your own SSL certificates.
 :::
-
-
 <CodeBlock>
     {`=========
 Hostname: passbolt.domain.tld
 =========`}
 </CodeBlock>
 
-## SSL configuration
-
-There are 3 choices available for SSL configuration:
-
-  -  manual: Prompts for the path of user uploaded ssl certificates and set up nginx
-  -  auto: Will issue a free SSL certificate with [Let's Encrypt](https://www.letsencrypt.org) and set up nginx
-  -  none: Do not setup HTTPS at all
+You will then be able to chosse the manual setup.
 
 <CodeBlock>
     {`==================
@@ -70,7 +109,7 @@ Installation is almost complete. Please point your browser to
 ===============================================================`}
 </CodeBlock>
 
-Reload nginx after finish the reconfigure to use the SSL configuration.
+Reload nginx once reconfiguration is complete to apply the SSL configuration.
 
 <CodeBlock>
     {`sudo systemctl reload nginx`}

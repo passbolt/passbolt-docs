@@ -4,6 +4,108 @@ import Counter from '/docs/components/counter';
 import Link from '@docusaurus/Link';
 import DigitalOceanSMTPWarning from '/docs/hosting/_includes/warning/_digital-ocean-smtp.mdx';
 
+{props.distributionLabel !== 'AWS AMI' && (
+  <>
+    <h3>Configure nginx for serving HTTPS</h3>
+
+    {(() => {
+      
+      switch (props.distributionLabel) {
+        case 'Digital Ocean':
+          return (
+            <>
+              <p>Depending on your needs there are two different options to setup nginx and SSL :</p>
+              <ul>
+                <li>
+                  <Link to={`/docs/hosting/configure/https/ce/digital-ocean-auto/`}>
+                    Auto (Using Let's Encrypt)
+                  </Link>
+                </li>
+                <li>
+                  <Link to={`/docs/hosting/configure/https/ce/debian-manual/`}>
+                    Manual (Using user-provided SSL certificates)
+                  </Link>
+                </li>
+              </ul>
+            </>
+          );
+        case 'RPM': 
+          return (
+            <>
+              <p>Depending on your needs there are two different options to setup nginx and SSL:</p>
+              <ul>
+                <li>
+                  <Link to={`/docs/hosting/configure/https/${props.productLabel.toLowerCase()}/rpm-auto/`}>
+                    Auto (Using Let's Encrypt)
+                  </Link>
+                </li>
+                <li>
+                  <Link to={`/docs/hosting/configure/https/${props.productLabel.toLowerCase()}/rpm-manual/`}>
+                    Manual (Using user-provided SSL certificates)
+                  </Link>
+                </li>
+              </ul>
+            </>
+          );
+        case 'Debian':
+          return (
+            <>
+              <p>Depending on your needs there are two different options to setup nginx and SSL:</p>
+              <ul>
+                <li>
+                  <Link to={`/docs/hosting/configure/https/${props.productLabel.toLowerCase()}/debian-auto/`}>
+                    Auto (Using Let's Encrypt)
+                  </Link>
+                </li>
+                <li>
+                  <Link to={`/docs/hosting/configure/https/${props.productLabel.toLowerCase()}/debian-manual/`}>
+                    Manual (Using user-provided SSL certificates)
+                  </Link>
+                </li>
+              </ul>
+            </>
+          );
+          case 'Virtual Appliance':
+          return (
+            <>
+              <p>Depending on your needs there are two different options to setup nginx and SSL:</p>
+              <ul>
+                <li>
+                  <Link to={`/docs/hosting/configure/https/pro/ova-auto/`}>
+                    Auto (Using Let's Encrypt)
+                  </Link>
+                </li>
+                <li>
+                  <Link to={`/docs/hosting/configure/https/pro/debian-manual/`}>
+                    Manual (Using user-provided SSL certificates)
+                  </Link>
+                </li>
+              </ul>
+            </>
+          );
+        default:
+          return (
+            <>
+              <p>Depending on your needs there are two different options to setup nginx and SSL using the package:</p>
+              <ul>
+                <li>
+                  <Link to={`/docs/hosting/configure/https/${props.productLabel.toLowerCase()}/debian-auto/`}>
+                    Auto (Using Let's Encrypt)
+                  </Link>
+                </li>
+                <li>
+                  <Link to={`/docs/hosting/configure/https/${props.productLabel.toLowerCase()}/debian-manual/`}>
+                    Manual (Using user-provided SSL certificates)
+                  </Link>
+                </li>
+              </ul>
+            </>
+          );
+      }
+    })()}
+  </>
+)}
+
 ## 2. Configure passbolt
 
 Before you can use the application, you need to configure it. Point your browser to the hostname / ip where passbolt
@@ -331,47 +433,3 @@ Your user account is now created. You will see a redirection page for a few seco
     />
   )}
 </>
-<Counter chapter={2} title="HTTPS setup process" />
-
-  <>
-    {(() => {
-      switch (props.distributionLabel) {
-        case 'Virtual Appliance':
-          return (
-            <p>Passbolt Pro VM uses passbolt debian package. Depending on your needs there are two different options to setup nginx and SSL using the debian package:</p>
-          );
-        case 'Digital Ocean':
-          return (
-            <p>Passbolt Digital Ocean uses passbolt ubuntu package. Depending on your needs there are two different options to setup nginx and SSL using the ubuntu package:</p>
-          );
-        case 'Ubuntu':
-          return (
-            <p>Passbolt uses passbolt ubuntu package. Depending on your needs there are two different options to setup nginx and SSL using the ubuntu package:</p>
-          );
-        case 'Debian':
-          return (
-            <p>Passbolt uses passbolt debian package. Depending on your needs there are two different options to setup nginx and SSL using the Debian package:</p>
-          );
-        default:
-          return (
-            <p>Depending on your needs there are two different options to setup nginx and SSL using the package:</p>
-          );
-      }
-    })()}
-  </>
-
-
-<div>
-    <ul>
-        <li>
-            <Link to={`/docs/hosting/configure/https/${props.productLabel.toLowerCase()}/debian-auto/`}>
-              Auto (Using Let's Encrypt)
-            </Link>
-        </li>
-        <li>
-            <Link to={`/docs/hosting/configure/https/${props.productLabel.toLowerCase()}/debian-manual`}>
-              Manual (Using user-provided SSL certificates)
-            </Link>
-        </li>
-    </ul>
-</div>

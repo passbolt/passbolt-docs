@@ -1,0 +1,66 @@
+import Figure from '@site/src/components/Figure/Figure';
+import CodeBlock from "/src/components/CodeBlock/CodeBlock";
+import HTTPSWarning from '/docs/hosting/_includes/warning/_https-url-change.mdx';
+import LetsEncryptWarning from '/docs/hosting/_includes/warning/_https-valid-domain.mdx'
+import SubDirectoryWarning from '/docs/hosting/_includes/warning/_subdirectory-https-warning.mdx'
+import ACMEWarning from '/docs/hosting/_includes/warning/_acme_port_80_dependence_warning.mdx'
+
+<HTTPSWarning />
+<LetsEncryptWarning />
+<SubDirectoryWarning />
+<ACMEWarning />
+
+## Install or reconfigure passbolt
+
+Passbolt {props.productName} RPM package come with a configuration helper tool to prepare MariaDB, Nginx and SSL settings.
+
+You must prepare your SSL certificates before launching the tool. Be sure to write down the full path to your cert/key combo, as it will be needed in the nginx configuration process.
+
+Please, notice that for security matters we highly recommend to setup SSL to serve passbolt.
+
+Launch passbolt-configure tool and answer to the questions:
+
+<CodeBlock>
+    {`sudo /usr/local/bin/passbolt-configure`}
+</CodeBlock>
+
+If you are reconfiguring passbolt you most likely want to say **‘NO’** to the mariadb or havaged setup questions and go for the nginx setup
+
+<CodeBlock>
+    {`
+==============================================================
+Do you want to install a local mariadb server on this machine?
+==============================================================
+1) yes
+2) no
+#? `}
+</CodeBlock>
+
+Please enter the domain name under which passbolt will run.
+
+:::important[Note]
+This hostname will be used as server_name for nginx and as the domain name to register a SSL certificate with let’s encrypt if you don’t have your own SSL certificates.
+:::
+<CodeBlock>
+    {`=========
+Hostname: passbolt.domain.tld
+=========`}
+</CodeBlock>
+
+You will then be able to chosse the auto setup.
+
+<CodeBlock>
+    {`==================
+Setting up SSL...
+==================
+1) manual
+2) auto
+3) none
+#?`}
+</CodeBlock>
+
+Finally you will need to provide an email address for Let’s encrypt to notify you for renewals and other admin info:
+
+<CodeBlock>
+    {`Enter a email address to register with Let's Encrypt: `}
+</CodeBlock>

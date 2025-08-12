@@ -14,7 +14,7 @@ import DigitalOceanSMTPWarning from '/docs/hosting/_includes/warning/_digital-oc
         case 'Digital Ocean':
           return (
             <>
-              <p>Depending on your needs there are two different options to setup nginx and SSL :</p>
+              <p>Depending on your needs there are two different options to set up nginx and TLS (SSL):</p>
               <ul>
                 <li>
                   <Link to={`/docs/hosting/configure/https/ce/digital-ocean-auto/`}>
@@ -23,7 +23,7 @@ import DigitalOceanSMTPWarning from '/docs/hosting/_includes/warning/_digital-oc
                 </li>
                 <li>
                   <Link to={`/docs/hosting/configure/https/ce/debian-manual/`}>
-                    Manual (Using user-provided SSL certificates)
+                    Manual (Using user-provided TLS (SSL) certificates)
                   </Link>
                 </li>
               </ul>
@@ -32,7 +32,7 @@ import DigitalOceanSMTPWarning from '/docs/hosting/_includes/warning/_digital-oc
         case 'RPM': 
           return (
             <>
-              <p>Depending on your needs there are two different options to setup nginx and SSL:</p>
+              <p>Depending on your needs there are two different options to setup nginx and TLS (SSL):</p>
               <ul>
                 <li>
                   <Link to={`/docs/hosting/configure/https/${props.productLabel.toLowerCase()}/rpm-auto/`}>
@@ -41,7 +41,7 @@ import DigitalOceanSMTPWarning from '/docs/hosting/_includes/warning/_digital-oc
                 </li>
                 <li>
                   <Link to={`/docs/hosting/configure/https/${props.productLabel.toLowerCase()}/rpm-manual/`}>
-                    Manual (Using user-provided SSL certificates)
+                    Manual (Using user-provided TLS (SSL) certificates)
                   </Link>
                 </li>
               </ul>
@@ -50,7 +50,7 @@ import DigitalOceanSMTPWarning from '/docs/hosting/_includes/warning/_digital-oc
         case 'Debian':
           return (
             <>
-              <p>Depending on your needs there are two different options to setup nginx and SSL:</p>
+              <p>Depending on your needs there are two different options to setup nginx and TLS (SSL):</p>
               <ul>
                 <li>
                   <Link to={`/docs/hosting/configure/https/${props.productLabel.toLowerCase()}/debian-auto/`}>
@@ -59,7 +59,7 @@ import DigitalOceanSMTPWarning from '/docs/hosting/_includes/warning/_digital-oc
                 </li>
                 <li>
                   <Link to={`/docs/hosting/configure/https/${props.productLabel.toLowerCase()}/debian-manual/`}>
-                    Manual (Using user-provided SSL certificates)
+                    Manual (Using user-provided TLS (SSL) certificates)
                   </Link>
                 </li>
               </ul>
@@ -68,7 +68,7 @@ import DigitalOceanSMTPWarning from '/docs/hosting/_includes/warning/_digital-oc
           case 'Virtual Appliance':
           return (
             <>
-              <p>Depending on your needs there are two different options to setup nginx and SSL:</p>
+              <p>Depending on your needs there are two different options to setup nginx and TLS (SSL):</p>
               <ul>
                 <li>
                   <Link to={`/docs/hosting/configure/https/pro/ova-auto/`}>
@@ -77,7 +77,7 @@ import DigitalOceanSMTPWarning from '/docs/hosting/_includes/warning/_digital-oc
                 </li>
                 <li>
                   <Link to={`/docs/hosting/configure/https/pro/debian-manual/`}>
-                    Manual (Using user-provided SSL certificates)
+                    Manual (Using user-provided TLS (SSL) certificates)
                   </Link>
                 </li>
               </ul>
@@ -86,7 +86,7 @@ import DigitalOceanSMTPWarning from '/docs/hosting/_includes/warning/_digital-oc
         default:
           return (
             <>
-              <p>Depending on your needs there are two different options to setup nginx and SSL using the package:</p>
+              <p>Depending on your needs there are two different options to setup nginx and TLS (SSL) using the package:</p>
               <ul>
                 <li>
                   <Link to={`/docs/hosting/configure/https/${props.productLabel.toLowerCase()}/debian-auto/`}>
@@ -95,7 +95,7 @@ import DigitalOceanSMTPWarning from '/docs/hosting/_includes/warning/_digital-oc
                 </li>
                 <li>
                   <Link to={`/docs/hosting/configure/https/${props.productLabel.toLowerCase()}/debian-manual/`}>
-                    Manual (Using user-provided SSL certificates)
+                    Manual (Using user-provided TLS (SSL) certificates)
                   </Link>
                 </li>
               </ul>

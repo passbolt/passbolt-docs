@@ -12,19 +12,19 @@ import ACMEWarning from '/docs/hosting/_includes/warning/_acme_port_80_dependenc
 
 ## Install or reconfigure passbolt
 
-Passbolt {props.productName} RPM package come with a configuration helper tool to prepare MariaDB, Nginx and SSL settings.
+The passbolt {props.productName} RPM package includes a configuration helper tool to set up MariaDB, Nginx, and TLS (SSL) settings.
 
-You must prepare your SSL certificates before launching the tool. Be sure to write down the full path to your cert/key combo, as it will be needed in the nginx configuration process.
+You must prepare your TLS (SSL) certificates before launching the tool. Be sure to write down the full path to your certificate and key files, as they will be needed in the nginx configuration process.
 
-Please, notice that for security matters we highly recommend to setup SSL to serve passbolt.
+Please note that for security reasons, we highly recommend setting up TLS (SSL) to serve passbolt.
 
-Launch passbolt-configure tool and answer to the questions:
+Launch the passbolt-configure tool and answer the questions:
 
 <CodeBlock>
     {`sudo /usr/local/bin/passbolt-configure`}
 </CodeBlock>
 
-If you are reconfiguring passbolt you most likely want to say **‘NO’** to the mariadb or havaged setup questions and go for the nginx setup
+If you are reconfiguring passbolt, you'll most likely want to answer **‘NO’** to the MariaDB or haveged setup questions and choose Nginx setup instead.
 
 <CodeBlock>
     {`
@@ -39,7 +39,7 @@ Do you want to install a local mariadb server on this machine?
 Please enter the domain name under which passbolt will run.
 
 :::important[Note]
-This hostname will be used as server_name for nginx and as the domain name to register a SSL certificate with let’s encrypt if you don’t have your own SSL certificates.
+This hostname will be used as server_name for nginx and as the domain name to register a TLS (SSL) certificate with Let’s Encrypt if you don’t have your own TLS (SSL) certificates.
 :::
 <CodeBlock>
     {`=========
@@ -47,11 +47,11 @@ Hostname: passbolt.domain.tld
 =========`}
 </CodeBlock>
 
-You will then be able to chosse the auto setup.
+You will then be able to choose the auto setup.
 
 <CodeBlock>
     {`==================
-Setting up SSL...
+Setting up TLS (SSL)...
 ==================
 1) manual
 2) auto
@@ -59,8 +59,8 @@ Setting up SSL...
 #?`}
 </CodeBlock>
 
-Finally you will need to provide an email address for Let’s encrypt to notify you for renewals and other admin info:
+Finally, you will need to provide an email address for Let’s Encrypt to notify you for renewals and other administrative information:
 
 <CodeBlock>
-    {`Enter a email address to register with Let's Encrypt: `}
+    {`Enter an email address to register with Let's Encrypt: `}
 </CodeBlock>

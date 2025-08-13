@@ -1,0 +1,17 @@
+synchronizeAndSimulate:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/directorySync.yml#/synchronizeAndSimulate"
+      examples:
+        $ref: "../examples/directorySync.yml#/synchronizeAndSimulate/response"
+

@@ -1,0 +1,19 @@
+get:
+  summary: "Simulate directory synchronization without making changes."
+  operationId: "simulateSync"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/directorySync.yml#/simulate"
+  tags:
+    - "Directory Sync"
+  responses:
+    200:
+      $ref: "../components/responses/directorySync.yml#/synchronizeAndSimulate"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
+    404:
+      $ref: "../components/responses.yml#/notFound"
+

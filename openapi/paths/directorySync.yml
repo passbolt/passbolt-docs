@@ -1,0 +1,18 @@
+post:
+  summary: "Run the directory synchronization."
+  operationId: "runSync"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/directorySync.yml#/synchronize"
+  tags:
+    - "Directory Sync"
+  responses:
+    200:
+      $ref: "../components/responses/directorySync.yml#/synchronizeAndSimulate"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
+    404:
+      $ref: "../components/responses.yml#/notFound"

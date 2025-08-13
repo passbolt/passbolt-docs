@@ -10,7 +10,9 @@ To create a new GnuPG key without passphrase:
 {`gpg --batch --no-tty --gen-key <<EOF
     Key-Type: RSA
     Key-Length: 3072
+    Key-Usage: sign,cert
     Subkey-Type: RSA
+    Subkey-Usage: encrypt
     Subkey-Length: 3072
     Name-Real: John Doe
     Name-Email: email@domain.tld

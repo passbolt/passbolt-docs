@@ -2,9 +2,11 @@ import CodeBlock from "/src/components/CodeBlock/CodeBlock";
 import HTTPSWarning from '/docs/hosting/_includes/warning/_https-url-change.mdx';
 import LetsEncryptWarning from '/docs/hosting/_includes/warning/_https-valid-domain.mdx'
 import Link from '@docusaurus/Link';
+import ACMEWarning from '/docs/hosting/_includes/warning/_acme_port_80_dependence_warning.mdx'
 
 <HTTPSWarning />
 <LetsEncryptWarning />
+<ACMEWarning />
 
 ## Requirements
   - <Link to={`/docs/hosting/install/${props.productName.toLowerCase()}/docker/`}>docker setup with docker compose</Link>.

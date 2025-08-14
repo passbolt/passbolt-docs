@@ -77,6 +77,21 @@ export const DistributionCardWrapper = ({ type }) => {
         }
       },
       {
+        key: 'rpm',
+        logo: logos['redhat'],
+        name: 'Red Hat/RPM',
+        links: {
+          ce: {
+            slug: 'ce/rpm-auto',
+            label: 'CE',
+          },
+          pro: {
+            slug: 'pro/rpm-auto',
+            label: 'PRO',
+          },
+        }
+      },
+      {
         key: 'ova',
         logo: logos['virtual-appliance'],
         name: 'OVA',
@@ -121,8 +136,8 @@ export const DistributionCardWrapper = ({ type }) => {
       },
       {
         key: 'rpm',
-        logo: logos['virtual-appliance'],
-        name: 'RPM',
+        logo: logos['redhat'],
+        name: 'Red Hat/RPM',
         links: {
           ce: {
             slug: 'ce/rpm-manual',
@@ -131,9 +146,10 @@ export const DistributionCardWrapper = ({ type }) => {
           pro: {
             slug: 'pro/rpm-manual',
             label: 'PRO',
-          }
+          },
+          
         }
-      }
+      },
     ]
   }
 

@@ -7,159 +7,9 @@ toc_min_heading_level: 2
 toc_max_heading_level: 3
 ---
 
-import DistributionCard from '@site/src/components/DistributionCard/DistributionCard.js';
-import distributions from '@site/data/distributions.json';
-import styles from '@site/src/components/DistributionCard/DistributionCard.module.css';
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 import Chips from "/src/components/Chips/Chips";
 
-export const DistributionCardWrapper = ({ type }) => {
 
-  const logos = distributions.reduce((acc, { slug, logo }) => {
-    acc[slug] = logo;
-    return acc;
-  }, {});
-
-  const data = {
-    auto: [
-      {
-        key: 'aws',
-        logo: logos['aws-ami'],
-        name: 'AWS',
-        links: {
-          ce: {
-            slug: 'ce/aws-auto',
-            label: 'CE',
-          },
-          pro: {
-            slug: 'pro/aws-auto',
-            label: 'PRO',
-          }
-        }
-      },
-      {
-        key: 'debian',
-        logo: logos['debian'],
-        name: 'Debian/Ubuntu',
-        links: {
-          ce: {
-            slug: 'ce/debian-auto',
-            label: 'CE',
-          },
-          pro: {
-            slug: 'pro/debian-auto',
-            label: 'PRO',
-          }
-        }
-      },
-      {
-        key: 'digital-ocean',
-        logo: logos['digital-ocean'],
-        name: 'Digital Ocean',
-        links: {
-          ce: {
-            slug: 'ce/digital-ocean-auto',
-            label: 'CE',
-          },
-        }
-      },
-      {
-        key: 'docker',
-        logo: logos['docker'],
-        name: 'Docker',
-        links: {
-          ce: {
-            slug: 'ce/docker-auto',
-            label: 'CE',
-          },
-          pro: {
-            slug: 'pro/docker-auto',
-            label: 'PRO',
-          }
-        }
-      },
-      {
-        key: 'ova',
-        logo: logos['virtual-appliance'],
-        name: 'OVA',
-        links: {
-          pro: {
-            slug: 'pro/ova-auto',
-            label: 'PRO',
-          }
-        }
-      }
-    ],
-    manual: [
-      {
-        key: 'debian',
-        logo: logos['debian'],
-        name: 'Debian/Ubuntu',
-        links: {
-          ce: {
-            slug: 'ce/debian-manual',
-            label: 'CE',
-          },
-          pro: {
-            slug: 'pro/debian-manual',
-            label: 'PRO',
-          }
-        }
-      },
-      {
-        key: 'docker',
-        logo: logos['docker'],
-        name: 'Docker',
-        links: {
-          ce: {
-            slug: 'ce/docker-manual',
-            label: 'CE',
-          },
-          pro: {
-            slug: 'pro/docker-manual',
-            label: 'PRO',
-          }
-        }
-      },
-      {
-        key: 'rpm',
-        logo: logos['virtual-appliance'],
-        name: 'RPM',
-        links: {
-          ce: {
-            slug: 'ce/rpm-manual',
-            label: 'CE',
-          },
-          pro: {
-            slug: 'pro/rpm-manual',
-            label: 'PRO',
-          }
-        }
-      }
-    ]
-  }
-
-  return (
-    <div className={styles.grid}>
-      {data[type].map((distribution) => {
-        return (
-          <DistributionCard
-            key={distribution.key}
-            logo={distribution.logo}
-            name={distribution.name}
-            links={distribution.links}
-          />
-        );
-      })}
-    </div>
-  );
-};
-
-<div style={{display: "flex", gap: "1rem"}}>
-  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
-  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
-</div>
 
 ## Introduction to Certificate Authorities (CAs) and Trust
 
@@ -169,49 +19,34 @@ A **Certificate Authority (CA)** is an entity that issues **TLS (SSL) certificat
 SSL was originally developed by Netscape and became TLS in 1999 when the IETF standardised it as an open protocol. Although SSL has been obsolete for over 25 years, the terms SSL and TLS are still used interchangeably. In our documentation, we use TLS (SSL) to make it easier to search, and some environment variables still include “SSL” for compatibility. Tools like OpenSSL also retain the SSL name, even though they implement TLS.
 :::
 
-## Where TLS is Used in passbolt
+### Where TLS is used in passbolt
 
-The passbolt API relies on the hosting environmment to correctly handle the tunneling and encryption of the common protocols listed below:
+The passbolt API relies on the hosting environment to correctly handle the tunneling and encryption of the common protocols listed below:
 
 ### **Inbound Connections**
 - **HTTPS**: Browser, API, and application access to the web server are required to be secured with TLS certificates in production environments. TLS configuration is handled by the web server (nginx or Apache) through its own configuration files. Our documentation provides platform-specific instructions and tooling for managing your TLS certificates in your web server.  See [HTTPS Configuration](/hosting/configure/https/) for detailed setup instructions, advice, and tooling.
 
 ### **Outbound Connections**
-- **SMTPS (Email)**: TLS secures email communications for notifications and user invitations. passbolt recommends Implicit TLS (SMTPS, port 465) and supports Explicit TLS (SMTP+StartTTLS, port 587) depending on your SMTP server requirements. The SMTP server's certificate must be trusted by passbolt for TLS connections to succeed. For detailed SMTP TLS configuration including certificate trust settings, see [Email Server Configuration](/admin/emails/email-server/).
-- **LDAPS/LDAPS+StarTLS**: Directory synchronization uses TLS to secure connections to Active Directory or other LDAP servers
+- **SMTPS (Email)**: TLS secures email communications for notifications and user invitations. passbolt recommends Implicit TLS (SMTPS, port 465) and supports Explicit TLS (SMTP+StartTLS, port 587) depending on your SMTP server requirements. The SMTP server's certificate must be trusted by passbolt for TLS connections to succeed. For detailed SMTP TLS configuration including certificate trust settings, see [Email Server Configuration](/admin/emails/email-server/).
+- **LDAPS**: Directory synchronization uses TLS to secure connections to Active Directory or other LDAP servers, see [LDAPS Configuration](/hosting/configure/ldap/ldaps/)
 - **SSO Providers**: Single Sign-On integrations use TLS to secure authentication flows. Passbolt must trust the CA or disable the TLS (SSL) check.
 - **Database Connections**: TLS can secure transport between passbolt and database servers but can also use TLS for authentication (uncommon)
 
-### **Certificate Trust Management**
-passbolt provides multiple configuration methods for certificate trust management:
 
-**Package Installs**: By default, passbolt relies on the operating system's certificate store (via `ca-certificates` on Linux) and web server configuration files. Certificates installed in the OS store are automatically trusted by all passbolt components.
-
-**Docker Deployments**: passbolt supports explicit certificate trust configuration through environment variables, allowing you to specify custom CA certificates or trust settings without relying on the OS store.
-
-**Configuration Methods**:
-- **Environment Variables**: For Docker deployments and explicit control
-- **PHP Configuration**: Direct configuration in `passbolt.php`
-- **Database UI**: Web-based configuration for SMTP and other integrations
-- **OS Certificate Store**: Default trust mechanism for package installations
-- **Web Server Files**: nginx/Apache configuration for HTTPS certificates
-
-For custom or internal CAs, passbolt provides configuration options to specify custom certificate files or directories for specific integrations, regardless of deployment method.
-
-The trust in a certificate issued by these CAs comes from their **root certificate**, which is included in the **root certificate stores** maintained by organisations like **Mozilla** (Firefox, Debian, Red Hat, openSUSE, Ubuntu, through `ca-certificates`), **Google** (Chrome, Android, Brave, Opera, Vivaldi, Samsung Internet, Yandex), **Apple** (Safari, macOS, iOS), and **Microsoft** (Edge, Windows). These vendors validate and include CAs in their root stores, ensuring that any certificate signed by a trusted CA will be accepted across platforms. However, **occasionally, CAs are removed from these stores** if they fail to meet the required security standards or if they are compromised. When this happens, certificates issued by that CA may no longer be trusted, and affected organisations must replace those certificates.
+The trust in a certificate issued by these CAs comes from their **root certificate**, which is included in the **root certificate stores** maintained by major vendors like **Mozilla**, **Google**, **Apple**, and **Microsoft**. These vendors validate and include CAs in their root stores, ensuring that any certificate signed by a trusted CA will be accepted across platforms. However, CAs can be removed from these stores if they fail to meet security standards or are compromised, requiring affected organisations to replace those certificates.
 
 **Cross-recognition** allows a CA that is included in one root certificate store to apply for recognition in other vendors' stores. This means that once a CA is trusted by one vendor, such as **Mozilla**, **Google**, or **Microsoft**, the CA can request inclusion in other root stores. This helps ensure that certificates issued by that CA are trusted across all major platforms and browsers, making them widely accepted across the internet.
 
 **Let's Encrypt** is a widely used free, automated, and open CA that issues **TLS (SSL) certificates**. **Let's Encrypt**'s root certificate, **ISRG Root X1**, is included in the root stores of major platforms. It also uses intermediate certificates to create a **chain of trust** for validating issued certificates. For more information on **Let's Encrypt's root and intermediate certificates**, you can visit their official page: [Let's Encrypt Certificates](https://letsencrypt.org/certificates/).
 
-### Public vs. Private CAs
+## Public vs. Private CAs
 
 While **public CAs** are globally recognised and trusted across the internet, organisations, including **enterprise customers**, may set up their own **private CAs** to issue certificates for **internal use**. This is particularly common in large organisations with complex security and compliance needs, where a **Private Key Infrastructure (PKI)** is set up to manage certificates internally.
 
-#### Private CAs and PKI for Enterprise Use:
+### Private CAs and PKI for Enterprise Use
 In an enterprise setting, a **private CA** is often used to issue certificates within the organisation's own network. Certificates issued by a private CA are **not automatically trusted** by browsers or operating systems, as private CAs are not included in public root stores. To trust certificates issued by a private CA, the **root certificate** of the private CA must be **manually added** to the **trust stores** of the systems that need to validate those certificates. This allows secure communication and internal authentication for various services, including **internal web servers, VPNs, secure email**, and other critical systems.
 
-### The Changing Lifespan of TLS Certificates: A Call for Automation
+## The Changing Lifespan of TLS Certificates: A Call for Automation
 
 The lifespan of **TLS certificates** is being progressively reduced to increase security and ensure that certificates are refreshed more frequently. This change will significantly impact certificate management for all network connected computers on the internet.
 
@@ -230,19 +65,19 @@ For **passbolt** users, particularly **enterprise organisations**, this change m
 
 As TLS certificates continue to evolve, **automation** will become an essential part of keeping systems secure and operational. passbolt's ability to integrate with modern certificate management systems will help organisations adapt to these changes without disruption.
 
-### Self-Signed Certificates
+## Self-Signed Certificates
 A self-signed certificate is created and signed by the same system that uses it, without involving a public CA. While it still provides encryption, it won’t be automatically trusted by browsers, operating systems, or passbolt clients.  
 - **Typical use cases:** local development, staging servers, or private/internal deployments.  
 - **Trust requirements:** the certificate (or its issuing root) must be manually installed in the trust store of each client system or browser to avoid TLS errors when accessing passbolt.  
 - **Security**: Self-signed certificates are generated with the same cryptography as certificates created by a CA. They do however come with challenges when deployed in production deployments. Revocation or reissuing can only be achieved manually by a system administrator.
 
-### Certificate Bundles
+## Certificate Bundles
 A certificate bundle contains the full certificate chain needed for a client to verify the server’s identity — usually the server certificate, any intermediate CA certificates, and the root CA certificate.  
 - passbolt relies on a complete and correct chain so that browsers and API clients can validate the TLS connection.  
 - Public CAs like Let’s Encrypt provide these bundles for download, and your web server must be configured to serve the full chain.  
 - If you use an internal CA, you will need to distribute and trust the root certificate across all systems that connect to passbolt.  
 
-### Installing and Using Self-Signed Certificates and Certificate Bundles in passbolt
+## Installing and Using Self-Signed Certificates and Certificate Bundles in passbolt
 
 1. **Installing Self-Signed Certificates**:
    - **Operating System**: On **Linux** (e.g., **Ubuntu**, **Debian**, **Red Hat**), **self-signed certificates** need to be manually installed into the **system's trust store** (via commands like `update-ca-certificates` or `trust anchor` for Red Hat-based systems). This allows **passbolt** or other services to trust the certificate for secure communication.
@@ -252,131 +87,21 @@ A certificate bundle contains the full certificate chain needed for a client to 
    - **Operating System**: Certificate bundles can be installed on the system in the appropriate location to establish trust. On **Ubuntu**, for example, you can place the bundle in `/usr/local/share/ca-certificates/` and run `update-ca-certificates`.
    - **passbolt**: If you are using a certificate bundle in **passbolt**, you'll need to ensure the server and client systems can access the appropriate chain. passbolt's configuration may need to reference the complete **certificate chain** (root + intermediate certificates) to ensure full trust and avoid SSL/TLS errors.
 
-### CA and Trust Overview:
+## CA and Trust Overview
 
-| **Type of CA**       | **Root Certificate Authority**                                                                 | **Trust Model**                                     | **Trust Scope**                     | **Trust Store Users**                          |
-|----------------------|-----------------------------------------------------------------------------------------------|----------------------------------------------------|-------------------------------------|-------------------------------------------------|
-| **Public CA**        | **DigiCert**, **GlobalSign**, **Let's Encrypt**, **Entrust**, **Mozilla** (Firefox, Debian, Red Hat, openSUSE, Ubuntu, through `ca-certificates`), **Google** (Chrome, Android, Brave, Opera, Vivaldi, Samsung Internet, Yandex), **Apple** (Safari, macOS, iOS), **Microsoft** (Edge, Windows) | Automatically trusted by browsers and OS systems.   | Global (trusted by major browsers and OSs). | **Mozilla** (Firefox, Debian, Red Hat, openSUSE, Ubuntu, through `ca-certificates`), **Google** (Chrome, Android, Brave, Opera, Vivaldi, Samsung Internet, Yandex), **Apple** (Safari, macOS, iOS), **Microsoft** (Edge, Windows) |
-| **Private CA**       | Internal organisation or enterprise.                                                         | Trusted within specific organisations or networks. | Limited to the organisation (root certificate must be manually installed). | **Custom trust configuration required** |
-| **Self-Signed Cert** | The entity itself (no external CA involved).                                                  | Not trusted by default, trust must be manually added. | Local or isolated systems.           | **Custom trust configuration required** |
+| **Type of CA**       | **Trust Model**                                     | **Trust Scope**                     |
+|----------------------|----------------------------------------------------|-------------------------------------|
+| **Public CA**        | Automatically trusted by browsers and OS systems   | Global (trusted by major browsers and OSs) |
+| **Private CA**       | Trusted within specific organisations or networks   | Limited to the organisation (root certificate must be manually installed) |
+| **Self-Signed Cert** | Not trusted by default, trust must be manually added | Local or isolated systems           |
 
-This table summarises the different types of **Certificate Authorities (CAs)**, their associated trust models, and who uses the trusted root certificate stores, from widely recognised public CAs to private, internal CAs and self-signed certificates used for isolated purposes.
+This table summarises the different types of Certificate Authorities and their trust models.
 
-## Certificate Formats and File Types
-
-TLS certificates and private keys are stored in various file formats depending on the platform and use case. Understanding these formats is essential for proper configuration.
-
-### Common Certificate File Extensions
-
-#### **PEM Format** (Privacy-Enhanced Mail)
-- **Extensions**: `.pem`, `.crt`, `.cer`, `.key`
-- **Content**: Base64-encoded text with header/footer lines
-- **Example**:
-  ```
-  -----BEGIN CERTIFICATE-----
-  MIIFazCCA1OgAwIBAgIRAIIQz7DSQONZRGPgu2OCiwAwDQYJKoZIhvcNAQELBQAw
-  ...
-  -----END CERTIFICATE-----
-  ```
-- **Usage**: Most common format for Linux/Unix systems, web servers, and passbolt
-
-#### **DER Format** (Distinguished Encoding Rules)
-- **Extensions**: `.der`, `.crt`, `.cer`
-- **Content**: Binary format
-- **Usage**: Common in Windows environments and some embedded systems
-
-#### **PFX/P12 Format** (Personal Information Exchange)
-- **Extensions**: `.pfx`, `.p12`
-- **Content**: Binary format containing certificate and private key
-- **Password Protection**: Usually password-protected
-- **Usage**: Windows systems, Java applications, some web servers
-
-### Certificate Bundle Formats
-
-#### **Certificate Chain Files**
-- **Format**: Multiple PEM certificates concatenated
-- **Order**: Server certificate first, then intermediate CAs, then root CA
-- **Usage**: Web server configuration (nginx, Apache)
-
-#### **CA Bundle Files**
-- **Format**: Collection of trusted CA certificates in PEM format
-- **Usage**: System trust stores, application configuration
-
-### Platform-Specific Considerations
-
-#### **Linux/Unix Systems**
-- **Default Location**: `/etc/ssl/certs/` (certificates), `/etc/ssl/private/` (private keys)
-- **Trust Store**: `/etc/ssl/certs/ca-certificates.crt`
-- **Update Command**: `update-ca-certificates` (Debian/Ubuntu), `update-ca-trust` (RHEL/CentOS)
-
-#### **Windows Systems**
-- **Certificate Store**: Windows Certificate Manager (certmgr.msc)
-- **Import Methods**: GUI, PowerShell, or command line tools
-- **Trust Store**: Local Machine > Trusted Root Certification Authorities
-
-#### **Docker Containers**
-- **Mount Points**: Certificates mounted as volumes or copied into container
-- **Environment Variables**: `PASSBOLT_SSL_FORCE`
-- **passbolt Configuration**: Environment variables for explicit certificate paths
-
-### Converting Between Formats
-
-#### **PEM to DER**
-```bash
-openssl x509 -in certificate.pem -outform DER -out certificate.der
-```
-
-#### **DER to PEM**
-```bash
-openssl x509 -inform DER -in certificate.der -out certificate.pem
-```
-
-#### **PFX to PEM (Extract Certificate)**
-```bash
-openssl pkcs12 -in certificate.pfx -out certificate.pem -nokeys
-```
-
-#### **PFX to PEM (Extract Private Key)**
-```bash
-openssl pkcs12 -in certificate.pfx -out private_key.pem -nocerts -nodes
-```
-
-### passbolt Certificate Configuration
-
-#### **Web Server Configuration**
-- **nginx**: `ssl_certificate` and `ssl_certificate_key` directives
-- **Apache**: `SSLCertificateFile` and `SSLCertificateKeyFile` directives
-- **Certificate Chain**: Must include full chain for proper validation
-
-#### **SMTP Configuration**
-- **Certificate Trust**: SMTP server certificate must be trusted by passbolt
-- **Trust Store Options**:
-  - **OS Certificate Store**: Default trust mechanism (package installs)
-  - **Custom CA File**: `sslCafile` setting for specific CA certificates
-  - **Self-Signed CAs**: `sslAllowSelfSigned` setting for internal certificates
-- **Verification Settings**:
-  - `sslVerifyPeer`: Verify SMTP server certificate (default: true)
-  - `sslVerifyPeerName`: Verify SMTP server hostname (default: true)
-  - `sslAllowSelfSigned`: Allow self-signed certificates (default: false)
-- **Environment Variables**: `PASSBOLT_PLUGINS_SMTP_SETTINGS_SECURITY_SSL_*`
-
-#### **LDAP Configuration**
-- **LDAPS**: LDAP server must present a valid SSL certificate trusted by passbolt
-- **Certificate Trust Options**:
-  - **Public CA**: Automatically trusted (e.g., Let's Encrypt)
-  - **Private CA/Self-Signed**: Requires manual CA certificate configuration
-- **Configuration Methods**:
-  - **PHP Configuration**: `sslCustomOptions` in `passbolt.php`
-  - **Environment Variables**: `PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_*`
-  - **Certificate Bundle**: Use passbolt's [LDAP certificate bundler tool](https://github.com/passbolt/passbolt-ldap-certificate-bundler)
-- **Trust Settings**:
-  - `verifyPeer`: Verify LDAP server certificate (default: true)
-  - `cadir`: Custom CA directory path
-  - `cafile`: Custom CA certificate file path
 
 ## Related Documentation
 
 - [HTTPS Configuration](/hosting/configure/https/): Complete HTTPS setup guide
-- [Firewall Rules](/hosting/configure/firewall-rules): Required network configuration
-- [SSL/TLS Troubleshooting](/hosting/troubleshooting/ssl-tls): Common issues and solutions
-- [Environment Reference](/hosting/configure/environment-reference): TLS-related environment variables 
+- [Email Server Configuration](/admin/emails/email-server/): SMTP TLS configuration and certificate trust
+- [LDAPS Configuration](/hosting/configure/ldap/ldaps/): LDAP SSL configuration and certificate bundling
+- [Environment Reference](/hosting/configure/environment-reference): TLS-related environment variables
+- [SSL/TLS Troubleshooting](/hosting/troubleshooting/ssl-tls): Common issues and solutions 

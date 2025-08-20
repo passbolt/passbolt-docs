@@ -10,14 +10,14 @@ import Chips from "/src/components/Chips/Chips";
   <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
 </div>
 
-## Configuration Precedence Order in Passbolt Pro API
+## Configuration Precedence Order
 
-The configuration system in Passbolt Pro API follows a hierarchical precedence order with the following priority (from highest to lowest):
+The configuration system follows this priority (highest to lowest):
 
 ### 1. Web UI Settings (Highest Priority)
-Settings changed through the browser interface override all other configuration methods. These are stored in the database and take precedence over environment variables and PHP configuration files.
+Settings changed through the browser interface override all other configuration methods.
 
-**Examples:** SMTP settings, SSO settings, MFA settings, directory sync settings, email notification settings, plugin enable/disable flags
+**Examples:** SMTP settings, SSO settings, MFA settings, directory sync settings
 
 ### 2. Environment Variables (High Priority)
 System environment variables override PHP configuration files but are overridden by web UI settings.
@@ -28,149 +28,744 @@ System environment variables override PHP configuration files but are overridden
 - `EMAIL_TRANSPORT_DEFAULT_HOST`
 - `PASSBOLT_GPG_SERVER_KEY_FINGERPRINT`
 
-**Source:** `env()` function calls in configuration files
-
 ### 3. PHP Configuration Files (Medium Priority)
-Configuration files are loaded in a specific order, with later files overriding earlier ones. Environment variables are read by `env()` function calls within these files.
+Configuration files are loaded in this order:
 
 **Loading Order:**
-1. `config/app.php` (CakePHP framework defaults with `env()` fallbacks)
-2. `config/default.php` (Passbolt application defaults)
-3. `config/audit_logs.php` (Audit logging configuration)
-4. `config/passbolt.php` (User-specific overrides - **highest file priority**)
+1. `/etc/passbolt/app.php` (CakePHP framework defaults)
+2. `/etc/passbolt/default.php` (Passbolt application defaults)
+3. `/etc/passbolt/audit_logs.php` (Audit logging configuration)
+4. `/etc/passbolt/passbolt.php` (User-specific overrides - **highest file priority**)
 
-**Key Relationships:**
-- `passbolt.php` overrides settings from `app.php` (explicitly documented in comments)
-- `passbolt.php` can contain hardcoded values that override environment variables
-- Environment variables are read by `env()` function calls in all configuration files
+:::note File Paths
+Configuration files are located in `/etc/passbolt/` for all production installations. The application code is installed in `/usr/share/php/passbolt/` but configuration should be managed through `/etc/passbolt/` files or environment variables.
+:::
+
+**Configuration Distribution:**
+
+| File | Purpose | Key Settings |
+|:-----|:--------|:-------------|
+| **`app.php`** | CakePHP Framework Settings | Database, Email, Cache, Session, Logging, Error handling |
+| **`default.php`** | Passbolt Application Settings | Plugins, Authentication, GPG, Security, SSO, MFA |
+| **`passbolt.php`** | User Overrides | Overrides settings from both `app.php` and `default.php` |
 
 ### 4. Default Values (Lowest Priority)
 Hardcoded defaults in the application code and framework defaults.
 
-**Examples:**
-- CakePHP framework defaults
-- Passbolt plugin defaults in `config/default.php`
-- Fallback values in `env()` function calls
-
-**Source:** Hardcoded values in configuration arrays and `env()` function default parameters
-
 :::info Important Note
-**Settings changed through the Passbolt web interface (SMTP, SSO, MFA, etc.) will override environment variables.** Environment variables are most useful for initial deployment and automation scenarios.
+**Settings changed through the Passbolt web interface will override environment variables.** Environment variables are most useful for initial deployment and automation scenarios.
+:::
+
+## Quick Reference for Administrators
+
+### Essential Production Variables
+
+| Variable | Purpose | Required | Default |
+|:---------|:--------|:---------|:--------|
+| `DATASOURCES_DEFAULT_HOST` | Database server | Yes | `localhost` |
+| `DATASOURCES_DEFAULT_DATABASE` | Database name | Yes | `passbolt` |
+| `DATASOURCES_DEFAULT_USERNAME` | Database user | Yes | `user` |
+| `DATASOURCES_DEFAULT_PASSWORD` | Database password | Yes | `secret` |
+| `EMAIL_TRANSPORT_DEFAULT_HOST` | SMTP server | Yes | `localhost` |
+| `PASSBOLT_GPG_SERVER_KEY_FINGERPRINT` | GPG server key | Yes | `''` |
+| `APP_FULL_BASE_URL` | Application URL | Yes | `'https://www.passbolt.test'` |
+
+### Security-Critical Variables
+
+| Variable | Purpose | Impact |
+|:---------|:--------|:-------|
+| `PASSBOLT_SECURITY_SSO_SSL_VERIFY` | SSO certificate verification | High |
+| `PASSBOLT_PLUGINS_SMTP_SETTINGS_SECURITY_SSL_VERIFY_PEER` | SMTP certificate verification | High |
+| `PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_VERIFY_PEER` | LDAP certificate verification | High |
+| `SECURITY_SALT` | Application security salt | Critical |
+
+:::info Installation Guides
+For detailed platform-specific setup instructions, see the [Installation Guides](/hosting/install/).
+:::
+
+## Production Configuration
+
+The following sections contain environment variables that are typically configured by production administrators.
+
+## Database Configuration
+
+:::info Configuration Source
+Database configuration is managed through the CakePHP framework in `/etc/passbolt/app.php`. Environment variables override the default values in configuration files.
+:::
+
+### Production Database
+
+**`DATASOURCES_DEFAULT_DRIVER`** *(string, optional)*  
+Database driver class for the primary database connection.  
+**Default:** `'Cake\Database\Driver\Mysql'` | **Environment:** all | **Example:** `'Cake\Database\Driver\Mysql'`, `'Cake\Database\Driver\Postgres'`
+
+**`DATASOURCES_DEFAULT_HOST`** *(string, optional)*  
+Database server hostname or IP address.  
+**Default:** `'localhost'` | **Environment:** all | **Example:** `'db.example.com'`, `'192.168.1.100'`
+
+**`DATASOURCES_DEFAULT_PORT`** *(integer, optional)*  
+Database server port number.  
+**Default:** `3306` | **Environment:** all | **Example:** `3306`, `5432` (PostgreSQL)
+
+**`DATASOURCES_DEFAULT_USERNAME`** *(string, optional)*  
+Database username for authentication.  
+**Default:** `'user'` (passbolt.default.php) or `''` (app.php) | **Environment:** all
+
+**`DATASOURCES_DEFAULT_PASSWORD`** *(string, optional)*  
+Database password for authentication.  
+**Default:** `'secret'` (passbolt.default.php) or `''` (app.php) | **Environment:** all
+
+**`DATASOURCES_DEFAULT_DATABASE`** *(string, optional)*  
+Database name to connect to.  
+**Default:** `'passbolt'` (passbolt.default.php) or `''` (app.php) | **Environment:** all
+
+**`DATASOURCES_DEFAULT_ENCODING`** *(string, optional)*  
+Database character encoding.  
+**Default:** `'utf8mb4'` | **Environment:** all
+
+**`DATASOURCES_DEFAULT_URL`** *(string|null, optional)*  
+Complete database connection URL (alternative to individual settings).  
+**Default:** `null` | **Environment:** all | **Example:** `'mysql://user:pass@host:3306/database'`
+
+**`DATASOURCES_DEFAULT_SCHEMA`** *(string, optional)*  
+Database schema (for PostgreSQL).  
+**Default:** `'public'` | **Environment:** all
+
+### Database TLS (SSL) Configuration
+
+**`DATASOURCES_DEFAULT_SSL_KEY`** *(string, optional)*  
+Database TLS (SSL) private key file path.  
+**Default:** `''` | **Environment:** all | **Example:** `'/etc/ssl/db-client.key'`
+
+**`DATASOURCES_DEFAULT_SSL_CERT`** *(string, optional)*  
+Database TLS (SSL) certificate file path.  
+**Default:** `''` | **Environment:** all | **Example:** `'/etc/ssl/db-client.crt'`
+
+**`DATASOURCES_DEFAULT_SSL_CA`** *(string, optional)*  
+Database TLS (SSL) CA certificate file path.  
+**Default:** `''` | **Environment:** all | **Example:** `'/etc/ssl/ca.crt'`
+
+**`DATASOURCES_DEFAULT_LOG`** *(boolean, optional)*  
+Enable database query logging for debugging.  
+**Default:** `false` | **Environment:** all
+
+## Email Configuration
+
+:::info Configuration Source
+Email transport configuration is managed through the CakePHP framework in `/etc/passbolt/app.php`. Environment variables override the default values in configuration files.
+:::
+
+### SMTP Configuration
+
+**`EMAIL_DEFAULT_TRANSPORT`** *(string, optional)*  
+Default email transport configuration.  
+**Default:** `'default'` | **Environment:** all
+
+**`EMAIL_DEFAULT_FROM_NAME`** *(string, optional)*  
+From name for email notifications.  
+**Default:** `'Passbolt'` | **Environment:** all
+
+**`EMAIL_DEFAULT_FROM`** *(string, optional)*  
+From email address for notifications.  
+**Default:** `'you@localhost.test'` | **Environment:** all
+
+**`EMAIL_TRANSPORT_DEFAULT_HOST`** *(string, optional)*  
+SMTP server hostname or IP address.  
+**Default:** `'localhost'` | **Environment:** all | **Example:** `'smtp.gmail.com'`, `'mail.example.com'`
+
+**`EMAIL_TRANSPORT_DEFAULT_PORT`** *(integer, optional)*  
+SMTP server port number.  
+**Default:** `25` | **Environment:** all | **Example:** `587` (STARTTLS), `465` (SMTPS), `25` (unencrypted)
+
+**`EMAIL_TRANSPORT_DEFAULT_USERNAME`** *(string, optional)*  
+SMTP server username for authentication.  
+**Default:** `'user'` (passbolt.default.php) or `null` (app.php) | **Environment:** all
+
+**`EMAIL_TRANSPORT_DEFAULT_PASSWORD`** *(string, optional)*  
+SMTP server password for authentication.  
+**Default:** `'secret'` (passbolt.default.php) or `null` (app.php) | **Environment:** all
+
+**`EMAIL_TRANSPORT_DEFAULT_URL`** *(string|null, optional)*  
+Complete SMTP connection URL that overrides individual settings.  
+**Default:** `null` | **Environment:** all | **Example:** `'smtp://user:pass@host:587?tls=true'`, `'smtps://user:pass@host:465'`
+
+### SMTP TLS (SSL) Configuration
+
+**`EMAIL_TRANSPORT_DEFAULT_TLS`** *(boolean|null, optional)*  
+Enable TLS encryption for SMTP connections. Set to `true` for STARTTLS (port 587) or `false` for no encryption.  
+**Default:** `null` | **Environment:** all | **Example:** `true`, `false`
+
+**`EMAIL_TRANSPORT_DEFAULT_TIMEOUT`** *(integer, optional)*  
+Maximum time in seconds to wait for SMTP server responses.  
+**Default:** `30` | **Environment:** all | **Example:** `30`, `60`, `120`
+
+**`PASSBOLT_PLUGINS_SMTP_SETTINGS_SECURITY_SSL_VERIFY_PEER`** *(boolean, optional)*  
+Verify the SMTP server's TLS (SSL) certificate during connection.  
+**Default:** `true` | **Environment:** all | **Security:** high impact
+
+**`PASSBOLT_PLUGINS_SMTP_SETTINGS_SECURITY_SSL_VERIFY_PEER_NAME`** *(boolean, optional)*  
+Verify that the SMTP server's certificate matches the server hostname.  
+**Default:** `true` | **Environment:** all | **Security:** high impact
+
+**`PASSBOLT_PLUGINS_SMTP_SETTINGS_SECURITY_SSL_ALLOW_SELF_SIGNED`** *(boolean, optional)*  
+Allow connections to SMTP servers with self-signed certificates.  
+**Default:** `false` | **Environment:** development | **Security:** medium impact
+
+**`PASSBOLT_PLUGINS_SMTP_SETTINGS_SECURITY_SSL_CAFILE`** *(string|null, optional)*  
+Path to a custom CA certificate file for SMTP server verification.  
+**Default:** `null` | **Environment:** all | **Example:** `'/etc/ssl/certs/custom-ca.crt'`
+
+## GPG Server Key Configuration
+
+**`PASSBOLT_GPG_SERVER_KEY_FINGERPRINT`** *(string, optional)*  
+Fingerprint of the GPG server key used for encryption and decryption operations. Required for CLI operations and server authentication.  
+**Default:** `''` | **Environment:** all | **Security:** critical | **Example:** `'43F978AFF88B53F5ABBD12C87D5E40A4C43926ED'`
+
+**`PASSBOLT_GPG_SERVER_KEY_PUBLIC`** *(string, optional)*  
+Path to the public GPG server key file.  
+**Default:** `CONFIG . 'gpg' . DS . 'serverkey.asc'` | **Environment:** all | **Security:** medium impact | **Example:** `'/etc/passbolt/gpg/serverkey.asc'`
+
+**`PASSBOLT_GPG_SERVER_KEY_PRIVATE`** *(string, optional)*  
+Path to the private GPG server key file.  
+**Default:** `CONFIG . 'gpg' . DS . 'serverkey_private.asc'` | **Environment:** all | **Security:** critical | **Example:** `'/etc/passbolt/gpg/serverkey_private.asc'`
+
+**`PASSBOLT_GPG_BACKEND`** *(string, optional)*  
+Tell passbolt which OpenPGP backend to use.  
+**Default:** `'gnupg'` | **Environment:** all
+
+**`PASSBOLT_GPG_EXTRA_ENCRYPT_VALIDATE`** *(boolean, optional)*  
+Enable experimental encrypt validation.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_GPG_SECURITY_ACCEPT_REVOKED_KEY_UNHASHED_ISSUER_SUB_PACKET`** *(boolean, optional)*  
+Allow revoked issuer subpacket to be unhashed.  
+**Default:** `true` | **Environment:** all
+
+:::note
+The legacy variables `PASSBOLT_GPG_SERVER_KEY_PUBLIC_FILE` and `PASSBOLT_GPG_SERVER_KEY_PRIVATE_FILE` are also supported for backward compatibility.
 :::
 
 ## Application Configuration
 
-**`DEBUG`** *(boolean, optional)*  
-Enable debug mode for detailed logging and error reporting. When enabled, shows detailed error messages, stack traces, and debug information. **DEVELOPMENT/TESTING ONLY - Never enable in production environments.**  
-**Default:** `false` | **Environment:** development | **Security:** high impact
-
-**`APP_ENCODING`** *(string, optional)*  
-Character encoding used throughout the application for database connections, HTML output, and file operations. UTF-8 is recommended for international character support.  
-**Default:** `'UTF-8'` | **Environment:** all | **Example:** `'UTF-8'`, `'ISO-8859-1'`
+**`APP_FULL_BASE_URL`** *(string|boolean, optional)*  
+Complete base URL for the application including protocol, domain, and optional subdirectory. Used for generating absolute URLs in emails, API responses, and redirects.  
+**Default:** `'https://www.passbolt.test'` (passbolt.default.php) or `false` (app.php, auto-generated from HTTP_HOST) | **Environment:** all | **Example:** `'https://passbolt.example.com'`
 
 **`APP_DEFAULT_LOCALE`** *(string, optional)*  
-Default locale for user interface translations, date/time formatting, and number formatting. Uses standard locale format (e.g., 'en_UK' for British English, 'fr_FR' for French).  
+Default locale for user interface translations, date/time formatting, and number formatting.  
 **Default:** `'en_UK'` | **Environment:** all | **Example:** `'en_UK'`, `'fr_FR'`, `'de_DE'`
 
 **`APP_DEFAULT_TIMEZONE`** *(string, optional)*  
-Default timezone for the application when no user-specific timezone is set. Affects date/time display and storage. Uses PHP timezone identifiers.  
+Default timezone for the application when no user-specific timezone is set.  
 **Default:** `'UTC'` | **Environment:** all | **Example:** `'UTC'`, `'Europe/London'`, `'America/New_York'`
 
-**`APP_BASE`** *(string|boolean, optional)*  
-Base directory path where the application is installed. Used for resolving relative paths to templates, plugins, and other application resources. Set to false for auto-detection based on the current script location.  
-**Default:** `false` (auto-detected) | **Environment:** all
-
 **`APP_BASE_URL`** *(string, optional)*  
-Base URL path for the application when running in a subdirectory. For example, if Passbolt is accessible at `https://example.com/passbolt/`, set this to `/passbolt`. Must start with a forward slash and not end with one.  
-**Default:** `null` (commented out in default config) | **Environment:** all | **Example:** `'/passbolt'`, `'/apps/passbolt'`
+Base URL path for the application when running in a subdirectory.  
+**Default:** `null` | **Environment:** all | **Example:** `'/passbolt'`, `'/apps/passbolt'`
 
-**`APP_FULL_BASE_URL`** *(string|boolean, optional)*  
-Complete base URL for the application including protocol, domain, and optional subdirectory. Used for generating absolute URLs in emails, API responses, and redirects. Should use https:// in production when TLS is handled by the web server or reverse proxy. If set to false, automatically generated from the HTTP_HOST header.  
-**Default:** `'https://www.passbolt.test'` (passbolt.default.php) or `false` (app.php, auto-generated from HTTP_HOST) | **Environment:** all | **Example:** `'https://passbolt.example.com'`
+**`PASSBOLT_JS_BUILD`** *(string, optional)*  
+JavaScript build mode for the application.  
+**Default:** `'production'` | **Environment:** all | **Example:** `'production'`, `'development'`
+
+**`PASSBOLT_HEALTHCHECK_ERROR`** *(boolean, optional)*  
+Enable healthcheck error reporting.  
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_CHECK_DOMAIN_MISMATCH`** *(boolean, optional)*  
+Check for domain mismatch where possible.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_SSL_FORCE`** *(boolean, optional)*  
+Force SSL/HTTPS only.  
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_OBFUSCATE_FIELDS_PLACEHOLDER`** *(string, optional)*  
+Placeholder for obfuscated fields.  
+**Default:** `'***'` | **Environment:** all
 
 ## TLS (SSL) Configuration
 
-### HTTPS
+### LDAPS Configuration
 
-**`PASSBOLT_SSL_FORCE`** *(boolean, optional)*  
-Force all HTTP traffic to be redirected to HTTPS. When enabled, any HTTP requests are automatically redirected to the secure HTTPS version. Essential for production environments to ensure all communications are encrypted. Note: When using a reverse proxy like Traefik that handles TLS termination, this setting may not be needed as the proxy handles the redirect.  
-**Default:** `true` | **Environment:** production | **Security:** critical
+**`PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_ENABLED`** *(boolean, optional)*  
+Enable custom TLS configuration options for LDAP directory synchronization.  
+**Default:** `false` | **Environment:** all
 
-See [HTTPS Configuration](/hosting/configure/https/) for detailed setup instructions.
-
-### SMTP (Email TLS)
-
-:::info SMTP Configuration Precedence
-When configuring SMTP settings, note the following precedence:
-1. **`EMAIL_TRANSPORT_DEFAULT_URL`** - When set, overrides all individual SMTP settings
-2. **Individual settings** - `EMAIL_TRANSPORT_DEFAULT_TLS`, `EMAIL_TRANSPORT_DEFAULT_HOST`, etc. (when URL is not set)
-3. **Web UI Settings** - SMTP configuration in Admin → Email (overrides both URL and individual settings)
-:::
-
-**`EMAIL_TRANSPORT_DEFAULT_TLS`** *(boolean|null, optional)*  
-Enable TLS encryption for SMTP email connections. Set to `true` for STARTTLS (port 587) or `false` for no encryption. For SMTPS (port 465), use the `url` parameter instead. **Note:** This setting is ignored when `EMAIL_TRANSPORT_DEFAULT_URL` is configured.  
-**Default:** `null` | **Environment:** all | **Example:** `true`, `false`
-
-**`EMAIL_TRANSPORT_DEFAULT_TIMEOUT`** *(integer, optional)*  
-Maximum time in seconds to wait for SMTP server responses before timing out. Increase this value for slow or unreliable email servers.  
-**Default:** `30` | **Environment:** all | **Example:** `30`, `60`, `120`
-
-**`EMAIL_TRANSPORT_DEFAULT_CLIENT`** *(string|null, optional)*  
-SMTP client configuration string. Can be used to specify additional SMTP client options or authentication methods. Leave as null to use default client settings.  
-**Default:** `null` | **Environment:** all
-
-**`PASSBOLT_PLUGINS_SMTP_SETTINGS_SECURITY_SSL_VERIFY_PEER`** *(boolean, optional)*  
-Verify the SMTP server's TLS (SSL) certificate during connection. When enabled, ensures the email server's certificate is valid and trusted. Disable only if using a trusted internal email server with self-signed certificates.  
-**Default:** `true` | **Environment:** all | **Security:** high impact
-
-**`PASSBOLT_PLUGINS_SMTP_SETTINGS_SECURITY_SSL_VERIFY_PEER_NAME`** *(boolean, optional)*  
-Verify that the SMTP server's certificate Common Name (CN) or Subject Alternative Names (SAN) match the server hostname. Provides additional security against man-in-the-middle attacks.  
-**Default:** `true` | **Environment:** all | **Security:** high impact
-
-**`PASSBOLT_PLUGINS_SMTP_SETTINGS_SECURITY_SSL_ALLOW_SELF_SIGNED`** *(boolean, optional)*  
-Allow connections to SMTP servers with self-signed certificates. Enable this only for trusted internal email servers. For production environments, use properly signed certificates from a trusted Certificate Authority.  
-**Default:** `false` | **Environment:** development | **Security:** medium impact
-
-**`PASSBOLT_PLUGINS_SMTP_SETTINGS_SECURITY_SSL_CAFILE`** *(string|null, optional)*  
-Path to a custom Certificate Authority (CA) certificate file for SMTP server verification. When specified, this certificate is used in addition to the OS certificate store. The verification process checks both the OS certificate store and this custom CA file. Use this when connecting to email servers with certificates signed by a private CA that isn't in the system's trusted certificate store. The file should contain the CA certificate in PEM format.  
-**Default:** `null` | **Environment:** all | **Example:** `'/etc/ssl/certs/custom-ca.crt'`
-
-See [Email Server Configuration](/admin/emails/email-server/) for detailed setup instructions.
-
-### LDAPS
-
-**`PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_ENABLED`**  
-Enable custom TLS configuration options for LDAP directory synchronization. When enabled, allows fine-grained control over TLS certificate verification for LDAP connections. Required for connecting to LDAP servers with custom certificate requirements. Default: `false`
-
-**`PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_VERIFY_PEER`**  
-Verify the LDAP server's TLS (SSL) certificate during directory synchronization. Ensures the LDAP server's certificate is valid and trusted. Disable only for trusted internal LDAP servers with self-signed certificates. Default: `true`
+**`PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_VERIFY_PEER`** *(boolean, optional)*  
+Verify the LDAP server's TLS (SSL) certificate during directory synchronization.  
+**Default:** `true` | **Environment:** all
 
 **`PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_CAFILE`** *(string|null, optional)*  
-Path to a Certificate Authority (CA) certificate file for LDAP server verification. When specified, this certificate is used in addition to the OS certificate store. The verification process checks both the OS certificate store and this custom CA file. Use this when connecting to LDAP servers with certificates signed by a private CA that isn't in the system's trusted certificate store. The file should contain the CA certificate in PEM format.  
+Path to a CA certificate file for LDAP server verification.  
 **Default:** `null` | **Environment:** all | **Example:** `'/etc/ssl/certs/ldap-ca.crt'`
 
 **`PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_CADIR`** *(string|null, optional)*  
-Path to a directory containing multiple CA certificates for LDAP server verification. When specified, these certificates are used in addition to the OS certificate store. The verification process checks both the OS certificate store and all CA certificates in this directory. Useful when connecting to LDAP servers that may use certificates from different CAs that aren't in the system's trusted certificate store. The directory should contain individual CA certificate files in PEM format.  
+Path to a directory containing multiple CA certificates for LDAP server verification.  
 **Default:** `null` | **Environment:** all | **Example:** `'/etc/ssl/certs/ldap-cas/'`
 
-See [LDAPS Configuration](/hosting/configure/ldap/ldaps/) for detailed setup instructions.
+### SSO Configuration
 
-### SSO
+**`PASSBOLT_SECURITY_SSO_SSL_VERIFY`** *(boolean, optional)*  
+Verify TLS (SSL) certificates for Single Sign-On (SSO) provider endpoint connections.  
+**Default:** `true` | **Environment:** all
 
-**`PASSBOLT_SECURITY_SSO_SSL_VERIFY`**  
-Verify TLS (SSL) certificates for Single Sign-On (SSO) provider endpoint connections. Ensures that communications with SSO providers (like Azure AD, Google, etc.) are secure and trusted. Disable only for trusted internal SSO providers with self-signed certificates. Default: `true`
+**`PASSBOLT_SECURITY_SSO_SSL_CAFILE`** *(string|null, optional)*  
+Path to a custom CA certificate file for SSO provider verification.  
+**Default:** `null` | **Environment:** all | **Example:** `'/etc/ssl/certs/sso-ca.crt'`
 
-See [SSO Configuration](/admin/authentication/sso/) for detailed setup instructions.
+## Security Configuration
 
-### Certificate Files
+**`SECURITY_SALT`** *(string, optional)*  
+CakePHP security salt for hashing and encryption.  
+**Default:** `'d879cf10518579c2d8ab8cbaa07b7bcd5f48f2a23b18d13de62e1b825723754a'` | **Environment:** all | **Security:** critical
 
-**`PASSBOLT_SSL_SERVER_CERT_FILE`** *(string, optional)*  
-Path to the TLS (SSL) server certificate file used by the web server (nginx/Apache). This certificate is used for HTTPS connections to the Passbolt web interface. The file should be in PEM format and readable by the web server user. Note: When using a reverse proxy like Traefik that handles TLS termination, this setting may not be needed as the proxy manages certificates.  
-**Default:** `/etc/ssl/certs/certificate.crt` | **Environment:** all | **Example:** `'/etc/ssl/certs/passbolt.crt'`
+**`PASSBOLT_SECURITY_SET_HEADERS`** *(boolean, optional)*  
+Send Content Security Policy (CSP) headers.  
+**Default:** `true` | **Environment:** all
 
-**`PASSBOLT_SSL_SERVER_KEY_FILE`** *(string, optional)*  
-Path to the TLS (SSL) server private key file used by the web server (nginx/Apache). This private key corresponds to the server certificate and should be kept secure with appropriate file permissions (typically 600). Note: When using a reverse proxy like Traefik that handles TLS termination, this setting may not be needed as the proxy manages certificates.  
-**Default:** `/etc/ssl/certs/certificate.key` | **Environment:** all | **Example:** `'/etc/ssl/certs/passbolt.key'`
+**`PASSBOLT_SECURITY_COOKIE_SECURE`** *(boolean, optional)*  
+Set MFA cookie secure flag.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_SECURITY_PROXIES_ACTIVE`** *(boolean, optional)*  
+Enable proxy support for load balancers/proxies.  
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_SECURITY_MFA_MAX_ATTEMPTS`** *(string, optional)*  
+Maximum attempts for MFA authentication.  
+**Default:** `'4'` | **Environment:** all
+
+**`PASSBOLT_SECURITY_FULLBASEURL_ENFORCE`** *(boolean, optional)*  
+Enforce full base URL configuration.  
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_SECURITY_EMPTY_FULLBASEURL_WARN`** *(boolean, optional)*  
+Warn when full base URL is empty.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_SECURITY_USER_AGENT`** *(boolean, optional)*  
+Enable storage and display of user agent information.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_SECURITY_USER_IP`** *(boolean, optional)*  
+Enable storage and display of user IP address.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_SECURITY_USERNAME_LOWER_CASE`** *(boolean, optional)*  
+Convert usernames to lowercase.  
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_SECURITY_USERNAME_CASE_SENSITIVE`** *(boolean, optional)*  
+Enable case-sensitive username matching.  
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_SECURITY_SMTP_SETTINGS_ENDPOINTS_DISABLED`** *(boolean, optional)*  
+Disable SMTP settings endpoints.  
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_SECURITY_GET_LOGOUT_ENDPOINT_ENABLED`** *(boolean, optional)*  
+Enable GET logout endpoint.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_SECURITY_PREVENT_EMAIL_ENUMERATION`** *(boolean, optional)*  
+Prevent email enumeration attacks.  
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_SECURITY_DIRECTORY_SYNC_FORBIDDEN_FIELDS_ACTIVE`** *(boolean, optional)*  
+Enable forbidden fields protection for directory sync.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_SECURITY_DIRECTORY_SYNC_ENDPOINTS_DISABLED`** *(boolean, optional)*  
+Disable directory sync endpoints.  
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_SECURITY_EMAIL_ANONYMISE_ADMINISTRATOR_IDENTITY`** *(boolean, optional)*  
+Anonymise administrator identity in emails.  
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_SECURITY_SSO_SETTINGS_EDITION_DISABLED`** *(boolean, optional)*  
+Disable SSO settings edition.  
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_SECURITY_METADATA_SETTINGS_EDITION_DISABLED`** *(boolean, optional)*  
+Disable metadata settings edition.  
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_SECURITY_MFA_DUO_VERIFY_SUBSCRIBER`** *(boolean, optional)*  
+Enable Duo MFA verify subscriber.  
+**Default:** `false` | **Environment:** all
+
+## Session Configuration
+
+**`SESSION_COOKIE`** *(string, optional)*  
+Session cookie name.  
+**Default:** `'passbolt_session'` | **Environment:** all
+
+**`SESSION_COOKIE_SAMESITE`** *(string, optional)*  
+Session cookie SameSite attribute.  
+**Default:** `'Lax'` | **Environment:** all
+
+:::note
+When using SSO with POST redirect requests and SameSite=Lax cookies, sessions may be dropped. Consider using "None" for SameSite in such cases.
+:::
+
+## Plugin Configuration
+
+### Core Plugins
+
+**`PASSBOLT_PLUGINS_EXPORT_ENABLED`** *(boolean, optional)*  
+Enable resource export functionality.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_IMPORT_ENABLED`** *(boolean, optional)*  
+Enable resource import functionality.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_MOBILE_ENABLED`** *(boolean, optional)*  
+Enable mobile app integration features.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_DESKTOP_ENABLED`** *(boolean, optional)*  
+Enable desktop app integration features.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_JWT_AUTHENTICATION_ENABLED`** *(boolean, optional)*  
+Enable JWT authentication plugin.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_RBACS_ENABLED`** *(boolean, optional)*  
+Enable Role-Based Access Control (RBAC) plugin.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_EMAIL_DIGEST_ENABLED`** *(boolean, optional)*  
+Enable email digest functionality.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_PREVIEW_PASSWORD_ENABLED`** *(boolean, optional)*  
+Enable password preview functionality.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_HEALTHCHECK_SECURITY_INDEX_ENDPOINT_ENABLED`** *(boolean, optional)*  
+Enable healthcheck security index endpoint.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_HEALTHCHECK_UI_ENABLED`** *(boolean, optional)*  
+Enable healthcheck UI.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_SMTP_SETTINGS_ENABLED`** *(boolean, optional)*  
+Enable SMTP settings plugin.  
+**Default:** `true` | **Environment:** all
+
+### Authentication Plugins
+
+**`PASSBOLT_PLUGINS_SSO_ENABLED`** *(boolean, optional)*  
+Enable Single Sign-On functionality.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_SSO_PROVIDER_AZURE_ENABLED`** *(boolean, optional)*  
+Enable Azure Active Directory SSO provider.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_SSO_PROVIDER_GOOGLE_ENABLED`** *(boolean, optional)*  
+Enable Google SSO provider.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_SSO_PROVIDER_OAUTH2_ENABLED`** *(boolean, optional)*  
+Enable OAuth2 (OIDC) SSO provider.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_SSO_PROVIDER_ADFS_ENABLED`** *(boolean, optional)*  
+Enable ADFS SSO provider.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_SSO_SECURITY_JWKS_DEFAULT_ALG`** *(string|null, optional)*  
+Default algorithm for SSO JWKS.  
+**Default:** `null` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_MFA_POLICIES_ENABLED`** *(boolean, optional)*  
+Enable Multi-Factor Authentication policy enforcement.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_ACCOUNT_RECOVERY_ENABLED`** *(boolean, optional)*  
+Enable account recovery functionality.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_SSO_RECOVER_ENABLED`** *(boolean, optional)*  
+Enable SSO recovery functionality.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_SELF_REGISTRATION_ENABLED`** *(boolean, optional)*  
+Enable self-registration functionality.  
+**Default:** `true` | **Environment:** all
+
+### Password Management
+
+**`PASSBOLT_PLUGINS_PASSWORD_EXPIRY_ENABLED`** *(boolean, optional)*  
+Enable password expiry policy enforcement.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_PASSWORD_EXPIRY_POLICIES_ENABLED`** *(boolean, optional)*  
+Enable password expiry policies.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_PASSWORD_POLICIES_ENABLED`** *(boolean, optional)*  
+Enable password policy validation checks.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_PASSWORD_POLICIES_UPDATE_ENABLED`** *(boolean, optional)*  
+Enable password policies update functionality.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_USER_PASSPHRASE_POLICIES_ENABLED`** *(boolean, optional)*  
+Enable user passphrase policies.  
+**Default:** `true` | **Environment:** all
+
+### Resource Management
+
+**`PASSBOLT_PLUGINS_RESOURCE_TYPES_ENABLED`** *(boolean, optional)*  
+Enable resource types functionality.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_TOTP_RESOURCE_TYPES_ENABLED`** *(boolean, optional)*  
+Enable TOTP resource types functionality.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_TAGS_ENABLED`** *(boolean, optional)*  
+Enable tags functionality.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_TAGS_READ_ONLY_MODE`** *(boolean, optional)*  
+Enable tags read-only mode.  
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_TAGS_BACKUP_MODE`** *(boolean, optional)*  
+Enable tags backup mode.  
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_USER_KEY_POLICIES_ENABLED`** *(boolean, optional)*  
+Enable user key policies.  
+**Default:** `true` | **Environment:** all
+
+### Directory Sync
+
+**`PASSBOLT_PLUGINS_DIRECTORY_SYNC_CASE_SENSITIVE_FILTERS`** *(boolean, optional)*  
+Enable case-sensitive LDAP filters for directory synchronization.  
+**Default:** `false` | **Environment:** all
+
+## Email Notification Configuration
+
+### Email Validation
+
+**`PASSBOLT_EMAIL_VALIDATE_MX`** *(boolean, optional)*  
+Validate email MX records.  
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_EMAIL_VALIDATE_REGEX`** *(string, optional)*  
+Custom regex for email validation.  
+**Default:** `null` | **Environment:** all
+
+**`PASSBOLT_EMAIL_PURIFY_SUBJECT`** *(boolean, optional)*  
+Purify email subjects.  
+**Default:** `false` | **Environment:** all
+
+### Email Content Controls
+
+**`PASSBOLT_EMAIL_SHOW_USERNAME`** *(boolean, optional)*  
+Include resource username in email notifications.  
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SHOW_URI`** *(boolean, optional)*  
+Include resource URI/URL in email notifications.  
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SHOW_SECRET`** *(boolean, optional)*  
+Include PGP encrypted password in email notifications.  
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SHOW_COMMENT`** *(boolean, optional)*  
+Include resource comment in email notifications.  
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SHOW_DESCRIPTION`** *(boolean, optional)*  
+Include resource description in email notifications.  
+**Default:** `false` | **Environment:** all
+
+### Email Sending Controls
+
+**`PASSBOLT_EMAIL_SEND_PASSWORD_CREATE`** *(boolean, optional)*  
+Send email when a password is created.  
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_PASSWORD_SHARE`** *(boolean, optional)*  
+Send email when a password is shared.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_PASSWORD_UPDATE`** *(boolean, optional)*  
+Send email when a password is updated.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_PASSWORD_DELETE`** *(boolean, optional)*  
+Send email when a password is deleted.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_PASSWORD_EXPIRE`** *(boolean, optional)*  
+Send email when a password expires.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_USER_CREATE`** *(boolean, optional)*  
+Send email when a new user is invited.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_USER_RECOVER`** *(boolean, optional)*  
+Send email for user recovery.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_USER_RECOVER_COMPLETE`** *(boolean, optional)*  
+Send email when user recovery is completed.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_GROUP_USER_ADD`** *(boolean, optional)*  
+Send email when a user is added to a group.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_GROUP_USER_DELETE`** *(boolean, optional)*  
+Send email when a user is removed from a group.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_GROUP_USER_UPDATE`** *(boolean, optional)*  
+Send email when a user's group membership is updated.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_COMMENT_ADD`** *(boolean, optional)*  
+Send email when a comment is added.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_GROUP_DELETE`** *(boolean, optional)*  
+Send email when a group is deleted.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_GROUP_MANAGER_UPDATE`** *(boolean, optional)*  
+Send email when group manager is updated.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_GROUP_MANAGER_REQUEST_ADD_USER`** *(boolean, optional)*  
+Send email when group manager requests to add user.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_FOLDER_CREATE`** *(boolean, optional)*  
+Send email when a folder is created.  
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_FOLDER_UPDATE`** *(boolean, optional)*  
+Send email when a folder is updated.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_FOLDER_DELETE`** *(boolean, optional)*  
+Send email when a folder is deleted.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_FOLDER_SHARE`** *(boolean, optional)*  
+Send email when a folder is shared.  
+**Default:** `true` | **Environment:** all
+
+### Account Recovery Email Controls
+
+**`PASSBOLT_EMAIL_SEND_ACCOUNT_RECOVERY_REQUEST_USER`** *(boolean, optional)*  
+Send email to user for account recovery request.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_ACCOUNT_RECOVERY_REQUEST_ADMIN`** *(boolean, optional)*  
+Send email to admin for account recovery request.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_ACCOUNT_RECOVERY_REQUEST_GUESSING`** *(boolean, optional)*  
+Send email for account recovery guessing attempts.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_ACCOUNT_RECOVERY_RESPONSE_USER_APPROVED`** *(boolean, optional)*  
+Send email to user when account recovery is approved.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_ACCOUNT_RECOVERY_RESPONSE_USER_REJECTED`** *(boolean, optional)*  
+Send email to user when account recovery is rejected.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_ACCOUNT_RECOVERY_RESPONSE_CREATED_ADMIN`** *(boolean, optional)*  
+Send email to admin when account recovery response is created.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_ACCOUNT_RECOVERY_RESPONSE_CREATED_ALL_ADMINS`** *(boolean, optional)*  
+Send email to all admins when account recovery response is created.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_ACCOUNT_RECOVERY_POLICY_UPDATE`** *(boolean, optional)*  
+Send email when account recovery policy is updated.  
+**Default:** `true` | **Environment:** all
+
+### Admin Email Controls
+
+**`PASSBOLT_EMAIL_SEND_ADMIN_USER_DISABLE_ADMIN`** *(boolean, optional)*  
+Send email to admin when user is disabled.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_ADMIN_USER_DISABLE_USER`** *(boolean, optional)*  
+Send email to user when they are disabled.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_ADMIN_USER_SETUP_COMPLETED`** *(boolean, optional)*  
+Send email when user setup is completed.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_ADMIN_USER_RECOVER_ABORT`** *(boolean, optional)*  
+Send email when user recovery is aborted.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_ADMIN_USER_RECOVER_COMPLETE`** *(boolean, optional)*  
+Send email when user recovery is completed.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_ADMIN_USER_REGISTER_COMPLETE`** *(boolean, optional)*  
+Send email when user registration is completed.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_ADMIN_USER_ADMIN_ROLE_REVOKED_ADMIN`** *(boolean, optional)*  
+Send email to admin when admin role is revoked.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_ADMIN_USER_ADMIN_ROLE_REVOKED_USER`** *(boolean, optional)*  
+Send email to user when their admin role is revoked.  
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_ADMIN_USER_ADMIN_DELETE_ADMIN`** *(boolean, optional)*  
+Send email to admin when user is deleted.  
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_EMAIL_SEND_ADMIN_USER_ADMIN_DELETE_USER`** *(boolean, optional)*  
+Send email to user when they are deleted.  
+**Default:** `false` | **Environment:** all
+
+## Metadata and Branding
+
+**`PASSBOLT_META_TITLE`** *(string, optional)*  
+Sets the `<title>` tag for the web application.  
+**Default:** `'Passbolt'` | **Environment:** all
+
+**`PASSBOLT_META_DESCRIPTION`** *(string, optional)*  
+Sets the `<meta name="description">` tag for search engine optimization.  
+**Default:** `'Open source password manager for teams'` | **Environment:** all
+
+**`PASSBOLT_META_ROBOTS`** *(string, optional)*  
+Controls search engine indexing behavior.  
+**Default:** `'noindex, nofollow'` | **Environment:** all
+
+**`PASSBOLT_LEGAL_TERMSURL`** *(string, optional)*  
+URL to the terms of service page.  
+**Default:** `'https://www.passbolt.com/terms'` | **Environment:** all
+
+**`PASSBOLT_LEGAL_PRIVACYPOLICYURL`** *(string, optional)*  
+URL to the privacy policy page.  
+**Default:** `''` | **Environment:** all
 
 ## Development and Testing Configuration
 
@@ -178,602 +773,80 @@ Path to the TLS (SSL) server private key file used by the web server (nginx/Apac
 The variables in this section are primarily used for development, testing, and internal framework configuration. They are **not typically configured by production administrators** and are included here for completeness.
 :::
 
+### Debug Configuration
+
+**`DEBUG`** *(boolean, optional)*  
+Enable debug mode for detailed logging and error reporting. **DEVELOPMENT/TESTING ONLY - Never enable in production environments.**  
+**Default:** `false` | **Environment:** development | **Security:** high impact
+
 ### Cache Configuration
 
-Passbolt uses caching to improve performance by storing frequently accessed data in memory or on disk. The cache system supports multiple backends including file-based caching (default) and external cache servers like Redis or Memcached.
-
-### Default Cache
-
 **`CACHE_DEFAULT_URL`** *(string|null, optional)*  
-Complete cache connection URL for external cache servers. Use this for Redis (redis://localhost:6379) or Memcached (memcached://localhost:11211) connections. When set, overrides individual host/port/password settings. **Typically configured for development/testing environments.**  
+Complete cache connection URL for external cache servers. **Typically configured for development/testing environments.**  
 **Default:** `null` | **Environment:** development | **Example:** `'redis://localhost:6379'`
 
 **`CACHE_DEFAULT_HOST`** *(string|null, optional)*  
-Hostname or IP address of the external cache server (Redis, Memcached, etc.). Leave as null to use file-based caching. **Typically configured for development/testing environments.**  
+Hostname or IP address of the external cache server. **Typically configured for development/testing environments.**  
 **Default:** `null` | **Environment:** development | **Example:** `'localhost'`
 
 **`CACHE_DEFAULT_PORT`** *(integer|null, optional)*  
-Port number for the external cache server connection. Common ports: Redis (6379), Memcached (11211). **Typically configured for development/testing environments.**  
+Port number for the external cache server connection. **Typically configured for development/testing environments.**  
 **Default:** `null` | **Environment:** development | **Example:** `6379`
-
-**`CACHE_DEFAULT_PASSWORD`** *(string|null, optional)*  
-Password for authenticating with the external cache server. Required for Redis servers with authentication enabled. **Typically configured for development/testing environments.**  
-**Default:** `null` | **Environment:** development
-
-**`CACHE_DEFAULT_DATABASE`** *(integer|null, optional)*  
-Database number for Redis cache server (0-15). Not applicable for Memcached. **Typically configured for development/testing environments.**  
-**Default:** `null` | **Environment:** development | **Example:** `0`
-
-### Cake Core Cache
-
-CakePHP core cache stores framework-level data like translations, routing information, and application metadata.
-
-**`CACHE_CAKECORE_CLASSNAME`**  
-Cache engine class for CakePHP core caching. Use `Cake\Cache\Engine\FileEngine` for file-based caching or `Cake\Cache\Engine\RedisEngine` for Redis. Default: `'Cake\Cache\Engine\FileEngine'`
-
-**`CACHE_CAKECORE_URL`**  
-Complete cache connection URL for CakePHP core cache. Use this for Redis or Memcached connections. When set, overrides individual host/port/password settings. Default: `null`
-
-**`CACHE_CAKECORE_HOST`**  
-Hostname or IP address of the external cache server for CakePHP core cache. Leave as null to use file-based caching. Default: `null`
-
-**`CACHE_CAKECORE_PORT`**  
-Port number for the external cache server connection for CakePHP core cache. Default: `null`
-
-**`CACHE_CAKECORE_PASSWORD`**  
-Password for authenticating with the external cache server for CakePHP core cache. Default: `null`
-
-**`CACHE_CAKECORE_DATABASE`**  
-Database number for Redis cache server for CakePHP core cache (0-15). Default: `null`
-
-**`CACHE_CAKECORE_FALLBACK`**  
-Fallback cache configuration when the primary cache fails. Usually set to 'default' to use the default cache configuration. Default: `'default'`
-
-### Cake Model Cache
-
-CakePHP model cache stores database schema information, table structures, and model metadata to improve database query performance.
-
-**`CACHE_CAKEMODEL_URL`**  
-Complete cache connection URL for CakePHP model cache. Use this for Redis or Memcached connections. When set, overrides individual host/port/password settings. Default: `null`
-
-**`CACHE_CAKEMODEL_HOST`**  
-Hostname or IP address of the external cache server for CakePHP model cache. Leave as null to use file-based caching. Default: `null`
-
-**`CACHE_CAKEMODEL_PORT`**  
-Port number for the external cache server connection for CakePHP model cache. Default: `null`
-
-**`CACHE_CAKEMODEL_PASSWORD`**  
-Password for authenticating with the external cache server for CakePHP model cache. Default: `null`
-
-**`CACHE_CAKEMODEL_DATABASE`**  
-Database number for Redis cache server for CakePHP model cache (0-15). Default: `null`
-
-**`CACHE_CAKEMODEL_FALLBACK`** *(string, optional)*  
-Fallback cache configuration when the primary model cache fails. Usually set to 'default' to use the default cache configuration. **Typically configured for development/testing environments.**  
-**Default:** `'default'` | **Environment:** development
 
 ### Test Database Configuration
 
 **`DATASOURCES_TEST_DRIVER`** *(string, optional)*  
-Database driver for test environment. Used during automated testing and development. **DEVELOPMENT/TESTING ONLY - Not used in production.**  
+Database driver for test environment. **DEVELOPMENT/TESTING ONLY - Not used in production.**  
 **Default:** `'Cake\Database\Driver\Mysql'` | **Environment:** development
 
 **`DATASOURCES_TEST_HOST`** *(string, optional)*  
-Test database server hostname. Used during automated testing and development. **DEVELOPMENT/TESTING ONLY - Not used in production.**  
+Test database server hostname. **DEVELOPMENT/TESTING ONLY - Not used in production.**  
 **Default:** `'localhost'` | **Environment:** development
 
 **`DATASOURCES_TEST_PORT`** *(integer, optional)*  
-Test database server port. Used during automated testing and development. **DEVELOPMENT/TESTING ONLY - Not used in production.**  
+Test database server port. **DEVELOPMENT/TESTING ONLY - Not used in production.**  
 **Default:** `3306` | **Environment:** development
 
 **`DATASOURCES_TEST_USERNAME`** *(string, optional)*  
-Test database username. Used during automated testing and development. **DEVELOPMENT/TESTING ONLY - Not used in production.**  
+Test database username. **DEVELOPMENT/TESTING ONLY - Not used in production.**  
 **Default:** `'my_app'` | **Environment:** development
 
 **`DATASOURCES_TEST_PASSWORD`** *(string, optional)*  
-Test database password. Used during automated testing and development. **DEVELOPMENT/TESTING ONLY - Not used in production.**  
+Test database password. **DEVELOPMENT/TESTING ONLY - Not used in production.**  
 **Default:** `'secret'` | **Environment:** development
 
 **`DATASOURCES_TEST_DATABASE`** *(string, optional)*  
-Test database name. Used during automated testing and development. **DEVELOPMENT/TESTING ONLY - Not used in production.**  
+Test database name. **DEVELOPMENT/TESTING ONLY - Not used in production.**  
 **Default:** `'my_app'` | **Environment:** development
-
-**`DATASOURCES_TEST_ENCODING`** *(string, optional)*  
-Test database character encoding. Used during automated testing and development. **DEVELOPMENT/TESTING ONLY - Not used in production.**  
-**Default:** `'utf8mb4'` | **Environment:** development
-
-**`DATASOURCES_TEST_SCHEMA`** *(string, optional)*  
-Test database schema (for PostgreSQL). Used during automated testing and development. **DEVELOPMENT/TESTING ONLY - Not used in production.**  
-**Default:** `'public'` | **Environment:** development
-
-**`DATASOURCES_TEST_SSL_KEY`** *(string, optional)*  
-Test database TLS (SSL) private key file path. Used during automated testing and development. **DEVELOPMENT/TESTING ONLY - Not used in production.**  
-**Default:** `''` | **Environment:** development
-
-**`DATASOURCES_TEST_SSL_CERT`** *(string, optional)*  
-Test database TLS (SSL) certificate file path. Used during automated testing and development. **DEVELOPMENT/TESTING ONLY - Not used in production.**  
-**Default:** `''` | **Environment:** development
-
-**`DATASOURCES_TEST_SSL_CA`** *(string, optional)*  
-Test database TLS (SSL) CA certificate file path. Used during automated testing and development. **DEVELOPMENT/TESTING ONLY - Not used in production.**  
-**Default:** `''` | **Environment:** development
-
-**`DATASOURCES_TEST_URL`** *(string|null, optional)*  
-Test database connection URL. Used during automated testing and development. **DEVELOPMENT/TESTING ONLY - Not used in production.**  
-**Default:** `null` | **Environment:** development
-
-**`DATASOURCES_TEST_LOG`** *(boolean, optional)*  
-Enable test database query logging. Used during automated testing and development. **DEVELOPMENT/TESTING ONLY - Not used in production.**  
-**Default:** `false` | **Environment:** development
-
-## Production Configuration
-
-The following sections contain environment variables that are typically configured by production administrators.
-
-## Metadata and SEO
-
-Controls HTML metadata used for SEO. This is mostly useful for self-hosted public portals or when branding is required.
-
-**`PASSBOLT_META_TITLE`**  
-Sets the `<title>` tag for the web application. Default: `'Passbolt'`
-
-**`PASSBOLT_META_DESCRIPTION`**  
-Sets the `<meta name="description">` tag for search engine optimization. Default: `'Open source password manager for teams'`
-
-**`PASSBOLT_META_ROBOTS`**  
-Controls search engine indexing behavior. Default: `'noindex, nofollow'`
-
-## Legal URLs
-
-Links to legal documents displayed in the web app.
-
-**`PASSBOLT_LEGAL_TERMSURL`**  
-URL to the terms of service page. Default: `'https://www.passbolt.com/terms'`
-
-**`PASSBOLT_LEGAL_PRIVACYPOLICYURL`**  
-URL to the privacy policy page. Default: `''`
-
-## Plugins
-
-Feature toggles for built-in and optional plugins. Most are enabled by default.
-
-### General
-
-**`PASSBOLT_PLUGINS_EXPORT_ENABLED`**  
-Enable resource export functionality. Default: `true`
-
-**`PASSBOLT_PLUGINS_IMPORT_ENABLED`**  
-Enable resource import functionality. Default: `true`
-
-**`PASSBOLT_PLUGINS_IN_FORM_INTEGRATION_ENABLED`**  
-Enable browser form autofill icon integration. Default: `true`
-
-**`PASSBOLT_PLUGINS_MOBILE_ENABLED`**  
-Enable mobile app integration features. Default: `true`
-
-**`PASSBOLT_PLUGINS_JWT_AUTHENTICATION_ENABLED`**  
-Enable JWT authentication plugin. Default: `true`
-
-**`PASSBOLT_PLUGINS_RBACS_ENABLED`**  
-Enable Role-Based Access Control (RBAC) plugin. Default: `true`
-
-**`PASSBOLT_PLUGINS_HEALTHCHECK_SECURITY_INDEX_ENDPOINT_ENABLED`**  
-Enable unauthenticated security endpoint for health checks. Default: `true`
-
-**`PASSBOLT_PLUGINS_HEALTHCHECK_UI_ENABLED`**  
-Enable API status check user interface. Default: `true`
-
-### Password Generation & Expiry
-
-**`PASSBOLT_PLUGINS_PASSWORD_GENERATOR_ENABLED`**  
-Enable password generator functionality. Default: `true`
-
-**`PASSBOLT_PLUGINS_PASSWORD_GENERATOR_DEFAULT_GENERATOR`**  
-Set the default generator type (password or passphrase). Default: `'password'`
-
-**`PASSBOLT_PLUGINS_PREVIEW_PASSWORD_ENABLED`**  
-Enable password preview during creation. Default: `true`
-
-**`PASSBOLT_PLUGINS_PASSWORD_EXPIRY_ENABLED`**  
-Enable password expiry policy enforcement. Default: `true`
-
-**`PASSBOLT_PLUGINS_PASSWORD_EXPIRY_POLICIES_ENABLED`**  
-Enable custom password expiry policies. Default: `true`
-
-**`PASSBOLT_PLUGINS_PASSWORD_POLICIES_ENABLED`**  
-Enable password policy validation checks. Default: `true`
-
-**`PASSBOLT_PLUGINS_PASSWORD_POLICIES_UPDATE_EANBLED`**  
-[Deprecated] Enable password policy update functionality. Default: `true`
-
-:::note
-Deprecated but supported for now. Will be removed in a future version.
-:::
-
-### MFA / Account Recovery
-
-**`PASSBOLT_PLUGINS_MFA_POLICIES_ENABLED`**  
-Enable Multi-Factor Authentication policy enforcement. Default: `true`
-
-**`PASSBOLT_PLUGINS_ACCOUNT_RECOVERY_ENABLED`**  
-Enable account recovery functionality. Default: `true`
-
-### Digest, Desktop, Web UI
-
-**`PASSBOLT_PLUGINS_EMAIL_DIGEST_ENABLED`**  
-Enable summary email digests for users. Default: `true`
-
-**`PASSBOLT_PLUGINS_DESKTOP_ENABLED`**  
-Enable desktop application integration features. Default: `true`
-
-### Directory Sync
-
-**`PASSBOLT_PLUGINS_DIRECTORY_SYNC_CASE_SENSITIVE_FILTERS`**  
-Enable case-sensitive LDAP filters for directory synchronization. Default: `false`
-
-### SSO Providers
-
-**`PASSBOLT_PLUGINS_SSO_ENABLED`**  
-Enable Single Sign-On functionality. Default: `true`
-
-**`PASSBOLT_PLUGINS_SSO_PROVIDER_AZURE_ENABLED`**  
-Enable Azure Active Directory SSO provider. Default: `true`
-
-**`PASSBOLT_PLUGINS_SSO_PROVIDER_GOOGLE_ENABLED`**  
-Enable Google SSO provider. Default: `true`
-
-**`PASSBOLT_PLUGINS_SSO_PROVIDER_OAUHT2_ENABLED`**  
-Enable OAuth2 (OIDC) SSO provider. Default: `true`
-
-**`PASSBOLT_PLUGINS_SSO_PROVIDER_ADFS_ENABLED`**  
-Enable ADFS SSO provider. Default: `false`
-
-**`PASSBOLT_PLUGINS_SELF_REGISTRATION_ENABLED`**  
-Enable self-registration functionality. Default: `true`
-
-## GPG Key Configuration
-
-**`PASSBOLT_GPG_SERVER_KEY_FINGERPRINT`**  
-Fingerprint of the GPG server key used for encryption. Required for CLI operations. Default: `''`
-
-**`PASSBOLT_GPG_SERVER_KEY_PUBLIC`**  
-Path to the public GPG server key file. Default: `CONFIG . 'gpg' . DS . 'serverkey.asc'`
-
-**`PASSBOLT_GPG_SERVER_KEY_PRIVATE`**  
-Path to the private GPG server key file. Default: `CONFIG . 'gpg' . DS . 'serverkey_private.asc'`
-
-:::note
-The legacy variables `PASSBOLT_GPG_SERVER_KEY_PUBLIC_FILE` and `PASSBOLT_GPG_SERVER_KEY_PRIVATE_FILE` are also supported for backward compatibility.
-:::
-
-## GPG Key Generation
-
-**`PASSBOLT_KEY_EMAIL`**  
-Email address for GPG key generation. Default: `'passbolt@yourdomain.com'`
-
-**`PASSBOLT_KEY_NAME`**  
-Name for GPG key generation. Default: `'Passbolt default user'`
-
-**`PASSBOLT_KEY_LENGTH`**  
-Key length for GPG key generation. Default: `3072`
-
-**`PASSBOLT_SUBKEY_LENGTH`**  
-Subkey length for GPG key generation. Default: `3072`
-
-**`PASSBOLT_KEY_EXPIRATION`**  
-Expiration date for GPG key generation. Default: `0` (no expiration)
-
-## System Paths
-
-**`PASSBOLT_BASE_DIR`**  
-Base directory for passbolt installation. Default: `/usr/share/php/passbolt`
-
-**`PASSBOLT_LOG_DIR`**  
-Directory for log files. Default: `/var/log/passbolt`
-
-## Email Notifications
-
-### Email Sending Controls
-
-**`PASSBOLT_EMAIL_SEND_COMMENT_ADD`**  
-Send email when a comment is posted on a password. Default: `true`
-
-**`PASSBOLT_EMAIL_SEND_PASSWORD_CREATE`**  
-Send email when a password is created. Default: `true`
-
-**`PASSBOLT_EMAIL_SEND_PASSWORD_SHARE`**  
-Send email when a password is shared. Default: `true`
-
-**`PASSBOLT_EMAIL_SEND_PASSWORD_UPDATE`**  
-Send email when a password is updated. Default: `true`
-
-**`PASSBOLT_EMAIL_SEND_PASSWORD_DELETE`**  
-Send email when a password is deleted. Default: `true`
-
-**`PASSBOLT_EMAIL_SEND_USER_CREATE`**  
-Send email when a new user is invited. Default: `true`
-
-**`PASSBOLT_EMAIL_SEND_USER_RECOVER`**  
-Send email when users try to recover their passbolt account. Default: `true`
-
-**`PASSBOLT_EMAIL_SEND_GROUP_DELETE`**  
-Send email when a group is deleted. Default: `true`
-
-**`PASSBOLT_EMAIL_SEND_GROUP_USER_ADD`**  
-Send email when a user is added to a group. Default: `true`
-
-**`PASSBOLT_EMAIL_SEND_GROUP_USER_DELETE`**  
-Send email when a user is removed from a group. Default: `true`
-
-**`PASSBOLT_EMAIL_SEND_GROUP_USER_UPDATE`**  
-Send email when user roles change in a group. Default: `true`
-
-**`PASSBOLT_EMAIL_SEND_GROUP_MANAGER_UPDATE`**  
-Send email when members of a group change. Default: `true`
-
-**`PASSBOLT_EMAIL_SEND_FOLDER_CREATED`**  
-Send email when a folder is created, notify its creator. Default: `true`
-
-**`PASSBOLT_EMAIL_SEND_FOLDER_UPDATED`**  
-Send email when a folder is updated, notify the users who have access to it. Default: `true`
-
-**`PASSBOLT_EMAIL_SEND_FOLDER_DELETED`**  
-Send email when a folder is deleted, notify the users who had access to it. Default: `true`
-
-**`PASSBOLT_EMAIL_SEND_FOLDER_SHARE_CREATED`**  
-Send email when a folder is shared, notify the users who gain access to it. Default: `true`
-
-**`PASSBOLT_EMAIL_SEND_FOLDER_SHARE_DROPPED`**  
-Send email when permissions on a folder are removed, notify the users who lost access to it. Default: `true`
-
-### Email Content Controls
-
-**`PASSBOLT_EMAIL_SHOW_USERNAME`**  
-Include resource username in email notifications. Default: `true`
-
-**`PASSBOLT_EMAIL_SHOW_URI`**  
-Include resource URI/URL in email notifications. Default: `true`
-
-**`PASSBOLT_EMAIL_SHOW_SECRET`**  
-Include PGP encrypted password in email notifications. Default: `true`
-
-**`PASSBOLT_EMAIL_SHOW_DESCRIPTION`**  
-Include resource description in email notifications. Default: `true`
-
-**`PASSBOLT_EMAIL_SHOW_COMMENT`**  
-Include comment content in email notifications. Default: `true`
-
-### Email Validation
-
-**`PASSBOLT_EMAIL_VALIDATE_MX`**  
-Validate MX records for email addresses. Default: `false`
-
-## Security
-
-**`SECURITY_SALT`**  
-CakePHP security salt for hashing and encryption. Default: `'d879cf10518579c2d8ab8cbaa07b7bcd5f48f2a23b18d13de62e1b825723754a'`
-
-**`PASSBOLT_SECURITY_DIRECTORY_SYNC_ENDPOINTS_DISABLED`**  
-Disable directory sync endpoints for security. Default: `false`
-
-**`PASSBOLT_SECURITY_SET_HEADERS`**  
-Send Content Security Policy (CSP) headers. Default: `true`
-
-**`PASSBOLT_SECURITY_CSP`**  
-Content Security Policy headers configuration. Default: `true`
-
-**`PASSBOLT_SECURITY_COOKIE_SECURE`**  
-Set MFA cookie secure flag. Default: `true`
-
-**`PASSBOLT_SECURITY_USER_AGENT`**  
-Enable storage and display of user agent information. Default: `true`
-
-**`PASSBOLT_SECURITY_USER_IP`**  
-Enable storage of user IP addresses. Default: `true`
-
-**`PASSBOLT_SECURITY_USERNAME_LOWER_CASE`**  
-Force usernames to lowercase. Default: `false`
-
-**`PASSBOLT_SECURITY_USERNAME_CASE_SENSITIVE`**  
-Enable case-sensitive username matching. Default: `false`
-
-**`PASSBOLT_SECURITY_SMTP_SETTINGS_ENDPOINTS_DISABLED`**  
-Disable SMTP settings endpoints. Default: `false`
-
-**`PASSBOLT_SECURITY_PROXIES_ACTIVE`**  
-Enable proxy support for load balancers/proxies. Default: `false`
-
-**`PASSBOLT_SECURITY_MFA_DUO_VERIFY_SUBSCRIBER`**  
-Enable subscription verification for MFA DUO. Default: `false`
-
-**`PASSBOLT_SECURITY_MFA_MAX_ATTEMPTS`**  
-Maximum attempts for MFA authentication. Default: `'4'`
-
-**`PASSBOLT_SECURITY_GET_LOGOUT_ENDPOINT_ENABLED`**  
-Enable GET /logout endpoint. Default: `true`
-
-**`PASSBOLT_SECURITY_EMAIL_ANONYMISE_ADMINISTRATOR_IDENTITY`**  
-Enable anonymisation of administrator identity. Default: `false`
-
-## Registration
-
-**`PASSBOLT_REGISTRATION_PUBLIC`**  
-Allow public user registration. Default: `false`
-
-## Database Configuration
-
-:::info Configuration Precedence
-Database settings can be configured through multiple methods. The precedence order is:
-1. **Web UI Settings** (if applicable)
-2. **Environment Variables** (DATASOURCES_DEFAULT_* variables)
-3. **PHP Configuration Files** (passbolt.php → app.php)
-4. **Default Values** (hardcoded defaults)
-
-Database credentials are typically set via environment variables for security.
-:::
-
-### Production Database
-
-**`DATASOURCES_DEFAULT_DRIVER`** *(string, optional)*  
-Database driver class for the primary database connection. Determines which database system and driver to use for database operations.  
-**Default:** `'Cake\Database\Driver\Mysql'` | **Environment:** all | **Example:** `'Cake\Database\Driver\Mysql'`, `'Cake\Database\Driver\Postgres'`
-
-**`DATASOURCES_DEFAULT_HOST`**  
-Database server hostname. Default: `'localhost'`
-
-**`DATASOURCES_DEFAULT_PORT`**  
-Database server port. Default: `3306`
-
-**`DATASOURCES_DEFAULT_USERNAME`**  
-Database username. Default: `'user'` (passbolt.default.php) or `''` (app.php)
-
-**`DATASOURCES_DEFAULT_PASSWORD`**  
-Database password. Default: `'secret'` (passbolt.default.php) or `''` (app.php)
-
-**`DATASOURCES_DEFAULT_DATABASE`**  
-Database name. Default: `'passbolt'` (passbolt.default.php) or `''` (app.php)
-
-**`DATASOURCES_DEFAULT_ENCODING`**  
-Database character encoding. Default: `'utf8mb4'`
-
-**`DATASOURCES_DEFAULT_URL`**  
-Database connection URL (alternative to individual settings). Default: `null`
-
-**`DATASOURCES_DEFAULT_SCHEMA`**  
-Database schema (for PostgreSQL). Default: `'public'`
-
-**`DATASOURCES_DEFAULT_SSL_KEY`**  
-Database TLS (SSL) private key file path. Default: `''`
-
-**`DATASOURCES_DEFAULT_SSL_CERT`**  
-Database TLS (SSL) certificate file path. Default: `''`
-
-**`DATASOURCES_DEFAULT_SSL_CA`**  
-Database TLS (SSL) CA certificate file path. Default: `''`
-
-**`DATASOURCES_DEFAULT_LOG`**  
-Enable database query logging. Default: `false`
-
-**`DATASOURCES_QUOTE_IDENTIFIER`**  
-Quote database identifiers (table/column names). Default: `true`
-
-### Test Database
-
-**`DATASOURCES_TEST_DRIVER`**  
-Test database driver. Default: `'Cake\Database\Driver\Mysql'`
-
-**`DATASOURCES_TEST_HOST`**  
-Test database server hostname. Default: `'localhost'`
-
-**`DATASOURCES_TEST_PORT`**  
-Test database server port. Default: `3306`
-
-**`DATASOURCES_TEST_USERNAME`**  
-Test database username. Default: `'my_app'`
-
-**`DATASOURCES_TEST_PASSWORD`**  
-Test database password. Default: `'secret'`
-
-**`DATASOURCES_TEST_DATABASE`**  
-Test database name. Default: `'my_app'`
-
-**`DATASOURCES_TEST_ENCODING`**  
-Test database character encoding. Default: `'utf8mb4'`
-
-**`DATASOURCES_TEST_SCHEMA`**  
-Test database schema (for PostgreSQL). Default: `'public'`
-
-**`DATASOURCES_TEST_SSL_KEY`**  
-Test database TLS (SSL) private key file path. Default: `''`
-
-**`DATASOURCES_TEST_SSL_CERT`**  
-Test database TLS (SSL) certificate file path. Default: `''`
-
-**`DATASOURCES_TEST_SSL_CA`**  
-Test database TLS (SSL) CA certificate file path. Default: `''`
-
-**`DATASOURCES_TEST_URL`**  
-Test database connection URL. Default: `null`
-
-**`DATASOURCES_TEST_LOG`**  
-Enable test database query logging. Default: `false`
-
-## Email Transport Configuration
-
-:::info Configuration Precedence
-Email transport settings can be configured through multiple methods. The precedence order is:
-1. **Web UI Settings** (SMTP settings in Admin → Email)
-2. **Environment Variables** (EMAIL_TRANSPORT_* variables)
-3. **PHP Configuration Files** (passbolt.php → app.php)
-4. **Default Values** (hardcoded defaults)
-
-Settings changed through the web interface will override environment variables.
-:::
-
-**`EMAIL_DEFAULT_TRANSPORT`** *(string, optional)*  
-Default email transport configuration. Specifies which transport configuration to use for sending emails.  
-**Default:** `'default'` | **Environment:** all
-
-**`EMAIL_DEFAULT_FROM_NAME`**  
-From name for email notifications. Default: `'Passbolt'`
-
-**`EMAIL_DEFAULT_FROM`**  
-From email address for notifications. Default: `'you@localhost.test'`
-
-**`EMAIL_TRANSPORT_DEFAULT_HOST`**  
-SMTP server hostname. Default: `'localhost'`
-
-**`EMAIL_TRANSPORT_DEFAULT_PORT`**  
-SMTP server port. Default: `25`
-
-**`EMAIL_TRANSPORT_DEFAULT_USERNAME`**  
-SMTP server username. Default: `'user'` (passbolt.default.php) or `null` (app.php)
-
-**`EMAIL_TRANSPORT_DEFAULT_PASSWORD`**  
-SMTP server password. Default: `'secret'` (passbolt.default.php) or `null` (app.php)
-
-**`EMAIL_TRANSPORT_DEFAULT_URL`** *(string|null, optional)*  
-Complete SMTP connection URL that overrides individual host/port/username/password/tls settings. Use this for simplified configuration or when your email provider provides a connection string. **When set, individual settings like `EMAIL_TRANSPORT_DEFAULT_TLS` are ignored.**  
-**Default:** `null` | **Environment:** all | **Example:** `'smtp://user:pass@host:587?tls=true'`, `'smtps://user:pass@host:465'`
 
 ## Logging Configuration
 
 ### Debug Logging
 
-**`LOG_DEBUG_URL`**  
-Debug log connection URL. Default: `null`
+**`LOG_DEBUG_URL`** *(string, optional)*  
+Debug log connection URL.  
+**Default:** `null` | **Environment:** all
 
-**`LOG_DEBUG_FORMATTER`**  
-Debug log formatter class. Default: `'Cake\Log\Formatter\DefaultFormatter'`
+**`LOG_DEBUG_FORMATTER`** *(string, optional)*  
+Debug log formatter class.  
+**Default:** `'Cake\Log\Formatter\DefaultFormatter'` | **Environment:** all
 
 ### Error Logging
 
-**`LOG_ERROR_URL`**  
-Error log connection URL. Default: `null`
+**`LOG_ERROR_URL`** *(string, optional)*  
+Error log connection URL.  
+**Default:** `null` | **Environment:** all
 
-**`LOG_ERROR_FORMATTER`**  
-Error log formatter class. Default: `'Cake\Log\Formatter\DefaultFormatter'`
+**`LOG_ERROR_FORMATTER`** *(string, optional)*  
+Error log formatter class.  
+**Default:** `'Cake\Log\Formatter\DefaultFormatter'` | **Environment:** all
 
 ### Query Logging
 
-**`LOG_QUERIES_URL`**  
-Query log connection URL. Default: `null`
+**`LOG_QUERIES_URL`** *(string, optional)*  
+Query log connection URL.  
+**Default:** `null` | **Environment:** all
 
-**`LOG_QUERIES_FORMATTER`**  
-Query log formatter class. Default: `'Cake\Log\Formatter\DefaultFormatter'`
-
-## Session Configuration
-
-**`SESSION_COOKIE`**  
-Session cookie name. Default: `'passbolt_session'`
-
-**`SESSION_DEFAULTS`**  
-Session engine configuration. Default: `'php'`
-
-**`SESSION_COOKIE_SAMESITE`**  
-Session cookie SameSite attribute. Default: `'Lax'`
-
-:::note
-When using SSO with POST redirect requests and SameSite=Lax cookies, sessions may be dropped. Consider using "None" for SameSite in such cases.
-:::
-
+**`LOG_QUERIES_FORMATTER`** *(string, optional)*  
+Query log formatter class.  
+**Default:** `'Cake\Log\Formatter\DefaultFormatter'` | **Environment:** all 

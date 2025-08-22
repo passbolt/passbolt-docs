@@ -38,7 +38,7 @@ Settings configured through the Passbolt web interface override all other config
 **Why This Priority:** Web UI settings allow administrators to configure Passbolt without server access and provide immediate feedback on configuration validity.
 
 ### 2. Environment Variables (High Priority)
-System environment variables override PHP configuration files but are overridden by web UI settings. These are ideal for infrastructure configuration and automation.
+System environment variables override PHP configuration files but are overridden by web UI settings. These are used for infrastructure configuration and automation.
 
 **What's Configured Here:**
 - **Infrastructure Settings**: Database connections, server URLs, file paths
@@ -46,7 +46,7 @@ System environment variables override PHP configuration files but are overridden
 - **Deployment Configuration**: Docker/Helm variables, platform-specific settings
 - **Technical Details**: Ports, authentication credentials, certificate paths
 
-**Why This Priority:** Environment variables allow configuration without file changes, making them perfect for containerized deployments and infrastructure-as-code.
+
 
 ### 3. PHP Configuration Files (Medium Priority)
 Configuration files are loaded in a specific order, with later files overriding earlier ones. These provide persistent configuration that survives application restarts.
@@ -61,7 +61,7 @@ Configuration files are loaded in a specific order, with later files overriding 
 **Only edit `/etc/passbolt/passbolt.php` for custom configuration.** Do not edit `app.php` or `default.php` as they will be overwritten during updates. Configuration files are located in `/etc/passbolt/` for all production installations.
 :::
 
-**Why This Priority:** Configuration files provide persistent, version-controlled settings that are ideal for traditional server deployments.
+
 
 ### 4. Default Values (Lowest Priority)
 Hardcoded defaults in the application code and framework defaults. These provide sensible defaults for new installations.
@@ -71,11 +71,15 @@ Hardcoded defaults in the application code and framework defaults. These provide
 - **Framework Defaults**: Database drivers, email transport, logging configuration
 - **Fallback Values**: Settings used when no other configuration is provided
 
-**Why This Priority:** Defaults ensure Passbolt works out-of-the-box while allowing complete customization through higher-priority methods.
+
 
 
 
 ## Database Configuration
+
+:::info Database Setup
+For detailed database configuration, see [Database setup guides](/hosting/configure/database/configure-database/) and [PostgreSQL configuration](/hosting/configure/database/configure-database/postgres) for PostgreSQL-specific settings.
+:::
 
 ### Production Database
 
@@ -134,6 +138,10 @@ Enable database query logging for debugging. Logs all SQL queries to the applica
 **Default:** `false` | **Environment:** all
 
 ## Email Configuration
+
+:::info Email Setup
+For email configuration, see [Email server setup](/admin/emails/email-server/) for SMTP configuration and [Email notifications](/admin/emails/email-notifications) for notification settings.
+:::
 
 ### SMTP Configuration
 
@@ -196,6 +204,10 @@ Path to a custom CA certificate file for SMTP server verification.
 **Default:** `null` | **Environment:** all | **Example:** `'/etc/ssl/certs/custom-ca.crt'`
 
 ## GPG Server Key Configuration
+
+:::info GPG Setup
+For GPG key management, see [GPG key rotation](/hosting/faq/how-to-rotate-server-gpg-keys/) for key setup and management instructions. GPG keys can be imported, generated via web GUI, or configured through environment variables depending on your deployment method.
+:::
 
 **`PASSBOLT_GPG_SERVER_KEY_FINGERPRINT`** *(string, optional)*  
 Fingerprint of the GPG server key used for encryption and decryption operations. Required for CLI operations and server authentication.  
@@ -328,7 +340,7 @@ Expiry time for SSO state tokens.
 ## Outbound TLS Verification
 
 :::info TLS Documentation
-For comprehensive TLS setup guidance, see [TLS Certificates](/hosting/configure/tls/). This section covers environment variables for outbound TLS verification.
+For TLS setup guidance, see [TLS Certificates](/hosting/configure/tls/). This section covers environment variables for outbound TLS verification.
 :::
 
 ### LDAPS Configuration
@@ -364,11 +376,13 @@ Path to a custom CA certificate file for SSO provider verification. Required for
 ## Security Configuration
 
 :::info Critical Security Variables
-The following variables are critical for production security and should be properly configured in all deployments.
+The following variables are critical for production security and should be configured in all deployments.
+
+**Related:** [Security policies](/admin/authentication/) | [User management](/admin/user-provisioning/) | [API status monitoring](/admin/server-maintenance/passbolt-api-status)
 :::
 
 **`PASSBOLT_SSL_FORCE`** *(boolean, optional)*  
-Force SSL/HTTPS only. When enabled, all HTTP requests are redirected to HTTPS, ensuring all communication is encrypted. Critical for production security.  
+Force SSL/HTTPS only. When enabled, all HTTP requests are redirected to HTTPS, ensuring all communication is encrypted. Required for production security.  
 **Default:** `false` | **Environment:** all
 
 **`SECURITY_SALT`** *(string, optional)*  
@@ -380,11 +394,11 @@ Verify TLS (SSL) certificates for Single Sign-On (SSO) provider endpoint connect
 **Default:** `true` | **Environment:** all
 
 **`PASSBOLT_PLUGINS_SMTP_SETTINGS_SECURITY_SSL_VERIFY_PEER`** *(boolean, optional)*  
-Verify SMTP server TLS (SSL) certificates during email transmission. Critical for secure email delivery.  
+Verify SMTP server TLS (SSL) certificates during email transmission. Required for secure email delivery.  
 **Default:** `true` | **Environment:** all
 
 **`PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_VERIFY_PEER`** *(boolean, optional)*  
-Verify the LDAP server's TLS (SSL) certificate during directory synchronization. Critical for secure LDAPS connections.  
+Verify the LDAP server's TLS (SSL) certificate during directory synchronization. Required for secure LDAPS connections.  
 **Default:** `true` | **Environment:** all
 
 **`PASSBOLT_SECURITY_SET_HEADERS`** *(boolean, optional)*  
@@ -465,6 +479,10 @@ Enable Duo MFA verify subscriber.
 
 ## Session Configuration
 
+:::info Session Management
+For session configuration, see [SSO configuration](/admin/authentication/sso/) for SSO session handling and [Authentication settings](/admin/authentication/) for session management.
+:::
+
 **`SESSION_COOKIE`** *(string, optional)*  
 Session cookie name.  
 **Default:** `'passbolt_session'` | **Environment:** all
@@ -478,6 +496,10 @@ When using SSO with POST redirect requests and SameSite=Lax cookies, sessions ma
 :::
 
 ## Multi-Factor Authentication Configuration
+
+:::info MFA Setup
+For MFA configuration, see [MFA setup](/admin/authentication/mfa/) for provider configuration, [MFA policies](/admin/authentication/mfa-policy) for policy management, [Duo configuration](/admin/authentication/mfa/duo) for Duo-specific setup, and [YubiKey configuration](/admin/authentication/mfa/yubikey) for YubiKey setup.
+:::
 
 ### MFA Provider Settings
 
@@ -545,6 +567,10 @@ These variables are deprecated but still supported for backward compatibility wi
 
 ## SSO Configuration
 
+:::info SSO Setup
+For SSO configuration, see [SSO setup](/admin/authentication/sso/) for provider configuration, [Microsoft SSO](/admin/authentication/sso/microsoft) for Microsoft Azure AD setup, and [Google SSO](/admin/authentication/sso/google) for Google Workspace setup.
+:::
+
 ### SSO Provider Settings
 
 **`PASSBOLT_PLUGINS_SSO_PROVIDER_AZURE_ENABLED`** *(boolean, optional)*  
@@ -590,6 +616,10 @@ Default algorithm for SSO JWKS (JSON Web Key Set). Specifies the default signing
 **Default:** `null` | **Environment:** all | **Example:** `'RS256'`, `'ES256'`
 
 ## Plugin Feature Toggles
+
+:::info Plugin Configuration
+For plugin management, see [Role-based access control](/admin/role-based-access-control) for RBAC settings, [Password policies](/admin/password-configuration/password-policy) for password management, and [User provisioning](/admin/user-provisioning/) for user management features.
+:::
 
 ### Core Plugins
 
@@ -662,7 +692,7 @@ Enable self-registration functionality. Allows new users to register themselves 
 ### Password Management
 
 **`PASSBOLT_PLUGINS_PASSWORD_EXPIRY_ENABLED`** *(boolean, optional)*  
-Enable password expiry policy enforcement. Forces users to change their passwords after a specified period.  
+Enable password expiry policy enforcement. Forces users to change their passwords after a specified period. See [Password expiry configuration](/admin/password-configuration/password-expiry) for detailed setup.  
 **Default:** `true` | **Environment:** all
 
 **`PASSBOLT_PLUGINS_PASSWORD_EXPIRY_POLICIES_ENABLED`** *(boolean, optional)*  
@@ -670,7 +700,7 @@ Enable password expiry policies. Allows administrators to configure password exp
 **Default:** `true` | **Environment:** all
 
 **`PASSBOLT_PLUGINS_PASSWORD_POLICIES_ENABLED`** *(boolean, optional)*  
-Enable password policy validation checks. Enforces password complexity requirements and validation rules.  
+Enable password policy validation checks. Enforces password complexity requirements and validation rules. See [Password policy configuration](/admin/password-configuration/password-policy) for detailed setup.  
 **Default:** `true` | **Environment:** all
 
 **`PASSBOLT_PLUGINS_PASSWORD_POLICIES_UPDATE_ENABLED`** *(boolean, optional)*  
@@ -678,7 +708,7 @@ Enable password policies update functionality. Allows administrators to modify p
 **Default:** `true` | **Environment:** all
 
 **`PASSBOLT_PLUGINS_USER_PASSPHRASE_POLICIES_ENABLED`** *(boolean, optional)*  
-Enable user passphrase policies. Controls the complexity requirements for user GPG passphrases.  
+Enable user passphrase policies. Controls the complexity requirements for user GPG passphrases. See [User passphrase policies](/admin/authentication/user-passphrase-policies) for detailed setup.  
 **Default:** `true` | **Environment:** all
 
 ### Resource Management
@@ -710,7 +740,7 @@ Enable user key policies.
 ### Directory Sync
 
 **`PASSBOLT_PLUGINS_DIRECTORY_SYNC_CASE_SENSITIVE_FILTERS`** *(boolean, optional)*  
-Enable case-sensitive LDAP filters for directory synchronization. When enabled, LDAP search filters are case-sensitive, which may be required for some directory servers.  
+Enable case-sensitive LDAP filters for directory synchronization. When enabled, LDAP search filters are case-sensitive, which may be required for some directory servers. See [Directory Sync configuration](/admin/user-provisioning/users-directory/) for detailed setup.  
 **Default:** `false` | **Environment:** all
 
 ### Metadata Plugin
@@ -754,6 +784,10 @@ Legacy default password generator type.
 **Default:** `null` | **Environment:** all | **Example:** `'passphrase'`, `'password'`
 
 ## Email Notification Settings
+
+:::info Email Notifications
+For notification management, see [Email configuration](/admin/emails/email-notifications) for notification management and [Email server setup](/admin/emails/email-server/) for SMTP configuration.
+:::
 
 ### Email Validation
 
@@ -947,6 +981,10 @@ Send email to user when they are deleted.
 
 ## Audit Logging Configuration
 
+:::info Log Management
+For log analysis and monitoring, see [Log management](/hosting/troubleshooting/logs) for log analysis and [Audit log monitoring](/admin/server-maintenance/) for audit review.
+:::
+
 ### File-based Audit Logging
 
 **`LOG_ACTION_LOGS_ON_FILE_ENABLED`** *(boolean, optional)*  
@@ -1097,6 +1135,8 @@ OAuth2 OpenID configuration path for testing.
 The variables in this section are primarily used for development, testing, and internal framework configuration. They are **not typically configured by production administrators** and are included here for completeness.
 
 **Production Note:** These variables should not be used in production environments as they can expose sensitive information and reduce security.
+
+**Related:** [Development setup](/development/getting-started) | [Testing guidelines](/development/)
 :::
 
 ### Debug Configuration
@@ -1175,4 +1215,32 @@ Query log connection URL.
 
 **`LOG_QUERIES_FORMATTER`** *(string, optional)*  
 Query log formatter class.  
-**Default:** `'Cake\Log\Formatter\DefaultFormatter'` | **Environment:** all 
+**Default:** `'Cake\Log\Formatter\DefaultFormatter'` | **Environment:** all
+
+## Related Documentation
+
+### Setup and Installation
+- [Installation Guides](/hosting/install/) - Platform-specific setup instructions
+- [Database Configuration](/hosting/configure/database/configure-database/) - Database setup and configuration
+- [TLS Certificates](/hosting/configure/tls/) - HTTPS and certificate configuration
+- [Docker Deployment](/hosting/install/ce/docker) - Containerized deployment
+- [Helm Deployment](/hosting/install/) - Kubernetes deployment
+
+### Administration
+- [User Management](/admin/user-provisioning/) - User provisioning and management
+- [Authentication Settings](/admin/authentication/) - Authentication and security policies
+- [MFA Configuration](/admin/authentication/mfa/) - Multi-factor authentication setup
+- [SSO Configuration](/admin/authentication/sso/) - Single sign-on setup
+- [Email Configuration](/admin/emails/) - Email server and notification settings
+- [Password Policies](/admin/password-configuration/) - Password and passphrase policies
+- [Role-based Access Control](/admin/role-based-access-control) - RBAC configuration
+
+### Maintenance and Troubleshooting
+- [API Status Monitoring](/admin/server-maintenance/passbolt-api-status) - Health checks and monitoring
+- [Log Management](/hosting/troubleshooting/logs) - Log analysis and troubleshooting
+- [Troubleshooting Guides](/hosting/troubleshooting/) - Common issues and solutions
+- [Backup and Recovery](/hosting/backup/) - Backup procedures and data recovery
+
+### Development
+- [Development Setup](/development/getting-started) - Development environment configuration
+- [Testing Guidelines](/development/) - Testing procedures and best practices 

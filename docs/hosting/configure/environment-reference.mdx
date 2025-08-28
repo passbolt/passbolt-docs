@@ -71,6 +71,76 @@ Hardcoded defaults in the application code and framework defaults. These provide
 - **Framework Defaults**: Database drivers, email transport, logging configuration
 - **Fallback Values**: Settings used when no other configuration is provided
 
+## Configuration Methods: passbolt.php vs Environment Variables
+
+Environment variables and `passbolt.php` configuration files serve the same purpose but with different syntax and nesting structure.
+
+### Environment Variable Naming
+
+:::info ENV
+- Each level separated by underscore
+- All uppercase
+- `passbolt` section becomes `PASSBOLT_` prefix
+- `passbolt.plugins` becomes `PASSBOLT_PLUGINS_`
+- `passbolt.security.sso.ssl.verify` becomes `PASSBOLT_SECURITY_SSO_SSL_VERIFY`
+:::
+
+Environment variables use uppercase with underscores and follow the nested structure of the configuration:
+
+```bash
+# Database configuration
+DATASOURCES_DEFAULT_HOST=db.example.com
+DATASOURCES_DEFAULT_USERNAME=passbolt_user
+DATASOURCES_DEFAULT_PASSWORD=secure_password
+
+# Email configuration  
+EMAIL_TRANSPORT_DEFAULT_HOST=smtp.example.com
+EMAIL_TRANSPORT_DEFAULT_PORT=587
+EMAIL_DEFAULT_FROM=noreply@example.com
+
+# Plugin settings
+PASSBOLT_PLUGINS_SSO_ENABLED=true
+PASSBOLT_PLUGINS_SELF_REGISTRATION_ENABLED=false
+```
+
+### passbolt.php Configuration
+
+The **same settings** when applied in `passbolt.php` use PHP array syntax with nested keys:
+
+```php
+return [
+    'Datasources' => [
+        'default' => [
+            'host' => 'db.example.com',
+            'username' => 'passbolt_user', 
+            'password' => 'secure_password',
+        ],
+    ],
+    'EmailTransport' => [
+        'default' => [
+            'host' => 'smtp.example.com',
+            'port' => 587,
+        ],
+    ],
+    'Email' => [
+        'default' => [
+            'from' => [
+                'noreply@example.com' => 'Passbolt'
+            ],
+        ],
+    ],
+    'passbolt' => [
+        'plugins' => [
+            'sso' => [
+                'enabled' => true,
+            ],
+            'selfRegistration' => [
+                'enabled' => false,
+            ],
+        ],
+    ],
+];
+```
 
 
 

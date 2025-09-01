@@ -15,7 +15,7 @@ If you are changing your domain from **HTTP to HTTPS**, you will unlink the brow
 :::
 
 :::caution Important requirement
-This tutorial assumes your machine has a valid domain name assigned in order to work with let's encrypt. If you want to use user provided certificates or self-signed certificates skip to the next section
+This tutorial assumes your machine has a valid domain name assigned in order to work with Let's Encrypt. If you want to use user provided certificates or self-signed certificates skip to the next section
 :::
 
 :::note Note
@@ -24,7 +24,7 @@ The configuration does not support serving passbolt on a subdirectory fashion. F
 
 ## Edit nginx configuration file
 
-By default, our nginx configuration file ensure all domain names will match with our passbolt virtual appliance but to obtain a valid Let's Encrypt SSL certificate, you will have to manually set your passbolt domain name.
+By default, our nginx configuration file ensure all domain names will match with our passbolt virtual appliance but to obtain a valid Let's Encrypt TLS (SSL) certificate, you will have to manually set your passbolt domain name.
 
 Open `/etc/nginx/sites-enabled/nginx-passbolt.conf` and search for this line:
 

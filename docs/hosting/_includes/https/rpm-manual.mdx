@@ -13,7 +13,7 @@ passbolt RPM packages currently support the configuration of nginx. It comes wit
 
 In this context ‘manually’ means that you will provide the TLS (SSL) certificates, this is the main difference with the ‘auto’ method where [Let’s Encrypt](https://letsencrypt.org/) will issue the TLS (SSL) certificates for you.
 
-This manual method is typically used in private network installations with a private CA, where the system administrator issues a new private TLS (SSL) certificates and uploads it to the Passbolt server. It's also commonly used with self-signed TLS (SSL) certificates for test environments.
+This manual method is typically used in private network installations with a private CA, where the system administrator issues a new private TLS (SSL) certificate and uploads it to the Passbolt server. It's also commonly used with self-signed TLS (SSL) certificates for test environments.
 
 In this example, we will assume the user is generating a self-signed certificate on the passbolt server.
 
@@ -46,7 +46,7 @@ If you are reconfiguring passbolt you most likely want to say **‘NO’** to th
 
 The passbolt {props.productName} RPM package includes a configuration helper tool to set up MariaDB, Nginx, and TLS (SSL) settings.
 
-You must prepare your TLS (SSL) certificates before launching the tool. Be sure to write down the full path to your certificate and key, as they will be needed in the nginx configuration process.
+You must prepare your TLS (SSL) certificate and its corresponding private key before launching the tool. Be sure to write down the full path to your certificate and key, as they will be needed in the nginx configuration process.
 
 Please note that for security reasons, we highly recommend setting up TLS (SSL) to serve passbolt.
 

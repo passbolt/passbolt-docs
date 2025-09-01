@@ -95,7 +95,7 @@ The logs are also available in a text area if you unfolds the logs section.
 
 With the v4.7 release, we have introduced support for SMTP servers using self-signed certificates.
 
-You can set SSL/TLS options in your `passbolt.php` or environment variables to specify your custom root CA certificate or skip verification (not recommended).
+You can set TLS (SSL) options in your `passbolt.php` or environment variables to specify your custom root CA certificate or skip verification (not recommended).
 
 ### Allow self-signed certificate verification
 
@@ -137,9 +137,9 @@ export PASSBOLT_PLUGINS_SMTP_SETTINGS_SECURITY_SSL_ALLOW_SELF_SIGNED=true
 export PASSBOLT_PLUGINS_SMTP_SETTINGS_SECURITY_SSL_CAFILE="/path/to/ca.crt"
 ```
 
-### Skip TLS/SSL verification
+### Skip TLS (SSL) verification
 
-The approach of skipping TLS/SSL verification is *not recommended* but can be useful if you want to test if you are able to connect to your SMTP server.
+The approach of skipping TLS (SSL) verification is *not recommended* but can be useful if you want to test if you are able to connect to your SMTP server.
 
 ```php
 // config/passbolt.php
@@ -205,9 +205,9 @@ With the actual values for your provider.
 Usually email providers that support TLS use port 587 however you should check with your provider specific
 requirements.
 
-### SSL email providers
+### TLS (SSL) email providers
 
-Some providers support SSL encryption and the setup is slightly different from the TLS case. Just change
+Some providers support TLS (SSL) encryption and the setup is slightly different from the TLS case. Just change
 your *`config/passbolt.php`* file to look like this:
 
 ```bash

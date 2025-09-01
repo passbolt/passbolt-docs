@@ -16,9 +16,9 @@ On this context ‘manually’ means that the user will provide the SSL certific
 This manual method is often useful on private network installations with private CA where the system admin issues a new private SSL certificate and uploads it to the passbolt server. It is also a method often used with self-signed SSL certificates for test installations.
 
 On this example we will assume the user is generating a self-signed certificate on the passbolt server.
-## Generate the SSL certificate
+## Generate the TLS (SSL) certificate
 
-While connected to your passbolt instance you can generate a SSL certificate in the following way:
+While connected to your passbolt instance you can generate a TLS (SSL) certificate in the following way:
 <CodeBlock>
 {`openssl req -x509 \\
     -newkey rsa:4096 \\
@@ -42,7 +42,7 @@ You can use an IP address instead of a domain name for your self-signed certific
 
 If you don’t have passbolt installed please check on the hosting section for more information on how to install passbolt on debian.
 
-If you have already installed passbolt then you want to execute the following command to start the configuration process for SSL:
+If you have already installed passbolt then you want to execute the following command to start the configuration process for TLS (SSL):
 
 <CodeBlock>
     {`sudo dpkg-reconfigure passbolt-${props.productName.toLowerCase()}-server`}
@@ -71,7 +71,7 @@ You should select 'YES' for the nginx setup:
 </>
 
 
-Choose ‘manual’ for the SSL setup method:
+Choose ‘manual’ for the TLS (SSL) setup method:
 <>
 {props.productName == 'PRO' && (
   <Figure
@@ -92,7 +92,7 @@ Choose ‘manual’ for the SSL setup method:
 </>
 
 
-Provide the domain name you plan to use for your passbolt server. On this example and as we are using a self-signed certificate the domain name is not as important as if you are planning to use a proper SSL certificate. In the later escenario DNS domain name and SSL domain name must match.
+Provide the domain name you plan to use for your passbolt server. On this example and as we are using a self-signed certificate the domain name is not as important as if you are planning to use a proper TLS (SSL) certificate. In the later escenario DNS domain name and TLS (SSL) domain name must match.
 <>
 {props.productName == 'PRO' && (
   <Figure
@@ -113,7 +113,7 @@ Provide the domain name you plan to use for your passbolt server. On this exampl
 </>
 
 
-Provide the full path of the SSL certificate you created on previous steps: `cert.pem`
+Provide the full path of the TLS (SSL) certificate you created on previous steps: `cert.pem`
 <>
 {props.productName == 'PRO' && (
   <Figure
@@ -134,7 +134,7 @@ Provide the full path of the SSL certificate you created on previous steps: `cer
 </>
 
 
-Now provide the full path of the SSL key: `key.pem`
+Now provide the full path of the TLS (SSL) key: `key.pem`
 
 <CertificateWarning />
 

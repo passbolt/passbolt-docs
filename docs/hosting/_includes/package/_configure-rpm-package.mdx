@@ -2,11 +2,11 @@ import CodeBlock from "/src/components/CodeBlock/CodeBlock";
 
 ## MariaDB / Nginx / SSL settings
 
-Passbolt {props.productName} RPM package on {props.distributionLabel} {props.distributionVersion} come with a configuration helper tool to prepare MariaDB, Nginx and SSL settings.
+Passbolt {props.productName} RPM package on {props.distributionLabel} {props.distributionVersion} come with a configuration helper tool to prepare MariaDB, Nginx and TLS (SSL) settings.
 
-You must prepare beforehand your SSL certificates before launching the tool. Be sure to write down the full path to your cert/key combo, as it will be needed in the nginx configuration process.
+You must prepare beforehand your TLS (SSL) certificates before launching the tool. Be sure to write down the full path to your certificate and its corresponding private key, as it will be needed in the nginx configuration process.
 
-Please, notice that for security matters we highly recommend to setup SSL to serve passbolt.
+Please, notice that for security matters we highly recommend to setup TLS (SSL) to serve passbolt.
 
 Launch `passbolt-configure` tool and answer to the questions:
 

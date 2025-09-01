@@ -14,7 +14,7 @@ import Chips from "/src/components/Chips/Chips";
 
 ## Introduction
 
-To use **LDAPS**, your LDAP server must present a valid SSL certificate to the client — in this case, the **Passbolt server**. The certificate must also be **trusted by Passbolt**.
+To use **LDAPS**, your LDAP server must present a valid TLS certificate to the client — in this case, the **Passbolt server**. The certificate must also be **trusted by Passbolt**.
 
 There are two common certificate setups:
 
@@ -22,7 +22,7 @@ There are two common certificate setups:
 
 ### Public Certificate Authority (CA)
 
-If your LDAP server uses an SSL certificate from a public CA (e.g., [Let's Encrypt](https://letsencrypt.org/)), the certificate is usually trusted by Passbolt automatically.
+If your LDAP server uses a TLS certificate from a public CA (e.g., [Let's Encrypt](https://letsencrypt.org/)), the certificate is usually trusted by Passbolt automatically.
 
 > ✅ No extra configuration is typically required.
 
@@ -32,7 +32,7 @@ If your LDAP server uses an SSL certificate from a public CA (e.g., [Let's Encry
 
 In many on-premises environments, LDAP runs on a private network with self-signed or privately issued certificates.
 
-If your LDAP server does not present a **chained certificate** (i.e., missing CA), you must manually upload the **CA certificate** to the Passbolt server.
+If your LDAP server does not present a **certificate chain** (i.e., missing CA), you must manually upload the **CA certificate** to the Passbolt server.
 
 > 💡 Passbolt provides an official [certificate bundler tool](https://github.com/passbolt/passbolt-ldap-certificate-bundler) to simplify retrieving and formatting certificates from LDAPS servers.
 
@@ -85,13 +85,14 @@ ldap_sasl_bind(SIMPLE): Can't contact LDAP server (-1)
 
 ---
 
-### Step 3: Download a Chained Certificate
+### Step 3: Download a Certificate Chain
 
 Use our official utility to retrieve and bundle LDAPS certificates:  
 🔗 [passbolt/passbolt-ldap-certificate-bundler](https://github.com/passbolt/passbolt-ldap-certificate-bundler)
 
 #### Quick Setup:
-
+Ensure you have any version of **Python 3** installed in your environment. The **activate** step is to avoid polluting your python environment with unecessary pacakges.
+Python _virtual environment_ (`venv`) folders keep dependencies separate from the system Python and other projects, so you don’t get version conflicts, and can delete the `venv` folder when you're finished with it.
 ```bash
 # Clone the repository
 git clone https://github.com/passbolt/passbolt-ldap-certificate-bundler.git
@@ -104,7 +105,7 @@ chmod +x setup_python_env.sh
 # Activate the virtual environment
 source venv/bin/activate
 
-# Run the tool to get the certificate bundle
+# Run the tool to get the certificate chain
 python3 ldaps_cert_chain_retriever.py --server your.ldaps.server > /etc/ssl/certs/ldaps_bundle.crt
 
 # Set proper permissions

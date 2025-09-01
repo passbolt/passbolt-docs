@@ -64,8 +64,8 @@ Parameter and type reference table:
 | passbolt/nginx-configuration-three-choices | select   | SSL configuration: When certbot package is installed, you can choose between auto, manual and none    |
 | passbolt/nginx-configuration-two-choices   | select   | SSL configuration: When certbot package is not installed, you can choose only between manual and none |
 | passbolt/nginx-domain                      | string   | Passbolt domain name (FQDN)                                                                           |
-| passbolt/nginx-certificate-file            | string   | Absolute path to SSL certificate path (applies only if nginx-configuration-*-choices is manual)       |
-| passbolt/nginx-certificate-key-file        | string   | Absolute path to SSL key path (applies only if nginx-configuration-*-choices is manual)               |
+| passbolt/nginx-certificate-file            | string   | Absolute path to TLS (SSL) certificate path (applies only if nginx-configuration-*-choices is manual)       |
+| passbolt/nginx-certificate-key-file        | string   | Absolute path to TLS (SSL) key path (applies only if nginx-configuration-*-choices is manual)               |
 
 
 Once done, run this non-interactive install command:

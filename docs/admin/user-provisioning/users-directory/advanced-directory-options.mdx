@@ -152,7 +152,7 @@ The sync report categorizes issues as **Errors** (actions failed) or **Ignored**
 ---
 ## LDAPS and Certificate Issues
 
-When using **LDAPS** (LDAP over SSL/TLS) for secure directory sync, one of the most common issues is certificate trust. The Passbolt server must trust the LDAP server's SSL certificate. If the certificate is self-signed or issued by a private CA, the connection may fail with errors like:
+When using **LDAPS** (LDAP over TLS (SSL)) for secure directory sync, one of the most common issues is certificate trust. The Passbolt server must trust the LDAP server's TLS certificate. If the certificate is self-signed or issued by a private CA, the connection may fail with errors like:
 
 ```bash
 "Can't contact LDAP server"  
@@ -181,13 +181,13 @@ See: [Configure LDAP SSL (LDAPS)](/docs/hosting/configure/ldap/ldaps)
 
 ### Managing LDAPS Certificates
 
-To ensure secure directory synchronization, Passbolt must trust the LDAP server's SSL certificate. If the certificate isn't signed by a trusted public CA, you'll need to configure Passbolt to trust it using our certificate bundler tool.
+To ensure secure directory synchronization, Passbolt must trust the LDAP server's TLS certificate. If the certificate isn't signed by a trusted public CA, you'll need to configure Passbolt to trust it using our certificate bundler tool.
 
 🔗 [Get the LDAPS Certificate Bundler Tool](https://github.com/passbolt/passbolt-ldap-certificate-bundler)
 
-This Python tool automatically retrieves and validates the complete certificate chain from your LDAP server, bundling it into a single file for Passbolt to use. The certificates are ordered in the bundle from server certificate to root CA, ensuring the complete chain of trust is maintained. This is particularly important for self-signed certificates or those issued by private CAs.
+This Python tool automatically retrieves and validates the complete certificate chain from your LDAP server, bundling it into a single file for Passbolt to use. The certificates are ordered in the chain from server certificate to root CA, ensuring the complete chain of trust is maintained. This is particularly important for self-signed certificates or those issued by private CAs.
 
-For detailed setup instructions, please refer to the [LDAPS page](/docs/hosting/configure/ldap/ldaps/#step-3-download-a-chained-certificate).
+For detailed setup instructions, please refer to the [LDAPS page](/docs/hosting/configure/ldap/ldaps/#step-3-download-a-certificate-chain).
 
 
 

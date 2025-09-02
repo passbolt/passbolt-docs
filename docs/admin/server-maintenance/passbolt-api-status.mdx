@@ -169,8 +169,8 @@ If the server is not able to ping the domain, this might the cause of the issues
   {`127.0.0.1      YOUR_DOMAIN`}
 </CodeBlock>
 
-### SSL Certificate
-These checks verify that the SSL certificate is valid and correctly configured to secure communications.
+### TLS Certificate
+These checks verify that the TLS certificate is valid and correctly configured to secure communications.
 
 #### Peer certificate
 This check helps to ensure that the certificate is still valid, if this check is failing there is three potential reasons:
@@ -409,15 +409,15 @@ It helps to identify which version are running and if it is the latest version. 
 
 If the server is not up-to-date, unless you have an internal good reason, please consider [updating](/docs/hosting/update) to the latest version.
 
-#### Force SSL
-We recommend using SSL with Passbolt, this checks verify if passbolt has been configured to force SSL. If you have this error, you will need to set `passbolt.ssl.force` to true in */etc/passbolt/passbolt.php*
+#### Force TLS (SSL)
+We recommend using TLS (SSL) with Passbolt, this checks verify if passbolt has been configured to force TLS (SSL). If you have this error, you will need to set `passbolt.ssl.force` to true in */etc/passbolt/passbolt.php*
 
 <Figure
   src={
     '/img/help/2024/06/force-ssl.png'
   }
-  caption="fig. Add forcing SSL to the passbolt configuration file"
-  alt="Add forcing SSL to the passbolt configuration file"
+  caption="fig. Add forcing TLS (SSL) to the passbolt configuration file"
+  alt="Add forcing TLS (SSL) to the passbolt configuration file"
 />
 
 #### Full Base URL HTTPS
@@ -522,8 +522,8 @@ If you are not using LDAP with Passbolt, you can disable this plugin through */e
 />
 
 ### SSO
-This help with the SSL certification validation for the Single Sign-On (SSO) instance is enabled and properly configured. There is a few things to consider if you are manually disabling it.
-- Disabling the SSL verification check can lead to security attacks.
+This help with the TLS (SSL) certification validation for the Single Sign-On (SSO) instance is enabled and properly configured. There is a few things to consider if you are manually disabling it.
+- Disabling the TLS (SSL) verification check can lead to security attacks.
   - Attacker can alter the certificate and can perform man-in-the-middle attack.
 
 If you want to fix this, set `PASSBOLT_SECURITY_SSO_SSL_VERIFY` environment variable to true if you are on Docker or Helm or set `passbolt.security.sso.sslVerify` to true in */etc/passbolt/passbolt.php*.
@@ -532,6 +532,6 @@ If you want to fix this, set `PASSBOLT_SECURITY_SSO_SSL_VERIFY` environment vari
   src={
     '/img/help/2024/06/enable_sso_cert_validation.png'
   }
-  caption="fig. Enable SSL certificate validation for SSO"
-  alt="Enable SSL certificate validation for SSO"
+  caption="fig. Enable TLS (SSL) certificate validation for SSO"
+  alt="Enable TLS (SSL) certificate validation for SSO"
 />

@@ -65,7 +65,7 @@ The integration works by periodically syncing the list of groups and users (alon
 
    - **Directory Type**: `Active Directory` or `OpenLDAP`
    - **Domain** (AD only): e.g. `mydomain.local` or `example.com`
-   - **Server URL**: `ldap://198.163.0.1:389` or `ldaps://ldap.example.com:636`
+   - **Server URL**: `ldap://198.163.0.1:389` (unencrypted or with STARTTLS) or `ldaps://ldap.example.com:636` (implicit TLS)
    - **Bind Username & Password**:  
      e.g., `CN=readonly,DC=mydomain,DC=local`
    - **Base DN**:  
@@ -194,7 +194,7 @@ If you delete this user in LDAP, he will be deleted from Passbolt on next synchr
 ### How to synchronize my directory automatically?
 If you want to automate the synchronization, you (or the person in charge of hosting) will need to [setup a cron job](/docs/hosting/configure/ldap/ldap-cron/).
 
-### Configure LDAP with SSL (LDAPS)
+### Configure LDAPS (implicit TLS)
 
-If your configuration doesn't run out of the box with LDAPS, you can refer to the [LDAP with SSL](/docs/hosting/configure/ldap/ldaps/)
+If your configuration doesn't run out of the box with LDAPS, you can refer to the [LDAP with TLS (SSL) configuration](/docs/hosting/configure/ldap/ldaps/)
 documentation in order to adjust your config or throubleshoot your issue.

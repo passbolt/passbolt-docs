@@ -1,7 +1,7 @@
 ---
-title: Troubleshooting SSL/TLS
-description: How to troubleshoot your SSL/TLS connection
-sidebar_label: SSL/TLS
+title: Troubleshooting TLS (SSL)
+description: How to troubleshoot your TLS (SSL) connection
+sidebar_label: TLS (SSL)
 hide_table_of_contents: false
 toc_min_heading_level: 2
 toc_max_heading_level: 3
@@ -13,7 +13,7 @@ import Figure from '/src/components/Figure/Figure';
 
 You will find infos about how to set up [HTTPS on passbolt here](/hosting/configure/https/)
 
-## Check certificates content
+## Check certificate content
 
 It is a common error to invert certificate and key, so check the content :-)
 ### Certificate file
@@ -65,14 +65,14 @@ openssl s_client -connect passbolt.domain.tld:443 </dev/null 2>/dev/null | opens
 
 ## Self-hosted private certificate chain study
 
-Some companies don’t rely on public certification authorities. They generate self-signed certificates and trust them with their own Private Key Infrastructure (PKI).
+Some companies don’t rely on public Certificate Authorities (CA). They generate self-signed certificates and trust them with their own Private Key Infrastructure (PKI).
 
-To trust SSL certificates signed by the PKI, you have to ensure root certificate of your company’s PKI has been added in your operating system keychain.
+To trust TLS certificates signed by the PKI, you have to ensure root certificate of your company’s PKI has been added in your operating system keychain.
 ### Chain of trust
 
-A certificate chain or certificate CA bundle is a sequence of certificates, where each certificate in the chain is signed by the subsequent certificate.
+A certificate chain is a sequence of certificates, where each certificate in the chain is signed by the subsequent certificate.
 
-An intermediate certificate authority (CA) is an entity that can sign certificates on behalf of the root CA.
+An Intermediate Certificate Authority (CA) is an entity that can sign certificates on behalf of the root CA.
 
 The root CA is only ever used to create one or more intermediate CAs, which are trusted by the root CA to sign certificates on their behalf. This is best practice.
 ### Use-case
@@ -91,7 +91,7 @@ Let’s assume the following chain of trust:
 
 To make your passbolt certificate trusted on your system, you have to add the root CA to your operating system keychain.
 
-To manually check if your passbolt SSL certificate has been issued by the correct certificate authority, follow the procedure below.
+To manually check if your passbolt TLS certificate has been issued by the correct Certificate Authority (CA), follow the procedure below.
 #### Display the chain of trust
 
 This command will display the chain of trust for passbolt.domain.tld:

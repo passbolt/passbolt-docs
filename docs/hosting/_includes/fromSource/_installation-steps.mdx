@@ -14,7 +14,7 @@ systems it will be `www-data` but on other distributions like Centos it could be
 For the rest of this tutorial we will assume that the user named `www-data`.
 
 :::caution
-We highly recommend that you install https on your server. You can get a free SSL certificate with the let's encrypt initiative.
+We highly recommend that you install https on your server. You can get a free TLS (SSL) certificate with the Let's Encrypt initiative.
 
 <Link className={'clean-btn'} to={'https://letsencrypt.org/'}>
   Let's Encrypt
@@ -153,11 +153,11 @@ $ sudo su -s /bin/bash -c "./bin/cake passbolt healthcheck" www-data
 Depending on your needs there are two different options to setup nginx and SSL :
 
 - [Auto (Using Let's Encrypt)](/hosting/configure/https/ce/debian-auto/)
-- [Manual (Using user-provided SSL certificates)](/hosting/configure/https/ce/debian-manual/)
+- [Manual (Using user-provided TLS (SSL) certificates)](/hosting/configure/https/ce/debian-manual/)
 
-Be sure to write down the full path to your cert/key combo, it will be needed later in the Nginx configuration process.
+Be sure to write down the full path to your certificate and its corresponding private key, it will be needed later in the Nginx configuration process.
 
-Please, notice that for security matters we highly recommend to setup SSL to serve passbolt.
+Please, notice that for security matters we highly recommend to setup TLS (SSL) to serve passbolt.
 
 #### Configure Nginx to serve passbolt
 

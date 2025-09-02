@@ -12,7 +12,7 @@ import Link from '@docusaurus/Link';
 
 ## Add traefik service to handle https
 
-If you have followed our  <Link to={`/docs/hosting/install/${props.productName.toLowerCase()}/docker/`}>installation documentation</Link>, you should have defined `db` and `passbolt` services for your passbolt stack.
+If you have followed our  <Link to={`/docs/hosting/install/${props.productName.toLowerCase()}/docker/`}>installation documentation</Link>, you should have defined `db` and `passbolt` services for your Passbolt stack.
 
 To handle HTTPS setup with Let’s Encrypt, add a traefik service as follow:
 
@@ -38,7 +38,7 @@ services:
 
 Traefik will:
 
-  -  act as a proxy in front of passbolt service, that’s why we defined ports 80 and 443.
+  -  act as a proxy in front of Passbolt service, that’s why we defined ports 80 and 443.
   -  handle Let’s Encrypt certificates renew.
 
 ## Configuration files
@@ -138,9 +138,9 @@ In the `conf` folder, create 2 files:
 </CodeBlock>
 
 `traefik.yaml`, `conf/headers.yaml` and `conf/tls.yaml` will be mounted inside traefik container.
-## Handle passbolt with Traefik
+## Handle Passbolt with Traefik
 
-To make Traefik redirect incoming requests to passbolt, edit the `passbolt` service as follow:
+To make Traefik redirect incoming requests to Passbolt, edit the `passbolt` service as follow:
 
 **Step 1.** As traefik will handle the HTTPS connection, remove the ports definition for the `passbolt` service
 
@@ -187,4 +187,4 @@ services:
 
 That’s it
 
-Launch `docker compose up -d` and you should be able to reach passbolt with HTTPS and a Let’s Encrypt certificate. The renewal of the certificate will be handled automatically by Traefik daemon.
+Launch `docker compose up -d` and you should be able to reach Passbolt with HTTPS and a Let’s Encrypt certificate. The renewal of the certificate will be handled automatically by Traefik daemon.

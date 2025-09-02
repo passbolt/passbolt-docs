@@ -36,8 +36,8 @@ Affero General Public License v3.
 
 ## About Passbolt help site
 
-This repository contains the code used for the knowledge base and help section of passbolt website.
-Find out more about passbolt here:
+This repository contains the code used for the knowledge base and help section of Passbolt website.
+Find out more about Passbolt here:
 [https://www.passbolt.com](https://www.passbolt.com "Passbolt Homepage")
 
 ## Contributing

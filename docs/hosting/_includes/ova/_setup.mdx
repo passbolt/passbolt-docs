@@ -12,7 +12,7 @@ Download the ova and the SHA512SUM.txt:
 
 Import the ova file using virtualbox, vmware (ESXi >= 6.0) or any other platform that supports import OVA files.
 
-Once imported, it is highly recommanded to check if the VM is actually running as Debian (64-bit). In order to do that, just open VM's settings and it should show on which version it is running on. Now, you should be able to boot the VM and just point to the VM ip address with their web browser to initiate the passbolt install process.
+Once imported, it is highly recommended to check if the VM is actually running as Debian (64-bit). In order to do that, just open VM's settings and it should show on which version it is running on. Now, you should be able to boot the VM and just point to the VM IP address with their web browser to initiate the Passbolt install process.
 
 ### 1.2 Credentials
 
@@ -20,8 +20,8 @@ The appliance performs some actions on the first boot:
 
 - Creates ssh host keys
 - Enables ssh
-- Creates a set of random mariadb credentials for the mariadb server installed on the appliance
-- Creates an empty database where passbolt can be installed.
+- Creates a set of random MariaDB credentials for the MariaDB server installed on the appliance
+- Creates an empty database where Passbolt can be installed.
 
 For the first login the appliance comes with the following ssh default credentials:
 
@@ -50,7 +50,7 @@ You will need to create a file containing the subscription key in */etc/passbolt
 </CodeBlock>
 
 <div>
-  <p>When it comes to SSL, the virtual appliance uses passbolt debian package. Depending on your needs there are two different options to setup HTTPS:</p>
+  <p>When it comes to SSL, the virtual appliance uses Passbolt Debian package. Depending on your needs there are two different options to setup HTTPS:</p>
   <ul>
     <li>
       <Link to={`/docs/hosting/configure/https/${props.productLabel.toLowerCase()}/debian-auto/`}>Auto (Using Let's Encrypt)</Link>

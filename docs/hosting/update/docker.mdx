@@ -18,12 +18,12 @@ import Chips from "/src/components/Chips/Chips";
 <SystemRequirements />
 
 :::tip[Pro tip]
-If you are trying to update the mariadb version in the docker compose file, you might face some errors. To complete the mariadb upgrade, you need to run **mariadb-upgrade -u root -p** in the database container.
+If you are trying to update the MariaDB version in the docker compose file, you might face some errors. To complete the MariaDB upgrade, you need to run **mariadb-upgrade -u root -p** in the database container.
 :::
 
-It is recommended that users pull the tags pointing to specific passbolt versions when running in environments other than testing.
+It is recommended that users pull the tags pointing to specific Passbolt versions when running in environments other than testing.
 
-To update passbolt, you would just need to change the image tag in your docker-compose.yml file:
+To update Passbolt, you would just need to change the image tag in your docker-compose.yml file:
 
 ```yaml
  image: passbolt/passbolt:<IMAGE_TAG>
@@ -35,5 +35,5 @@ docker compose up -d
 ```
 By doing this:
 
-a new passbolt docker image will be pulled and a new container created
-your passbolt database schema will be updated
+a new Passbolt docker image will be pulled and a new container created
+your Passbolt database schema will be updated

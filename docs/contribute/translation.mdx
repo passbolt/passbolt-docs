@@ -7,7 +7,7 @@ sidebar_position: 2
 import Figure from '@site/src/components/Figure/Figure';
 import Link from '@docusaurus/Link';
 
-There are many ways to contribute to passbolt, and one them is to help translate the application into your language.
+There are many ways to contribute to Passbolt, and one them is to help translate the application into your language.
 Contributions are always welcome, and different tasks can be addressed depending on your profile. As a translator you
 could help translate strings or [proofread](/docs/contribute/translator/proofread) the translated strings. As a technical profile
 you could help identify missing translations and [externalise](/docs/contribute/translator/externalize) them in the source code.
@@ -31,14 +31,14 @@ translation should always prefer the use of the formal formulation such as "*vou
 
 ### Inclusion
 
-Inclusion is a passbolt value. Translations which exclude people based on their gender, ethnicity or any discriminative
+Inclusion is a Passbolt value. Translations which exclude people based on their gender, ethnicity or any discriminative
 attributes must be avoided. Neutral formulation should always be preferred when possible. For example, we use "*they*"
 instead of "*she*" or "*he*". While this might not always be possible in your language, try to find a gender-neutral
 form.
 
-## Translate passbolt
+## Translate Passbolt
 
-The translation of passbolt is entirely managed by CrowdIn and everybody can access it to propose a contribution.
+The translation of Passbolt is entirely managed by CrowdIn and everybody can access it to propose a contribution.
 
 ### Connect to CrowdIn
 
@@ -48,7 +48,7 @@ sign up if you don't have an account yet.
 
 ### Select your language
 
-Find the language you want to contribute to on the CrowdIn passbolt project page at
+Find the language you want to contribute to on the CrowdIn Passbolt project page at
 [https://passbolt.crowdin.com/passbolt](https://passbolt.crowdin.com/passbolt).
 
 If your language is missing, and you would like to promote it, please
@@ -84,27 +84,27 @@ manager will answer your question and can provide you with a screenshot where th
 **Access to the glossary** or **translation memory** search tools are available if necessary in the right panel &#9316;
 of the application.
 
-## Proofread passbolt
+## Proofread Passbolt
 
-The proofreading of passbolt is central in the translation process, it helps to keep a translation accurate and
+The proofreading of Passbolt is central in the translation process, it helps to keep a translation accurate and
 guarantee a global homogeneity of it. As for the translation the proofreading step is entirely managed by Crowdin.
 
 ### Become a proofreader
 
-The proofreader role can be requested to the passbolt team by email at <Link to="mailto:contact@passbolt.com">contact@passbolt.com</Link>
+The proofreader role can be requested to the Passbolt team by email at <Link to="mailto:contact@passbolt.com">contact@passbolt.com</Link>
 .
 
 The role attribution is made as per the following rules:
 
 * Contributors should have already proposed translations for the language they want to help with proofreading. If no
-  translation made on passbolt, the contributors can show contributions made on another open source project.
+  translation made on Passbolt, the contributors can show contributions made on another open source project.
 
 * The already proposed translations should reflect the attention to details of the contributors and meet with the quality
-  standard of passbolt.
+  standard of Passbolt.
 
-* The contributors should have proven good communication skills in their previous exchanges with the passbolt team as
+* The contributors should have proven good communication skills in their previous exchanges with the Passbolt team as
   well as other contributors. See the [passbolt code of conduct](https://www.passbolt.com/code_of_conduct) to know
-  more about what is expected from the passbolt community members.
+  more about what is expected from the Passbolt community members.
 
 ### Access to the proofreading editor
 
@@ -139,7 +139,7 @@ or move to the next string.
 
 ## Externalize strings or fix source language
 
-A string is available for translation only if it has been externalized in the source code of the passbolt applications,
+A string is available for translation only if it has been externalized in the source code of the Passbolt applications,
 and the source code is already in the pre-release state.
 
 :::note
@@ -154,8 +154,8 @@ The [styleguide repository](https://github.com/passbolt/passbolt_styleguide) con
 the end user.
 
 In this repository you will find:
-* Most of the passbolt front-end application in the directory *src/react-extension*
-* The passbolt quickaccess application in the directory *src/react-quickaccess*
+* Most of the Passbolt front-end application in the directory *src/react-extension*
+* The Passbolt Quickaccess application in the directory *src/react-quickaccess*
 
 The styleguide uses the i18next library to help manage the translation, if you want to know more checkout their
 [documentation](https://github.com/i18next/i18next).
@@ -187,12 +187,12 @@ export default withTranslation("common")(ComponentToTranslate);
 
 To mark for translation a string contained in JSX code.
 ```jsx
-<Trans>Welcome to passbolt!</Trans>
+<Trans>Welcome to Passbolt!</Trans>
 ```
 
 To mark for translation a string contained in javascript code.
 ```javascript
-this.props.t("Welcome to passbolt!");
+this.props.t("Welcome to Passbolt!");
 ```
 
 #### Generate the language json source file
@@ -223,7 +223,7 @@ In order to work on the translation of this application you need to:
 
 #### Mark a string for translation
 
-To translate a string, a file has first to load the passbolt translation utility located in
+To translate a string, a file has first to load the Passbolt translation utility located in
 `src/all/background_page/sdk/i18n.js`. For instance:
 ```javascript
 const {i18n} = require("./sdk/i18n");
@@ -231,7 +231,7 @@ const {i18n} = require("./sdk/i18n");
 
 To mark for translation a string contained in javascript code.
 ```javascript
-i18n.t("Welcome to passbolt!");
+i18n.t("Welcome to Passbolt!");
 ```
 
 #### Generate the language json source file
@@ -248,7 +248,7 @@ Once done you can propose your changes as a pull request on the repository.
 The [API repository](https://github.com/passbolt/passbolt_api) contains all the code relative to the API
 obviously but also some screens presented to the end users such as the installation wizard.
 
-The passbolt API uses the CakePHP translation feature to help manage the translation, if you want to know more checkout
+The Passbolt API uses the CakePHP translation feature to help manage the translation, if you want to know more checkout
 their [documentation](https://book.cakephp.org/3/en/core-libraries/internationalization-and-localization.html).
 
 #### Getting started
@@ -262,7 +262,7 @@ In order to work on the translation of this application you need to:
 
 To mark for translation a string contained in PHP code.
 ```php
-__('Welcome to passbolt!');
+__('Welcome to Passbolt!');
 ```
 
 #### Generate the language gettext source file

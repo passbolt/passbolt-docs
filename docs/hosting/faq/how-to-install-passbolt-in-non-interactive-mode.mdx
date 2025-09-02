@@ -1,7 +1,7 @@
 ---
-title: How can I install passbolt in non-interactive mode?
-description: How to install passbolt in non-interactive mode
-sidebar_label: How can I install passbolt in non-interactive mode?
+title: How can I install Passbolt in non-interactive mode?
+description: How to install Passbolt in non-interactive mode
+sidebar_label: How can I install Passbolt in non-interactive mode?
 hide_table_of_contents: true
 ---
 
@@ -12,9 +12,9 @@ import Chips from "/src/components/Chips/Chips";
   <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
 </div>
 
-The non-interactive mode is useful for automating passbolt installation and for users with specific needs. It is available only on Debian and Ubuntu operating systems.
+The non-interactive mode is useful for automating Passbolt installation and for users with specific needs. It is available only on Debian and Ubuntu operating systems.
 
-The commands of this page assume you want to install passbolt CE. Replace ce with pro if you plan to install the PRO version.
+The commands of this page assume you want to install Passbolt CE. Replace ce with pro if you plan to install the PRO version.
 ## Package repository setup
 
 For easier installation and update tasks Passbolt provides a package repository that you need to setup before you download Passbolt and install it.
@@ -39,7 +39,7 @@ sha512sum -c passbolt-ce-SHA512SUM.txt && sudo bash ./passbolt-repo-setup.ce.sh 
 
 ## Simple mode
 
-If you don’t want to install mysql locally or you don’t want to use nginx as http server you can run the non-interactive command with --no-install-recommends parameter.
+If you don’t want to install MySQL locally or you don’t want to use nginx as HTTP server you can run the non-interactive command with --no-install-recommends parameter.
 ```bash
 sudo DEBIAN_FRONTEND=noninteractive apt-get install \
   --no-install-recommends passbolt-ce-server

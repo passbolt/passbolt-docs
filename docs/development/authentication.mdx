@@ -29,7 +29,6 @@ hide_table_of_contents: false
 
 When using GPGAuth-based authentication, the whole process is divided in multiple steps, each one with a specific use-case.
 
-  
 #### Stage 0 - Server's identity verification
 
 > This step is optional, although recommended.
@@ -44,7 +43,7 @@ In order to do that, the client generates a challenge token, composed of differe
 - Protocol version again
 
 An example of said challenge string could be `gpgauthv1.3.0|36|10e2074b-f610-42be-8525-100d4e68c481|gpgauthv1.3.0`.
-  
+
 This challenge token is then encrypted with the sever's public key, obtained with a `GET` request to `/auth/verify.json`.
 
 The total payload for server verification has the following structure:
@@ -88,7 +87,6 @@ This challenge string has the same format that the one described in stage 0.
 
 This challenge string is encrypted with the user's public key and signed with the server's key.
 
-  
 #### Stage 2 - Verifying client's private key verification
 
 Once this challenge string has been decrypted, it has to be sent to the server in a `POST`
@@ -198,7 +196,7 @@ The response, which tells you the different MFA providers available, will look s
 }
 ```
 
-Then, you have to make a `POST` request to `https://<your passbolt instance base URL>/mfa/verify/<provider>.json` with the code provided, in a body such as:
+Then, you have to make a `POST` request to `https://<your Passbolt instance base URL>/mfa/verify/<provider>.json` with the code provided, in a body such as:
 
 ```json
 {

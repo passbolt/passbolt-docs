@@ -1,5 +1,5 @@
 ---
-title: How to configure passbolt to use Duo
+title: How to configure Passbolt to use Duo
 sidebar_label: Duo
 description: How to configure Duo with Passbolt
 hide_table_of_contents: false
@@ -32,7 +32,7 @@ Multi Factor Authentication requires HTTPS to work.
 
 When using Duo as a form of multi-factor authentication, it is recommended to set up at least one additional multi-factor authentication method as a backup. Should the Duo service experience downtime, this measure guarantees that users can continue to access their accounts despite the malfunction of one authentication method.
 
-In order to authenticate using Duo, the user will be redirected to Duo’s authentication page. Whether the authentication was successful, the user will be redirected back to passbolt. Make sure your users have access to internet or do not enable this authentication provider if you are running passbolt on a private network that is not connected to internet.
+In order to authenticate using Duo, the user will be redirected to Duo’s authentication page. Whether the authentication was successful, the user will be redirected back to Passbolt. Make sure your users have access to internet or do not enable this authentication provider if you are running Passbolt on a private network that is not connected to internet.
 
 ## Install Duo app
 
@@ -71,11 +71,11 @@ Click on "Protect an application" then find the "Web SDK" application type in th
 
 <Figure
 src="/img/help/2023/02/mfa-duo-admin.png"
-alt="Duo web sdk application for passbolt"
-caption="fig. Duo web sdk application for passbolt"
+alt="Duo web sdk application for Passbolt"
+caption="fig. Duo web sdk application for Passbolt"
 />
 
-Note down the "Client ID", "Client secret", and "API hostname" details, as it will be request to you later to configure the Duo integration in passbolt.
+Note down the "Client ID", "Client secret", and "API hostname" details, as it will be request to you later to configure the Duo integration in Passbolt.
 
 ## Enable Duo access
 
@@ -84,17 +84,17 @@ Duo can be set up through either the administration interface or environment var
 ### Generate a salt
 
 :::info
-Required only for passbolt server < 3.11.
+Required only for Passbolt server < 3.11.
 :::
 
 Generating a random salt to configure Duo is mandatory, a salt is a random piece of data that is generated and used in the hashing process to protect sensitive information. It is generated and combined with the secret key before hashing it.
 
-To generate a random salt, you can use the passbolt interface, generate a new password as shown below and use it as the generated salt.
+To generate a random salt, you can use the Passbolt interface, generate a new password as shown below and use it as the generated salt.
 
 <Figure
 src="/img/help/2023/05/password-generator.png"
-alt="Generate a salt with passbolt password generator"
-caption="fig. Generate a salt with passbolt password generator"
+alt="Generate a salt with Passbolt password generator"
+caption="fig. Generate a salt with Passbolt password generator"
 size={{ width: '450px', height: 'auto' }}
 />
 
@@ -144,7 +144,7 @@ size={{ width: '450px', height: 'auto' }}
 
 ## Authenticate with Duo
 
-After setting up Duo, each time you sign-in to Passbolt, you'll be prompted to plug authenticate with the method you have chosen during the setup. Additionally, if permitted by the "Multi-factor Authentication Policy", passbolt can remember your MFA authentication for a month.
+After setting up Duo, each time you sign-in to Passbolt, you'll be prompted to plug authenticate with the method you have chosen during the setup. Additionally, if permitted by the "Multi-factor Authentication Policy", Passbolt can remember your MFA authentication for a month.
 
 <Figure
 src="/img/help/2023/02/mfa-duo-login.png"

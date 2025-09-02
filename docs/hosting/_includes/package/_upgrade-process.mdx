@@ -1,6 +1,6 @@
 import CodeBlock from '@site/src/components/CodeBlock/CodeBlock';
 
-## Upgrade passbolt
+## Upgrade Passbolt
 
 :::warning
 While this documentation provides guidance on upgrading your Passbolt instance from CE to PRO, we highly recommend considering a [migration to a new server](/hosting/migrate/server/). This approach ensures a cleaner transition and avoids potential issues that may persist from your current setup.
@@ -15,7 +15,7 @@ While this documentation provides guidance on upgrading your Passbolt instance f
 </CodeBlock>
 
 ### 2. Backup your database
-It is recommended to always perform a backup of your passbolt installation. Please check the [backup article](/hosting/backup/from-packages/)
+It is recommended to always perform a backup of your Passbolt installation. Please check the [backup article](/hosting/backup/from-packages/)
 
 ### 3. Upload your subscription key
 
@@ -26,7 +26,7 @@ You should copy your subscription key to `/etc/passbolt/subscription_key.txt` an
 sudo chmod 640 /etc/passbolt/subscription_key.txt`}
 </CodeBlock>
 
-### 4. Uninstall passbolt CE
+### 4. Uninstall Passbolt CE
 
 Passbolt CE package should be removed prior to installing Passbolt Pro.
 <CodeBlock>
@@ -34,7 +34,7 @@ Passbolt CE package should be removed prior to installing Passbolt Pro.
 </CodeBlock>
 
 
-### 5. Upgrade passbolt package repository
+### 5. Upgrade Passbolt package repository
 
 For easier installation and update tasks Passbolt provides a package repository that you need to setup before you download Passbolt PRO and install it.
 
@@ -53,7 +53,7 @@ __Step 3.__ Ensure that the script is valid and execute it:
   {`sha512sum -c passbolt-pro-SHA512SUM.txt && sudo bash ./passbolt-repo-setup.pro.sh  --passbolt-migrate  || echo "Bad checksum. Aborting" && rm -f passbolt-repo-setup.pro.sh`}
 </CodeBlock>
 
-### 6. Install passbolt PRO
+### 6. Install Passbolt PRO
 
 Now you can install the Passbolt Pro package.
 <CodeBlock>
@@ -63,7 +63,7 @@ Now you can install the Passbolt Pro package.
 <>
   {props.distributionPackage == 'apt' && (
     <div>
-      <p>As you have already configured passbolt CE, and Passbolt Pro relies on the same configuration, you should reply:</p>
+      <p>As you have already configured Passbolt CE, and Passbolt Pro relies on the same configuration, you should reply:</p>
       <ul>
         <li><b>No</b> for MariaDB configuration</li>
         <li><b>No</b> to NGINX configuration</li>
@@ -108,7 +108,7 @@ If this is the case you’ll want to run:
 
 As this will clear out the no longer needed CE job to send emails. If you leave this you may experience receiving duplicate emails.
 
-The other regularly occuring job which you can remove will be under `/etc/logrotate.d/`
+The other regularly occurring job which you can remove will be under `/etc/logrotate.d/`
 
 You may see:
 

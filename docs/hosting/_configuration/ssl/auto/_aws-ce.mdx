@@ -6,12 +6,12 @@ Execute this command:
   sudo dpkg-reconfigure passbolt-ce-server
 ```
 
-You most likely want to say 'NO' to the mariadb/mysql setup question and go for the nginx setup
+You most likely want to say 'NO' to the MariaDB/MySQL setup question and go for the nginx setup
 
-Passbolt debian and ubuntu packages currently supports the configuration of nginx. It comes with a default configuration that supports:
+Passbolt Debian and Ubuntu packages currently supports the configuration of nginx. It comes with a default configuration that supports:
 
-- Serve passbolt on port 80 (http)
-- Serve passbolt on port 443 (https)
+- Serve Passbolt on port 80 (http)
+- Serve Passbolt on port 443 (https)
 
 The following steps will guide you through the option that uses Let's encrypt method to enable SSL.
 
@@ -29,7 +29,7 @@ After choosing yes you will be prompted with the following dialog where you can 
   caption="fig. nginx SSL dialog"
 />
 
-You will now need to introduce the name of the domain name assinged to your server:
+You will now need to introduce the name of the domain name assigned to your server:
 
 <Figure
   src="/img/help/2020/05/debian-package/nginx_domain.png"
@@ -45,7 +45,7 @@ Finally you will need to provide an email address for Let's encrypt to notify yo
   caption="fig. lets encrypt admin email"
 />
 
-If everything goes fine you should see a final message that points you to finish passbolt configuration:
+If everything goes fine you should see a final message that points you to finish Passbolt configuration:
 
 <Figure
   src="/img/help/2020/05/debian-package/success.png"

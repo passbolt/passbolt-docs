@@ -11,7 +11,7 @@ import Figure from '/src/components/Figure/Figure';
 
 ## HTTPS configuration documentation
 
-You will find infos about how to set up [HTTPS on passbolt here](/hosting/configure/https/)
+You will find infos about how to set up [HTTPS on Passbolt here](/hosting/configure/https/)
 
 ## Check certificates content
 
@@ -48,15 +48,15 @@ The output of the two below commands must be **absolutely the same**.
 
 `openssl rsa -noout -modulus -in key.pem | openssl md5`
 
-## Check if certificate matches your passbolt domain name
+## Check if certificate matches your Passbolt domain name
 
-Another common error is to define a domain name to passbolt and set a certificate valid for another domain.
+Another common error is to define a domain name to Passbolt and set a certificate valid for another domain.
 
 Check the domain name of your local certificate:
 
 `openssl x509 -text -noout -in cert.pem | grep DNS`
 
-You can also check your instance like this (replace passbolt.domain.tld with your passbolt domain name):
+You can also check your instance like this (replace `passbolt.domain.tld` with your passbolt domain name):
 
 ```
 openssl s_client -connect passbolt.domain.tld:443 </dev/null 2>/dev/null | openssl x509 -noout -ext subjectAltName
@@ -86,15 +86,15 @@ Let’s assume the following chain of trust:
 
 
 
-  -  Your passbolt server certificate has been issued by “My Intermediate CA”.
+  -  Your Passbolt server certificate has been issued by “My Intermediate CA”.
   -  “My Intermediate CA” has been issued by “My Root CA”
 
-To make your passbolt certificate trusted on your system, you have to add the root CA to your operating system keychain.
+To make your Passbolt certificate trusted on your system, you have to add the root CA to your operating system keychain.
 
-To manually check if your passbolt SSL certificate has been issued by the correct certificate authority, follow the procedure below.
+To manually check if your Passbolt SSL certificate has been issued by the correct certificate authority, follow the procedure below.
 #### Display the chain of trust
 
-This command will display the chain of trust for passbolt.domain.tld:
+This command will display the chain of trust for `passbolt.domain.tld`:
 
 `openssl s_client -quiet -connect passbolt.domain.tld:443`
 
@@ -155,7 +155,7 @@ It will return:
 
 `intermediate.pem: OK`
 
-But if we try to check if passbolt.pem has been issued by intermediate.pem, it fails:
+But if we try to check if `passbolt.pem` has been issued by intermediate.pem, it fails:
 ```
 $ openssl verify -CAfile intermediate.pem passbolt.pem
 C = LU, ST = Luxembourg, O = Your Company, OU = Your Company IT Team, CN = My Intermediate CA, emailAddress = it@domain.tld

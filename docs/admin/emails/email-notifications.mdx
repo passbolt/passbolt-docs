@@ -16,8 +16,8 @@ import Chips from "/src/components/Chips/Chips";
 </div>
 
 ### How to configure email notification settings for your organization
-Some actions in passbolt, such as a user sharing a password with someone else, trigger an email notification.
-As passbolt admin, you can control which events result in an email notification and which events are ignored.
+Some actions in Passbolt, such as a user sharing a password with someone else, trigger an email notification.
+As Passbolt admin, you can control which events result in an email notification and which events are ignored.
 Similarly you can control whether or not a piece of information is included in those notification emails.
 
 ## Passbolt events that trigger email notification
@@ -35,7 +35,7 @@ Similarly you can control whether or not a piece of information is included in t
     <tr><td>When a password is updated.</td><td>	All the users having access to the given password.</td></tr>
     <tr><td>When a password is deleted.</td><td>	All the users who had access to the given password.</td></tr>
     <tr><td>When a new user is invited.</td><td>	The invited user.</td></tr>
-    <tr><td>When users try to recover their passbolt account.</td><td>	The user trying to recover their account.</td></tr>
+    <tr><td>When users try to recover their Passbolt account.</td><td>	The user trying to recover their account.</td></tr>
     <tr><td>When a group is deleted.</td><td>	Group's members.</td></tr>
     <tr><td>A user is added to a group.</td><td>	The user getting added.</td></tr>
     <tr><td>A user is removed from a group.</td><td>	The user getting removed.</td></tr>
@@ -117,7 +117,7 @@ event and setting it 0 (zero) will ignore the event.
     <tr><td>When a password is updated	</td><td>PASSBOLT_EMAIL_SEND_PASSWORD_UPDATE</td></tr>
     <tr><td>When a password is deleted	</td><td>PASSBOLT_EMAIL_SEND_PASSWORD_DELETE</td></tr>
     <tr><td>When a new user is invited	</td><td>PASSBOLT_EMAIL_SEND_USER_CREATE</td></tr>
-    <tr><td>When users try to recover their passbolt account	</td><td>PASSBOLT_EMAIL_SEND_USER_RECOVER</td></tr>
+    <tr><td>When users try to recover their Passbolt account	</td><td>PASSBOLT_EMAIL_SEND_USER_RECOVER</td></tr>
     <tr><td>When a group is deleted	</td><td>PASSBOLT_EMAIL_SEND_GROUP_DELETE</td></tr>
     <tr><td>A user is added to a group	</td><td>PASSBOLT_EMAIL_SEND_GROUP_USER_ADD</td></tr>
     <tr><td>A user is removed from a group	</td><td>PASSBOLT_EMAIL_SEND_GROUP_USER_DELETE</td></tr>
@@ -167,7 +167,7 @@ such as the database name, for example:
 
 ## Using config file
 Email notification settings can also be managed by updating the config/passbolt.php file in your install directory.
-These settings live in the email key under passbolt.
+These settings live in the email key under Passbolt.
 
 <CodeBlock>
 {
@@ -211,7 +211,7 @@ will ignore the event.
     <tr><td>When a password is updated	</td><td>passbolt.email.send.password.update</td></tr>
     <tr><td>When a password is deleted	</td><td>passbolt.email.send.password.delete</td></tr>
     <tr><td>When a new user is invited	</td><td>passbolt.email.send.user.create</td></tr>
-    <tr><td>When users try to recover their passbolt account	</td><td>passbolt.email.send.user.recover</td></tr>
+    <tr><td>When users try to recover their Passbolt account	</td><td>passbolt.email.send.user.recover</td></tr>
     <tr><td>When a group is deleted	</td><td>passbolt.email.send.group.delete</td></tr>
     <tr><td>When a user is added to a group	</td><td>passbolt.email.send.group.user.add</td></tr>
     <tr><td>When a user is removed from a group	</td><td>passbolt.email.send.group.user.delete</td></tr>

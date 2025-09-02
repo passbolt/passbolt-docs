@@ -1,6 +1,6 @@
 [
     {
-        "name": "Lastpass",
+        "name": "LastPass",
         "slug": "lastpass",
         "logo": "/img/import/lastpass.svg",
         "formats": ["CSV"]

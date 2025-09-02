@@ -52,13 +52,13 @@ The integration works by periodically syncing the list of groups and users (alon
 
 ### General Configuration Steps
 
-1. **Prerequisites**  
-   - Ensure the PHP LDAP extension is installed (`php-ldap` on Debian/Ubuntu).  
+1. **Prerequisites**
+   - Ensure the PHP LDAP extension is installed (`php-ldap` on Debian/Ubuntu).
    - Ensure the server can connect to the LDAP/AD server (firewall/VPN as needed).
 
-2. **Enable the Directory Sync plugin**  
-   - Go to **Organisation settings → Users Directory**  
-   - Toggle the **Enable** switch.  
+2. **Enable the Directory Sync plugin**
+   - Go to **Organisation settings → Users Directory**
+   - Toggle the **Enable** switch.
    - Complete all required fields and run a successful connection test.
 
 3. **Enter LDAP connection settings**
@@ -66,49 +66,49 @@ The integration works by periodically syncing the list of groups and users (alon
    - **Directory Type**: `Active Directory` or `OpenLDAP`
    - **Domain** (AD only): e.g. `mydomain.local` or `example.com`
    - **Server URL**: `ldap://198.163.0.1:389` or `ldaps://ldap.example.com:636`
-   - **Bind Username & Password**:  
+   - **Bind Username & Password**:
      e.g., `CN=readonly,DC=mydomain,DC=local`
-   - **Base DN**:  
-     - AD: `DC=mydomain,DC=local`  
+   - **Base DN**:
+     - AD: `DC=mydomain,DC=local`
      - OpenLDAP: `dc=example,dc=com`
-   - **User Path & Group Path** (optional):  
+   - **User Path & Group Path** (optional):
      e.g., `OU=MyUsers`, `OU=MyGroups`
-   - **Object classes** (OpenLDAP only):  
-     - Users: `inetOrgPerson`  
+   - **Object classes** (OpenLDAP only):
+     - Users: `inetOrgPerson`
      - Groups: `groupOfUniqueNames`
-   - **Default Admin**:  
+   - **Default Admin**:
      A Passbolt admin user responsible for sync actions.
-   - **Default Group Manager**:  
+   - **Default Group Manager**:
      The user assigned to manage synced groups.
 
 4. **Filtering options**
 
-   - **Groups/Users parent group**:  
+   - **Groups/Users parent group**:
      Restrict sync to subtrees.
-   - **Custom LDAP filters**:  
-     e.g.,  
+   - **Custom LDAP filters**:
+     e.g.,
      ```ldap
      (memberof=CN=PassboltUsers,OU=Groups,DC=example,DC=com)
      ```
-   - **Enabled users only** (AD only):  
+   - **Enabled users only** (AD only):
      Syncs only enabled accounts. Recommended for production.
-   - **Sync operations toggle**:  
+   - **Sync operations toggle**:
      Disable create/update/delete individually as needed.
 
-5. **Save and test**  
-   - Click **Save settings**.  
-   - Run **Simulate synchronize** to preview changes.  
+5. **Save and test**
+   - Click **Save settings**.
+   - Run **Simulate synchronize** to preview changes.
    - Review for expected users/groups and issues before a real sync.
 
-6. **Run first synchronization**  
-   - Once verified, click **Synchronize**.  
+6. **Run first synchronization**
+   - Once verified, click **Synchronize**.
    - Review the report for actions taken and errors.
 
-7. **Verify results**  
-   - Check the Passbolt UI for imported users/groups.  
+7. **Verify results**
+   - Check the Passbolt UI for imported users/groups.
    - New users will be in "invitation pending" status.
 
-> 💡 Tip: Never run sync as root. Use the correct web server user.  
+> 💡 Tip: Never run sync as root. Use the correct web server user.
 > For example, on Debian/Ubuntu:
 ```bash
 su -s /bin/bash -c '...cake directory_sync...' www-data
@@ -148,7 +148,7 @@ and actually activate it.
 ### Save configuration
 
 Once the configuration is entered, do not forget to save it by clicking on the "Save settings" at the top. The
-configuration will be saved only if passbolt managed to connect to your directory. If not, it will display an error
+configuration will be saved only if Passbolt managed to connect to your directory. If not, it will display an error
 message.
 
 <Figure
@@ -197,4 +197,4 @@ If you want to automate the synchronization, you (or the person in charge of hos
 ### Configure LDAP with SSL (LDAPS)
 
 If your configuration doesn't run out of the box with LDAPS, you can refer to the [LDAP with SSL](/docs/hosting/configure/ldap/ldaps/)
-documentation in order to adjust your config or throubleshoot your issue.
+documentation in order to adjust your config or troubleshoot your issue.

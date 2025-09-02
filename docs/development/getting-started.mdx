@@ -6,12 +6,12 @@ sidebar_label: Getting started
 hide_table_of_contents: false
 ---
 
-The API works over HTTPS in a REST fashion, so it is language framework agnostic. You can integrate passbolt services into your existing workflow using the toolset of your choice.
+The API works over HTTPS in a REST fashion, so it is language framework agnostic. You can integrate Passbolt services into your existing workflow using the toolset of your choice.
 
-To get started with the passbolt REST API (hereafter referred to as “The API”) you need at least:
+To get started with the Passbolt REST API (hereafter referred to as “The API”) you need at least:
 
-- A running passbolt server instance.
-- A passbolt user account if you want to access protected data.
+- A running Passbolt server instance.
+- A `passbolt` user account if you want to access protected data.
 - Some basic understanding of how public key cryptography works.
 - An [OpenPGP-compliant](https://www.openpgp.org/about/) library to build with.
 
@@ -88,11 +88,11 @@ As you can see, for validation errors, the response body contains two keys, `nam
 
 ## Encryption and decryption
 
-Security and privacy are the biggest concerns for a password manager and passbolt is no exception. Passbolt’s solution uses end-to-end encryption and the encryption and decryption is always done on the client. The server is mainly used to take care of relational data integrity and storage.
+Security and privacy are the biggest concerns for a password manager and Passbolt is no exception. Passbolt’s solution uses end-to-end encryption and the encryption and decryption is always done on the client. The server is mainly used to take care of relational data integrity and storage.
 
 Passbolt uses [public key cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography) and [OpenPGP](https://www.openpgp.org/about/) specifically. This guide will assume you are familiar with these concepts.
 
-![Password exchange using passbolt](/img/diagrams/howitworks.svg)
+![Password exchange using Passbolt](/img/diagrams/howitworks.svg)
 
 
 ### Which OpenPGP implementation should I use?
@@ -101,9 +101,9 @@ There are several ways you can use OpenPGP. The most popular option is to use Gn
 
 There are various language libraries available such as:
 
-- [OpenPGP.js](https://openpgpjs.org/): JavaScript alone (used by passbolt extension / cli)
-- [PHP GnuPG](https://www.php.net/manual/en/book.gnupg.php): PHP with GnuPG (used by passbolt server)
-- [OpenPGP.php](https://github.com/singpolyma/openpgp-php): PHP alone (used by passbolt server).
+- [OpenPGP.js](https://openpgpjs.org/): JavaScript alone (used by Passbolt extension / cli)
+- [PHP GnuPG](https://www.php.net/manual/en/book.gnupg.php): PHP with GnuPG (used by Passbolt server)
+- [OpenPGP.php](https://github.com/singpolyma/openpgp-php): PHP alone (used by Passbolt server).
 - [gpgme.js](https://github.com/mailvelope/gpgmejs): JavaScript for GPGME
 - [GPGME Python](http://files.au.adversary.org/crypto/gpgme-python-howto.html): Python with GnuPG.
 - [PGPy](https://github.com/SecurityInnovation/PGPy/): Python alone.
@@ -111,7 +111,7 @@ There are various language libraries available such as:
 You can find additional libraries on openpgp.org.
 Working with OpenPGP Keys
 
-At the time of installation the passbolt server administrator generates an OpenPGP key pair and stores it in the server keyring. Similarly, clients (such as the passbolt browser extension) generate a pair of keys during the setup. At the end of the setup the client stores its secret key locally and send the public key to the server.
+At the time of installation the Passbolt server administrator generates an OpenPGP key pair and stores it in the server keyring. Similarly, clients (such as the Passbolt browser extension) generate a pair of keys during the setup. At the end of the setup the client stores its secret key locally and send the public key to the server.
 
 When authenticated, it is possible for a user to gather other user's public keys, in order to share passwords with them. Prior to sending sensitive data, secrets must be encrypted using the recipient's public key (e.g. another user, for example) and signed using the sender's public key.
 
@@ -120,9 +120,9 @@ This serves two purposes:
 1. Privacy by encrypting the data
 2. Authenticity by confirming the identity of the sender.
 
-### Accessing passbolt server public key
+### Accessing Passbolt server public key
 
-The passbolt server public key is required during the “verify” step of the authentication. This step allows the client to verify the server identity, for example to prevent the unlikely scenario where the domain was seized. Your passbolt server broadcasts its public key at `GET /auth/verify.json`.
+The Passbolt server public key is required during the “verify” step of the authentication. This step allows the client to verify the server identity, for example to prevent the unlikely scenario where the domain was seized. Your Passbolt server broadcasts its public key at `GET /auth/verify.json`.
 
 ## Glossary
 
@@ -155,11 +155,11 @@ The definition of what is included in the resource and what is included in the s
 
 ### Resource type
 
-In passbolt, passwords are split into two different entities: Resources (the metadata in clear) and Secrets (the encrypted data).
+In Passbolt, passwords are split into two different entities: Resources (the metadata in clear) and Secrets (the encrypted data).
 The resource types define what is included in the resource and what is included in the secret.
 This definition, that is part of the resource type, takes the form of JSON schemas.
 
-Since passbolt is end-to-end encrypted the server cannot validate the content of the secrets.
+Since Passbolt is end-to-end encrypted the server cannot validate the content of the secrets.
 Therefore, it is the responsibility of the clients to check if the secret is deserializable according to the resource type schema associated with the resource and to choose how to handle that case.
 
 ### Secret

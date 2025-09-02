@@ -16,12 +16,12 @@ resourceType:
     slug:
       type: "string"
       description: |
-        * `password-string` - The original passbolt resource type, where the secret is a non empty string.
+        * `password-string` - The original Passbolt resource type, where the secret is a non empty string.
         * `password-and-description` - A resource with the password and the description encrypted.
         * `totp` - A resource with standalone TOTP fields.
         * `password-description-totp` - A resource with encrypted password, description and TOTP fields.
         * `v5-default-with-totp` - The new default resource type with a TOTP introduced with v5.
-        * `v5-password-string (Deprecated)` - The original passbolt resource type, kept for backward compatibility reasons.
+        * `v5-password-string (Deprecated)` - The original Passbolt resource type, kept for backward compatibility reasons.
         * `v5-totp-standalone` - The new standalone TOTP resource type introduced with v5.
         * `v5-default` - The new default resource type introduced with v5.
       enum:

@@ -10,9 +10,9 @@ sudo chown -R root:${props.webServerUser} /etc/passbolt/gpg
 sudo chmod g-w /etc/passbolt/gpg`}
 </CodeBlock>
 
-### 5.2. Copy the passbolt configuration
+### 5.2. Copy the Passbolt configuration
 
-Copy passbolt configuration as following:
+Copy Passbolt configuration as following:
 <CodeBlock>
 {`sudo cp /var/www/passbolt/config/passbolt.php /etc/passbolt/passbolt.php
 sudo chown root:${props.webServerUser} /etc/passbolt/passbolt.php
@@ -20,7 +20,7 @@ sudo chmod g-w /etc/passbolt/passbolt.php`}
 </CodeBlock>
 
 
-If you are running mysql 8, please change the `quoteIdentifiers` setting of the `passbolt.php` as follow:
+If you are running MySQL 8, please change the `quoteIdentifiers` setting of the `passbolt.php` as follow:
 
 ```php
 'quoteIdentifiers' => true
@@ -134,7 +134,7 @@ You may also want to check for the old CRON job that may need to be removed:
 
 ## Bring your site back online
 
-Finally take passbolt back up:
+Finally take Passbolt back up:
 
 <CodeBlock>
     {`sudo systemctl start nginx

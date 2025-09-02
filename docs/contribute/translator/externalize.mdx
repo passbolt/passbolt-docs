@@ -4,11 +4,11 @@ description: Learn how to make strings available for translation in Passbolt
 sidebar_position: 3
 ---
 
-A string is available for translation only if it has been externalized in the source code of the passbolt applications, 
-and the source code is already in the pre-release state. 
+A string is available for translation only if it has been externalized in the source code of the Passbolt applications,
+and the source code is already in the pre-release state.
 
 :::note
-As mentioned in the introduction of this document, British English is the language used to develop the 
+As mentioned in the introduction of this document, British English is the language used to develop the
 application. Therefore, any changes to the source language will have to be done in the source code and each change
 will have to go through the translation process.
 :::
@@ -19,10 +19,10 @@ The [styleguide repository](https://github.com/passbolt/passbolt_styleguide) con
 the end user.
 
 In this repository you will find:
-* Most of the passbolt front-end application in the directory *src/react-extension*
-* The passbolt quickaccess application in the directory *src/react-quickaccess*
+* Most of the Passbolt front-end application in the directory *src/react-extension*
+* The Passbolt Quickaccess application in the directory *src/react-quickaccess*
 
-The styleguide uses the i18next library to help manage the translation, if you want to know more checkout their 
+The styleguide uses the i18next library to help manage the translation, if you want to know more checkout their
 [documentation](https://github.com/i18next/i18next).
 
 ### Getting started
@@ -52,12 +52,12 @@ export default withTranslation("common")(ComponentToTranslate);
 
 To mark for translation a string contained in JSX code.
 ```jsx
-<Trans>Welcome to passbolt!</Trans>
+<Trans>Welcome to Passbolt!</Trans>
 ```
 
 To mark for translation a string contained in javascript code.
 ```javascript
-this.props.t("Welcome to passbolt!");
+this.props.t("Welcome to Passbolt!");
 ```
 
 ### Generate the language json source file
@@ -88,7 +88,7 @@ In order to work on the translation of this application you need to:
 
 ### Mark a string for translation
 
-To translate a string, a file has first to load the passbolt translation utility located in 
+To translate a string, a file has first to load the Passbolt translation utility located in
 `src/all/background_page/sdk/i18n.js`. For instance:
 ```javascript
 const {i18n} = require("./sdk/i18n");
@@ -96,7 +96,7 @@ const {i18n} = require("./sdk/i18n");
 
 To mark for translation a string contained in javascript code.
 ```javascript
-i18n.t("Welcome to passbolt!");
+i18n.t("Welcome to Passbolt!");
 ```
 
 ### Generate the language json source file
@@ -113,7 +113,7 @@ Once done you can propose your changes as a pull request on the repository.
 The [API repository](https://github.com/passbolt/passbolt_api) contains all the code relative to the API
 obviously but also some screens presented to the end users such as the installation wizard.
 
-The passbolt API uses the CakePHP translation feature to help manage the translation, if you want to know more checkout 
+The Passbolt API uses the CakePHP translation feature to help manage the translation, if you want to know more checkout
 their [documentation](https://book.cakephp.org/3/en/core-libraries/internationalization-and-localization.html).
 
 ### Getting started
@@ -127,7 +127,7 @@ In order to work on the translation of this application you need to:
 
 To mark for translation a string contained in PHP code.
 ```php
-__('Welcome to passbolt!');
+__('Welcome to Passbolt!');
 ```
 
 ### Generate the language gettext source file
@@ -137,4 +137,4 @@ Once you have made your changes on the source code, you can then generate the la
 composer externalize-locale-strings
 ```
 
-Once done you can propose your changes as a pull request on the repository. 
+Once done you can propose your changes as a pull request on the repository.

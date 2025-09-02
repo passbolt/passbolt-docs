@@ -30,7 +30,7 @@ const HomepageHero = () => {
       href: '/hosting',
       title: 'Hosting guide',
       description:
-        'All the technical information related to the setup and update of your passbolt self-hosted server',
+        'All the technical information related to the setup and update of your Passbolt self-hosted server',
     },
     {
       id: 'contributor',
@@ -46,7 +46,7 @@ const HomepageHero = () => {
       href: '/development',
       title: 'Developer guide',
       description:
-        'All the high-level information to integrate and call the passbolt API.',
+        'All the high-level information to integrate and call the Passbolt API.',
     },
     {
       id: 'api',
@@ -54,7 +54,7 @@ const HomepageHero = () => {
       href: '/api',
       title: 'API guide',
       description:
-        'All the low-level information to call the passbolt API and its endpoints.',
+        'All the low-level information to call the Passbolt API and its endpoints.',
     },
     {
       id: 'releases',
@@ -86,7 +86,7 @@ const HomepageHero = () => {
     <div className={styles.root}>
       <div className={styles.header}>
         <Heading as="h1" className={styles.heading}>
-          Welcome to the passbolt{' '}
+          Welcome to the Passbolt{' '}
           <span className={styles.red}>documentation</span>!
         </Heading>
 

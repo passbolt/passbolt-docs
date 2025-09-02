@@ -1,7 +1,7 @@
 ---
-title: Configure LDAP SSL (LDAPS)
-sidebar_label: LDAP SSL (LDAPS)
-description: Configure LDAP SSL (LDAPS)
+title: Configure LDAP with TLS (SSL)
+sidebar_label: LDAP with TLS (SSL)
+description: Configure LDAP with STARTTLS or LDAPS (implicit TLS)
 hide_table_of_contents: false
 sidebar_position: 1
 ---
@@ -14,9 +14,29 @@ import Chips from "/src/components/Chips/Chips";
 
 ## Introduction
 
-To use **LDAPS**, your LDAP server must present a valid TLS certificate to the client — in this case, the **Passbolt server**. The certificate must also be **trusted by Passbolt**.
+To use **LDAP with TLS (SSL)**, your LDAP server must present a valid TLS certificate to the client — in this case, the **Passbolt server**. The certificate must also be **trusted by Passbolt**.
 
-There are two common certificate setups:
+## Connection Types
+
+### LDAP with STARTTLS (explicit TLS)
+- **Port**: 389 (typically)
+- **Protocol**: Upgrades to TLS after initial connection
+- **Use case**: Firewall-friendly, allows same port for encrypted and unencrypted connections
+
+### LDAPS (implicit TLS)
+- **Port**: 636 (typically)  
+- **Protocol**: TLS from connection start
+- **Use case**: Direct encrypted connection, more secure initial handshake
+
+## Port Configuration
+
+- **Port 389**: LDAP with STARTTLS (explicit TLS upgrade)
+- **Port 636**: LDAPS (implicit TLS from start)
+- **Custom ports**: Both protocols support custom port configuration
+
+## Certificate Requirements
+
+Both STARTTLS and LDAPS require valid TLS certificates. There are two common certificate setups:
 
 ---
 
@@ -34,19 +54,42 @@ In many on-premises environments, LDAP runs on a private network with self-signe
 
 If your LDAP server does not present a **certificate chain** (i.e., missing CA), you must manually upload the **CA certificate** to the Passbolt server.
 
-> 💡 Passbolt provides an official [certificate bundler tool](https://github.com/passbolt/passbolt-ldap-certificate-bundler) to simplify retrieving and formatting certificates from LDAPS servers.
+> 💡 Passbolt provides an official [certificate bundler tool](https://github.com/passbolt/passbolt-ldap-certificate-bundler) to simplify retrieving and formatting certificates from LDAP servers with TLS.
 
 <Figure
   src="/img/help/2020/01/AD_ldaps_ssl_certificate_error.png"
-  alt="LDAP with ssl - certificate error message"
-  caption="fig. LDAP with ssl - certificate error message"
+  alt="LDAP with TLS - certificate error message"
+  caption="fig. LDAP with TLS - certificate error message"
 />
 
 ---
 
-## Configure Passbolt to Trust a Private LDAPS Certificate
+## Configure STARTTLS
 
-### Step 1: Ping the Server
+### LDAP with STARTTLS Configuration
+
+To configure LDAP with STARTTLS, use the standard LDAP port (389) and ensure your LDAP server supports STARTTLS:
+
+```bash
+# Test STARTTLS connection
+ldapsearch -x -D "username" -W -H ldap://your_ldap_server.com:389 -b "dc=domain,dc=com" -Z
+```
+
+The `-Z` flag enables STARTTLS. If successful, the connection will upgrade to TLS after the initial handshake.
+
+### STARTTLS Configuration Details
+
+- **Port**: 389 (typically) or custom ports
+- **Protocol**: Upgrades to TLS after initial connection
+- **Server requirement**: LDAP server must support STARTTLS extension
+
+---
+
+## Configure LDAPS (Implicit TLS)
+
+### LDAPS Configuration Steps
+
+#### Step 1: Ping the Server
 
 First, confirm basic connectivity:
 
@@ -59,7 +102,7 @@ ping your_ldap_server.com
 
 ---
 
-### Step 2: Test LDAPS with ldapsearch
+#### Step 2: Test LDAPS with ldapsearch
 
 :::warning
 Run the command as the web server user:  
@@ -85,7 +128,7 @@ ldap_sasl_bind(SIMPLE): Can't contact LDAP server (-1)
 
 ---
 
-### Step 3: Download a Certificate Chain
+#### Step 3: Download a Certificate Chain
 
 Use our official utility to retrieve and bundle LDAPS certificates:  
 🔗 [passbolt/passbolt-ldap-certificate-bundler](https://github.com/passbolt/passbolt-ldap-certificate-bundler)
@@ -229,7 +272,7 @@ TLS_REQCERT never
 
 ---
 
-### Final Step: Re-Test with ldapsearch
+#### Final Step: Re-Test with ldapsearch
 
 Re-run the ldapsearch command from Step 2.  
 If the certificate issue is resolved, the connection should succeed. You can now return to Passbolt and test the sync.
@@ -238,7 +281,21 @@ If the certificate issue is resolved, the connection should succeed. You can now
 
 ## Looking for More Advanced Scenarios?
 
-This page covers the essentials for setting up and troubleshooting LDAPS in a typical environment.  
+This page covers the essentials for setting up and troubleshooting both STARTTLS and LDAPS in a typical environment.
+
+## Summary
+
+### LDAP with STARTTLS
+- **Use when**: You need firewall-friendly configuration or want to use standard LDAP ports
+- **Port**: 389 (typically) or custom ports
+- **Security**: Upgrades to TLS after initial connection
+- **Configuration**: Use `ldap://` URLs with STARTTLS enabled
+
+### LDAPS (Implicit TLS)
+- **Use when**: You want maximum security from connection start
+- **Port**: 636 (typically) or custom ports  
+- **Security**: TLS from connection start
+- **Configuration**: Use `ldaps://` URLs with proper certificate trust  
 However, if you're dealing with:
 
 - edge cases like multi-domain forests,

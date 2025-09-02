@@ -52,7 +52,7 @@ The lifespan of **TLS certificates** is being progressively reduced to increase 
 
 Here is the new **TLS certificate lifespan schedule** set by vendors in Ballot SC-081v3:
 
-- **Now until March 15, 2026**: The maximum certificate lifetime is **398 days**.
+- **Starting from March 15, 2026**: The maximum certificate lifetime is **398 days**.
 - **From March 15, 2026**: The maximum certificate lifetime will be **200 days**.
 - **From March 15, 2027**: The maximum certificate lifetime will be **100 days**.
 - **From March 15, 2029**: The maximum certificate lifetime will be reduced to **47 days**.
@@ -66,22 +66,22 @@ For **passbolt** users, particularly **enterprise organisations**, this change m
 As TLS certificates continue to evolve, **automation** will become an essential part of keeping systems secure and operational. passbolt's ability to integrate with modern certificate management systems will help organisations adapt to these changes without disruption.
 
 ## Self-Signed Certificates
-A self-signed certificate is created and signed by the same system that uses it, without involving a public CA. While it still provides encryption, it won’t be automatically trusted by browsers, operating systems, or passbolt clients.  
-- **Typical use cases:** local development, staging servers, or private/internal deployments.  
-- **Trust requirements:** the certificate (or its issuing root) must be manually installed in the trust store of each client system or browser to avoid TLS errors when accessing passbolt.  
+A self-signed certificate is created and signed by the same system that uses it, without involving a public CA. While it still provides encryption, it won’t be automatically trusted by browsers, operating systems, or passbolt clients.
+- **Typical use cases:** local development, staging servers, or private/internal deployments.
+- **Trust requirements:** the certificate (or its issuing root) must be manually installed in the trust store of each client system or browser to avoid TLS errors when accessing passbolt.
 - **Security**: Self-signed certificates are generated with the same cryptography as certificates created by a CA. They do however come with challenges when deployed in production deployments. Revocation or reissuing can only be achieved manually by a system administrator.
 
 ## Certificate Bundles
-A certificate bundle contains the full certificate chain needed for a client to verify the server’s identity — usually the server certificate, any intermediate CA certificates, and the root CA certificate.  
-- passbolt relies on a complete and correct chain so that browsers and API clients can validate the TLS connection.  
-- Public CAs like Let’s Encrypt provide these bundles for download, and your web server must be configured to serve the full chain.  
-- If you use an internal CA, you will need to distribute and trust the root certificate across all systems that connect to passbolt.  
+A certificate bundle contains the full certificate chain needed for a client to verify the server’s identity — usually the server certificate, any intermediate CA certificates, and the root CA certificate.
+- passbolt relies on a complete and correct chain so that browsers and API clients can validate the TLS connection.
+- Public CAs like Let’s Encrypt provide these bundles for download, and your web server must be configured to serve the full chain.
+- If you use an internal CA, you will need to distribute and trust the root certificate across all systems that connect to passbolt.
 
 ## Installing and Using Self-Signed Certificates and Certificate Bundles in passbolt
 
 1. **Installing Self-Signed Certificates**:
    - **Operating System**: On **Linux** (e.g., **Ubuntu**, **Debian**, **Red Hat**), **self-signed certificates** need to be manually installed into the **system's trust store** (via commands like `update-ca-certificates` or `trust anchor` for Red Hat-based systems). This allows **passbolt** or other services to trust the certificate for secure communication.
-   - **passbolt**: If **passbolt** is configured to use **self-signed certificates** or **internal certificates** (such as in a private instance), the certificate must be added to the **trusted certificates** list in the **passbolt** application. This typically involves placing the certificate bundle in the appropriate directory or referencing it in the passbolt configuration file (`config/passbolt.php`), ensuring the application can establish secure connections.
+   - **passbolt**: If **passbolt** is configured to use **self-signed certificates** or **internal certificates** (such as in a private instance), the certificate must be added to the **trusted certificates** list in the **passbolt** application. This typically involves placing the certificate bundle in the appropriate directory or referencing it in the passbolt configuration file (`passbolt.php`), ensuring the application can establish secure connections.
 
 2. **Using Certificate Bundles**:
    - **Operating System**: Certificate bundles can be installed on the system in the appropriate location to establish trust. On **Ubuntu**, for example, you can place the bundle in `/usr/local/share/ca-certificates/` and run `update-ca-certificates`.
@@ -104,4 +104,4 @@ This table summarises the different types of Certificate Authorities and their t
 - [Email Server Configuration](/admin/emails/email-server/): SMTP TLS configuration and certificate trust
 - [LDAP with TLS (SSL) Configuration](/hosting/configure/ldap/ldaps/): LDAP TLS configuration and certificate bundling
 - [Environment Reference](/hosting/configure/environment-reference): TLS-related environment variables
-- [SSL/TLS Troubleshooting](/hosting/troubleshooting/ssl-tls): Common issues and solutions 
+- [SSL/TLS Troubleshooting](/hosting/troubleshooting/ssl-tls): Common issues and solutions

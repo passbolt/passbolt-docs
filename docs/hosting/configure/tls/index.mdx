@@ -27,8 +27,8 @@ The passbolt API relies on the hosting environment to correctly handle the tunne
 - **HTTPS**: Browser, API, and application access to the web server are required to be secured with TLS certificates in production environments. TLS configuration is handled by the web server (nginx or Apache) through its own configuration files. Our documentation provides platform-specific instructions and tooling for managing your TLS certificates in your web server.  See [HTTPS Configuration](/hosting/configure/https/) for detailed setup instructions, advice, and tooling.
 
 ### **Outbound Connections**
-- **SMTPS (Email)**: TLS secures email communications for notifications and user invitations. passbolt recommends Implicit TLS (SMTPS, port 465) and supports Explicit TLS (SMTP+StartTLS, port 587) depending on your SMTP server requirements. The SMTP server's certificate must be trusted by passbolt for TLS connections to succeed. For detailed SMTP TLS configuration including certificate trust settings, see [Email Server Configuration](/admin/emails/email-server/).
-- **LDAPS**: Directory synchronization uses TLS to secure connections to Active Directory or other LDAP servers, see [LDAPS Configuration](/hosting/configure/ldap/ldaps/)
+- **SMTPS (Email)**: TLS secures email communications for notifications and user invitations. passbolt recommends SMTPS (implicit TLS, port 465) and supports SMTP with STARTTLS (explicit TLS, port 587) depending on your SMTP server requirements. The SMTP server's certificate must be trusted by passbolt for TLS connections to succeed. For detailed SMTP TLS configuration including certificate trust settings, see [Email Server Configuration](/admin/emails/email-server/).
+- **LDAP with TLS**: Directory synchronization uses TLS to secure connections to Active Directory or other LDAP servers, see [LDAP with TLS (SSL) Configuration](/hosting/configure/ldap/ldaps/)
 - **SSO Providers**: Single Sign-On integrations use TLS to secure authentication flows. Passbolt must trust the CA or disable the TLS (SSL) check.
 - **Database Connections**: TLS can secure transport between passbolt and database servers but can also use TLS for authentication (uncommon)
 
@@ -102,6 +102,6 @@ This table summarises the different types of Certificate Authorities and their t
 
 - [HTTPS Configuration](/hosting/configure/https/): Complete HTTPS setup guide
 - [Email Server Configuration](/admin/emails/email-server/): SMTP TLS configuration and certificate trust
-- [LDAPS Configuration](/hosting/configure/ldap/ldaps/): LDAP SSL configuration and certificate bundling
+- [LDAP with TLS (SSL) Configuration](/hosting/configure/ldap/ldaps/): LDAP TLS configuration and certificate bundling
 - [Environment Reference](/hosting/configure/environment-reference): TLS-related environment variables
 - [SSL/TLS Troubleshooting](/hosting/troubleshooting/ssl-tls): Common issues and solutions 

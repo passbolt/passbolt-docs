@@ -1,0 +1,107 @@
+---
+title: TLS Certificates
+description: How to configure TLS certificates for secure connections
+sidebar_label: TLS Certificates
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 3
+---
+
+import Chips from "/src/components/Chips/Chips";
+
+
+
+## Introduction to Certificate Authorities (CAs) and Trust
+
+A **Certificate Authority (CA)** is an entity that issues **TLS (SSL) certificates** to validate the identity of websites, servers, or organisations. Major CAs, such as **DigiCert**, **GlobalSign**, **Let's Encrypt**, and **Entrust**, are trusted by browsers and operating systems to sign **Certificate Signing Requests (CSRs)**. These CAs verify the identity of the requester and sign the `CSR` to issue a certificate, which can then be used to secure communications.
+
+:::note
+SSL was originally developed by Netscape and became TLS in 1999 when the IETF standardised it as an open protocol. Although SSL has been obsolete for over 25 years, the terms SSL and TLS are still used interchangeably. In our documentation, we use TLS (SSL) to make it easier to search, and some environment variables still include “SSL” for compatibility. Tools like OpenSSL also retain the SSL name, even though they implement TLS.
+:::
+
+### Where TLS is used in passbolt
+
+The passbolt API relies on the hosting environment to correctly handle the tunneling and encryption of the common protocols listed below:
+
+### **Inbound Connections**
+- **HTTPS**: Browser, API, and application access to the web server are required to be secured with TLS certificates in production environments. TLS configuration is handled by the web server (nginx or Apache) through its own configuration files. Our documentation provides platform-specific instructions and tooling for managing your TLS certificates in your web server.  See [HTTPS Configuration](/hosting/configure/https/) for detailed setup instructions, advice, and tooling.
+
+### **Outbound Connections**
+- **SMTPS (Email)**: TLS secures email communications for notifications and user invitations. passbolt recommends SMTPS (implicit TLS, port 465) and supports SMTP with STARTTLS (explicit TLS, port 587) depending on your SMTP server requirements. The SMTP server's certificate must be trusted by passbolt for TLS connections to succeed. For detailed SMTP TLS configuration including certificate trust settings, see [Email Server Configuration](/admin/emails/email-server/).
+- **LDAP with TLS**: Directory synchronization uses TLS to secure connections to Active Directory or other LDAP servers, see [LDAP with TLS (SSL) Configuration](/hosting/configure/ldap/ldaps/)
+- **SSO Providers**: Single Sign-On integrations use TLS to secure authentication flows. Passbolt must trust the CA or disable the TLS (SSL) check.
+- **Database Connections**: TLS can secure transport between passbolt and database servers but can also use TLS for authentication (uncommon)
+
+
+The trust in a certificate issued by these CAs comes from their **root certificate**, which is included in the **root certificate stores** maintained by major vendors like **Mozilla**, **Google**, **Apple**, and **Microsoft**. These vendors validate and include CAs in their root stores, ensuring that any certificate signed by a trusted CA will be accepted across platforms. However, CAs can be removed from these stores if they fail to meet security standards or are compromised, requiring affected organisations to replace those certificates.
+
+**Cross-recognition** allows a CA that is included in one root certificate store to apply for recognition in other vendors' stores. This means that once a CA is trusted by one vendor, such as **Mozilla**, **Google**, or **Microsoft**, the CA can request inclusion in other root stores. This helps ensure that certificates issued by that CA are trusted across all major platforms and browsers, making them widely accepted across the internet.
+
+**Let's Encrypt** is a widely used free, automated, and open CA that issues **TLS (SSL) certificates**. **Let's Encrypt**'s root certificate, **ISRG Root X1**, is included in the root stores of major platforms. It also uses intermediate certificates to create a **chain of trust** for validating issued certificates. For more information on **Let's Encrypt's root and intermediate certificates**, you can visit their official page: [Let's Encrypt Certificates](https://letsencrypt.org/certificates/).
+
+## Public vs. Private CAs
+
+While **public CAs** are globally recognised and trusted across the internet, organisations, including **enterprise customers**, may set up their own **private CAs** to issue certificates for **internal use**. This is particularly common in large organisations with complex security and compliance needs, where a **Private Key Infrastructure (PKI)** is set up to manage certificates internally.
+
+### Private CAs and PKI for Enterprise Use
+In an enterprise setting, a **private CA** is often used to issue certificates within the organisation's own network. Certificates issued by a private CA are **not automatically trusted** by browsers or operating systems, as private CAs are not included in public root stores. To trust certificates issued by a private CA, the **root certificate** of the private CA must be **manually added** to the **trust stores** of the systems that need to validate those certificates. This allows secure communication and internal authentication for various services, including **internal web servers, VPNs, secure email**, and other critical systems.
+
+## The Changing Lifespan of TLS Certificates: A Call for Automation
+
+The lifespan of **TLS certificates** is being progressively reduced to increase security and ensure that certificates are refreshed more frequently. This change will significantly impact certificate management for all network connected computers on the internet.
+
+Here is the new **TLS certificate lifespan schedule** set by vendors in Ballot SC-081v3:
+
+- **Starting from March 15, 2026**: The maximum certificate lifetime is **398 days**.
+- **From March 15, 2026**: The maximum certificate lifetime will be **200 days**.
+- **From March 15, 2027**: The maximum certificate lifetime will be **100 days**.
+- **From March 15, 2029**: The maximum certificate lifetime will be reduced to **47 days**.
+
+This reduction in certificate lifespan means that **manual certificate management** will soon be unsustainable. With certificates expiring more frequently, **automated certificate management** becomes essential. Organisations need to implement **automatic certificate renewal** and deployment systems to avoid disruptions due to expired certificates.
+
+### Why This Matters for passbolt Administrators
+
+For **passbolt** users, particularly **enterprise organisations**, this change means that **automating certificate deployment and renewal** is no longer optional. Manual certificate management will lead to **outages** and **security vulnerabilities** as certificates expire. Organisations will need to ensure that their systems are capable of **automatically renewing** and **deploying certificates** without manual intervention.
+
+As TLS certificates continue to evolve, **automation** will become an essential part of keeping systems secure and operational. passbolt's ability to integrate with modern certificate management systems will help organisations adapt to these changes without disruption.
+
+## Self-Signed Certificates
+A self-signed certificate is created and signed by the same system that uses it, without involving a public CA. While it still provides encryption, it won’t be automatically trusted by browsers, operating systems, or passbolt clients.
+- **Typical use cases:** local development, staging servers, or private/internal deployments.
+- **Trust requirements:** the certificate (or its issuing root) must be manually installed in the trust store of each client system or browser to avoid TLS errors when accessing passbolt.
+- **Security**: Self-signed certificates are generated with the same cryptography as certificates created by a CA. They do however come with challenges when deployed in production deployments. Revocation or reissuing can only be achieved manually by a system administrator.
+
+## Certificate Bundles
+A certificate bundle contains the full certificate chain needed for a client to verify the server’s identity — usually the server certificate, any intermediate CA certificates, and the root CA certificate.
+- passbolt relies on a complete and correct chain so that browsers and API clients can validate the TLS connection.
+- Public CAs like Let’s Encrypt provide these bundles for download, and your web server must be configured to serve the full chain.
+- If you use an internal CA, you will need to distribute and trust the root certificate across all systems that connect to passbolt.
+
+## Installing and Using Self-Signed Certificates and Certificate Bundles in passbolt
+
+1. **Installing Self-Signed Certificates**:
+   - **Operating System**: On **Linux** (e.g., **Ubuntu**, **Debian**, **Red Hat**), **self-signed certificates** need to be manually installed into the **system's trust store** (via commands like `update-ca-certificates` or `trust anchor` for Red Hat-based systems). This allows **passbolt** or other services to trust the certificate for secure communication.
+   - **passbolt**: If **passbolt** is configured to use **self-signed certificates** or **internal certificates** (such as in a private instance), the certificate must be added to the **trusted certificates** list in the **passbolt** application. This typically involves placing the certificate bundle in the appropriate directory or referencing it in the passbolt configuration file (`passbolt.php`), ensuring the application can establish secure connections.
+
+2. **Using Certificate Bundles**:
+   - **Operating System**: Certificate bundles can be installed on the system in the appropriate location to establish trust. On **Ubuntu**, for example, you can place the bundle in `/usr/local/share/ca-certificates/` and run `update-ca-certificates`.
+   - **passbolt**: If you are using a certificate bundle in **passbolt**, you'll need to ensure the server and client systems can access the appropriate chain. passbolt's configuration may need to reference the complete **certificate chain** (root + intermediate certificates) to ensure full trust and avoid SSL/TLS errors.
+
+## CA and Trust Overview
+
+| **Type of CA**       | **Trust Model**                                     | **Trust Scope**                     |
+|----------------------|----------------------------------------------------|-------------------------------------|
+| **Public CA**        | Automatically trusted by browsers and OS systems   | Global (trusted by major browsers and OSs) |
+| **Private CA**       | Trusted within specific organisations or networks   | Limited to the organisation (root certificate must be manually installed) |
+| **Self-Signed Cert** | Not trusted by default, trust must be manually added | Local or isolated systems           |
+
+This table summarises the different types of Certificate Authorities and their trust models.
+
+
+## Related Documentation
+
+- [HTTPS Configuration](/hosting/configure/https/): Complete HTTPS setup guide
+- [Email Server Configuration](/admin/emails/email-server/): SMTP TLS configuration and certificate trust
+- [LDAP with TLS (SSL) Configuration](/hosting/configure/ldap/ldaps/): LDAP TLS configuration and certificate bundling
+- [Environment Reference](/hosting/configure/environment-reference): TLS-related environment variables
+- [SSL/TLS Troubleshooting](/hosting/troubleshooting/ssl-tls): Common issues and solutions

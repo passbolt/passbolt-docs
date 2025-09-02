@@ -1,0 +1,66 @@
+---
+title: Why can't I use autofill ?
+description: Why Passbolt autofill doesn't work on some website.
+hide_table_of_contents: false
+---
+
+import Figure from '@site/src/components/Figure/Figure';
+
+Autofill is a useful feature that helps you save time by giving quick access to the appropriate password when you're on a website, and by automatically filling in the login information for you.
+However, for this to work, Passbolt needs to detect a login form on the webpage you're visiting. It does this by analyzing the HTML code and looking for specific selectors that indicate “this is the username field” and “this is the password field”. 
+The selectors passbolt search for are defined bye the [W3C web-standards.](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill)
+
+## How to verify ? 
+
+You can check which selectors are used on a webpage by right-clicking on the username or password input field and selecting **Inspect**.
+
+    <Figure
+      src="/img/help/2025/08/right-click-inspect.png"
+      alt="Inspect the input field"
+      caption="fig. Inspect the input field"
+      size={{ width: '400px', height: '550px' }}
+    />
+
+You will then see the HTML source code of the webpage. What matters here is the section related to the input field. In this example, Passbolt is able to detect the input field because the `name` and `id` attributes follow W3C web standards for form autofill.
+
+    <Figure
+      src="/img/help/2025/08/email-field-inspect.png"
+      alt="Inspect the username field"
+      caption="fig. Inspect the username field"
+      size={{ width: '400px', height: '550px' }}
+    />
+
+But, in the following example, the username input field uses attributes that are not supported by Passbolt, which prevents the extension from autofilling the username.
+
+    <Figure
+      src="/img/help/2025/08/username-field-inspect.png"
+      alt="Inspect the username field"
+      caption="fig. Inspect the username field"
+      size={{ width: '400px', height: '550px' }}
+    />
+
+However, the password input field uses an `id` that is recognized by Passbolt, so in this case, autofill will only be available for the password field.
+
+    <Figure
+      src="/img/help/2025/08/password-field-inspect.png"
+      alt="Inspect the password field"
+      caption="fig. Inspect the password field"
+      size={{ width: '400px', height: '550px' }}
+    />
+
+
+## What about Shadow DOM or iFrames?
+
+Some websites embed login forms inside [Shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) or `<iframe>` elements.
+These techniques are commonly used for encapsulation or third-party content. Unfortunately, due to browser security limitations, Passbolt cannot access or interact with fields inside shadow roots or iframes. As a result, autofill will not work on these types of pages.
+
+## What are my possibilities ? 
+
+You can contact the website's support or development team and ask them to adjust the login form to make them autofill compatible, for example by using standard field names or IDs that follow the [W3C web-standars.](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill)
+
+## More info
+
+You can find the list of supported [selector here.](https://github.com/passbolt/passbolt_styleguide/blob/master/src/react-web-integration/lib/InForm/InFormFieldSelector.js)
+If autofill isn't triggered even though you're on a login page, it usually means the login form uses selectors that Passbolt does not recognize.
+
+We know that unsupported website poses a strain on our client, and our backlog is actively working on improving this functionnalities in passbolt. (ref. PB-39112)

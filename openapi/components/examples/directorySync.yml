@@ -1,0 +1,59 @@
+synchronizeAndSimulate:
+  response:
+    base:
+      value:
+        header:
+          id: "7ff2828c-1092-4897-8e0a-1dc64ada889f"
+          status: "success"
+          servertime: 1721207029
+          action: "4d0c0996-ce30-4bce-9918-9062ab35c542"
+          message: "<SUCCESS MESSAGE>"
+          url: "<API ENDPOINT URL>"
+          code: 200
+        body:
+          users:
+          - message: "The user anakin@passbolt.com was successfully added to passbolt."
+            model: "Users"
+            data:
+              username: "anakin@passbolt.com"
+              profile:
+                first_name: "Anakin"
+                last_name: "Skywalker"
+                user_id: "5c10147b-c955-4972-be35-39859b107cc6"
+                created: "2025-07-21T14:03:58+00:00"
+                modified: "2025-07-21T14:03:58+00:00"
+                id: "c763e974-dcd7-4b76-953b-30fc884821bf"
+              role_id: "cf4dffa8-5bdf-422b-93ce-d727eceb3ea8"
+              deleted: false
+              created: "2025-07-21T14:03:58+00:00"
+              modified: "2025-07-21T14:03:58+00:00"
+              id: "5c10147b-c955-4972-be35-39859b107cc6"
+              last_logged_in: null
+            action: "create"
+            status: "success"
+            created: "2025-07-21T14:03:58+00:00"
+            version: "2"
+          - message: "The user luke@passbolt.com was successfully added to passbolt."
+            model: "Users"
+            data:
+              username: "luke@passbolt.com"
+              profile:
+                first_name: "Luke"
+                last_name: "Skywalker"
+                user_id: "5c10147b-c955-4972-be35-39859b107cc6"
+                created: "2025-07-21T14:03:58+00:00"
+                modified: "2025-07-21T14:03:58+00:00"
+                id: "c763e974-dcd7-4b76-953b-30fc884821bf"
+              role_id: "cf4dffa8-5bdf-422b-93ce-d727eceb3ea8"
+              deleted: false
+              created: "2025-07-21T14:03:58+00:00"
+              modified: "2025-07-21T14:03:58+00:00"
+              id: "5c10147b-c955-4972-be35-39859b107cc6"
+              last_logged_in: null
+            action: "create"
+            status: "success"
+            created: "2025-07-21T14:03:58+00:00"
+            version: "2"
+        groups: []
+
+

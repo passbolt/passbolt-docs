@@ -29,7 +29,7 @@ The windows application requires HTTPS to work.
 ### Which certificate are you using?
 
 #### Let's Encrypt
-There is usually no server issues with a certificate issued by rootCA (here, Let's Encrypt), you should be able to upload the account kit and proceed further without any issues.
+There is usually no server issues with a certificate issued by a root CA (here, Let's Encrypt), you should be able to upload the account kit and proceed further without any issues.
 
 #### Self-signed certificate
 If you've chose to use a self-signed certificate, you need to trust it on your OS, but before proceeding, you have to download the certificate.
@@ -73,7 +73,7 @@ Now that the file has been downloaded:
   - Click "Yes"
 - Place all certificate in the following store
 - Browse the folder path
-  - Trusted Root Certification Authorities
+  - Trusted Root Certificate Authorities (CA)
 - Click on "Finish"
 
 That's it! You should not face any errors while configuring the windows application and importing your account kit.
@@ -103,7 +103,7 @@ If you run into any issues, this is usually related to one of these three behavi
 - There is still cache data in *Credentials Manager > Web Credentials* on Windows
   - Delete the three objects inside
 - The folder path is wrong when installing the certificate
-  - The certificate should be imported in **Trusted Root Certification Authorities**
+  - The certificate should be imported in **Trusted Root Certificate Authorities (CA)**
 - The certificate hasn't been properly imported
   - You have to re-download the certificate and trust the certificate again.
 

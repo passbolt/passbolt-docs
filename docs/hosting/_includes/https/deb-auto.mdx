@@ -3,18 +3,20 @@ import CodeBlock from "/src/components/CodeBlock/CodeBlock";
 import HTTPSWarning from '/docs/hosting/_includes/warning/_https-url-change.mdx';
 import LetsEncryptWarning from '/docs/hosting/_includes/warning/_https-valid-domain.mdx'
 import SubDirectoryWarning from '/docs/hosting/_includes/warning/_subdirectory-https-warning.mdx'
+import ACMEWarning from '/docs/hosting/_includes/warning/_acme_port_80_dependence_warning.mdx'
 
 
 <HTTPSWarning />
 <LetsEncryptWarning />
 <SubDirectoryWarning />
+<ACMEWarning />
 
 
 ### Install or reconfigure passbolt
 
 If you don’t have passbolt installed please check on the hosting section for more information on how to install passbolt on debian.
 
-If you have already installed passbolt then you want to execute the following command to start the configuration process for SSL:
+If you have already installed passbolt then you want to execute the following command to start the configuration process for TLS (SSL):
 
 <CodeBlock>
     {`sudo dpkg-reconfigure passbolt-${props.productName.toLowerCase()}-server`}

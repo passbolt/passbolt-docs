@@ -30,6 +30,12 @@ If you are running Helm, please, refer to the [Troubleshooting Helm](/hosting/tr
 
 
 ## API
+
+:::info Docker environment variables
+Before running the cake tools inside docker containers, ensure you've imported the environment variables into your terminal session.
+
+`$ source /etc/environment`
+:::
 ### Healthcheck
 
 The healthcheck is used to check whether the Passbolt system is running as expected. It evaluates various aspects of the system to ensure that all components are working properly and configured correctly. It provides a detailed report about important information such as the gpg configuration, the ssl access, database configuration, etc.

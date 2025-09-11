@@ -23,17 +23,24 @@ If you are trying to update the mariadb version in the docker compose file, you 
 
 It is recommended that users pull the tags pointing to specific passbolt versions when running in environments other than testing.
 
-To update passbolt, you would just need to change the image tag in your docker-compose.yml file:
+To update passbolt, change the image tag in your docker-compose.yml file:
 
 ```yaml
  image: passbolt/passbolt:<IMAGE_TAG>
 ```
-Then relaunch your docker containers:
+
+Then pull the latest image and relaunch your containers:
 
 ```bash
+docker compose pull
 docker compose up -d
 ```
+
+:::note[Important]
+The 'latest' tag does not automatically keep your container up to date. You must run `docker compose pull` to fetch the latest image version before updating.
+:::
+
 By doing this:
 
-a new passbolt docker image will be pulled and a new container created
-your passbolt database schema will be updated
+- a new passbolt docker image will be pulled and a new container created
+- your passbolt database schema will be updated

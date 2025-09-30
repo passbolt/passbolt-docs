@@ -1,0 +1,517 @@
+---
+title: SCIM Troubleshooting & FAQ
+description: Common SCIM integration issues, solutions, and frequently asked questions
+sidebar_label: Troubleshooting & FAQ
+hide_table_of_contents: false
+---
+
+import Figure from '@site/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+
+<Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+
+# SCIM Troubleshooting & FAQ
+
+This guide helps you diagnose and resolve common issues with SCIM user provisioning and answers frequently asked questions about SCIM integration.
+
+## Common Issues Overview
+
+
+## Connection Issues
+
+### SCIM Endpoint Not Accessible
+
+**Symptoms:**
+- Connection test fails in identity provider
+- Timeout errors when testing SCIM configuration
+- 404 or connection refused errors
+
+**Causes:**
+- Incorrect SCIM endpoint URL
+- HTTPS not properly configured
+- Firewall blocking access
+- Passbolt server not running
+
+**Solutions:**
+
+1. **Verify SCIM Endpoint URL**
+   ```
+   Correct format: https://your-passbolt-instance.com/scim/v2/<settings_id>
+   Common mistakes:
+   - Missing /scim/v2/<settings_id> path
+   - Using HTTP instead of HTTPS
+   - Incorrect domain name
+   - Missing settings_id parameter
+   ```
+
+2. **Check HTTPS Configuration**
+   ```bash
+   # Test HTTPS connectivity
+   curl -I https://your-passbolt-instance.com/scim/v2/<settings_id>
+   
+   # Expected response:
+   HTTP/2 401  # Unauthorized (expected without auth token)
+   ```
+
+3. **Verify Firewall Settings**
+   - Ensure port 443 (HTTPS) is open
+   - Check if corporate firewall blocks SCIM endpoints
+   - Verify load balancer configuration
+
+4. **Check Passbolt Server Status**
+   ```bash
+   # Check if Passbolt is running
+   systemctl status passbolt
+   
+   # Check web server status
+   systemctl status apache2  # or nginx
+   ```
+
+### Authentication Token Issues
+
+**Symptoms:**
+- "Unauthorized" or "401" errors
+- "Invalid token" messages
+- Connection test fails with authentication error
+
+**Causes:**
+- Incorrect authentication token
+- Token format issues
+- Expired or regenerated token
+
+**Solutions:**
+
+1. **Verify Token Format**
+   ```
+   Microsoft Entra ID: Bearer YOUR_TOKEN_HERE
+   Okta: Bearer YOUR_TOKEN_HERE
+   
+   Token format: pb_[A-Za-z0-9]{43}
+   
+   Common mistakes:
+   - Missing "Bearer " prefix
+   - Extra spaces or characters
+   - Copy-paste errors
+   - Wrong token format
+   ```
+
+2. **Regenerate Authentication Token**
+   - Go to Passbolt → Administration → SCIM Settings
+   - Disable SCIM temporarily
+   - Re-enable SCIM to generate a new token
+   - Update identity provider configuration
+
+3. **Check Token Permissions**
+   - Ensure the token has proper SCIM permissions
+   - Verify token hasn't been revoked
+
+## Provisioning Issues
+
+### Users Not Being Created
+
+**Symptoms:**
+- Users assigned in identity provider but not appearing in Passbolt
+- Provisioning logs show "skipped" or "error" status
+- No users created after initial sync
+
+**Causes:**
+- Incorrect attribute mapping
+- Missing required attributes
+- Invalid email addresses
+- User already exists
+
+**Solutions:**
+
+1. **Check Attribute Mapping**
+   ```yaml
+   Required mappings:
+   - userName (must be unique email)
+   - name.givenName
+   - name.familyName
+   - emails[0].value
+   ```
+
+2. **Validate Source Data**
+   - Ensure source users have valid email addresses
+   - Check that required name fields are populated
+   - Verify email addresses are unique
+
+3. **Review Provisioning Logs**
+   - Check identity provider provisioning logs
+   - Look for specific error messages
+   - Verify SCIM request/response details
+
+### Users Created but Not Activated
+
+**Symptoms:**
+- Users appear in Passbolt but remain in "invitation pending" status
+- Users cannot log in despite being provisioned
+- Email invitations not sent
+
+**Causes:**
+- Email delivery issues
+- User hasn't completed account setup
+- Account setup process not initiated
+
+**Solutions:**
+
+1. **Check Email Delivery**
+   - Verify Passbolt email configuration
+   - Check spam/junk folders
+   - Ensure email server is working properly
+
+2. **Manual Account Activation**
+   - Send welcome email manually from Passbolt
+   - Guide user through account setup process
+   - Check user's email address for typos
+
+3. **Verify User Status**
+   - Check user status in Passbolt user management
+   - Ensure user is marked as active
+   - Verify account setup completion
+
+### Users Not Being Updated
+
+**Symptoms:**
+- Changes in identity provider not reflected in Passbolt
+- User information remains outdated
+- Provisioning logs show update failures
+
+**Causes:**
+- Incorrect attribute mapping for updates
+- SCIM update operations not configured
+- User not found for update
+
+**Solutions:**
+
+1. **Check Update Configuration**
+   - Verify "Update User Attributes" is enabled
+   - Check attribute mapping for update operations
+   - Ensure PATCH operations are supported
+
+2. **Review Update Logs**
+   - Check provisioning logs for update attempts
+   - Look for specific error messages
+   - Verify SCIM request format
+
+3. **Manual Update Test**
+   - Test updates with a single user
+   - Verify attribute mapping is correct
+   - Check for data format issues
+
+## Identity Provider Specific Issues
+
+### Microsoft Entra ID Issues
+
+**Provisioning Delays**
+- Azure runs provisioning cycles every 40 minutes
+- Use "Provision on demand" for immediate testing
+- Check provisioning status in the application overview
+
+**Connection Test Failures**
+- Verify the SCIM endpoint URL includes the settings_id
+- Check that the authentication token is in the correct format
+- Ensure HTTPS is properly configured on Passbolt
+
+**User Assignment Issues**
+- Ensure users are properly assigned to the application
+- Check that users have the required attributes filled
+- Verify user account status in Azure AD
+
+### Okta Issues
+
+**API Connection Issues**
+- Verify the Base URL format includes the settings_id
+- Check that the Bearer token is correctly formatted
+- Ensure the authentication header is properly configured
+
+**Provisioning Not Starting**
+- Verify the application is activated
+- Check that users are assigned to the application
+- Review Okta system logs for error messages
+
+**Attribute Mapping Problems**
+- Ensure Okta expressions are correctly formatted
+- Check that source attributes exist and have values
+- Verify target attributes match the expected SCIM schema
+
+## Frequently Asked Questions
+
+### General Questions
+
+#### What is SCIM and why should I use it?
+
+**SCIM (System for Cross-domain Identity Management)** is an open standard that simplifies user provisioning between identity providers and applications. It allows you to:
+
+- Automatically create users in Passbolt when they're added to your identity provider
+- Keep user information synchronised between systems
+- Reduce manual user management overhead
+- Ensure consistent user lifecycle management
+
+#### Which identity providers are supported?
+
+Passbolt SCIM currently supports:
+
+- **Microsoft Entra ID (Azure AD)** - Full support for user provisioning
+- **Okta** - Full support for user provisioning
+
+Support for additional identity providers may be added in future releases.
+
+#### How is SCIM different from LDAP directory sync?
+
+| Feature | LDAP Directory Sync | SCIM User Provisioning |
+|---------|-------------------|----------------------|
+| **Target Systems** | On-premises directories (AD, OpenLDAP) | Cloud identity providers (Azure AD, Okta) |
+| **Protocol** | LDAP | HTTP/HTTPS REST API |
+| **Real-time Updates** | Scheduled synchronisation | Near real-time provisioning |
+| **User Management** | Full user and group sync | User provisioning only |
+| **Group Management** | Supported | Not supported |
+| **Setup** | More complex configuration | Simpler setup process |
+
+#### Do I need both LDAP and SCIM?
+
+It depends on your environment:
+
+- **Use LDAP** if you have on-premises Active Directory or OpenLDAP
+- **Use SCIM** if you use cloud identity providers like Azure AD or Okta
+- **Use both** if you have a hybrid environment with both on-premises and cloud directories
+
+### Technical Questions
+
+#### What version of Passbolt do I need?
+
+SCIM user provisioning is available in **Passbolt Pro Edition version 5.5** and later. Ensure you're running the latest version for the best experience.
+
+#### What are the system requirements?
+
+- Passbolt Pro Edition v5.5+
+- HTTPS enabled (required for secure SCIM communication)
+- Administrator access to configure SCIM settings
+- Network connectivity between your identity provider and Passbolt
+
+#### How secure is SCIM communication?
+
+SCIM communication is secured through:
+
+- **HTTPS encryption** for all communications
+- **Bearer token authentication** for API access
+- **Standard SCIM 2.0 protocol** for secure data exchange
+
+#### Can I use SCIM with self-hosted Passbolt?
+
+Yes, SCIM works with both:
+
+- **Passbolt Cloud** (SaaS)
+- **Self-hosted Passbolt** (on-premises or private cloud)
+
+Ensure your self-hosted instance has HTTPS properly configured and is accessible from your identity provider.
+
+### Configuration Questions
+
+#### How do I get started with SCIM?
+
+1. **Enable SCIM in Passbolt** - Go to Administration → SCIM Settings
+2. **Configure your identity provider** - Set up Azure AD or Okta integration
+3. **Map user attributes** - Configure how user data is synchronised
+4. **Test with a small group** - Start with a few test users
+5. **Enable for your organisation** - Once tested, enable for all users
+
+#### What information do I need from Passbolt?
+
+When configuring your identity provider, you'll need:
+
+- **SCIM Endpoint URL**: `https://your-passbolt-instance.com/scim/v2/<settings_id>`
+- **Authentication Token**: Generated by Passbolt (format: `pb_[A-Za-z0-9]{43}`, keep this secure)
+
+#### How do I find the SCIM endpoint URL?
+
+The SCIM endpoint URL is displayed in Passbolt after enabling SCIM:
+
+1. Go to **Administration** → **SCIM Settings**
+2. Enable SCIM if not already enabled
+3. The endpoint URL will be displayed in the configuration
+
+#### What if I lose my authentication token?
+
+You can regenerate the authentication token:
+
+1. Go to **Administration** → **SCIM Settings**
+2. Temporarily disable SCIM
+3. Re-enable SCIM to generate a new token
+4. Update your identity provider configuration with the new token
+
+### User Management Questions
+
+#### What user information is synchronised?
+
+The following user attributes are synchronised:
+
+- **Username** (must be unique email address)
+- **First Name**
+- **Last Name**
+- **Email Address**
+- **Active Status** (enabled/disabled)
+
+#### Can I change a user's email address through SCIM?
+
+**No**, email address changes are not supported. Passbolt uses email as part of the user's cryptographic identity. If your identity provider tries to update an email address, the request will be rejected.
+
+#### What happens when I delete a user in my identity provider?
+
+When a user is deleted in your identity provider:
+
+1. The identity provider sends a DELETE request to Passbolt
+2. Passbolt will either:
+   - **Disable the user** (if configured)
+   - **Delete the user** (if configured)
+
+The exact behaviour depends on your configuration settings.
+
+#### Can I manually create users when using SCIM?
+
+Yes, you can manually create users even when SCIM is enabled. However, this may cause conflicts if the same user is later provisioned via SCIM. It's recommended to use either SCIM or manual creation, not both.
+
+#### Why can't I sync groups through SCIM?
+
+Group synchronisation is not supported because:
+
+- Adding users to groups in Passbolt means sharing encrypted credentials
+- Only users can decrypt and re-encrypt secrets with their private key
+- Neither the SCIM provider nor Passbolt server has access to user private keys
+- Group membership changes require cryptographic key operations that only users can perform
+
+#### How often does user synchronisation occur?
+
+Synchronisation frequency depends on your identity provider:
+
+- **Microsoft Entra ID**: Every 40 minutes by default
+- **Okta**: Near real-time updates
+- **On-demand sync**: Available in both providers for immediate testing
+
+### Troubleshooting Questions
+
+#### Why is my connection test failing?
+
+Common causes include:
+
+- Incorrect SCIM endpoint URL (must include settings_id)
+- Wrong authentication token format
+- HTTPS not properly configured
+- Firewall blocking access
+- Passbolt server not running
+
+#### Users are not being created - what should I check?
+
+1. Verify users are assigned to the application in your identity provider
+2. Check that required attributes (first name, last name, email) are populated
+3. Ensure attribute mapping is correct
+4. Review provisioning logs for specific error messages
+5. Test with a user who has complete profile information
+
+#### Why are users created but not activated?
+
+This is normal behaviour. Users created via SCIM:
+
+1. Are created in "invitation pending" status
+2. Receive a welcome email to complete account setup
+3. Must complete the account setup process to activate their account
+4. Can then log in and use Passbolt
+
+#### How do I troubleshoot provisioning delays?
+
+- **Microsoft Entra ID**: Use "Provision on demand" for immediate testing
+- **Okta**: Check system logs for any processing delays
+- **Both**: Verify network connectivity and server performance
+
+#### What should I do if users are being created multiple times?
+
+This usually indicates:
+
+- Multiple identity provider configurations pointing to the same Passbolt instance
+- Users assigned to multiple applications
+- Configuration conflicts between different provisioning methods
+
+Check your identity provider configuration and ensure users are only assigned to one application.
+
+## Advanced Troubleshooting
+
+### Log Analysis
+
+#### Passbolt Logs
+```bash
+# Check Passbolt logs for SCIM-related errors
+tail -f /var/log/passbolt/passbolt.log | grep -i scim
+
+# Check web server logs
+tail -f /var/log/apache2/error.log  # or nginx error log
+```
+
+#### Identity Provider Logs
+- **Microsoft Entra ID**: Check Provisioning logs in the application
+- **Okta**: Review System logs for SCIM API calls
+
+### Network Diagnostics
+
+```bash
+# Test SCIM endpoint accessibility
+curl -v -H "Authorization: Bearer YOUR_TOKEN" \
+  https://your-passbolt-instance.com/scim/v2/<settings_id>/Users
+
+# Check SSL certificate
+openssl s_client -connect your-passbolt-instance.com:443 -servername your-passbolt-instance.com
+```
+
+### Performance Issues
+
+If you're experiencing slow provisioning:
+
+1. **Check server resources** - CPU, memory, and disk usage
+2. **Review database performance** - Check for slow queries
+3. **Monitor network latency** - Test connectivity to identity provider
+4. **Consider batch size** - Large user batches may take longer to process
+
+## Getting Help
+
+### Support Resources
+
+1. **Documentation**: Review all SCIM documentation
+2. **Community Forum**: Discuss issues with other users
+3. **Support Team**: Contact support for specific problems
+4. **Feature Requests**: Submit requests for improvements
+
+### Before Contacting Support
+
+When contacting support, please provide:
+
+1. **Passbolt version** and edition
+2. **Identity provider** and version
+3. **Error messages** from logs
+4. **Steps to reproduce** the issue
+5. **Configuration details** (without sensitive information)
+
+### Alternative Solutions
+
+If SCIM doesn't meet your needs:
+
+1. **LDAP Directory Sync**: For on-premises directories
+2. **Manual User Management**: For small organisations
+3. **Custom Integration**: For specific requirements
+4. **Hybrid Approach**: Combine multiple methods
+
+## Next Steps
+
+After resolving issues:
+
+1. **Test thoroughly** with a small group of users
+2. **Monitor performance** and error rates
+3. **Document your configuration** for future reference
+4. **Train administrators** on SCIM management
+5. **Plan for scaling** as your organisation grows
+
+:::tip[Best Practice]
+Keep detailed logs of your SCIM configuration and any issues encountered. This will help with future troubleshooting and support requests.
+:::
+
+:::tip[Need Help?]
+If you continue to experience issues after following this guide, please contact our support team with detailed information about your problem.
+:::

@@ -1,6 +1,6 @@
 ---
 title: Identity Provider Configuration
-description: Configure Microsoft Entra ID and Okta for SCIM user provisioning with Passbolt
+description: Configure Microsoft Entra ID and Okta for SCIM user provisioning
 sidebar_label: Identity Provider Setup
 hide_table_of_contents: false
 ---
@@ -12,348 +12,141 @@ import Chips from "/src/components/Chips/Chips";
 
 # Identity Provider Configuration
 
-This guide explains how to configure your identity provider (Microsoft Entra ID or Okta) to automatically provision users to Passbolt using SCIM.
+Configure your identity provider (Microsoft Entra ID or Okta) to provision users to Passbolt using SCIM.
 
 ## Prerequisites
 
 Before configuring your identity provider, ensure you have:
 
-- Passbolt SCIM enabled and configured (see [SCIM Setup Guide](/docs/admin/user-provisioning/scim/index))
+- Passbolt SCIM enabled and configured (see [SCIM Setup Guide](/docs/admin/user-provisioning/scim))
 - Administrator access to your identity provider
 - The SCIM endpoint URL and authentication token from Passbolt
-- Users in your identity provider that you want to provision to Passbolt
+
+## Supported Identity Providers
+
+SCIM has been tested with:
+
+- **Microsoft Entra ID (Azure AD)**
+- **Okta**
+
+## Configuration Requirements
+
+### Required SCIM Settings
+
+When configuring your identity provider, you'll need:
+
+- **SCIM Endpoint URL**: `https://your-passbolt-instance.com/scim/v2/<settings_id>`
+- **Authentication**: Bearer token (format: `pb_[A-Za-z0-9]{43}`)
+- **Authentication Header**: `Authorization: Bearer YOUR_TOKEN`
+
+### Required User Attributes
+
+Your identity provider must provide these attributes:
+
+| Attribute | SCIM Path | Description |
+|-----------|-----------|-------------|
+| **Username** | `userName` | Unique identifier (email address) |
+| **First Name** | `name.givenName` | User's first name |
+| **Last Name** | `name.familyName` | User's last name |
+| **Email** | `emails[0].value` | Primary email address |
+
+### Supported Operations
+
+Configure your identity provider to support:
+
+- **Create Users**
+- **Update User Attributes**
+- **Deactivate Users**
+- **Delete Users**
 
 ## Microsoft Entra ID Configuration
 
-### Step 1: Create a New Enterprise Application
+Based on Microsoft's official documentation, configure SCIM provisioning with these key steps:
 
-1. Sign in to the [Azure portal](https://portal.azure.com) as a Global Administrator
-2. Navigate to **Microsoft Entra ID** → **Enterprise applications**
-3. Click **New application** → **Create your own application**
+### 1. Create Enterprise Application
+- Sign in to the [Microsoft Azure Portal](https://portal.azure.com/)
+- Navigate to **Microsoft Entra ID** → **Enterprise applications**
+- Click **+ New application** → **Create your own application**
+- Provide a descriptive name and select **Non-gallery**
+- Click **Create**
 
+### 2. Configure Provisioning
+- Go to the **Provisioning** section in your application
+- Set **Provisioning Mode** to **Automatic**
+- Under **Admin Credentials**:
+  - **Tenant URL**: Your Passbolt SCIM endpoint URL
+  - **Secret Token**: Your Passbolt authentication token
+- Click **Test Connection** to verify credentials
+- Click **Save**
 
-4. Enter the following details:
-   - **Name**: `Passbolt SCIM` (or your preferred name)
-   - **Register an application**: Select **Integrate any other application you don't find in the gallery**
-5. Click **Create**
+### 3. Configure Attribute Mappings
+- Expand **Mappings** section → **Provision Microsoft Entra ID Users**
+- Ensure essential attributes are correctly mapped:
+  - `userPrincipalName` → `userName`
+  - `givenName` → `name.givenName`
+  - `surname` → `name.familyName`
+  - `mail` → `emails[0].value`
+- Click **Save**
 
-### Step 2: Configure SCIM Provisioning
+### 4. Assign Users
+- Navigate to **Users and groups** section
+- Click **Add user/group**
+- Select users to provision to Passbolt
+- Click **Assign**
 
-1. In your newly created application, go to **Provisioning** in the left sidebar
-2. Click **Get started**
+### 5. Start Provisioning
+- Return to **Provisioning** section
+- Set **Provisioning Status** to **On**
+- Click **Save** and **Start provisioning**
 
-
-3. Set the **Provisioning Mode** to **Automatic**
-4. Configure the **Admin Credentials**:
-
-
-   - **Tenant URL**: Enter your Passbolt SCIM endpoint URL (e.g., `https://your-passbolt-instance.com/scim/v2/<settings_id>`)
-   - **Secret Token**: Enter the authentication token from Passbolt SCIM settings (format: `pb_[A-Za-z0-9]{43}`)
-5. Click **Test Connection** to verify the configuration
-
-:::important[Connection Test]
-Ensure the connection test is successful before proceeding. If it fails, verify your SCIM endpoint URL and authentication token.
-:::
-
-### Step 3: Configure Attribute Mapping
-
-1. Once the connection test is successful, click **Save**
-2. Navigate to **Mappings** → **Provision Azure Active Directory Users**
-
-
-3. Configure the following attribute mappings:
-
-| Azure AD Attribute | Passbolt Attribute | Required |
-|-------------------|-------------------|----------|
-| `userPrincipalName` | `userName` | Yes |
-| `givenName` | `name.givenName` | Yes |
-| `surname` | `name.familyName` | Yes |
-| `mail` | `emails[0].value` | Yes |
-| `accountEnabled` | `active` | No |
-
-
-4. Click **Save** to apply the mappings
-
-### Step 4: Assign Users and Groups
-
-1. Navigate to **Users and groups** in the left sidebar
-2. Click **Add user/group**
-
-
-3. Select the users you want to provision to Passbolt
-4. Click **Select** and then **Assign**
-
-:::note[User Requirements]
-Ensure that assigned users have the first name, last name, and email fields filled in Azure AD, as these are required in Passbolt.
-:::
-
-### Step 5: Start Provisioning
-
-1. Return to the **Provisioning** page
-2. Click **Start** to begin the provisioning process
-
-
-3. Monitor the provisioning status and logs
+**Official Documentation**: [Microsoft's SCIM provisioning guide](https://learn.microsoft.com/en-us/entra/identity/app-provisioning/use-scim-to-provision-users-and-groups)
 
 ## Okta Configuration
 
-### Step 1: Create a New Application
+Based on Okta's official documentation, configure SCIM provisioning with these key steps:
 
-1. Sign in to your Okta administrator console
-2. Navigate to **Applications** → **Applications**
-3. Click **Browse App Catalog**
+### 1. Create SCIM Application
+- Sign in to your Okta admin console
+- Navigate to **Applications** → **Add Application**
+- Click **Create New App**
+- Choose **SCIM 2.0 App** as the sign-on method
+- Enter application name and click **Create**
 
+### 2. Configure SCIM Connection
+- Go to **Provisioning** tab → **Configure API Integration**
+- Check **Enable API Integration**
+- Enter your Passbolt SCIM endpoint details:
+  - **Base URL**: Your Passbolt SCIM endpoint URL
+  - **API Token**: Your Passbolt authentication token
+- Click **Test API Credentials** to verify connection
+- Click **Save**
 
-4. Search for "SCIM" or "Custom" and select **SCIM 2.0 Test App (OAuth Bearer Token)** or create a custom SCIM app
-5. Click **Add**
+### 3. Configure Provisioning Settings
+- In **Provisioning** tab, specify actions to perform:
+  - Create users
+  - Update user attributes
+  - Deactivate users
+- Map Okta user attributes to Passbolt SCIM attributes as needed
 
-### Step 2: Configure SCIM Settings
+### 4. Assign Users
+- Navigate to **Assignments** tab
+- Assign users to provision to Passbolt
 
-1. In the application configuration, go to the **Provisioning** tab
-2. Click **Configure API Integration**
+### 5. Activate Provisioning
+- Ensure provisioning settings are enabled
+- Monitor provisioning logs to verify successful user provisioning
 
+**Official Documentation**: [Okta's SCIM documentation](https://help.okta.com/en-us/Content/Topics/Apps/Apps_App_Integration_Wizard_SCIM.htm)
 
-3. Enable **Enable API integration**
-4. Configure the SCIM settings:
+## Testing
 
-
-   - **Base URL**: Enter your Passbolt SCIM endpoint URL (e.g., `https://your-passbolt-instance.com/scim/v2/<settings_id>`)
-   - **Unique identifier field for users**: `userName`
-   - **Supported provisioning actions**: Select **Create Users**, **Update User Attributes**, and **Deactivate Users**
-   - **Authentication Mode**: `HTTP Header`
-   - **HTTP Header**: `Authorization`
-   - **HTTP Header Value**: `Bearer YOUR_AUTHENTICATION_TOKEN` (format: `pb_[A-Za-z0-9]{43}`)
-
-5. Click **Test API Connection** to verify the configuration
-
-:::important[Connection Test]
-Ensure the connection test is successful before proceeding. If it fails, verify your SCIM endpoint URL and authentication token format.
-:::
-
-### Step 3: Configure Provisioning Settings
-
-1. In the **Provisioning** tab, expand **To App** settings
-2. Enable the following provisioning features:
-
-
-   - ✅ **Create Users**
-   - ✅ **Update User Attributes**
-   - ✅ **Deactivate Users**
-   - ❌ **Delete Users** (optional, depending on your requirements)
-
-3. Click **Save**
-
-### Step 4: Configure Attribute Mapping
-
-1. Go to the **Attribute Mappings** tab
-2. Configure the following attribute mappings:
-
-
-| Okta Attribute | Passbolt Attribute | Required |
-|---------------|-------------------|----------|
-| `user.login` | `userName` | Yes |
-| `user.firstName` | `name.givenName` | Yes |
-| `user.lastName` | `name.familyName` | Yes |
-| `user.email` | `emails[0].value` | Yes |
-| `user.active` | `active` | No |
-
-3. Click **Save** to apply the mappings
-
-### Step 5: Assign Users
-
-1. Go to the **Assignments** tab
-2. Click **Assign** → **Assign to People**
-
-
-3. Select the users you want to provision to Passbolt
-4. Click **Assign** and then **Done**
-
-### Step 6: Start Provisioning
-
-1. Return to the **Provisioning** tab
-2. The provisioning will start automatically once users are assigned
-
-
-## Attribute Mapping Guide
-
-### Required Attributes
-
-Passbolt requires the following attributes to successfully provision users:
-
-| Attribute | SCIM Path | Description | Required |
-|-----------|-----------|-------------|----------|
-| **Username** | `userName` | Unique identifier (email address) | ✅ Yes |
-| **First Name** | `name.givenName` | User's first name | ✅ Yes |
-| **Last Name** | `name.familyName` | User's last name | ✅ Yes |
-| **Email** | `emails[0].value` | Primary email address | ✅ Yes |
-
-### Optional Attributes
-
-| Attribute | SCIM Path | Description | Required |
-|-----------|-----------|-------------|----------|
-| **Active Status** | `active` | User activation status | ❌ No |
-| **Display Name** | `displayName` | User's display name | ❌ No |
-
-### Microsoft Entra ID Standard Mapping
-
-| Azure AD Attribute | Passbolt SCIM Path | Notes |
-|-------------------|-------------------|-------|
-| `userPrincipalName` | `userName` | Must be unique email address |
-| `givenName` | `name.givenName` | User's first name |
-| `surname` | `name.familyName` | User's last name |
-| `mail` | `emails[0].value` | Primary email address |
-| `accountEnabled` | `active` | Boolean: true/false |
-
-### Okta Standard Mapping
-
-| Okta Attribute | Passbolt SCIM Path | Notes |
-|---------------|-------------------|-------|
-| `user.login` | `userName` | Must be unique email address |
-| `user.firstName` | `name.givenName` | User's first name |
-| `user.lastName` | `name.familyName` | User's last name |
-| `user.email` | `emails[0].value` | Primary email address |
-| `user.active` | `active` | Boolean: true/false |
-
-## Advanced Configuration
-
-### Custom Attribute Mapping
-
-For more complex scenarios, you can configure advanced mappings:
-
-#### Microsoft Entra ID Expressions
-
-```javascript
-// Combine first and last name for displayName
-[concat([givenName], " ", [surname])]
-
-// Use mail if available, otherwise userPrincipalName
-[if([mail] != null, [mail], [userPrincipalName])]
-
-// Convert accountEnabled to active status
-[if([accountEnabled] == true, true, false)]
-```
-
-#### Okta Expressions
-
-```javascript
-// Combine first and last name
-user.firstName + " " + user.lastName
-
-// Use email as username
-user.email
-
-// Convert status
-user.status == "ACTIVE" ? true : false
-```
-
-### Provisioning Scope Configuration
-
-#### Microsoft Entra ID
-
-- **Sync all users and groups**: Provisions all users in your directory
-- **Sync only assigned users and groups**: Provisions only users assigned to the application
-
-#### Okta
-
-- **Everyone**: Provisions all users in your organisation
-- **Specific groups**: Provisions users in selected groups only
-
-## Testing Your Configuration
-
-### Test with Individual Users
-
-1. **Microsoft Entra ID**: Use "Provision on demand" feature
-2. **Okta**: Use "Push Groups" or "Push Users" for immediate testing
-
-### Monitor Provisioning Logs
-
-Both providers offer detailed provisioning logs:
-
-- **Microsoft Entra ID**: Provisioning logs show detailed operation results
-- **Okta**: System logs show SCIM API calls and responses
-
-### Verify in Passbolt
-
-1. Check that users appear in Passbolt user management
-2. Verify user attributes are correctly mapped
-3. Test user login and account setup process
+Test your configuration with a small number of users before enabling for your entire organization.
 
 ## Troubleshooting
 
-### Common Issues
+If you encounter issues:
 
-**Connection Test Fails**
-- Verify the SCIM endpoint URL is correct and accessible (must include the settings_id)
-- Check that the authentication token is valid and in the correct format (`pb_[A-Za-z0-9]{43}`)
-- Ensure HTTPS is properly configured on Passbolt
-- Verify the settings_id in the URL matches the one generated by Passbolt
-
-**Users Not Being Provisioned**
-- Check that users are assigned to the enterprise application
-- Verify attribute mappings are correct
-- Review provisioning logs for error messages
-- Ensure users have required attributes (first name, last name, email)
-
-**Attribute Mapping Issues**
-- Verify that source attributes exist and have values
-- Check that target attributes match the expected SCIM schema
-- Test with users who have complete profile information
-
-### Provider-Specific Troubleshooting
-
-#### Microsoft Entra ID
-
-**Provisioning Delays**
-- Azure runs provisioning cycles every 40 minutes
-- Use "Provision on demand" for immediate testing
-- Check provisioning status in the application overview
-
-**User Assignment Issues**
-- Ensure users are properly assigned to the application
-- Check that users have the required attributes filled
-- Verify user account status in Azure AD
-
-#### Okta
-
-**API Connection Issues**
-- Verify the Base URL format includes the settings_id
-- Check that the Bearer token is correctly formatted
-- Ensure the authentication header is properly configured
-
-**Provisioning Not Starting**
-- Verify the application is activated
-- Check that users are assigned to the application
-- Review Okta system logs for error messages
-
-## Best Practices
-
-### Security
-
-1. **Token Management**: Store authentication tokens securely
-2. **Access Control**: Limit who can modify SCIM configurations
-3. **Monitoring**: Regularly review provisioning logs for anomalies
-
-### Performance
-
-1. **Batch Operations**: Allow time for large user batches to process
-2. **Error Handling**: Implement proper error handling for failed operations
-3. **Monitoring**: Track provisioning success rates and performance
-
-### User Experience
-
-1. **Testing**: Test with a small group before full deployment
-2. **Communication**: Inform users about the provisioning process
-3. **Support**: Provide clear instructions for account setup
-
-## Next Steps
-
-After configuring your identity provider:
-
-1. [Test the integration](/docs/admin/user-provisioning/scim/troubleshooting) with a small group of users
-2. Monitor the provisioning process and review logs
-3. Train administrators on managing SCIM-provisioned users
-4. [Troubleshoot any issues](/docs/admin/user-provisioning/scim/troubleshooting) that arise
-
-:::tip[Best Practice]
-Start with a small test group of users to verify the SCIM integration works correctly before enabling it for your entire organisation.
-:::
+1. Verify your SCIM endpoint URL format
+2. Check that your authentication token is correctly formatted
+3. Ensure required user attributes are populated
+4. Review provisioning logs in your identity provider

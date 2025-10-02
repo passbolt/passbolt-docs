@@ -8,9 +8,17 @@ hide_table_of_contents: false
 import Figure from '@site/src/components/Figure/Figure';
 import Chips from "/src/components/Chips/Chips";
 
-<Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+<div style={{display: "flex", gap: "1rem", alignItems: "center"}}>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+  <Chips isUnderMainTitle={true}>Beta</Chips>
+</div>
 
 # Identity Provider Configuration
+
+:::info[Beta Feature]
+SCIM is currently in **beta** for Passbolt Pro. It will be available for Passbolt Cloud once it exits beta.
+:::
 
 Configure your identity provider (Microsoft Entra ID or Okta) to provision users to Passbolt using SCIM.
 

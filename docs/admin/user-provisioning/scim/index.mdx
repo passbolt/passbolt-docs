@@ -160,27 +160,10 @@ If the user cannot be deleted (e.g., sole owner of shared resources), the user i
 User deletion occurs in two phases: first disable, then permanent deletion after 30 days. Users who cannot be deleted remain disabled until manually resolved.
 :::
 
-## Current Limitations
-
-### Email Address Changes
-
-:::caution[Email Changes Not Supported]
-**Email address updates are not supported** in Passbolt SCIM. This is a fundamental security restriction.
-:::
-
-**Why Email Changes Are Restricted:**
-- Passbolt uses email addresses as part of the user's cryptographic identity
-- Changing an email address would require regenerating the user's cryptographic keys
-- Only the user themselves can perform this operation securely
-- The SCIM provider and Passbolt server do not have access to user private keys
-
-**What Happens When Email Changes Are Attempted:**
-- SCIM requests to update email addresses are rejected
-- Error response: `422 Unprocessable Entity` with `scimType: mutability`
-- The user's original email address remains unchanged
-- This follows SCIM 2.0 RFC 7644 specification for immutable attributes
-
 ## Limitations
+
+**Email Address Changes**
+Email address updates are not supported. SCIM requests to update email addresses are rejected with error `422 Unprocessable Entity` and `scimType: mutability`.
 
 **Group Sync**
 Group synchronisation is not supported. Adding users to groups requires sharing encrypted credentials, which only users can decrypt with their private keys.

@@ -166,13 +166,13 @@ User deletion occurs in two phases: first disable, then permanent deletion after
 Email address updates are not supported. SCIM requests to update email addresses are rejected with error `422 Unprocessable Entity` and `scimType: mutability`.
 
 **Group Sync**
-Group synchronisation is not supported. Adding users to groups requires sharing encrypted credentials, which only users can decrypt with their private keys.
+Group synchronisation is not supported. To add users to groups, group managers must manually share credentials to ensure end-to-end encryption.
 
 **Bulk Operations**
 SCIM bulk operations are not supported (`"bulk": { "supported": false }` in ServiceProviderConfig). Identity providers must send individual API requests for each user operation.
 
 **Password Management**
-Password changes are not supported. Passbolt uses client-side encryption and does not store server-side passwords.
+Password changes are not supported. Passbolt does not store user passwords - authentication is handled through cryptographic key pairs.
 
 **Custom Attributes**
 Only standard SCIM user attributes are supported. Custom schemas and resource extensions are not available.

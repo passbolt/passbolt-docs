@@ -17,7 +17,7 @@
   {
     "name": "Debian",
     "slug": "debian",
-    "version": 12,
+    "version": 13,
     "package": "apt",
     "db_engine": "mariadb",
     "logo": "/img/distributions/debian.svg",

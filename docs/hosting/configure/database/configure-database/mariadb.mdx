@@ -1,0 +1,16 @@
+---
+title: Configure MariaDB
+description: How to install Passbolt with MariaDB
+sidebar_label: MariaDB
+hide_table_of_contents: true
+---
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+:::tip[pro tip]
+Passbolt install MariaDB as the default database management system, as detailed in the [installation guides](/hosting/install). After the package is installed, the setup wizard will assist in configuring the MariaDB database. When using Docker, passbolt is pre-configured with a MariaDB container, meaning no additional database configuration is required in this setup.
+:::

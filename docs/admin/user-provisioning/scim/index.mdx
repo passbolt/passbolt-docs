@@ -1,0 +1,200 @@
+---
+title: SCIM User Provisioning
+description: SCIM user provisioning with Microsoft Entra ID and Okta
+sidebar_label: SCIM User Provisioning
+hide_table_of_contents: false
+---
+
+import Figure from '@site/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem", alignItems: "center"}}>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+  <Chips isUnderMainTitle={true}>Beta</Chips>
+</div>
+
+# SCIM User Provisioning
+
+:::info[Beta Feature]
+SCIM is currently in **beta** for Passbolt Pro. It will be available for Passbolt Cloud once it exits beta.
+:::
+
+<Figure
+  src="/img/help/2025/09/scim-high-level.png"
+  alt="Overview of SCIM"
+  caption=""
+/>
+
+SCIM allows Passbolt to integrate with Microsoft Entra ID (Azure AD) and Okta for automated user provisioning.
+
+## What is SCIM?
+
+SCIM (System for Cross-domain Identity Management) is an open standard for managing user identities across different systems.
+
+SCIM defines a schema for representing users and groups in JSON, along with API endpoints that identity providers can call to manage users. Passbolt's initial SCIM implementation supports user management via `/Users` endpoints.
+
+When you add, modify, or remove users in Microsoft Entra ID or Okta, the identity provider sends HTTP requests to Passbolt's SCIM endpoints. Passbolt processes these requests and updates its user records accordingly.
+
+## How SCIM Works with Passbolt
+
+The integration works in four steps:
+
+1. Enable SCIM in Passbolt settings to generate an endpoint URL and authentication token
+2. Configure your identity provider (Microsoft Entra ID or Okta) with the SCIM URL and token
+3. Map user attributes between your identity provider and Passbolt
+4. Users are automatically provisioned when added, modified, or removed in your identity provider
+
+## Prerequisites
+
+You need:
+- Passbolt Pro Edition version 5.5 or later
+- Administrator access to Passbolt
+- Access to Microsoft Entra ID or Okta
+- HTTPS enabled on your Passbolt instance
+
+:::caution[HTTPS Required]
+SCIM requires HTTPS for secure communication.
+:::
+
+## Enable SCIM in Passbolt
+
+### Access SCIM Settings
+
+1. Log in as administrator
+2. Go to **Administration** → **SCIM Settings**
+
+### Enable SCIM
+
+1. Toggle **Enable SCIM** to activate the feature
+2. Passbolt generates a SCIM endpoint URL and authentication token
+3. Click **Save Settings** to apply the configuration
+
+:::important[Keep Your Token Secure]
+Store the authentication token securely and share only with authorised personnel.
+:::
+
+## SCIM Endpoint Information
+
+When enabled, Passbolt provides:
+
+**SCIM Endpoint URL:**
+```
+https://your-passbolt-instance.com/scim/v2/<settings_id>
+```
+
+The `<settings_id>` is a unique identifier generated when SCIM is enabled.
+
+**Authentication Token:**
+A token with format `pb_[A-Za-z0-9]{43}` sent as a Bearer token in the Authorization header.
+
+## Available Endpoints
+
+| Endpoint | Description |
+|----------|-------------|
+| `POST /scim/v2/<settings_id>/Users` | Create a new user |
+| `GET /scim/v2/<settings_id>/Users/{id}` | Retrieve user information |
+| `PATCH /scim/v2/<settings_id>/Users/{id}` | Partial user update |
+| `DELETE /scim/v2/<settings_id>/Users/{id}` | Delete a user |
+| `GET /scim/v2/<settings_id>/Users` | List users (with filtering) |
+| `GET /scim/v2/<settings_id>/ServiceProviderConfig` | Get service provider configuration |
+| `GET /scim/v2/<settings_id>/Schemas` | Get SCIM schemas |
+
+
+## Supported Identity Providers
+
+The initial SCIM release has been tested with:
+
+- **Microsoft Entra ID (Azure AD)**
+- **Okta**
+
+## Supported Operations
+
+The initial SCIM release focuses on user provisioning and supports:
+
+| Operation | Method | Endpoint | Description |
+|-----------|--------|----------|-------------|
+| **Create User** | POST | `/scim/v2/<settings_id>/Users` | Create a new user |
+| **Read User** | GET | `/scim/v2/<settings_id>/Users/{id}` | Retrieve user information |
+| **Partial Update** | PATCH | `/scim/v2/<settings_id>/Users/{id}` | Partial user update |
+| **Delete User** | DELETE | `/scim/v2/<settings_id>/Users/{id}` | Delete a user |
+| **List Users** | GET | `/scim/v2/<settings_id>/Users` | List users with filtering |
+
+### User Creation Process
+
+When a user is created via SCIM:
+
+1. User is created in Passbolt with "invitation pending" status
+2. Welcome email is sent to the user
+3. User must complete account setup to activate their account
+4. User receives a unique Passbolt ID
+
+### User Updates
+
+SCIM supports updating:
+- User names (givenName, familyName)
+- User status (active/inactive)
+- Username (userName field)
+
+Email addresses cannot be updated for security reasons.
+
+### User Deletion
+
+SCIM user deletion follows a two-phase process:
+
+**Phase 1 - Disable User:**
+1. When a user is deleted or unassigned in your identity provider, a PATCH request sets `active: false`
+2. The user is disabled in Passbolt (soft delete)
+3. User can no longer access Passbolt but data remains
+
+**Phase 2 - Permanent Deletion:**
+1. After 30 days, your identity provider sends a DELETE request
+2. User is permanently deleted from Passbolt
+3. All user data is removed
+4. User's private key and secrets are deleted
+
+**Exception - Cannot Delete:**
+If the user cannot be deleted (e.g., sole owner of shared resources), the user is disabled and administrators receive an email notification to manually resolve the issue.
+
+:::caution[Two-Phase Deletion]
+User deletion occurs in two phases: first disable, then permanent deletion after 30 days. Users who cannot be deleted remain disabled until manually resolved.
+:::
+
+## Limitations
+
+**Email Address Changes**
+Email address updates are not supported. SCIM requests to update email addresses are rejected with error `422 Unprocessable Entity` and `scimType: mutability`.
+
+**Group Sync**
+Group synchronisation is not supported. To add users to groups, group managers must manually share credentials to ensure end-to-end encryption.
+
+**Bulk Operations**
+SCIM bulk operations are not supported (`"bulk": { "supported": false }` in ServiceProviderConfig). Identity providers must send individual API requests for each user operation.
+
+**Password Management**
+Password changes are not supported. Passbolt does not store user passwords - authentication is handled through cryptographic key pairs.
+
+**Custom Attributes**
+Only standard SCIM user attributes are supported. Custom schemas and resource extensions are not available.
+
+## Comparison with LDAP Directory Sync
+
+| Feature | LDAP Directory Sync | SCIM User Provisioning |
+|---------|-------------------|----------------------|
+| **Target Systems** | On-premises Active Directory, OpenLDAP | Cloud identity providers (Azure AD, Okta) |
+| **Protocol** | LDAP | HTTP/HTTPS REST API |
+| **Real-time Updates** | Scheduled synchronisation | Near real-time provisioning |
+| **User Management** | Full user and group sync | User provisioning only |
+| **Group Management** | Supported | Not supported |
+| **Setup Complexity** | Moderate | Simple |
+| **Network Requirements** | Direct LDAP connection | HTTPS connectivity only |
+
+
+## Next Steps
+
+To get started with SCIM user provisioning:
+
+1. [Configure your identity provider](/docs/admin/user-provisioning/scim/identity-providers) (Microsoft Entra ID or Okta)
+2. Test the integration with a small number of users
+3. Monitor the provisioning process and review logs
+4. [Troubleshoot any issues](/docs/admin/user-provisioning/scim/troubleshooting) that arise

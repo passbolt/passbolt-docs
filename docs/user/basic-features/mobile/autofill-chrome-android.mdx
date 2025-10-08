@@ -1,0 +1,75 @@
+---
+title: Chrome Autofill on Android
+description: How to use Passbolt autofill service natively in Chrome on Android
+---
+
+import Figure from '/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+Chrome on Android (starting from version 135) supports third-party autofill services natively. You can use the Passbolt Autofill Service to autofill passwords and other credentials directly inside Chrome, without relying on compatibility mode or other workarounds.
+
+## Requirements
+
+- Chrome version 135 or newer
+- Passbolt Android version 2.1.1 or newer (added support by showing if the feature is enabled in Chrome and deeplinking to Chrome settings)
+- Passbolt Autofill service must be enabled system-wide
+
+## Differences with current behaviour
+
+Native Android autofill support allows Passbolt's autofill service to work in the same way as Google's own password manager, providing autofill suggestions inside Chrome using the system-selected autofill service. This improves the stability of the autofilling flow and dropdowns, as well as the detection of autofill inputs.
+
+## Enable for existing Passbolt installation
+
+### Enable Passbolt autofill service system-wide
+
+To use Passbolt's autofill, you need to set Passbolt as an autofill service provider in your Android system settings. If you haven't done this yet, follow the instructions in this guide.
+
+### Enable Passbolt autofill for Chrome
+
+1. Ensure your environment complies with the requirements explained earlier
+2. Go to Chrome autofill settings:
+   - Either via Chrome → More → Settings → Autofill services
+   - Or from the Passbolt app → Settings → App settings → Autofill → Chrome native autofill
+
+   <Figure
+     size={{
+       width: '300px',
+       height: 'auto',
+     }}
+     src={
+       '/img/help/2025/10/chrome-autofill-settings.png'
+     }
+     caption="Fig. 1 Chrome autofill services settings"
+     alt="Chrome autofill services settings"
+   />
+
+3. Select **Autofill using another service**
+4. Tap **Restart Chrome** to confirm the change
+
+## Enable during Passbolt app installation
+
+When you install the Passbolt app for the first time on your device, Passbolt will guide you to Chrome's autofill settings and display a short tutorial to help you enable it.
+
+<Figure
+  size={{
+    width: '300px',
+    height: 'auto',
+  }}
+  src={
+    '/img/help/2025/10/encourage.png'
+  }
+  caption="Fig. 2 Encourage Chrome native autofill screen"
+  alt="Encourage Chrome native autofill screen"
+/>
+
+1. Tap **Go to Chrome settings**
+2. Select **Autofill using another service**
+3. Confirm Chrome's prompt to restart
+4. Return to Passbolt to continue the app's installation
+

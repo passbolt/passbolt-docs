@@ -1,0 +1,241 @@
+---
+title: How to configure SSO with Keycloak
+sidebar_label: Keycloak
+description: How to configure SSO with Keycloak
+hide_table_of_contents: false
+---
+
+import Figure from '@site/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+import EmailMatchingWarning from "/docs/admin/_includes/sso/email-matching-warning.mdx";
+import HttpsWarning from "/docs/admin/_includes/sso/https-warning.mdx";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+<HttpsWarning />
+
+:::warning[Demo Configuration]
+This documentation includes examples from a demo environment for informational purposes only. Adapt the configuration values (domains, ports, credentials) to match your specific setup.
+:::
+
+Passbolt Pro Edition supports SSO via OpenID Connect (OIDC). This guide shows how to configure SSO with Keycloak as an example.
+
+## How does it work?
+
+Passbolt SSO uses Keycloak OAuth2/OpenID Connect alongside the existing [challenge-based authentication](/development/authentication). When a user logs in through Keycloak, they unlock a server-side key needed to decrypt their secret key passphrase.
+
+For detailed information about supported user flows and risk analysis, see the [developer documentation](https://docs.google.com/document/d/1S58TonJ2uXwkaKl7WwLzTzmwJGiSJdhlqP-xbmxFBd0/edit).
+
+## Prerequisites
+
+You need the following to configure Keycloak SSO with Passbolt:
+
+- A running Keycloak instance (version 26.4 or later)
+- Administrative access to both Keycloak and Passbolt
+- HTTPS enabled on both Keycloak and Passbolt instances
+- Trusted SSL certificates between Passbolt and Keycloak servers
+
+:::info[Keycloak Version]
+This guide uses Keycloak 26.4. Use a specific version rather than `latest` for consistency: `quay.io/keycloak/keycloak:26.4`.
+:::
+
+## Configuration
+
+<EmailMatchingWarning />
+
+### Step 1: Configure Keycloak
+
+#### Create a Keycloak Realm
+
+1. Navigate to your Keycloak instance (e.g., `https://keycloak.local:8443`)
+2. Log in with the admin credentials:
+   - **Username**: `admin`
+   - **Password**: `admin`
+3. Navigate to the dropdown in the top-left corner and click **"Create realm"**
+4. Enter a realm name (e.g., "passbolt")
+5. Click **"Create"**
+
+#### Create a Keycloak Client
+
+1. In your newly created realm, go to **"Clients"** in the left menu
+2. Click **"Create client"**
+3. Configure the client:
+   - **Client type**: OpenID Connect
+   - **Client ID**: `passbolt-client` (or your preferred name)
+   - Click **"Next"**
+
+4. Configure client settings:
+   - **Client authentication**: On
+   - **Authorization**: Off
+   - **Authentication flow**: Standard flow
+   - Click **"Next"**
+
+5. Configure login settings:
+   - **Root URL**: Leave empty
+   - **Home URL**: Leave empty
+   - **Valid redirect URIs**: Add your Passbolt redirect URI (get this from Passbolt's SSO configuration page)
+   - **Web origins**: `https://passbolt.local`
+   - Click **"Save"**
+
+<Figure
+  src="/img/help/2025/10/keycloak_client.png"
+  alt="Keycloak client configuration"
+  caption="fig. Keycloak client configuration"
+/>
+
+#### Configure Client Credentials
+
+1. In the client settings, go to the **"Credentials"** tab
+2. Copy the **Client secret** value - you'll need this for Passbolt configuration
+
+#### Create a Test User
+
+1. Go to **"Users"** in the left menu
+2. Click **"Create new user"**
+3. Fill in the user details:
+   - **Username**: Choose a username
+   - **Email**: Use an email that exists in Passbolt
+   - **First name** and **Last name**: Fill as desired
+   - **Email verified**: Toggle to "On"
+   - Click **"Create"**
+
+4. Set a password for the user:
+   - Go to the **"Credentials"** tab
+   - Click **"Set password"**
+   - Enter a password and confirm it
+   - Toggle **"Temporary"** to "Off"
+   - Click **"Save"**
+
+<Figure
+  src="/img/help/2025/10/keycloak_user.png"
+  alt="Keycloak user credentials"
+  caption="fig. Keycloak user credentials"
+/>
+
+### Step 2: Configure Passbolt Server
+
+#### Domain Name Resolution
+
+If your Keycloak instance uses a custom domain that isn't registered in DNS, ensure your Passbolt server can resolve it:
+
+1. Edit `/etc/hosts` on your Passbolt server:
+```bash
+127.0.0.1 keycloak.local
+```
+
+:::warning[Important]
+Replace `127.0.0.1` with your actual Keycloak server's IP address and `keycloak.local` with your Keycloak domain.
+:::
+
+2. Test connectivity:
+```bash
+ping keycloak.local
+```
+
+#### SSL Certificate Configuration
+
+If you're using self-signed certificates:
+
+1. Copy your root CA certificate to the Passbolt server
+2. Install the certificate (example for Debian/Ubuntu):
+```bash
+# Copy the certificate to the trusted certificates directory
+sudo cp rootCA.crt /usr/share/ca-certificates/rootCA.crt
+
+# Update the list of trusted certificates
+sudo dpkg-reconfigure ca-certificates
+```
+
+3. Run the reconfiguration and select your `rootCA.crt` when prompted
+4. Verify SSL connectivity:
+```bash
+curl -s -o /dev/null -v https://keycloak.local:8443
+```
+
+You should see output similar to:
+```
+* SSL certificate verify ok.
+* Server certificate:
+*  subject: CN=keycloak.local
+*  subjectAltName: host "keycloak.local" matched cert's "keycloak.local"
+*  issuer: CN=Your Root CA
+* Connected to keycloak.local port 8443
+< HTTP/2 302
+< location: https://keycloak.local:8443/admin/
+```
+
+If you see certificate verification errors, fix the certificate trust configuration.
+
+### Step 3: Configure Passbolt Administration Settings
+
+1. Sign in to Passbolt with an administrator account
+2. Navigate to **Administration** > **Single Sign-On**
+3. Select **"OpenID Connect"** from the available providers
+4. Configure the OpenID Connect settings
+5. Copy the **Redirect URL** from Passbolt's SSO configuration page and add it to your Keycloak client's **Valid redirect URIs** setting
+6. Click **"Save settings"** to perform a test authentication
+7. Complete the authentication flow with your Keycloak credentials
+8. If successful, save the settings permanently
+
+**Configuration example** (realm "passbolt", Keycloak at `https://keycloak.local:8443`):
+
+- **URL**: `https://keycloak.local:8443/realms/passbolt`
+- **OpenID configuration path**: `/.well-known/openid-configuration`
+- **Scope**: `openid profile email`
+- **Client ID**: `passbolt-client`
+- **Client secret**: `[your client secret from Keycloak]`
+
+
+<Figure
+  src="/img/help/2025/10/passbolt_config.png"
+  alt="Passbolt SSO configuration"
+  caption="fig. Passbolt SSO configuration"
+/>
+
+### Step 4: Test the Configuration
+
+1. Sign out from Passbolt
+2. On the login page, you should see a **"Sign in with OpenID"** button
+3. Click the button and verify you can authenticate through Keycloak
+4. Ensure you can access Passbolt after successful authentication
+
+<Figure
+  src="/img/help/2025/10/passbolt_oidc_login.png"
+  alt="Passbolt OIDC login"
+  caption="fig. Passbolt OIDC login"
+/>
+
+## Troubleshooting
+
+### Common Issues
+
+**Authentication Failures**: If authentication fails:
+
+- Verify the client ID and secret are correct
+- Ensure the redirect URI in Keycloak matches exactly with Passbolt
+- Check that user emails match between Keycloak and Passbolt
+
+**TLS Trust Issues**: If you see certificate verification errors:
+
+- Verify the Keycloak server certificate is trusted by Passbolt
+- Check that the certificate CN matches the Keycloak domain
+- Ensure the root CA certificate is properly installed in Passbolt's certificate store
+- Test with: `curl -v https://keycloak.local:8443` (should show "SSL certificate verify ok")
+
+### Debug Mode
+
+To enable SSO debug logging, set the environment variable:
+```bash
+export PASSBOLT_PLUGINS_SSO_DEBUG_ENABLED=true
+```
+
+This enables detailed SSO logging.
+
+## Important Notes
+
+- Users must login with their passphrase **after SSO activation** for the SSO option to appear in future logins
+- HTTPS is required for SSO to function properly
+- Don't use the demo repository configuration in production - adapt all values for your environment

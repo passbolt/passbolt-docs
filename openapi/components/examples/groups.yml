@@ -163,15 +163,19 @@ groupAdd:
 groupUpdate:
   request:
     base:
+      summary: "Update group with mixed operations"
       value:
         name: "WRC"
         groups_users:
+          # Add new user as group manager
           - user_id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"
             is_admin: true
-          - user_id: "3b9b9757-1ccb-444a-a3cf-4090364fac4f"
+          # Update existing user role (remove admin privileges)
+          - id: "3b9b9757-1ccb-444a-a3cf-4090364fac4f"
             is_admin: false
-          - user_id: "8a3c5c4e-e931-4e6b-854a-9b2e9afcd3bc"
-            deleted: true
+          # Remove existing user from group
+          - id: "1a2b3c4d-5e6f-7g8h-9i0j-k1l2m3n4o5p6"
+            delete: true
         secrets:
           - resource_id: "4d0c0996-ce30-4bce-9918-9062ab35c542"
             user_id: "8bb80df5-700c-48ce-b568-85a60fc3c8f2"

@@ -71,16 +71,21 @@ groupUpdate:
       type: "array"
       items:
         type: "object"
-        required:
-          - user_id
         properties:
+          id:
+            type: "string"
+            format: "uuid"
+            description: "GroupUser relationship ID (required for updating existing users or marking for deletion)"
           user_id:
             type: "string"
             format: "uuid"
+            description: "User ID (required for adding new users to the group)"
           is_admin:
             type: "boolean"
+            description: "Whether the user is a group administrator"
           delete:
             type: "boolean"
+            description: "Whether to remove the user from the group"
     secrets:
       type: "array"
       items:

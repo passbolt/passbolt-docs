@@ -10,6 +10,17 @@ import Figure from '@site/src/components/Figure/Figure';
 
 This section controls which content types (e.g., Password, TOTP) can be used with encrypted or cleartext metadata when creating new resources.
 
+## Supported Content Types
+
+When encrypted metadata is enabled, the following content types are protected:
+
+| Content Type | Protected Fields | Notes |
+|--------------|------------------|-------|
+| **Password Resources** | • Name<br/>• Username<br/>• URI<br/>• Description<br/>• Custom fields | Most common resource type |
+| **TOTP Resources** | • Name<br/>• Username<br/>• URI<br/>• Description<br/>• Custom fields | For time-based one-time passwords |
+| **Custom Fields** | • Field name<br/>• Field value<br/>• Field type<br/>• Field description | Can be added to any resource |
+| **Resource Metadata** | • Tags<br/>• Categories<br/>• Properties<br/>• Relationships | Additional resource information |
+
 ## Configuration Options
 
 ### Encrypted Metadata Content Types
@@ -51,8 +62,8 @@ If the global toggle for legacy cleartext metadata is off, these options are vis
 Legacy metadata formats are deprecated and not recommended for new resources. Use only during transition or migration phases.
 :::
 
-To enable the creation of resources with encrypted metadata:
-1. Enable encrypted metadata in the [Encrypted Metadata](./encrypted-metadata.mdx) settings
-2. Generate a metadata key in the [Metadata Key](./manage-metadata-key.mdx) settings
+To enable creation of resources with encrypted metadata:
+1. Enable encrypted metadata in [Encrypted Metadata](./encrypted-metadata.mdx)
+2. Configure key distribution in [Metadata Key](./manage-metadata-key.mdx)
 3. Enable the desired content types on this page
 

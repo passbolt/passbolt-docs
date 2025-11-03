@@ -23,7 +23,8 @@ const ROUTES = {
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Passbolt documentation.',
+  title: ' ',
+  titleDelimiter: ' ',
   tagline: 'Everything you need to optimize the way you work with Passbolt.',
   favicon: 'img/favicon.ico',
 

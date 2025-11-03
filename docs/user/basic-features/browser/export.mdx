@@ -26,6 +26,12 @@ import Chips from "/src/components/Chips/Chips";
 
 ### Steps
 
+:::danger[Warning:]
+If you have resource(s) with both a Description (metadata) and a Note (secret). KDBX and most of the CSV providers only supports secure notes (Note).
+
+This means that in the export file, the description will be missing in favor of the note.
+:::
+
 1. Select the password(s) or the folder(s) you’d like to export.
     - If you want to export all the passwords you have access to, you can click on the menu next to “Folders”.
 2. Click on the “Export” or “Export all” button.

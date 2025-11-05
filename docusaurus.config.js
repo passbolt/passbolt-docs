@@ -1,8 +1,6 @@
-/* eslint-disable prettier/prettier */
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-// const passboltTheme = require('./src/lib/prism-passbolt');
 import { themes as prismThemes } from 'prism-react-renderer';
 import footerLinks from './data/footer.json';
 
@@ -15,7 +13,7 @@ const ROUTES = {
   REDDIT_URL: 'https://www.reddit.com/r/passbolt',
   GITHUB_URL: 'https://github.com/passbolt/passbolt-docs',
   GITHUB_ORG_URL: 'https://github.com/passbolt',
-  X_URL: 'https://x.com/passbolt',
+  BLUESKY_URL: 'https://bsky.app/profile/passbolt.bsky.social',
   LINKEDIN_URL: 'https://www.linkedin.com/company/passbolt',
   YOUTUBE_URL: 'https://www.youtube.com/user/passboltpassword',
   MASTODON_URL: 'https://mastodon.social/@passbolt',
@@ -29,7 +27,9 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : ROUTES.WEBSITE_URL,
+  url: process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : ROUTES.WEBSITE_URL,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: process.env.VERCEL_URL ? '/' : '/docs/',
@@ -82,7 +82,7 @@ const config = {
         specs: [
           {
             spec: 'openapi/root.yml',
-            route: '/api'
+            route: '/api',
           },
         ],
       },
@@ -113,10 +113,10 @@ const config = {
             },
           },
           {
-            href: ROUTES.X_URL,
+            href: ROUTES.BLUESKY_URL,
             icon: {
-              alt: 'Our X account',
-              src: 'icons/x.svg',
+              alt: 'Our Bluesky account',
+              src: 'icons/bluesky.svg',
               width: 19.92,
               height: 18,
             },
@@ -164,9 +164,7 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      metadata: [
-        { name: 'og:type', content: 'website' }
-      ],
+      metadata: [{ name: 'og:type', content: 'website' }],
       image: 'img/og.jpg',
       docs: {
         sidebar: {
@@ -262,7 +260,7 @@ const config = {
         language: ['en'],
         highlightSearchTermsOnTargetPage: false,
         explicitSearchResultPath: false,
-      }
+      },
     ],
   ],
   scripts: [
@@ -276,7 +274,7 @@ const config = {
       src: 'https://plausible.io/js/plausible.js',
       defer: true,
       'data-domain': 'passbolt.com',
-    }
+    },
   ],
   headTags: [
     {
@@ -304,7 +302,7 @@ const config = {
         function disableStatisticsCookies() {
           _paq.push(['forgetCookieConsentGiven']);
         }
-      `
+      `,
     },
     {
       tagName: 'script',
@@ -319,7 +317,7 @@ const config = {
         var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
         g.async=true; g.src='https://cdn.matomo.cloud/passbolt.matomo.cloud/container_C0l5nxM2.js'; s.parentNode.insertBefore(g,s);
         <!-- End Matomo Tag Manager -->
-      `
+      `,
     },
     {
       tagName: 'script',
@@ -342,9 +340,9 @@ const config = {
           g.async=true; g.src='https://cdn.matomo.cloud/passbolt.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
         })();
         <!-- End Matomo Code -->
-      `
-    }
-  ]
+      `,
+    },
+  ],
 };
 
 module.exports = config;

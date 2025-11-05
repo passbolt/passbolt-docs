@@ -1,16 +1,20 @@
-import React from 'react';
+import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import SearchBar from '@easyops-cn/docusaurus-search-local/dist/client/client/theme/SearchBar/index.js';
 import Heading from '@theme/Heading'; // Import the Heading component
 import styles from './HomepageHero.module.css';
-import Link from '@docusaurus/Link';
-import SearchBar from '@easyops-cn/docusaurus-search-local/dist/client/client/theme/SearchBar/index.js';
 
 const HomepageHero = () => {
-
   const guides = [
     {
       id: 'user',
-      icon: <img src={useBaseUrl('/icons/lucide/user.svg')} width={24} alt='User guide illustrated with a user icon' />,
+      icon: (
+        <img
+          src={useBaseUrl('/icons/lucide/user.svg')}
+          width={24}
+          alt="User guide illustrated with a user icon"
+        />
+      ),
       href: '/user',
       title: 'User guide',
       description:
@@ -18,7 +22,13 @@ const HomepageHero = () => {
     },
     {
       id: 'admin',
-      icon: <img src={useBaseUrl('/icons/lucide/settings.svg')} width={24} alt='Admin guide illustrated with a gear icon' />,
+      icon: (
+        <img
+          src={useBaseUrl('/icons/lucide/settings.svg')}
+          width={24}
+          alt="Admin guide illustrated with a gear icon"
+        />
+      ),
       href: '/admin',
       title: 'Admin guide',
       description:
@@ -26,7 +36,13 @@ const HomepageHero = () => {
     },
     {
       id: 'hosting',
-      icon: <img src={useBaseUrl('/icons/lucide/server.svg')} width={24} alt='Hosting guide illustrated with a server icon' />,
+      icon: (
+        <img
+          src={useBaseUrl('/icons/lucide/server.svg')}
+          width={24}
+          alt="Hosting guide illustrated with a server icon"
+        />
+      ),
       href: '/hosting',
       title: 'Hosting guide',
       description:
@@ -34,7 +50,13 @@ const HomepageHero = () => {
     },
     {
       id: 'contributor',
-      icon: <img src={useBaseUrl('/icons/lucide/contributor.svg')} width={24} alt='Contributor guide illustrated with a handshake.' />,
+      icon: (
+        <img
+          src={useBaseUrl('/icons/lucide/contributor.svg')}
+          width={24}
+          alt="Contributor guide illustrated with a handshake."
+        />
+      ),
       href: '/contribute',
       title: 'Contributor guide',
       description:
@@ -42,7 +64,13 @@ const HomepageHero = () => {
     },
     {
       id: 'developer',
-      icon: <img src={useBaseUrl('/icons/lucide/developer.svg')} width={24} alt='Developer guide illustrated with {}.' />,
+      icon: (
+        <img
+          src={useBaseUrl('/icons/lucide/developer.svg')}
+          width={24}
+          alt="Developer guide illustrated with {}."
+        />
+      ),
       href: '/development',
       title: 'Developer guide',
       description:
@@ -50,7 +78,13 @@ const HomepageHero = () => {
     },
     {
       id: 'api',
-      icon: <img src={useBaseUrl('/icons/lucide/developer.svg')} width={24} alt='API guide illustrated with {}.' />,
+      icon: (
+        <img
+          src={useBaseUrl('/icons/lucide/developer.svg')}
+          width={24}
+          alt="API guide illustrated with {}."
+        />
+      ),
       href: '/api',
       title: 'API guide',
       description:
@@ -58,15 +92,27 @@ const HomepageHero = () => {
     },
     {
       id: 'releases',
-      icon: <img src={useBaseUrl('/icons/lucide/tag.svg')} width={24} alt='Release notes illustrated with a tag.' />,
+      icon: (
+        <img
+          src={useBaseUrl('/icons/lucide/tag.svg')}
+          width={24}
+          alt="Release notes illustrated with a tag."
+        />
+      ),
       href: 'https://www.passbolt.com/changelog',
       title: 'Release notes',
       description:
-        'What was shipped in the latest release? Was it a bug or a feature? Let\'s find out!',
+        "What was shipped in the latest release? Was it a bug or a feature? Let's find out!",
     },
     {
       id: 'incidents',
-      icon: <img src={useBaseUrl('/icons/lucide/fire.svg')} width={24} alt='Incident reports illustrated with a fire.' />,
+      icon: (
+        <img
+          src={useBaseUrl('/icons/lucide/fire.svg')}
+          width={24}
+          alt="Incident reports illustrated with a fire."
+        />
+      ),
       href: 'https://www.passbolt.com/incidents',
       title: 'Incident reports',
       description:
@@ -74,7 +120,13 @@ const HomepageHero = () => {
     },
     {
       id: 'contact',
-      icon: <img src={useBaseUrl('/icons/lucide/contact.svg')} width={24} alt='Contact us illustrated with a speech bubble.' />,
+      icon: (
+        <img
+          src={useBaseUrl('/icons/lucide/contact.svg')}
+          width={24}
+          alt="Contact us illustrated with a speech bubble."
+        />
+      ),
       href: 'https://www.passbolt.com/contact',
       title: 'Talk to a human',
       description:
@@ -101,9 +153,16 @@ const HomepageHero = () => {
       </div>
       <div className={styles.grid}>
         {guides.map((item) => (
-          <Link key={item.id} to={item.href} className={styles.card} autoAddBaseUrl>
+          <Link
+            key={item.id}
+            to={item.href}
+            className={styles.card}
+            autoAddBaseUrl
+          >
             {item.icon}
-            <Heading as="h3" className={styles.title}>{item.title}</Heading>
+            <Heading as="h3" className={styles.title}>
+              {item.title}
+            </Heading>
             <p className={styles.description}>{item.description}</p>
           </Link>
         ))}

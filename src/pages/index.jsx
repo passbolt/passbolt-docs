@@ -1,7 +1,6 @@
-import React from 'react';
-import Layout from '@theme/Layout';
-import HomepageHero from '@site/src/components/HomepageHero';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import HomepageHero from '@site/src/components/HomepageHero';
+import Layout from '@theme/Layout';
 
 function Home() {
   const { siteConfig } = useDocusaurusContext();

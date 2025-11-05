@@ -1,11 +1,10 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 // Reuse the css theme from distribution
-import styles from '../DistributionCard/DistributionCard.module.css';
-import Badge from '@site/src/components/Badge/Badge';
-import clsx from 'clsx';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import Badge from '@site/src/components/Badge/Badge';
 import Heading from '@theme/Heading'; // Import the Heading component
+import clsx from 'clsx';
+import styles from '../DistributionCard/DistributionCard.module.css';
 
 const ImportCard = ({ logo, name, links, ...props }) => {
   const imageUrl = useBaseUrl(logo);
@@ -25,9 +24,9 @@ const ImportCard = ({ logo, name, links, ...props }) => {
       )}
       {links && (
         <div className={styles.links}>
-          {links.map((link, index) => (
+          {links.map((link) => (
             <Badge
-              key={index}
+              key={link.label}
               className={clsx([styles.link])}
               href={link.slug}
             >
@@ -47,7 +46,7 @@ ImportCard.propTypes = {
     PropTypes.shape({
       slug: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
-    })
+    }),
   ).isRequired,
 };
 

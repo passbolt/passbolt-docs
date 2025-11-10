@@ -221,6 +221,14 @@ update:
           {
             "user_id": "8bb80df5-700c-48ce-b568-85a60fc3c8f2",
             "is_admin": true
+          },
+          {
+            "id": "3b9b9757-1ccb-444a-a3cf-4090364fac4f",
+            "is_admin": false
+          },
+          {
+            "id": "1a2b3c4d-5e6f-7g8h-9i0j-k1l2m3n4o5p6",
+            "delete": true
           }
         ]
       }'
@@ -230,7 +238,7 @@ update:
       const options = {
         method: 'PUT',
         headers: {Authorization: 'Bearer {{JWT_TOKEN}}'},
-        body: '{"name":"WRC","groups_users":[{"user_id":"8bb80df5-700c-48ce-b568-85a60fc3c8f2","is_admin":true}]}'
+        body: '{"name":"WRC","groups_users":[{"user_id":"8bb80df5-700c-48ce-b568-85a60fc3c8f2","is_admin":true},{"id":"3b9b9757-1ccb-444a-a3cf-4090364fac4f","is_admin":false},{"id":"1a2b3c4d-5e6f-7g8h-9i0j-k1l2m3n4o5p6","delete":true}]}'
       };
 
       try {
@@ -259,6 +267,14 @@ update:
             [
               'user_id' => '8bb80df5-700c-48ce-b568-85a60fc3c8f2',
               'is_admin' => true
+            ],
+            [
+              'id' => '3b9b9757-1ccb-444a-a3cf-4090364fac4f',
+              'is_admin' => false
+            ],
+            [
+              'id' => '1a2b3c4d-5e6f-7g8h-9i0j-k1l2m3n4o5p6',
+              'delete' => true
             ]
           ]
         ]),

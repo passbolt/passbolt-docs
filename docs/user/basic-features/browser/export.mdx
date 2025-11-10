@@ -1,5 +1,5 @@
 ---
-title: How to Export Resources(s) to a CSV or KDBX file
+title: How to Export Resources to CSV or KDBX
 description: How to Export Resources(s) to a CSV or KDBX file
 sidebar_label: Export Resource(s)
 sidebar_position: 6
@@ -7,6 +7,8 @@ sidebar_position: 6
 
 import Video from '@site/src/components/Video/Video';
 import Chips from "/src/components/Chips/Chips";
+
+# How to Export Resources(s) to a CSV or KDBX file
 
 <div style={{display: "flex", gap: "1rem"}}>
   <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
@@ -23,6 +25,12 @@ import Chips from "/src/components/Chips/Chips";
 />
 
 ### Steps
+
+:::danger[Warning:]
+If you have resource(s) with both a Description (metadata) and a Note (secret). KDBX and most of the CSV providers only supports secure notes (Note).
+
+This means that in the export file, the description will be missing in favor of the note.
+:::
 
 1. Select the password(s) or the folder(s) you’d like to export.
     - If you want to export all the passwords you have access to, you can click on the menu next to “Folders”.

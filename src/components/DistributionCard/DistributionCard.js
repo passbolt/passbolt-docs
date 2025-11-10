@@ -1,9 +1,8 @@
-import React from 'react';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import Badge from '@site/src/components/Badge/Badge';
+import Heading from '@theme/Heading';
 import PropTypes from 'prop-types';
 import styles from './DistributionCard.module.css';
-import Badge from '@site/src/components/Badge/Badge';
-import useBaseUrl from '@docusaurus/useBaseUrl';
-import Heading from '@theme/Heading';
 
 const DistributionCard = ({ logo, name, isNew, version, links, ...props }) => {
   const imageUrl = useBaseUrl(logo);
@@ -25,24 +24,14 @@ const DistributionCard = ({ logo, name, isNew, version, links, ...props }) => {
 
       {(isNew || (links && (links.ce || links.pro))) && (
         <div className={styles.links}>
-          {isNew && (
-            <div className={styles.newBadge}>
-              NEW
-            </div>
-          )}
+          {isNew && <div className={styles.newBadge}>NEW</div>}
           {links?.ce && (
-            <Badge
-              className={styles.link}
-              href={links.ce.slug}
-            >
+            <Badge className={styles.link} href={links.ce.slug}>
               {links.ce.label}
             </Badge>
           )}
           {links?.pro && (
-            <Badge
-              className={styles.link}
-              href={links.pro.slug}
-            >
+            <Badge className={styles.link} href={links.pro.slug}>
               {links.pro.label}
             </Badge>
           )}

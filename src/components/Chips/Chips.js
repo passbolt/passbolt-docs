@@ -1,16 +1,19 @@
-import React from 'react';
+import Link from '@docusaurus/Link';
 import PropTypes from 'prop-types';
 import styles from './Chips.module.css';
-import Link from "@docusaurus/Link";
 
-const Chips = ({ children, link = "", isUnderMainTitle = false }) => {
+const Chips = ({ children, link = '', isUnderMainTitle = false }) => {
   if (!children) return null;
   const hasLink = link.length > 0;
 
   return (
-    <div className={`${isUnderMainTitle ? styles["under-main-menu"] : ''}`}>
+    <div className={`${isUnderMainTitle ? styles['under-main-menu'] : ''}`}>
       {hasLink ? (
-        <Link className={`${styles.chips} ${styles.link}`} to={link} target="_blank">
+        <Link
+          className={`${styles.chips} ${styles.link}`}
+          to={link}
+          target="_blank"
+        >
           {children}
         </Link>
       ) : (
@@ -26,7 +29,7 @@ Chips.propTypes = {
     PropTypes.node,
   ]).isRequired,
   isUnderMainTitle: PropTypes.bool,
-  link: PropTypes.string
+  link: PropTypes.string,
 };
 
 export default Chips;

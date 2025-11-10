@@ -1,8 +1,7 @@
-import React from 'react';
-import clsx from 'clsx';
-import styles from './Badge.module.css';
-import PropTypes from 'prop-types';
 import Link from '@docusaurus/Link';
+import clsx from 'clsx';
+import PropTypes from 'prop-types';
+import styles from './Badge.module.css';
 
 const Badge = ({ children, href, variant = 'primary' }) => {
   if (!children) return null;

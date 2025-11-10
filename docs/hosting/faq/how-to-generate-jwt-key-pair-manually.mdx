@@ -1,11 +1,14 @@
 ---
-title: How can I generate a JWT key pair manually?
+title: Generating JWT Key Pair Manually
 description: How to generate JWT key pair manually
 sidebar_label: How can I generate a JWT key pair manually?
 hide_table_of_contents: true
 ---
 
 import Chips from "/src/components/Chips/Chips";
+import CodeBlock from '@theme/CodeBlock';
+
+# How can I generate a JWT key pair manually?
 
 <div style={{display: "flex", gap: "1rem"}}>
   <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
@@ -18,30 +21,31 @@ Replace `/usr/share/php` by `/var/www` and `/etc/passbolt` by `/var/www/passbolt
 
 Ensure `/etc/passbolt/jwt` folder exists and is owned by `root` user and `www-data` group.
 
-```bash
-sudo mkdir -m=750 /etc/passbolt/jwt`
-```
+<CodeBlock>
+  {`sudo mkdir -m=750 /etc/passbolt/jwt`}
+</CodeBlock>
 
 Create the JWT keys:
 
-```bash
-sudo /usr/share/php/passbolt/bin/cake passbolt create_jwt_keys
-```
+<CodeBlock>
+{`sudo /usr/share/php/passbolt/bin/cake passbolt create_jwt_keys`}
+</CodeBlock>
 
 Ensure rights are correct:
-```bash
-sudo chown -R root:www-data /etc/passbolt/jwt
+<CodeBlock>
+  {`sudo chown -R root:www-data /etc/passbolt/jwt
 sudo chmod 600 /etc/passbolt/jwt/jwt.key
-sudo chmod 640 /etc/passbolt/jwt/jwt.pem
-```
+sudo chmod 640 /etc/passbolt/jwt/jwt.pem`}
+</CodeBlock>
+
 Ensure that all is good by executing the healthcheck.
 
-```bash
-sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt healthcheck --jwt" www-data
-```
+<CodeBlock>
+  {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt healthcheck --jwt" www-data`}
+</CodeBlock>
 
 You should see this result:
-```bash
+```shell
 JWT Authentication
 [PASS] The JWT Authentication plugin is enabled
 [PASS] The /etc/passbolt/jwt/ directory is not writable.

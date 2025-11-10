@@ -1,9 +1,8 @@
-import React from 'react';
+import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import Heading from '@theme/Heading';
 import PropTypes from 'prop-types';
 import styles from './ProviderCard.module.css';
-import useBaseUrl from '@docusaurus/useBaseUrl';
-import Link from '@docusaurus/Link';
-import Heading from '@theme/Heading';
 
 const ProviderCard = ({ logo, name, slug, ...props }) => {
   const imageUrl = useBaseUrl(logo);
@@ -14,7 +13,9 @@ const ProviderCard = ({ logo, name, slug, ...props }) => {
         <div className={styles.logo}>
           <img src={imageUrl} alt={`${name} logo`} />
         </div>
-        <Heading as="h3" className={styles.name}>{name}</Heading>
+        <Heading as="h3" className={styles.name}>
+          {name}
+        </Heading>
       </div>
     </Link>
   );

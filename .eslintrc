@@ -12,6 +12,7 @@
     "eslint:recommended",
     "plugin:mdx/recommended",
     "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
     "plugin:@docusaurus/recommended"
   ],
   "settings": {
@@ -20,13 +21,32 @@
     }
   },
   "rules": {
-    "react/no-unescaped-entities": ["error", { "forbid": [">", "}"] }],
+    "react/no-unescaped-entities": [
+      "error",
+      {
+        "forbid": [
+          ">",
+          "}"
+        ]
+      }
+    ],
     "@docusaurus/no-html-links": "warn",
     "@docusaurus/prefer-docusaurus-heading": "off",
-    "react/prop-types": ["error", { "ignore": ["providers", "type"] }],
-    "no-unused-vars": ["error", { 
-      "varsIgnorePattern": "^(Figure|Video|CodeBlock|CheckMark.*|NginxSuccess|Chips)$" 
-    }],
+    "react/prop-types": [
+      "error",
+      {
+        "ignore": [
+          "providers",
+          "type"
+        ]
+      }
+    ],
+    "no-unused-vars": [
+      "error",
+      {
+        "varsIgnorePattern": "^(Figure|Video|CodeBlock|CheckMark.*|NginxSuccess|Chips)$"
+      }
+    ],
     "no-unused-expressions": "off",
     "no-useless-escape": "warn"
   },

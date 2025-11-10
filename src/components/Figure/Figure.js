@@ -1,7 +1,6 @@
-import React from 'react';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import PropTypes from 'prop-types';
 import styles from './Figure.module.css';
-import useBaseUrl from '@docusaurus/useBaseUrl';
 
 const Figure = ({ src, alt, caption = null, size = {} }) => {
   const imageUrl = useBaseUrl(src);

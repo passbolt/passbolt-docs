@@ -39,12 +39,11 @@ Choose which types of resources to include in the migration:
 ## Important Considerations
 
 Before initiating migration, ensure:
-- Encrypted metadata is enabled in the [Encrypted Metadata](./encrypted-metadata.mdx) settings
-- A shared metadata key has been generated in the [Metadata Key](./manage-metadata-key.mdx) settings
-- All users who need access to the migrated resources have received the shared metadata key
+- Encrypted metadata is enabled in [Encrypted Metadata](./encrypted-metadata.mdx)
+- All users who need access to migrated resources have received the shared metadata key (see [Metadata Key](./manage-metadata-key.mdx))
 
 :::tip Best Practice
-Always perform a complete backup before starting the migration process. This ensures you can recover if any issues occur during migration.
+Always backup your database before migration. Metadata migration cannot be easily reversed.
 :::
 
 :::warning

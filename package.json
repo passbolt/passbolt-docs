@@ -54,7 +54,7 @@
   },
   "overrides": {
     "webpack-dev-server": "^5.2.1",
-    "sitemap": "^8.0.1"
+    "sitemap": "^9.0.0"
   },
   "browserslist": {
     "production": [

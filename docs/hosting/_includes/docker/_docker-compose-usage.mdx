@@ -7,7 +7,10 @@ import Link from '@docusaurus/Link';
 The easiest and recommended way to deploy your passbolt stack is to use docker compose.
 
 <Incrementor
-  title="Download our docker-compose.yml example file"
+  title={props.productName === 'PRO'
+    ? "Download our docker-compose-pro.yaml example file"
+    : "Download our docker-compose-ce.yaml example file"
+  }
   resetCounter={true}
 />
 

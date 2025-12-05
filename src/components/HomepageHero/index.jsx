@@ -18,7 +18,7 @@ const HomepageHero = () => {
       href: '/user',
       title: 'User guide',
       description:
-        'All you need to know about the functionalities available to every users.',
+        'All you need to know about the functionalities available to every user.',
     },
     {
       id: 'admin',

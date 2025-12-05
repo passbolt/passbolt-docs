@@ -1,4 +1,3 @@
-import CodeBlock from "/src/components/CodeBlock/CodeBlock";
 import HTTPSWarning from '/docs/hosting/_includes/warning/_https-url-change.mdx';
 import LetsEncryptWarning from '/docs/hosting/_includes/warning/_https-valid-domain.mdx'
 import Link from '@docusaurus/Link';
@@ -18,8 +17,8 @@ If you have followed our  <Link to={`/docs/hosting/install/${props.productName.t
 
 To handle HTTPS setup with Let’s Encrypt, add a traefik service as follow:
 
-<CodeBlock>
-    {`version: '3.7'
+```yaml
+version: '3.7'
 services:
   db:
     ...
@@ -35,8 +34,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik.yaml:/traefik.yaml:ro
       - ./conf/:/etc/traefik/conf
-      - ./shared/:/shared`}
-</CodeBlock>
+      - ./shared/:/shared
+```
 
 Traefik will:
 
@@ -47,8 +46,8 @@ Traefik will:
 
 Create a `traefik.yaml` configuration file with this content (replace yourname@domain.tld with your email for Let’s Encrypt):
 
-<CodeBlock>
-    {`global:
+```yaml
+global:
   sendAnonymousUsage: false
 log:
   level: INFO
@@ -86,21 +85,21 @@ certificatesResolvers:
       keyType: EC256
       httpChallenge:
         entryPoint: web
-      tlsChallenge: {}`}
-</CodeBlock>
+      tlsChallenge: {}
+```
 
 Create a `conf` folder:
 
-<CodeBlock>
-    {`mkdir conf`}
-</CodeBlock>
+```bash
+mkdir conf
+```
 
 In the `conf` folder, create 2 files:
 
 `conf/headers.yaml`:
 
-<CodeBlock>
-    {`http:
+```yaml
+http:
   middlewares:
     SslHeader:
       headers:
@@ -119,13 +118,13 @@ In the `conf` folder, create 2 files:
         CustomFrameOptionsValue: SAMEORIGIN
         ReferrerPolicy: same-origin
         PermissionsPolicy: vibrate 'self'
-        STSSeconds: 315360000`}
-</CodeBlock>
+        STSSeconds: 315360000
+```
 
 `conf/tls.yaml`:
 
-<CodeBlock>
-    {`tls:
+```yaml
+tls:
   options:
     default:
       minVersion: VersionTLS12
@@ -136,8 +135,8 @@ In the `conf` folder, create 2 files:
       cipherSuites:
         - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
         - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
-        - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256`}
-</CodeBlock>
+        - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256
+```
 
 `traefik.yaml`, `conf/headers.yaml` and `conf/tls.yaml` will be mounted inside traefik container.
 ## Handle passbolt with Traefik
@@ -148,8 +147,8 @@ To make Traefik redirect incoming requests to passbolt, edit the `passbolt` serv
 
 **Step 2.** Add docker labels to make Traefik aware of the `passbolt` service
 
-<CodeBlock>
-    {`version: '3.7'
+```yaml
+version: '3.7'
 services:
   db:
     ...
@@ -158,16 +157,16 @@ services:
     labels:
       traefik.enable: "true"
       traefik.http.routers.passbolt-http.entrypoints: "web"
-      traefik.http.routers.passbolt-http.rule: "Host(\`passbolt.domain.tld\`)"
+      traefik.http.routers.passbolt-http.rule: "Host(`passbolt.domain.tld`)"
       traefik.http.routers.passbolt-http.middlewares: "SslHeader@file"
       traefik.http.routers.passbolt-https.middlewares: "SslHeader@file"
       traefik.http.routers.passbolt-https.entrypoints: "websecure"
-      traefik.http.routers.passbolt-https.rule: "Host(\`passbolt.domain.tld\`)"
+      traefik.http.routers.passbolt-https.rule: "Host(`passbolt.domain.tld`)"
       traefik.http.routers.passbolt-https.tls: "true"
       traefik.http.routers.passbolt-https.tls.certresolver: "letsencrypt"
   traefik:
-    ...`}
-</CodeBlock>
+    ...
+```
 :::important
 Ensure you have correctly set your domain name (replace `passbolt.domain.tld` with your own in the example above).
 :::
@@ -175,8 +174,8 @@ Ensure you have correctly set your domain name (replace `passbolt.domain.tld` wi
 
 If you are using non-root images, add `loadbalancer.server.port` label to make traefik aware of the to be used port for `passbolt` service:
 
-<CodeBlock>
-    {`version: '3.7'
+```yaml
+version: '3.7'
 services:
   db:
     ...
@@ -184,8 +183,8 @@ services:
     ...
     labels:
       ...
-      traefik.http.services.passbolt-https.loadbalancer.server.port: 8080`}
-</CodeBlock>
+      traefik.http.services.passbolt-https.loadbalancer.server.port: 8080
+```
 
 That’s it
 

@@ -1,0 +1,849 @@
+---
+title: Useful Cake Commands
+description: A comprehensive reference guide for Passbolt cake commands used for maintenance, troubleshooting, and administration
+sidebar_label: Useful Commands
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 3
+---
+
+import CodeBlock from '@site/src/components/CodeBlock/CodeBlock';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Useful Cake Commands
+
+Reference for Passbolt cake commands used for maintenance, troubleshooting, and administration.
+
+## Running Commands
+
+The command syntax varies depending on your installation method. Replace `$command` in the examples below with the actual command (e.g., `passbolt healthcheck`, `cache clear_all`).
+
+### Debian-based Systems
+
+```bash
+sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake $command" www-data
+```
+
+### RPM-based Systems
+
+```bash
+sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake $command" nginx
+```
+
+### Docker (from host)
+
+```bash
+docker compose exec passbolt su -s /bin/bash -c "source /etc/environment && ./bin/cake $command" www-data
+```
+
+### Docker (inside container)
+
+```bash
+su -s /bin/bash -c "source /etc/environment && ./bin/cake $command" www-data
+```
+
+### Docker Rootless (from host)
+
+```bash
+docker compose exec passbolt ./bin/cake $command
+```
+
+### Docker Rootless (inside container)
+
+```bash
+./bin/cake $command
+```
+
+:::info
+When running commands interactively inside a Docker container, source environment variables first:
+```bash
+source /etc/environment
+```
+The Docker commands above already include this.
+:::
+
+## System Health and Diagnostics
+
+### Healthcheck
+
+Checks system configuration and health: GPG, TLS (SSL), database, and application settings.
+
+**Options:**
+- `--hide-pass` - Hide passing checks (useful for cleaner output)
+- `--hide-warning` - Hide warnings
+- `--hide-help` - Hide help messages
+- `--hide-title` - Hide section titles
+- `--hide-notice` - Hide info messages
+- `--database` - Run database checks only
+- `--gpg` - Run GPG checks only
+- `--application` - Run application checks only
+- `--ssl` - Run TLS (SSL) checks only
+- `--environment` - Run environment checks only
+- `--config-files` - Run config file checks only
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt healthcheck" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt healthcheck" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt healthcheck" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+**Examples:**
+
+```bash
+# Clean output - hide passing checks
+./bin/cake passbolt healthcheck --hide-pass
+
+# Only database checks
+./bin/cake passbolt healthcheck --database
+
+# Multiple check types
+./bin/cake passbolt healthcheck --database --gpg
+```
+
+:::tip
+Read-only. Exit code indicates pass/fail.
+:::
+
+### Datacheck
+
+Validates data integrity: GPG keys, authentication tokens, groups, resources, and other database entities.
+
+**What it checks:**
+- Authentication tokens integrity
+- Comments validity
+- Favorites consistency
+- GPG keys validation
+- Groups data
+- Profiles completeness
+- Resources integrity
+- Secrets consistency
+- Users data validity
+- Metadata (if V5 enabled)
+
+**Options:**
+- `--hide-success-details` - Hide details of passing checks
+- `--hide-error-details` - Hide details of failing checks
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt datacheck" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt datacheck" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt datacheck --hide-success-details" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+**Examples:**
+
+```bash
+# Clean output - only show failures
+./bin/cake passbolt datacheck --hide-success-details
+
+# Very quiet - only summary
+./bin/cake passbolt datacheck --hide-success-details --hide-error-details
+```
+
+:::tip
+Read-only. Can be slow on large datasets.
+:::
+
+### Status Report
+
+Runs healthcheck, cleanup (dry-run), datacheck, and shows the last 100 lines of error logs.
+
+**What it does:**
+- Displays version information
+- Runs healthcheck (`passbolt healthcheck`)
+- Runs cleanup check in dry-run mode (`passbolt cleanup --dry-run`)
+- Runs data validation (`passbolt datacheck --hide-success-details`)
+- Shows last 100 lines of error logs
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/status-report" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/status-report" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`su -s /bin/bash -c "source /etc/environment && ./bin/status-report" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+```bash
+./bin/status-report > diagnostic_report.txt
+```
+
+### Show Logs Path
+
+Shows the path to Passbolt log files.
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt show_logs_path" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt show_logs_path" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt show_logs_path" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+### Version
+
+Shows the installed Passbolt version.
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt version" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt version" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt version" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+## Data Maintenance
+
+### Cleanup
+
+Identifies and fixes database relational integrity issues.
+
+:::warning
+**IMPORTANT:** Always run with `--dry-run` first to preview changes!
+:::
+
+**What it cleans:**
+- Groups with no members
+- GroupsUsers for soft/hard deleted users and groups
+- Favorites for soft/hard deleted users and resources
+- Comments for soft/hard deleted users and resources
+- Permissions for soft/hard deleted users, groups, and resources
+- Secrets for soft/hard deleted users, resources, and permissions
+- Resources with missing ResourceType ID
+- Avatars for soft/hard deleted users and profiles
+- Users: inactive users with duplicated username
+
+**Prerequisites:**
+- Requires users table to exist
+- Requires at least one active administrator
+
+**Options:**
+- `--dry-run` - Preview issues without fixing (default: true)
+
+**Dry-run (recommended first):**
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt cleanup --dry-run" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt cleanup --dry-run" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt cleanup --dry-run" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+**Run cleanup:**
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt cleanup" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt cleanup" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt cleanup" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+:::info
+Default is `--dry-run=true`. Aborts if no admin users exist or users table is missing.
+:::
+
+### Truncate Account Recovery Tables
+
+:::danger
+**DESTRUCTIVE:** This command truncates all account recovery tables. This deletes ALL account recovery data and cannot be undone!
+:::
+
+Clears all account recovery tables. Use to reset the account recovery process.
+
+**Tables truncated:**
+- account_recovery_organization_policies
+- account_recovery_organization_public_keys
+- account_recovery_private_key_passwords
+- account_recovery_private_keys
+- account_recovery_requests
+- account_recovery_responses
+- account_recovery_user_settings
+
+**Options:**
+- `-u, --username` - Admin username for verification (optional)
+- `-f, --fingerprint` - Organisation public key fingerprint for verification (optional)
+- `-n, --no-verify` - Skip all verification checks (dangerous!)
+
+**Interactive mode (default):**
+- Prompts for admin username verification
+- Prompts for fingerprint verification
+- Asks for confirmation before truncating
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt truncate_account_recovery_tables" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt truncate_account_recovery_tables" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt truncate_account_recovery_tables" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+**Examples:**
+
+```bash
+# Interactive mode (recommended - safest)
+./bin/cake passbolt truncate_account_recovery_tables
+
+# Non-interactive with verification
+./bin/cake passbolt truncate_account_recovery_tables \
+  -u admin@example.com \
+  -f 2FC8B1DD1EA5BB8FBBFBA86F8F0DB86DD4FD9C70
+```
+
+:::info
+Enterprise Edition only.
+:::
+
+### Action Logs Purge
+
+Removes old entries from the action logs table. Specify retention period in days with `-r`.
+
+:::warning
+Performance may be degraded while running. Always run with `--dry-run` first.
+:::
+
+**Options:**
+- `-r, --retention-in-days` - Days to retain logs (required, must be > 0)
+- `-l, --limit` - Batch size (default: 100000)
+- `-d, --dry-run` - Preview without deleting (recommended first run)
+- `-v, --verbose` - Show count of logs grouped by action
+
+**Dry-run (recommended first):**
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt action_logs_purge --dry-run -r 90" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt action_logs_purge --dry-run -r 90" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt action_logs_purge --dry-run -r 90" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+**Purge action logs (example: 90 days retention):**
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt action_logs_purge -r 90" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt action_logs_purge -r 90" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt action_logs_purge -r 90" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+**Examples:**
+
+```bash
+# Preview purge (90 day retention)
+./bin/cake passbolt action_logs_purge -r 90 --dry-run
+
+# Actually purge with verbose output
+./bin/cake passbolt action_logs_purge -r 90 -v
+
+# Purge with custom batch size (for large datasets)
+./bin/cake passbolt action_logs_purge -r 90 -l 50000
+```
+
+:::info
+Processes in batches. Can be scheduled via cron.
+:::
+
+## Email Management
+
+### Send Test Email
+
+Sends a test email to verify SMTP configuration.
+
+**Options:**
+- `-r, --recipient` - Email address to send test to (required)
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt send_test_email --recipient=youremail@domain.com" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt send_test_email --recipient=youremail@domain.com" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt send_test_email --recipient=youremail@domain.com" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+:::info
+Shows detailed trace information. Actually sends email.
+:::
+
+### Email Digest Send
+
+Sends email digests to users with pending notifications. Typically run via cron.
+
+**Related:**
+- `passbolt email_digest preview` - Preview digests without sending
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt email_digest send" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt email_digest send" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt email_digest send" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+:::info
+Note: `sender` command is aliased to `passbolt email_digest send` when EmailDigest plugin is disabled.
+:::
+
+### Purge Email Queue
+
+Removes successfully sent emails and failed emails retried 3+ times from the queue.
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt purge_email_queue" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt purge_email_queue" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt purge_email_queue" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+:::info
+No options needed. Does not remove emails still being retried.
+:::
+
+## Database Migrations
+
+### Migration Status
+
+Shows which migrations have been applied and which are pending.
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake migrations status" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake migrations status" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`su -s /bin/bash -c "source /etc/environment && ./bin/cake migrations status" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+### Migrate
+
+Runs pending database migrations. Automatically clears cache after migration (unless `--no-clear-cache`).
+
+**Options:**
+- `--backup` - Create database backup before migration
+- `--no-clear-cache` - Don't clear cache after migration
+- `--datasource` - Specify datasource (default: default)
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt migrate" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt migrate" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt migrate" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+**Examples:**
+
+```bash
+# Safe migration with backup
+./bin/cake passbolt migrate --backup
+
+# Migration without cache clearing (advanced)
+./bin/cake passbolt migrate --no-clear-cache
+```
+
+:::info
+Cannot rollback - use `migrations rollback` for that. Backup option uses `sql_export`.
+:::
+
+## Cache Management
+
+### Cache Clear All
+
+Clears all application cache files. Run after updates.
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake cache clear_all" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake cache clear_all" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`su -s /bin/bash -c "source /etc/environment && ./bin/cake cache clear_all" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+## Subscription Management
+
+### Subscription Import
+
+Imports a subscription key file.
+
+:::info
+**Enterprise Edition only.**
+:::
+
+**Options:**
+- `-f, --file` - Path to subscription key file
+- `-t, --text` - Subscription key as Base64 text
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt subscription_import" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt subscription_import" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt subscription_import" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+**Examples:**
+
+```bash
+# Import from file
+./bin/cake passbolt subscription_import -f /path/to/subscription_key.txt
+
+# Import from text (useful for automated deployments)
+./bin/cake passbolt subscription_import -t "BASE64_ENCODED_KEY_HERE"
+```
+
+:::info
+Either file or text required (not both). Key must be valid base64-encoded.
+:::
+
+### Subscription Check
+
+Verifies subscription status and validity.
+
+:::info
+**Enterprise Edition only.** Note: `passbolt license_check` is an alias for this command.
+:::
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt subscription_check" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt subscription_check" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt subscription_check" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+:::info
+`passbolt license_check` is an alias.
+:::
+
+## Directory Synchronisation
+
+:::info
+Enterprise Edition only. Requires LDAP PHP extension and LDAP integration configured in Passbolt.
+:::
+
+### Directory Sync
+
+Synchronises users and groups from LDAP/AD. Use `--persist` to save changes to the database.
+
+**Available commands:**
+- `directory_sync all` - Synchronise both users and groups
+- `directory_sync users` - Synchronise users only
+- `directory_sync groups` - Synchronise groups only
+- `directory_sync test` - Test synchronisation without making changes (safe)
+- `directory_sync debug` - Debug configuration helper (safe)
+
+**Output format:**
+Shows Created/Updated/Deleted sections for Users and Groups. Error messages include instructions for ignoring specific entries if needed.
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake directory_sync all --persist" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake directory_sync all --persist" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`su -s /bin/bash -c "source /etc/environment && ./bin/cake directory_sync all --persist" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+**Examples:**
+
+```bash
+# Test synchronisation (safe, no changes)
+./bin/cake directory_sync test
+
+# Debug configuration
+./bin/cake directory_sync debug
+
+# Synchronise users only
+./bin/cake directory_sync users --persist
+```
+
+:::info
+Cannot be run as root - must run as web server user. Error messages include instructions for ignoring entries. See [Advanced Directory Options](/admin/user-provisioning/users-directory/advanced-directory-options) for sync error explanations. See [LDAP Sync Cronjob](/hosting/configure/ldap/ldap-cron) for automated setup.
+:::
+
+## Resource Management
+
+### Notify About Expired Resources
+
+Sends email notifications to users about expired or expiring resources based on password expiry policies.
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt notify_about_expired_resources" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt notify_about_expired_resources" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt notify_about_expired_resources" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+:::info
+Requires password expiry policies to be configured. Typically run via cron.
+:::
+
+## Command Safety Reference
+
+### Safe Commands (Read-Only)
+
+- `healthcheck`
+- `datacheck`
+- `show_logs_path`
+- `version`
+- `subscription_check` / `license_check`
+- `migrations status`
+- `directory_sync test`
+- `directory_sync debug`
+- All commands with `--dry-run` option
+- All cache, routes, plugin list commands
+
+### Commands Requiring Caution (Modifying)
+
+- `cleanup` (without `--dry-run`)
+- `migrate`
+- `send_test_email`
+- `action_logs_purge` (without `--dry-run`)
+- `purge_email_queue`
+- `email_digest send`
+- `notify_about_expired_resources`
+- `directory_sync` commands (except test/debug)
+
+### Destructive Commands (Cannot be Undone)
+
+- `truncate_account_recovery_tables` - Deletes all account recovery data
+- `drop_tables` - Drops ALL database tables (not documented here - use only in development)
+
+:::warning
+Always run commands with `--dry-run` when available, and make backups before running destructive or modifying commands.
+:::
+
+## Best Practices
+
+```bash
+# Check help first
+./bin/cake COMMAND --help
+
+# Use dry-run when available
+./bin/cake passbolt cleanup --dry-run
+./bin/cake passbolt action_logs_purge -r 90 --dry-run
+
+# Make backups before destructive operations
+./bin/cake passbolt sql_export
+./bin/cake passbolt migrate --backup
+
+# Run healthcheck regularly
+./bin/cake passbolt healthcheck --hide-pass
+
+# Use status report for troubleshooting
+./bin/status-report > diagnostic_report.txt
+```
+
+## Additional Resources
+
+- [How to check the logs](/hosting/troubleshooting/logs)
+- [How to purge the action logs](/hosting/troubleshooting/purge-action-logs)
+- [LDAP Sync Cronjob](/hosting/configure/ldap/ldap-cron)
+- [Email delivery issues](/hosting/troubleshooting/email)
+

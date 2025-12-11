@@ -15,10 +15,36 @@ import Chips from "/src/components/Chips/Chips";
   <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
 </div>
 
+## How to delete a user
+
+Only users with administrator role can delete other users. To delete a user:
+
+1. Log in as an administrator and go to the **users** workspace
+2. In the user list, click on the user you wish to delete
+3. Right-click on the user and select the **"Delete"** option from the contextual menu
+4. If the user owns shared resources or is the sole manager of a group, you will be prompted to transfer ownership. See [What happens when you delete a user who is sole owner of a shared resource?](#what-happens-when-you-delete-a-user-who-is-sole-owner-of-a-shared-resource) below for details.
+5. Click **"Delete"** to confirm the deletion
+
+:::info[Alternative method]
+You can also use the **"More"** button (if available) on top of the user list and select the **"Delete"** option.
+:::
+
 ## What happens when you delete a user who owns non-shared resources?
 
 When you delete a user who owns non-shared resources, those resources belonging solely to the user will also be deleted.
 Unlike shared resources, they won't be retained.
+
+## What happens when you delete a user who is a member of groups?
+
+When you delete a user who is a regular member (not a manager) of one or more groups, the user is automatically removed from all groups they belong to. The groups themselves remain intact, and other group members are unaffected.
+
+## What happens when you delete a user who is the sole manager of a group?
+
+A user cannot be deleted if they are the sole manager of a non-empty group. Before deleting the user, you must either:
+- Promote another member of the group to group manager, or
+- Delete the group if it's no longer needed
+
+If the user is the sole manager of a group and also the sole owner of shared resources, you will be prompted to transfer both the group management role and resource ownership during the deletion process.
 
 ## What happens when you delete a user who is sole owner of a shared resource?
 

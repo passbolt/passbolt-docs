@@ -319,7 +319,7 @@ This checks for:
 
 ## Directory-Specific Quirks
 
-Certain behaviors and edge cases can arise depending on your LDAP directory type, structure, and policies. Below are commonly encountered quirks and how to handle them.
+Certain behaviours and edge cases can arise depending on your LDAP directory type, structure, and policies. Below are commonly encountered quirks and how to handle them.
 
 ---
 
@@ -336,10 +336,10 @@ If the bind account credentials are incorrect, Active Directory may lock the acc
 
 Passbolt identifies users by their persistent LDAP GUID (`objectGUID` for AD, `entryUUID` for OpenLDAP). This GUID is not visible in the UI, but is used internally.
 
-- If a user's email is updated in AD, Passbolt sync updates the email based on the GUID — it does not create a new user.
-- If the email was manually changed in Passbolt or there's a conflict, sync may not behave as expected.
+- Passbolt only updates `firstName` and `lastName` for existing directory users. Email addresses are not changed by sync after account creation.
+- If a user's email changes in the directory, Passbolt keeps the original email. To change it in Passbolt, create a new user with the new email and migrate ownership as needed.
 
-**Tip**: Avoid manually editing synced user attributes in Passbolt. Let sync manage them.
+**Tip**: Avoid manually editing synced user names in Passbolt; manage them in your directory. Email changes require provisioning a new account.
 
 ---
 

@@ -37,45 +37,104 @@ Scan the QR code below to download the passbolt app from Google Play Store, or s
 
 ### Step 1: Launch the App
 
-Open the passbolt app and tap "Get Started" to begin the setup process.
+Open the passbolt app and tap "Connect to an existing account".
+
+<Figure
+  src="/img/help/2025/12/welcome_mobile.png"
+  alt="Welcome screen of the passbolt mobile app"
+  size={{ width: "320px" }}
+  caption="fig. Welcome screen"
+/>
 
 ### Step 2: Choose Setup Option
 
-You'll be presented with two options:
+Select **"Connect to an existing account"**.
 
-- **"Connect to an existing account"** - If you already have a passbolt account
-- **"I don't have an account"** - If you need to create a new account
+<Figure
+  src="/img/help/2025/12/create_mobile.png"
+  alt="Login options screen in the passbolt mobile app"
+  size={{ width: "320px" }}
+  caption="fig. Choose setup option"
+/>
 
 :::warning
-It is currently not possible to create an account using the mobile app. First you will need to create an account using your desktop browser extension.
+It is currently not possible to create an account using the mobile app. You must first create an account using your desktop browser extension.
 :::
 
 ### Step 3: Connect to Existing Account
 
-If you have an existing account, follow these steps:
-
 1. **Sign in using the browser extension** on your desktop
 2. **Go to the profile page** in your browser
 3. **Go to the mobile section** in your profile
-4. **Scan the QR codes** displayed on the screen
+
+<Figure
+  src="/img/help/2025/12/browser_mobile.png"
+  alt="Mobile setup page in the browser showing QR codes"
+  size={{ width: "600px" }}
+  caption="fig. Mobile setup page in browser"
+/>
 
 ### Step 4: Scan QR Code
 
 1. In the passbolt mobile app, tap **"Scan QR code"**
 2. Point your camera at the QR code displayed in your browser
-3. Follow the on-screen instructions to complete the connection
 
-## Configure Autofill
+<Figure
+  src="/img/help/2025/12/camera_mobile.png"
+  alt="Camera screen for scanning QR code in the passbolt mobile app"
+  size={{ width: "320px" }}
+  caption="fig. Scan QR code"
+/>
 
-For autofill setup and configuration, see our autofill documentation.
+### Step 5: Enter Passphrase
+
+Enter your passphrase to authenticate and complete the setup.
+
+<Figure
+  src="/img/help/2025/12/login_mobile.png"
+  alt="Enter passphrase screen in the passbolt mobile app"
+  size={{ width: "320px" }}
+  caption="fig. Enter passphrase"
+/>
+
+### Step 6: Enable Fingerprint Unlock
+
+Enable fingerprint unlock (recommended) so you can open the app with biometrics.
+
+<Figure
+  src="/img/help/2025/12/fingerprint_android.png"
+  alt="Enable fingerprint unlock in the passbolt Android app"
+  size={{ width: "320px" }}
+  caption="fig. Enable fingerprint unlock"
+/>
+
+### Step 7: Configure Autofill
+
+Configure autofill settings. See our [guide on disabling built-in password managers](/user/faq/disable-built-in-password-manager/).
+
+<Figure
+  src="/img/help/2025/12/autofill_android_mobile.png"
+  alt="Autofill configuration in the passbolt Android app"
+  size={{ width: "320px" }}
+  caption="fig. Configure autofill"
+/>
+
+After enabling autofill, you should see a confirmation screen:
+
+<Figure
+  src="/img/help/2025/12/autofill_mobile.png"
+  alt="Passbolt autofill enabled confirmation"
+  size={{ width: "320px" }}
+  caption="fig. Passbolt autofill enabled"
+/>
 
 ### Chrome Native Autofill
 
-Chrome on Android (version 135+) supports native autofill services. For the best experience with Chrome, see our Chrome autofill guide for setup instructions.
+Chrome on Android (version 135+) supports native autofill services. See our [Chrome autofill guide](/user/basic-features/mobile/autofill-chrome-android/) for setup instructions.
 
 ## Disable Built-in Password Manager
 
-To avoid conflicts, disable Android's built-in password manager. See our [guide on disabling built-in password managers](/user/faq/disable-built-in-password-manager/).
+Disable Android's built-in password manager to prevent conflicts. See our [guide on disabling built-in password managers](/user/faq/disable-built-in-password-manager/).
 
 ## Troubleshooting
 
@@ -87,7 +146,7 @@ To avoid conflicts, disable Android's built-in password manager. See our [guide 
 
 ### Autofill Not Working
 
-If autofill is not working properly, ensure that:
+If autofill is not working, check that:
 - The passbolt autofill service is enabled in your device settings
 - You have granted necessary permissions to the passbolt app
 - Your device's built-in password manager is disabled
@@ -95,5 +154,5 @@ If autofill is not working properly, ensure that:
 
 ## Next Steps
 
-- Learn about [TOTP functionality](/user/basic-features/mobile/totp-mobile/) on mobile
-- Configure Chrome native autofill for the best Chrome experience
+- [TOTP functionality](/user/basic-features/mobile/totp-mobile/) on mobile
+- [Chrome native autofill](/user/basic-features/mobile/autofill-chrome-android/) for Chrome users

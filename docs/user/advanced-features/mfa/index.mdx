@@ -1,0 +1,24 @@
+---
+title: Configure MFA for your account
+sidebar_label: MFA
+description: How to configure MFA for your account?
+hide_table_of_contents: true
+---
+import mfaProviders from '/data/mfa-providers.json';
+import {ProviderCardWrapper} from '/docs/components/providerCard.mdx';
+import Chips from "/src/components/Chips/Chips";
+
+# How to configure MFA for your account
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+:::tip
+It is recommended to set up at least one additional multi-factor authentication method as a backup in case of unavailability.
+:::
+
+<ProviderCardWrapper providers={mfaProviders}/>
+

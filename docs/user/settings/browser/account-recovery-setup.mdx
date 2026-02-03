@@ -7,71 +7,96 @@ sidebar_label: Account recovery
 import Figure from '@site/src/components/Figure/Figure';
 import Chips from "/src/components/Chips/Chips";
 
-# How to Setup Account Recovery for my User Account?
+# Account Recovery
 
 <div style={{display: "flex", gap: "1rem"}}>
   <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
   <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
 </div>
 
-The Account Recovery is a feature introduced with passbolt v3.6.0 that helps users to recover their accounts
-in case of recovery kit or passphrase loss. To know more about account recovery, checkout this [documentation](/admin/authentication/account-recovery/).
+The Account Recovery is a feature introduced with passbolt v3.6.0 that helps users to recover their accounts in case of a recovery kit or passphrase loss.
 
 :::info
-This feature needs to be activated by your administrator first. It is currently not available in the community edition.
+If you are looking for how to set up your account on another machine,  
+you can check [this documentation](/user/quickstart/browser/setup-on-another-machine/).
+:::
+
+To know more about how to configure account recovery, check out [administrator documentation](/admin/authentication/account-recovery/).
+
+:::caution
+This feature needs to be activated by your administrator first.  
+
+However, with passbolt 5.8, we are introducing the ability to create additional roles (*Organisation settings -> Role-Based Access Control*). Upon being given a role with access to the account recovery requests management, non-admins will be able to view, index, and review account recovery requests.
 :::
 
 ## Requirements
 
 You can follow this procedure if you are meeting the following requirements:
 
-- You are in possession of a valid user account (you have completed the setup, and you are not suspended);
-- Your organisation is running Passbolt Pro > v3.6.0 or Passbolt Cloud.
+- You are in possession of a valid user account (you have completed the setup, and you are not suspended),
+- Your organisation is running Passbolt Pro v3.6.0 or higher, or Passbolt Cloud.
 
-## How to subscribe as a new user during the setup process?
+## How does it work?
 
-If the account recovery is enabled for the organisation, all new users will be prompted to join the account recovery program during the setup process.
+Depending on the organisation's policy, all users will be able to deposit an encrypted backup of their private keys in passbolt. Backups which can only be unlocked cryptographically by the organisation's administrators.
+
+:::danger[YouTube]
+Watch the process of [account recovery from the user and the admin perspective](https://www.youtube.com/watch?v=b-VwI5fCdwE).
+:::
+
+### The possible organisation's policies:
+
+- __Prompt__: new users will be forced to accept when registering for the first time, while existing users will be prompted to accept or ignore after signing in to the application. When ignored, this prompt will be displayed after each connection, but its goal is mainly to inform the users about the private key transfer that is going to happen. It is especially useful if they prefer not to use their personal private key.
+- __Opt-out__: users have the choice to accept or reject the option, and the account recovery is **enabled** by default as per the organisation's preferences. Users will be able to set their preferences when registering for the first time while existing users will be prompted to accept or reject after signing in to the application.
+- __Opt-in__: users have the choice to accept or reject the option, but the account recovery is **disabled** by default as per the organisation's preferences. Users will be able to set their preferences when registering for the first time while existing users will be prompted to accept or reject after signing in to the application.
+- __Disable__: the option is disabled and nobody will be able to use it. This is the default policy before enabling account recovery.
+
+## As a new user, how to allow this option during the setup process?
+
+If the account recovery is enabled for the organisation (by an admin), all new users will be prompted to accept the account recovery option during the setup process.  
+Depending on the organisation's policy, the prompt presents different options as shown [above](/user/settings/browser/account-recovery-setup/#the-possible-organisations-policies).
 
 <Figure
   src="/img/help/2025/04/account-recovery-during-setup.png"
-  alt="Account recovery screen during browser extension setup process (Opt-out policy)"
-  caption="fig. Account recovery screen during browser extension setup process (Opt-out policy)"
+  alt="Account recovery acceptance for browser extension setup process (Opt-out policy)"
+  caption="fig. Account recovery acceptance for browser extension setup process (Opt-out policy)"
 />
 
-The prompt presents different options depending on the organisation policy:
+## As a registered user, how to allow this option?
 
-- __Mandatory__: as its name states, users have to subscribe to the program no mater their preferences. The screen role here is mainly to inform the users about the private key transfer that is going to happen, it is useful if they prefer not to use their personal private key by instance;
-- __Opt-out__: users have the choice to join or reject the program, and they are subscribed by default as per the organisation preference;
-- __Opt-in__: as the *opt-out* option, users have the choice to join or reject the program, but they are not subscribed by default as per the organisation preference.
-
-## How to subscribe as an already registered user?
-
-If the account recovery is enabled for the organisation, all users can access their account recovery preference from the *account recovery* section of the *user settings workspace*.
+If the account recovery is enabled for the organisation, all users can access their account recovery preferences from the *account recovery* section of the *user settings workspace*.
 
 <Figure
   src="/img/help/2022/07/account-recovery-redirection-dialog.png"
-  alt="Account recovery user prompt dialog."
-  caption="fig. Account recovery user prompt dialog."
+  alt="Account recovery enrollment prompt for registered users"
+  caption="fig. Account recovery enrollment prompt for registered users"
 />
 
-If the organisation account recovery policy is set to *mandatory* or *opt-out*, users will be prompted to enroll to the program immediately after signing in into passbolt. If they postpone the decision, they could follow the *attention crumbs* (&#10071;) displayed in the interface to go to the setting screen later.
+If the organisation's account recovery policy is set to *prompt* or *opt-out*, users will be prompted to accept immediately after signing in into passbolt. If they postpone the decision, they could follow the *attention crumbs* (&#10071;) displayed in the interface to go to the account recovery section in the settings later.
 
 <Figure
   src="/img/help/2025/04/account-recovery-setting.png"
-  alt="Account recovery user setting screen."
-  caption="fig. Account recovery user setting screen."
+  alt="Account recovery section in user's settings"
+  caption="fig. Account recovery section in user's settings"
 />
 
-Users will be then able to enroll to the program by clicking the *review* button. Similarly to the setup process, the setting screen presents different options depending on the organisation policy:
-
-- __Mandatory__: as its name states, users have no other choice but to subscribe to the program. The screen role here is mainly to inform the users about the private key transfer that is going to happen, it is useful if they prefer not to use their personal private key by instance;
-- __Opt-out__: users have the choice to join or reject the program, and they are subscribed by default as per the organisation preference;
-- __Opt-in__: as the *opt-out* option, users have the choice to join or reject the program, but they are not subscribed by default as per the organisation preference.
+Users will then be able to accept the option by clicking the *review* button. Similarly to the setup process, the settings screen presents different options depending on the organisation's policy (e.g. [The possible organisation's policies](/user/settings/browser/account-recovery-setup/#the-possible-organisations-policies)).
 
 <Figure
   src="/img/help/2022/07/account-recovery-dialog.png"
-  alt="Account recovery subscription dialog."
-  caption="fig. Account recovery subscription dialog."
+  alt="Account recovery acceptance dialog"
+  caption="fig. Account recovery acceptance dialog"
 />
 
-Users will notice additional information relative to the administrator who enabled the account recovery program. For safety reasons, it is highly recommended to verify carefully this information: Is the administrator known? Is the fingerprint matching the administrator public key?
+Users will notice additional information relative to the administrator who enabled the account recovery option.
+
+:::danger
+For safety reasons, it is highly recommended to verify carefully these information:
+
+- Is the administrator known?
+- Is the fingerprint matching the administrator's public key?
+:::
+
+
+
+

@@ -1,0 +1,124 @@
+---
+title: How to manage Account Recovery
+sidebar_label: Management
+description: How to manage Account Recovery
+hide_table_of_contents: false
+---
+
+import CodeBlock from "@site/src/components/CodeBlock/CodeBlock";
+import Figure from '/src/components/Figure/Figure';
+import Video from '@site/src/components/Video/Video';
+import Chips from "/src/components/Chips/Chips";
+
+# Account Recovery Management
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+The Account Recovery is a feature introduced with passbolt v3.6.0 that helps users to recover their accounts in case of a recovery kit or passphrase loss.
+
+:::info
+If you are looking for how to set up your account on another machine,  
+you can check [this documentation](/user/quickstart/browser/setup-on-another-machine/).
+:::
+
+:::caution
+This feature needs to be activated by you, administrator, as it is disabled by default.  
+
+Furthermore, with passbolt 5.8, we are introducing the ability to create additional roles (*Organisation settings -> Role-Based Access Control*). Upon being given a role with access to the account recovery requests management, non-admins will be able to view, index, and review account recovery requests.
+:::
+
+### Requirements
+
+You can manage this setting if you are meeting the following requirements:
+
+- You have an active administrator account,
+- You are running Passbolt Pro v3.6.0 or higher, or Passbolt Cloud.
+
+### How does it work?
+
+Depending on [the organisation's policy](/admin/authentication/account-recovery/account-recovery-configuration/#how-to-choose-the-organisations-policy), all users will be able to deposit an encrypted backup of their private keys in passbolt. Backups which can only be unlocked cryptographically by the organisation's administrators having in their possession the organisation recovery key.
+
+<br />
+
+:::danger[YouTube]
+Watch the process of [account recovery from the user and the admin perspective](https://www.youtube.com/watch?v=b-VwI5fCdwE).
+:::
+
+<br />
+
+## How to manage account recovery requests?
+<div style={{ marginTop: '-2.5rem' }} /> {/* Reducing the spacing between the two titles */}
+### Managing account recovery requests by email
+
+When losing their passphrase and/or their private key, users will follow the account recovery procedure, resulting in an email sent to you, administrator.
+
+:::caution
+To avoid usurpations, we strongly recommend to contact directly the users who asked for an account recovery before accepting it.
+:::
+
+<Figure
+  src="/img/help/2025/12/account-recovery-management-request.png"
+  alt="Recovery request by email"
+  caption="fig. Recovery request by email"
+/>
+
+Clicking on *Review the recovery request*, you will end up on a prompt review. If you agree on this request being valid, you will be asked to provide the Organisation Recovery Key (ORK) and the passphrase associated.  
+This will send a confirmation email to the user waiting for it, and the user will be able to complete the account recovery process.
+
+### Managing account recovery requests on the browser extension
+
+:::info
+To access the **management page**, on the top right corner of the browser extension's interface, you can click on &#9881; -> *Manage Users & Groups*.
+:::
+
+#### Status on account recovery acceptance
+
+On the [management page](#managing-account-recovery-requests-on-the-browser-extension), you will be able to check if users accepted the account recovery option (Approved), or not (Pending).
+
+<Figure
+  src="/img/help/2025/12/account-recovery-management-status.png"
+  alt="Account recovery status on the 'Manage Users & Groups' page"
+  caption="fig. Account recovery status on the 'Manage Users & Groups' page"
+/>
+
+#### Filtering pending requests
+
+If there are some active pending requests, you will see a new box on the [management page](#managing-account-recovery-requests-on-the-browser-extension) called *Attention required* with an *attention mark* (&#10071;). Clicking on the box and selecting *Account Recovery Requests*, you will filter the users to show only those who require an admin review.
+
+<Figure
+  src="/img/help/2025/12/account-recovery-management-attention-mark.png"
+  alt="Active pending requests on the 'Manage Users & Groups' page"
+  caption="fig. Active pending requests on the 'Manage Users & Groups' page"
+/>
+
+#### Reviewing pending requests
+
+On the same [management page](#managing-account-recovery-requests-on-the-browser-extension), select the user who requires a review. Then, on the right tab (click &#128712; if hidden), click the *Review* button under the *Account recovery* section.
+
+:::caution
+To avoid usurpations, we strongly recommend to contact directly the users who asked for an account recovery before accepting it.
+:::
+
+<Figure
+  src="/img/help/2025/12/account-recovery-management-review.png"
+  alt="Reviewing pending requests on the 'Manage Users & Groups' page"
+  caption="fig. Reviewing pending requests on the 'Manage Users & Groups' page"
+/>
+
+A prompt is displayed to review the request by approving or rejecting it. You will be asked to provide the Organisation Recovery Key (ORK) and the passphrase associated.  
+Following this step, the user will be able to complete the account recovery process.
+
+<Figure
+  src="/img/help/2025/12/account-recovery-management-review-prompt.png"
+  alt="Review prompt for pending requests on the 'Manage Users & Groups' page"
+  caption="fig. Review prompt for pending requests on the 'Manage Users & Groups' page"
+/>
+
+<Figure
+  src="/img/help/2025/12/account-recovery-management-ORK-required.png"
+  alt="ORK required for accepting pending requests on the 'Manage Users & Groups' page"
+  caption="fig. ORK required for accepting pending requests on the 'Manage Users & Groups' page"
+/>

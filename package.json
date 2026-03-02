@@ -62,7 +62,8 @@
     },
     "@typescript-eslint/typescript-estree": {
       "minimatch": "^9.0.7"
-    }
+    },
+    "serialize-javascript": ">=7.0.3"
   },
   "browserslist": {
     "production": [

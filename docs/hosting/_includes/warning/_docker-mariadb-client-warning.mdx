@@ -1,0 +1,25 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
+
+:::warning[Docker users]
+If your database runs in a Docker container, the `sql_export` command will not work because `mariadb-client` is not available in the passbolt container. Instead, run `mariadb-dump` directly against the database container:
+
+<Tabs groupId="edition">
+  <TabItem value="ce" label="CE" default>
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml exec db bash -c \\
+'mariadb-dump -u\${MYSQL_USER} -p\${MYSQL_PASSWORD} \${MYSQL_DATABASE}' \\
+> /path/to/backup.sql`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="pro" label="PRO">
+    <CodeBlock>
+      {`docker compose -f docker-compose-pro.yaml exec db bash -c \\
+'mariadb-dump -u\${MYSQL_USER} -p\${MYSQL_PASSWORD} \${MYSQL_DATABASE}' \\
+> /path/to/backup.sql`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+:::

@@ -96,6 +96,20 @@ Add a secret for the application
 * Select an expiry date
 * Copy the secret value and expiry back to your passbolt instance
 
+:::warning[Client secret expiration]
+Azure secrets expire after 6, 12, or 24 months (Microsoft recommends 6 months). When expired, SSO login stops working.
+
+**Passbolt automatically notifies all administrators:**
+- 10 days before the secret expires
+- Immediately if SSO login fails due to an invalid secret
+
+**To rotate the secret:** Create a new secret in Entra ID → Update the value and expiry in Passbolt (Administration > Single Sign On) → Test SSO login.
+:::
+
+:::tip[If SSO stops working]
+Don't panic! Administrators can bypass SSO by logging in with their passphrase at `/auth/login`. From there, update the secret in Administration > Single Sign On.
+:::
+
 <Figure
   src="/img/help/2024/10/create_secret_onEntra.png"
   alt="App secret creation"

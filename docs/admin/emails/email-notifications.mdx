@@ -41,8 +41,14 @@ Similarly you can control whether or not a piece of information is included in t
     <tr><td>A user is removed from a group.</td><td>	The user getting removed.</td></tr>
     <tr><td>When user roles change in a group.</td><td>	The affected users.</td></tr>
     <tr><td>When members of a group change.</td><td>	The group's managers.</td></tr>
+    <tr><td>When Azure SSO login fails due to an expired or invalid client secret (Pro/Cloud).</td><td>All administrators.</td></tr>
+    <tr><td>When Azure SSO client secret is expiring within 10 days (Pro/Cloud).</td><td>All administrators.</td></tr>
   </tbody>
 </table>
+
+:::note
+SSO client secret expiration notifications are automatic and cannot be disabled. They alert administrators to critical SSO configuration issues that would otherwise block user access.
+:::
 
 ## Information that can be shown/hidden from the outgoing emails.
 <table>

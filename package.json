@@ -38,7 +38,7 @@
     "@docusaurus/tsconfig": "^3.9.2",
     "@docusaurus/types": "^3.9.1",
     "@eslint/js": "^9.39.1",
-    "@redocly/cli": "^2.10.0",
+    "@redocly/cli": "^2.20.3",
     "@typescript-eslint/eslint-plugin": "^6.16.0",
     "@typescript-eslint/parser": "^6.16.0",
     "eslint": "^8.57.0",
@@ -78,6 +78,6 @@
     ]
   },
   "engines": {
-    "node": ">=20"
+    "node": "24.x.x"
   }
 }

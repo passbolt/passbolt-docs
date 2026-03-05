@@ -1,6 +1,6 @@
 .lint:
   stage: lint
-  image: node:20
+  image: node:24
   script:
     - npm ci --include=dev
     - npm run lint

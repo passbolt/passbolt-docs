@@ -6,6 +6,7 @@
     set -e
     rm -rf docs
     mv build docs
+    gcloud auth list
     gcloud storage rsync ./docs "gs://$BUCKET/docs" --recursive --delete-unmatched-destination-objects
     gcloud storage objects update "gs://$BUCKET/**" --cache-control="no-cache"
   rules:

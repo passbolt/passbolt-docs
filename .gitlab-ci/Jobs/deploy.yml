@@ -17,7 +17,7 @@ deploy-staging:
   variables:
     ENV: 'STAGING'
     BUCKET: 'passbolt-docs-staging'
-    TARGET_BRANCH: develop
+    TARGET_BRANCH: feature/PB-49957
 
 deploy-production:
   extends: .deploy

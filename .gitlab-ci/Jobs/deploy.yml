@@ -2,12 +2,12 @@
   stage: deploy
   image: gcr.io/google.com/cloudsdktool/google-cloud-cli:latest
   identity: google_cloud
-  script:
-    - ls
-    - rm -rf docs
-    - mv build docs
-    - /usr/bin/gsutil -m rsync -d -r ./docs "gs://$BUCKET/docs"
-    - gsutil -m setmeta -r  -h "Cache-Control:no-cache" "gs://$BUCKET"
+  script: |
+    set -e
+    rm -rf docs
+    mv build docs
+    gcloud storage rsync ./docs "gs://$BUCKET/docs" --recursive --delete-unmatched-destination-objects
+    gcloud storage objects update "gs://$BUCKET/**" --cache-control="no-cache"
   rules:
     - if: '$CI_COMMIT_BRANCH == $TARGET_BRANCH'
       when: on_success

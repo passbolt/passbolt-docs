@@ -13,7 +13,7 @@
 audit-staging:
   extends: .audit
   variables:
-    TARGET_BRANCH: develop
+    TARGET_BRANCH: feature/PB-49957
 
 audit-production:
   extends: .audit

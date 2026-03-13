@@ -1,12 +1,11 @@
 .deploy:
   stage: deploy
   image: gcr.io/google.com/cloudsdktool/google-cloud-cli:latest
+  identity: google_cloud
   script:
     - ls
     - rm -rf docs
     - mv build docs
-    - KEY=SVC_ACC_KEY_${ENV}
-    - /usr/bin/gcloud auth activate-service-account --key-file "$(eval echo \$$KEY)"
     - /usr/bin/gsutil -m rsync -d -r ./docs "gs://$BUCKET/docs"
     - gsutil -m setmeta -r  -h "Cache-Control:no-cache" "gs://$BUCKET"
   rules:
@@ -16,13 +15,13 @@
 deploy-staging:
   extends: .deploy
   variables:
-    ENV: "STAGING"
-    BUCKET: "passbolt-docs-staging"
+    ENV: 'STAGING'
+    BUCKET: 'passbolt-docs-staging'
     TARGET_BRANCH: develop
 
 deploy-production:
   extends: .deploy
   variables:
-    ENV: "PRODUCTION"
-    BUCKET: "passbolt-docs-production"
+    ENV: 'PRODUCTION'
+    BUCKET: 'passbolt-docs-production'
     TARGET_BRANCH: main

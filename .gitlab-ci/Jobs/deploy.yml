@@ -6,10 +6,10 @@
     set -e
     rm -rf docs
     mv build docs
-    touch empty
-    gcloud storage cp empty "gs://$BUCKET/"
-    #gcloud storage rsync ./docs "gs://$BUCKET/docs" --recursive --delete-unmatched-destination-objects
-    #gcloud storage objects update "gs://$BUCKET/**" --cache-control="no-cache"
+    gcloud auth login --cred-file=${GOOGLE_APPLICATION_CREDENTIALS}
+    export CLOUDSDK_AUTH_ACCESS_TOKEN=$(gcloud auth print-access-token)
+    gcloud storage rsync ./docs "gs://$BUCKET/docs" --recursive --delete-unmatched-destination-objects
+    gcloud storage objects update "gs://$BUCKET/**" --cache-control="no-cache"
   rules:
     - if: '$CI_COMMIT_BRANCH == $TARGET_BRANCH'
       when: on_success

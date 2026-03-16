@@ -7,7 +7,7 @@
     rm -rf docs
     mv build docs
     touch empty
-    gcloud storage rsync empty "gs://$BUCKET/" --recursive --delete-unmatched-destination-objects
+    gcloud storage cp empty "gs://$BUCKET/"
     #gcloud storage rsync ./docs "gs://$BUCKET/docs" --recursive --delete-unmatched-destination-objects
     #gcloud storage objects update "gs://$BUCKET/**" --cache-control="no-cache"
   rules:

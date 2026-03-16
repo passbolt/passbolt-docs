@@ -6,9 +6,10 @@
     set -e
     rm -rf docs
     mv build docs
-    gcloud auth list
-    gcloud storage rsync ./docs "gs://$BUCKET/docs" --recursive --delete-unmatched-destination-objects
-    gcloud storage objects update "gs://$BUCKET/**" --cache-control="no-cache"
+    touch empty
+    gcloud storage rsync ./empty "gs://$BUCKET/" --recursive --delete-unmatched-destination-objects
+    #gcloud storage rsync ./docs "gs://$BUCKET/docs" --recursive --delete-unmatched-destination-objects
+    #gcloud storage objects update "gs://$BUCKET/**" --cache-control="no-cache"
   rules:
     - if: '$CI_COMMIT_BRANCH == $TARGET_BRANCH'
       when: on_success

@@ -1,6 +1,6 @@
 .audit:
   stage: audit
-  image: node:20
+  image: node:24
   script:
     - npm ci --include=dev
     # TODO: Revert to `npm audit` once dompurify releases a fix for GHSA-v2wj-7wpq-c8vv

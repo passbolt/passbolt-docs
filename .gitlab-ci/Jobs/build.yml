@@ -1,6 +1,6 @@
 .build:
   stage: build
-  image: node:20
+  image: node:24
   artifacts:
     paths:
       - build

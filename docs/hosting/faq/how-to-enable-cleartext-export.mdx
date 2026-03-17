@@ -1,0 +1,48 @@
+---
+title: Enable cleartext exports (CSV)
+description: How to enable cleartext export as CSV
+sidebar_label: How can I enable CSV exports?
+hide_table_of_contents: true
+---
+
+import Chips from "/src/components/Chips/Chips";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
+
+# How can I enable CSV exports?
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+Since **passbolt >= 5.10**, cleartext exports are no longer suppported by default, however we still decided to let the administrator the choice to enable CSV exports manually. In order to do that, you will need to set an environment variable, the process varies depending on your installation type:
+
+<Tabs groupId="installation">
+  <TabItem value="docker" label="Docker" default>
+    You need to update the docker compose file by adding this environment variable
+    <CodeBlock>
+      {`PASSBOLT_PLUGINS_EXPORT_POLICIES_ALLOW_CSV_FORMAT=true`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="helm" label="Helm" default>
+    You need to update the values file by adding this environment variable
+    <CodeBlock>
+      {`PASSBOLT_PLUGINS_EXPORT_POLICIES_ALLOW_CSV_FORMAT=true`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="package" label="Package">
+    You need to update the passbolt configuration file located in */etc/passbolt/passbolt.php*
+    <CodeBlock>
+      {`(...)
+    'passbolt' => [
+        'plugins' => [
+            'exportPolicies' => [
+                'allowCsvFormat' => true,
+            ],
+        ],
+ (...)`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>

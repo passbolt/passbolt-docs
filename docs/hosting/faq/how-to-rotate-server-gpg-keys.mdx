@@ -4,8 +4,13 @@ description: How to rotate the server GPG keys
 sidebar_label: How can I rotate the server GPG keys?
 hide_table_of_contents: false
 ---
-import Figure from '/src/components/Figure/Figure';
+
 import Chips from "/src/components/Chips/Chips";
+import MetadataKeyRotationWarning from "/docs/hosting/_includes/warning/_metadata_key_rotation.mdx";
+import CodeBlock from '@theme/CodeBlock';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import KeyRotatedWarning from "/docs/hosting/_includes/warning/_key_rotated_warning.mdx";
 
 # How can I rotate the server GPG keys?
 
@@ -16,69 +21,130 @@ import Chips from "/src/components/Chips/Chips";
 
 ## Docker installation
 
-It is quite simple with docker to rotate your passbolt server GPG keys. Connect yourself inside the passbolt container and delete the keys:
-```bash
-rm /etc/passbolt/gpg/serverkey.asc
-rm /etc/passbolt/gpg/serverkey_private.asc
-```
-Destroy then recreate passbolt container and new GPG server keys will be generated.
+It is quite simple with docker to rotate your passbolt server GPG keys:
 
-`docker compose up -d --force-recreate`
+<Tabs groupId="edition">
+  <TabItem value="ce" label="CE" default>
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml exec -ti passbolt rm /etc/passbolt/gpg/serverkey.asc && docker compose -f docker-compose-ce.yaml exec -ti passbolt rm /etc/passbolt/gpg/serverkey_private.asc`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="pro" label="PRO">
+    <CodeBlock>
+      {`docker compose -f docker-compose-pro.yaml exec -ti passbolt rm /etc/passbolt/gpg/serverkey.asc && docker compose -f docker-compose-pro.yaml exec -ti passbolt rm /etc/passbolt/gpg/serverkey_private.asc`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+Destroy then recreate passbolt container and new GPG server keys will be generated:
+<Tabs groupId="edition">
+  <TabItem value="ce" label="CE" default>
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml up -d --force-recreate`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="pro" label="PRO">
+    <CodeBlock>
+      {`docker compose -f docker-compose-pro.yaml up -d --force-recreate`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+Since the containers are now running, we need to add a new environment variable to specifically specify to the API the new fingerprint, which means you need to copy the new serverKey fingerprint:
+
+<Tabs groupId="edition">
+  <TabItem value="ce" label="CE" default>
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml exec -ti passbolt su -s /bin/bash -c “gpg --list-key” www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="pro" label="PRO">
+    <CodeBlock>
+      {`docker compose -f docker-compose-pro.yaml exec -ti passbolt su -s /bin/bash -c “gpg --list-key” www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+:::tip[Pro tip]
+Search for `Passbolt default user <passbolt@yourdomain.com>` with the creation date matching the day you perform the rotation. The fingerprint should be a line above e.g.,: “E52977D63A9A447D1AFB3C289DE0BA9CCA0DD42A”.
+:::
+
+<Tabs groupId="edition">
+  <TabItem value="ce" label="CE" default>
+    In the [docker-compose-ce.yaml](https://github.com/passbolt/passbolt_docker/blob/master/docker-compose/docker-compose-ce.yaml#L20) environment section, add the following environment variable to the passbolt service with the new fingerprint:
+    <CodeBlock>
+      {`(..)
+      environment:
+        (...)
+   ->   PASSBOLT_GPG_SERVER_KEY_FINGERPRINT: "ADD IT HERE"`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="pro" label="PRO">
+    In the [docker-compose-pro.yaml](https://github.com/passbolt/passbolt_docker/blob/master/docker-compose/docker-compose-pro.yaml#L20) environment section, add the following environment variable to the passbolt service with the new fingerprint:
+    <CodeBlock>
+      {`(..)
+      environment:
+        (...)
+   ->   PASSBOLT_GPG_SERVER_KEY_FINGERPRINT: "ADD IT HERE"`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+<KeyRotatedWarning />
+<MetadataKeyRotationWarning />
 
 ## Other installations
 
 Create a temporary GPG home folder:
-
-`mkdir /tmp/gpg-temp`
+<CodeBlock>
+  {`mkdir /tmp/gpg-temp`}
+</CodeBlock>
 
 Generate new GPG keys:
-```bash
-gpg --homedir /tmp/gpg-temp --batch --no-tty --gen-key <<EOF
+<CodeBlock>
+  {`gpg --homedir /tmp/gpg-temp --batch --no-tty --gen-key <<EOF
     Key-Type: RSA
-    Key-Length: ${PASSBOLT_KEY_LENGTH:-3072}
+    Key-Length: 3072
     Key-Usage: sign,cert
     Subkey-Type: RSA
-    Subkey-Length: ${PASSBOLT_SUBKEY_LENGTH:-3072}
+    Subkey-Length: 3072
     Subkey-Usage: encrypt
-    Name-Real: ${PASSBOLT_KEY_NAME:-Passbolt default user}
-    Name-Email: ${PASSBOLT_KEY_EMAIL:-passbolt@yourdomain.com}
-    Expire-Date: ${PASSBOLT_KEY_EXPIRATION:-0}
+    Name-Real: Passbolt default user
+    Name-Email: passbolt@yourdomain.com
+    Expire-Date: -0
     %no-protection
     %commit
-EOF
-```
-Replace the current GPG server keys with the new ones:
-```bash
-gpg --homedir /tmp/gpg-temp --armor --export ${PASSBOLT_KEY_EMAIL:-passbolt@yourdomain.com} | sudo tee /etc/passbolt/gpg/serverkey.asc > /dev/null
-gpg --homedir /tmp/gpg-temp --armor --export-secret-key ${PASSBOLT_KEY_EMAIL:-passbolt@yourdomain.com} | sudo tee /etc/passbolt/gpg/serverkey_private.asc > /dev/null
-```
-Ensure new GPG keys owner and group are correct. Replace `www-data` with `nginx` if you are using RPM-based Linux distribution.
-```bash
-sudo chown www-data:www-data /etc/passbolt/gpg/serverkey_private.asc
-sudo chown www-data:www-data /etc/passbolt/gpg/serverkey.asc
-```
-Get new GPG keys fingerprint from public key:
+EOF`}
+</CodeBlock>
 
-```bash
-sudo gpg --show-keys /etc/passbolt/gpg/serverkey.asc | grep -Ev "^(pub|sub|uid|$)" | tr -d ' '
-```
+Replace the current GPG server keys with the new ones:
+
+<CodeBlock>
+{`gpg --homedir /tmp/gpg-temp --armor --export passbolt@yourdomain.com | sudo tee /etc/passbolt/gpg/serverkey.asc > /dev/null
+gpg --homedir /tmp/gpg-temp --armor --export-secret-key passbolt@yourdomain.com | sudo tee /etc/passbolt/gpg/serverkey_private.asc > /dev/null`}
+</CodeBlock>
+
+Ensure new GPG keys owner and group are correct. Replace `www-data` with `nginx` if you are using RPM-based Linux distribution:
+
+<CodeBlock>
+{`sudo chown www-data:www-data /etc/passbolt/gpg/serverkey_private.asc
+sudo chown www-data:www-data /etc/passbolt/gpg/serverkey.asc`}
+</CodeBlock>
+
+Get new GPG keys fingerprint from public key:
+<CodeBlock>
+{`sudo gpg --show-keys /etc/passbolt/gpg/serverkey.asc | grep -Ev "^(pub|sub|uid|$)" | tr -d ' '`}
+</CodeBlock>
 
 Ensure the fingerprint from private key is the same:
 
-```bash
-sudo gpg --show-keys /etc/passbolt/gpg/serverkey_private.asc | grep -Ev "^(pub|sub|uid|$|sec|ssb)" | tr -d ' '
-```
+<CodeBlock>
+{`sudo gpg --show-keys /etc/passbolt/gpg/serverkey_private.asc | grep -Ev "^(pub|sub|uid|$|sec|ssb)" | tr -d ' '`}
+</CodeBlock>
 
-CentOS 7 gpg command is quite old and has no `–show-keys` parameter. Use these commands instead:
-```bash
-# public key fingerprint
-sudo cat /etc/passbolt/gpg/serverkey.asc | gpg --with-fingerprint - | grep -Ev "^(pub|sub|uid|$)" | tr -d ' ' | sed 's/Keyfingerprint=//'
-# private key fingerprint
-sudo cat /etc/passbolt/gpg/serverkey_private.asc | gpg --with-fingerprint - | grep -Ev "^(pub|sub|uid|$|sec|ssb)" | tr -d ' ' | sed 's/Keyfingerprint=//'
-```
 Open `/etc/passbolt/passbolt.php` configuration file and replace old fingerprint with the new one in the passbolt section:
-```bash
-    'passbolt' => [
+<CodeBlock>
+{`'passbolt' => [
         // GPG Configuration.
         // The keyring must to be owned and accessible by the webserver user.
         // Example: www-data user on Debian
@@ -90,29 +156,24 @@ Open `/etc/passbolt/passbolt.php` configuration file and replace old fingerprint
                 'public' => CONFIG . DS . 'gpg' . DS . 'serverkey.asc',
                 'private' => CONFIG . DS . 'gpg' . DS . 'serverkey_private.asc',
             ],
-        ],
-```
+        ],`}
+</CodeBlock>
+
 Launch a healthcheck command to get passbolt GNUPGHOME folder (usually `/var/lib/passbolt/.gnupg` but can be different if you installed passbolt from source):
 
-```bash
-sudo -H -u www-data bash -c "/usr/share/php/passbolt/bin/cake passbolt healthcheck --gpg" | grep GNUPGHOME
-```
+<CodeBlock>
+{`sudo -H -u www-data bash -c "/usr/share/php/passbolt/bin/cake passbolt healthcheck --gpg" | grep GNUPGHOME`}
+</CodeBlock>
 
-Delete the current GNUPGHOME folder, it will be automatically recreated.
-
-```bash
-sudo rm -rf /var/lib/passbolt/.gnupg
-```
-
-On next connection through web interface, you will get a warning that the server key has been changed:
-<Figure
-  src="/img/help/2022/01/gpg-server-key-changed.png"
-  alt="Server key has changed"
-  caption="fig. Server key has changed"
-/>
+Delete the current GNUPGHOME folder, it will be automatically recreated:
+<CodeBlock>
+{`sudo rm -rf /var/lib/passbolt/.gnupg`}
+</CodeBlock>
 
 You can now delete the temporary GPG home folder:
+<CodeBlock>
+{`rm -rf /tmp/gpg-temp`}
+</CodeBlock>
 
-```bash
-rm -rf /tmp/gpg-temp
-```
+<KeyRotatedWarning />
+<MetadataKeyRotationWarning />

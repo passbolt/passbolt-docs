@@ -40,6 +40,33 @@ This repository contains the code used for the knowledge base and help section o
 Find out more about passbolt here:
 [https://www.passbolt.com](https://www.passbolt.com "Passbolt Homepage")
 
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) 24.x
+
+## Getting started
+
+```bash
+git clone git@github.com:passbolt/passbolt-docs.git
+cd passbolt-docs
+npm install
+npm run start
+```
+
+This will start a local development server with hot reload at [http://localhost:3000](http://localhost:3000).
+
+## Available scripts
+
+| Command | Description |
+|:--------|:------------|
+| `npm run start` | Start the development server |
+| `npm run build` | Build for production |
+| `npm run serve` | Serve the production build locally |
+| `npm run lint` | Lint JS/JSX files |
+| `npm run lint:mdx` | Lint MDX files |
+| `npm run lint:fix` | Auto-fix lint issues in JS/JSX files |
+| `npm run lint:fix:mdx` | Auto-fix lint issues in MDX files |
+
 ## Contributing
 
 Help us maintaining this documentation by following our [contributors guide](./CONTRIBUTING.md)

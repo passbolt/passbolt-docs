@@ -7,6 +7,9 @@ hide_table_of_contents: false
 
 import Figure from '/src/components/Figure/Figure';
 import Chips from "/src/components/Chips/Chips";
+import CodeBlock from '@site/src/components/CodeBlock/CodeBlock';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 <div style={{display: "flex", gap: "1rem"}}>
   <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
@@ -17,14 +20,85 @@ As your instance ages, you will want to reduce the size of the `action_logs` tab
 At least the ones that do not log sensitive actions. Passbolt provides a command to do so.
 This will enhance the performance of your instance, without compromise on security, user or password history.
 
-### Purge
+## Understanding Action Logs and Database Impact
 
-The retention period in days is provided with the `-r` option. Action logs
-older than this argument will be irrevocably purged.
+The `action_logs` table in your Passbolt database stores audit trail information about user actions within the system. Over time, this table can grow significantly, potentially impacting database performance and storage requirements. Regular maintenance through purging old logs helps maintain optimal instance performance.
 
-```bash
-sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt action_logs_purge -r 90" www-data
-```
+The purge command processes logs in batches to avoid overwhelming the database. By default, it processes up to 100,000 log entries per run. If you have more logs to purge than the batch limit, you may need to run the command multiple times or adjust the batch size using the `--limit` option.
+
+:::tip[Schedule a Maintenance Window]
+For older instances with large `action_logs` tables, we recommend scheduling a maintenance window for the initial purge operation. During the purge, database performance may be temporarily affected, which could impact user experience. Plan your first purge during a low-traffic period.
+:::
+
+## Command Options
+
+The `action_logs_purge` command supports the following options:
+
+- `-r, --retention-in-days` - Retention period in days (required, must be > 0). Action logs older than this period will be irrevocably purged.
+- `-l, --limit` - Maximum number of rows to purge per run (default: 100000). This limits how many log entries are processed in a single run. For large datasets, you may need to run the command multiple times or adjust this value.
+- `-d, --dry-run` - Dry run mode. Preview without deleting. Shows the number of entries that would be purged without actually removing them. Always recommended for first run.
+- `-v, --verbose` - Display the count of logs grouped by actions before and after the purge.
+- `-q, --quiet` - Enable quiet output. Suppresses normal output messages.
+
+:::warning
+Performance may be degraded while the purge command is running. Always run with `--dry-run` first to preview the impact.
+:::
+
+## Dry Run (Recommended First Step)
+
+Before purging logs, always run the command with `--dry-run` to see how many entries would be removed:
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt action_logs_purge --dry-run -r 90" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt action_logs_purge --dry-run -r 90" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose exec passbolt su -s /bin/bash -c "./bin/cake passbolt action_logs_purge --dry-run -r 90" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+<Figure
+  src={
+    '/img/help/2024/05/purge-action-logs-command-dry-run.png'
+  }
+  caption="fig. Purge Action Logs Command Dry Run"
+  alt="Purge Action Logs Command Dry Run"
+/>
+
+## Purging Action Logs
+
+Once you've verified the dry-run output, you can proceed with the actual purge. The following example purges logs older than 90 days:
+
+:::warning[Out of Memory Risk]
+When purging large datasets, the command may consume significant memory. If you encounter Out of Memory (OOM) errors, reduce the batch size using the `--limit` option. For example, use `-l 10000` or `-l 25000` to process smaller batches. This is especially important on systems with limited RAM or when purging millions of log entries.
+:::
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt action_logs_purge -r 90" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt action_logs_purge -r 90" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose exec passbolt su -s /bin/bash -c "./bin/cake passbolt action_logs_purge -r 90" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
 
 <Figure
   src={
@@ -34,19 +108,79 @@ sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt action_logs_p
   alt="Purge Action Logs Command"
 />
 
-### Dry Run
+## Additional Examples
 
-The command has a `--dry-run` option. The command will not purge the action logs, but instead provide the number of entries
-that would be purged if not in dry-run mode.
+### Verbose Output
+
+To see detailed information about logs grouped by action type:
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt action_logs_purge -r 90 -v" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt action_logs_purge -r 90 -v" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose exec passbolt su -s /bin/bash -c "./bin/cake passbolt action_logs_purge -r 90 -v" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+### Custom Batch Size
+
+For large datasets, you may want to adjust the batch size. If you have more than 100,000 logs to purge, you can either:
+
+1. Run the command multiple times (it will continue processing until all eligible logs are purged)
+2. Adjust the batch size using the `--limit` option:
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`# Process 50,000 logs per batch (useful for systems with limited resources)
+sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt action_logs_purge -r 90 -l 50000" www-data
+
+# Or increase to 200,000 for faster processing on systems with sufficient resources
+sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt action_logs_purge -r 90 -l 200000" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`# Process 50,000 logs per batch (useful for systems with limited resources)
+sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt action_logs_purge -r 90 -l 50000" www-data
+
+# Or increase to 200,000 for faster processing on systems with sufficient resources
+sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt action_logs_purge -r 90 -l 200000" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`# Process 50,000 logs per batch (useful for systems with limited resources)
+docker compose exec passbolt su -s /bin/bash -c "./bin/cake passbolt action_logs_purge -r 90 -l 50000" www-data
+
+# Or increase to 200,000 for faster processing on systems with sufficient resources
+docker compose exec passbolt su -s /bin/bash -c "./bin/cake passbolt action_logs_purge -r 90 -l 200000" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+:::info
+The command processes logs in batches. If you have more logs to purge than the batch limit, the command will continue processing in subsequent runs until all eligible logs are removed. This makes it safe to schedule via cron for regular maintenance.
+:::
+
+## Regular Maintenance
+
+For ongoing maintenance, consider scheduling the purge command via cron. This ensures your `action_logs` table remains at a manageable size. Example cron job to purge logs older than 90 days monthly:
 
 ```bash
-sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt action_logs_purge --dry-run -r 90" www-data
+# Add to crontab (crontab -e)
+# Run on the first day of each month at 2 AM
+0 2 1 * * sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt action_logs_purge -r 90" www-data
 ```
 
-<Figure
-  src={
-    '/img/help/2024/05/purge-action-logs-command-dry-run.png'
-  }
-  caption="fig. Purge Action Logs Command Dry Run"
-  alt="Purge Action Logs Command Dry Run"
-/>
+Adjust the retention period (`-r`) based on your organisation's audit and compliance requirements. Common retention periods range from 30 to 365 days depending on regulatory needs.

@@ -25,5 +25,5 @@ deploy-production:
   extends: .deploy
   variables:
     ENV: 'PRODUCTION'
-    BUCKET: 'passbolt-docs-production'
-    TARGET_BRANCH: main
+    BUCKET: 'website-docs-production-bd5c5dc'
+    TARGET_BRANCH: feature/PB-49957

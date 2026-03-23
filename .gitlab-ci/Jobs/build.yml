@@ -27,4 +27,4 @@ build-production:
   before_script:
     - export ENV=PRODUCTION
   variables:
-    TARGET_BRANCH: main
+    TARGET_BRANCH: feature/PB-49957

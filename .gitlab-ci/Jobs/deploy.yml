@@ -19,11 +19,11 @@ deploy-staging:
   variables:
     ENV: 'STAGING'
     BUCKET: 'website-docs-staging-a218d15'
-    TARGET_BRANCH: feature/PB-49957
+    TARGET_BRANCH: develop
 
 deploy-production:
   extends: .deploy
   variables:
     ENV: 'PRODUCTION'
-    BUCKET: 'website-docs-production-bd5c5dc'
-    TARGET_BRANCH: feature/PB-49957
+    BUCKET: 'website-production-c125fbb'
+    TARGET_BRANCH: main

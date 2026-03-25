@@ -20,11 +20,11 @@
 build-staging:
   extends: .build
   variables:
-    TARGET_BRANCH: feature/PB-49957
+    TARGET_BRANCH: staging
 
 build-production:
   extends: .build
   before_script:
     - export ENV=PRODUCTION
   variables:
-    TARGET_BRANCH: feature/PB-49957
+    TARGET_BRANCH: main

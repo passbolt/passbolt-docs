@@ -14,7 +14,7 @@
 lint-staging:
   extends: .lint
   variables:
-    TARGET_BRANCH: feature/PB-49957
+    TARGET_BRANCH: develop
 
 lint-production:
   extends: .lint

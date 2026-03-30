@@ -20,7 +20,7 @@
 build-staging:
   extends: .build
   variables:
-    TARGET_BRANCH: staging
+    TARGET_BRANCH: develop
 
 build-production:
   extends: .build

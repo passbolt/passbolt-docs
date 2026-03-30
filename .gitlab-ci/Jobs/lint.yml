@@ -7,16 +7,3 @@
     - npm run lint:mdx
     - npx @redocly/cli lint openapi/root.yml
   allow_failure: true
-  rules:
-    - if: '($CI_PIPELINE_SOURCE == "schedule" || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $TARGET_BRANCH )'
-      when: on_success
-
-lint-staging:
-  extends: .lint
-  variables:
-    TARGET_BRANCH: develop
-
-lint-production:
-  extends: .lint
-  variables:
-    TARGET_BRANCH: main

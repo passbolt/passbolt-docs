@@ -7,6 +7,8 @@
     rm -rf docs
     mv build docs
     gcloud auth login --cred-file=${GOOGLE_APPLICATION_CREDENTIALS}
+    # Needed step to reuse the token, otherwise it will request a token per file
+    # and will trigger an to many requests on the OICD request endpoint
     export CLOUDSDK_AUTH_ACCESS_TOKEN=$(gcloud auth print-access-token)
     gcloud storage rsync ./docs "gs://$BUCKET/docs" --recursive --delete-unmatched-destination-objects
     gcloud storage objects update "gs://$BUCKET/**" --cache-control="no-cache"

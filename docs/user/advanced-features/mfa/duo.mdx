@@ -1,0 +1,50 @@
+---
+title: Configure your account with Duo
+sidebar_label: Duo
+description: How to configure your account with Duo
+hide_table_of_contents: false
+---
+
+import Figure from '@site/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+
+# How to configure your account with Duo
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+## Setup Duo
+
+To setup Duo as multi-factor authentication method, navigate to the multi-factor authentication user settings page: *Avatar > Manage Profile > Multi Factor Authentication*. Select the provider "Duo MFA" to continue.
+
+The next step will require you to start the Duo authentication process. Click on "Sign-in" when you are ready.
+
+<Figure
+src="/img/help/2023/02/mfa-duo-setup-welcome.png"
+alt="Duo welcome screen"
+caption="fig. Duo welcome screen"
+size={{ width: '450px', height: 'auto' }}
+/>
+
+If this is the first time you are using Duo with this user and this server, you will be asked to link one or more device(s) to Duo to authenticate with.
+
+<Figure
+src="/img/help/2023/02/mfa-duo-setup-options.png"
+alt="Duo authentication options"
+caption="fig. Duo authentication options"
+size={{ width: '450px', height: 'auto' }}
+/>
+
+## Authenticate with Duo
+
+After setting up Duo, each time you sign-in to Passbolt, you'll be prompted to authenticate with the method you have chosen during the setup. Additionally, if permitted by the "Multi-factor Authentication Policy", passbolt can remember your MFA authentication for a month.
+
+<Figure
+src="/img/help/2023/02/mfa-duo-login.png"
+alt="Authenticate with Duo"
+caption="fig. Authenticate with Duo"
+size={{ width: '450px', height: 'auto' }}
+/>

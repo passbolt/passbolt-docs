@@ -1,6 +1,6 @@
 .build:
   stage: build
-  image: node:20
+  image: node:24
   artifacts:
     paths:
       - build
@@ -13,9 +13,6 @@
       echo "********************************************"
     - npm ci
     - npm run build
-  rules:
-    - if: '($CI_PIPELINE_SOURCE == "schedule" || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $TARGET_BRANCH || $CI_COMMIT_BRANCH == $TARGET_BRANCH)'
-      when: on_success
 
 build-staging:
   extends: .build
@@ -28,3 +25,6 @@ build-production:
     - export ENV=PRODUCTION
   variables:
     TARGET_BRANCH: main
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: on_success

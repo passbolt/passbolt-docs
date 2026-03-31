@@ -1,14 +1,17 @@
 .deploy:
   stage: deploy
   image: gcr.io/google.com/cloudsdktool/google-cloud-cli:latest
-  script:
-    - ls
-    - rm -rf docs
-    - mv build docs
-    - KEY=SVC_ACC_KEY_${ENV}
-    - /usr/bin/gcloud auth activate-service-account --key-file "$(eval echo \$$KEY)"
-    - /usr/bin/gsutil -m rsync -d -r ./docs "gs://$BUCKET/docs"
-    - gsutil -m setmeta -r  -h "Cache-Control:no-cache" "gs://$BUCKET"
+  identity: google_cloud
+  script: |
+    set -e
+    rm -rf docs
+    mv build docs
+    gcloud auth login --cred-file=${GOOGLE_APPLICATION_CREDENTIALS}
+    # Needed step to reuse the token, otherwise it will request a token per file
+    # and will trigger an to many requests on the OICD request endpoint
+    export CLOUDSDK_AUTH_ACCESS_TOKEN=$(gcloud auth print-access-token)
+    gcloud storage rsync ./docs "gs://$BUCKET/docs" --recursive --delete-unmatched-destination-objects
+    gcloud storage objects update "gs://$BUCKET/**" --cache-control="no-cache"
   rules:
     - if: '$CI_COMMIT_BRANCH == $TARGET_BRANCH'
       when: on_success
@@ -16,13 +19,13 @@
 deploy-staging:
   extends: .deploy
   variables:
-    ENV: "STAGING"
-    BUCKET: "passbolt-docs-staging"
+    ENV: 'STAGING'
+    BUCKET: 'website-docs-staging-a218d15'
     TARGET_BRANCH: develop
 
 deploy-production:
   extends: .deploy
   variables:
-    ENV: "PRODUCTION"
-    BUCKET: "passbolt-docs-production"
+    ENV: 'PRODUCTION'
+    BUCKET: 'website-production-c125fbb'
     TARGET_BRANCH: main

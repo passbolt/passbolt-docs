@@ -1,20 +1,8 @@
-.audit:
+audit:
   stage: audit
-  image: node:20
+  image: node:24
   script:
     - npm ci --include=dev
-    - npm audit
+    # TODO: Revert to `npm audit` once dompurify releases a fix for GHSA-v2wj-7wpq-c8vv
+    - npm audit --audit-level=high
     - npm run lint:lockfile
-  rules:
-    - if: '($CI_PIPELINE_SOURCE == "schedule" || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $TARGET_BRANCH )'
-      when: on_success
-
-audit-staging:
-  extends: .audit
-  variables:
-    TARGET_BRANCH: develop
-
-audit-production:
-  extends: .audit
-  variables:
-    TARGET_BRANCH: main

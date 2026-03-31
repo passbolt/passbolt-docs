@@ -7,6 +7,7 @@ hide_table_of_contents: false
 
 import Figure from '@site/src/components/Figure/Figure';
 import Chips from "/src/components/Chips/Chips";
+import MfaRecommendation from "/docs/admin/_includes/warning/security_consideration_mfa.mdx";
 
 # How to configure passbolt to use Yubikey
 
@@ -33,10 +34,7 @@ Please note than only [Yubikey 5 Series](https://www.yubico.com/products/yubikey
 Multi Factor Authentication requires HTTPS to work.
 :::
 
-## Security considerations
-
-When using Yubikey as a form of multi-factor authentication, it is recommended to set up at least one additional multi-factor authentication method as a backup. Should users lose their Yubikeys, this measure guarantees that users can continue to access their accounts despite the malfunction of one authentication method.
-
+<MfaRecommendation MFA={'YubiKey'} />
 Another key point to consider is that Passbolt verifies whether the key ID used during a login attempt matches the one used at setup. If a user needs to change their key, the second factor must be disabled in advance, either by the user in their User Profile or by an administrator in the Users workspace, especially if the device is lost.
 
 ## Register to YubiCloud
@@ -92,22 +90,4 @@ If you are [using docker](/hosting/install/ce/docker/), you can set these enviro
 
 ## Setup YubiKey as a user
 
-To setup YubiKey as multi-factor authentication method, navigate to the multi-factor authentication user settings page: *Avatar > Profil > Multi Factor Authentication*. Select the provider "YubiKey OTP" to continue.
-
-The next step will require you to plug your YubiKey and touch it to release a Yubico OTP. Then click on "Validate" to ensure it functions correctly and complete the setup.
-
-<Figure
-  src="/img/help/2025/04/yubikey-passbolt-user-setup.png"
-  alt="Register your Yubikey"
-  caption="fig. Register your Yubikey"
-/>
-
-## Authenticate with YubiKey
-
-After setting up YubiKey, each time you sign-in to Passbolt, you'll be prompted to plug your device and touch it to release a Yubico OTP. Additionally, if permitted by the "Multi-factor Authentication Policy", passbolt can remember your MFA authentication for a month.
-
-<Figure
-  src="/img/help/2025/04/yubikey-passbolt-user-authenticate.png"
-  alt="Authenticate with YubiKey"
-  caption="fig. Authenticate with YubiKey"
-/>
+To setup YubiKey as multi-factor authentication method, please refer to our [dedicated user guide](/user/advanced-features/mfa/yubikey/).

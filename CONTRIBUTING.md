@@ -7,7 +7,7 @@ To get started please read Docusaurus [getting started guide](https://docusaurus
 
 ### Requirements
 
-* Node >= 18
+* Node >= 24
 
 ### Installation
 

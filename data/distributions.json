@@ -206,7 +206,7 @@
 
   },
   {
-    "name": "SLES",
+    "name": "SUSE Linux Enterprise Server",
     "slug": "sles",
     "version": "15 SP6",
     "package": "zypper",

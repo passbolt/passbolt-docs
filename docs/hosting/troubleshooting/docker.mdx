@@ -6,27 +6,39 @@ hide_table_of_contents: false
 ---
 
 import CodeBlock from '@theme/CodeBlock';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 ## Prerequisite Steps
 
-Connect yourself inside passbolt docker container (replace passbolt-container-name with your own):
+Connect yourself inside the passbolt docker container:
 
-<CodeBlock>
-  {`docker exec -ti passbolt-container-name bash`}
-</CodeBlock>
+<Tabs groupId="edition">
+  <TabItem value="ce" label="CE" default>
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml exec passbolt bash`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="pro" label="PRO">
+    <CodeBlock>
+      {`docker compose -f docker-compose-pro.yaml exec passbolt bash`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
 
 All troubleshooting commands must be launched as `www-data` user. It is the case if you are running non-root docker images but for root images, switch as `www-data` user:
 
 `su -s /bin/bash www-data`
 
 Then to be able to launch some commands, you must retrieve `PASSBOLT_GPG_SERVER_KEY_FINGERPRINT` environment variable:
-```
-export PASSBOLT_GPG_SERVER_KEY_FINGERPRINT="$(gpg \
-  --home $GNUPGHOME\
-  --list-keys \
-  ${PASSBOLT_KEY_EMAIL:-passbolt@yourdomain.com} | \
-  grep -Ev "^(pub|sub|uid|^$)" | tr -d ' ')"
-```
+
+<CodeBlock>
+  {`export PASSBOLT_GPG_SERVER_KEY_FINGERPRINT="$(gpg \\
+  --home $GNUPGHOME\\
+  --list-keys \\
+  \${PASSBOLT_KEY_EMAIL:-passbolt@yourdomain.com} | \\
+  grep -Ev "^(pub|sub|uid|^$)" | tr -d ' ')"`}
+</CodeBlock>
 Alternatively if you are using Docker Secrets you’ll need to run the following to access the secrets as environment variables:
 
 <CodeBlock>
@@ -47,10 +59,11 @@ Alternatively if you are using Docker Secrets you’ll need to run the following
 </CodeBlock>
 
 ### Send a test email
-```
-./bin/cake passbolt send_test_email \
-  --recipient=youremail@domain.com
-```
+
+<CodeBlock>
+  {`./bin/cake passbolt send_test_email \\
+  --recipient=youremail@domain.com`}
+</CodeBlock>
 ### Datacheck
 <CodeBlock>
   {`./bin/cake passbolt datacheck --hide-success-details`}
@@ -58,15 +71,35 @@ Alternatively if you are using Docker Secrets you’ll need to run the following
 
 ### Server logs
 
-To retrieve the server logs, run this command outside of the container (replace passbolt-container-name with your own):
-<CodeBlock>
-  {`docker logs passbolt-container-name`}
-</CodeBlock>
+To retrieve the server logs, run this command outside of the container:
+
+<Tabs groupId="edition">
+  <TabItem value="ce" label="CE" default>
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml logs passbolt`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="pro" label="PRO">
+    <CodeBlock>
+      {`docker compose -f docker-compose-pro.yaml logs passbolt`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
 
 To create a file that contain these logs, you can run:
-<CodeBlock>
-  {`docker logs passbolt-container-name > error_logs 2>&1`}
-</CodeBlock>
+
+<Tabs groupId="edition">
+  <TabItem value="ce" label="CE" default>
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml logs passbolt > error_logs 2>&1`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="pro" label="PRO">
+    <CodeBlock>
+      {`docker compose -f docker-compose-pro.yaml logs passbolt > error_logs 2>&1`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
 
 ### Database migrations status
 
@@ -76,9 +109,20 @@ To create a file that contain these logs, you can run:
 
 ### Database container
 
-To connect into mysql container console (replace db-container-name with your own):
-```
-docker exec -ti db-container-name bash -c \
-  'mysql -u${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE}'
-```
+To connect into the MariaDB container console:
+
+<Tabs groupId="edition">
+  <TabItem value="ce" label="CE" default>
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml exec db bash -c \\
+'mariadb -u\${MYSQL_USER} -p\${MYSQL_PASSWORD} \${MYSQL_DATABASE}'`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="pro" label="PRO">
+    <CodeBlock>
+      {`docker compose -f docker-compose-pro.yaml exec db bash -c \\
+'mariadb -u\${MYSQL_USER} -p\${MYSQL_PASSWORD} \${MYSQL_DATABASE}'`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
 

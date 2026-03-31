@@ -27,5 +27,5 @@ deploy-production:
   extends: .deploy
   variables:
     ENV: 'PRODUCTION'
-    BUCKET: 'website-production-c125fbb'
+    BUCKET: 'website-docs-production-bd5c5dc'
     TARGET_BRANCH: main

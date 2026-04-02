@@ -64,7 +64,8 @@
       "minimatch": "^9.0.7"
     },
     "serialize-javascript": ">=7.0.3",
-    "svgo": "^3.3.3"
+    "svgo": "^3.3.3",
+    "lodash": "^4.18.0"
   },
   "browserslist": {
     "production": [

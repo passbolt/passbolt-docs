@@ -1,9 +1,0 @@
-.lint:
-  stage: lint
-  image: node:24
-  script:
-    - npm ci --include=dev
-    - npm run lint
-    - npm run lint:mdx
-    - npx @redocly/cli lint openapi/root.yml
-  allow_failure: true

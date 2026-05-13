@@ -1,0 +1,232 @@
+---
+title: Locate Logs on Your Passbolt Instance
+description: A guide to help you find different logs and information about your instance
+sidebar_label: Logs
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 3
+---
+import Webserverprotip from '/docs/hosting/_includes/troubleshooting/_webserver-user-protip.mdx';
+import Harwarning from '/docs/hosting/_includes/troubleshooting/_har-json-warning.mdx';
+import Figure from '/src/components/Figure/Figure';
+
+# Where to find various logs on your instance
+
+## The importance of the installation method
+
+There are three main types of installations for Passbolt, and that's what you need to know before running one of these commands as they may not work for each installation.
+
+  -  Package installation (Debian, Ubuntu, OracleLinux, and so on.)
+  -  From source
+  -  Docker
+
+With package installation, the files will be split into two different directories, `/etc/passbolt` for the configuration files and `/usr/share/php/passbolt` for every other files and the CakePHP CLI.
+
+If you did a from source installation, the whole directory will be in `/var/www/passbolt`.
+
+If you are running Docker, please, refer to the [Troubleshooting Docker](/hosting/install/ce/docker/troubleshooting/) guide as all is explained there.
+
+If you are running Helm, please, refer to the [Troubleshooting Helm](/hosting/install/ce/helm-chart/troubleshooting/) guide as all is explained there.
+
+
+## API
+
+:::info Docker environment variables
+Before running the cake tools inside docker containers, ensure you've imported the environment variables into your terminal session.
+
+`$ source /etc/environment`
+:::
+### Healthcheck
+
+The healthcheck is used to check whether the Passbolt system is running as expected. It evaluates various aspects of the system to ensure that all components are working properly and configured correctly. It provides a detailed report about important information such as the gpg configuration, the ssl access, database configuration, etc.
+
+    **Package Installation**
+    ```bash
+    sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt healthcheck" www-data
+    ```
+
+    **From source**
+     ```bash
+     sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt healthcheck" www-data
+     ```
+
+<Webserverprotip />
+
+### Datacheck
+
+The datacheck is a great tool as it aims to have a look at the data integrity for gpg keys, authentication tokens, groups, resources, etc.
+
+    **Package Installation**
+    ```bash
+    sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt datacheck" www-data
+    ```
+
+    **From source**
+    ```bash
+    sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt datacheck" www-data
+    ```
+
+<Webserverprotip />
+
+### Status Report
+
+The status report is in most case the best alternative if you need to gather information from the healthcheck, datacheck, do a cleanup dry-run and retrieve the server logs.
+
+On top of executing the healthcheck, datacheck and retrieving the server logs one after the other, it also gives important information about the system itself such as the passbolt edition and version, the version of CakePHP and PHP, composer version etc.
+
+    **Package Installation**
+    ```bash
+    sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/status-report" www-data
+    ```
+
+    **From source**
+    ```bash
+    sudo su -s /bin/bash -c "/var/www/passbolt/bin/status-report" www-data
+    ```
+
+<Webserverprotip />
+
+### Server logs
+
+The server logs contains mostly error and warnings such as bad request, invalid requests, applications errors, etc.
+
+    **Package Installation**
+    ```bash
+    sudo su -s /bin/bash -c "cat /var/log/passbolt/error.log" www-data
+    ```
+
+    **From source**
+    ```bash
+    sudo su -s /bin/bash -c "cat /var/www/passbolt/logs/error.log" www-data
+    ```
+
+<Webserverprotip />
+
+## Browser Extension
+### Google Chrome MV3
+You can learn more about the migration to Manifest V3 [here](https://www.passbolt.com/blog/passbolt-browser-extension-migration-to-manifest-v3).
+
+    - Go to [chrome://extensions](chrome://extensions)
+    - Activate the Developer mode in the top right corner
+    - Look for Passbolt and click details button
+    - Open the *offscreens/fetch.html* link
+    - The new windows will appear, this is the debugger of the browser extension
+    - You can see from here, if there is any issue in the console tab
+    - Go to the network tab
+    - Try to reproduce the error
+    - Export the logs by clicking the down arrow
+
+<Harwarning />
+<Figure
+  src="/img/help/2023/05/browser-extension-logs.png"
+  alt="Browser Extension Network Logs"
+  caption="fig. Browser Extension Network Logs (Chrome MV3)"
+/>
+
+### Google Chrome MV2
+
+    - Go to [chrome://extensions](chrome://extensions)
+    - Activate the Developer mode in the top right corner
+    - Look for Passbolt and click details button
+    - Look for the Inspect views and the *index.html* link
+    - A new window will appear this is the debugger of the browser extension
+    - You can see from here, if there is any issue in the console tab
+    - Go to the network tab
+    - Try to reproduce the error
+    - Export the logs by clicking the down arrow
+
+<Harwarning />
+<Figure
+  src="/img/help/2023/05/browser-extension-logs.png"
+  alt="Browser Extension Network Logs"
+  caption="fig. Browser Extension Network Logs (Chrome MV2)"
+/>
+
+### Firefox
+
+    - Navigate to your extensions by clicking on the little puzzle icon
+    - Click on "Manage extensions"
+    - You will be redirected to the extensions page, click on the little gear icon on bottom right then "Debug Add-ons"
+    - You will be redirected to the debugging page
+    - Locate Passbolt and click Inspect
+    - A new window will appear this is the debugger of the browser extension
+    - You can see from here, if there is any issue in the console tab
+    - Go to the network tab
+    - Try to reproduce the error
+    - Export logs by clicking right the gear icon on bottom-right then on "Import HAR file"
+
+<Harwarning />
+
+<Figure
+  src="/img/help/2024/06/firefox-browser-extension-logs.png"
+  alt="Browser Extension Network Logs"
+  caption="fig. Browser Extension Network Logs (Firefox)"
+/>
+
+### Edge
+
+    - Go to [edge://extensions/](edge://extensions/)
+    - Activate Developer mode with the toggle on the left panel
+    - Open up "index.html" on the Passbolt card
+    - Go to network tab
+    - Try to reproduce the error
+    - Export logs by clicking the down arrow
+
+<Harwarning />
+
+<Figure
+  src="/img/help/2024/06/edge-browser-extension-logs.png"
+  alt="Browser Extension Network Logs"
+  caption="fig. Browser Extension Network Logs (Microsoft Edge)"
+/>
+
+## Mobile Applications
+
+### iOS
+
+To share logs from the Passbolt iOS application:
+
+1. **Open the Passbolt app**
+2. **Log in**
+3. **Go to Settings**
+4. **Select "Debug, Logs"**
+5. **Select "Access the debug logs"**
+6. **Tap "Export Logs" icon**
+7. **Redact any sensitive information** before sharing with the passbolt support team or on the community forum
+
+The exported logs will include:
+- Application errors and warnings
+- Network requests and responses
+- Authentication attempts
+- General application activity
+
+:::info
+Mobile app logs are stored locally on your device and are only shared when you export them. On iOS logs are purged each time the app is killed.
+:::
+
+### Android
+
+To share logs from the Passbolt Android application:
+
+First, enable log collection:
+
+1. **Enable logs**
+   - Either by tapping the question mark icon on the setup flow or sign-in screen
+   - Or by going inside the app into **Settings → Debug, logs**
+2. **Open the Passbolt app**
+3. **Tap the menu icon** (three horizontal lines)
+4. **Go to Settings**
+5. **Select "Debug, logs"**
+6. **Tap "Export Logs"**
+7. **Redact any sensitive information** before sharing with the passbolt support team or on the community forum
+
+The exported logs will include:
+- Application errors and warnings
+- Network requests and responses
+- Authentication attempts
+- Autofill service activity
+- General application activity
+
+:::tip
+For troubleshooting autofill issues, enable debug logging in the app settings before reproducing the issue.
+:::

@@ -175,7 +175,7 @@ sudo su -s /bin/bash -c 'ldapsearch -x -D "<bind_dn>" -W -H ldaps://your_ldap_se
 - Run as the web server user (`www-data` or `nginx`).
 - The `-d 9` flag provides verbose TLS/debug output.
 
-See: [Configure LDAP with TLS (SSL)](/docs/hosting/configure/ldap/ldaps)
+See: [Configure LDAP with TLS (SSL)](/docs/hosting/ldap/ldaps)
 
 ---
 
@@ -187,7 +187,7 @@ To ensure secure directory synchronization, Passbolt must trust the LDAP server'
 
 This Python tool automatically retrieves and validates the complete certificate chain from your LDAP server, bundling it into a single file for Passbolt to use. The certificates are ordered in the chain from server certificate to root CA, ensuring the complete chain of trust is maintained. This is particularly important for self-signed certificates or those issued by private CAs.
 
-For detailed setup instructions, please refer to the [LDAPS page](/docs/hosting/configure/ldap/ldaps/#step-3-download-a-certificate-chain).
+For detailed setup instructions, please refer to the [LDAPS page](/docs/hosting/ldap/ldaps/#step-3-download-a-certificate-chain).
 
 
 
@@ -475,7 +475,7 @@ If you're experiencing LDAP synchronization issues, follow this structured check
    Go to **Organisation Settings → Passbolt API Status**.  
     * If "Directory Sync" is failing, the plugin may be disabled or misconfigured  
 
-    [📘 Directory Sync Healthcheck – Docs](/docs/admin/server-maintenance/passbolt-api-status/#directory-sync)
+    [📘 Directory Sync Healthcheck – Docs](/admin/passbolt-api-status/#directory-sync)
 
 
 ## Logs and Diagnostic Tools

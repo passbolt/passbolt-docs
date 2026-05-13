@@ -1,0 +1,78 @@
+---
+title: OpenPGP in Passbolt
+description: Understanding OpenPGP's role in Passbolt encryption and key management
+sidebar_label: OpenPGP
+hide_table_of_contents: false
+---
+
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+## Introduction
+
+OpenPGP (GPG) is the core cryptographic foundation of Passbolt. It provides the encryption, decryption, and digital signing capabilities that secure all sensitive data in Passbolt.
+
+## Where OpenPGP is Used in Passbolt
+
+### Server Keys
+
+The Passbolt server uses OpenPGP keys for:
+- **Authentication**: Signing API responses and verifying server identity
+- **Encryption**: Encrypting data that only the server can decrypt
+- **Key Management**: Managing the server's cryptographic operations
+
+Server keys are configured during installation and can be rotated for security. See [Server Key Rotation](/hosting/openpgp/rotation/) for operational maintenance.
+
+### User Keys
+
+Each Passbolt user has their own OpenPGP key pair for:
+- **Resource Sharing**: Encrypting passwords and secrets that can be shared with other users
+- **Access Control**: Ensuring only authorized users can decrypt shared resources
+- **User Authentication**: Verifying user identity and actions
+
+User keys are managed through the Passbolt web interface. Users generate their keys during account setup.
+
+### Metadata Encryption Keys
+
+Metadata encryption uses OpenPGP keys to:
+- **Encrypt Resource Metadata**: Securing resource names, descriptions, and other metadata
+- **Enable Encrypted Metadata Features**: Supporting advanced resource types with encrypted metadata
+- **Key Distribution**: Sharing metadata keys with authorized users
+
+Metadata key management is configured in the [Admin Guide > Resource Types](/admin/resource-types/metadata-key/).
+
+### Organization Recovery Keys
+
+Organization Recovery Keys (ORK) are used for:
+- **Account Recovery**: Allowing administrators to help users recover their accounts
+- **Backup Encryption**: Encrypting user account backups stored in Passbolt
+
+ORK generation and configuration is managed in the [Admin Guide > Authentication > Account Recovery](/admin/authentication/account-recovery/).
+
+## Key Generation
+
+OpenPGP keys can be generated using GnuPG command-line tools. The process differs depending on the key's purpose:
+
+- **Server Keys**: Generated without a passphrase (see [Generate Keys](/hosting/openpgp/generate-keys/) for server key generation)
+- **Organization Recovery Keys**: Generated with a passphrase (see [Account Recovery](/admin/authentication/account-recovery/) for ORK generation)
+- **User Keys**: Generated automatically through the Passbolt web interface during user setup
+
+## Configuration
+
+OpenPGP configuration in Passbolt involves:
+
+- **Server Key Setup**: Configured during installation (see installation guides)
+- **Keyring Management**: Server keyring location and permissions
+- **Environment Variables**: GPG-related configuration via environment variables (see [Environment Reference](/hosting/environment-reference/#gpg-server-key-configuration))
+
+## Related Documentation
+
+- [Generate OpenPGP Keys](/hosting/openpgp/generate-keys/) - Key generation procedures
+- [Server Key Rotation](/hosting/openpgp/rotation/) - Rotating server keys
+- [Metadata Key Management](/admin/resource-types/metadata-key/) - Admin guide for metadata encryption keys
+- [Account Recovery](/admin/authentication/account-recovery/) - Organization Recovery Key setup
+

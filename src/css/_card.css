@@ -8,12 +8,6 @@
   box-shadow: unset;
 }
 
-.index-card-list .card h2 {
-  text-indent: -0.25rem;
-  text-transform: capitalize;
-}
-
-.index-card-list .card h2::first-letter {
-  font-size: 0;
-  color: transparent;
+.index-card-list .card .theme-doc-card-icon {
+  display: none;
 }

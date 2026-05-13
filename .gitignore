@@ -25,3 +25,6 @@ yarn-error.log*
 # IDE and editor specific files #
 #################################
 .idea
+
+# Claude Code
+.claude/settings.local.json

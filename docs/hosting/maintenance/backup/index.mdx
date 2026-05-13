@@ -1,0 +1,44 @@
+---
+title: Backup and Recovery
+description: Backup procedures and data recovery for Passbolt
+sidebar_position: 1
+hide_table_of_contents: false
+---
+
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+## Introduction
+
+Regular backups are essential for protecting your Passbolt data. This section covers backup procedures for different deployment methods.
+
+## Backup Methods
+
+Choose the backup method that matches your deployment:
+
+- **[From Docker](/docs/hosting/maintenance/backup/from-docker/)** - Backup procedures for Docker deployments
+- **[From Packages](/docs/hosting/maintenance/backup/from-packages/)** - Backup procedures for package-based installations
+- **[From Sources](/docs/hosting/maintenance/backup/from-sources/)** - Backup procedures for source-based installations
+
+## What to Backup
+
+A complete Passbolt backup should include:
+
+1. **Database** - All user data, resources, and configuration
+2. **GPG Server Keys** - Server encryption keys (public and private)
+3. **Configuration Files** - Application and server configuration
+4. **TLS Certificates** - SSL/TLS certificates if applicable
+
+## Recovery
+
+After restoring a backup, ensure:
+
+- Database is restored to the correct location
+- GPG server keys are restored with correct permissions
+- Configuration files match the backup state
+- TLS certificates are valid and properly configured
+

@@ -1,0 +1,105 @@
+---
+title: Generate a CSR for a CA-signed TLS Certificate
+description: How to generate a Certificate Signing Request (CSR) with OpenSSL to obtain a CA-signed TLS certificate for your passbolt instance
+sidebar_label: Generate a CSR
+---
+
+import CodeBlock from "/src/components/CodeBlock/CodeBlock";
+import CertificateWarning from '/docs/hosting/_includes/warning/_passphrase-protected-private-key.mdx';
+
+A Certificate Signing Request (CSR) is a file you submit to a Certificate Authority (CA) so the CA can issue a signed TLS certificate for your passbolt server. Use this guide when you want to use a certificate from a public CA (such as DigiCert, GlobalSign, or Entrust) or from a private/internal CA operated by your organisation. If you want an automatically renewed Let's Encrypt certificate, use the [automatic HTTPS configuration](/hosting/tls/https/) instead. If you want a self-signed certificate for testing, use the manual HTTPS configuration directly, which shows the self-signed flow.
+
+## Prerequisites
+
+- OpenSSL installed on the server (pre-installed on most Linux distributions).
+- The fully qualified domain name (FQDN) you will use for your passbolt instance, for example `passbolt.example.com`.
+- Access to your CA's issuance process, either a public CA's web portal or your internal PKI team's submission channel.
+
+## Step 1: Generate a private key
+
+Generate an unencrypted 4096-bit RSA private key:
+
+<CodeBlock>
+{`openssl genrsa -out passbolt.key 4096`}
+</CodeBlock>
+
+<CertificateWarning />
+
+Keep `passbolt.key` on the server where passbolt will run. The private key should never be sent to the CA or leave the server.
+
+## Step 2: Create the CSR
+
+Generate a CSR from the private key. Replace the `-subj` values with your organisation's details and set both `CN` and `subjectAltName` to your passbolt FQDN:
+
+<CodeBlock>
+{`openssl req -new \\
+    -key passbolt.key \\
+    -out passbolt.csr \\
+    -subj "/C=LU/ST=Luxembourg/L=Esch-Sur-Alzette/O=Example Corp/OU=IT/CN=passbolt.example.com" \\
+    -addext "subjectAltName = DNS:passbolt.example.com"`}
+</CodeBlock>
+
+The `-subj` fields are:
+
+- `C`: two-letter country code (for example `LU`, `US`, `FR`).
+- `ST`: state or province.
+- `L`: city or locality.
+- `O`: legal organisation name.
+- `OU`: organisational unit (optional, often a department or team).
+- `CN`: the fully qualified domain name of your passbolt server.
+
+:::warning[Subject Alternative Name is required]
+Modern browsers ignore the `CN` field and only validate against `subjectAltName` (SAN). If you omit `-addext "subjectAltName = ..."` the issued certificate will fail validation in Chrome, Firefox, and Safari. Ensure the SAN exactly matches the FQDN users type in the browser.
+:::
+
+If you need the certificate to cover multiple hostnames (for example both the bare domain and a `www` alias), add them as a comma-separated list:
+
+<CodeBlock>
+{`-addext "subjectAltName = DNS:passbolt.example.com,DNS:www.passbolt.example.com"`}
+</CodeBlock>
+
+### Inspect the CSR before submitting
+
+Verify the CSR has the expected Subject and SAN before sending it to the CA:
+
+<CodeBlock>
+{`openssl req -in passbolt.csr -noout -text`}
+</CodeBlock>
+
+Look for the `Subject:` line and the `X509v3 Subject Alternative Name:` extension in the output.
+
+## Step 3: Submit the CSR to your CA
+
+Send the contents of `passbolt.csr` to your CA:
+
+- **Public CA**: paste the CSR into the CA's web portal during certificate ordering. The CA will validate domain ownership (usually via DNS, HTTP, or email) and issue the signed certificate.
+- **Private/internal CA**: follow your organisation's internal signing process. Active Directory Certificate Services and OpenSSL-based CAs both accept standard PKCS#10 CSRs, which is the format `openssl req` produces.
+
+Do not send `passbolt.key`. Only the CSR leaves the server.
+
+## Step 4: Assemble the certificate bundle
+
+The CA returns at least a signed server certificate. Most also return one or more intermediate CA certificates that bridge trust from your certificate up to the CA's public root. nginx (and apache) must serve the full chain or clients will see trust errors intermittently depending on whether their system has the intermediate cached.
+
+Concatenate the server certificate first, then each intermediate in order from closest to the server certificate up to the root:
+
+<CodeBlock>
+{`cat cert.pem intermediate.pem > passbolt.crt`}
+</CodeBlock>
+
+:::tip[Check the chain]
+Validate the bundle with `openssl verify -CAfile root.pem passbolt.crt`. If verification fails, the order of the intermediates is wrong or an intermediate is missing. See [SSL/TLS Troubleshooting](/hosting/tls/troubleshooting) for further chain debugging recipes.
+:::
+
+## Step 5: Install the certificate in passbolt
+
+You now have two files to install on the passbolt server:
+
+- `passbolt.crt`: the certificate bundle (server certificate plus intermediates).
+- `passbolt.key`: the private key from Step 1.
+
+Install them with the manual HTTPS configuration flow for your platform. Pick your distribution on the [HTTPS Configuration](/hosting/tls/https/) page and follow the "Manual configuration" tab. When the configurator prompts for the certificate path, provide `passbolt.crt`. When it prompts for the private key path, provide `passbolt.key`.
+
+## Renewal
+
+CA-signed certificates have a finite lifespan. Starting March 15, 2026, the maximum certificate lifetime drops to 200 days, and further reductions are scheduled through 2029 (see [TLS Certificates](/hosting/tls/) for the full schedule). When the certificate expires you repeat Steps 2 through 5 with the same private key, or generate a new key pair if your CA requires re-keying. Plan for automation if you are managing more than one certificate.

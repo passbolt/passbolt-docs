@@ -78,6 +78,10 @@ const hostingSidebar = [
         items: [
           {
             type: 'doc',
+            id: 'hosting/tls/generate-csr',
+          },
+          {
+            type: 'doc',
             id: 'hosting/tls/troubleshooting',
           },
         ],

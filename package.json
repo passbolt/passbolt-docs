@@ -67,7 +67,7 @@
     },
     "serialize-javascript": ">=7.0.3",
     "svgo": "^3.3.3",
-    "lodash": "^4.18.0",
+    "lodash": "^4.18.1",
     "ws@^8.0.0": "^8.20.1",
     "brace-expansion@^2.0.0": "^2.1.0"
   },

@@ -72,7 +72,38 @@ Allow users to manage their own format changes:
 These migration options are only relevant when both metadata formats are enabled.
 :::
 
-## Important Considerations
+## Security Considerations
+
+The level of protection metadata encryption provides depends on which key type you use and how it is distributed. The table below summarises the risk coverage for each configuration.
+
+The columns are grouped into two categories:
+
+- **Secret**: the encrypted password or secret data, always end-to-end encrypted with the user's personal key.
+- **Metadata**: resource names, URLs, and other metadata. Protection depends on the key configuration:
+  - **Personal Key**: encrypted with the user's own OpenPGP key. See [Metadata Key](/docs/admin/resource-types/metadata-key).
+  - **Shared Key (Zero-knowledge)**: encrypted with the shared metadata key, distributed manually by an administrator. See [Zero-Knowledge Mode](/docs/admin/resource-types/metadata-key#zero-knowledge-mode).
+  - **Shared Key (Server-knowledge)**: encrypted with the shared metadata key, distributed automatically by the server. See [User-Friendly Mode](/docs/admin/resource-types/metadata-key#user-friendly-mode-default).
+
+| Risk scenario | Secret: Personal Key | Metadata: Personal Key | Metadata: Shared Key (Zero-knowledge) | Metadata: Shared Key (Server-knowledge) |
+|---|:---:|:---:|:---:|:---:|
+| 1. **Unencrypted backup access**: attacker manages to decrypt or access cleartext backups and view metadata. | ✅ | ✅ | ✅ | ✅ |
+| 2. **SQL injection**: an attacker manages to bypass application control to view metadata stored in the database. | ✅ | ✅ | ✅ | ✅ |
+| 3. **Adversary in the middle**: an attacker manages to break TLS to view metadata transmitted on the wire. | ✅ | ✅ | ✅ | ✅ |
+| 4. **Remote code injection**: an attacker manages to execute some PHP code as part of a specific request. | ✅ | ✅ | ✅ | ⚠️ |
+| 5. **Complete server access**: an attacker manages to execute any code on the passbolt server. | ✅ | ✅ | ✅ | ❌ |
+| 6. **Complete infrastructure control**: an attacker can access any server and run any code on the infrastructure side. | ✅ | ✅ | ✅ | ❌ |
+| 7. **Complete client control**: an attacker can access memory or have full file access on the client side. | ❌ | ❌ | ❌ | ❌ |
+
+✅ Protected | ⚠️ Partially protected | ❌ Not protected
+
+:::tip Key takeaways
+- **Personal keys** offer the strongest metadata protection, equivalent to how secrets are protected. Use them for personal (non-shared) resources when privacy is the priority.
+- **Shared keys in zero-knowledge mode** protect metadata against all server-side threats, including complete server access.
+- **Shared keys in server-knowledge mode** protect metadata at rest (backups, database) but not when an attacker gains significant access to the running application. Secrets (passwords) remain protected by the user's personal key regardless.
+- **No configuration protects against full client compromise.** Client-side security (device encryption, secure passphrase practices) remains essential.
+:::
+
+## Implementation Steps
 
 :::caution
 Legacy cleartext metadata is less secure and not recommended for new resources. Consider using encrypted metadata for all new resources.

@@ -1,0 +1,119 @@
+---
+title: Encrypted Metadata
+description: Enable and configure metadata encryption in Passbolt
+sidebar_position: 1
+---
+
+import Figure from '@site/src/components/Figure/Figure';
+import Link from '@docusaurus/Link';
+
+# Encrypted Metadata
+
+Configure which metadata format (encrypted v5 or legacy cleartext v4) is used for new resources. You can enable both formats during migration, or enforce only encrypted metadata for new installations.
+
+## What is Metadata Encryption?
+
+Metadata encryption encrypts:
+
+- Resource names, usernames, URLs, descriptions, and custom field keys
+
+<Link to="https://www.youtube.com/watch?v=_MVae-qgo04" target="_blank" rel="noreferrer">
+  <Figure
+    src="/img/help/2024/02/video-tour.png"
+    alt="Watch the metadata encryption video"
+    caption="Watch the metadata encryption video (Youtube)"
+  />
+</Link>
+
+## Requirements and Warnings
+
+**Requirements:**
+- API version v5.2 or higher
+- A shared metadata key (generated automatically on installation)
+
+**Warnings:**
+- Enabling encrypted metadata has an impact on the auditability of resource metadata that won't be stored in clear anymore
+- Migrating content to encrypted metadata might break your in-house integration with passbolt
+- See [Metadata Key](/docs/admin/resource-types/metadata-key) for key distribution configuration
+
+## Configuration Options
+
+Navigate to Organisation settings > Content types > Encrypted metadata to configure metadata encryption options:
+
+<Figure
+  src="/img/help/2025/06/encrypted-metadata.png"
+  alt="Encrypted metadata configuration options"
+  caption="Encrypted metadata configuration options in Passbolt"
+/>
+
+### Enable Encrypted Metadata
+Enables support for encrypted metadata (v5 format). New resources can use encrypted fields for name, username, URI, and description.
+
+### Enable Legacy Cleartext Metadata
+Enables support for legacy v4 formats with unencrypted metadata. When enabled, legacy metadata formats can be selectively re-enabled by content type on the [Allow Content Types](./allowed-content-types.mdx) page.
+
+### Default Metadata Type
+Choose the default metadata format for newly created resources:
+
+- **Encrypted metadata** (recommended)
+- **Legacy cleartext metadata**
+
+:::note
+This option is only visible and configurable when both "Enable Encrypted Metadata" and "Enable Legacy Cleartext Metadata" options are enabled above.
+:::
+
+### Self-Served Migration
+Allow users to manage their own format changes:
+
+- **Upgrade from cleartext to encrypted**: Users can convert their existing resources from cleartext to encrypted format
+- **Downgrade from encrypted to cleartext**: Users can convert their existing resources from encrypted to cleartext format
+
+:::note
+These migration options are only relevant when both metadata formats are enabled.
+:::
+
+## Security Considerations
+
+The level of protection metadata encryption provides depends on which key type you use and how it is distributed. The table below summarises the risk coverage for each configuration.
+
+The columns are grouped into two categories:
+
+- **Secret**: the encrypted password or secret data, always end-to-end encrypted with the user's personal key.
+- **Metadata**: resource names, URLs, and other metadata. Protection depends on the key configuration:
+  - **Personal Key**: encrypted with the user's own OpenPGP key. See [Metadata Key](/docs/admin/resource-types/metadata-key).
+  - **Shared Key (Zero-knowledge)**: encrypted with the shared metadata key, distributed manually by an administrator. See [Zero-Knowledge Mode](/docs/admin/resource-types/metadata-key#zero-knowledge-mode).
+  - **Shared Key (Server-knowledge)**: encrypted with the shared metadata key, distributed automatically by the server. See [User-Friendly Mode](/docs/admin/resource-types/metadata-key#user-friendly-mode-default).
+
+| Risk scenario | Secret: Personal Key | Metadata: Personal Key | Metadata: Shared Key (Zero-knowledge) | Metadata: Shared Key (Server-knowledge) |
+|---|:---:|:---:|:---:|:---:|
+| 1. **Unencrypted backup access**: attacker manages to decrypt or access cleartext backups and view metadata. | ✅ | ✅ | ✅ | ✅ |
+| 2. **SQL injection**: an attacker manages to bypass application control to view metadata stored in the database. | ✅ | ✅ | ✅ | ✅ |
+| 3. **Adversary in the middle**: an attacker manages to break TLS to view metadata transmitted on the wire. | ✅ | ✅ | ✅ | ✅ |
+| 4. **Remote code injection**: an attacker manages to execute some PHP code as part of a specific request. | ✅ | ✅ | ✅ | ⚠️ |
+| 5. **Complete server access**: an attacker manages to execute any code on the passbolt server. | ✅ | ✅ | ✅ | ❌ |
+| 6. **Complete infrastructure control**: an attacker can access any server and run any code on the infrastructure side. | ✅ | ✅ | ✅ | ❌ |
+| 7. **Complete client control**: an attacker can access memory or have full file access on the client side. | ❌ | ❌ | ❌ | ❌ |
+
+✅ Protected | ⚠️ Partially protected | ❌ Not protected
+
+:::tip Key takeaways
+- **Personal keys** offer the strongest metadata protection, equivalent to how secrets are protected. Use them for personal (non-shared) resources when privacy is the priority.
+- **Shared keys in zero-knowledge mode** protect metadata against all server-side threats, including complete server access.
+- **Shared keys in server-knowledge mode** protect metadata at rest (backups, database) but not when an attacker gains significant access to the running application. Secrets (passwords) remain protected by the user's personal key regardless.
+- **No configuration protects against full client compromise.** Client-side security (device encryption, secure passphrase practices) remains essential.
+:::
+
+## Implementation Steps
+
+:::caution
+Legacy cleartext metadata is less secure and not recommended for new resources. Consider using encrypted metadata for all new resources.
+:::
+
+To implement encrypted metadata:
+1. Configure encryption settings on this page
+2. Configure key distribution in [Metadata Key](/docs/admin/resource-types/metadata-key)
+3. Enable content types in [Allow Content Types](./allowed-content-types.mdx)
+4. Migrate existing resources using [Migrate Metadata](./migrate-metadata.mdx) if needed
+
+
+

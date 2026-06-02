@@ -1,0 +1,19 @@
+---
+title: Email Configuration
+description: How email is configured in passbolt
+sidebar_label: Email
+hide_table_of_contents: false
+---
+
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+Email server configuration (SMTP provider, credentials, sender address) is managed through the web UI. See the [Email Server configuration guide](/admin/emails/email-server/) in the Admin Guide for setup instructions with specific providers.
+
+Email notification settings (which events trigger emails) are also configured in the web UI. See [Email Notifications](/admin/emails/email-notifications/).
+
+If your emails are not being delivered after configuration, see the [troubleshooting guide](/hosting/email/troubleshooting/) for common SMTP issues and debugging steps.

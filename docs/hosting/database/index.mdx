@@ -1,0 +1,70 @@
+---
+title: Database Configuration
+description: How to configure and manage the passbolt database
+sidebar_label: Database
+hide_table_of_contents: false
+---
+
+import Chips from "/src/components/Chips/Chips";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+## Configure a fresh installation
+
+:::danger[WARNING]
+Database configuration is only intended for fresh installations. Do not reconfigure the database on an existing installation, as it is likely to cause system instability or break functionality.
+:::
+
+**MariaDB** is the default database. The installation wizard configures it automatically for package installations, and Docker ships with a pre-configured MariaDB container. No additional database configuration is required for MariaDB.
+
+To configure a fresh installation with **PostgreSQL** instead, see the [PostgreSQL configuration guide](/hosting/database/postgres/).
+
+## Update database credentials
+
+To update database credentials on an existing installation, select your installation method:
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    Open `/etc/passbolt/passbolt.php` and edit the **Datasources** block:
+
+    <CodeBlock language="php">
+      {`[...]
+// Database configuration.
+'Datasources' => [
+      'default' => [
+      'host' => '127.0.0.1',
+      'port' => '3306',
+      'username' => 'YOUR_DATABASE_USER_USERNAME',
+      'password' => 'YOUR_DATABASE_USER_PASSWORD',
+      'database' => 'YOUR_PASSBOLT_DATABASE_NAME',
+    ],
+],
+[...]`}
+    </CodeBlock>
+
+    Save and quit. No restart is needed to apply these changes.
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    Database credentials are set in environment variables. Edit them for each container:
+
+    For the MariaDB container:
+    <CodeBlock language="yaml">
+      {`MYSQL_DATABASE: "passboltdb"
+MYSQL_USER: "passbolt"
+MYSQL_PASSWORD: "very-strong-password"`}
+    </CodeBlock>
+
+    For the passbolt container:
+    <CodeBlock language="yaml">
+      {`DATASOURCES_DEFAULT_DATABASE: "passboltdb"
+DATASOURCES_DEFAULT_USERNAME: "passbolt"
+DATASOURCES_DEFAULT_PASSWORD: "very-strong-password"`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>

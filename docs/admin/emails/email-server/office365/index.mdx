@@ -21,13 +21,97 @@ import Chips from "/src/components/Chips/Chips";
 
 ## Office 365
 
-- Administration panel
+Passbolt supports two authentication methods for Office 365:
+
+- **OAuth 2.0 (Client Credentials)**: *recommended*
+  - Uses short-lived access tokens issued by Microsoft Entra ID and avoids storing long-lived SMTP credentials.
+- **Basic authentication with an application password**: *legacy*
+  - Being retired by Microsoft (see the deprecation notice in the [legacy section](#basic-authentication-with-an-application-password-legacy)).
+
+### OAuth 2.0 (Client Credentials)
+
+This flow is designed for server-to-server email delivery, where no user interaction or refresh-token lifecycle is required. Passbolt requests an access token from Microsoft Entra ID at send time and uses it to authenticate to the SMTP server with `XOAUTH2`.
+
+Before you start, you will need:
+
+- A Microsoft 365 tenant where you can register applications in Microsoft Entra ID.
+- A licensed Microsoft 365 mailbox to send from (or a shared mailbox the licensed account can send as).
+- Access to Exchange Online PowerShell to register the application as a service principal.
+
+#### Microsoft Entra ID configuration
+
+1. Register the application
+
+Sign in to the [Microsoft Entra admin center](https://entra.microsoft.com) and register a new **single-tenant** application (e.g., *passbolt SMTP*). From the application overview, note the **Directory (tenant) ID** and the **Application (client) ID**; you will need them later in passbolt.
+
+2. Grant API permissions
+
+Under *API permissions*, add the **`SMTP.SendAsApp`** permission of type **Application** (under *Office 365 Exchange Online*) and grant **admin consent** for your tenant.
+
+3. Create a client secret
+
+Under *Certificates & secrets*, generate a new client secret and copy the **Value** immediately.
+
+:::warning
+The secret value is only displayed once, right after creation. If you close the page without copying it, you will need to generate a new secret.
+:::
+
+4. Register the service principal in Exchange
+
+In Exchange Online PowerShell, register the application as a service principal so it can send mail on behalf of the configured mailbox. Replace the placeholders with the values from your registered application and the target mailbox:
+
+```powershell
+Connect-ExchangeOnline
+New-ServicePrincipal -AppId <CLIENT_ID> -ServiceId <SERVICE_PRINCIPAL_OBJECT_ID> -DisplayName "Passbolt SMTP"
+Add-MailboxPermission -Identity "user@yourdomain.com" -User <SERVICE_PRINCIPAL_OBJECT_ID> -AccessRights FullAccess
+```
+
+For the full procedure and the exact commands for your environment, refer to Microsoft's guide on [authenticating an IMAP, POP or SMTP application by using OAuth](https://learn.microsoft.com/en-gb/exchange/client-developer/legacy-protocols/how-to-authenticate-an-imap-pop-smtp-application-by-using-oauth#register-service-principals-in-exchange).
+
+#### Passbolt configuration
+
+On your Passbolt instance, navigate to *Administration > Email server*.
+
+- Select **Office 365** as the email provider.
+- Select **OAuth (Client Credentials)** as the authentication method.
+- Fill in the *SMTP server configuration* fields:
+
+| Field | Value |
+| --- | --- |
+| Directory (tenant) ID | The tenant ID from your Entra ID application |
+| Application (client) ID | The client ID from your Entra ID application |
+| Client secret | The secret value copied when it was created |
+| Username | The full email address of the licensed Microsoft 365 mailbox used to send (e.g. `user@yourdomain.com`) |
+
+:::warning
+The **Username** must match the licensed mailbox associated with the registered application and the service principal. A mismatch will cause authentication to fail when an email is sent.
+:::
+
+- Fill in the *Sender configuration* fields:
+
+| Field | Value |
+| --- | --- |
+| Sender name | Display name shown to recipients |
+| Sender email | The username above, or the address of a shared mailbox the username has Send-As rights on |
+
+### Basic authentication with an application password (legacy)
+
+:::danger[Deprecated by Microsoft]
+Microsoft is retiring Basic Authentication for SMTP AUTH in Exchange Online:
+- **End of December 2026**: Basic Authentication for SMTP AUTH will be disabled by default for existing tenants. Administrators will still be able to re-enable it temporarily if needed.
+- **New tenants created after December 2026**: Basic Authentication for SMTP AUTH will be unavailable by default. OAuth will be the only supported authentication method.
+- **Second half of 2027**: Microsoft will announce the final removal date.
+
+We strongly recommend configuring [OAuth 2.0 (Client Credentials)](#oauth-20-client-credentials) for new deployments. See Microsoft's [deprecation announcement](https://techcommunity.microsoft.com/blog/exchange/exchange-online-to-retire-basic-auth-for-client-submission-smtp-auth/4114750) and [updated timeline](https://techcommunity.microsoft.com/blog/exchange/updated-exchange-online-smtp-auth-basic-authentication-deprecation-timeline/4489835).
+:::
+
+1. Administration panel
 
 When you are using Office 365, you will need to access your [Microsoft 365 admin center](https://admin.microsoft.com).
 
-- Create your SMTP Credentials
+2. Create your SMTP credentials
 
-Office 365 uses OAuth 2.0 for authentication, so you will need to set up an *application password* to authenticate with the SMTP server.
+You will need to set up an *application password* to authenticate with the SMTP server.
 
 In the Microsoft 365 admin center, navigate to *[Additional security verification page](https://mysignins.microsoft.com/security-info)* > Add sign-in method > App password
 
@@ -38,7 +122,7 @@ In the Microsoft 365 admin center, navigate to *[Additional security verificatio
 />
 
 :::warning
-Please, note that the password could not be shown after your close the tab, please be sure to copy the application password generated otherwise you will need to generate a new one.
+Please note that the password cannot be shown after you close the tab. Be sure to copy the generated application password (otherwise you will need to generate a new one).
 :::
 
 <Figure
@@ -55,11 +139,11 @@ Now, you'll need to get the SMTP settings that are available from Outlook in *Se
   alt="Microsoft - SMTP Settings"
 />
 
-- Authentication on Passbolt GUI
+3. Authentication on passbolt GUI
 
-On your Passbolt instance, navigate to "Administration" > "Email server."
+On your Passbolt instance, navigate to *Administration > Email server*.
 
-You will need to fill in your SMTP credentials to match your authentication method, remember, do not use the login credentials but the application password instead.
+Fill in your SMTP credentials to match your authentication method. Use the application password (not your login credentials).
 
 <Figure
   src="/img/help/2023/08/passbolt-office365-smtp-settings.png"

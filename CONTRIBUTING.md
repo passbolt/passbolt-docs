@@ -59,9 +59,11 @@ For example, if the page should not be indexed, excluded from the sitemap but on
 
 ## Sidebar management
 
-Our doc is separated into two main categories: Admin guide, User guide.
+Our doc is separated into five sections: Admin guide, User guide, Development guide, Hosting guide, and Contribute guide.
 
-The first level of each category are registered in their respective *.sidebar.js (e.g.: admin.sidebar.js handles the admin guide sidebar). It offers the ability to define the order of the first levels.
+> Note: The Development guide is currently unlisted from the navbar. Its pages still exist and are reachable by direct URL (under `/development/`), but no navbar item points to it.
+
+The first level of each section is registered in its respective *.sidebar.js (e.g.: admin.sidebar.js handles the admin guide sidebar), and sidebars/index.js aggregates them. It offers the ability to define the order of the first levels.
 
 All the other levels are auto-generated, which means they will appear automatically under the first level item.
 
@@ -84,7 +86,14 @@ The list of built-in components can be found here: [https://docusaurus.io/docs/m
 |:--------|:----|
 |Badge|Used in the DistributionCard component|
 |DistributionCard| Used to list Linux distributions where Passbolt can be installed|
-|Figure| Used to add images with caption
+|Figure| Used to add images with caption|
+|Chips| Edition badges (CE, Pro, Cloud) shown under a page title to mark feature availability|
+|CodeBlock| Code display with syntax highlighting|
+|Video| Video embeds|
+|ProviderCard| Provider-specific cards (for example SSO or SMTP providers)|
+|ImportCard / ImportChromium / ImportSteps| Browser import flows|
+
+We also use the Docusaurus built-in Tabs / TabItem for per-platform or per-edition variants.
 
 Each custom components has its own module.css file for styling
 
@@ -96,6 +105,10 @@ Custom css rules are applied to override the default look & feel of Docusaurus t
 
 All the static assets are stored in the /static folder.
 
-Images used in the doc file should be added to the /static folder, following the same folder structure as the documentation file.
+New screenshots are added under /static/img/help/YYYY/MM/, organised by capture date. Reference an image from a doc by its absolute static path.
 
-> E.g.: I need to add an image to a documentation file located in /docs/hosting/setup/configuration/firewall-rules.mdx. The image should be uploaded under /static/admin/setup/configuration/firewall-rules/filename.png.
+> Note: /static/img/screenshots/ holds older generic, non-dated images. It is a historical artefact, not a target for new images; do not add images there.
+
+> E.g.: a screenshot captured in April 2025 is uploaded to /static/img/help/2025/04/rbac.png and referenced in the doc as /img/help/2025/04/rbac.png.
+
+Use .png or .jpg for screenshots and .svg for diagrams, logos, and provider icons.

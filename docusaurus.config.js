@@ -27,22 +27,20 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : ROUTES.WEBSITE_URL,
+  url: ROUTES.WEBSITE_URL,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: process.env.VERCEL_URL ? '/' : '/docs/',
+  baseUrl: '/docs/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'passbolt', // Usually your GitHub org/user name.
   projectName: 'passbolt-docs', // Usually your repo name.
 
-  onBrokenLinks: process.env.VERCEL_URL ? 'warn' : 'throw',
+  onBrokenLinks: 'throw',
   markdown: {
     hooks: {
-      onBrokenMarkdownLinks: process.env.VERCEL_URL ? 'warn' : 'throw',
+      onBrokenMarkdownLinks: 'throw',
     },
   },
 
@@ -374,18 +372,26 @@ const config = {
       },
     ],
   ],
+  plugins: [
+    ...(process.env.GTM_ID
+      ? [
+          [
+            '@docusaurus/plugin-google-tag-manager',
+            { containerId: process.env.GTM_ID },
+          ],
+        ]
+      : []),
+  ],
   scripts: [
-    {
-      src: 'https://consent.cookiebot.com/uc.js',
-      defer: true,
-      'data-cbid': '900808a8-f178-4994-b2ad-66bf3ccca5f7',
-      'data-blockingmode': 'auto',
-    },
-    {
-      src: 'https://plausible.io/js/plausible.js',
-      defer: true,
-      'data-domain': 'passbolt.com',
-    },
+    ...(process.env.PLAUSIBLE_DOMAIN
+      ? [
+          {
+            src: 'https://plausible.io/js/plausible.js',
+            defer: true,
+            'data-domain': process.env.PLAUSIBLE_DOMAIN,
+          },
+        ]
+      : []),
   ],
   headTags: [
     {
@@ -415,28 +421,34 @@ const config = {
         }
       `,
     },
-    {
-      tagName: 'script',
-      attributes: {
-        type: 'text/javascript',
-        id: 'matomo-tag-manager',
-      },
-      innerHTML: `
+    ...(process.env.MATOMO_CONTAINER_ID
+      ? [
+          {
+            tagName: 'script',
+            attributes: {
+              type: 'text/javascript',
+              id: 'matomo-tag-manager',
+            },
+            innerHTML: `
         <!-- Matomo Tag Manager -->
         var _mtm = window._mtm = window._mtm || [];
         _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
         var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.async=true; g.src='https://cdn.matomo.cloud/passbolt.matomo.cloud/container_C0l5nxM2.js'; s.parentNode.insertBefore(g,s);
+        g.async=true; g.src='https://cdn.matomo.cloud/passbolt.matomo.cloud/${process.env.MATOMO_CONTAINER_ID}.js'; s.parentNode.insertBefore(g,s);
         <!-- End Matomo Tag Manager -->
       `,
-    },
-    {
-      tagName: 'script',
-      attributes: {
-        type: 'text/javascript',
-        id: 'matomo-analytics',
-      },
-      innerHTML: `
+          },
+        ]
+      : []),
+    ...(process.env.MATOMO_ID
+      ? [
+          {
+            tagName: 'script',
+            attributes: {
+              type: 'text/javascript',
+              id: 'matomo-analytics',
+            },
+            innerHTML: `
         <!-- Matomo -->
         var _paq = window._paq = window._paq || [];
         /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
@@ -446,13 +458,15 @@ const config = {
         (function() {
           var u="https://passbolt.matomo.cloud/";
           _paq.push(['setTrackerUrl', u+'matomo.php']);
-          _paq.push(['setSiteId', '${process.env?.ENV === 'PRODUCTION' ? 1 : 7}']);
+          _paq.push(['setSiteId', '${process.env.MATOMO_ID}']);
           var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
           g.async=true; g.src='https://cdn.matomo.cloud/passbolt.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
         })();
         <!-- End Matomo Code -->
       `,
-    },
+          },
+        ]
+      : []),
   ],
 };
 

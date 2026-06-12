@@ -9,7 +9,7 @@ import DigitalOceanSMTPWarning from '/docs/hosting/_includes/warning/_digital-oc
     <h3>Configure nginx for serving HTTPS</h3>
 
     {(() => {
-      
+
       switch (props.distributionLabel) {
         case 'Digital Ocean':
           return (
@@ -29,7 +29,7 @@ import DigitalOceanSMTPWarning from '/docs/hosting/_includes/warning/_digital-oc
               </ul>
             </>
           );
-        case 'RPM': 
+        case 'RPM':
           return (
             <>
               <p>Depending on your needs there are two different options to setup nginx and TLS (SSL):</p>
@@ -112,7 +112,7 @@ Before you can use the application, you need to configure it. Point your browser
 can be reached. You will reach a getting started page.
 
 <Figure
-  src="/img/help/2021/02/web-installer-getting-started.png"
+  src="/img/help/2026/06/webInstaller_configuration.png"
   alt="Passbolt welcome page before configuration"
   caption="fig. Passbolt welcome page before configuration"
 />
@@ -122,45 +122,11 @@ can be reached. You will reach a getting started page.
 The first page of the wizard will tell you if your environment is ready for passbolt. Solve issues if any and click on
 "Start configuration" when ready.
 
-<>
-  {props.productLabel === 'CE' ? (
-    <Figure
-      src={
-        '/img/help/2018/11/web-installer-ce-healthcheck.png'
-      }
-      alt={'Healthcheck from the wizard'}
-      caption={'fig. Wizard - Healthcheck'}
-    />
-  ) : (
-    <Figure
-      src={
-        '/img/help/2018/11/web-installer-pro-healthcheck.png'
-      }
-      alt={'Healthcheck from the wizard'}
-      caption={'fig. Wizard - Healthcheck'}
-    />
-  )}
-</>
-
-<>
-  {props.productLabel === 'PRO' && (
-    <>
-      <Counter chapter={2} title="Subscription Key" />
-      <span>
-        At this step, the wizard will ask you for your subscription key. You
-        should have received it by email soon after your online purchase. Enter
-        it in the box.
-      </span>
-      <Figure
-        src={
-          '/img/help/2018/11/web-installer-pro-subscription-key.png'
-        }
-        alt={'Subscription key from the wizard'}
-        caption={'fig. Wizard - Subscription Key'}
-      />
-    </>
-  )}
-</>
+<Figure
+  src="/img/help/2026/06/webInstaller_healthCheck.png"
+  alt="Passbolt welcome page before configuration"
+  caption="fig. Passbolt welcome page before configuration"
+/>
 
 <div>
   {props.distributionLabel === 'AWS AMI' ||
@@ -184,7 +150,7 @@ The first page of the wizard will tell you if your environment is ready for pass
       {props.productLabel === 'CE' ? (
         <Figure
           src={
-            '/img/help/2021/02/web-installer-ce-database.png'
+            '/img/help/2026/06/webInstaller_DB.png'
           }
           alt={'Database from the wizard'}
           caption={'fig. Wizard - Database'}
@@ -192,7 +158,7 @@ The first page of the wizard will tell you if your environment is ready for pass
       ) : (
         <Figure
           src={
-            '/img/help/2021/02/web-installer-pro-database.png'
+            '/img/help/2026/06/webInstaller_DB.png'
           }
           alt={'Database from the wizard'}
           caption={'fig. Wizard - Database'}
@@ -230,7 +196,7 @@ The first page of the wizard will tell you if your environment is ready for pass
       {props.productLabel === 'CE' ? (
         <Figure
           src={
-            '/img/help/2021/02/web-installer-ce-database.png'
+            '/img/help/2026/06/webInstaller_DB.png'
           }
           alt={'Database from the wizard'}
           caption={'fig. Wizard - Database'}
@@ -238,7 +204,7 @@ The first page of the wizard will tell you if your environment is ready for pass
       ) : (
         <Figure
           src={
-            '/img/help/2021/02/web-installer-pro-database.png'
+            '/img/help/2026/06/webInstaller_DB.png'
           }
           alt={'Database from the wizard'}
           caption={'fig. Wizard - Database'}
@@ -257,7 +223,7 @@ Generate a key if you don't have one.
   {props.productLabel === 'CE' ? (
     <Figure
       src={
-        '/img/help/2018/11/web-installer-ce-server-key-generate.png'
+        '/img/help/2026/06/webInstaller_GPG.png'
       }
       alt={'GPG Key from the wizard'}
       caption={'fig. Wizard - Gpg Key'}
@@ -265,7 +231,7 @@ Generate a key if you don't have one.
   ) : (
     <Figure
       src={
-        '/img/help/2018/11/web-installer-pro-server-key-generate.png'
+        '/img/help/2026/06/webInstaller_GPG.png'
       }
       alt={'GPG Key from the wizard'}
       caption={'fig. Wizard - Gpg Key'}
@@ -283,7 +249,7 @@ Import a key if you already have one and you want your server to use it.
   {props.productLabel === 'CE' ? (
     <Figure
       src={
-        '/img/help/2018/11/web-installer-ce-server-key-import.png'
+        '/img/help/2026/06/webInstaller_importGPG.png'
       }
       alt={'Import a Key Pair from the Wizard'}
       caption={'fig. Wizard - Import a Key Pair'}
@@ -291,7 +257,7 @@ Import a key if you already have one and you want your server to use it.
   ) : (
     <Figure
       src={
-        '/img/help/2018/11/web-installer-pro-server-key-import.png'
+        '/img/help/2026/06/webInstaller_importGPG.png'
       }
       alt={'Import a Key Pair from the Wizard'}
       caption={'fig. Wizard - Import a Key Pair'}
@@ -313,7 +279,7 @@ At this stage, the wizard will ask you to enter the details of your SMTP server.
   {props.productLabel === 'CE' ? (
     <Figure
       src={
-        '/img/help/2018/11/web-installer-ce-email.png'
+        '/img/help/2026/06/webInstaller_SMTP.png'
       }
       alt={'SMTP details from the Wizard'}
       caption={'fig. Wizard -  SMTP Mail Server Details'}
@@ -321,7 +287,7 @@ At this stage, the wizard will ask you to enter the details of your SMTP server.
   ) : (
     <Figure
       src={
-        '/img/help/2018/11/web-installer-pro-email.png'
+        '/img/help/2026/06/webInstaller_SMTP.png'
       }
       alt={'SMTP details from the Wizard'}
       caption={'fig. Wizard - SMTP Mail Server Details'}
@@ -348,7 +314,7 @@ The wizard will then ask you what preferences you prefer for your instance of pa
   {props.productLabel === 'CE' ? (
     <Figure
       src={
-        '/img/help/2018/11/web-installer-ce-options.png'
+        '/img/help/2026/06/webInstaller_fullBaseUrl.png'
       }
       alt={'Preferences from the Wizard'}
       caption={'fig. Wizard -  Preferences'}
@@ -356,7 +322,7 @@ The wizard will then ask you what preferences you prefer for your instance of pa
   ) : (
     <Figure
       src={
-        '/img/help/2018/11/web-installer-pro-options.png'
+        '/img/help/2026/06/webInstaller_fullBaseUrl.png'
       }
       alt={'Preferences from the Wizard'}
       caption={'fig. Wizard - Preferences'}
@@ -372,7 +338,7 @@ You need to create the first admin user account. This first admin user is probab
   {props.productLabel === 'CE' ? (
     <Figure
       src={
-        '/img/help/2018/11/web-installer-ce-first-user.png'
+        '/img/help/2026/06/webInstaller_createUser.png'
       }
       alt={'First user creation from the Wizard'}
       caption={'fig. Wizard -  First user creation'}
@@ -380,7 +346,7 @@ You need to create the first admin user account. This first admin user is probab
   ) : (
     <Figure
       src={
-        '/img/help/2018/11/web-installer-pro-first-user.png'
+        '/img/help/2026/06/webInstaller_createUser.png'
       }
       alt={'First user creation from the Wizard'}
       caption={'fig. Wizard - First user creation'}
@@ -388,37 +354,39 @@ You need to create the first admin user account. This first admin user is probab
   )}
 </>
 
-<Counter chapter={2} title="Installation" />
-
-That's it. The wizard has now enough information to proceed with the configuration of passbolt. Sit back and relax for a few seconds while the configuration process is going on.
+<Counter chapter={2} title="Subscription Key" />
 
 <>
   {props.productLabel === 'CE' ? (
-    <Figure
-      src={
-        '/img/help/2018/11/web-installer-ce-install.png'
-      }
-      alt={'Installation from the Wizard'}
-      caption={'fig. Wizard -  Installation'}
-    />
+    <>
+      <p>At this step, the wizard will ask you for your subscription key. If you want to get started with the CE edition for now, you can simply skip this step. You can upgrade at any time later from your Organization Settings.</p>
+      <Figure
+        src={'/img/help/2026/06/webInstaller_CE-subscription.png'}
+        alt={'First user creation from the Wizard'}
+        caption={'fig. Wizard - First user creation'}
+      />
+    </>
   ) : (
-    <Figure
-      src={
-        '/img/help/2018/11/web-installer-pro-install.png'
-      }
-      alt={'Installation from the Wizard'}
-      caption={'fig. Wizard - Installation'}
-    />
+    <>
+      <p>At this step, the wizard will ask you for your subscription key. You should have received it by email soon after your online purchase. Enter it in the box.</p>
+      <Figure
+        src={'/img/help/2026/06/webInstaller_PRO-subscription.png'}
+        alt={'First user creation from the Wizard'}
+        caption={'fig. Wizard - First user creation'}
+      />
+    </>
   )}
 </>
 
-Your user account is now created. You will see a redirection page for a few second and then will be redirected to the user setup process so that you can configure your user account.
+<Counter chapter={2} title="Installation" />
+
+That's it. The wizard will soon create your user account. You will see a redirection page for a few second and then will be redirected to the user setup process so that you can configure your user account.
 
 <>
   {props.productLabel === 'CE' ? (
     <Figure
       src={
-        '/img/help/2018/11/web-installer-ce-completed.png'
+        '/img/help/2026/06/webInstaller_configurationComplete.png'
       }
       alt={'Completion and redirection from the Wizard'}
       caption={'fig. Wizard -  Completion and Redirection'}
@@ -426,7 +394,7 @@ Your user account is now created. You will see a redirection page for a few seco
   ) : (
     <Figure
       src={
-        '/img/help/2018/11/web-installer-pro-completed.png'
+        '/img/help/2026/06/webInstaller_configurationComplete.png'
       }
       alt={'Completion and redirection from the Wizard'}
       caption={'fig. Wizard - Completion and Redirection'}

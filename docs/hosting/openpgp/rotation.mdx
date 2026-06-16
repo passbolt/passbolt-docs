@@ -55,18 +55,18 @@ Since the containers are now running, we need to add a new environment variable 
 <Tabs groupId="edition">
   <TabItem value="ce" label="CE" default>
     <CodeBlock>
-      {`docker compose -f docker-compose-ce.yaml exec -ti passbolt su -s /bin/bash -c “gpg --list-key” www-data`}
+      {`docker compose -f docker-compose-ce.yaml exec -ti passbolt su -s /bin/bash -c "gpg --list-key" www-data`}
     </CodeBlock>
   </TabItem>
   <TabItem value="pro" label="PRO">
     <CodeBlock>
-      {`docker compose -f docker-compose-pro.yaml exec -ti passbolt su -s /bin/bash -c “gpg --list-key” www-data`}
+      {`docker compose -f docker-compose-pro.yaml exec -ti passbolt su -s /bin/bash -c "gpg --list-key" www-data`}
     </CodeBlock>
   </TabItem>
 </Tabs>
 
 :::tip[Pro tip]
-Search for `Passbolt default user <passbolt@yourdomain.com>` with the creation date matching the day you perform the rotation. The fingerprint should be a line above e.g.,: “E52977D63A9A447D1AFB3C289DE0BA9CCA0DD42A”.
+Search for `Passbolt default user <passbolt@yourdomain.com>` with the creation date matching the day you perform the rotation. The fingerprint should be a line above e.g.,: "E52977D63A9A447D1AFB3C289DE0BA9CCA0DD42A".
 :::
 
 <Tabs groupId="edition">

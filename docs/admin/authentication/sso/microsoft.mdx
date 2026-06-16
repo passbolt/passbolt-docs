@@ -28,7 +28,7 @@ Since version 3.9, Passbolt Pro Edition supports SSO with Entra ID.
 
 ## How does it work?
 
-In short Passbolt SSO leverages Entra ID OAuth2/OpenID on top of the existing [challenge-based authentication](https://help.passbolt.com/api/authentication). The user by logging in Microsoft unlocks a key stored server side needed to decrypt the secret key passphrase twice encrypted with a non-extractable symetric key stored in the browser extension local storage client side.
+In short Passbolt SSO leverages Entra ID OAuth2/OpenID on top of the existing [challenge-based authentication](/development/authentication/). The user by logging in Microsoft unlocks a key stored server side needed to decrypt the secret key passphrase twice encrypted with a non-extractable symetric key stored in the browser extension local storage client side.
 
 To understand which user flows are supported currently, the risk analysis, and how it works in practice please read the [developer documentation](https://docs.google.com/document/d/1S58TonJ2uXwkaKl7WwLzTzmwJGiSJdhlqP-xbmxFBd0/edit).
 
@@ -76,7 +76,7 @@ In your Entra ID portal:
 Register a new application
 
 * Give it a Name such as "Passbolt SSO"
-* Select the supported account type you desire. "Accounts in this organizational directory only" is a good default.
+* Select the supported account type you desire. "Accounts in this organisational directory only" is a good default.
 * Copy the redirect url from Passbolt to Entra, it should be something like `https://yourdomain.com/sso/azure/redirect`.
 * In "Select a platform", select "Web"
 * Click register, you should be back on the Entra application page
@@ -103,7 +103,7 @@ Azure secrets expire after 6, 12, or 24 months (Microsoft recommends 6 months). 
 - 10 days before the secret expires
 - Immediately if SSO login fails due to an invalid secret
 
-**To rotate the secret:** Create a new secret in Entra ID → Update the value and expiry in Passbolt (Administration > Single Sign On) → Test SSO login.
+**To rotate the secret:** Create a new secret in Entra ID, update the value and expiry in Passbolt (Administration > Single Sign On), then test SSO login.
 :::
 
 :::tip[If SSO stops working]

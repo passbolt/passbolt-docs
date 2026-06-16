@@ -54,7 +54,7 @@ sudo journalctl -fu cron.service
 If after an update you are getting error messages such as:
 
 ```bash
-Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column ‘EmailQueue.to’ in ‘field list’ ...
+Exception: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'EmailQueue.to' in 'field list' ...
 ```
 
 It is possible that the wrong version of the data model is stored in the cache. This can happen if the cache is not cleared after an install or an update. You can try clearing out the cache to solve this(replace www-data with nginx if you are running a RHEL-like server, or wwwrun in case you are using OpenSUSE).
@@ -65,7 +65,7 @@ sudo -H -u www-data bash -c "/usr/share/php/passbolt/bin/cake cache clear_all"
 
 ## Reason 5: You are using credentials password instead of application password
 
-Some email providers will not let you use the password from your organization account for security purposes. It means that if you’re trying to use the authentication method “Username & Password” it will result in a failure if you are using something other than an application password.
+Some email providers will not let you use the password from your organisation account for security purposes. It means that if you're trying to use the authentication method "Username & Password" it will result in a failure if you are using something other than an application password.
 
 ## Listing email queue entries
 

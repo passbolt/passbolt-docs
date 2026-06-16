@@ -31,7 +31,7 @@ Server keys are configured during installation and can be rotated for security. 
 
 Each Passbolt user has their own OpenPGP key pair for:
 - **Resource Sharing**: Encrypting passwords and secrets that can be shared with other users
-- **Access Control**: Ensuring only authorized users can decrypt shared resources
+- **Access Control**: Ensuring only authorised users can decrypt shared resources
 - **User Authentication**: Verifying user identity and actions
 
 User keys are managed through the Passbolt web interface. Users generate their keys during account setup.
@@ -41,13 +41,13 @@ User keys are managed through the Passbolt web interface. Users generate their k
 Metadata encryption uses OpenPGP keys to:
 - **Encrypt Resource Metadata**: Securing resource names, descriptions, and other metadata
 - **Enable Encrypted Metadata Features**: Supporting advanced resource types with encrypted metadata
-- **Key Distribution**: Sharing metadata keys with authorized users
+- **Key Distribution**: Sharing metadata keys with authorised users
 
 Metadata key management is configured in the [Admin Guide > Resource Types](/admin/resource-types/metadata-key/).
 
-### Organization Recovery Keys
+### Organisation Recovery Keys
 
-Organization Recovery Keys (ORK) are used for:
+Organisation Recovery Keys (ORK) are used for:
 - **Account Recovery**: Allowing administrators to help users recover their accounts
 - **Backup Encryption**: Encrypting user account backups stored in Passbolt
 
@@ -58,7 +58,7 @@ ORK generation and configuration is managed in the [Admin Guide > Authentication
 OpenPGP keys can be generated using GnuPG command-line tools. The process differs depending on the key's purpose:
 
 - **Server Keys**: Generated without a passphrase (see [Generate Keys](/hosting/openpgp/generate-keys/) for server key generation)
-- **Organization Recovery Keys**: Generated with a passphrase (see [Account Recovery](/admin/authentication/account-recovery/) for ORK generation)
+- **Organisation Recovery Keys**: Generated with a passphrase (see [Account Recovery](/admin/authentication/account-recovery/) for ORK generation)
 - **User Keys**: Generated automatically through the Passbolt web interface during user setup
 
 ## Configuration
@@ -74,5 +74,5 @@ OpenPGP configuration in Passbolt involves:
 - [Generate OpenPGP Keys](/hosting/openpgp/generate-keys/) - Key generation procedures
 - [Server Key Rotation](/hosting/openpgp/rotation/) - Rotating server keys
 - [Metadata Key Management](/admin/resource-types/metadata-key/) - Admin guide for metadata encryption keys
-- [Account Recovery](/admin/authentication/account-recovery/) - Organization Recovery Key setup
+- [Account Recovery](/admin/authentication/account-recovery/) - Organisation Recovery Key setup
 

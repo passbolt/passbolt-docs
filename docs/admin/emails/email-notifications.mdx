@@ -15,7 +15,7 @@ import Chips from "/src/components/Chips/Chips";
   <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
 </div>
 
-### How to configure email notification settings for your organization
+### How to configure email notification settings for your organisation
 Some actions in passbolt, such as a user sharing a password with someone else, trigger an email notification.
 As passbolt admin, you can control which events result in an email notification and which events are ignored.
 Similarly you can control whether or not a piece of information is included in those notification emails.
@@ -67,7 +67,7 @@ SSO client secret expiration notifications are automatic and cannot be disabled.
   </tbody>
 </table>
 
-### Default behavior
+### Default behaviour
 By default all the settings are `true` which means all the notifications are set to be broadcasted and all the
 information blocks are set to be shown.
 
@@ -77,7 +77,7 @@ If multiple settings providers are used the settings in the admin interface will
 Similarly the settings in files will override environment variables.
 
 ## Using admin user interface
-Since v2.10 a user interface is provided for administrators to setup email notification settings. Click on “administration” in the top menu, then “Email Notifications” on the left menu.
+Since v2.10 a user interface is provided for administrators to setup email notification settings. Click on "administration" in the top menu, then "Email Notifications" on the left menu.
 
 The settings are divided into two sections.
 
@@ -197,7 +197,7 @@ These settings live in the email key under passbolt.
 ]`
 }
 </CodeBlock>
-If a config variable does not exist in your config file, it’s default value will be picked.
+If a config variable does not exist in your config file, it's default value will be picked.
 
 You can use the following config variables to control the email delivery settings. They are all boolean and accepts
 `true` or `false`. Setting the variable to `true` will mean that email will be sent for that event and setting it `false`

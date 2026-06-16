@@ -16,7 +16,7 @@ import Chips from "/src/components/Chips/Chips";
 
 By default passbolt uses the PHP session duration setting to define when the auto logout should kick in. If the default session timeout is too short for you and your user you can extend it in the PHP configuration.
 
-Currently, the code checks every 15 minutes if the browser is idle, using this browser functionality reserved for extensions, which returns “locked” if the system is locked, “idle” if the user has not generated any input for a specified number of seconds, or “active” otherwise.
+Currently, the code checks every 15 minutes if the browser is idle, using this browser functionality reserved for extensions, which returns "locked" if the system is locked, "idle" if the user has not generated any input for a specified number of seconds, or "active" otherwise.
 
 So if there is no direct interaction with the extension, the extension will not try to keep the session alive, and will just let it timeout. So if you have a long session default normally you would need to fail several checks to get logged out.
 :::info[Pro tip]
@@ -47,12 +47,12 @@ Once located replace the 1440 timout value in seconds with for example 2700 for 
 session.gc_maxlifetime = 2700
 ```
 :::important
-It’s really important to note that the browser extension is sending a request to the server in order to keep the session active, that means that any behaviour that is interrupting it will end the session, even if the session lifetime is not ended.
+It's really important to note that the browser extension is sending a request to the server in order to keep the session active, that means that any behaviour that is interrupting it will end the session, even if the session lifetime is not ended.
 :::
 We have noticed the following actions will result in a session ending:
   -  Internet connection lost
   -  Browser shutdown
   -  Computer shutdown
-  -  Computer’s session inactive (locked)
+  -  Computer's session inactive (locked)
   -  Changing IP address
-  -  Browser’s Confidentiality settings
+  -  Browser's Confidentiality settings

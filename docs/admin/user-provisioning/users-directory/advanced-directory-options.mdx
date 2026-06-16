@@ -1,6 +1,6 @@
 ---
 title: Advanced Directory Options
-description: Most Common LDAP Synchronization Error Messages
+description: Most Common LDAP Synchronisation Error Messages
 sidebar_label: Advanced directory options
 sidebar_position: 2
 hide_table_of_contents: false
@@ -11,9 +11,9 @@ import Chips from "/src/components/Chips/Chips";
 
 
 ## Known Issues and Support Scenarios
-Even with a correct setup, some issues may arise during directory synchronization. This section covers common problems, their causes, and how to resolve them.
+Even with a correct setup, some issues may arise during directory synchronisation. This section covers common problems, their causes, and how to resolve them.
 
-### Synchronization Error Messages
+### Synchronisation Error Messages
 When running a sync (simulated or actual), Passbolt may display errors or warnings for users or groups it couldn't process. These messages highlight common issues and help guide troubleshooting.
 
 **Message**  
@@ -25,7 +25,7 @@ When running a sync (simulated or actual), Passbolt may display errors or warnin
 This means a user was synced (created) and the sync tried to add them to a Passbolt group, but the user hasn't activated their Passbolt account yet (they haven't clicked the invite link to finalize setup). Passbolt cannot add inactive users to groups.
 
 **Solution**  
-No manual intervention needed with cron jobs enabled – as soon as the user activates their account, Passbolt will automatically add them to the group on the next sync.
+No manual intervention is needed with cron jobs enabled. As soon as the user activates their account, Passbolt will automatically add them to the group on the next sync.
 
 ---
 
@@ -87,7 +87,7 @@ Check the sync logs for errors during group creation, fix them, and re-run sync.
 :::
 
 **Explanation**  
-Passbolt cannot auto-share existing secrets due to encryption constraints. This is expected behavior.
+Passbolt cannot auto-share existing secrets due to encryption constraints. This is expected behaviour.
 
 **Solution**  
 The group manager must manually add the user through the UI.
@@ -175,19 +175,19 @@ sudo su -s /bin/bash -c 'ldapsearch -x -D "<bind_dn>" -W -H ldaps://your_ldap_se
 - Run as the web server user (`www-data` or `nginx`).
 - The `-d 9` flag provides verbose TLS/debug output.
 
-See: [Configure LDAP with TLS (SSL)](/docs/hosting/ldap/ldaps)
+See: [Configure LDAP with TLS (SSL)](/hosting/ldap/ldaps/)
 
 ---
 
 ### Managing LDAPS Certificates
 
-To ensure secure directory synchronization, Passbolt must trust the LDAP server's TLS certificate. If the certificate isn't signed by a trusted public CA, you'll need to configure Passbolt to trust it using our certificate bundler tool.
+To ensure secure directory synchronisation, Passbolt must trust the LDAP server's TLS certificate. If the certificate isn't signed by a trusted public CA, you'll need to configure Passbolt to trust it using our certificate bundler tool.
 
 🔗 [Get the LDAPS Certificate Bundler Tool](https://github.com/passbolt/passbolt-ldap-certificate-bundler)
 
 This Python tool automatically retrieves and validates the complete certificate chain from your LDAP server, bundling it into a single file for Passbolt to use. The certificates are ordered in the chain from server certificate to root CA, ensuring the complete chain of trust is maintained. This is particularly important for self-signed certificates or those issued by private CAs.
 
-For detailed setup instructions, please refer to the [LDAPS page](/docs/hosting/ldap/ldaps/#step-3-download-a-certificate-chain).
+For detailed setup instructions, please refer to the [LDAPS page](/hosting/ldap/ldaps/#step-3-download-a-certificate-chain).
 
 
 
@@ -241,7 +241,7 @@ memory_limit = 1024M
 ```
 
 - Restart PHP-FPM or your container afterwards.
-- Minimum recommended: `256M` for small directories, `512M–1024M` for large ones.
+- Minimum recommended: `256M` for small directories, `512M-1024M` for large ones.
 
 ---
 
@@ -261,7 +261,7 @@ use_paging: false
 - This requires mounting a custom config in Docker or modifying the vendor folder (not upgrade-safe).
 - Contact Passbolt support for guidance on safe overrides.
 
-> Active Directory and OpenLDAP support paging by default — this issue is rare.
+> Active Directory and OpenLDAP support paging by default. This issue is rare.
 
 ---
 
@@ -357,7 +357,7 @@ Passbolt does not support syncing multiple AD domains via the UI.
 
 ### Deleted LDAP Users Still in Passbolt
 
-If a user is removed from LDAP, Passbolt will try to delete them on sync — unless:
+If a user is removed from LDAP, Passbolt will try to delete them on sync, unless:
 
 - The user owns passwords
 - The user's deletion sync is disabled
@@ -440,7 +440,7 @@ Directories with tens of thousands of groups may cause performance degradation.
 
 ### Having Trouble with LDAP Sync or Configuration?
 
-If you're experiencing LDAP synchronization issues, follow this structured checklist to identify and resolve problems efficiently.
+If you're experiencing LDAP synchronisation issues, follow this structured checklist to identify and resolve problems efficiently.
 
 ### Connectivity and Configuration Checks
 
@@ -466,16 +466,16 @@ If you're experiencing LDAP synchronization issues, follow this structured check
      ✅ User Path: `OU=Users`  
      ❌ User Path: `OU=Users,DC=example,DC=com`
 
-4. **Use "Test Settings" and "Simulate Synchronize"**  
+4. **Use "Test Settings" and "Simulate Synchronise"**  
    - **Test Settings**: Checks the connection and basic LDAP queries  
-   - **Simulate Synchronize**: Runs a dry sync (no data is saved)  
+   - **Simulate Synchronise**: Runs a dry sync (no data is saved)  
    _These are safe tools to confirm configuration before syncing._
 
 5. **Check the API Status page**  
-   Go to **Organisation Settings → Passbolt API Status**.  
+   Go to **Organisation Settings > Passbolt API Status**.  
     * If "Directory Sync" is failing, the plugin may be disabled or misconfigured  
 
-    [📘 Directory Sync Healthcheck – Docs](/admin/passbolt-api-status/#directory-sync)
+    [📘 Directory Sync Healthcheck Docs](/admin/passbolt-api-status/#directory-sync)
 
 
 ## Logs and Diagnostic Tools
@@ -486,7 +486,7 @@ If the basic connectivity and configuration checks don't resolve the issue, move
 
 ### Enable Debug Logging
 
-Increase logging verbosity to get more insight into sync behavior:
+Increase logging verbosity to get more insight into sync behaviour:
 
 - In `config/passbolt.php`, temporarily set:
 
@@ -571,7 +571,7 @@ After resolving the root cause of a sync issue (e.g., configuration fix, certifi
 
 ### 1. Re-run Simulate or Full Sync
 
-- Use **Simulate Synchronize** first to verify that errors are resolved without making changes
+- Use **Simulate Synchronise** first to verify that errors are resolved without making changes
 - If the simulation passes, proceed with a full **Sync**
 
 ---
@@ -582,7 +582,7 @@ After resolving the root cause of a sync issue (e.g., configuration fix, certifi
   > If not, confirm SMTP settings and delivery
 - If any messages mentioned "request sent to group manager", follow up to ensure those users are added manually
 - Review any skipped or errored entries in the sync report  
-  > For details, refer to [Known Issues](#synchronization-error-messages)
+  > For details, refer to [Known Issues](#synchronisation-error-messages)
 
 ---
 
@@ -620,7 +620,7 @@ sudo -u www-data /usr/share/php/passbolt/bin/status-report > /tmp/status.txt
 - Check for:
   - Errors in Passbolt logs
   - GPG or PHP issues
-  - Unusual LDAP behavior
+  - Unusual LDAP behaviour
 
 If a bug is suspected, escalate to the support team with logs, reproduction steps, and environment details.
 

@@ -7,7 +7,7 @@ hide_table_of_contents: true
 
 ## Introduction
 
-Depending on the structure of your directory or the state of the synchronization between passbolt and your directory, passbolt can report certain synchronization issues. They come from a variety of reasons, here are the most common ones.
+Depending on the structure of your directory or the state of the synchronisation between passbolt and your directory, passbolt can report certain synchronisation issues. They come from a variety of reasons, here are the most common ones.
 
 <details>
     <summary>The user user@domain.com could not be added to group MyGroup because it is not active yet</summary>
@@ -16,17 +16,17 @@ Depending on the structure of your directory or the state of the synchronization
 
 <details>
     <summary>The user user@domain.com could not be mapped with an existing user in passbolt because it was created after.</summary>
-    <p>This error happens when a user was created first in Passbolt and later in the directory. Passbolt then considers that the passbolt user has the priority and should not be synced, since it would also mean that the same user would get deleted whenever it is deleted from the directory. When this situation happens, if you absolutely want to sync these 2 users, the solution is to delete the user in passbolt and to run the synchronization again. The user will then be created again and synced.</p>
+    <p>This error happens when a user was created first in Passbolt and later in the directory. Passbolt then considers that the passbolt user has the priority and should not be synced, since it would also mean that the same user would get deleted whenever it is deleted from the directory. When this situation happens, if you absolutely want to sync these 2 users, the solution is to delete the user in passbolt and to run the synchronisation again. The user will then be created again and synced.</p>
 </details>
 
 <details>
     <summary>The group MyGroup could not be mapped with an existing group in passbolt because it was created after.</summary>
-    <p>This error happens when a group was created first in Passbolt and later in the directory. Passbolt then considers that the passbolt group has the priority and should not be synced, since it would also mean that the same group would get deleted whenever it is deleted from the directory. When this situation happens, if you absolutely want to sync these 2 groups, the solution is to delete the group in passbolt and to run the synchronization again. The group will then be created again and synced.</p>
+    <p>This error happens when a group was created first in Passbolt and later in the directory. Passbolt then considers that the passbolt group has the priority and should not be synced, since it would also mean that the same group would get deleted whenever it is deleted from the directory. When this situation happens, if you absolutely want to sync these 2 groups, the solution is to delete the group in passbolt and to run the synchronisation again. The group will then be created again and synced.</p>
 </details>
 
 <details>
     <summary>The previously deleted user user@domain.com was not re-added to passbolt.</summary>
-    <p>This error happens when a passbolt user was deleted manually in passbolt but not in the directory. Passbolt then considers that the actions performed in passbolt have a higher priority and that the user was deleted for a good reason. When this situation happens, if you absolutely want to sync back this user, the solution is to re-create the user in passbolt and run the synchronization again.</p>
+    <p>This error happens when a passbolt user was deleted manually in passbolt but not in the directory. Passbolt then considers that the actions performed in passbolt have a higher priority and that the user was deleted for a good reason. When this situation happens, if you absolutely want to sync back this user, the solution is to re-create the user in passbolt and run the synchronisation again.</p>
 </details>
 
 <details>
@@ -42,18 +42,18 @@ Depending on the structure of your directory or the state of the synchronization
 
 <details>
     <summary>The user userA was not synced with existing membership for group groupA because the membership was created before.</summary>
-    <p>This happens when a user has been added to a group in Passbolt prior to being added to the group in LDAP, or prior to the change in LDAP being synchronized. This means that Passbolt has priority over that membership. To solve this the user will have to be removed from the group in Passbolt and then another synchronization has to occur. Once that happens the user should once again be in the group in Passbolt, or an email should be triggered if the group has shared passwords.</p>
+    <p>This happens when a user has been added to a group in Passbolt prior to being added to the group in LDAP, or prior to the change in LDAP being synchronised. This means that Passbolt has priority over that membership. To solve this the user will have to be removed from the group in Passbolt and then another synchronisation has to occur. Once that happens the user should once again be in the group in Passbolt, or an email should be triggered if the group has shared passwords.</p>
 </details>
 
 <details>
     <summary>No message, but the user I removed from a group in LDAP is still in the group in Passbolt</summary>
-    <p>This tends to happen when a user is added in a group in Passbolt prior to being added to a group in LDAP and then later being removed from the group in LDAP. If you see any errors that are in the format of “The user userA was not synced with existing membership for group groupA because the membership was created before.” there is a risk of this issue occuring. This is because Passbolt has priority over this group membership. You will have to manually remove the user from the group in Passbolt in this case.</p>
+    <p>This tends to happen when a user is added in a group in Passbolt prior to being added to a group in LDAP and then later being removed from the group in LDAP. If you see any errors that are in the format of "The user userA was not synced with existing membership for group groupA because the membership was created before." there is a risk of this issue occuring. This is because Passbolt has priority over this group membership. You will have to manually remove the user from the group in Passbolt in this case.</p>
 </details>
 
 <details>
   <summary>The user user@domain.com could not be added to the group MyGroup because membership was removed in passbolt</summary>
    <p>This error occurs when a user has been manually removed from a group. Passbolt prioritizes manual actions, assuming the removal was intentional and for a valid reason.</p>
-  <p>To resolve this issue, manually re-add the user to the group in Passbolt, and then run the LDAP synchronization afterward.</p>
+  <p>To resolve this issue, manually re-add the user to the group in Passbolt, and then run the LDAP synchronisation afterward.</p>
 </details>
 
 <details>

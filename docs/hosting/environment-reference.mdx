@@ -32,7 +32,7 @@ Settings configured through the Passbolt web interface override all other config
 - **SMTP Settings**: Email server configuration, authentication, TLS settings
 - **SSO Configuration**: Provider settings, endpoints, user mapping
 - **MFA Settings**: Provider configuration, policies, user preferences
-- **Directory Sync**: LDAP server settings, user mapping, group synchronization
+- **Directory Sync**: LDAP server settings, user mapping, group synchronisation
 - **Email Notifications**: Which emails to send and what content to include
 
 **Why This Priority:** Web UI settings allow administrators to configure Passbolt without server access and provide immediate feedback on configuration validity.
@@ -210,7 +210,7 @@ Enable database query logging for debugging. Logs all SQL queries to the applica
 ## Email Configuration
 
 :::info Email Setup
-For email configuration, see [Email server setup](/admin/emails/email-server/) for SMTP configuration and [Email notifications](/admin/emails/email-notifications) for notification settings.
+For email configuration, see [Email server setup](/admin/emails/email-server/) for SMTP configuration and [Email notifications](/admin/emails/email-notifications/) for notification settings.
 :::
 
 ### SMTP Configuration
@@ -416,11 +416,11 @@ For TLS setup guidance, see [TLS Certificates](/hosting/tls/). This section cove
 ### LDAPS Configuration
 
 **`PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_ENABLED`** *(boolean, optional)*
-Enable custom TLS configuration options for LDAP directory synchronization. Used in [Directory Sync configuration](/admin/user-provisioning/users-directory/).
+Enable custom TLS configuration options for LDAP directory synchronisation. Used in [Directory Sync configuration](/admin/user-provisioning/users-directory/).
 **Default:** `false` | **Environment:** all
 
 **`PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_VERIFY_PEER`** *(boolean, optional)*
-Verify the LDAP server's TLS (SSL) certificate during directory synchronization. Critical for secure LDAPS connections.
+Verify the LDAP server's TLS (SSL) certificate during directory synchronisation. Critical for secure LDAPS connections.
 **Default:** `true` | **Environment:** all
 
 
@@ -448,7 +448,7 @@ Path to a custom CA certificate file for SSO provider verification. Required for
 :::info Critical Security Variables
 The following variables are critical for production security and should be configured in all deployments.
 
-**Related:** [Security policies](/admin/authentication/) | [User management](/admin/user-provisioning/) | [API status monitoring](/admin/passbolt-api-status)
+**Related:** [Security policies](/admin/authentication/) | [User management](/admin/user-provisioning/) | [API status monitoring](/admin/passbolt-api-status/)
 :::
 
 **`PASSBOLT_SSL_FORCE`** *(boolean, optional)*
@@ -472,7 +472,7 @@ Verify SMTP server TLS (SSL) certificates during email transmission. Required fo
 **Default:** `true` | **Environment:** all
 
 **`PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_VERIFY_PEER`** *(boolean, optional)*
-Verify the LDAP server's TLS (SSL) certificate during directory synchronization. Required for secure LDAPS connections.
+Verify the LDAP server's TLS (SSL) certificate during directory synchronisation. Required for secure LDAPS connections.
 **Default:** `true` | **Environment:** all
 
 **`PASSBOLT_SECURITY_SET_HEADERS`** *(boolean, optional)*
@@ -528,7 +528,7 @@ Prevent email enumeration attacks by not revealing whether an email address exis
 **Default:** `false` | **Environment:** all
 
 **`PASSBOLT_SECURITY_DIRECTORY_SYNC_FORBIDDEN_FIELDS_ACTIVE`** *(boolean, optional)*
-Enable forbidden fields protection for directory sync. Prevents sensitive fields from being synchronized from LDAP/AD.
+Enable forbidden fields protection for directory sync. Prevents sensitive fields from being synchronised from LDAP/AD.
 **Default:** `true` | **Environment:** all
 
 **`PASSBOLT_SECURITY_DIRECTORY_SYNC_ENDPOINTS_DISABLED`** *(boolean, optional)*
@@ -572,7 +572,7 @@ When using SSO with POST redirect requests and SameSite=Lax cookies, sessions ma
 ## Multi-Factor Authentication Configuration
 
 :::info MFA Setup
-For MFA configuration, see [MFA setup](/admin/authentication/mfa/) for provider configuration, [MFA policies](/admin/authentication/mfa-policy) for policy management, [Duo configuration](/admin/authentication/mfa/duo) for Duo-specific setup, and [YubiKey configuration](/admin/authentication/mfa/yubikey) for YubiKey setup.
+For MFA configuration, see [MFA setup](/admin/authentication/mfa/) for provider configuration, [MFA policies](/admin/authentication/mfa-policy/) for policy management, [Duo configuration](/admin/authentication/mfa/duo/) for Duo-specific setup, and [YubiKey configuration](/admin/authentication/mfa/yubikey/) for YubiKey setup.
 :::
 
 ### MFA Provider Settings
@@ -642,7 +642,7 @@ These variables are deprecated but still supported for backward compatibility wi
 ## SSO Configuration
 
 :::info SSO Setup
-For SSO configuration, see [SSO setup](/admin/authentication/sso/) for provider configuration, [Microsoft SSO](/admin/authentication/sso/microsoft) for Microsoft Azure AD setup, and [Google SSO](/admin/authentication/sso/google) for Google Workspace setup.
+For SSO configuration, see [SSO setup](/admin/authentication/sso/) for provider configuration, [Microsoft SSO](/admin/authentication/sso/microsoft/) for Microsoft Azure AD setup, and [Google SSO](/admin/authentication/sso/google/) for Google Workspace setup.
 :::
 
 ### SSO Provider Settings
@@ -692,7 +692,7 @@ Default algorithm for SSO JWKS (JSON Web Key Set). Specifies the default signing
 ## Plugin Feature Toggles
 
 :::info Plugin Configuration
-For plugin management, see [Role-based access control](/admin/role-based-access-control) for RBAC settings, [Password policies](/admin/resource-policies/password-policy) for password management, and [User provisioning](/admin/user-provisioning/) for user management features.
+For plugin management, see [Role-based access control](/admin/role-based-access-control/) for RBAC settings, [Password policies](/admin/resource-policies/password-policy/) for password management, and [User provisioning](/admin/user-provisioning/) for user management features.
 :::
 
 ### Core Plugins
@@ -752,11 +752,11 @@ Enable Single Sign-On functionality. SSO configuration is managed through the we
 **Default:** `true` | **Environment:** all
 
 **`PASSBOLT_PLUGINS_MFA_POLICIES_ENABLED`** *(boolean, optional)*
-Enable Multi-Factor Authentication policy enforcement. Used in [MFA policy configuration](/admin/authentication/mfa-policy).
+Enable Multi-Factor Authentication policy enforcement. Used in [MFA policy configuration](/admin/authentication/mfa-policy/).
 **Default:** `true` | **Environment:** all
 
 **`PASSBOLT_PLUGINS_ACCOUNT_RECOVERY_ENABLED`** *(boolean, optional)*
-Enable account recovery functionality. Used in [Account Recovery](/admin/authentication/account-recovery).
+Enable account recovery functionality. Used in [Account Recovery](/admin/authentication/account-recovery/).
 **Default:** `true` | **Environment:** all
 
 **`PASSBOLT_PLUGINS_SSO_RECOVER_ENABLED`** *(boolean, optional)*
@@ -770,7 +770,7 @@ Enable self-registration functionality. Allows new users to register themselves 
 ### Password Management
 
 **`PASSBOLT_PLUGINS_PASSWORD_EXPIRY_ENABLED`** *(boolean, optional)*
-Enable password expiry policy enforcement. Forces users to change their passwords after a specified period. See [Password expiry configuration](/admin/resource-policies/password-expiry) for detailed setup.
+Enable password expiry policy enforcement. Forces users to change their passwords after a specified period. See [Password expiry configuration](/admin/resource-policies/password-expiry/) for detailed setup.
 **Default:** `true` | **Environment:** all
 
 **`PASSBOLT_PLUGINS_PASSWORD_EXPIRY_POLICIES_ENABLED`** *(boolean, optional)*
@@ -778,7 +778,7 @@ Enable password expiry policies. Allows administrators to configure password exp
 **Default:** `true` | **Environment:** all
 
 **`PASSBOLT_PLUGINS_PASSWORD_POLICIES_ENABLED`** *(boolean, optional)*
-Enable password policy validation checks. Enforces password complexity requirements and validation rules. See [Password policy configuration](/admin/resource-policies/password-policy) for detailed setup.
+Enable password policy validation checks. Enforces password complexity requirements and validation rules. See [Password policy configuration](/admin/resource-policies/password-policy/) for detailed setup.
 **Default:** `true` | **Environment:** all
 
 **`PASSBOLT_PLUGINS_PASSWORD_POLICIES_UPDATE_ENABLED`** *(boolean, optional)*
@@ -786,7 +786,7 @@ Enable password policies update functionality. Allows administrators to modify p
 **Default:** `true` | **Environment:** all
 
 **`PASSBOLT_PLUGINS_USER_PASSPHRASE_POLICIES_ENABLED`** *(boolean, optional)*
-Enable user passphrase policies. Controls the complexity requirements for user GPG passphrases. See [User passphrase policies](/admin/authentication/user-passphrase-policies) for detailed setup.
+Enable user passphrase policies. Controls the complexity requirements for user GPG passphrases. See [User passphrase policies](/admin/authentication/user-passphrase-policies/) for detailed setup.
 **Default:** `true` | **Environment:** all
 
 ### Resource Management
@@ -818,7 +818,7 @@ Enable user key policies.
 ### Directory Sync
 
 **`PASSBOLT_PLUGINS_DIRECTORY_SYNC_CASE_SENSITIVE_FILTERS`** *(boolean, optional)*
-Enable case-sensitive LDAP filters for directory synchronization. When enabled, LDAP search filters are case-sensitive, which may be required for some directory servers. See [Directory Sync configuration](/admin/user-provisioning/users-directory/) for detailed setup.
+Enable case-sensitive LDAP filters for directory synchronisation. When enabled, LDAP search filters are case-sensitive, which may be required for some directory servers. See [Directory Sync configuration](/admin/user-provisioning/users-directory/) for detailed setup.
 **Default:** `false` | **Environment:** all
 
 ### Metadata Plugin
@@ -864,7 +864,7 @@ Legacy default password generator type.
 ## Email Notification Settings
 
 :::info Email Notifications
-For notification management, see [Email configuration](/admin/emails/email-notifications) for notification management and [Email server setup](/admin/emails/email-server/) for SMTP configuration.
+For notification management, see [Email configuration](/admin/emails/email-notifications/) for notification management and [Email server setup](/admin/emails/email-server/) for SMTP configuration.
 :::
 
 ### Email Validation
@@ -1060,7 +1060,7 @@ Send email to user when they are deleted.
 ## Audit Logging Configuration
 
 :::info Log Management
-For log analysis and monitoring, see [Log management](/hosting/maintenance/diagnostics/collect-info) for log analysis and [Audit log monitoring](/admin/passbolt-api-status) for audit review.
+For log analysis and monitoring, see [Log management](/hosting/maintenance/diagnostics/collect-info/) for log analysis and [Audit log monitoring](/admin/passbolt-api-status/) for audit review.
 :::
 
 ### File-based Audit Logging
@@ -1122,11 +1122,11 @@ Sets the `<title>` tag for the web application.
 **Default:** `'Passbolt'` | **Environment:** all
 
 **`PASSBOLT_META_DESCRIPTION`** *(string, optional)*
-Sets the `<meta name="description">` tag for search engine optimization.
+Sets the `<meta name="description">` tag for search engine optimisation.
 **Default:** `'Open source password manager for teams'` | **Environment:** all
 
 **`PASSBOLT_META_ROBOTS`** *(string, optional)*
-Controls search engine indexing behavior.
+Controls search engine indexing behaviour.
 **Default:** `'noindex, nofollow'` | **Environment:** all
 
 **`PASSBOLT_LEGAL_TERMSURL`** *(string, optional)*
@@ -1144,7 +1144,7 @@ The variables in this section are primarily used for development, testing, and i
 
 **Production Note:** These variables should not be used in production environments as they can expose sensitive information and reduce security.
 
-**Related:** [Development setup](/development/getting-started) | [Testing guidelines](/development/)
+**Related:** [Development setup](/development/getting-started/) | [Testing guidelines](/development/)
 :::
 
 ### Debug Configuration
@@ -1235,7 +1235,7 @@ Query log formatter class.
 - [Installation Guides](/hosting/install/) - Platform-specific setup instructions
 - [Database Configuration](/hosting/database/) - Database setup and configuration
 - [TLS Certificates](/hosting/tls/) - HTTPS and certificate configuration
-- [Docker Deployment](/hosting/install/ce/docker) - Containerized deployment
+- [Docker Deployment](/hosting/install/ce/docker/) - Containerized deployment
 - [Helm Deployment](/hosting/install/) - Kubernetes deployment
 
 ### Administration
@@ -1245,13 +1245,13 @@ Query log formatter class.
 - [SSO Configuration](/admin/authentication/sso/) - Single sign-on setup
 - [Email Configuration](/admin/emails/) - Email server and notification settings
 - [Password Policies](/admin/resource-policies/) - Password and passphrase policies
-- [Role-based Access Control](/admin/role-based-access-control) - RBAC configuration
+- [Role-based Access Control](/admin/role-based-access-control/) - RBAC configuration
 
 ### Maintenance and Troubleshooting
-- [API Status Monitoring](/admin/passbolt-api-status) - Health checks and monitoring
-- [Log Management](/hosting/maintenance/diagnostics/collect-info) - Log analysis and troubleshooting
+- [API Status Monitoring](/admin/passbolt-api-status/) - Health checks and monitoring
+- [Log Management](/hosting/maintenance/diagnostics/collect-info/) - Log analysis and troubleshooting
 - [Backup and Recovery](/hosting/maintenance/backup/) - Backup procedures and data recovery
 
 ### Development
-- [Development Setup](/development/getting-started) - Development environment configuration
+- [Development Setup](/development/getting-started/) - Development environment configuration
 - [Testing Guidelines](/development/) - Testing procedures and best practices

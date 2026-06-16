@@ -26,7 +26,7 @@ Configure your identity provider (Microsoft Entra ID or Okta) to provision users
 
 Before configuring your identity provider, ensure you have:
 
-- Passbolt SCIM enabled and configured (see [SCIM Setup Guide](/docs/admin/user-provisioning/scim))
+- Passbolt SCIM enabled and configured (see [SCIM Setup Guide](/admin/user-provisioning/scim/))
 - Administrator access to your identity provider
 - The SCIM endpoint URL and authentication token from Passbolt
 
@@ -73,8 +73,8 @@ Based on Microsoft's official documentation, configure SCIM provisioning with th
 
 ### 1. Create Enterprise Application
 - Sign in to the [Microsoft Azure Portal](https://portal.azure.com/)
-- Navigate to **Microsoft Entra ID** → **Enterprise applications**
-- Click **+ New application** → **Create your own application**
+- Navigate to **Microsoft Entra ID** > **Enterprise applications**
+- Click **+ New application** > **Create your own application**
 - Provide a descriptive name and select **Non-gallery**
 - Click **Create**
 
@@ -88,12 +88,12 @@ Based on Microsoft's official documentation, configure SCIM provisioning with th
 - Click **Save**
 
 ### 3. Configure Attribute Mappings
-- Expand **Mappings** section → **Provision Microsoft Entra ID Users**
+- Expand **Mappings** section > **Provision Microsoft Entra ID Users**
 - Ensure essential attributes are correctly mapped:
-  - `userPrincipalName` → `userName`
-  - `givenName` → `name.givenName`
-  - `surname` → `name.familyName`
-  - `mail` → `emails[0].value`
+  - `userPrincipalName` -> `userName`
+  - `givenName` -> `name.givenName`
+  - `surname` -> `name.familyName`
+  - `mail` -> `emails[0].value`
 - Click **Save**
 
 ### 4. Assign Users
@@ -115,13 +115,13 @@ Based on Okta's official documentation, configure SCIM provisioning with these k
 
 ### 1. Create SCIM Application
 - Sign in to your Okta admin console
-- Navigate to **Applications** → **Add Application**
+- Navigate to **Applications** > **Add Application**
 - Click **Create New App**
 - Choose **SCIM 2.0 App** as the sign-on method
 - Enter application name and click **Create**
 
 ### 2. Configure SCIM Connection
-- Go to **Provisioning** tab → **Configure API Integration**
+- Go to **Provisioning** tab > **Configure API Integration**
 - Check **Enable API Integration**
 - Enter your Passbolt SCIM endpoint details:
   - **Base URL**: Your Passbolt SCIM endpoint URL
@@ -148,7 +148,7 @@ Based on Okta's official documentation, configure SCIM provisioning with these k
 
 ## Testing
 
-Test your configuration with a small number of users before enabling for your entire organization.
+Test your configuration with a small number of users before enabling for your entire organisation.
 
 ## Troubleshooting
 

@@ -88,7 +88,7 @@ Concatenate the server certificate first, then each intermediate in order from c
 </CodeBlock>
 
 :::tip[Check the chain]
-Validate the bundle with `openssl verify -CAfile root.pem passbolt.crt`. If verification fails, the order of the intermediates is wrong or an intermediate is missing. See [SSL/TLS Troubleshooting](/hosting/tls/troubleshooting) for further chain debugging recipes.
+Validate the bundle with `openssl verify -CAfile root.pem passbolt.crt`. If verification fails, the order of the intermediates is wrong or an intermediate is missing. See [SSL/TLS Troubleshooting](/hosting/tls/troubleshooting/) for further chain debugging recipes.
 :::
 
 ## Step 5: Install the certificate in passbolt

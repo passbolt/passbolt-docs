@@ -27,12 +27,12 @@ Since version 4.0.0, Passbolt Pro Edition supports SSO with Google via Google Cl
 />
 
 :::warning[Important]
-Passbolt will request a Google API for authorization, if you have firewall rules setup, you have to allow your server to request the accounts.google.com domain.
+Passbolt will request a Google API for authorisation, if you have firewall rules setup, you have to allow your server to request the accounts.google.com domain.
 :::
 
 ## How does it work?
 
-In short Passbolt SSO leverages Google OAuth2/OpenID on top of the existing [challenge-based authentication](https://help.passbolt.com/api/authentication). The user by logging in Google unlocks a key stored server side needed to decrypt the secret key passphrase twice encrypted with a non-extractable symetric key stored in the browser extension local storage client side.
+In short Passbolt SSO leverages Google OAuth2/OpenID on top of the existing [challenge-based authentication](/development/authentication/). The user by logging in Google unlocks a key stored server side needed to decrypt the secret key passphrase twice encrypted with a non-extractable symetric key stored in the browser extension local storage client side.
 
 To understand which user flows are supported currently, the risk analysis, and how it works in practice please read the [developer documentation](https://docs.google.com/document/d/1Id33XyNRxyeJ5sof5ggWNpFUq1nX6RKwU8vLIe8ROF8/edit).
 
@@ -68,7 +68,7 @@ Navigate to your project lists, click on "New project" button
   caption="fig. Google API Console - Projects"
 />
 
-In the new project screen, you will be prompted to enter a project name, you can edit the project ID or accept the default one, select an organization and the location. After that, click on "Create" button to create the project, it should appear in your project list as shown above.
+In the new project screen, you will be prompted to enter a project name, you can edit the project ID or accept the default one, select an organisation and the location. After that, click on "Create" button to create the project, it should appear in your project list as shown above.
 
 ## Set up OAuth
 
@@ -89,7 +89,7 @@ On this page, choose the user type to "Internal" and click the "Create" button. 
 />
 
 :::caution[Please note]
-As the name suggests, the "Internal" type app will only be available to users within your organization. However selecting "External" might work, we do not recommend it to use with Passbolt as it can let any user with a valid google account can sign-in to Passbolt.
+As the name suggests, the "Internal" type app will only be available to users within your organisation. However selecting "External" might work, we do not recommend it to use with Passbolt as it can let any user with a valid google account can sign-in to Passbolt.
 :::
 
 * Fill in required fields like App name, support email, and developer contact information and click the "Save and continue" button. You can also fill in the details of optional fields if you want.

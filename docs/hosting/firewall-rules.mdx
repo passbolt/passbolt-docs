@@ -26,5 +26,5 @@ These rules should be considered in a firewalled environment:
 | Mobile app update servers for iOS and Android applications: <ul><li>update.apple.com (iOS app updates)</li><li>play.google.com (Android app updates)</li><li>apps.apple.com (iOS App Store)</li></ul> | HTTPS | 443 | TCP |
 | Sends email notifications through your configured SMTP server | SMTP | Usually 587 | TCP |
 | Resolves domain names for SMTP servers and updates from download.passbolt.com | DNS | 53 | UDP |
-| Synchronizes server time with an NTP server, essential for GPG and MFA/OTP functionality | NTP | 123 | UDP |
+| Synchronises server time with an NTP server, essential for GPG and MFA/OTP functionality | NTP | 123 | UDP |
 | Retrieves GPG keys securely from key servers: <ul><li>keys.mailvelope.com</li><li>keys.openpgp.org</li><li>pgp.mit.edu</li></ul> | HKPS | 11371 | TCP |

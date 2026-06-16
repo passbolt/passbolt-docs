@@ -1,6 +1,6 @@
 ---
-title: Synchronize Users and Groups from Directory
-description: How to Synchronize Users and Groups from a Directory
+title: Synchronise Users and Groups from Directory
+description: How to Synchronise Users and Groups from a Directory
 sidebar_label: Users Directory
 hide_table_of_contents: false
 ---
@@ -8,7 +8,7 @@ hide_table_of_contents: false
 import Figure from '@site/src/components/Figure/Figure';
 import Chips from "/src/components/Chips/Chips";
 
-# How to Synchronize Users and Groups from a Directory
+# How to Synchronise Users and Groups from a Directory
 
 <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
 
@@ -21,13 +21,13 @@ import Chips from "/src/components/Chips/Chips";
 />
 
 :::caution[Important]
-The LDAP connector will send an invitation email to all the users matching your configuration during a synchronization.
-If you are simply testing it, make sure not to perform an actual synchronization (use simulate sync instead), or
+The LDAP connector will send an invitation email to all the users matching your configuration during a synchronisation.
+If you are simply testing it, make sure not to perform an actual synchronisation (use simulate sync instead), or
 disable the cron job to send emails first.
 :::
 
 
-Passbolt Pro offers a user directory synchronization feature (LDAP connector) that allows administrators to synchronize users and groups from an external directory into Passbolt.
+Passbolt Pro offers a user directory synchronisation feature (LDAP connector) that allows administrators to synchronise users and groups from an external directory into Passbolt.
 
 Currently, two directory types are officially supported:
 
@@ -59,7 +59,7 @@ The integration works by periodically syncing the list of groups and users (alon
    - Ensure the server can connect to the LDAP/AD server (firewall/VPN as needed).
 
 2. **Enable the Directory Sync plugin**  
-   - Go to **Organisation settings → Users Directory**  
+   - Go to **Organisation settings > Users Directory**  
    - Toggle the **Enable** switch.  
    - Complete all required fields and run a successful connection test.
 
@@ -99,11 +99,11 @@ The integration works by periodically syncing the list of groups and users (alon
 
 5. **Save and test**  
    - Click **Save settings**.  
-   - Run **Simulate synchronize** to preview changes.  
+   - Run **Simulate synchronise** to preview changes.  
    - Review for expected users/groups and issues before a real sync.
 
-6. **Run first synchronization**  
-   - Once verified, click **Synchronize**.  
+6. **Run first synchronisation**  
+   - Once verified, click **Synchronise**.  
    - Review the report for actions taken and errors.
 
 7. **Verify results**  
@@ -161,9 +161,9 @@ message.
 
 ### Test configuration and simulate sync
 
-Once the settings have been saved, the buttons "Simulate synchronize" and "Synchronize" at the top have become clickable.
+Once the settings have been saved, the buttons "Simulate synchronise" and "Synchronise" at the top have become clickable.
 
-Before we actually do a real synchronization, we will first simulate one. Click on "Simulate synchronize" and wait
+Before we actually do a real synchronisation, we will first simulate one. Click on "Simulate synchronise" and wait
 a few seconds. Once the simulation is complete, a report such as the one below will be displayed.
 
 <Figure
@@ -172,31 +172,31 @@ a few seconds. Once the simulation is complete, a report such as the one below w
   caption="fig. LDAP directory sync simulation"
 />
 
-In this report, you will be able to see what will actually happen when you will synchronize your directory for real.
+In this report, you will be able to see what will actually happen when you will synchronise your directory for real.
 You will also be able to take corrective measures before an error actually happens.
 
-### First synchronization
+### First synchronisation
 
-To do the first synchronization, repeat the same process as above. Only, click on "Synchronize" this time. A similar
+To do the first synchronisation, repeat the same process as above. Only, click on "Synchronise" this time. A similar
 report to the one that was displayed during a simulate will appear and let you know what happened exactly.
 
-### User synchronization example workflow
+### User synchronisation example workflow
 
-When an user is created in LDAP, they are imported in Passbolt using synchronization.
+When an user is created in LDAP, they are imported in Passbolt using synchronisation.
 
 If you delete this user in Passbolt, he will remain present in LDAP but won't be added back to Passbolt on next
-synchronization.
+synchronisation.
 
-If you want to re-sync this user with LDAP, manually re-create him in Passbolt then run synchronization. Passbolt
-synchronization tool will automatically recreate the link in Passbolt database.
+If you want to re-sync this user with LDAP, manually re-create him in Passbolt then run synchronisation. Passbolt
+synchronisation tool will automatically recreate the link in Passbolt database.
 
-If you delete this user in LDAP, he will be deleted from Passbolt on next synchronization.
+If you delete this user in LDAP, he will be deleted from Passbolt on next synchronisation.
 
 ## Going further
-### How to synchronize my directory automatically?
-If you want to automate the synchronization, you (or the person in charge of hosting) will need to [setup a cron job](/docs/hosting/ldap/ldap-cron/).
+### How to synchronise my directory automatically?
+If you want to automate the synchronisation, you (or the person in charge of hosting) will need to [setup a cron job](/hosting/ldap/ldap-cron/).
 
 ### Configure LDAPS (implicit TLS)
 
-If your configuration doesn't run out of the box with LDAPS, you can refer to the [LDAP with TLS (SSL) configuration](/docs/hosting/ldap/ldaps/)
+If your configuration doesn't run out of the box with LDAPS, you can refer to the [LDAP with TLS (SSL) configuration](/hosting/ldap/ldaps/)
 documentation in order to adjust your config or throubleshoot your issue.

@@ -16,10 +16,10 @@ When encrypted metadata is enabled, the following content types are protected:
 
 | Content Type | Protected Fields | Notes |
 |--------------|------------------|-------|
-| **Password Resources** | • Name<br/>• Username<br/>• URI<br/>• Description<br/>• Custom fields | Most common resource type |
-| **TOTP Resources** | • Name<br/>• Username<br/>• URI<br/>• Description<br/>• Custom fields | For time-based one-time passwords |
-| **Custom Fields** | • Field name<br/>• Field value<br/>• Field type<br/>• Field description | Can be added to any resource |
-| **Resource Metadata** | • Tags<br/>• Categories<br/>• Properties<br/>• Relationships | Additional resource information |
+| **Password Resources** | <ul><li>Name</li><li>Username</li><li>URI</li><li>Description</li><li>Custom fields</li></ul> | Most common resource type |
+| **TOTP Resources** | <ul><li>Name</li><li>Username</li><li>URI</li><li>Description</li><li>Custom fields</li></ul> | For time-based one-time passwords |
+| **Custom Fields** | <ul><li>Field name</li><li>Field value</li><li>Field type</li><li>Field description</li></ul> | Can be added to any resource |
+| **Resource Metadata** | <ul><li>Tags</li><li>Categories</li><li>Properties</li><li>Relationships</li></ul> | Additional resource information |
 
 ## Configuration Options
 
@@ -64,6 +64,6 @@ Legacy metadata formats are deprecated and not recommended for new resources. Us
 
 To enable creation of resources with encrypted metadata:
 1. Enable encrypted metadata in [Encrypted Metadata](./encrypted-metadata.mdx)
-2. Configure key distribution in [Metadata Key](/docs/admin/resource-types/metadata-key)
+2. Configure key distribution in [Metadata Key](/admin/resource-types/metadata-key/)
 3. Enable the desired content types on this page
 

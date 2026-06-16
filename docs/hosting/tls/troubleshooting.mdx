@@ -65,9 +65,9 @@ openssl s_client -connect passbolt.domain.tld:443 </dev/null 2>/dev/null | opens
 
 ## Self-hosted private certificate chain study
 
-Some companies don’t rely on public Certificate Authorities (CA). They generate self-signed certificates and trust them with their own Private Key Infrastructure (PKI).
+Some companies don't rely on public Certificate Authorities (CA). They generate self-signed certificates and trust them with their own Private Key Infrastructure (PKI).
 
-To trust TLS certificates signed by the PKI, you have to ensure root certificate of your company’s PKI has been added in your operating system keychain.
+To trust TLS certificates signed by the PKI, you have to ensure root certificate of your company's PKI has been added in your operating system keychain.
 ### Chain of trust
 
 A certificate chain is a sequence of certificates, where each certificate in the chain is signed by the subsequent certificate.
@@ -77,7 +77,7 @@ An Intermediate Certificate Authority (CA) is an entity that can sign certificat
 The root CA is only ever used to create one or more intermediate CAs, which are trusted by the root CA to sign certificates on their behalf. This is best practice.
 ### Use-case
 
-Let’s assume the following chain of trust:
+Let's assume the following chain of trust:
 <Figure
   src="/img/help/2022/01/chain-of-trust.jpg"
   alt="Chain of Trust"
@@ -86,8 +86,8 @@ Let’s assume the following chain of trust:
 
 
 
-  -  Your passbolt server certificate has been issued by “My Intermediate CA”.
-  -  “My Intermediate CA” has been issued by “My Root CA”
+  -  Your passbolt server certificate has been issued by "My Intermediate CA".
+  -  "My Intermediate CA" has been issued by "My Root CA"
 
 To make your passbolt certificate trusted on your system, you have to add the root CA to your operating system keychain.
 
@@ -141,7 +141,7 @@ Certificate chain
 **Warning**: As it is not mandatory to expose root CA, it can be missing from the above command output. You will have to ask for it to the team who is managing the local PKI.
 :::
 
-Each “depth” is followed by its following certificate. You can now create 3 files:
+Each "depth" is followed by its following certificate. You can now create 3 files:
 
     root certificate rootCA.pem
     intermediate certificate: intermediate.pem
@@ -202,7 +202,7 @@ Typically, the root CA does not sign server or client certificates directly, it 
 
 [https://whatsmychaincert.com/](https://whatsmychaincert.com/) will help you to generate the correct certificate chain.
 
-If you want to know more about “Root vs Intermediate Certificates” you can read this [well-explained external resource](https://www.golinuxcloud.com/openssl-create-certificate-chain-linux/)
+If you want to know more about "Root vs Intermediate Certificates" you can read this [well-explained external resource](https://www.golinuxcloud.com/openssl-create-certificate-chain-linux/)
 ### Qualys SSL Labs
 
 [https://www.ssllabs.com/ssltest/](https://www.ssllabs.com/ssltest/)

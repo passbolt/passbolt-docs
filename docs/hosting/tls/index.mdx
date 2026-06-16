@@ -16,7 +16,7 @@ import Chips from "/src/components/Chips/Chips";
 A **Certificate Authority (CA)** is an entity that issues **TLS (SSL) certificates** to validate the identity of websites, servers, or organisations. Major CAs, such as **DigiCert**, **GlobalSign**, **Let's Encrypt**, and **Entrust**, are trusted by browsers and operating systems to sign **Certificate Signing Requests (CSRs)**. These CAs verify the identity of the requester and sign the `CSR` to issue a certificate, which can then be used to secure communications.
 
 :::note
-SSL was originally developed by Netscape and became TLS in 1999 when the IETF standardised it as an open protocol. Although SSL has been obsolete for over 25 years, the terms SSL and TLS are still used interchangeably. In our documentation, we use TLS (SSL) to make it easier to search, and some environment variables still include “SSL” for compatibility. Tools like OpenSSL also retain the SSL name, even though they implement TLS.
+SSL was originally developed by Netscape and became TLS in 1999 when the IETF standardised it as an open protocol. Although SSL has been obsolete for over 25 years, the terms SSL and TLS are still used interchangeably. In our documentation, we use TLS (SSL) to make it easier to search, and some environment variables still include "SSL" for compatibility. Tools like OpenSSL also retain the SSL name, even though they implement TLS.
 :::
 
 ### Where TLS is used in passbolt
@@ -66,15 +66,15 @@ For **passbolt** users, particularly **enterprise organisations**, this change m
 As TLS certificates continue to evolve, **automation** will become an essential part of keeping systems secure and operational. passbolt's ability to integrate with modern certificate management systems will help organisations adapt to these changes without disruption.
 
 ## Self-Signed Certificates
-A self-signed certificate is created and signed by the same system that uses it, without involving a public CA. While it still provides encryption, it won’t be automatically trusted by browsers, operating systems, or passbolt clients.
+A self-signed certificate is created and signed by the same system that uses it, without involving a public CA. While it still provides encryption, it won't be automatically trusted by browsers, operating systems, or passbolt clients.
 - **Typical use cases:** local development, staging servers, or private/internal deployments.
 - **Trust requirements:** the certificate (or its issuing root) must be manually installed in the trust store of each client system or browser to avoid TLS errors when accessing passbolt.
 - **Security**: Self-signed certificates are generated with the same cryptography as certificates created by a CA. They do however come with challenges when deployed in production deployments. Revocation or reissuing can only be achieved manually by a system administrator.
 
 ## Certificate Bundles
-A certificate bundle contains the full certificate chain needed for a client to verify the server’s identity — usually the server certificate, any intermediate CA certificates, and the root CA certificate.
+A certificate bundle contains the full certificate chain needed for a client to verify the server's identity: usually the server certificate, any intermediate CA certificates, and the root CA certificate.
 - passbolt relies on a complete and correct chain so that browsers and API clients can validate the TLS connection.
-- Public CAs like Let’s Encrypt provide these bundles for download, and your web server must be configured to serve the full chain.
+- Public CAs like Let's Encrypt provide these bundles for download, and your web server must be configured to serve the full chain.
 - If you use an internal CA, you will need to distribute and trust the root certificate across all systems that connect to passbolt.
 
 ## Installing and Using Self-Signed Certificates and Certificate Bundles in passbolt
@@ -104,5 +104,5 @@ This table summarises the different types of Certificate Authorities and their t
 - [Generate a CSR for a CA-signed TLS Certificate](/hosting/tls/generate-csr/): Step-by-step CSR creation with OpenSSL
 - [Email Server Configuration](/admin/emails/email-server/): SMTP TLS configuration and certificate trust
 - [LDAP with TLS (SSL) Configuration](/hosting/ldap/ldaps/): LDAP TLS configuration and certificate bundling
-- [Environment Reference](/hosting/environment-reference): TLS-related environment variables
-- [SSL/TLS Troubleshooting](/hosting/tls/troubleshooting): Common issues and solutions
+- [Environment Reference](/hosting/environment-reference/): TLS-related environment variables
+- [SSL/TLS Troubleshooting](/hosting/tls/troubleshooting/): Common issues and solutions

@@ -39,7 +39,7 @@ Then to be able to launch some commands, you must retrieve `PASSBOLT_GPG_SERVER_
   \${PASSBOLT_KEY_EMAIL:-passbolt@yourdomain.com} | \\
   grep -Ev "^(pub|sub|uid|^$)" | tr -d ' ')"`}
 </CodeBlock>
-Alternatively if you are using Docker Secrets you’ll need to run the following to access the secrets as environment variables:
+Alternatively if you are using Docker Secrets you'll need to run the following to access the secrets as environment variables:
 
 <CodeBlock>
   {`source /etc/environment`}

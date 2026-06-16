@@ -34,7 +34,7 @@ Metadata encryption encrypts:
 **Warnings:**
 - Enabling encrypted metadata has an impact on the auditability of resource metadata that won't be stored in clear anymore
 - Migrating content to encrypted metadata might break your in-house integration with passbolt
-- See [Metadata Key](/docs/admin/resource-types/metadata-key) for key distribution configuration
+- See [Metadata Key](/admin/resource-types/metadata-key/) for key distribution configuration
 
 ## Configuration Options
 
@@ -80,9 +80,9 @@ The columns are grouped into two categories:
 
 - **Secret**: the encrypted password or secret data, always end-to-end encrypted with the user's personal key.
 - **Metadata**: resource names, URLs, and other metadata. Protection depends on the key configuration:
-  - **Personal Key**: encrypted with the user's own OpenPGP key. See [Metadata Key](/docs/admin/resource-types/metadata-key).
-  - **Shared Key (Zero-knowledge)**: encrypted with the shared metadata key, distributed manually by an administrator. See [Zero-Knowledge Mode](/docs/admin/resource-types/metadata-key#zero-knowledge-mode).
-  - **Shared Key (Server-knowledge)**: encrypted with the shared metadata key, distributed automatically by the server. See [User-Friendly Mode](/docs/admin/resource-types/metadata-key#user-friendly-mode-default).
+  - **Personal Key**: encrypted with the user's own OpenPGP key. See [Metadata Key](/admin/resource-types/metadata-key/).
+  - **Shared Key (Zero-knowledge)**: encrypted with the shared metadata key, distributed manually by an administrator. See [Zero-Knowledge Mode](/admin/resource-types/metadata-key/#zero-knowledge-mode).
+  - **Shared Key (Server-knowledge)**: encrypted with the shared metadata key, distributed automatically by the server. See [User-Friendly Mode](/admin/resource-types/metadata-key/#user-friendly-mode-default).
 
 | Risk scenario | Secret: Personal Key | Metadata: Personal Key | Metadata: Shared Key (Zero-knowledge) | Metadata: Shared Key (Server-knowledge) |
 |---|:---:|:---:|:---:|:---:|
@@ -111,7 +111,7 @@ Legacy cleartext metadata is less secure and not recommended for new resources. 
 
 To implement encrypted metadata:
 1. Configure encryption settings on this page
-2. Configure key distribution in [Metadata Key](/docs/admin/resource-types/metadata-key)
+2. Configure key distribution in [Metadata Key](/admin/resource-types/metadata-key/)
 3. Enable content types in [Allow Content Types](./allowed-content-types.mdx)
 4. Migrate existing resources using [Migrate Metadata](./migrate-metadata.mdx) if needed
 

@@ -9,9 +9,9 @@ import Figure from '@site/src/components/Figure/Figure';
 
 ## System-wide roles
 
-Passbolt proposes two system roles "admin" and "user". This system is the first line of the authorization mechanism performing checks directly for each user's actions.
+Passbolt proposes two system roles "admin" and "user". This system is the first line of the authorisation mechanism performing checks directly for each user's actions.
 
-In a nutshell, an administrator manages the instance. In practice it means that they can manage organization-wide settings such as the content of the email notifications or which multiple factor authentication provider is enabled. Another responsibility is to create or delete users, manage groups and group managers, perform synchronization with a user directory, etc.
+In a nutshell, an administrator manages the instance. In practice it means that they can manage organisation-wide settings such as the content of the email notifications or which multiple factor authentication provider is enabled. Another responsibility is to create or delete users, manage groups and group managers, perform synchronisation with a user directory, etc.
 
 ### Settings
 
@@ -20,7 +20,7 @@ In a nutshell, an administrator manages the instance. In practice it means that 
 | Manage email notification settings   | Yes   | No   |
 | Manage MFA settings                  | Yes   | No   |
 | Manage LDAP settings / sync          | Yes   | No   |
-| Choose organization default language | Yes   | No   |
+| Choose organisation default language | Yes   | No   |
 
 ### Users
 
@@ -50,11 +50,11 @@ In a nutshell, an administrator manages the instance. In practice it means that 
 | Resources / Action | Admin                      | User                       |
 |--------------------|----------------------------|----------------------------|
 | Create resources   | Yes                        | Yes                        |
-| Manage resources   | See “Resource level roles” | See “Resource level roles” |
+| Manage resources   | See "Resource level roles" | See "Resource level roles" |
 | Create comments    | Yes                        | Yes                        |
 | Delete comments    | Yes                        | Yes (if own)               |
-| Manage folders     | See “Folder level roles”   | See “Folder level roles”   |
-| Manage tags        | See “Folder level roles”   | See “Folder level roles”   |
+| Manage folders     | See "Folder level roles"   | See "Folder level roles"   |
+| Manage tags        | See "Folder level roles"   | See "Folder level roles"   |
 
 ## Group level roles
 
@@ -121,13 +121,13 @@ Once an item is inside a folder what can be done with the items does not depend 
 | Edit the resource                    | Yes   | Yes    | No                    |
 | Delete the resource                  | Yes   | Yes    | No                    |
 
-(*) See Approach to personal & shared folder organizations
+(*) See Approach to personal & shared folder organisations
 
 ### Approach to folder permissions inheritance
 
-One of the key requirements is to be able to apply a given folder permission to the items inside it. For example when a user “share” a folder or create a new item in that folder, or drop an existing resource in a folder, the folder permissions will be applied to the items where possible.
+One of the key requirements is to be able to apply a given folder permission to the items inside it. For example when a user "share" a folder or create a new item in that folder, or drop an existing resource in a folder, the folder permissions will be applied to the items where possible.
 
-The “where possible” is important here. While folders in passbolt can be used to organize resources and apply permissions, folders do not enforce the permission on its enclosed content at all times, but serve as a guide when an operation such as create or move is performed. As we have seen exceptions can be created, i.e. it is possible for a user to have more rights on an item than they have on a given folder. The opposite is also possible, the same way it is possible to create a hidden or restricted file in a shared folder in a traditional filesystem.
+The "where possible" is important here. While folders in passbolt can be used to organize resources and apply permissions, folders do not enforce the permission on its enclosed content at all times, but serve as a guide when an operation such as create or move is performed. As we have seen exceptions can be created, i.e. it is possible for a user to have more rights on an item than they have on a given folder. The opposite is also possible, the same way it is possible to create a hidden or restricted file in a shared folder in a traditional filesystem.
 
 One should picture a folder permission list as a permission mask, i.e. a predefined set of group/user rights, that could be applied to the folder content whenever a user is interacting with it. Applying permissions on a folder is the equivalent of selecting all the resources the user has the right to share inside the given folder and apply a new set of permission to this selection. Items where the user does not have access to (or cannot edit the permissions) will be ignored.
 
@@ -137,5 +137,5 @@ A user with can update as a permission is able to move a secret from one folder 
 
 ### Additional resources
 
-* [Blog post: Introducing the new “Folders” feature (2020)](https://www.passbolt.com/blog/introducing-the-new-folders-feature)
+* [Blog post: Introducing the new "Folders" feature (2020)](https://www.passbolt.com/blog/introducing-the-new-folders-feature)
 * [Folders functional specifications (2020)](https://docs.google.com/document/d/1pSR97b5emJH5XxMME_lN4CqLUfYFuDw6DGCMJ_XjF-o)

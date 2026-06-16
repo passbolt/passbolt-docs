@@ -19,7 +19,7 @@ At Passbolt, we are constantly striving to enhance performance, introduce new fu
 
 The default settings that come with Passbolt are suitable for the majority of our users. However, if you have a significant number of users or groups who have access to hundreds or thousands of secrets, the defaults may not meet your performance expectations.
 
-To address this, we have created this guide to help you optimize Passbolt's performance.
+To address this, we have created this guide to help you optimise Passbolt's performance.
 
 If you prefer not to make these adjustments, please let us know which areas of Passbolt are slowing down for you, and we will consider incorporating improvements in future releases.
 
@@ -41,7 +41,7 @@ Ensure the passbolt user in the database is allowed to connect via `127.0.0.1` a
 You can find the password hash by running:
 ```bash
 [mysql]> use mysql;
-[mysql]> select user, host, password from user where user = ‘passboltadmin’;
+[mysql]> select user, host, password from user where user = 'passboltadmin';
 ```
 
 Both above samples assume user is named `passboltadmin` and the database is named `passboltdb`, actual values may be different depending on what was chosen during installation.

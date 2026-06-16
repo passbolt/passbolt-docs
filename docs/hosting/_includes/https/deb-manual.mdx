@@ -11,7 +11,7 @@ Passbolt debian and ubuntu packages currently supports the configuration of ngin
   -  Serve passbolt on port 80 (http)
   -  Serve passbolt on port 443 (https)
 
-On this context ‘manually’ means that the user will provide the SSL certificates, this is the main difference with the ‘auto’ method where [Let’s Encrypt](https://letsencrypt.org/) will issue the SSL certificate for you.
+On this context 'manually' means that the user will provide the SSL certificates, this is the main difference with the 'auto' method where [Let's Encrypt](https://letsencrypt.org/) will issue the SSL certificate for you.
 
 This manual method is often useful on private network installations with private CA where the system admin issues a new private SSL certificate and uploads it to the passbolt server. It is also a method often used with self-signed SSL certificates for test installations.
 
@@ -40,7 +40,7 @@ You can use an IP address instead of a domain name for your self-signed certific
 
 ## Install or reconfigure passbolt
 
-If you don’t have passbolt installed please check on the hosting section for more information on how to install passbolt on debian.
+If you don't have passbolt installed please check on the hosting section for more information on how to install passbolt on debian.
 
 If you have already installed passbolt then you want to execute the following command to start the configuration process for TLS (SSL):
 
@@ -48,7 +48,7 @@ If you have already installed passbolt then you want to execute the following co
     {`sudo dpkg-reconfigure passbolt-${props.productName.toLowerCase()}-server`}
 </CodeBlock>
 
-You most likely want to say ‘NO’ to the mariadb/mysql setup question and go for the nginx setup
+You most likely want to say 'NO' to the mariadb/mysql setup question and go for the nginx setup
 
 You should select 'YES' for the nginx setup:
 <>
@@ -71,7 +71,7 @@ You should select 'YES' for the nginx setup:
 </>
 
 
-Choose ‘manual’ for the TLS (SSL) setup method:
+Choose 'manual' for the TLS (SSL) setup method:
 <>
 {props.productName == 'PRO' && (
   <Figure

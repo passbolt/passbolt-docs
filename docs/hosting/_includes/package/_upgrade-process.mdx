@@ -86,8 +86,8 @@ Make sure you clear the application cache, to make sure any changes in the datab
   {`sudo -H -u ${props.distributionWebUser} /bin/bash -c "/usr/share/php/passbolt/bin/cake cache clear_all"`}
 </CodeBlock>
 
-### 9. Ensure you don’t have duplicate cron jobs
-As you are upgrading from CE to Pro you will need to make sure you don’t have duplicate cronjobs.
+### 9. Ensure you don't have duplicate cron jobs
+As you are upgrading from CE to Pro you will need to make sure you don't have duplicate cronjobs.
 
 You can do this by checking `/etc/cron.d/`
 
@@ -100,7 +100,7 @@ You may see:
   </code>
 </pre>
 
-If this is the case you’ll want to run:
+If this is the case you'll want to run:
 
 <CodeBlock>
   {`rm /etc/cron.d/passbolt-ce-server`}

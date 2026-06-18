@@ -1,0 +1,55 @@
+---
+title: Upgrade to PRO
+description: How to upgrade to PRO
+sidebar_label: Upgrade to PRO
+hide_table_of_contents: true
+---
+
+import CodeBlock from '@theme/CodeBlock';
+import Chips from "/src/components/Chips/Chips";
+import Figure from '/src/components/Figure/Figure';
+import ManagePlanWarning from '/docs/hosting/_includes/warning/_manage-plan.mdx'
+import DisconnectWarning from '/docs/hosting/_includes/warning/_disconnect.mdx'
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+<DisconnectWarning />
+<ManagePlanWarning />
+
+## Requirements
+- Passbolt CE >= 5.13
+- You have a valid subscription or trial key
+- You have an active administrator account
+
+## Introduction
+
+If you are running Passbolt CE, you can switch to Passbolt PRO at any time directly from the administration workspace, without reinstalling your instance. The upgrade is done by adding a valid Pro subscription key to your existing setup.
+
+## Where to start ?
+
+Navigate to *Organisation Settings > Subscription*. The page shows your current edition (Community) along with a comparison of the Community and Pro plans.
+
+<Figure
+  src="/img/help/2026/06/plan_CE.png"
+  alt="Community Edition"
+/>
+
+## Ways to get a subscription
+- [Start a free trial](https://www.passbolt.com/pricing/pro)
+  - Try the PRO feature for a limited time before commiting
+- [Buy now](https://www.passbolt.com/pricing/pro)
+  - Purchase a PRO licence straight away.
+
+## Applying your subscription key
+
+Once you have obtained a subscription key (from your trial or your purchase), click on **Upload subscription key**. In the dialog, either paste the key in the text field or click Choose a file to import your key file, then click **Save**.
+
+<Figure
+  src="/img/help/2026/06/plan_importSubscriptionKey.png"
+  alt="Import Subscription Key - from CE"
+/>
+
+Once the key is validated, your edition switches to PRO and the PRO features become available across the administration workspace.
+

@@ -16,6 +16,16 @@ import HttpsWarning from "/docs/admin/_includes/sso/https-warning.mdx";
   <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
 </div>
 
+:::danger
+Do not map users to untrusted attributes
+
+The default Microsoft Entra ID configuration maps users by their verified email address. Changing the account mapping to another claim should only be done if you fully understand the security implications.
+
+Never map users using attributes that are not guaranteed to uniquely and permanently identify the user, or that users can manipulate themselves without verification.
+
+Failure to meet these requirements may result in security issues.
+:::
+
 <HttpsWarning />
 
 Since version 3.9, Passbolt Pro Edition supports SSO with Entra ID.

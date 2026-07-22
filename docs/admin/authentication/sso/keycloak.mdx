@@ -15,6 +15,21 @@ import HttpsWarning from "/docs/admin/_includes/sso/https-warning.mdx";
   <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
 </div>
 
+:::danger
+Do not map users to untrusted attributes
+
+Passbolt relies on the Identity Provider (IdP) to authenticate users and to assert their identity. Users are matched to existing Passbolt accounts by their email address.
+
+Only use an IdP that guarantees users can authenticate only as email addresses they legitimately own and that you administer. If an IdP allows users to self-assign or modify unverified email addresses, an attacker may be able to impersonate another user.
+
+Before enabling SSO, verify that your IdP:
+- verifies ownership of user email addresses;
+- prevents users from impersonating other email identities;
+- provides unique and trustworthy identity assertions.
+
+Failure to meet these requirements may result in security issues.
+:::
+
 <HttpsWarning />
 
 :::warning[Demo Configuration]

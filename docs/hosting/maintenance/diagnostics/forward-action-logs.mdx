@@ -168,10 +168,26 @@ Two fields need interpretation. `action_id` is a derived identifier rather than 
 Available from passbolt 5.0.0, this strategy resolves identifiers into names as the line is written, which is usually what a SIEM correlation rule wants:
 
 ```json
-{"timestamp":"2026-08-05 09:12:33","user":"ada@passbolt.com","action":"password_access","context":"Ada Lovelace","status":1,"resource_id":"b8c4...","resource_name":"Production database","resource_username":"dbadmin","resource_uri":"https://db.example.com"}
+{"timestamp":"2026-08-05 09:12:33","user":"ada@passbolt.com","action":"password_access","context":"Ada Lovelace accessed password","status":1,"resource_id":"b8c4...","resource_name":"Production database","resource_username":"dbadmin","resource_uri":"https://db.example.com"}
 ```
 
-It covers a fixed list of actions, emitted under these labels: `password_access`, `password_add`, `password_update`, `password_delete`, `user_login`, `user_logout` and `share`. Sharing actions carry a readable summary of the recipients and the permission granted.
+It covers a fixed list of actions, emitted under these labels: `password_access`, `password_add`, `password_update`, `password_delete`, `user_login`, `user_logout` and `share`. The `context` field is the user's full name followed by a fixed phrase for the action. Sharing actions carry a readable summary of the recipients and the permission granted.
+
+#### Encrypted metadata and the resource fields
+
+With encrypted metadata enabled, the three resource metadata fields arrive as `null`:
+
+```json
+{"timestamp":"2026-08-05 09:12:33","user":"ada@passbolt.com","action":"password_access","context":"Ada Lovelace accessed password","status":1,"resource_id":"b8c4...","resource_name":null,"resource_username":null,"resource_uri":null}
+```
+
+This follows from the encryption model rather than being a limitation of the log engine. A resource's name, username and URI are encrypted for the users it is shared with, so the server cannot read them to write them into a log line.
+
+The event itself is still recorded. `timestamp`, `user`, `action`, `status`, `context` and `resource_id` are unaffected, so every event remains attributable to a user and to a specific resource. If your monitoring needs readable resource names, correlate `resource_id` outside passbolt.
+
+:::note[Both forms can appear in the same feed]
+Whether metadata is encrypted is a per-resource property, not an instance-wide one, and enabling it does not rewrite resources that already exist. A feed can therefore carry populated and `null` resource fields side by side, and an individual resource's lines change from populated to `null` at the point that resource is upgraded. Allow for both when writing parsing rules.
+:::
 
 :::caution[Trade-offs of the username strategy]
 Three behaviours to weigh before enabling it in production:

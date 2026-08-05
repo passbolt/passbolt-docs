@@ -184,3 +184,7 @@ For ongoing maintenance, consider scheduling the purge command via cron. This en
 ```
 
 Adjust the retention period (`-r`) based on your organisation's audit and compliance requirements. Common retention periods range from 30 to 365 days depending on regulatory needs.
+
+:::tip[Shipping logs elsewhere changes the retention question]
+If you forward action logs to a SIEM, the audit history is retained outside passbolt, so the database only needs to hold what your instance itself requires. That usually allows a shorter retention period here. Confirm your SIEM is ingesting successfully before you shorten it, because purging is irreversible and does not re-emit anything. See [forwarding action logs to a SIEM](/hosting/maintenance/diagnostics/forward-action-logs/).
+:::

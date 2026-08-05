@@ -1,0 +1,250 @@
+---
+title: How to forward action logs to a SIEM
+sidebar_label: SIEM Audit Logging
+description: How to mirror passbolt action logs to a file or to syslog so a SIEM can ingest them
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 3
+---
+
+import Chips from "/src/components/Chips/Chips";
+import CodeBlock from '@site/src/components/CodeBlock/CodeBlock';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+Passbolt records one row in the `action_logs` table for each authenticated API call. Alongside storing those rows in the database, passbolt can mirror every row to a log file or to the local syslog daemon at the moment it is created, so a SIEM or a log shipper can ingest it.
+
+This capability is available in all editions from passbolt 3.12.0 onwards, and it is switched off by default.
+
+## How forwarding works
+
+Forwarding is driven by an event inside the web request that produced the action log. The row is written to the database first, then handed to any log engine you have enabled. Four consequences are worth knowing before you design around it:
+
+- **It mirrors the database.** The forwarded payload is built from the same `action_logs` row that is persisted, so the file or syslog stream matches the table.
+- **It is not a batch export.** There is no cursor, no queue and no backfill command. Each row is emitted exactly once, as it happens. Enabling forwarding does not replay action logs that already exist in the database.
+- **A failed write is lost.** If the log engine cannot write, the line is dropped without a retry.
+- **Blacklisted actions never appear**, because no `action_logs` row is created for them in the first place. The default blacklist covers `AuthIsAuthenticated.isAuthenticated`, `AuthLogin.loginGet`, `HealthcheckStatus.status` and `TransfersView.view`.
+
+Successful calls are emitted at log level `info`, and failed calls at level `error`.
+
+## Choose a destination
+
+Two independent engines are available, and you can enable either or both.
+
+| Engine | Writes to | Use when |
+|---|---|---|
+| `actionLogsOnFile` | A log file on the passbolt server | A log shipper such as Filebeat, Fluent Bit or Vector tails the file |
+| `actionLogsOnSyslog` | The local syslog daemon | Your syslog daemon already forwards to a central collector |
+
+:::note[Syslog is local only]
+The syslog engine writes through the server's own syslog interface. It has no host or port setting, so passbolt cannot send log lines directly to a remote syslog collector. Configure the forwarding to a remote destination in your syslog daemon, for example in rsyslog or syslog-ng.
+:::
+
+## Forward action logs to a file
+
+Enable the file engine, then point your log shipper at the resulting file.
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    Add the following block to `/etc/passbolt/passbolt.php`, inside the top-level return array alongside `'App'` and `'passbolt'`:
+
+    <CodeBlock>
+      {`'Log' => [
+    'actionLogsOnFile' => [
+        'enabled' => true,
+    ],
+],`}
+    </CodeBlock>
+
+    Then reload PHP-FPM so the new configuration is picked up.
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    Add the environment variable to the passbolt service in your `docker-compose.yaml`:
+
+    <CodeBlock>
+      {`environment:
+  LOG_ACTION_LOGS_ON_FILE_ENABLED: "true"`}
+    </CodeBlock>
+
+    Then recreate the container.
+  </TabItem>
+  <TabItem value="helm" label="Helm">
+    Add the environment variable under `passboltEnv.plain` in your values file:
+
+    <CodeBlock>
+      {`passboltEnv:
+  plain:
+    LOG_ACTION_LOGS_ON_FILE_ENABLED: "true"`}
+    </CodeBlock>
+
+    Then upgrade the release.
+  </TabItem>
+</Tabs>
+
+On package and Docker installations the file defaults to `/var/log/passbolt/action-logs.log`. Set `LOG_ACTION_LOGS_ON_FILE_PATH` to change the directory and `LOG_ACTION_LOGS_ON_FILE_FILE` to change the filename. A filename without a `.log` suffix has one appended.
+
+:::info[File rotation is handled by passbolt, not logrotate]
+The file engine rotates its own output once it reaches 10 MB, keeping 10 files. The passbolt package's logrotate configuration does not cover this file, and the rotation thresholds are not exposed as environment variables. To change them, override the engine configuration in `/etc/passbolt/passbolt.php`.
+:::
+
+## Forward action logs to syslog
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    Add the following block to `/etc/passbolt/passbolt.php`, inside the top-level return array:
+
+    <CodeBlock>
+      {`'Log' => [
+    'actionLogsOnSyslog' => [
+        'enabled' => true,
+        'prefix' => 'passbolt-audit',
+        'facility' => LOG_LOCAL0,
+    ],
+],`}
+    </CodeBlock>
+
+    Then reload PHP-FPM.
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    Add the environment variable to the passbolt service in your `docker-compose.yaml`:
+
+    <CodeBlock>
+      {`environment:
+  LOG_ACTION_LOGS_ON_SYSLOG_ENABLED: "true"
+  LOG_ACTION_LOGS_ON_SYSLOG_PREFIX: "passbolt-audit"`}
+    </CodeBlock>
+
+    Then recreate the container, and see the container considerations below.
+  </TabItem>
+  <TabItem value="helm" label="Helm">
+    Add the environment variable under `passboltEnv.plain` in your values file:
+
+    <CodeBlock>
+      {`passboltEnv:
+  plain:
+    LOG_ACTION_LOGS_ON_SYSLOG_ENABLED: "true"
+    LOG_ACTION_LOGS_ON_SYSLOG_PREFIX: "passbolt-audit"`}
+    </CodeBlock>
+
+    Then upgrade the release, and see the container considerations below.
+  </TabItem>
+</Tabs>
+
+`LOG_ACTION_LOGS_ON_SYSLOG_PREFIX` sets the syslog identity that appears on each line, which makes the passbolt stream straightforward to route with a filter. It is empty by default.
+
+:::tip[Set the facility and flag in passbolt.php]
+The syslog facility and flag default to the PHP constants `LOG_USER` and `LOG_ODELAY`. Because they are integer constants rather than strings, set them in `/etc/passbolt/passbolt.php` as shown in the Package tab above, where you can reference the constant by name.
+:::
+
+## Choose what is logged
+
+Each engine takes a strategy, which decides what an emitted line contains. Three strategies ship with passbolt, all in the `Passbolt\Log\Strategy` namespace.
+
+| Strategy | What it forwards |
+|---|---|
+| `ActionLogsDefaultQueryStrategy` | Every action log, as the raw database row. This is the default. |
+| `ActionLogsErrorsOnlyQueryStrategy` | Only calls that failed, meaning any response other than HTTP 200. |
+| `ActionLogsUsernameQueryStrategy` | A resolved, human-readable line for a fixed list of security-relevant actions. |
+
+Select one with `LOG_ACTION_LOGS_ON_FILE_STRATEGY` or `LOG_ACTION_LOGS_ON_SYSLOG_STRATEGY`. The value is the fully qualified class name, for example `Passbolt\Log\Strategy\ActionLogsErrorsOnlyQueryStrategy`. There are no short aliases.
+
+### The default strategy
+
+The default strategy emits the `action_logs` row as JSON:
+
+```json
+{"id":"a7b1...","user_id":"c4d2...","action_id":"e9f3...","context":"GET \/resources.json","status":1,"created":"2026-08-05T09:12:33+00:00"}
+```
+
+Two fields need interpretation. `action_id` is a derived identifier rather than a readable action name, and `context` is the request method and path with the query string removed, truncated to 255 characters. If you need readable action names without post-processing, use the username strategy instead.
+
+### The username strategy
+
+Available from passbolt 5.0.0, this strategy resolves identifiers into names as the line is written, which is usually what a SIEM correlation rule wants:
+
+```json
+{"timestamp":"2026-08-05 09:12:33","user":"ada@passbolt.com","action":"password_access","context":"Ada Lovelace accessed password","status":1,"resource_id":"b8c4...","resource_name":"Production database","resource_username":"dbadmin","resource_uri":"https://db.example.com"}
+```
+
+It covers a fixed list of actions, emitted under these labels: `password_access`, `password_add`, `password_update`, `password_delete`, `user_login`, `user_logout` and `share`. The `context` field is the user's full name followed by a fixed phrase for the action. Sharing actions carry a readable summary of the recipients and the permission granted.
+
+#### Encrypted metadata and the resource fields
+
+With encrypted metadata enabled, the three resource metadata fields arrive as `null`:
+
+```json
+{"timestamp":"2026-08-05 09:12:33","user":"ada@passbolt.com","action":"password_access","context":"Ada Lovelace accessed password","status":1,"resource_id":"b8c4...","resource_name":null,"resource_username":null,"resource_uri":null}
+```
+
+This follows from the encryption model rather than being a limitation of the log engine. A resource's name, username and URI are encrypted for the users it is shared with, so the server cannot read them to write them into a log line.
+
+The event itself is still recorded. `timestamp`, `user`, `action`, `status`, `context` and `resource_id` are unaffected, so every event remains attributable to a user and to a specific resource. If your monitoring needs readable resource names, correlate `resource_id` outside passbolt.
+
+:::note[Both forms can appear in the same feed]
+Whether metadata is encrypted is a per-resource property, not an instance-wide one, and enabling it does not rewrite resources that already exist. A feed can therefore carry populated and `null` resource fields side by side, and an individual resource's lines change from populated to `null` at the point that resource is upgraded. Allow for both when writing parsing rules.
+:::
+
+:::caution[Trade-offs of the username strategy]
+Three behaviours to weigh before enabling it in production:
+
+- Any action outside its fixed list is not emitted at all, so it is not a complete audit trail. Use the default strategy if you need every call.
+- It resolves names with additional database queries for each line it emits, inside the request that triggered it.
+- If resolution raises an error, the line is dropped and the error goes to the standard passbolt error log rather than the audit stream.
+:::
+
+## The log line format
+
+By default both engines wrap the strategy output with a timestamp and level, so the resulting line is not valid JSON:
+
+```text
+2026-08-05 09:12:33 info: {"id":"a7b1...","user_id":"c4d2..."}
+```
+
+For one JSON object per line, which is what most SIEM ingest pipelines expect, set the formatter to `Cake\Log\Formatter\JsonFormatter`:
+
+```text
+LOG_ACTION_LOGS_ON_FILE_FORMATTER=Cake\Log\Formatter\JsonFormatter
+```
+
+:::warning[Check the formatter before building ingest rules]
+This trips people up: the shipped default produces a prefixed line, not bare JSON. Confirm the format of a real line on your instance before you write parsing rules for it.
+:::
+
+## What action logs do not contain
+
+Action logs record which user performed which action and when. They do not record where the request came from.
+
+- **No client IP address.** No column stores it, and none of the shipped strategies add one.
+- **No user agent.**
+- **No session expiry or browser close.** Only an explicit sign-out produces a `user_logout` action.
+
+The canonical source for client IP addresses is your web server's access log, for example `/var/log/nginx/access.log`. A common approach is to ship both feeds to the SIEM and correlate them on timestamp and request path, since the action log's `context` field carries the method and path. See [locating logs on your instance](/hosting/maintenance/diagnostics/collect-info/) for where each log lives.
+
+## Container considerations
+
+Two points apply to Docker and Kubernetes deployments.
+
+:::caution[The log file is not persisted by default]
+The file engine writes inside the container filesystem, and `/var/log/passbolt` is not a volume in the standard compose files or in the Helm chart. The file is therefore lost when the container is recreated. Mount a volume over that directory if a log shipper needs to read the file, or forward from a location you do persist.
+:::
+
+The syslog engine needs a syslog daemon to write to. The official passbolt images do not run one, so the syslog engine has nothing to talk to unless you make the host's syslog socket available to the container.
+
+For containers, writing the stream to standard output is often a better fit, since the container runtime collects it already. Setting `LOG_ACTION_LOGS_ON_FILE_URL` to `console://` directs the file engine's output to the container's error stream, in the same way passbolt already routes its error log.
+
+## Retention
+
+Forwarding does not remove anything from the database. The `action_logs` table keeps growing, and on a busy instance it becomes the largest table. Once your SIEM holds the history you need, purge old rows from passbolt on a schedule that satisfies your organisation's retention policy. See [how to purge the action logs](/hosting/maintenance/performance/purge-action-logs/).
+
+:::important[Purge and forwarding are independent]
+Forwarding emits a row when it is created, and purging deletes rows later. Purging never re-emits anything, and it does not affect what your SIEM has already received. Confirm your SIEM is ingesting successfully before you shorten the retention period in the database.
+:::
+
+## Reference
+
+For all twelve environment variables that configure these two engines, with defaults, see the Audit Logging Configuration section of the [environment variables reference](/hosting/environment-reference/).

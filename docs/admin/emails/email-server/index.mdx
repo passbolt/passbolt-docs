@@ -15,6 +15,10 @@ import Chips from "/src/components/Chips/Chips";
   <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
 </div>
 
+:::danger
+Sending a test email opens a connection from the Passbolt server to the host and port you specify, and reports the result back to this screen. If the Passbolt administrator and the system administrator are not the same person in your organisation, you should disable these endpoints once SMTP is configured, by setting `PASSBOLT_SECURITY_SMTP_SETTINGS_ENDPOINTS_DISABLED` to **true**. The healthcheck will remind you while they remain enabled.
+:::
+
 ## Introduction
 
 Passbolt relies heavily on emails:

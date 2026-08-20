@@ -80,7 +80,12 @@ Checks system configuration and health: GPG, TLS (SSL), database, and applicatio
 - `--application` - Run application checks only
 - `--ssl` - Run TLS (SSL) checks only
 - `--environment` - Run environment checks only
-- `--config-files` - Run config file checks only
+- `--configFiles` - Run config file checks only
+- `--core` - Run core config checks only
+- `--smtpSettings` - Run SMTP settings checks only
+- `--jwt` - Run JWT authentication checks only
+- `--metadata` - Run metadata checks only
+- `--posix` - Set the exit status to 1 when errors or warnings are detected, and print them to STDERR (useful for scripts and CI)
 
 <Tabs groupId="installation">
   <TabItem value="package" label="Package Installation">
@@ -114,7 +119,7 @@ Checks system configuration and health: GPG, TLS (SSL), database, and applicatio
 ```
 
 :::tip
-Read-only. Exit code indicates pass/fail.
+Read-only. Use `--posix` to make the exit code reflect errors and warnings, useful for CI.
 :::
 
 ### Datacheck
@@ -507,7 +512,7 @@ Sends email digests to users with pending notifications. Typically run via cron.
 </Tabs>
 
 :::info
-Note: `sender` command is aliased to `passbolt email_digest send` when EmailDigest plugin is disabled.
+Note: when the EmailDigest plugin is disabled, `passbolt email_digest send` is aliased to the `sender` command.
 :::
 
 ### Purge Email Queue

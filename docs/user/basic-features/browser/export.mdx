@@ -17,7 +17,7 @@ import Chips from "/src/components/Chips/Chips";
 </div>
 
 :::tip[Pro tip]
-Since **passbolt >= 5.10** cleartext exports are no longer supported. You are the administrator? You can re-enable the cleartext CSV export following this [guide](/hosting/environment-reference/)
+Since **passbolt >= 5.10**, cleartext CSV exports are not allowed by default, so the export format list only offers the encrypted KDBX formats. You are the administrator? You can allow them again, see the [export policies](/admin/resource-policies/export-policies/) settings.
 :::
 
 ## How to export passwords in passbolt
@@ -48,5 +48,6 @@ This means that in the export file, the description will be missing in favor of 
 Passbolt export system supports the following file formats:
 
 - Kdbx Keepass, KeepassXC & others (file format used by Keepass 2.x, you'll need to specify a keepass passphrase for the encryption)
+- Cleartext CSV files, in the dialects of several password managers and browsers, only when your administrator allows them in the [export policies](/admin/resource-policies/export-policies/)
 
 If you'd like to request the support of a specific format, you can open a request on [the community forum](https://community.passbolt.com/c/backlog).

@@ -1,19 +1,18 @@
-post:
-  summary: "Simulate sharing a resource."
-  operationId: "updateShareDryRun"
+put:
+  summary: "Share a folder."
+  description: "Requires the Folders plugin. This endpoint also accepts the POST method."
+  operationId: "updateShareFolder"
   security:
     - bearerHttpAuthentication: []
-  x-codeSamples:
-    $ref: "../components/codeSamples/shares.yml#/updateDryRun"
   parameters:
     - $ref: "../components/parameters.yml#/foreignId"
   tags:
     - "Shares"
   requestBody:
-    $ref: "../components/requestBodies/shares.yml#/shareUpdateDryRun"
+    $ref: "../components/requestBodies/shares.yml#/shareUpdate"
   responses:
     200:
-      $ref: "../components/responses/shares.yml#/updateDryRun"
+      $ref: "../components/responses.yml#/nullBody"
     400:
       $ref: "../components/responses/shares.yml#/updateError"
     401:

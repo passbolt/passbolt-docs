@@ -126,6 +126,16 @@ Don't panic! Administrators can bypass SSO by logging in with their passphrase a
   caption="fig. App secret creation"
 />
 
+### Select the directory endpoint
+
+The first field of the passbolt form, "Login URL", is a dropdown listing the supported Microsoft directory endpoints:
+
+* `https://login.microsoftonline.com`, the global endpoint, selected by default
+* `https://login.microsoftonline.us`, for US Government tenants
+* `https://login.partner.microsoftonline.cn`, for Azure China tenants
+
+Keep the default unless your tenant is hosted in one of these sovereign clouds; in that case, select the endpoint matching your tenant.
+
 In your passbolt instance:
 
 * Click save settings

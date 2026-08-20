@@ -1,0 +1,64 @@
+---
+title: SSO account recovery
+sidebar_label: SSO Account Recovery
+description: Let users start the account recovery process on a new browser by authenticating with the SSO provider instead of the email verification link
+hide_table_of_contents: false
+---
+
+import Figure from '@site/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+Since version 3.11.0, passbolt lets a user on a new browser or device start the account recovery process, or resume an unfinished setup, by authenticating with the organisation's SSO provider instead of the email verification link.
+
+:::important[What SSO account recovery is not]
+SSO account recovery replaces the identity verification step only. It does not restore a lost passphrase and does not replace a lost recovery kit: the user still needs their private key and passphrase to complete the recovery. A lost passphrase is handled by [account recovery](/admin/authentication/account-recovery/), not by SSO account recovery.
+:::
+
+## How does it work?
+
+When a user opens the passbolt instance in a browser where the extension is not configured yet (a new computer, a new browser profile, or a reinstalled extension), the welcome screen normally asks for their email address and sends them a verification link. When SSO account recovery is available, the welcome screen offers to authenticate with the SSO provider instead. A successful SSO authentication proves the user's identity and sends them straight into the standard recovery flow, where they import their private key and enter their passphrase as usual.
+
+A user who never completed their initial setup is sent back into the setup flow instead of the recovery flow.
+
+## When does it apply?
+
+SSO account recovery is available when all of the following are true:
+
+- The instance runs the Pro Edition or a Cloud plan.
+- SSO is configured and active.
+- The configured provider supports it: Microsoft Entra ID and Google do, the generic OpenID and AD FS providers do not.
+
+## How to enable or disable it
+
+There is no toggle in the administration interface. The feature is enabled by default as soon as an eligible SSO provider is active, and can be switched off with an environment variable:
+
+```bash
+PASSBOLT_PLUGINS_SSO_RECOVER_ENABLED=false
+```
+
+## Recover an account with SSO
+
+**Step 1.** Open the passbolt instance in the new browser. The welcome screen shows "Welcome back!" with the message "Your browser is not configured to work with this passbolt instance. Please authenticate with the Single Sign-On provider to continue." and a "Sign in with Microsoft" or "Sign in with Google" button.
+
+The "Continue with my email." link falls back to the email verification flow; from the email screen, the "Continue with SSO." link comes back to this screen.
+
+<Figure
+  src="/img/help/2026/08/sso-recover-welcome.png"
+  alt="Welcome screen with the Sign in with SSO option"
+  caption="fig. Welcome screen with the Sign in with SSO option"
+/>
+
+**Step 2.** Click the sign-in button and complete the authentication in the provider's popup.
+
+**Step 3.** After a successful authentication, passbolt opens the standard recovery screen, "Welcome back, please enter your private key to begin the recovery process." From there, the recovery continues as usual: import the private key, then enter the passphrase.
+
+<Figure
+  src="/img/help/2026/08/sso-recover-import-key.png"
+  alt="Standard recovery screen asking for the private key"
+  caption="fig. Standard recovery screen asking for the private key"
+/>

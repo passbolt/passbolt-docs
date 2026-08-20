@@ -1,20 +1,21 @@
-As the `values.yaml` file is set up for CE by default you'll need to adjust the [tag](https://hub.docker.com/r/passbolt/passbolt/tags) for the Passbolt image to pro. You can find this on line 59 of `values.yaml`.
+As the `values.yaml` file is set up for CE by default, you need to point the passbolt image to a Pro tag. The tag lives under the `app.image.tag` key of `values.yaml`; replace the whole default value, including its pinned digest, with the matching [pro tag](https://hub.docker.com/r/passbolt/passbolt/tags):
 
-```bash
+```yaml
+app:
+  image:
     # -- Overrides the image tag whose default is the chart appVersion.
-    tag: 3.11.1-1-pro
+    tag: 5.14.3-1-pro
 ```
 
-It is recommended to just change ce to pro but you can use any of the tags that you want to.
+It is recommended to keep the same version and only change `ce` to `pro`, but you can use any of the Pro tags.
 
-The next thing you will need to do is uncomment the two lines dealing with the subscription key. You can find these on lines 88 and 90.
+The next thing you will need to do is uncomment the two subscription key entries, at the top level of `values.yaml`:
 
-```bash
-
+```yaml
 # -- Pro subscription key in base64 only if you are using pro version
 subscriptionKey:
 # -- Configure passbolt subscription key path
 subscription_keyPath: /etc/passbolt/subscription_key.txt
 ```
 
-For subscription key it expects the key to be base64 encoded. Yes, the one supplied to you by us is already base64 encoded once, but you'll need to do that again and put that in as the value for `subscriptionKey`.
+For `subscriptionKey`, the chart expects the key to be base64 encoded. Yes, the one supplied to you by us is already base64 encoded once, but you'll need to do that again and put that in as the value for `subscriptionKey`.

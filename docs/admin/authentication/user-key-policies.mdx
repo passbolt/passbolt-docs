@@ -1,0 +1,70 @@
+---
+title: User Key Policies
+sidebar_label: User Key Policies
+description: Choose which OpenPGP key type new passbolt accounts generate during setup
+hide_table_of_contents: true
+---
+
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+Since version 5.2.0, passbolt lets administrators define which OpenPGP key type new accounts generate during setup: an ECC Curve25519/Ed25519 key, the default, or an RSA key of 3072 or 4096 bits. The browser extension reads the policy before the user generates their key.
+
+## How does it work?
+
+The policy applies at a single moment: when the account key is generated during the setup. In consequence:
+
+- Existing accounts are untouched. There is no rotation and no retroactive effect: a fleet stays heterogeneous until users go through a full setup again.
+- A standard account recovery imports the existing key, nothing is generated, so the policy has no effect there.
+- Two other key generations follow their own paths and ignore the policy: the account recovery request key, and the organisation recovery key.
+
+There is no administration screen for this policy: it is configured server-side, in the configuration file or with environment variables.
+
+## Choosing between curve and RSA
+
+- **Curve, the default**: notably smaller keys and faster cryptographic operations, which matters in passbolt where sharing a secret re-encrypts it once per recipient. The configured value names the widely interoperable v4 OpenPGP encoding of Curve25519/Ed25519 keys, as named by the OpenPGP.js library: "legacy" refers to that encoding, not to a deprecation.
+- **RSA 3072 or 4096**: choose RSA only when a constraint leaves no other option, in practice a Red Hat system running with FIPS mode enabled, where ECC is not supported.
+
+:::warning[Prefer curve with encrypted metadata]
+With encrypted metadata, the default on new instances, every operation carries additional encryption and signature work on top of the secrets themselves. We recommend keeping the curve default and not switching to RSA. The one fair reason to choose RSA is a Red Hat system running with FIPS mode enabled, where ECC is not supported; even then, you may encounter performance issues as your vault grows.
+:::
+
+## How to configure the policy
+
+The accepted values are:
+
+- `preferred_key_type`: `rsa` or `curve`. Default: `curve`.
+- `preferred_key_size`: `3072` or `4096`, only used when the type is `rsa`, `null` otherwise. The type and size combination is validated together.
+- `preferred_key_curve`: `curve25519_legacy+ed25519_legacy`, the only accepted value, only used when the type is `curve`, `null` otherwise.
+
+To switch new accounts to RSA, in */etc/passbolt/passbolt.php*:
+
+```php
+'passbolt' => [
+    'plugins' => [
+        'userKeyPolicies' => [
+            'preferred_key_type' => 'rsa',
+            'preferred_key_size' => 3072,
+            'preferred_key_curve' => null,
+        ],
+    ],
+],
+```
+
+Or with environment variables, on Docker, Kubernetes or Helm:
+
+```bash
+PASSBOLT_PLUGINS_USER_KEY_POLICIES_PREFERRED_KEY_TYPE=rsa
+PASSBOLT_PLUGINS_USER_KEY_POLICIES_PREFERRED_KEY_SIZE=3072
+```
+
+The plugin is enabled by default and can be switched off entirely with `PASSBOLT_PLUGINS_USER_KEY_POLICIES_ENABLED=false`. The full list of variables is in the [environment variables reference](/hosting/environment-reference/).
+
+:::note[Fallback behaviour]
+When the plugin is disabled, or the server predates version 5.2.0, the browser extension falls back to its own default and generates an RSA 3072 key.
+:::

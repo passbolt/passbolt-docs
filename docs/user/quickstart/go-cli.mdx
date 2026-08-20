@@ -1,0 +1,187 @@
+---
+title: Go CLI
+description: Quickstart with go-passbolt-cli, the command line client for passbolt
+sidebar_label: Go CLI
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+The [go-passbolt-cli](https://github.com/passbolt/go-passbolt-cli) tool lets you interact with your passbolt instance from a terminal: retrieve, create, update, share and delete resources, folders, users and groups, and inject secrets into scripts without ever writing them to disk.
+
+:::note
+The Go CLI is developed in the open at [github.com/passbolt/go-passbolt-cli](https://github.com/passbolt/go-passbolt-cli). To build your own integrations in Go, the underlying [go-passbolt module](https://github.com/passbolt/go-passbolt) might interest you.
+:::
+
+## Install
+
+<Tabs>
+  <TabItem value="brew" label="Homebrew" default>
+
+```bash
+brew install passbolt/tap/go-passbolt-cli
+```
+
+  </TabItem>
+  <TabItem value="package" label="Debian/RPM package">
+
+Download the deb or rpm package for your OS and architecture from the [latest release](https://github.com/passbolt/go-passbolt-cli/releases/latest), then install it with your package manager, for example:
+
+```bash
+sudo dpkg -i go-passbolt-cli_*.deb
+```
+
+  </TabItem>
+  <TabItem value="archive" label="Binary archive">
+
+Download the archive for your OS and architecture from the [latest release](https://github.com/passbolt/go-passbolt-cli/releases/latest). Tab completion and man pages need to be installed manually with this method.
+
+  </TabItem>
+  <TabItem value="go" label="Go">
+
+```bash
+go install github.com/passbolt/go-passbolt-cli@latest
+```
+
+This method names the binary `go-passbolt-cli` instead of `passbolt`, and does not install tab completion or man pages.
+
+  </TabItem>
+</Tabs>
+
+All channels except `go install` provide the command as `passbolt`, which is what this guide uses. Community packages also exist, see [Repology](https://repology.org/project/passbolt-cli/versions) for what your distribution offers.
+
+## Configure the CLI
+
+The CLI needs three pieces of information: your server address, your private key, and your passphrase.
+
+The recommended setup stores only the server address and the path to your private key file, and lets the CLI prompt you for the passphrase:
+
+```bash
+passbolt configure --serverAddress https://passbolt.example.org --userPrivateKeyFile /path/to/privatekey.asc
+```
+
+You can export your private key from the browser extension profile. Keep the key file readable by you only:
+
+```bash
+chmod 600 /path/to/privatekey.asc
+```
+
+The configuration is written to a TOML file (`~/.config/go-passbolt-cli/go-passbolt-cli.toml` on Linux, `~/Library/Application Support/go-passbolt-cli/` on macOS, `%AppData%\go-passbolt-cli\` on Windows). The CLI creates the directory with `0700` and keeps the file at `0600` permissions.
+
+:::warning[Keep the passphrase out of the configuration]
+`passbolt configure` saves whatever you give it: passing `--userPassword` stores your passphrase in clear text in the configuration file, and passing `--userPrivateKey` inlines your armoured private key in it. Flags passed on the command line also end up in your shell history. Store only the server address and the key file path, and type the passphrase when prompted. Note that `passbolt verify` also writes to this file (the server verification tokens, which are not sensitive), so the file exists and matters even when no passphrase is stored in it.
+:::
+
+:::note
+Private keys without a passphrase are not supported, do not remove the passphrase from your key to skip the prompt.
+:::
+
+## Verify the server
+
+Run the server verification once:
+
+```bash
+passbolt verify
+```
+
+The verification material is pinned in the configuration file, and every following command checks that the server key has not changed. Two consequences:
+
+- If your instance legitimately rotates its server key, run `passbolt verify` again.
+- A setup that uses only environment variables, without a configuration file, has no server verification.
+
+## First commands
+
+Commands follow the same structure: `passbolt action entity`. The actions are `create`, `get`, `list`, `update`, `delete`, `move` and `share`, applied to `resource`, `folder`, `user` or `group` (`move` and `share` apply to resources and folders). In passbolt, a password is called a resource.
+
+List your resources, choosing the displayed columns with `--column` (repeat the flag for several columns):
+
+```bash
+passbolt list resource -c ID -c Name -c Username
+```
+
+There is no separate search command: `search` and `filter` are aliases of `list`, which accepts a `--filter` expression.
+
+Retrieve a resource, including its password, by id:
+
+```bash
+passbolt get resource --id <resource-id>
+```
+
+Create a resource, which prints the id of the new resource:
+
+```bash
+passbolt create resource --name "Test Resource" --password "Strong Password"
+```
+
+Share a resource with a user or a group:
+
+```bash
+passbolt share resource --id <resource-id> --type 7 --user <user-id>
+```
+
+Repeat `--user` to share with several users, or use `--group`. The permission types are:
+
+| Code | Meaning                    |
+|------|----------------------------|
+| `1`  | Read-only                  |
+| `7`  | Can update                 |
+| `15` | Owner                      |
+| `-1` | Delete existing permission |
+
+## Use passbolt in scripts
+
+### Inject secrets into a process
+
+The most secure way to hand a secret to a script or a tool is the `exec` command: environment variables whose value starts with `passbolt://`, followed by a resource id, are resolved to the resource's password in the child process environment only, without exposing the secret to your shell, your history, or stdout. The CLI also closes its passbolt session before starting the child command, so the session is not inherited.
+
+```bash
+export GITHUB_TOKEN=passbolt://<resource-id>
+passbolt exec -- gh auth login
+```
+
+There is no field selector: a `passbolt://` reference resolves to the password only. For other fields, such as the username, use `get resource --json`.
+
+### Parse output as JSON
+
+The `create`, `get` and `list` commands accept `--json` (or `-j`) for machine-readable output:
+
+```bash
+passbolt get resource --id <resource-id> --json | jq -r '.password'
+```
+
+The JSON output does not cover error messages: detect failures by checking that the exit code is not 0.
+
+### Automation without a configuration file
+
+On a CI runner, do not run `passbolt configure`: inject the settings through environment variables from your runner's secret store instead. The variable names are the configuration keys in upper case, without any prefix or separator: `SERVERADDRESS`, `USERPRIVATEKEY`, `USERPASSWORD`, and the MFA and TLS keys (`MFAMODE`, `MFATOTPTOKEN`, `TLSSKIPVERIFY`, ...).
+
+:::caution
+There is no `PASSBOLT_` prefix, `PASSBOLT_SERVER_ADDRESS` does not work. And the key file shortcut is a flag only: in the environment, provide the private key itself through `USERPRIVATEKEY`, not a file path.
+:::
+
+Pair this setup with the `exec` command to keep secrets out of the runner's logs, and mind that without a configuration file there is no server verification, as noted above.
+
+## Multi-factor authentication
+
+Only TOTP is supported, through the `mfaMode` setting:
+
+| Mode                  | Behaviour                                                                                                               |
+|-----------------------|-------------------------------------------------------------------------------------------------------------------------|
+| `none`                | Errors if challenged for MFA.                                                                                             |
+| `interactive-totp`    | Prompts you for the TOTP code. Recommended for interactive use.                                                           |
+| `noninteractive-totp` | Generates TOTP codes automatically. Requires `mfaTotpToken` set to your TOTP secret, tune with `mfaDelay`, `mfaRetrys` and `mfaTotpOffset`. |
+
+:::warning
+With `noninteractive-totp`, the `mfaTotpToken` value is your TOTP seed: saved through `passbolt configure`, it is stored in clear text in the configuration file. Reserve this mode for automation where the seed lives in a secret store.
+:::
+
+## Going further
+
+The usage of every subcommand is documented in the [go-passbolt-cli wiki](https://github.com/passbolt/go-passbolt-cli/wiki/passbolt) and in the man pages (`man passbolt`).

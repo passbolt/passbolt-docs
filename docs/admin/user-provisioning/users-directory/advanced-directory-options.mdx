@@ -6,6 +6,7 @@ sidebar_position: 2
 hide_table_of_contents: false
 ---
 import Chips from "/src/components/Chips/Chips";
+import Figure from '@site/src/components/Figure/Figure';
 
 <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
 
@@ -143,6 +144,19 @@ Usually caused by missing or malformed user attributes in LDAP.
 
 **Solution**  
 Ensure all LDAP users have valid email addresses and fix formatting issues before syncing again.
+
+---
+
+**Message**  
+:::danger
+`The synchronization failed. Could not retrieve the group matching name X`
+:::
+
+**Explanation**  
+The users parent group or groups parent group setting names a group that is not present in the results returned by the directory. The value is matched by name against the fetched groups, after the search: it is not a DN or an LDAP query. A group that exists in the directory but sits outside the queried scope (base DN, group path, custom filters) produces the same error. Both settings are resolved before any entry is processed, so a wrong value does not filter anything out: the whole run fails, users and groups included, until the value is corrected. The simulation shows the same message prefixed with "The simulation failed.", and the CLI prints the raw error.
+
+**Solution**  
+Set the parent group to the exact name of a group present in the synchronisation scope, or clear the setting.
 
 ---
 
@@ -355,6 +369,27 @@ Passbolt does not support configuring multiple AD domains via the UI.
 
 ---
 
+### Unwanted or Empty Directory Groups in Passbolt
+
+By default, a synchronisation brings in every group returned by the directory, including empty ones. On Active Directory, this covers distribution groups as well as security groups: passbolt only filters on the `group` object class, without any member or group type condition.
+
+To keep groups out of passbolt, both restrictions being opt-in:
+
+- Disable the group synchronisation operations with the "Create groups", "Update groups" and "Delete groups" toggles, in the administration interface under *Users Directory > Synchronization options > Sync operations*, or with the matching `jobs.groups` keys of the [file-based configuration](#file-based-configuration).
+- Restrict what the directory returns with the groups parent group, the group path, or custom group filters.
+
+<Figure
+  src="/img/help/2026/08/users-directory-sync-operations.png"
+  alt="Sync operations toggles in the Users Directory administration screen"
+  caption="fig. Sync operations toggles in the Users Directory administration screen"
+/>
+
+:::warning
+Do not use a group custom filter that matches nothing to "disable" group synchronisation. Already synchronised groups would then look as if they had disappeared from the directory, and the next run deletes them from passbolt when the delete operation is enabled, which is the default. Use the synchronisation operation toggles instead.
+:::
+
+---
+
 ### Deleted LDAP Users Still in Passbolt
 
 If a user is removed from LDAP, Passbolt will try to delete them on sync, unless:
@@ -531,6 +566,29 @@ The configuration splits into two levels:
 
 - **Connection keys** live under `ldap.domains.<alias>`, one entry per domain, where the alias is a free name. Per domain: `domain_name` (required), `username` (required), `password` (required), `base_dn` (recommended, otherwise queried via the RootDSE), `hosts` (recommended, otherwise resolved via DNS), `port` (389 by default, 636 with `use_ssl`), `use_tls`, `use_ssl`, `use_sasl`, `sasl_options`, `ldap_type`, `lazy_bind`, `server_selection`, `bind_format`, `options` (LDAP_OPT_* constants), `timeout`. Next to `domains`, the only sibling key is `default_domain`.
 - **Synchronisation and filter keys** live directly under `directorySync` and apply to all domains: `defaultUser`, `defaultGroupAdminUser`, `usersParentGroup`, `groupsParentGroup`, `enabledUsersOnly`, `useEmailPrefixSuffix`, `fieldsMapping`, `groupPath`, `userPath`, `userCustomFilters`, `groupCustomFilters`, `jobs`. Filters cannot be set per domain.
+
+### Synchronisation jobs
+
+The `jobs` key toggles each synchronisation operation individually. The six toggles default to `true`, and a partial `jobs` block keeps the defaults for the omitted keys: only an explicit `false` disables an operation. They match the "Sync operations" toggles of the administration interface.
+
+```php
+'jobs' => [
+    'users' => [
+        'create' => true,
+        'update' => true,
+        'delete' => true,
+    ],
+    'groups' => [
+        'create' => true,
+        'update' => true,
+        'delete' => true,
+    ],
+],
+```
+
+- `create => false` stops new entries from being created; already synchronised entries stay in place and keep being tracked.
+- `update => false` stops changes from being applied; for groups, the update operation also covers membership additions.
+- `delete => false` keeps entries in passbolt when they disappear from the directory.
 
 ### Multiple hosts and server selection
 

@@ -226,11 +226,23 @@ The available options are:
      </tr>
      <tr>
          <td>
-         Username and password<br/>
-         <em>(required)</em>
+         Authentication method<br/>
+         <em>(optional)</em>
          </td>
          <td>
-         Username and password to authentify on your directory
+         "Basic" (username and password, the default) or "SASL (EE)". With SASL, the username and password fields are hidden and not required: the bind uses the Kerberos credentials of the system user running passbolt (GSSAPI). Available for both directory types since version 4.0.0.
+         </td>
+         <td>
+         <code>Basic</code>
+         </td>
+     </tr>
+     <tr>
+         <td>
+         Username and password<br/>
+         <em>(required with Basic)</em>
+         </td>
+         <td>
+         Username and password to authentify on your directory. Not used with the SASL authentication method.
          </td>
          <td>
          </td>
@@ -365,6 +377,19 @@ The available options are:
            <br/><br/>Default value: everything is enabled.
            </td>
            <td>
+           </td>
+        </tr>
+        <tr>
+           <td>
+           Delete or suspend users<br/>
+           <em>(optional)</em>
+           </td>
+           <td>
+           Defines what happens to synchronised users removed from the directory: "Delete users" permanently deletes them and the data associated with them, "Suspend users" prevents them from signing in and from receiving email notifications while other users can still share resources with them and add them to groups. Available since version 4.9.0.
+           <br/><br/>Default value: Delete users.
+           </td>
+           <td>
+           <code>Delete users</code>
            </td>
         </tr>
   </tbody>

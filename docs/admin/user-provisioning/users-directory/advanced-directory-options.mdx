@@ -590,9 +590,55 @@ The `jobs` key toggles each synchronisation operation individually. The six togg
 - `update => false` stops changes from being applied; for groups, the update operation also covers membership additions.
 - `delete => false` keeps entries in passbolt when they disappear from the directory.
 
+### Deleting or suspending removed users
+
+Since version 4.9.0, the `deleteUserBehavior` key (named `delete_user_behavior` in the API and database settings) defines what the delete operation does to synchronised users removed from the directory. It sits directly under `directorySync`, next to `jobs`, and accepts two values:
+
+- `delete`, the default: the user goes through the standard passbolt soft delete, removing the data associated with them. The deletion is skipped, with a report message, when the user is the only owner of one or more passwords or the only manager of one or more groups.
+- `disable`: the user is suspended instead. They can no longer sign in or receive email notifications, but other users can still share resources with them and add them to groups. The suspension applies even to users who are the sole owner of passwords. If the user reappears in the directory with the same DN, the next synchronisation unsuspends them.
+
+This setting only chooses what the delete operation does when it runs: with `jobs.users.delete` set to `false`, removed users are neither deleted nor suspended.
+
+The same choice is available in the administration interface, under *Users Directory > Synchronization options*, with the "Delete or suspend users" radio buttons ("Delete users" and "Suspend users").
+
+<Figure
+  src="/img/help/2026/08/users-directory-delete-suspend.png"
+  alt="Delete or suspend users setting in the Users Directory administration screen"
+  caption="fig. Delete or suspend users setting in the Users Directory administration screen"
+/>
+
 ### Multiple hosts and server selection
 
 Each domain accepts a `hosts` array listing several servers. `server_selection` controls how they are used: `order`, the default, tries them in the order written, and `random` shuffles the list before connecting. The older `servers` key is deprecated since version 3.12.0; it still works and is copied into `hosts` when present, but new configurations should use `hosts`. Likewise, `connect_timeout` is deprecated in favour of `timeout`.
+
+### SASL (GSSAPI) authentication
+
+Since version 4.0.0, the directory bind can authenticate with SASL instead of a username and password, for both directory types. In the administration interface, select "SASL (EE)" in the "Authentication method" dropdown of the Users Directory screen: the username and password fields disappear, and the bind uses the Kerberos credentials of the system user running passbolt.
+
+<Figure
+  src="/img/help/2026/08/users-directory-authentication-method.png"
+  alt="Authentication method dropdown in the Users Directory administration screen"
+  caption="fig. Authentication method dropdown in the Users Directory administration screen"
+/>
+
+In the file-based configuration, SASL is a per-domain connection setting. The fine-grained options have no interface equivalent and can only be set in the file:
+
+```php
+'use_sasl' => true,
+'sasl_options' => [
+    'mech' => 'GSSAPI',   // SASL mechanism
+    'realm' => '',        // Kerberos realm
+    'authc_id' => '',     // authentication identity
+    'authz_id' => '',     // authorisation identity
+    'props' => '',
+],
+```
+
+`sasl_options` can be omitted entirely: the mechanism defaults to GSSAPI. Other SASL mechanisms accepted by the system libraries would be passed through, but GSSAPI is the only one passbolt names and documents; treat others as untested. With SASL enabled, `username` and `password` are not needed, the identity comes from the Kerberos ticket.
+
+:::important[Prerequisites]
+The PHP `ldap` extension must be built with SASL support. Passbolt does not obtain Kerberos tickets itself: the system user running PHP needs a valid ticket, typically obtained from a keytab with `kinit`, with the credential cache designated by `KRB5CCNAME`. Mind that the interface runs as the web server user while scheduled synchronisations run as the cron user; both need a ticket.
+:::
 
 ### Field fallbacks
 

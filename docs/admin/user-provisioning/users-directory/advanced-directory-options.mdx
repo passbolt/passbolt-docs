@@ -345,11 +345,11 @@ Passbolt identifies users by their persistent LDAP GUID (`objectGUID` for AD, `e
 
 ### Multi-Domain Forests (AD)
 
-Passbolt does not support syncing multiple AD domains via the UI.
+Passbolt does not support configuring multiple AD domains via the UI.
 
-- Advanced users can configure multiple domain settings manually in `passbolt.php` by specifying multiple server URLs and base DNs.
-- Each domain may need to be synced separately.
-- Best practice: consolidate via AD trust and use the Global Catalog.
+- Declare each domain as an entry of the `ldap.domains` array in `/etc/passbolt/ldap.php`, as described in the [file-based configuration reference](#file-based-configuration).
+- A single synchronisation run queries every configured domain and merges the results into one set: there is no need to run one sync per domain.
+- A Global Catalog only contains data from the domains of its own forest, an Active Directory behaviour documented by Microsoft. To cover several forests, declare one `ldap.domains` entry per forest.
 
 > This is considered advanced and should be coordinated with support or engineering.
 
@@ -478,6 +478,83 @@ If you're experiencing LDAP synchronisation issues, follow this structured check
     [📘 Directory Sync Healthcheck Docs](/admin/passbolt-api-status/#directory-sync)
 
 
+## File-Based Configuration
+
+Directory synchronisation settings can be provided in a file instead of the administration interface. The file is `/etc/passbolt/ldap.php` (the `config/ldap.php` of your installation), not `passbolt.php`.
+
+:::info
+File-based configuration is mostly useful when you need what the administration interface does not offer, such as multiple LDAP servers or domains. For a single directory, prefer the administration interface: file-based configuration is expected to be deprecated in the future.
+:::
+
+:::important
+The file is a fallback: passbolt reads it only when no settings have been saved from the administration interface. Settings stored in the database take precedence entirely, there is no merge between the two sources.
+:::
+
+The file must return a single array, with everything nested under `passbolt > plugins > directorySync`. A misplaced nesting does not raise an error, passbolt silently reads an empty configuration. Example with two domains:
+
+```php
+<?php
+return [
+    'passbolt' => [
+        'plugins' => [
+            'directorySync' => [
+                'enabled' => true,
+                'defaultUser' => 'admin@corp.example',
+                'defaultGroupAdminUser' => 'admin@corp.example',
+                'ldap' => [
+                    'domains' => [
+                        'corp' => [
+                            'domain_name' => 'corp.example',
+                            'username' => 'sync-bind',
+                            'password' => 'secret1',
+                            'base_dn' => 'dc=corp,dc=example',
+                            'hosts' => ['dc1.corp.example'],
+                        ],
+                        'labs' => [
+                            'domain_name' => 'labs.example',
+                            'username' => 'sync-bind',
+                            'password' => 'secret2',
+                            'base_dn' => 'dc=labs,dc=example',
+                            'hosts' => ['dc1.labs.example'],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+```
+
+### Connection keys and synchronisation keys
+
+The configuration splits into two levels:
+
+- **Connection keys** live under `ldap.domains.<alias>`, one entry per domain, where the alias is a free name. Per domain: `domain_name` (required), `username` (required), `password` (required), `base_dn` (recommended, otherwise queried via the RootDSE), `hosts` (recommended, otherwise resolved via DNS), `port` (389 by default, 636 with `use_ssl`), `use_tls`, `use_ssl`, `use_sasl`, `sasl_options`, `ldap_type`, `lazy_bind`, `server_selection`, `bind_format`, `options` (LDAP_OPT_* constants), `timeout`. Next to `domains`, the only sibling key is `default_domain`.
+- **Synchronisation and filter keys** live directly under `directorySync` and apply to all domains: `defaultUser`, `defaultGroupAdminUser`, `usersParentGroup`, `groupsParentGroup`, `enabledUsersOnly`, `useEmailPrefixSuffix`, `fieldsMapping`, `groupPath`, `userPath`, `userCustomFilters`, `groupCustomFilters`, `jobs`. Filters cannot be set per domain.
+
+### Multiple hosts and server selection
+
+Each domain accepts a `hosts` array listing several servers. `server_selection` controls how they are used: `order`, the default, tries them in the order written, and `random` shuffles the list before connecting. The older `servers` key is deprecated since version 3.12.0; it still works and is copied into `hosts` when present, but new configurations should use `hosts`. Likewise, `connect_timeout` is deprecated in favour of `timeout`.
+
+### Field fallbacks
+
+`fieldFallbacks` (stored as `field_fallbacks` in the database settings) defines, per directory type, a replacement LDAP attribute used when the primary attribute from `fieldsMapping` is empty on an entry. It never overrides a primary attribute that has a value. It is keyed by directory type, then by passbolt field. Only the `username` field is currently accepted:
+
+```php
+'fieldFallbacks' => [
+    'ad' => [
+        'username' => 'userPrincipalName',
+    ],
+    'openldap' => [
+        'username' => 'uid',
+    ],
+],
+```
+
+### Directory types
+
+`ldap_type` accepts two values: `ad` (Active Directory, the default) and `openldap`. Passbolt has no dedicated, supported FreeIPA directory type.
+
 ## Logs and Diagnostic Tools
 
 If the basic connectivity and configuration checks don't resolve the issue, move on to server-side diagnostics.
@@ -488,13 +565,11 @@ If the basic connectivity and configuration checks don't resolve the issue, move
 
 Increase logging verbosity to get more insight into sync behaviour:
 
-- In `config/passbolt.php`, temporarily set:
+- In `config/passbolt.php`, temporarily enable the global CakePHP debug mode at the top level of the configuration:
 
 ```php
 'debug' => true
 ```
-
-- Apply it under the `directorySync` plugin section or globally (depending on version support)
 
 To run a dry sync with verbose CLI output:
 

@@ -28,7 +28,7 @@ When integrating with OpenLDAP, keep in mind the following specifics:
   * Each user must have a unique and valid email address in the attribute Passbolt 
     maps as the username (usually `mail`). It must be properly formatted (no 
     leading/trailing spaces).
-  * Each group must contain members via the `uniqueMember` attribute.
+  * Each group must list its members in the attribute passbolt maps as the group users field. The default mapping reads `member`, while `groupOfUniqueNames` groups store members in `uniqueMember`: see the mapping note in the example configuration below.
 * If these are not present or properly formatted, sync will report a "data validation" 
   error.
 
@@ -68,7 +68,7 @@ Then set:
 - **User Path**: `ou=People`
 - **Group Path**: `ou=Groups`
 
-If groups use `member` instead of `uniqueMember`, change the **group object class** accordingly and verify schema mapping in the plugin config.
+Mind the membership attribute: by default, the search targets `groupOfUniqueNames` groups but reads members from the `member` attribute, so the membership of standard `groupOfUniqueNames` groups is not picked up until the mapping is overridden. For directories using `groupOfUniqueNames` (the default object class), override the group users field mapping to `uniqueMember`, with the "Group users field mapping" field of the Users Directory screen or with `fieldsMapping.openldap.group.users` in the [file-based configuration](/admin/user-provisioning/users-directory/advanced-directory-options/#file-based-configuration). Change the **group object class** only if your groups use a different class, such as `groupOfNames`, and set the users mapping to match that class's membership attribute (`member` for `groupOfNames`).
 
 ---
 
@@ -90,13 +90,17 @@ You can restrict the sync scope by setting the Base DN to a specific OU.
   - Filling the `mail` field in AD.
   - Overriding with `userPrincipalName` or `sAMAccountName`.
 
-This requires config-level changes, e.g.:
+This can be changed with the "User username field mapping" field of the Users Directory administration screen, or with the `fieldsMapping` key of the [file-based configuration](/admin/user-provisioning/users-directory/advanced-directory-options/#file-based-configuration). Only the overridden key needs to be declared, the rest of the mapping keeps its defaults:
 
-```yaml
-username_attribute: sAMAccountName
+```php
+'fieldsMapping' => [
+    'ad' => [
+        'user' => [
+            'username' => 'sAMAccountName',
+        ],
+    ],
+],
 ```
-
-> This cannot be changed via the UI currently. Use configuration files instead.
 
 ### Enabled Users Only
 
@@ -118,9 +122,15 @@ If Group A is a member of Group B in AD, Passbolt will **not** include Group A's
 
 - Default mapping: `mail` maps to the Passbolt username
 - Optional override: `userPrincipalName`, `sAMAccountName`
-- Manual override must be done via configuration:
-  ```yaml
-  username_attribute: userPrincipalName
+- Override with the "User username field mapping" field of the interface, or in the file-based configuration:
+  ```php
+  'fieldsMapping' => [
+      'ad' => [
+          'user' => [
+              'username' => 'userPrincipalName',
+          ],
+      ],
+  ],
   ```
 
 Contact engineering if you require a different mapping strategy.
@@ -152,7 +162,7 @@ Some environments enforce:
 
 Very large ADs may hit the default 1000-record page size limit.
 
-- Passbolt uses the LdapTools library, which supports automatic paged queries.
+- Passbolt uses the LdapRecord library, which paginates queries automatically, in pages of 1000 entries by default.
 - If AD paging is disabled, you might see errors like:
 
 ```

@@ -62,10 +62,12 @@ Delete the manual group in Passbolt (after confirming it's safe), then re-run sy
 :::
 
 **Explanation**  
-This occurs when a user that exists in LDAP was manually deleted in Passbolt. Sync respects manual deletions.
+The user exists in LDAP but the matching passbolt account is soft-deleted, whether an administrator deleted it manually or the delete operation of a previous synchronisation removed it. When the LDAP object is older than the last modification of the deleted account, passbolt treats the deletion as deliberate, does not recreate the account, and the error repeats at every run.
 
 **Solution**  
-Manually recreate the user in Passbolt, then run sync again.
+To bring the user back: recreate them in passbolt (send a new invitation with the same email address), then run the synchronisation again. The next run maps the LDAP entry to the new account and reports "The user X was mapped with an existing user in passbolt." The data of the old account is not restored, and the user goes through the setup again. Run a simulation first to check the expected report. This procedure does not trigger the "created after" conflict described above, which only applies when the LDAP object is more recent than the existing passbolt account.
+
+To keep the user out instead, silence the recurring error with `ignore_create` (see the section on ignoring problematic LDAP entries): the record is skipped at the next runs and the account stays deleted. `ignore_create` silences the error, it is not a recovery step.
 
 ---
 
@@ -261,19 +263,9 @@ memory_limit = 1024M
 
 ### Pagination Issues
 
-The LdapTools library used by Passbolt relies on paged LDAP queries.
+Passbolt automatically paginates directory searches through the standard LDAP paged-results control (RFC 2696), in pages of 1000 entries, the default of the LdapRecord library used by passbolt. There is nothing to configure: no option disables pagination or changes the page size.
 
-If your LDAP server (e.g., Sun Directory Server or eDirectory) doesn't support RFC 2696 pagination, sync may fail or return incomplete results.
-
-**Workaround**:
-- Advanced users can override LdapTools' `ldaptools.yml` to set:
-
-```yaml
-use_paging: false
-```
-
-- This requires mounting a custom config in Docker or modifying the vendor folder (not upgrade-safe).
-- Contact Passbolt support for guidance on safe overrides.
+The control is sent as non-critical, so a server without paged-results support (e.g., Sun Directory Server or eDirectory) ignores it and answers within its own limits instead of rejecting the query. If results are truncated, the remedy is on the server side (for example the Active Directory MaxPageSize policy, or the OpenLDAP size limits and paged-results overlay, see your directory vendor's documentation), or reduce the synchronised scope with the base DN, the user and group paths, custom filters, or parent groups.
 
 > Active Directory and OpenLDAP support paging by default. This issue is rare.
 
@@ -420,20 +412,32 @@ Resolve the underlying error (e.g., increase memory) and retry.
 
 If certain entries cause repeated sync failures (e.g., malformed data, no email), they can be ignored.
 
-To ignore a record:
+To ignore a record at the next synchronisations:
 
 ```bash
-./bin/cake directory_sync ignore <type> <identifier>
+./bin/cake directory_sync ignore_create --model <Users|Groups|DirectoryEntries> --id <uuid>
 ```
 
-- `type` is `user` or `group`
-- `identifier` can be the GUID or DN
+- `--model` accepts exactly `Users`, `Groups` or `DirectoryEntries`, capitalised.
+- `--id` is always a UUID, never a DN: the passbolt id of the user or group for `Users` and `Groups`, or the directory entry id for `DirectoryEntries`, which is the GUID of the directory object (`objectGuid` on AD, `entryUUID` on OpenLDAP).
+
+Ignored records are skipped by the create and delete passes, with a report message such as "The user X was not synced because the passbolt user is marked as to be ignored."
+
+To stop ignoring a record:
+
+```bash
+./bin/cake directory_sync ignore_delete --model <Users|Groups|DirectoryEntries> --id <uuid>
+```
 
 To view ignored entries:
 
 ```bash
 ./bin/cake directory_sync ignore_list
 ```
+
+:::note
+The footer printed by `ignore_list` suggests `ignore_create [ID]` to stop ignoring records. That embedded help text is wrong on both counts: the command to stop ignoring is `ignore_delete`, and it takes the `--model` and `--id` options shown above.
+:::
 
 > Useful for excluding system accounts, test users, or known bad records. Document any entries you ignore.
 
@@ -447,12 +451,7 @@ Older LDAP servers may not support paged results (RFC 2696), causing sync to fai
 
 **Workaround**:
 
-- Override paging by providing a custom `ldaptools.yml` with `use_paging: false`
-- May require help from support or editing files like:
-
-```bash
-vendor/ldaptools/ldaptools/resources/config/example.yml
-```
+Passbolt sends the paged-results control as non-critical, so most servers without support answer within their own size limits rather than failing. There is no passbolt option to disable pagination. If a legacy directory misbehaves, reduce the synchronised scope with paths, filters or parent groups, raise the server-side limits, or contact support.
 
 > This is rare and primarily affects legacy directories.
 

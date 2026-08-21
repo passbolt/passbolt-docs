@@ -21,11 +21,20 @@ const ACCEPTED = {
   'GHSA-w3rx-r6r6-pgpr': {
     package: 'image-size',
     reason:
-      'No patched version exists. GitHub reports first_patched_version: NONE, ' +
-      'the newest release is 2.0.2 (2025-04-02) and the advisory covers <=2.0.2, ' +
-      'so every published version including the 1.2.1 legacy line is affected. ' +
-      'Reached only via @docusaurus/mdx-loader, which still pins ^2.0.2 as of 3.10.2. ' +
-      'Runs at build time over images already in the repo; impact is a hung build.',
+      'No patched version is available anywhere. The upstream repository was archived on ' +
+      '2026-06-03, a week before these advisories were published, and the Codeberg mirror ' +
+      'is archived too with no parser work since the 2.0.2 bump. The maintainer archived it ' +
+      'deliberately rather than through neglect, stating they will not "deal with the same ' +
+      'LLM generated \'security advisory\' about an infinite loop over and over again", and ' +
+      'that they intend to revive the project for "actual issues". Both advisories here are ' +
+      'that class of report, so treat their severity as contested upstream rather than settled; ' +
+      'this acceptance does not depend on resolving that either way. ' +
+      'GitHub reports first_patched_version: NONE, the newest release is 2.0.2 (2025-04-02), ' +
+      'and the advisory covers <=2.0.2, so every published version including the 1.2.1 ' +
+      'legacy line is affected. Reached only via @docusaurus/mdx-loader, which still pins ' +
+      '^2.0.2 as of 3.10.2. Exposure here is three markdown images (one SVG, two PNG), ' +
+      'parsed at build time from files already in this repo; the advisories are in the ' +
+      'ICNS and JXL/HEIF parsers, which those formats do not reach. Worst case is a hung build.',
     removeWhen:
       'image-size publishes >2.0.2, or docusaurus replaces it: ' +
       'https://github.com/facebook/docusaurus/pull/12235 (draft, breaking) / ' +

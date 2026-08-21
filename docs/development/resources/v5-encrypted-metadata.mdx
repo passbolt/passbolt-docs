@@ -73,6 +73,53 @@ The v4 resource had a single `uri` string. The v5 metadata has a `uris` array. T
 
 Note that `resource_type_id` appears twice, once in clear in the body and once inside the encrypted metadata. Keep them consistent.
 
+## What is inside the secret
+
+Each entry of `secrets` carries a `data` field holding a second armoured message, and its cleartext is not the same shape for every resource type. For all types but one it is a JSON object:
+
+```json
+{
+  "object_type": "PASSBOLT_SECRET_DATA",
+  "password": "iP^;YD)=o^Ch+E,&4y",
+  "description": "The note that travels with the password"
+}
+```
+
+Which fields belong in it depends on the type of the resource:
+
+| Resource type | Required | Optional |
+| --- | --- | --- |
+| `v5-default` | `object_type`, `password` | `description`, `custom_fields` |
+| `v5-default-with-totp` | `object_type`, `password`, `totp` | `description`, `custom_fields` |
+| `v5-totp-standalone` | `object_type`, `totp` | |
+| `v5-note` | `object_type`, `description` | |
+| `v5-custom-fields` | `object_type`, `custom_fields` | |
+| `v5-pin-code` | `object_type`, `pin_code` | `description` |
+| `v5-password-string` | the password, as a bare string | |
+
+:::caution[v5-password-string does not encrypt JSON]
+That last type is the exception to everything above. Its message holds the password itself, up to 4096 characters, with no surrounding object and therefore no `object_type`. A client that parses every secret as JSON breaks on it.
+:::
+
+The composite fields have their own shape:
+
+- `totp` is an object requiring `secret_key`, up to 1024 characters, `digits`, between 6 and 8, and `algorithm`. Its `period` is optional.
+- `pin_code` is a string of 4 to 12 digits, and digits only.
+- `custom_fields` is an array of at most 128 entries, each requiring an `id` and a `type`, with a `secret_value` that can be a string of up to 20000 characters, a number or a boolean. Only the values live here: the names of the fields are in `metadata.custom_fields`, and the two are paired by `id`.
+- `password` accepts up to 4096 characters, and is nullable on the two types that also carry other fields.
+
+:::caution[Two fields called description]
+`metadata.description` and the `description` of the secret are different fields with different limits. The one in the metadata is the searchable description, capped at 10000 characters. The one in the secret is the secure note, capped at 50000, and it can only be read by decrypting. Writing to the wrong one either exposes text you meant to protect, or hides text you meant to be searchable.
+:::
+
+## object_type is required, and never checked
+
+Both encrypted payloads must carry `object_type`: `PASSBOLT_RESOURCE_METADATA` for the metadata, `PASSBOLT_SECRET_DATA` for the secret.
+
+The server cannot enforce it. It only ever sees an armoured string and has no key to open it, so a resource created without `object_type` is accepted and answered with a 200. The consequence appears later, and elsewhere: the passbolt clients validate the decrypted payload, reject it, and drop the resource from the list they display. You end up with a resource that the API returns and that nobody can see, which is the same symptom as a resource whose metadata cannot be decrypted.
+
+Omitting `object_type` therefore produces a ghost resource rather than an error message. Set it on every write.
+
 ## Creating a v5 resource
 
 Build the metadata object above, encrypt it, and send it as the `metadata` field. A `POST /resources.json` body looks like this:

@@ -1,0 +1,22 @@
+get:
+  summary: "Get the activity of a user."
+  description: >
+    Returns the interpreted activities recorded for a user account.
+  operationId: "indexActionLogUser"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/actionLogs.yml#/userActivity"
+  tags:
+    - "Action logs"
+  parameters:
+    - $ref: "../components/parameters.yml#/userId"
+    - $ref: "../components/parameters.yml#/limit"
+    - $ref: "../components/parameters.yml#/page"
+  responses:
+    200:
+      $ref: "../components/responses/actionLogs.yml#/index"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"

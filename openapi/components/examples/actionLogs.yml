@@ -1,0 +1,92 @@
+resourceActivity:
+  response:
+    base:
+      value:
+        header:
+          id: "3b1344e1-89f3-470e-822b-e40db5d00183"
+          status: "success"
+          servertime: 1787308725
+          action: "eb53befb-c89c-5bea-99a8-0376f8dedc59"
+          message: "The operation was successful."
+          url: "/actionlog/resource/36484a18-1eb6-4863-9f50-05d9fc69ea69.json?limit=20"
+          code: 200
+          pagination:
+            limit: 20
+            page: 1
+            count: 1
+        body:
+          - action_log_id: "9559706f-00e9-41a1-942f-ea970d2f300a"
+            type: "Resources.created"
+            data:
+              resource:
+                id: "36484a18-1eb6-4863-9f50-05d9fc69ea69"
+                name: null
+            creator:
+              id: "4bd348c4-6724-4c83-b497-a7e587fa0058"
+              username: "ada@passbolt.com"
+              profile:
+                first_name: "Ada"
+                last_name: "Lovelace"
+                id: "262a4054-cb4e-4db7-9f8f-55598ca9902b"
+                avatar:
+                  url:
+                    medium: "https://passbolt.local/img/avatar/user_medium.png"
+                    small: "https://passbolt.local/img/avatar/user.png"
+            created: "2026-08-21T10:15:54+00:00"
+            id: "9304d035-a15e-5b59-9f99-2d299059724a"
+
+logs:
+  response:
+    base:
+      value:
+        header:
+          id: "09ed197d-69a4-4b82-840a-3b23bf6c63a9"
+          status: "success"
+          servertime: 1787308667
+          action: "1cf0de9b-2d43-5ff0-bebc-3ebbefb428f7"
+          message: "The operation was successful."
+          url: "/actionlog/logs.json?limit=50"
+          code: 200
+          pagination:
+            limit: 50
+            page: 1
+            count: 3571
+        body:
+          - id: "1e104142-dfa4-4017-9078-39f8f25ff9c7"
+            user_id: "4bd348c4-6724-4c83-b497-a7e587fa0058"
+            action_id: "881ab948-e40f-5a72-91aa-54b442270029"
+            context: "GET /users/me.json"
+            status: 1
+            created: "2026-08-21T10:37:47+00:00"
+          - id: "8068dead-21c7-4bf0-869f-7909b6f55ade"
+            user_id: null
+            action_id: "17b8a54b-8069-586a-8ca2-7e7569b28e08"
+            context: "GET /actionlog/logs.json&limit=50"
+            status: 0
+            created: "2026-08-21T10:37:39+00:00"
+          - id: "527141f8-100a-4a1e-9823-47bbad21ee94"
+            user_id: "4bd348c4-6724-4c83-b497-a7e587fa0058"
+            action_id: "1cf0de9b-2d43-5ff0-bebc-3ebbefb428f7"
+            context: "GET /actionlog/logs.json"
+            status: 1
+            created: "2026-08-21T10:36:44+00:00"
+          - id: "bd0dc999-23d6-4ce1-9bf5-3cc1a3915237"
+            user_id: "4bd348c4-6724-4c83-b497-a7e587fa0058"
+            action_id: "7f6e3578-fcc7-590e-afc0-7937308cac94"
+            context: "GET /actionlog/folder/92dfbccb-31bf-45e8-9850-184efd42f7f7.json"
+            status: 1
+            created: "2026-08-21T10:36:33+00:00"
+
+resourceIdentifierNotValid:
+  response:
+    base:
+      value:
+        header:
+          id: "930efc63-28c3-4eb9-8d6c-239b3b4f2a06"
+          status: "error"
+          servertime: 1787310133
+          action: "eb53befb-c89c-5bea-99a8-0376f8dedc59"
+          message: "The resource identifier should be a valid UUID."
+          url: "/actionlog/resource/not-uuid.json"
+          code: 400
+        body: ""

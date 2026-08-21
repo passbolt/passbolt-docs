@@ -1,0 +1,54 @@
+index:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            type: "array"
+            items:
+              $ref: "../schemas/actionLogs.yml#/activity"
+      examples:
+        $ref: "../examples/actionLogs.yml#/resourceActivity/response"
+
+logsIndex:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            type: "array"
+            items:
+              $ref: "../schemas/actionLogs.yml#/logEntry"
+      examples:
+        $ref: "../examples/actionLogs.yml#/logs/response"
+
+resourceIdentifierNotValid:
+  description: "The resource identifier is not a valid UUID."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            type: "string"
+      examples:
+        $ref: "../examples/actionLogs.yml#/resourceIdentifierNotValid/response"

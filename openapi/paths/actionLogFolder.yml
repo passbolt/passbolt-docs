@@ -1,0 +1,24 @@
+get:
+  summary: "Get the activity of a folder."
+  description: >
+    Returns the interpreted activities recorded for a folder. The caller must
+    have access to the folder: a folder that does not exist and a folder the
+    caller cannot see are answered the same way.
+  operationId: "indexActionLogFolder"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/actionLogs.yml#/folderActivity"
+  tags:
+    - "Action logs"
+  parameters:
+    - $ref: "../components/parameters.yml#/folderId"
+    - $ref: "../components/parameters.yml#/limit"
+    - $ref: "../components/parameters.yml#/page"
+  responses:
+    200:
+      $ref: "../components/responses/actionLogs.yml#/index"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    404:
+      $ref: "../components/responses.yml#/notFound"

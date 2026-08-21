@@ -597,6 +597,92 @@ Runs pending database migrations. Automatically clears cache after migration (un
 ./bin/cake passbolt migrate --no-clear-cache
 ```
 
+### One-Time Post-Upgrade Commands
+
+These commands are run once, after a specific upgrade or operation, not on a schedule.
+
+#### Backfill Secret History Data
+
+Two commands fill in data that new writes now record natively, for the secrets that already existed before the upgrade. Run them once, in this order, after upgrading an instance that already contains secrets to version 5.8.0 or later. They are not a prerequisite for enabling [secret history](/admin/resource-policies/secret-history/), but without them the resources created before the upgrade have no starting revision.
+
+<Tabs groupId="installation">
+  <TabItem value="deb" label="Debian-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt populate_secret_revisions_for_existing_secrets" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="rpm" label="RPM-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt populate_secret_revisions_for_existing_secrets" nginx`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml exec passbolt \\
+  su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt populate_secret_revisions_for_existing_secrets" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+<Tabs groupId="installation">
+  <TabItem value="deb" label="Debian-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt populate_created_by_and_modified_by_in_secrets" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="rpm" label="RPM-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt populate_created_by_and_modified_by_in_secrets" nginx`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml exec passbolt \\
+  su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt populate_created_by_and_modified_by_in_secrets" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+Neither command takes any option, and both are safe to run again: they only touch the rows that are still empty, so a second run finds nothing to do and cannot create duplicates. On an instance created in 5.8.0 or later they have nothing to do at all.
+
+:::note[No progress output]
+Each command prints one line when it starts and one when it finishes, with nothing in between and no count, so a large vault looks like a stalled terminal. A PHP execution timeout can also cut a very large backfill short: run it again, which is harmless. To check where you stand, count the rows that remain empty, for example `SELECT COUNT(*) FROM secrets WHERE secret_revision_id IS NULL;`.
+:::
+
+The first command reconstructs who last modified each secret from the action log. On an instance whose action logs have been purged, that attribution falls back to the creator of the resource, without failing.
+
+#### Re-Run the PostgreSQL Migrations
+
+Marks three schema migrations as not applied, the two that convert ASCII field encodings and the one that converts identifier fields to UUID, then runs the pending migrations again. Their implementation differs between MySQL or MariaDB and PostgreSQL, so this command exists to apply the PostgreSQL variants on an instance where they were recorded as done without having run.
+
+Run it after importing a database into PostgreSQL, typically a conversion from MySQL where `phinxlog` came along with the data, or when passbolt support points you to it. It refuses to run on any driver other than PostgreSQL, reporting "This command is available with a Postgres connection only."
+
+**Options:**
+- `-d, --datasource` - Datasource name, `default` or `test` (default: `default`)
+
+<Tabs groupId="installation">
+  <TabItem value="deb" label="Debian-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt migrate_postgres" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="rpm" label="RPM-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt migrate_postgres" nginx`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml exec passbolt \\
+  su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt migrate_postgres" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+:::warning
+This command replays schema migrations on a database that holds data. It writes only to the migrations table itself, not to your application data, but the migrations it triggers do alter the schema. Take a database backup first and run it in a maintenance window, as you would for any migration.
+:::
+
 :::info
 Cannot rollback - use `migrations rollback` for that. Backup option uses `sql_export`.
 :::
@@ -978,6 +1064,8 @@ Requires password expiry policies to be configured. Typically run via cron.
 - `email_digest send`
 - `notify_about_expired_resources`
 - `recover_user` (with `--create`, which issues a new recovery token)
+- `populate_secret_revisions_for_existing_secrets` and `populate_created_by_and_modified_by_in_secrets` - write data, but safe to run again
+- `migrate_postgres` - replays schema migrations
 - `mfa_user_settings_disable`
 - `user_promote_to_administrator` - grants the administrator role, with no confirmation and no reverse option
 - `directory_sync purge_directory_reports` - irreversible delete, with no `--dry-run` and no batching

@@ -50,4 +50,27 @@ Always backup your database before migration. Metadata migration cannot be easil
 Migrating content to encrypted metadata might affect integrations that rely on accessing resource metadata in cleartext format.
 :::
 
+## Migrating from the command line
+
+The same migrations can be run from the server, which helps when the interface is not practical, for a scripted migration or for a volume you would rather drive from a shell:
+
+```bash
+passbolt metadata migrate_resources
+passbolt metadata migrate_folders
+passbolt metadata migrate_tags
+passbolt metadata migrate_all_items
+```
+
+Mind the command name: the `metadata` group sits inside the `passbolt` namespace, so the prefix is required. See [Running Commands](/hosting/useful-commands/#running-commands) for the full invocation on your installation type.
+
+Each command needs the matching setting to be enabled first, the same requirement the interface reports on this screen. When it is missing, the command stops and points at the setting, for example for tags:
+
+```
+To enable, set "allow_creation_of_v5_tags" metadata settings to true via `update_metadata_types_settings` command.
+```
+
+:::caution
+`migrate_tags` exits with an error when there is no tag to migrate, which is worth knowing if you chain these commands in a script. And unlike the post-upgrade backfill commands, it is not documented as safe to run twice, so prefer the migration status shown on this screen over re-running it blindly.
+:::
+
  

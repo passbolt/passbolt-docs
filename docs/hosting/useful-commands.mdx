@@ -797,6 +797,133 @@ The command prints "No reports to purge." when nothing matches, otherwise the nu
 Like the other directory_sync commands, this one cannot run as root and requires the LDAP integration to be configured and enabled. Mind the consequence: if you have disabled directory synchronisation but still carry a large reports table, you need to enable the integration again to run the purge.
 :::
 
+## User Management
+
+These commands act on user accounts from the server. They all refuse to run as root, so run them as the web server user. The Docker examples use `docker-compose-ce.yaml`, replace it with `docker-compose-pro.yaml` on the Pro Edition.
+
+:::note[Mind the option names]
+`recover_user` takes `--username`, while `mfa_user_settings_disable` and `user_promote_to_administrator` take `--user-username`. All three accept the short form `-u`, which is what the examples use.
+:::
+
+### List Users
+
+Prints every registered user as a table, with the columns Role, Username, Last name, First name, Created At, Active, Disabled, Deleted and MFA enabled. It takes no options.
+
+<Tabs groupId="installation">
+  <TabItem value="deb" label="Debian-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt users_index" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="rpm" label="RPM-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt users_index" nginx`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml exec passbolt \\
+  su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt users_index" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+Two differences with the users workspace are worth knowing: the listing includes deleted users, which is why there is a Deleted column, and the MFA enabled column is only meaningful when the MFA plugin is enabled, otherwise every row reads `no`. The output is an ASCII table with no JSON or CSV option, so treat it as a diagnostic tool rather than something to parse. When the instance has no user, it prints "This organization has no registered users."
+
+### Recover a User Account
+
+Prints a recovery URL for a user who can no longer sign in, which is the way out when nobody can send an invitation from the interface any more, typically a locked-out administrator.
+
+**Options:**
+- `-u, --username` - The email address of the user (required)
+- `-c, --create` - Create a new recovery token
+
+<Tabs groupId="installation">
+  <TabItem value="deb" label="Debian-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt recover_user -u ada@passbolt.com -c" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="rpm" label="RPM-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt recover_user -u ada@passbolt.com -c" nginx`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml exec passbolt \\
+  su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt recover_user -u ada@passbolt.com -c" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+Drop the `-c` to print the URL of an existing, still valid token instead: without it, the command looks for an active recovery token and stops if there is none, suggesting the option. The user must exist, be active, meaning they completed their setup, and not be suspended, otherwise the command reports "The user does not exist or is not active or is disabled." A user who was invited but never completed their setup needs a new invitation instead.
+
+:::warning
+The URL contains an account recovery token, so treat it as a secret: send it over a channel you trust, and mind that it expires. And keep its scope in mind, it hands the user a way back into the recovery flow, not access to their data: they still need their private key and their passphrase to complete it. A lost passphrase is a different problem, covered by [account recovery](/admin/authentication/account-recovery/).
+:::
+
+### Disable MFA for a User
+
+Disables multi-factor authentication for one user, from the server. This is the CLI counterpart of the "Disable MFA" entry of the users workspace, for when the interface is not an option.
+
+**Options:**
+- `-u, --user-username` - The email address of the user (required)
+
+<Tabs groupId="installation">
+  <TabItem value="deb" label="Debian-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt mfa_user_settings_disable -u ada@passbolt.com" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="rpm" label="RPM-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt mfa_user_settings_disable -u ada@passbolt.com" nginx`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml exec passbolt \\
+  su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt mfa_user_settings_disable -u ada@passbolt.com" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+On success it prints `The MFA for user "<email>" has been disabled.` The command also invalidates the verified MFA tokens of that user, so a device that was remembered for a month stops being trusted, and it triggers the notification email. See [disable MFA for a specific user](/admin/authentication/mfa/disable-mfa/) for the interface route.
+
+:::note
+If the user has no active provider, the command reports that MFA is already disabled. That message also appears when MFA is disabled for the whole organisation, so it does not prove that the user had no settings.
+:::
+
+### Promote a User to Administrator
+
+Grants the administrator role to a user. The command performs the change on behalf of an existing administrator, whose email address you pass as the second option.
+
+**Options:**
+- `-u, --user-username` - The user to promote (required)
+- `-a, --admin-username` - The administrator to act on behalf of (required)
+
+<Tabs groupId="installation">
+  <TabItem value="deb" label="Debian-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt user_promote_to_administrator -u ada@passbolt.com -a betty@passbolt.com" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="rpm" label="RPM-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt user_promote_to_administrator -u ada@passbolt.com -a betty@passbolt.com" nginx`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml exec passbolt \\
+  su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt user_promote_to_administrator -u ada@passbolt.com -a betty@passbolt.com" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+There is no confirmation prompt, and there is no reverse option: the command only promotes. To remove the administrator role, use the users workspace or the API.
+
 ## Resource Management
 
 ### Notify About Expired Resources
@@ -835,6 +962,7 @@ Requires password expiry policies to be configured. Typically run via cron.
 - `version`
 - `subscription_check` / `license_check`
 - `migrations status`
+- `users_index`
 - `directory_sync test`
 - `directory_sync debug`
 - All commands with `--dry-run` option
@@ -849,6 +977,9 @@ Requires password expiry policies to be configured. Typically run via cron.
 - `purge_email_queue`
 - `email_digest send`
 - `notify_about_expired_resources`
+- `recover_user` (with `--create`, which issues a new recovery token)
+- `mfa_user_settings_disable`
+- `user_promote_to_administrator` - grants the administrator role, with no confirmation and no reverse option
 - `directory_sync purge_directory_reports` - irreversible delete, with no `--dry-run` and no batching
 - `directory_sync` synchronisation commands (except test/debug), which run in dry-run mode unless `--persist` is passed
 

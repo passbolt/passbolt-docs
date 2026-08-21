@@ -170,6 +170,22 @@ Delete the current GNUPGHOME folder, it will be automatically recreated:
 {`sudo rm -rf /var/lib/passbolt/.gnupg`}
 </CodeBlock>
 
+Import the new server key into the keyring. The recreated keyring is empty, so nothing brings the server key back on its own: `keyring_init` reads the private key path from your configuration and imports it into the keyring of the user that runs it, which is why it must not run as root:
+
+<CodeBlock>
+{`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt keyring_init" www-data`}
+</CodeBlock>
+
+It prints the path it imported, then `Keyring init OK`. The command is safe to run again, as importing a key that is already in the keyring does nothing.
+
+Confirm the result before moving on:
+
+<CodeBlock>
+{`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt healthcheck --gpg" www-data`}
+</CodeBlock>
+
+If the healthcheck still reports that the server public key is not in the keyring, the import did not reach the keyring of the web server user: check which user you ran it as, and the GNUPGHOME reported by the healthcheck.
+
 You can now delete the temporary GPG home folder:
 <CodeBlock>
 {`rm -rf /tmp/gpg-temp`}

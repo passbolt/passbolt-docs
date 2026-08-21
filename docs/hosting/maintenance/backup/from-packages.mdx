@@ -14,6 +14,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import CodeBlock from "/src/components/CodeBlock/CodeBlock.js";
 import DockerMariadbClientWarning from '/docs/hosting/_includes/warning/_docker-mariadb-client-warning.mdx';
+import RestoreDatabaseNotes from '/docs/hosting/_includes/backup/_restore-database-notes.mdx';
 
 # Backing up a Passbolt package installation
 
@@ -62,6 +63,25 @@ The GPG server keys are stored under /etc/passbolt/gpg/ folder:
 
 Passbolt package stores all configuration files under /etc/passbolt/* but the one you need is /etc/passbolt/passbolt.php
 
+## How to restore the database?
+
+The counterpart of `sql_export` is `mysql_import`, which loads an SQL backup back into the database:
+
+<Tabs>
+  <TabItem value="deb" label="Debian/Ubuntu" default>
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt mysql_import --dir /path/to/backups --file passbolt-backup.sql" www-data`}
+    </CodeBlock>
+  </TabItem>
+
+  <TabItem value="rpm" label="RPM">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt mysql_import --dir /path/to/backups --file passbolt-backup.sql" nginx`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+<RestoreDatabaseNotes />
 
 <BackupList />
 <MigrateOldToNew />

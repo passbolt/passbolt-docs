@@ -12,6 +12,7 @@ import SecretKeys from '/docs/hosting/_includes/backup/_secret-keys.mdx';
 import Chips from "/src/components/Chips/Chips";
 import CodeBlock from '@theme/CodeBlock';
 import DockerMariadbClientWarning from '/docs/hosting/_includes/warning/_docker-mariadb-client-warning.mdx';
+import RestoreDatabaseNotes from '/docs/hosting/_includes/backup/_restore-database-notes.mdx';
 
 # Backing up a from source Passbolt installation
 
@@ -70,6 +71,15 @@ Be sure to remove the expiration time before importing the keys at backup restor
 
 Passbolt configuration file is located in config/passbolt.php.
 
+## How to restore the database?
+
+The counterpart of `sql_export` is `mysql_import`, which loads an SQL backup back into the database. __Replace `WEB_SERVER_USER` with the correct one__:
+
+<CodeBlock>
+  {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt mysql_import --dir /path/to/backups --file passbolt-backup.sql" WEB_SERVER_USER`}
+</CodeBlock>
+
+<RestoreDatabaseNotes />
 
 <BackupList />
 <MigrateOldToNew />

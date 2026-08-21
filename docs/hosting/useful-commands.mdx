@@ -450,6 +450,19 @@ Performance may be degraded while running. Always run with `--dry-run` first.
 Processes in batches. Can be scheduled via cron.
 :::
 
+### Restore an SQL Backup
+
+Loads an SQL backup back into the database, as the counterpart of the `sql_export` used to produce it.
+
+**Options:**
+- `--file` - The SQL file to import
+- `--dir` - The directory holding the file (default: the `tmp/cache/database/` directory of the installation)
+- `-d, --datasource` - Datasource name (default: `default`)
+
+Pass `--file` explicitly: without it, the command takes the first file in reverse alphabetical order from the directory, which is not necessarily the most recent backup. Note that the export and the import are not symmetric under the hood: `sql_export` calls a database client binary, while this command loads the file through the application's database connection, so it needs no client binary but reads the whole dump into memory.
+
+For the full procedure, including the restore-specific precautions and the command for your installation type, see [backup and recovery](/hosting/maintenance/backup/).
+
 ## Email Management
 
 ### Send Test Email

@@ -1,0 +1,70 @@
+---
+title: How to Move Resources and Folders
+description: How to move a resource or a folder by drag and drop, and what a move does to permissions
+sidebar_label: Move items
+hide_table_of_contents: false
+---
+
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+Moving an item into a folder is not only tidying up. A move rewrites who has access to what you moved, and it does so without asking, so it is worth knowing what to expect before you drag anything.
+
+## Moving is a drag and drop
+
+There is no move entry in any menu. Dragging is the only way:
+
+1. In the passwords workspace, press the mouse button on the row you want to move.
+2. Drag it onto the destination folder in the tree on the left.
+3. Release. The move is applied straight away, permissions included.
+
+You can select several resources beforehand and drag them together, and they all move in one operation.
+
+:::note[Folders move one at a time]
+A multiple selection only works for resources. When you drag several folders, only one of them moves, and when your selection mixes folders and resources, only the first folder moves and the resources stay where they are. Move folders one by one.
+:::
+
+## Taking an item out of a folder
+
+Drop it on the title of the folders tree, at the top of the left panel. That moves it back out of any folder, to the root of your workspace.
+
+## When a move is not allowed
+
+Whether you may drag an item depends on where it comes from:
+
+- From the root of your workspace, or from one of your personal folders, you can always move it.
+- From a shared folder, you need **can update** both on that folder and on the item itself.
+
+And whether you may drop it depends on the destination:
+
+- You need **can update** on the destination folder.
+- When the destination is a shared folder, every item you are dragging must be at least **can update**. A single read-only item in the selection blocks the whole batch.
+
+:::caution[A refused move says nothing]
+Passbolt does not explain a refusal. The destination simply does not light up as you hover it, the item returns to its place, and no message appears. When a move does not work, check the conditions above rather than looking for an error.
+:::
+
+## What a move does to permissions
+
+Moving an item from one shared folder into another replaces the permissions it held through the first folder with those of the second one. The people who had access through the folder you are leaving lose it, and the people the destination folder is shared with gain it.
+
+:::danger[A move silently removes other people's access]
+Nothing asks you to confirm, and nothing warns you. Take a resource sitting in a folder shared with a colleague, drag it into a folder shared with somebody else, and your colleague loses the resource on the spot. It disappears from their workspace, and the only sign for them is that they can no longer find it.
+
+Before you move anything out of a shared folder, look at who the destination folder is shared with, and warn the people who are about to lose access.
+:::
+
+A move you regret is not undone by moving the item back. That second move applies the permissions of the folder you return to, so people who had a different access before the first move do not get it back on their own. Check the share dialog afterwards and share the resource again where needed, knowing that each person you add means a fresh encryption.
+
+:::tip[Reorganise without changing access]
+Moving items inside your own personal folders, or between folders shared with exactly the same people, changes nothing for anybody. When you want to tidy up without touching access, keep the moves within one sharing perimeter.
+:::
+
+:::caution[Direct shares are a separate case]
+The behaviour above concerns the access an item gets from the folder that holds it. A resource that was also shared directly with someone, on top of what its folder gives, is a case worth checking on your own instance: open the share dialog after the move to see who remains before you rely on it.
+:::

@@ -1,0 +1,71 @@
+---
+title: How to Comment on a Resource
+description: How to read, add and delete the comments of a resource, and who can see them
+sidebar_label: Comments
+sidebar_position: 9
+---
+
+import Figure from '/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+Comments are short notes attached to a resource, visible to everyone who has access to it. They are the place for the context a password field cannot hold: which server this account belongs to, why it was rotated, who to ask before changing it.
+
+:::danger[Comments are not encrypted]
+Unlike the secret, a comment is stored as plain text on the server. It is readable by anyone who has access to the resource, it appears in the database and in SQL backups, and it can be included in email notifications if your administrator enables that option.
+
+Never put a password, a key, a token or any other secret in a comment.
+:::
+
+## Read the comments of a resource
+
+1. In the passwords workspace, select the resource. Its details appear in the sidebar on the right.
+2. Click **Comments** to unfold the section, which starts collapsed.
+
+The list shows one entry per comment, each with the avatar and the name of its author, or "You" for your own, and a relative date. An author who has since been suspended is shown with the mention "(suspended)".
+
+{/* TODO: capture resource-comments-sidebar.png */}
+<Figure
+  src="/img/help/2026/08/resource-comments-sidebar.png"
+  alt="The Comments section of the resource details sidebar, unfolded, with a comment and the Add comment button"
+  caption="fig. The Comments section of the resource details sidebar"
+/>
+
+## Add a comment
+
+1. Unfold the **Comments** section, then click **Add comment**.
+2. Type your text in the field, which prompts you with "Add a comment".
+3. Click **Save**, or **Cancel** to drop it.
+
+A comment holds up to 255 characters. Nothing stops you from typing more, and nothing counts down as you type: the length is checked when you save, and too long a comment is refused with an error under the field. Keep it to one or two sentences and you will never meet the limit.
+
+:::note[A comment cannot be edited]
+There is no way to correct a comment once it is saved. Delete it and write a new one instead.
+:::
+
+## Delete a comment
+
+Use the delete button of the comment, then confirm.
+
+You can only delete your own comments. Nobody else can remove them for you, and this includes your administrator, who has no way to delete another person's comment from passbolt. A comment posted by mistake in a resource you no longer own is therefore not something support can tidy up for you, which is one more reason to keep secrets out of comments.
+
+## Who sees your comment
+
+Everyone who has access to the resource. Reading the comments requires nothing more than access to the resource, and so does writing one: read-only access is enough to comment, you do not need to be able to update the resource.
+
+Adding a comment also sends an email notification. The recipients and the content of that email are described in [the email notification settings](/admin/emails/email-notifications/): the notification lists the resource, and includes the text of your comment only when your administrator has turned that option on, which is not the default.
+
+:::info[Comments can be hidden by policy]
+On Pro and Cloud, your administrator can remove the right to see comments from a role. The whole section then disappears from the sidebar, which also means the users of that role can no longer comment. In Community Edition the section is always available to whoever has access to the resource.
+:::
+
+## What comments are not
+
+The list is flat and chronological. You cannot reply to a specific comment, and there are no threads, no mentions and no notifications addressed to one person in particular.
+
+For the record of who did what to a resource, comments are the wrong tool: use the activity of the resource, which is filled in by passbolt itself and cannot be edited.

@@ -1,0 +1,138 @@
+---
+title: Working with v5 encrypted metadata
+description: How to read and write resources whose metadata is encrypted, using the Passbolt API
+sidebar_position: 2
+hide_table_of_contents: false
+---
+
+Since the v5 format, the descriptive fields of a resource are no longer stored in clear. The name, the username and the URIs travel inside a single encrypted payload, which changes both what the API returns and what you have to send. This guide covers that contract, and the decryption paths behind it.
+
+The rest of the resource is unchanged: permissions, folders, favourites, tags and secrets behave exactly as they do in [viewing a resource](/development/resources/viewing/) and [creating a resource](/development/resources/creating/).
+
+## What changes in the payload
+
+A v5 resource carries three fields that a v4 resource does not:
+
+- `metadata`, an armoured OpenPGP message holding the descriptive fields. It sits at the top level of the resource, next to `id` and `resource_type_id`.
+- `metadata_key_type`, which says which key encrypted it. Two values exist: `user_key` and `shared_key`.
+- `metadata_key_id`, the identifier of that key.
+
+And it loses three: `name`, `username` and `uri` are not part of the response at all. Not null, absent.
+
+Here is the body of a `GET` on a v5 resource, with the armoured blocks and the unchanged `creator`, `modifier` and `permission` objects left out:
+
+```json
+{
+  "id": "36484a18-1eb6-4863-9f50-05d9fc69ea69",
+  "metadata": "-----BEGIN PGP MESSAGE-----...",
+  "metadata_key_id": "4d1c1e97-8c67-4346-9605-839dc7ded898",
+  "metadata_key_type": "user_key",
+  "resource_type_id": "7438294d-f71c-5164-ba95-d9e60e295564",
+  "folder_parent_id": null,
+  "personal": true,
+  "deleted": false,
+  "expired": "2026-11-19T10:15:53+00:00",
+  "created": "2026-08-21T10:15:54+00:00",
+  "modified": "2026-08-21T10:15:54+00:00",
+  "created_by": "4bd348c4-6724-4c83-b497-a7e587fa0058",
+  "modified_by": "4bd348c4-6724-4c83-b497-a7e587fa0058",
+  "secrets": [
+    {
+      "id": "a25641a4-13ca-4971-91dc-d48278a5a94b",
+      "user_id": "4bd348c4-6724-4c83-b497-a7e587fa0058",
+      "resource_id": "36484a18-1eb6-4863-9f50-05d9fc69ea69",
+      "data": "-----BEGIN PGP MESSAGE-----..."
+    }
+  ],
+  "tags": []
+}
+```
+
+## What is inside the metadata
+
+Decrypting `metadata` gives a JSON object:
+
+```json
+{
+  "object_type": "PASSBOLT_RESOURCE_METADATA",
+  "resource_type_id": "7438294d-f71c-5164-ba95-d9e60e295564",
+  "name": "Nextcloud",
+  "username": "ada@passbolt.com",
+  "uris": ["https://nextcloud.com"],
+  "description": "My personal cloud storage",
+  "icon": {},
+  "custom_fields": []
+}
+```
+
+`object_type` and `resource_type_id` are part of the contract: `object_type` is the literal string `PASSBOLT_RESOURCE_METADATA`, and it is not the same value as the one you will find inside a decrypted secret, which is `PASSBOLT_SECRET_DATA`. Only `name` and `resource_type_id` are required; `username` and `description` are nullable.
+
+:::caution[uris is plural]
+The v4 resource had a single `uri` string. The v5 metadata has a `uris` array. This is the rename that catches integrations out, because a client reading `uri` from the decrypted object silently finds nothing rather than failing.
+:::
+
+Note that `resource_type_id` appears twice, once in clear in the body and once inside the encrypted metadata. Keep them consistent.
+
+## Creating a v5 resource
+
+Build the metadata object above, encrypt it, and send it as the `metadata` field. A `POST /resources.json` body looks like this:
+
+```json
+{
+  "resource_type_id": "7438294d-f71c-5164-ba95-d9e60e295564",
+  "metadata_key_type": "user_key",
+  "metadata_key_id": null,
+  "metadata": "-----BEGIN PGP MESSAGE-----...",
+  "folder_parent_id": null,
+  "personal": true,
+  "expired": "2026-11-19T10:15:53.741Z",
+  "secrets": [
+    {
+      "data": "-----BEGIN PGP MESSAGE-----..."
+    }
+  ]
+}
+```
+
+:::note[metadata_key_id is asymmetric]
+You may send it as `null`, as above, even with `metadata_key_type` set to `user_key`. The response comes back with the field filled in. Do not assume that what you sent is what you will read.
+:::
+
+## Decrypting the metadata
+
+Which path you take depends on `metadata_key_type`.
+
+### With a user key
+
+Nothing to fetch. The message is encrypted for the user's own key, so decrypt `metadata` with their private key and passphrase, as you would a secret.
+
+### With a shared key
+
+The shared metadata key is itself encrypted for each user who is allowed to use it, so decryption happens in two stages:
+
+1. `GET /metadata/keys.json?contain[metadata_private_keys]=1`.
+2. In the response, take the key whose `id` matches the `metadata_key_id` of the resource, then in its `metadata_private_keys` array take the entry whose `user_id` is the user you are acting as.
+3. Decrypt the `data` of that entry with the user's private key, and verify its signature. The result holds the private part of the shared metadata key.
+4. Decrypt the `metadata` of the resource with that key.
+
+The key is only retrievable if it has been shared with the user you authenticate as. Cache the result for the duration of your run rather than repeating the two stages for every resource.
+
+### Session keys, an optional shortcut
+
+`GET /metadata/session-keys.json` returns, encrypted for the user, a set of session keys indexed by resource. A session key decrypts the `metadata` of its resource directly, with no asymmetric operation, which is worth having when you walk a large vault.
+
+Treat it as an optimisation and nothing more:
+
+- If the call fails, or if a resource has no session key, fall back to the paths above. The result is identical.
+- The cache is filled by the clients that opened those resources. On a vault nobody has browsed, it is empty, and there is nothing you can do about it from your side.
+- The endpoint exists since 4.10.0, so an integration targeting an older version has to work without it.
+
+A reasonable order of operations is therefore: load the session keys once at the start and tolerate their absence, then for each resource try its session key, and otherwise resolve the key according to `metadata_key_type`.
+
+:::tip[A reference implementation]
+The passbolt Ansible collection walks exactly this path, session keys included, and is short enough to read end to end when a description in prose leaves you guessing.
+:::
+
+## When a resource never arrives
+
+A resource whose metadata cannot be decrypted is dropped by the passbolt clients without any message, which makes it look absent rather than broken. If your own integration sees a resource that the web application does not show, that is the expected asymmetry, and [the encrypted metadata settings](/admin/resource-types/encrypted-metadata/) describe how to diagnose it.

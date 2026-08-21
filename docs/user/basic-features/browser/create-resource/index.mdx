@@ -1,6 +1,6 @@
 ---
 title: Create Resource
-description: Creating a new password
+description: Create a password, a standalone TOTP, a note, custom fields or a pin code
 sidebar_position: 2
 ---
 import Chips from "/src/components/Chips/Chips";
@@ -11,12 +11,143 @@ import Chips from "/src/components/Chips/Chips";
   <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
 </div>
 
+A resource is any entry you store in passbolt. Each one carries metadata, such as its name and the address it belongs to, along with one or more encrypted secrets. That secret does not have to be a password. It can be a time-based one-time password on its own, a note, custom fields or a pin code, and one resource can hold several of them at once.
+
+## Content types you can create
+
+| Content type | What the secret holds | New in |
+| --- | --- | --- |
+| **Password** | A password, optionally with a TOTP alongside it | |
+| **TOTP** | A time-based one-time password on its own, with no password attached | 4.4 |
+| **Custom fields** | Key and value pairs, for anything that does not fit the other types | 5.3 |
+| **Notes** | A free text note of up to 50,000 characters | 5.6 |
+| **Pin code** | A numeric code of 4 to 12 digits | 5.12 |
+
+:::note
+The **Create** menu only lists a content type when your instance offers it, so your own menu may be shorter. **Custom fields**, **Pin code** and **Notes** need encrypted metadata to be the default content type, and **TOTP** needs the TOTP content type to be enabled. Administrators control both, see [allowed content types](/admin/resource-types/allowed-content-types/) and [encrypted metadata](/admin/resource-types/encrypted-metadata/).
+:::
+
+## Create a resource
+
+:::note
+Very little is compulsory. A resource can be saved with nothing but a name, or nothing but a password, and whatever you leave empty can be filled in later by editing the resource. Every procedure on this page fills in each field its content type offers, so you can see what is available; take from them what your own entry needs.
+:::
+
 1. Login and/or go to the password workspace
-2. Click on create password button (at the top left corner)
-3. You should now see a "Create password" dialog
-4. Fill in a name, a username and a password. Optionally you can also specify a URL, a description and a TOTP.
-5. Press the save button (or enter on your keyboard)
+2. Click the **Create** button in the top left corner, then choose **Password**
+3. You should now see a "Create a resource" dialog
+4. Fill in a name, a URI, a username and a password
+5. Press the **Create** button (or enter on your keyboard)
 6. Wait until the encryption is done
+
+{/* TODO: add image at /static/img/help/YYYY/MM/create-menu-content-types.png showing the Create menu with the content types listed */}
+
+A resource holds more than one secret if you need it to. The left side of the dialog has an **Add secret** menu offering **Password**, **TOTP**, **Custom fields**, **Note** and **Pin code**. Every secret you add gets its own entry under **Secrets**, so you can move between them while you fill the dialog in, or remove one with the bin icon. The same menu sits in the **Edit a resource** dialog, so you can also add a secret to a resource that already exists.
+
+:::note
+Each kind of secret can be added once per resource. A pin code is the exception to combining: it can only sit alongside a note, so a resource that already holds a password, a TOTP or custom fields does not offer it.
+:::
+
+### How to add a TOTP
+
+1. Open the create or edit dialog of the resource
+2. Click **Add secret**, then **TOTP**
+3. Paste the secret from your provider into **Key (secret)**, or click **Upload a QR code** and select a PNG or JPEG screenshot of the provider's QR code
+4. Optionally open **Advanced settings** to adjust **TOTP expiry** (1 to 120 seconds), **TOTP length** (6 to 8 digits) and **Algorithm**
+5. Press the **Create** button, or **Save** when editing
+
+The **Preview** panel on the right shows the current code, so you can check it against your provider before saving.
+
+:::warning
+Advanced settings have to match the settings of your TOTP provider, otherwise the generated codes will not be accepted.
+:::
+
+### How to add a note
+
+1. Open the create or edit dialog of the resource
+2. Click **Add secret**, then **Note**
+3. Type the note in the **Content** field
+4. Press the **Create** button, or **Save** when editing
+
+A note holds up to 50,000 characters, or 10,000 on a resource using legacy cleartext metadata.
+
+### How to add custom fields
+
+1. Open the create or edit dialog of the resource
+2. Click **Add secret**, then **Custom fields**
+3. Fill in the label and the value of the first row
+4. Click **Add Row** for every additional pair you need
+5. Press the **Create** button, or **Save** when editing
+
+### How to add a pin code
+
+1. Open the create or edit dialog of the resource
+2. Click **Add secret**, then **Pin code**
+3. Type the code in the **Code** field, or click the generator button beside it
+4. Optionally set the length under **Advanced pin code generation**, from 4 to 12 digits
+5. Press the **Create** button, or **Save** when editing
+
+## Create a standalone TOTP
+
+A standalone TOTP is a resource whose only secret is the one-time password, with no password attached.
+
+1. Login and/or go to the password workspace
+2. Click the **Create** button in the top left corner, then choose **TOTP**
+3. Fill in a name and a URI
+4. Fill in **Key (secret)**, or upload the provider's QR code, as described in [how to add a TOTP](#how-to-add-a-totp)
+5. Press the **Create** button (or enter on your keyboard)
+6. Wait until the encryption is done
+
+The **URI** field of the TOTP form writes to the same address as the **URIs** metadata section. The TOTP form shows it only while the resource has no password, so on a resource holding both, edit the address under **URIs** instead.
+
+## Create a standalone note
+
+1. Login and/or go to the password workspace
+2. Click the **Create** button in the top left corner, then choose **Notes**
+3. Fill in a name
+4. Type the note in the **Content** field
+5. Press the **Create** button (or enter on your keyboard)
+6. Wait until the encryption is done
+
+## Create standalone custom fields
+
+Use this for anything that does not fit the other content types, such as continuous integration variables or the settings of a piece of equipment.
+
+1. Login and/or go to the password workspace
+2. Click the **Create** button in the top left corner, then choose **Custom fields**
+3. Fill in a name
+4. Fill in the label and the value of the first row, then click **Add Row** for every additional pair
+5. Press the **Create** button (or enter on your keyboard)
+6. Wait until the encryption is done
+
+## Create a standalone pin code
+
+1. Login and/or go to the password workspace
+2. Click the **Create** button in the top left corner, then choose **Pin code**
+3. Fill in a name
+4. Type the code in the **Code** field, or click the generator button beside it
+5. Press the **Create** button (or enter on your keyboard)
+6. Wait until the encryption is done
+
+**Advanced pin code generation** sets the length, from 4 to 12 digits.
+
+## Add metadata
+
+The **Metadata** section on the left of the dialog holds the fields that are not secrets:
+
+- **Appearance**: pick a colour for the resource icon, or keep **Default color**. Clicking the icon next to the name opens the same form.
+- **URIs**: the addresses the credential belongs to.
+- **Description**: free text about the resource.
+
+## Legacy resources with cleartext metadata
+
+While an instance is migrating to encrypted metadata, administrators can allow both formats. The **Create** menu then also lists **Other**, which opens a dialog with two tabs: **Resources with encrypted metadata** and **Legacy resources**. The legacy tab offers **Password (legacy)** and **TOTP (legacy)**, both marked "with cleartext metadata".
+
+{/* TODO: add image at /static/img/help/YYYY/MM/create-resource-other-dialog.png showing the two tabs of the Other dialog */}
+
+:::caution
+Use the legacy tab only while migrating. See [allowed content types](/admin/resource-types/allowed-content-types/) for what each format protects.
+:::
 
 ## Pro Tips
 

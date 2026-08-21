@@ -58,6 +58,26 @@ These techniques are commonly used for encapsulation or third-party content. Unf
 
 You can contact the website's support or development team and ask them to adjust the login form to make them autofill compatible, for example by using standard field names or IDs that follow the [W3C web-standars.](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill)
 
+## The passbolt icon is missing from every login field
+
+The passbolt icon that appears inside login fields, and the menu it opens, come from the in-form integration. This can be switched off for a whole organisation, and there is no user setting to turn it back on.
+
+One test tells the two situations apart:
+
+- The icon is missing on **every** website, but you can still fill a form from the passbolt icon in your browser toolbar: the in-form integration has most likely been switched off for your organisation. Ask your administrator.
+- Filling from the toolbar does not work either, or the icon is missing only on **some** websites: the cause is elsewhere, see the form detection explained above.
+
+Before concluding, check that:
+
+- you are signed in to passbolt in this browser, as the in-field menu needs the extension to be authenticated,
+- the extension is allowed to run on the website, in particular on Safari and when a Chrome extension is restricted to selected sites,
+- the login form is not inside an iframe or on a browser internal page, where extensions cannot run,
+- the page is actually visible and not permanently animated, as the in-field menu is not inserted on a page that passbolt does not consider visible.
+
+:::note[For administrators]
+The in-form integration is enabled by default and has no administration screen. It is switched off server-side, either with the `PASSBOLT_PLUGINS_IN_FORM_INTEGRATION_ENABLED` environment variable or with `passbolt.plugins.inFormIntegration.enabled` in */etc/passbolt/passbolt.php*, which takes precedence. Switching it off removes the in-field icon and its menu, and the automatic detection of login forms that feeds them. It does not remove the ability to fill a form: the quick access popup of the extension keeps working, in every edition. See the [environment variables reference](/hosting/environment-reference/).
+:::
+
 ## More info
 
 You can find the list of supported [selector here.](https://github.com/passbolt/passbolt_styleguide/blob/master/src/react-web-integration/lib/InForm/InFormFieldSelector.js)

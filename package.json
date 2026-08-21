@@ -17,14 +17,19 @@
     "lint:fix": "eslint 'src/**/*.{js,jsx}' --fix",
     "lint:mdx": "eslint '**/*.mdx' --ext .mdx",
     "lint:fix:mdx": "eslint '**/*.mdx' --ext .mdx --fix",
-    "lint:lockfile": "lockfile-lint --path package-lock.json --allowed-hosts npm --allowed-schemes \"https:\" --empty-hostname false"
+    "lint:lockfile": "lockfile-lint --path package-lock.json --allowed-hosts npm --allowed-schemes \"https:\" --empty-hostname false",
+    "audit:ci": "node ./scripts/audit-ci.js"
   },
   "dependencies": {
     "@docusaurus/core": "^3.9.2",
     "@docusaurus/plugin-client-redirects": "^3.10.1",
     "@docusaurus/plugin-content-docs": "^3.9.2",
+    "@docusaurus/plugin-content-pages": "^3.10.1",
+    "@docusaurus/plugin-debug": "^3.10.1",
     "@docusaurus/plugin-google-tag-manager": "^3.9.2",
-    "@docusaurus/preset-classic": "^3.9.2",
+    "@docusaurus/plugin-sitemap": "^3.10.1",
+    "@docusaurus/plugin-svgr": "^3.10.1",
+    "@docusaurus/theme-classic": "^3.10.1",
     "@easyops-cn/docusaurus-search-local": "^0.51.0",
     "@mdx-js/react": "^3.1.0",
     "clsx": "^1.2.1",

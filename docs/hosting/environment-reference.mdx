@@ -487,9 +487,9 @@ Set MFA cookie secure flag. When enabled, cookies are only sent over HTTPS conne
 Enable proxy support for load balancers/proxies. Required when Passbolt is behind a reverse proxy to correctly identify client IP addresses.
 **Default:** `false` | **Environment:** all
 
-**`PASSBOLT_SECURITY_MFA_MAX_ATTEMPTS`** *(string, optional)*
-Maximum attempts for MFA authentication before the user is locked out. Helps prevent brute force attacks.
-**Default:** `'4'` | **Environment:** all
+**`PASSBOLT_SECURITY_MFA_MAX_ATTEMPTS`** *(integer, optional)*
+Maximum failed TOTP verifications before the user is signed out. Applies to TOTP only. Any value below 1, including a value that is not a valid integer, disables the protection. See [failed attempt handling](/admin/authentication/mfa/totp/#failed-attempt-handling).
+**Default:** `4` | **Environment:** all
 
 **`PASSBOLT_SECURITY_FULLBASEURL_ENFORCE`** *(boolean, optional)*
 Enforce full base URL configuration. When enabled, requires APP_FULL_BASE_URL to be properly configured.

@@ -28,10 +28,10 @@ There is no administration screen for this policy: it is configured server-side,
 ## Choosing between curve and RSA
 
 - **Curve, the default**: notably smaller keys and faster cryptographic operations, which matters in passbolt where sharing a secret re-encrypts it once per recipient. The configured value names the widely interoperable v4 OpenPGP encoding of Curve25519/Ed25519 keys, as named by the OpenPGP.js library: "legacy" refers to that encoding, not to a deprecation.
-- **RSA 3072 or 4096**: choose RSA only when a constraint leaves no other option, in practice a Red Hat system running with FIPS mode enabled, where ECC is not supported.
+- **RSA 3072 or 4096**: choose RSA only when a constraint leaves no other option, in practice a Red Hat system running with FIPS mode enabled, which does not permit the Curve25519/Ed25519 keys that the curve policy generates. FIPS mode does not rule out elliptic curve cryptography as such, but that curve pair is the only value the curve policy accepts.
 
 :::warning[Prefer curve with encrypted metadata]
-With encrypted metadata, the default on new instances, every operation carries additional encryption and signature work on top of the secrets themselves. We recommend keeping the curve default and not switching to RSA. The one fair reason to choose RSA is a Red Hat system running with FIPS mode enabled, where ECC is not supported; even then, you may encounter performance issues as your vault grows.
+With encrypted metadata, the default on new instances, every operation carries additional encryption and signature work on top of the secrets themselves. We recommend keeping the curve default and not switching to RSA. If FIPS mode leaves you no choice, as described above, expect performance to degrade as your vault grows.
 :::
 
 ## How to configure the policy

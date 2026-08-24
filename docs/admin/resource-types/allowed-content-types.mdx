@@ -21,7 +21,10 @@ The v5 types encrypt the resource metadata; the legacy v4 types store it in clea
 | `v5-totp-standalone` | TOTP | name (required), uris, description, icon | TOTP (secret key, digits, algorithm, optional period) |
 | `v5-custom-fields` | Custom fields | name (required), uris, description, icon, custom field keys (up to 128 fields) | The custom field values (required) |
 | `v5-note` | Notes | name (required), uris, description, icon | description (required): the note body |
-| `v5-password-string` | No dedicated entry, the v5 equivalent of the legacy password string | name (required), username, uris, description | The password alone, as a plain string |
+| `v5-pin-code` | Pin code | name (required), description, icon | pin_code (required): 4 to 12 digits, description (optional) |
+| `v5-password-string` | No dedicated entry, the v5 equivalent of the legacy password string | name (required), username, uris, description, icon | The password alone, as a plain string |
+
+`v5-pin-code`, added in version 5.12.0, is the only v5 type with no uris metadata field, and it carries no username either.
 
 :::note
 The secure note of a v5 password lives in the secret, while the resource description is an encrypted metadata field, readable without unlocking the secret. Custom fields exist in two forms, standalone and embedded in the password types; in both, the field keys are stored in the encrypted metadata and the field values in the secret.
@@ -29,7 +32,7 @@ The secure note of a v5 password lives in the secret, while the resource descrip
 
 The v5 content types are available out of the box, with their boxes ticked on this screen. The default format for new content is a separate matter: new instances set up on passbolt 5.4.0 or later default to v5, while instances upgraded from an earlier version keep creating v4 cleartext content until encrypted metadata is enabled, from *Administration > Resource types > Getting started* or the [Encrypted Metadata](./encrypted-metadata.mdx) settings.
 
-For migrated content, each v4 type maps to a v5 type: password string to `v5-password-string`, password and description to `v5-default`, TOTP to `v5-totp-standalone`, and password with description and TOTP to `v5-default-with-totp`. The `v5-custom-fields` and `v5-note` types have no v4 equivalent.
+For migrated content, each v4 type maps to a v5 type: password string to `v5-password-string`, password and description to `v5-default`, TOTP to `v5-totp-standalone`, and password with description and TOTP to `v5-default-with-totp`. The `v5-custom-fields`, `v5-note` and `v5-pin-code` types have no v4 equivalent.
 
 ## Configuration Options
 

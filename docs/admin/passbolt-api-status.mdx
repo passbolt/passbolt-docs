@@ -424,7 +424,7 @@ It checks that no database migration is pending. On failure, it reports "The dat
 If the pending migrations come from a partially applied update, follow the [update guide](/hosting/update/).
 
 #### Force TLS (SSL)
-We recommend using TLS (SSL) with Passbolt, this checks verify if passbolt has been configured to force TLS (SSL). If you have this error, you will need to set `passbolt.ssl.force` to true in */etc/passbolt/passbolt.php*, or the `PASSBOLT_SSL_FORCE` environment variable to true if you are on Docker or Helm.
+We recommend using TLS (SSL) with passbolt, this checks verify if passbolt has been configured to force TLS (SSL). If you have this error, you will need to set `passbolt.ssl.force` to true in */etc/passbolt/passbolt.php*, or the `PASSBOLT_SSL_FORCE` environment variable to true if you are on Docker or Helm.
 
 <Figure
   src={
@@ -493,7 +493,7 @@ When it is enabled, it won't be possible to proceed to a user creation using a l
 />
 
 #### Compiled version of the javascript application
-It will ensure that the compiled version of the application is served, you should not face any errors, however if there is any, you should set `passbolt.js.build` to production in */etc/passbolt/passbolt.php*, or with the `PASSBOLT_JS_BUILD` environment variable if you are on Docker or Helm, otherwise Passbolt will be slower.
+It will ensure that the compiled version of the application is served, you should not face any errors, however if there is any, you should set `passbolt.js.build` to production in */etc/passbolt/passbolt.php*, or with the `PASSBOLT_JS_BUILD` environment variable if you are on Docker or Helm, otherwise passbolt will be slower.
 
 <Figure
   src={
@@ -557,7 +557,7 @@ These checks verify the JWT authentication setup, which is required for the mobi
 This warning-level check verifies that the JWT Authentication plugin is enabled. A disabled plugin is reported as "The JWT Authentication plugin is disabled."
 
 #### JWT directory not writable
-The */etc/passbolt/jwt/* directory must not be writable by the webserver user. A too permissive setup is precisely what makes this check fail with "The /etc/passbolt/jwt/ directory should not be writable." Fix the permissions:
+The */etc/passbolt/jwt/* directory must not be writable by the webserver user. The check fails with "The /etc/passbolt/jwt/ directory should not be writable." Fix the permissions:
 
 <WebServerLocationWarning />
 
@@ -578,7 +578,11 @@ It ensures that a valid JWT key pair is present, otherwise the check fails with 
 See the [JWT key pair generation guide](/hosting/openpgp/generate-keys-jwt/) for the full procedure.
 
 ### Metadata
-Since version 5.4.0, these checks verify the encrypted metadata keys used by the v5 resource format. They only run when v5 metadata is enabled, so a v4 instance reports nothing here.
+These checks verify the encrypted metadata keys used by the v5 resource format. The active metadata key, server access and key validity checks were introduced in version 5.4.0. The decryption check is older, version 4.10.0, where it was added as preparatory work before v5 metadata became generally available, and the zero-knowledge check was added in version 5.7.0.
+
+:::note
+An instance that does not use v5 metadata still reports most of these checks, and it reports them as passing rather than as skipped. The active metadata key, decryption and validity checks each display a green line, and the server access check has no v5 condition at all, so it runs whatever metadata format is in use. Only the zero-knowledge check is reported as skipped.
+:::
 
 #### Active metadata key
 At least one active metadata key must exist, otherwise the check fails with "No active metadata key found." Create or activate a metadata key from the [encrypted metadata administration](/admin/resource-types/metadata-key/).
@@ -586,10 +590,15 @@ At least one active metadata key must exist, otherwise the check fails with "No 
 #### Server access to the metadata key
 When zero-knowledge mode is off, the server must hold a copy of the metadata private key, otherwise it cannot share it with users. The check fails with "The server does not have access to metadata key."
 
-#### Server metadata private key decryption and validity
-The server copy of the metadata private key must be decryptable with the server GPG key and structurally valid, otherwise these checks fail with "Unable to decrypt the metadata private key." or "The server metadata private key is not valid." A classic cause is a server GPG key that was changed or rotated after the metadata key was shared.
+#### Server metadata private key decryption
+The server copy of the metadata private key must be decryptable with the server GPG key, otherwise the check fails with "Unable to decrypt the metadata private key." A classic cause is a server GPG key that was changed or rotated after the metadata key was shared.
 
-For these access, decryption and validity checks, the remedy is an administrator sharing the metadata key with the server again, from an administrator's client: the server cannot grant itself access.
+#### Server metadata private key validity
+The decrypted key must also be structurally valid, otherwise the check fails with "The server metadata private key is not valid."
+
+For the access, decryption and validity checks alike, the remedy is an administrator sharing the metadata key with the server again, from an administrator's client: the server cannot grant itself access.
 
 #### Zero-knowledge mode
-The reverse check: when zero-knowledge mode is enabled, the server must not have access to the metadata private key. The check fails with "The server has access to the server metadata private key while in Zero-knowledge mode." Remove the server access, or disable zero-knowledge mode if it is not intended. See the [encrypted metadata documentation](/admin/resource-types/encrypted-metadata/).
+The reverse check: when zero-knowledge mode is enabled, the server must not have access to the metadata private key. The check fails with "The server has access to the server metadata private key while in Zero-knowledge mode." Remove the server access, or disable zero-knowledge mode if it is not intended.
+
+Zero-knowledge mode also changes the four checks above: all four are skipped once it is enabled. This check is skipped when v5 metadata is disabled, and skipped again when zero-knowledge sharing is disabled, so it appears in the report only when both are enabled. See the [encrypted metadata documentation](/admin/resource-types/encrypted-metadata/).

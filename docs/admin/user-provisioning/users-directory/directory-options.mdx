@@ -68,7 +68,7 @@ Then set:
 - **User Path**: `ou=People`
 - **Group Path**: `ou=Groups`
 
-Mind the membership attribute: by default, the search targets `groupOfUniqueNames` groups but reads members from the `member` attribute, so the membership of standard `groupOfUniqueNames` groups is not picked up until the mapping is overridden. For directories using `groupOfUniqueNames` (the default object class), override the group users field mapping to `uniqueMember`, with the "Group users field mapping" field of the Users Directory screen or with `fieldsMapping.openldap.group.users` in the [file-based configuration](/admin/user-provisioning/users-directory/advanced-directory-options/#file-based-configuration). Change the **group object class** only if your groups use a different class, such as `groupOfNames`, and set the users mapping to match that class's membership attribute (`member` for `groupOfNames`).
+Mind the membership attribute: by default, the search targets `groupOfUniqueNames` groups but reads members from the `member` attribute, so the membership of standard `groupOfUniqueNames` groups is ignored until the mapping is overridden. Read the **Group object class** field before you change anything: `groupOfUniqueNames` is the default for a fresh setting, but an instance whose group object class was left empty and saved again may hold `groupOfNames` instead, and there the shipped `member` mapping is already correct. When the field shows `groupOfUniqueNames`, override the group users field mapping to `uniqueMember`, with the "Group users field mapping" field of the Users Directory screen or with `fieldsMapping.openldap.group.users` in the [file-based configuration](/admin/user-provisioning/users-directory/advanced-directory-options/#file-based-configuration). Change the **group object class** only if your groups use a different class, and set the users mapping to match that class's membership attribute (`member` for `groupOfNames`).
 
 ---
 
@@ -162,7 +162,7 @@ Some environments enforce:
 
 Very large ADs may hit the default 1000-record page size limit.
 
-- Passbolt uses the LdapRecord library, which paginates queries automatically, in pages of 1000 entries by default.
+- passbolt uses the LdapRecord library, which paginates queries automatically, in pages of 1000 entries by default.
 - If AD paging is disabled, you might see errors like:
 
 ```

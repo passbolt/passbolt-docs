@@ -1,4 +1,4 @@
-As the `values.yaml` file is set up for CE by default, you need to point the passbolt image to a Pro tag. The tag lives under the `app.image.tag` key of `values.yaml`; replace the whole default value, including its pinned digest, with the matching [pro tag](https://hub.docker.com/r/passbolt/passbolt/tags):
+As the `values.yaml` file is set up for CE by default, you need to point the passbolt image to a Pro tag. The tag lives under the `app.image.tag` key of `values.yaml`; replace the whole default value, including its pinned digest, with a [Pro tag](https://hub.docker.com/r/passbolt/passbolt/tags):
 
 ```yaml
 app:
@@ -7,7 +7,7 @@ app:
     tag: 5.14.3-1-pro
 ```
 
-It is recommended to keep the same version and only change `ce` to `pro`, but you can use any of the Pro tags.
+The chart default is a CE tag matching its `appVersion`. Changing only `ce` to `pro`, and keeping that version, is the safest choice; any later Pro tag also works.
 
 The next thing you will need to do is uncomment the two subscription key entries, at the top level of `values.yaml`:
 

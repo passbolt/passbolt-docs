@@ -31,11 +31,10 @@ SSO account recovery is available when all of the following are true:
 
 - The instance runs the Pro Edition or a Cloud plan.
 - SSO is configured and active.
-- The configured provider supports it: Microsoft Entra ID and Google do, the generic OpenID and AD FS providers do not.
 
 ## How to enable or disable it
 
-There is no toggle in the administration interface. The feature is enabled by default as soon as an eligible SSO provider is active, and can be switched off with an environment variable:
+There is no toggle in the administration interface. The feature is enabled by default as soon as an SSO provider is active, and can be disabled with an environment variable:
 
 ```bash
 PASSBOLT_PLUGINS_SSO_RECOVER_ENABLED=false
@@ -43,7 +42,7 @@ PASSBOLT_PLUGINS_SSO_RECOVER_ENABLED=false
 
 ## Recover an account with SSO
 
-**Step 1.** Open the passbolt instance in the new browser. The welcome screen shows "Welcome back!" with the message "Your browser is not configured to work with this passbolt instance. Please authenticate with the Single Sign-On provider to continue." and a "Sign in with Microsoft" or "Sign in with Google" button.
+**Step 1.** Open the passbolt instance in the new browser. The welcome screen shows "Welcome back!" with the message "Your browser is not configured to work with this passbolt instance. Please authenticate with the Single Sign-On provider to continue." and a sign-in button named after the configured provider, for example "Sign in with Microsoft". The five provider names are Microsoft, Google, OpenID, AD FS and PingOne.
 
 The "Continue with my email." link falls back to the email verification flow; from the email screen, the "Continue with SSO." link comes back to this screen.
 

@@ -44,7 +44,7 @@ The "Prompt" option is stored as `mandatory`. Despite that name, it does not mak
 
 Stored as `policy: mandatory`.
 
-Passbolt reminds users to configure multi factor authentication, it does not force them to. A user who has no method configured gets a dialog titled "Enable Multi Factor Authentication", with two ways out: "Go to MFA settings", which opens their profile settings, and "Later". Postponing dismisses the invitation for the current session, and it comes back at the next sign-in.
+passbolt reminds users to configure multi factor authentication, it does not force them to. A user who has no method configured gets a dialog titled "Enable Multi Factor Authentication", with two ways out: "Go to MFA settings", which opens their profile settings, and "Later". Postponing dismisses the invitation for the current session, and it comes back at the next sign-in.
 
 :::caution[What this policy does not do]
 Prompt does not block sign-in and does not restrict access: a user can postpone the invitation indefinitely, one session at a time. It is an interface reminder, so it has no effect on API clients such as scripts or the command line interface. To require multi factor authentication for authentication itself, configure it at the provider level.

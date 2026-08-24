@@ -13,13 +13,15 @@ import Chips from "/src/components/Chips/Chips";
   <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
 </div>
 
-Passbolt records an action log in every edition. Reading that history inside passbolt, through the Activity tab of a resource or the `/actionlog` API, requires the Pro Edition or a Cloud plan.
+passbolt records an action log in every edition. Reading that history inside passbolt, through the Activity tab of a resource or the `/actionlog` API, requires the Pro Edition or a Cloud plan.
 
-In the Community Edition the log is still written and can be exploited outside the interface: [forward it to a SIEM](/hosting/maintenance/diagnostics/forward-action-logs/) or query the database directly, and control its growth with the [purge command](/hosting/useful-commands/#action-logs-purge).
+:::note[Community Edition]
+The log is still written, and can be exploited outside the interface: [forward it to a SIEM](/hosting/maintenance/diagnostics/forward-action-logs/) or query the database directly, and control its growth with the [purge command](/hosting/useful-commands/#action-logs-purge). The Activity tab and the `/actionlog` endpoints are not available.
+:::
 
 ## What is recorded
 
-Passbolt writes one row per authenticated API call, which the audit log then turns into activity entries: resources created and updated, secrets read and updated, permission changes, folders created and updated, and user accounts created, updated and deleted.
+passbolt writes one row per authenticated API call, except for the calls excluded by its logging blacklist, which an operator can extend. The audit log presents those rows as activity entries: resources created and updated, secrets read and updated, permission changes, folders created and updated, and user accounts created, updated and deleted.
 
 Two limits are worth stating up front:
 

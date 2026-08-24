@@ -46,10 +46,10 @@ Since version 4.1.0, passbolt reacts to repeated wrong TOTP codes by ending the 
 
 The user is signed out, and nothing else. The account is not locked, not suspended, and there is no penalty delay: the user can sign in again straight away with their passphrase and gets a fresh set of attempts. Their TOTP secret is untouched.
 
-What the user sees depends on the client:
+What the user sees depends on how their client submits the code:
 
-- On the API and the mobile and desktop applications, the refresh token is revoked and the response carries "You have been logged out due to too many failed attempts."
-- In the browser, no message is shown: the user simply lands back on the sign-in screen, with no explanation.
+- The browser posts a form rendered by the server, not JSON. On that path, passing the threshold logs the user out and redirects them to the sign-in screen, with no message.
+- Clients that call the API in JSON, the mobile and desktop applications included, get a 400 response instead, carrying "You have been logged out due to too many failed attempts." Their refresh token is revoked at the same time.
 
 The counter is not stored. It is the number of failed TOTP verifications recorded since the last successful sign-in of that user, counted per user, whatever their IP address or device. Signing in again therefore resets it.
 

@@ -14,7 +14,7 @@ import Chips from "/src/components/Chips/Chips";
   <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
 </div>
 
-Passbolt has two language settings: an organisation default that administrators set, and a personal preference that each user can set on their own profile. Both are labelled "Language" in the interface, so this page refers to them by where they live.
+passbolt has two language settings: an organisation default that administrators set, and a personal preference that each user can set on their own profile. Both are labelled "Language" in the interface, so this page refers to them by where they live.
 
 ## Set the organisation default language
 
@@ -29,7 +29,7 @@ Go to *Administration > Internationalisation*, choose a language in the **Langua
 The list of available languages depends on your passbolt version, so open the Language dropdown to see what your instance offers.
 
 :::info[Translations are community contributions]
-Passbolt is developed in British English, which is the source language and is therefore always complete. Every other language is translated by the community through CrowdIn, so expect two kinds of gaps:
+passbolt is developed in British English, which is the source language and is therefore always complete. Every other language is translated by the community through CrowdIn, so expect two kinds of gaps:
 
 - A language can be partly translated, which is what the "(beta)" label on some entries of the dropdown means.
 - Even a well covered language lags behind new releases: the strings added by a new feature stay in British English until someone translates them.
@@ -41,7 +41,7 @@ On a fresh instance no organisation default is stored yet, and passbolt falls ba
 
 ## Which language a user actually sees
 
-Passbolt resolves the language of a page in this order, and the first match wins:
+passbolt resolves the language of a page in this order, and the first match wins:
 
 1. A `locale` parameter in the requested URL, when it is present and valid. This is how an invitation link can open the setup screens in a given language.
 2. The language preference of the signed-in user, taken from their profile.
@@ -57,7 +57,7 @@ Screens shown before signing in, such as the login, the setup and the account re
 ## Changing the default when the instance already has users
 
 :::important
-Changing the organisation default does not change the language of users who already have a preference of their own, and most existing users do have one. A preference is recorded when a user completes their setup or their account recovery, taken from the organisation default in force at that moment, or from the `locale` parameter of their invitation link. On an instance that has been running for a while, changing this setting can therefore appear to do nothing.
+Changing the organisation default does not change the language of users who already have a preference of their own, and most existing users do have one. A preference is recorded when a user registers, when they complete their setup, and when they complete an account recovery, taken from the organisation default in force at that moment, or from the `locale` parameter of their invitation link. On an instance that has been running for a while, changing this setting can therefore appear to do nothing.
 :::
 
 The organisation default governs users who have no preference recorded, and everything shown before sign-in. To change the language of an existing user, change it on their side, in their profile under *Edit > Language*: there is no bulk action in the interface.

@@ -1,0 +1,12 @@
+{
+  "name": "image-size",
+  "version": "2.99.0",
+  "private": true,
+  "description": "NOT the real image-size package. Local stub vendored by passbolt-docs, wired in as a file: devDependency in the root package.json. The fake 2.99.0 version satisfies @docusaurus/mdx-loader's ^2.0.2 range so npm dedupes onto this copy. See README.md in this directory.",
+  "license": "MIT",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./fromFile": "./fromFile.js"
+  }
+}

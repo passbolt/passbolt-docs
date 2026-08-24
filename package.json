@@ -17,8 +17,7 @@
     "lint:fix": "eslint 'src/**/*.{js,jsx}' --fix",
     "lint:mdx": "eslint '**/*.mdx' --ext .mdx",
     "lint:fix:mdx": "eslint '**/*.mdx' --ext .mdx --fix",
-    "lint:lockfile": "lockfile-lint --path package-lock.json --allowed-hosts npm --allowed-schemes \"https:\" --empty-hostname false",
-    "audit:ci": "node ./scripts/audit-ci.js"
+    "lint:lockfile": "lockfile-lint --path package-lock.json --allowed-hosts npm --allowed-schemes \"https:\" --empty-hostname false"
   },
   "dependencies": {
     "@docusaurus/core": "^3.9.2",
@@ -54,6 +53,7 @@
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^15.15.0",
+    "image-size": "file:vendor/image-size-stub",
     "jsdom": "^24.0.0",
     "lockfile-lint": "^4.14.1",
     "prettier": "^3.5.3",

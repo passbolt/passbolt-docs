@@ -57,7 +57,7 @@ After setting up TOTP, each time you sign-in to Passbolt, you'll need to enter t
 
 The setup screen offers no alternative to scanning: there is no key to type in by hand, so a blank square where the QR code should be leaves you stuck until it renders. Try the following, in order:
 
-1. Cancel and start the setup again from the provider list, which asks passbolt for a new code.
+1. Cancel and start the setup again from the provider list, which requests the QR code again.
 2. Open the console of your browser and look for an error while the screen loads. That message is what support will ask you for.
 3. Try another browser, or a profile without your other extensions: a content blocker can interfere with the way the image is built.
 
@@ -65,7 +65,7 @@ If none of it helps, contact your administrator or passbolt support with the con
 
 ## If your code is refused
 
-Passbolt accepts the code of the current period only. There is no tolerance for the period before or the one after, so a code that was correct when you read it is refused once its countdown has run out, even by a second. Type it as soon as it appears, and when the timer of your application is nearly over, wait for the next one instead.
+passbolt accepts the code of the current period only. There is no tolerance for the period before or the one after, so a code that was correct when you read it is refused once its countdown has run out, even by a second. Type it as soon as it appears, and when the timer of your application is nearly over, wait for the next one instead.
 
 Beyond that, a code is a comparison between two clocks, and either of them can be at fault:
 

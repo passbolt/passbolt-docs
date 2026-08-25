@@ -15,7 +15,9 @@ get:
     - $ref: "../components/parameters.yml#/page"
   responses:
     200:
-      $ref: "../components/responses/actionLogs.yml#/index"
+      $ref: "../components/responses/actionLogs.yml#/userIndex"
+    400:
+      $ref: "../components/responses/actionLogs.yml#/userIdentifierNotValid"
     401:
       $ref: "../components/responses.yml#/authenticationRequired"
     404:

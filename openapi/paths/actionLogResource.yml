@@ -17,7 +17,7 @@ get:
     - $ref: "../components/parameters.yml#/page"
   responses:
     200:
-      $ref: "../components/responses/actionLogs.yml#/index"
+      $ref: "../components/responses/actionLogs.yml#/resourceIndex"
     400:
       $ref: "../components/responses/actionLogs.yml#/resourceIdentifierNotValid"
     401:

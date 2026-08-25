@@ -65,7 +65,7 @@ Decrypting `metadata` gives a JSON object:
 }
 ```
 
-`object_type` and `resource_type_id` are part of the contract: `object_type` is the literal string `PASSBOLT_RESOURCE_METADATA`, and it is not the same value as the one you will find inside a decrypted secret, which is `PASSBOLT_SECRET_DATA`. Only `name` and `resource_type_id` are required; `username` and `description` are nullable.
+`object_type` and `resource_type_id` are part of the contract: `object_type` is the literal string `PASSBOLT_RESOURCE_METADATA`, and it is not the same value as the one you will find inside a decrypted secret, which is `PASSBOLT_SECRET_DATA`. The client entity requires only `name` and `resource_type_id`, and the server-side type definitions require only `name`; `username` and `description` are nullable.
 
 :::caution[uris is plural]
 The v4 resource had a single `uri` string. The v5 metadata has a `uris` array. This is the rename that catches integrations out, because a client reading `uri` from the decrypted object silently finds nothing rather than failing.
@@ -99,6 +99,8 @@ Which fields belong in it depends on the type of the resource:
 
 :::caution[v5-password-string does not encrypt JSON]
 That last type is the exception to everything above. Its message holds the password itself, up to 4096 characters, with no surrounding object and therefore no `object_type`. A client that parses every secret as JSON breaks on it.
+
+You will only ever read one. The server refuses to create a resource of that type, with "It is not allowed to create v5-password-string resource types.", so it reaches an instance through migration from v4 rather than through the API.
 :::
 
 The composite fields have their own shape:
@@ -112,13 +114,13 @@ The composite fields have their own shape:
 `metadata.description` and the `description` of the secret are different fields with different limits. The one in the metadata is the searchable description, capped at 10000 characters. The one in the secret is the secure note, capped at 50000, and it can only be read by decrypting. Writing to the wrong one either exposes text you meant to protect, or hides text you meant to be searchable.
 :::
 
-## object_type is required, and never checked
+## object_type, and what the server cannot check
 
-Both encrypted payloads must carry `object_type`: `PASSBOLT_RESOURCE_METADATA` for the metadata, `PASSBOLT_SECRET_DATA` for the secret.
+Both encrypted payloads carry `object_type`: `PASSBOLT_RESOURCE_METADATA` for the metadata, `PASSBOLT_SECRET_DATA` for the secret. Only the secret side requires it. Every `secretDataV5*` entity lists it among its required fields, while the metadata entity does not, so metadata written without it validates and displays normally.
 
-The server cannot enforce it. It only ever sees an armoured string and has no key to open it, so a resource created without `object_type` is accepted and answered with a 200. The consequence appears later, and elsewhere: the passbolt clients validate the decrypted payload, reject it, and drop the resource from the list they display. You end up with a resource that the API returns and that nobody can see, which is the same symptom as a resource whose metadata cannot be decrypted.
+The server cannot enforce either of them. It only ever sees an armoured string and has no key to open it, so a resource created without `object_type` is accepted and answered with a 200. The consequence appears later, and elsewhere: the passbolt clients validate the decrypted payload, reject it, and drop the resource from the list they display. You end up with a resource that the API returns and that nobody can see, which is the same symptom as a resource whose metadata cannot be decrypted.
 
-Omitting `object_type` therefore produces a ghost resource rather than an error message. Set it on every write.
+Omitting it from a secret therefore produces a ghost resource rather than an error message. Set it on both payloads: the secret will not display without it, and on the metadata side it is a convention the client does not currently enforce.
 
 ## Creating a v5 resource
 
@@ -177,7 +179,7 @@ Treat it as an optimisation and nothing more:
 A reasonable order of operations is therefore: load the session keys once at the start and tolerate their absence, then for each resource try its session key, and otherwise resolve the key according to `metadata_key_type`.
 
 :::tip[A reference implementation]
-The passbolt Ansible collection walks exactly this path, session keys included, and is short enough to read end to end when a description in prose leaves you guessing.
+The [passbolt Ansible lookup plugin](https://github.com/passbolt/passbolt-ansible-lookup-plugin/) walks exactly this path, session keys included, and is short enough to read end to end when a description in prose leaves you guessing.
 :::
 
 ## When a resource never arrives

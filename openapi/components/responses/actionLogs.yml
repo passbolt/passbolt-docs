@@ -1,4 +1,4 @@
-index:
+resourceIndex:
   description: "Operation is successful."
   content:
     application/json:
@@ -52,3 +52,75 @@ resourceIdentifierNotValid:
             type: "string"
       examples:
         $ref: "../examples/actionLogs.yml#/resourceIdentifierNotValid/response"
+
+userIdentifierNotValid:
+  description: "The user identifier is not a valid UUID."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            type: "string"
+      examples:
+        $ref: "../examples/actionLogs.yml#/userIdentifierNotValid/response"
+
+folderIdentifierNotValid:
+  description: "The folder identifier is not a valid UUID."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            type: "string"
+      examples:
+        $ref: "../examples/actionLogs.yml#/folderIdentifierNotValid/response"
+
+userIndex:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            type: "array"
+            items:
+              $ref: "../schemas/actionLogs.yml#/activity"
+      examples:
+        $ref: "../examples/actionLogs.yml#/userActivity/response"
+
+folderIndex:
+  description: "Operation is successful."
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            type: "array"
+            items:
+              $ref: "../schemas/actionLogs.yml#/activity"
+      examples:
+        $ref: "../examples/actionLogs.yml#/folderActivity/response"

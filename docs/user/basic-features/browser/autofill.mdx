@@ -68,14 +68,14 @@ You do not have to think about it: when you submit a login form with something i
 Nothing is stored until you confirm in the popup, and you can correct any of it before you do. The page title in particular tends to be long and vague, so it is usually worth rewriting into something you will recognise in your list.
 
 :::caution[Submitting is not succeeding]
-The offer to save is triggered by the submission of the form, not by a successful login. Passbolt has no way of knowing whether the password you just sent was the right one, so you may well be offered to save a password that does not work. Save once you know you are in.
+The offer to save is triggered by the submission of the form, not by a successful login. passbolt has no way of knowing whether the password you just sent was the right one, so you may well be offered to save a password that does not work. Save once you know you are in.
 :::
 
 If you would rather not wait for the submission, **Save as new credential** in the menu does the same thing from what is currently in the form.
 
 ## Which credentials are suggested
 
-Passbolt matches on the host of the address, and ignores the rest of it entirely:
+passbolt matches on the host of the address, and ignores the rest of it entirely:
 
 - The same host always matches.
 - A URI saved on a parent domain matches its subdomains, so `example.com` is suggested on `app.example.com`. The reverse does not hold: a credential saved on `app.example.com` is not offered on `example.com`. This only applies to names that contain a dot, so an internal host such as `intranet` has to match exactly.

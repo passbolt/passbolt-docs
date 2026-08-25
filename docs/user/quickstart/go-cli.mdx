@@ -55,7 +55,7 @@ This method names the binary `go-passbolt-cli` instead of `passbolt`, and does n
   </TabItem>
 </Tabs>
 
-All channels except `go install` provide the command as `passbolt`, which is what this guide uses. Community packages also exist, see [Repology](https://repology.org/project/passbolt-cli/versions) for what your distribution offers.
+All channels except `go install` provide the command as `passbolt`, which is what this guide uses. Community packages also exist, see [Repology](https://repology.org/project/go:passbolt-cli/versions) for what your distribution offers.
 
 ## Configure the CLI
 
@@ -98,7 +98,7 @@ The verification material is pinned in the configuration file, and every followi
 
 ## First commands
 
-Commands follow the same structure: `passbolt action entity`. The actions are `create`, `get`, `list`, `update`, `delete`, `move` and `share`, applied to `resource`, `folder`, `user` or `group` (`move` and `share` apply to resources and folders). In passbolt, a password is called a resource.
+Commands follow the same structure: `passbolt action entity`. The actions are `create`, `get`, `list`, `update`, `delete`, `move`, `share` and `export`, applied to `resource`, `folder`, `user` or `group` (`move` and `share` apply to resources and folders, and `export` writes a KeePass kdbx file). In passbolt, a password is called a resource.
 
 List your resources, choosing the displayed columns with `--column` (repeat the flag for several columns):
 
@@ -170,7 +170,7 @@ Pair this setup with the `exec` command to keep secrets out of the runner's logs
 
 ## Multi-factor authentication
 
-Only TOTP is supported, through the `mfaMode` setting:
+Only TOTP is supported, through the `mfaMode` setting, which defaults to `interactive-totp`:
 
 | Mode                  | Behaviour                                                                                                               |
 |-----------------------|-------------------------------------------------------------------------------------------------------------------------|

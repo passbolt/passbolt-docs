@@ -16,7 +16,7 @@ The [passbolt Ansible lookup plugin](https://github.com/passbolt/passbolt-ansibl
 
 :::important[Requirements]
 - A passbolt server v5 with encrypted metadata enabled; the resources you look up must use the v5 (encrypted metadata) format.
-- On the control node: Python 3.12 or newer with ansible-core 2.20 (the pinned reference environment), the GnuPG binary, and the `python-gnupg`, `requests` and `jsonschema` Python packages (pinned versions in the repository's `requirements.txt`).
+- On the control node: `ansible-core` 2.20.1, which the repository's `requirements.txt` pins alongside `ansible` 13.2.0, the GnuPG binary, and the `python-gnupg`, `requests` and `jsonschema` Python packages, pinned in the same file. The collection declares no minimum Python version, and its container image is built on Python 3.12.
 :::
 
 ## Install
@@ -58,6 +58,11 @@ vars:
 ```
 
 Both variables are mandatory: a missing one fails the task with "Variable 'passbolt.account_kit' is required but not provided."
+
+Two optional keys sit in the same block:
+
+- `skip_ssl_verification`, a boolean defaulting to `false`, skips the TLS certificate verification on the calls to the passbolt API. Read the default the right way round: the plugin passes the opposite of this option to its HTTP client, so `false` means verification is active, which is the setting you want.
+- `timeout`, an integer defaulting to `30`, is the number of seconds to wait for the passbolt API to reply. It applies to each HTTP request rather than to the lookup as a whole, and one lookup makes several, the authentication sequence included, so a slow instance can keep a task waiting considerably longer than the value you set.
 
 There are no native environment variables. On a CI runner where the secrets live in the runner's secret store, bridge them in the playbook:
 

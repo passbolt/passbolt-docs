@@ -52,25 +52,26 @@ Migrating content to encrypted metadata might affect integrations that rely on a
 
 ## Migrating from the command line
 
-The same migrations can be run from the server, which helps when the interface is not practical, for a scripted migration or for a volume you would rather drive from a shell:
+Resources, folders and tags are all migrated from the **Migrate Metadata** screen shown above. The commands that migrate resources and folders are registered on the server only when it runs in debug mode with the Selenium hooks active, so they are absent from a production install. The screen refuses a migration until the v4 to v5 upgrade is allowed, a setting of the [Encrypted Metadata](./encrypted-metadata.mdx) administration screen.
+
+### The tags command
+
+`passbolt metadata migrate_tags` is the one metadata command registered in production. It comes with the tags plugin, so it requires the Pro Edition, the Enterprise Edition, Business Cloud, Sovereign Cloud or Enterprise Cloud: the Community Edition has no tags plugin and no such command.
 
 ```bash
-passbolt metadata migrate_resources
-passbolt metadata migrate_folders
 passbolt metadata migrate_tags
-passbolt metadata migrate_all_items
 ```
 
 Mind the command name: the `metadata` group sits inside the `passbolt` namespace, so the prefix is required. See [Running Commands](/hosting/useful-commands/#running-commands) for the full invocation on your installation type.
 
-Each command needs the matching setting to be enabled first, the same requirement the interface reports on this screen. When it is missing, the command stops and points at the setting, for example for tags:
+The command is gated by a different setting from the one the screen uses, `allow_creation_of_v5_tags`, and stops with this message when that setting is off:
 
 ```
 To enable, set "allow_creation_of_v5_tags" metadata settings to true via `update_metadata_types_settings` command.
 ```
 
-:::caution
-`migrate_tags` exits with an error when there is no tag to migrate, which is worth knowing if you chain these commands in a script. And unlike the post-upgrade backfill commands, it is not documented as safe to run twice, so prefer the migration status shown on this screen over re-running it blindly.
-:::
+`allow_creation_of_v5_tags` is off in the default settings and no administration screen exposes a control for it, and `update_metadata_types_settings` is itself one of the debug-only commands, so a production install does not have it either. Migrating tags from the **Migrate Metadata** screen has neither constraint.
 
- 
+:::caution
+`migrate_tags` exits with an error when there is no tag to migrate, which is worth knowing if you chain it in a script. Running it again over already migrated tags is not idempotent either: it reports "Tag ID {0} is already V5" for each of them and ends as a failed run. Read the migration status shown on this screen rather than running the command a second time.
+:::

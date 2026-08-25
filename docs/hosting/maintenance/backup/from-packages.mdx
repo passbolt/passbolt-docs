@@ -35,7 +35,7 @@ There are also several elements you need to backup:
 
 We made a dedicated command in order to make a backup of the database, it uses mariadb-dump but we recommend to use the passbolt command as it has been made to avoid any pasting or logins details errors.
 
-<Tabs>
+<Tabs groupId="platform">
   <TabItem value="deb" label="Debian/Ubuntu" default>
     <CodeBlock>
       {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt sql_export" www-data`}
@@ -67,7 +67,7 @@ Passbolt package stores all configuration files under /etc/passbolt/* but the on
 
 The counterpart of `sql_export` is `mysql_import`, which loads an SQL backup back into the database:
 
-<Tabs>
+<Tabs groupId="platform">
   <TabItem value="deb" label="Debian/Ubuntu" default>
     <CodeBlock>
       {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt mysql_import --dir /path/to/backups --file passbolt-backup.sql" www-data`}

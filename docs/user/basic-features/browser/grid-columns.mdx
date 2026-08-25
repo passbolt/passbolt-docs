@@ -18,7 +18,6 @@ The list of resources does not have to stay as it comes. You can choose which co
 
 Everything except the order and the width is in one place: the **Columns** button, on the right of the action bar of the passwords workspace.
 
-{/* TODO: capture resource-grid-columns-menu.png */}
 <Figure
   src="/img/help/2026/08/resource-grid-columns-menu.png"
   alt="The Columns menu of the passwords workspace, with the row height options, the column checkboxes and the Reset columns button"
@@ -58,21 +57,26 @@ The **Reset columns** button at the bottom of the **Columns** menu restores the 
 
 ## Which columns are available
 
-Six columns are always offered. The five others depend on what your organisation has enabled, so a menu shorter than the table below is normal.
+Nine columns are always offered. Three depend on what your organisation has enabled, and when they do not apply they are removed from the collection altogether, so they disappear from the **Columns** menu as well as from the list.
+
+The table follows the order the columns come in:
 
 | Column | When it is offered |
 | --- | --- |
 | Favorite | Always |
+| Icon | Always |
 | Name | Always |
 | Username | Always |
 | Password | Always |
-| URI | Always |
-| Modified | Always |
+| Pin code | Always |
 | TOTP | When one-time passwords are available on your instance |
-| PIN code | When your administrator has enabled version 5 resources and left the PIN code content type allowed, see [Allow content types](/admin/resource-types/allowed-content-types/) |
-| Expired | When your administrator has enabled [password expiry](/user/basic-features/browser/password-expiry/) |
+| URI | Always |
+| Tags | Always |
+| Expiry | When your administrator has enabled [password expiry](/user/basic-features/browser/password-expiry/) |
+| Modified | Always |
 | Location | When folders are available and your role is allowed to use them |
-| Tags | Pro and Cloud only, when tags are available and your role is allowed to use them |
+
+**Pin code** is the only column hidden by default. It is always in the menu, but you have to tick it before it appears in the list.
 
 ## Where your layout is stored
 

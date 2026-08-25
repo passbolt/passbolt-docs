@@ -4,6 +4,7 @@ description: Create a password, a standalone TOTP, a note, custom fields or a pi
 sidebar_position: 2
 ---
 import Chips from "/src/components/Chips/Chips";
+import Figure from '/src/components/Figure/Figure';
 
 <div style={{display: "flex", gap: "1rem"}}>
   <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
@@ -44,11 +45,58 @@ Very little is compulsory. A resource can be saved with nothing but a name, or n
 
 A resource holds more than one secret if you need it to. The left side of the dialog has an **Add secret** menu offering **Password**, **TOTP**, **Custom fields**, **Note** and **Pin code**. Every secret you add gets its own entry under **Secrets**, so you can move between them while you fill the dialog in, or remove one with the bin icon. The same menu sits in the **Edit a resource** dialog, so you can also add a secret to a resource that already exists.
 
+<Figure
+  src={
+    '/img/help/2026/08/createResource_dialog.png'
+  }
+  caption="fig. Create a resource screen with all options added"
+  alt="Create a resource screen with all options added"
+/>
+
 :::note
 Each kind of secret can be added once per resource. A pin code is the exception to combining: it can only sit alongside a note, so a resource that already holds a password, a TOTP or custom fields does not offer it.
 :::
 
-### How to add a TOTP
+### Add a password
+
+1. Open the create or edit dialog of the resource
+2. Type the password in the **Password** field, or click the dice button beside it to generate one
+3. Optionally open **Advanced password generation** to change how the generator builds the secret
+4. Press the **Create** button, or **Save** when editing
+
+**Quality** below the field rates the password from very weak to very strong once there is something to rate. The information icon beside it gives the entropy in bits.
+
+#### Advanced password generation
+
+The panel has two tabs, **password** and **passphrase**, and opens on whichever one your administrator set as the default generator. Anything you change here applies to this secret only.
+
+<Figure
+  src={
+    '/img/help/2026/08/createResource_advancedPasswordGeneration.png'
+  }
+  caption="fig. Advanced password generation, password tab"
+  alt="Advanced password generation, password tab"
+/>
+
+The **password** tab builds a random string of characters:
+
+- **Length**: a slider and a number field, from 8 to 128 characters, 18 by default.
+- **Character Types**: a row of toggle buttons, each labelled with the characters it contributes: `A-Z`, `a-z`, `0-9`, `# $ % & @ ^ ~`, `{ [ ( | ) ] }`, `. , : ;`, `` ' " ` ``, `/ \ _ -`, `< * + ! ? =` and an emoji button. All are on by default except emoji.
+- **Exclude look-alike characters**: leaves out characters that are easily mistaken for one another, such as `l`, `1` and `I`. On by default.
+
+The **passphrase** tab builds a sequence of words:
+
+- **Number of words**: from 4 to 40, 9 by default.
+- **Words separator**: the character placed between the words, a space by default.
+- **Words case**: **Lower case**, **Upper case** or **Camel case**.
+
+To change these defaults for everyone rather than for one secret, see [password policy](/admin/resource-policies/password-policy/) (Pro and Cloud).
+
+:::note
+Where an administrator has enabled the external dictionary check, saving a password that is very weak or that appears in a known data breach first opens a **Confirm resource creation** dialog. Only a hash of the password is sent to the external service, never the password itself.
+:::
+
+### Add a TOTP
 
 1. Open the create or edit dialog of the resource
 2. Click **Add secret**, then **TOTP**
@@ -62,7 +110,7 @@ The **Preview** panel on the right shows the current code, so you can check it a
 Advanced settings have to match the settings of your TOTP provider, otherwise the generated codes will not be accepted.
 :::
 
-### How to add a note
+### Add a note
 
 1. Open the create or edit dialog of the resource
 2. Click **Add secret**, then **Note**
@@ -71,7 +119,7 @@ Advanced settings have to match the settings of your TOTP provider, otherwise th
 
 A note holds up to 50,000 characters, or 10,000 on a resource using legacy cleartext metadata.
 
-### How to add custom fields
+### Add custom fields
 
 1. Open the create or edit dialog of the resource
 2. Click **Add secret**, then **Custom fields**
@@ -79,13 +127,31 @@ A note holds up to 50,000 characters, or 10,000 on a resource using legacy clear
 4. Click **Add Row** for every additional pair you need
 5. Press the **Create** button, or **Save** when editing
 
-### How to add a pin code
+### Add a pin code
 
 1. Open the create or edit dialog of the resource
 2. Click **Add secret**, then **Pin code**
 3. Type the code in the **Code** field, or click the generator button beside it
 4. Optionally set the length under **Advanced pin code generation**, from 4 to 12 digits
 5. Press the **Create** button, or **Save** when editing
+
+### Add metadata
+
+The **Metadata** section sits at the bottom of the left panel, below **Secrets**, and holds the fields that are not secrets. It appears for every content type with encrypted metadata, including the standalone ones below, though a legacy resource may not offer all three.
+
+#### Appearance
+
+Pick a colour for the resource icon, or keep **Default color**. Clicking the icon next to the name opens the same form.
+
+#### URIs
+
+The addresses the credential belongs to.
+
+#### Description
+
+Free text about the resource, entered in the **Content** field: what the account is for, who owns it, anything a colleague you share it with needs to know. It holds up to 10,000 characters.
+
+The description is metadata rather than a secret. On a resource with encrypted metadata it is encrypted along with the name and the URIs, but it stays searchable, so it is the wrong place for a second password or a recovery code. Add a **Note** secret for anything that belongs behind the encryption.
 
 ## Create a standalone TOTP
 
@@ -94,7 +160,7 @@ A standalone TOTP is a resource whose only secret is the one-time password, with
 1. Login and/or go to the password workspace
 2. Click the **Create** button in the top left corner, then choose **TOTP**
 3. Fill in a name and a URI
-4. Fill in **Key (secret)**, or upload the provider's QR code, as described in [how to add a TOTP](#how-to-add-a-totp)
+4. Fill in **Key (secret)**, or upload the provider's QR code, as described in [add a TOTP](#add-a-totp)
 5. Press the **Create** button (or enter on your keyboard)
 6. Wait until the encryption is done
 
@@ -131,14 +197,6 @@ Use this for anything that does not fit the other content types, such as continu
 
 **Advanced pin code generation** sets the length, from 4 to 12 digits.
 
-## Add metadata
-
-The **Metadata** section on the left of the dialog holds the fields that are not secrets:
-
-- **Appearance**: pick a colour for the resource icon, or keep **Default color**. Clicking the icon next to the name opens the same form.
-- **URIs**: the addresses the credential belongs to.
-- **Description**: free text about the resource.
-
 ## Legacy resources with cleartext metadata
 
 While an instance is migrating to encrypted metadata, administrators can allow both formats. The **Create** menu then also lists **Other**, which opens a dialog with two tabs: **Resources with encrypted metadata** and **Legacy resources**. The legacy tab offers **Password (legacy)** and **TOTP (legacy)**, both marked "with cleartext metadata".
@@ -153,7 +211,4 @@ Use the legacy tab only while migrating. See [allowed content types](/admin/reso
 
 - You can switch through the fields using the tab button on your keyboard
 - You can press on the eye button to see your password in clear
-- You can press the magic wand button to generate a random password automatically
-  - Based on the rules of some Website, you can configure the list of required/allowed characters
-- Make sure to check the complexity. This will be indicated right below the password field.
 - When Passbolt detects a password field in a Website form or a Mobile application, Passbolt will give you the ability to generate a password on-demand and save it in your account

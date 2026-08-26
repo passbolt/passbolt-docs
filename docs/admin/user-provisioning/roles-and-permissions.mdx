@@ -36,14 +36,19 @@ In a nutshell, an administrator manages the instance. In practice it means that 
 
 ### Groups
 
-| Action                 | Admin                    | User                     |
-|------------------------|--------------------------|--------------------------|
-| Create groups          | Yes                      | No                       |
-| Rename groups          | Yes                      | No                       |
-| Add user to group      | See. "Group level roles" | See. "Group level roles" |
-| Delete groups          | Yes                      | No                       |
-| View groups            | Yes                      | Yes                      |
-| View group composition | Yes                      | Yes                      |
+| Action                       | Admin                           | User                            |
+|------------------------------|---------------------------------|---------------------------------|
+| Create groups                | Yes                             | No                              |
+| Rename groups                | Yes                             | No                              |
+| Add user to group            | No, unless also a group manager | No, unless a group manager      |
+| Remove user from group       | Yes                             | No, unless a group manager      |
+| Promote/Demote group manager | Yes                             | No, unless a group manager      |
+| Delete groups                | Yes                             | No, unless a group manager      |
+| View groups                  | Yes                             | Yes                             |
+| View group composition       | Yes                             | Yes                             |
+
+See [Administrators and group membership](#administrators-and-group-membership) below for
+why adding members is the one group action the Admin role does not grant.
 
 ### Others
 
@@ -58,7 +63,7 @@ In a nutshell, an administrator manages the instance. In practice it means that 
 
 ## Group level roles
 
-Each group must have at least one group manager in charge of adding and removing group members. The administrators can appoint themselves as group administrator or appoint a regular user.
+Each group must have at least one group manager in charge of adding and removing group members. When creating a group, the administrator appoints at least one group manager, which can be themselves or any other user.
 
 <Figure
   src="/img/help/2022/05/groups workflow.jpg"
@@ -72,10 +77,32 @@ Due to the nature of the encryption in passbolt, only someone with access to the
 
 | Action                       | Group manager | Group member |
 |------------------------------|---------------|--------------|
-| Rename group                 | Yes           | No           |
+| Rename group                 | No            | No           |
 | Add user to group            | Yes           | No           |
-| Remove user to group         | Yes           | No           |
+| Remove user from group       | Yes           | No           |
 | Promote/Demote group manager | Yes           | No           |
+| Delete group                 | Yes           | No           |
+
+Renaming a group requires the administrator role.
+
+### Administrators and group membership
+
+The Admin role and the group manager role overlap, but neither contains the other:
+
+- An administrator who is not a group manager can rename the group, delete it, remove
+  members, and change members' roles. They cannot **add** members: adding someone to a
+  group means decrypting each secret shared with the group and re-encrypting it for the
+  newcomer, which only someone with access to those secrets can do. The **Edit group**
+  dialog hides the add field for them and shows "Only the group manager can add new people
+  to a group."
+- A group manager who is not an administrator can add and remove members, promote and
+  demote group managers, and delete the group, but cannot rename it.
+
+Every group must keep at least one group manager: passbolt refuses to remove or demote the
+last one. A suspended group manager still counts towards this rule, so suspending the only
+group manager leaves the group without anyone who can add members. See
+[how to manage user groups](/admin/user-provisioning/manage-groups/) for how to recover
+from that situation.
 
 ### Additional resources:
 

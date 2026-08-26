@@ -15,6 +15,22 @@ import Chips from "/src/components/Chips/Chips";
   <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
 </div>
 
+## Should you suspend or delete?
+
+Deleting a user is permanent: their personal passwords are destroyed with the account. If
+you need to block access temporarily, during an extended leave or an investigation, or to
+keep a departed user's account on hold until their passwords are handed over,
+[suspend the user](/admin/user-provisioning/manage-users/#how-to-suspend-a-user) instead.
+Suspension is reversible and keeps the user's data. See
+[suspend or delete](/admin/user-provisioning/manage-users/#suspend-or-delete) for a
+side-by-side comparison.
+
+:::note[Subscription seats]
+On Passbolt Pro Edition and Cloud, suspending a user does not free a subscription seat;
+only deleting the user does. See
+[how subscription seats are counted](/admin/subscription/update-subscription-key/#how-subscription-seats-are-counted).
+:::
+
 ## How to delete a user
 
 Only users with administrator role can delete other users. To delete a user:

@@ -109,6 +109,32 @@ By default the command reads `/etc/passbolt/subscription_key.txt`; use `--file` 
 another path. On success it prints "The subscription key was successfully imported in the
 database."
 
+## How subscription seats are counted
+
+A subscription seat is used by every user who has completed their account setup and has not
+been deleted:
+
+- Users who have been invited but have not finished their setup do not use a seat yet.
+- Suspended users still use a seat. Suspension blocks sign-in but keeps the account.
+- Deleting a user frees their seat.
+
+passbolt enforces the limit when the subscription key is saved or the **Subscription** page
+is viewed, not when users are added. If the number of users exceeds the key's users limit,
+the key is rejected with the error "The users limit is exceeded." (HTTP 402 on the API).
+Users can still be added beyond the limit, but the subscription key can no longer be
+validated or updated until the user count is back within the limit or a larger subscription
+is in place.
+
+To compare your current usage against the limit, run `subscription_check` (see
+[above](#steps)); the output includes a line such as `Users limit: 150 (currently: 43)`.
+
+:::tip[Suspending does not free a seat]
+If you hit "The users limit is exceeded.", suspending users does not help: suspended users
+still count towards the limit. Delete the users you no longer need, see
+[suspend or delete](/admin/user-provisioning/manage-users/#suspend-or-delete), or renew
+with a higher users limit.
+:::
+
 ## Where the subscription key is stored
 
 passbolt looks for the subscription key in the database first, and only falls back to the

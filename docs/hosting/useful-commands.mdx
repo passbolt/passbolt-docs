@@ -701,6 +701,45 @@ Verifies subscription status and validity.
 `passbolt license_check` is an alias.
 :::
 
+### Edition Downgrade
+
+Downgrades a Pro Edition instance to the Community Edition. Available since passbolt 5.13.0.
+
+:::danger
+**DESTRUCTIVE:** This permanently wipes Pro data from the database. This cannot be undone!
+:::
+
+**Options:**
+- `-u, --username` - Email of the administrator performing the downgrade (required). The action is attributed to this user in notification emails and audit trails.
+
+**Behaviour:**
+- Asks for confirmation before downgrading (defaults to no)
+- Exits successfully if the instance is already on the Community Edition, so automation can re-run it safely
+- Refuses to run when the `PASSBOLT_SECURITY_EDITION_DOWNGRADE_DISABLED` environment variable is set to `true`
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt edition_downgrade --username admin@example.com" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt edition_downgrade --username admin@example.com" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt edition_downgrade --username admin@example.com" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+:::info
+The same downgrade is available from the **Subscription** page in the administration panel.
+See [updating your subscription key](/admin/subscription/update-subscription-key/).
+:::
+
 ## Directory Synchronisation
 
 :::info
@@ -813,6 +852,7 @@ Requires password expiry policies to be configured. Typically run via cron.
 ### Destructive Commands (Cannot be Undone)
 
 - `truncate_account_recovery_tables` - Deletes all account recovery data
+- `edition_downgrade` - Permanently wipes Pro data and switches the instance to the Community Edition
 - `drop_tables` - Drops ALL database tables (not documented here - use only in development)
 
 :::warning

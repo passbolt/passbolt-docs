@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 570" font-family="sans-serif">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0 0 L10 4 L0 8 z" fill="#999999"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="570" fill="#ffffff"/>
+
+  <!-- Logged in user -->
+  <rect x="40" y="30" width="390" height="110" rx="10" fill="#fafafa" stroke="#999999" stroke-width="1.5"/>
+  <text x="64" y="62" font-size="20" font-weight="bold" fill="#1f1f1f">Logged in user</text>
+  <line x1="40" y1="76" x2="430" y2="76" stroke="#999999" stroke-width="1.5"/>
+  <text x="64" y="102" font-size="15" fill="#1f1f1f">Browse users and groups</text>
+  <text x="64" y="128" font-size="15" fill="#1f1f1f">See the members of a group</text>
+
+  <path d="M235 140 v40" stroke="#999999" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="248" y="165" font-size="13" fill="#666666" font-style="italic">plus</text>
+
+  <!-- Group member -->
+  <rect x="40" y="180" width="390" height="110" rx="10" fill="#fafafa" stroke="#999999" stroke-width="1.5"/>
+  <text x="64" y="212" font-size="20" font-weight="bold" fill="#1f1f1f">Group member</text>
+  <line x1="40" y1="226" x2="430" y2="226" stroke="#999999" stroke-width="1.5"/>
+  <text x="64" y="250" font-size="13" fill="#666666" font-style="italic">Everything a logged in user can, plus:</text>
+  <text x="64" y="276" font-size="15" fill="#1f1f1f">Use passwords shared with the group</text>
+
+  <path d="M235 290 v40" stroke="#999999" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="248" y="315" font-size="13" fill="#666666" font-style="italic">plus</text>
+
+  <!-- Group manager -->
+  <rect x="40" y="330" width="390" height="210" rx="10" fill="#fafafa" stroke="#999999" stroke-width="1.5"/>
+  <text x="64" y="362" font-size="20" font-weight="bold" fill="#1f1f1f">Group manager</text>
+  <line x1="40" y1="376" x2="430" y2="376" stroke="#999999" stroke-width="1.5"/>
+  <text x="64" y="400" font-size="13" fill="#666666" font-style="italic">Everything a group member can, plus:</text>
+  <text x="64" y="426" font-size="15" font-weight="bold" fill="#088869">Add members (group managers only)</text>
+  <text x="64" y="452" font-size="15" fill="#1f1f1f">Remove members</text>
+  <text x="64" y="478" font-size="15" fill="#1f1f1f">Promote or demote group managers</text>
+  <text x="64" y="504" font-size="15" fill="#1f1f1f">Delete the group</text>
+
+  <!-- Administrator -->
+  <rect x="480" y="30" width="380" height="250" rx="10" fill="#fafafa" stroke="#999999" stroke-width="1.5"/>
+  <text x="504" y="62" font-size="20" font-weight="bold" fill="#1f1f1f">Administrator</text>
+  <line x1="480" y1="76" x2="860" y2="76" stroke="#999999" stroke-width="1.5"/>
+  <text x="504" y="102" font-size="15" fill="#1f1f1f">Create groups and appoint the</text>
+  <text x="504" y="124" font-size="15" fill="#1f1f1f">first group manager</text>
+  <text x="504" y="154" font-size="15" font-weight="bold" fill="#4b92d9">Rename groups (administrators only)</text>
+  <text x="504" y="184" font-size="15" fill="#1f1f1f">Remove members, promote or</text>
+  <text x="504" y="206" font-size="15" fill="#1f1f1f">demote group managers</text>
+  <text x="504" y="236" font-size="15" fill="#1f1f1f">Delete any group</text>
+
+  <text x="504" y="312" font-size="13" fill="#666666" font-style="italic">Administrators cannot add members to a group</text>
+  <text x="504" y="332" font-size="13" fill="#666666" font-style="italic">unless they are also a group manager of it.</text>
+</svg>

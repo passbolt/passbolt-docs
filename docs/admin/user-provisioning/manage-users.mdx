@@ -1,0 +1,139 @@
+---
+title: How to manage users
+description: How to create and invite users, resend invitations, edit user details, change roles, and suspend users in passbolt
+sidebar_label: Manage users
+sidebar_position: 2
+hide_table_of_contents: false
+---
+
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+This page covers managing user accounts by hand: creating and inviting users, resending
+invitations, editing user details, changing roles, and suspending users. To remove users
+permanently, see [how to delete users](/admin/user-provisioning/delete-user/). To provision
+users automatically, see [users directory](/admin/user-provisioning/users-directory/),
+[SCIM](/admin/user-provisioning/scim/) or
+[self-registration](/admin/user-provisioning/self-registration/).
+
+## How to create a user
+
+Only users with the administrator role can create users. To create a user:
+
+1. Log in as an administrator and select &#9881; > **Manage Users & Groups** in the top right corner
+2. Click the **Create** button and select **User**
+3. In the **Add User** dialog, fill in the **First name**, **Last name** and **Username / Email** fields
+4. Select the **Role**. It defaults to **User**, select **Admin** to create an administrator
+5. Click **Save**
+
+{/* TODO: add image at /static/img/help/2026/08/add-user-dialog.png */}
+
+The new user receives a welcome email with a **get started** link. Following the link walks
+them through the account setup: installing the browser extension, generating their key and
+choosing a passphrase. The account stays inactive until they complete this setup.
+
+:::info[Invitation link validity]
+The invitation link is valid for 10 days by default. On self-hosted instances this can be
+changed with the `PASSBOLT_AUTH_REGISTER_TOKEN_EXPIRY` variable, see the
+[environment reference](/hosting/environment-reference/). If the link has expired, resend
+the invitation as described below.
+:::
+
+:::note
+On Passbolt Pro Edition and Cloud, a user only counts towards your subscription seats once
+they complete their setup. See
+[how to update the subscription key](/admin/subscription/update-subscription-key/).
+:::
+
+## How to resend an invitation
+
+If a user did not receive the invitation email or their link has expired, you can send them
+a fresh one:
+
+1. Log in as an administrator and select &#9881; > **Manage Users & Groups** in the top right corner
+2. Right-click on the user and select **Resend invite** from the contextual menu
+
+This sends a new invitation email with a new link. The option is only available while the
+user has not completed their setup; it is greyed out for active users.
+
+## How to edit a user
+
+Administrators can change the first name and last name of any user:
+
+1. Log in as an administrator and select &#9881; > **Manage Users & Groups** in the top right corner
+2. Right-click on the user and select **Edit**, or select the user and click **Edit** in the toolbar
+3. In the **Edit User** dialog, update the **First name** or **Last name**
+4. Click **Save**
+
+:::note[Usernames cannot be changed]
+The username (email address) of an existing user is read-only, in the interface and in the
+API. It identifies the account and cannot be edited after creation.
+:::
+
+## How to change a user's role
+
+The role is changed from the same **Edit User** dialog, using the **Role** dropdown. Select
+**Admin** to promote a user to administrator, or **User** to demote an administrator. The
+change takes effect immediately, the user does not need to sign in again.
+
+You cannot change your own role: the **Role** dropdown is disabled when you edit your own
+account, so promoting or demoting an administrator always requires another administrator.
+
+See [roles and permissions](/admin/user-provisioning/roles-and-permissions/) for what each
+role can do.
+
+## How to suspend a user
+
+Suspending a user blocks their access without deleting anything, for example while someone
+is on extended leave or while you investigate an incident. To suspend a user:
+
+1. Log in as an administrator and select &#9881; > **Manage Users & Groups** in the top right corner
+2. Right-click on the user and select **Edit**
+3. In the **Edit User** dialog, tick **Suspend this user**
+4. Click **Save**
+
+{/* TODO: add image at /static/img/help/2026/08/edit-user-suspend.png */}
+
+When a user is suspended:
+
+- They can no longer sign in, with any authentication method.
+- Their existing sessions stop working on their next request.
+- Their group memberships, shared passwords and permissions are untouched.
+- On Passbolt Pro Edition and Cloud, they still count towards your subscription seats. See
+  [suspend or delete](#suspend-or-delete) below.
+
+:::info
+If automatic password expiry is enabled, the passwords the suspended user had accessed are
+marked as expired, so their owners are prompted to rotate them. See
+[password expiry](/admin/resource-policies/password-expiry/).
+:::
+
+To reinstate the user, open the same dialog, untick **Suspend this user** and save. They can
+sign in again immediately.
+
+Users can also be suspended automatically:
+[users directory](/admin/user-provisioning/users-directory/) can be configured to suspend
+users removed from the directory instead of deleting them, and deactivating a user through
+[SCIM](/admin/user-provisioning/scim/) suspends them.
+
+## Suspend or delete?
+
+| | Suspend | Delete |
+|---|---|---|
+| Sign-in blocked | Yes | Yes |
+| Reversible | Yes | No |
+| Personal passwords | Kept | Deleted |
+| Group memberships and shares | Kept | Removed or transferred |
+| Subscription seat (Pro and Cloud) | Still used | Freed |
+
+Suspension is the right tool for a temporary absence, an investigation, or keeping a
+departed user's account on hold until their passwords are handed over. Deletion is
+permanent: the user's personal passwords are destroyed and ownership of shared items may
+need to be transferred, see [how to delete users](/admin/user-provisioning/delete-user/).
+
+Note that suspending a user does not free a subscription seat, only deleting the user does.

@@ -141,11 +141,32 @@ The **Metadata** section sits at the bottom of the left panel, below **Secrets**
 
 #### Appearance
 
-Pick a colour for the resource icon, or keep **Default color**. Clicking the icon next to the name opens the same form.
+How the resource looks in the list, so you can pick it out at a glance. Since 5.2 it covers two things, **Color** and
+**Icons**, each with its own switch:
+
+- **Color**: leave **Default color** switched on to keep the colour passbolt assigns, or switch it off and choose from
+  fourteen swatches. A fifteenth swatch, struck through with a red line, sets no colour at all.
+- **Icons**: leave **Default icon** switched on to keep the icon for the content type, or switch it off and choose from
+  sixty-nine icons, the same set KeePass uses, so an imported database keeps familiar iconography.
+
+Clicking the icon next to the name opens the same form.
+
+Appearance is metadata rather than a secret: it is stored as part of the resource's metadata, so anyone the resource is
+shared with sees the colour and icon you pick.
 
 #### URIs
 
-The addresses the credential belongs to.
+The addresses the credential belongs to. Since 5.2, a resource can carry more than one, which is useful when the same
+account is used across several hostnames, such as a staging site alongside production, or a service reachable at both a
+vanity domain and an internal one.
+
+The first field is the **Main URI**. Click **Add URI** to add another, and each one after the first gets a bin icon to
+remove it. Each address holds up to 1024 characters, and a resource holds up to 20 in total. **Add URI** stays
+unavailable until the last field has something in it, so you cannot leave an empty row behind.
+
+Every address counts when passbolt decides whether to suggest a credential: a match on any one of them is enough for
+the resource to be offered on that page. A few places use the **Main URI** alone, **Copy URI** among them, so it is
+worth putting the address you care about most first.
 
 #### Description
 

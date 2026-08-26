@@ -155,6 +155,25 @@ If the user cannot be deleted (e.g., sole owner of shared resources), the user i
 User deletion occurs in two phases: first disable, then permanent deletion after 30 days. Users who cannot be deleted remain disabled until manually resolved.
 :::
 
+:::caution[Administrator Accounts]
+Since passbolt 5.11.0, a SCIM request that would suspend an administrator is rejected with an HTTP 403 error by default, to protect against administrator lockout through a compromised or misconfigured identity provider. Phase 1 of the deletion flow therefore fails for administrator accounts, and the identity provider reports a provisioning error for that user. To allow the identity provider to suspend administrators, set the `PASSBOLT_PLUGINS_SCIM_SECURITY_ALLOW_SUSPEND_ADMINISTRATORS` environment variable to `true` on a self-hosted server.
+:::
+
+## Environment Variables
+
+On self-hosted servers, SCIM behaviour can be tuned with environment variables:
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `PASSBOLT_PLUGINS_SCIM_ENABLED` | `true` | Enable the SCIM plugin |
+| `PASSBOLT_PLUGINS_SCIM_LOG_SCIM_REQUESTS` | `false` | Log incoming SCIM requests, useful for troubleshooting |
+| `PASSBOLT_PLUGINS_SCIM_SECURITY_ALLOW_SUSPEND_ADMINISTRATORS` | `false` | Allow the identity provider to suspend administrator accounts |
+| `PASSBOLT_SCIM_SECURITY_SECRET_TOKEN_COST` | `12` | Bcrypt cost factor for hashing the authentication token |
+| `PASSBOLT_SCIM_SECURITY_SECRET_TOKEN_LEGACY_HASH_ALLOWED` | `true` | Accept tokens hashed with the pre-5.10.0 legacy format |
+| `PASSBOLT_SCIM_SECURITY_SECRET_TOKEN_EXPIRY` | `1 year` | How long the authentication token remains valid |
+
+See the [environment variables reference](/hosting/environment-reference/) for details on each variable, including the version each one became available in.
+
 ## Limitations
 
 **Email Address Changes**

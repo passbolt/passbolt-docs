@@ -7,6 +7,7 @@ hide_table_of_contents: false
 ---
 
 import Chips from "/src/components/Chips/Chips";
+import Figure from '@site/src/components/Figure/Figure';
 
 <div style={{display: "flex", gap: "1rem"}}>
   <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
@@ -31,7 +32,11 @@ Only users with the administrator role can create users. To create a user:
 4. Select the **Role**. It defaults to **User**, select **Admin** to create an administrator
 5. Click **Save**
 
-{/* TODO: add image at /static/img/help/2026/08/add-user-dialog.png */}
+<Figure
+  src="/img/help/2026/08/add-user-dialog.png"
+  alt="Add User dialog with first name, last name, username and role fields"
+  caption="fig. The Add User dialog"
+/>
 
 The new user receives a welcome email with a **get started** link. Following the link walks
 them through the account setup: installing the browser extension, generating their key and
@@ -94,10 +99,14 @@ is on extended leave or while you investigate an incident. To suspend a user:
 
 1. Log in as an administrator and select &#9881; > **Manage Users & Groups** in the top right corner
 2. Right-click on the user and select **Edit**
-3. In the **Edit User** dialog, tick **Suspend this user**
+3. In the **Edit User** dialog, turn on the **Suspend this user** toggle
 4. Click **Save**
 
-{/* TODO: add image at /static/img/help/2026/08/edit-user-suspend.png */}
+<Figure
+  src="/img/help/2026/08/edit-user-suspend.png"
+  alt="Edit User dialog with the Suspend this user toggle turned on"
+  caption="fig. Suspending a user from the Edit User dialog"
+/>
 
 When a user is suspended:
 
@@ -113,7 +122,7 @@ marked as expired, so their owners are prompted to rotate them. See
 [password expiry](/admin/resource-policies/password-expiry/).
 :::
 
-To reinstate the user, open the same dialog, untick **Suspend this user** and save. They can
+To reinstate the user, open the same dialog, turn off the **Suspend this user** toggle and save. They can
 sign in again immediately.
 
 Users can also be suspended automatically:

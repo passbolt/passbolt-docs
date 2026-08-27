@@ -68,8 +68,14 @@ SSO client secret expiration notifications are automatic and cannot be disabled.
 </table>
 
 ### Default behaviour
-By default all the settings are `true` which means all the notifications are set to be broadcasted and all the
-information blocks are set to be shown.
+Most email delivery settings are enabled by default, but not all of them, and the content visibility settings are all disabled by default:
+
+- All five content visibility settings (username, URI, encrypted secret, description, comment) default to **off**: notification emails carry no resource details unless you enable them.
+- The delivery settings for "a password was created" and "a folder was created" default to **off** (these notify the creator about their own action).
+- The delivery settings that notify a user about their own deletion or their own admin-role revocation default to **off**; the corresponding notifications to administrators default to **on**.
+- Every other delivery setting defaults to **on**.
+
+The reference tables below list the default for every setting.
 
 ## Configuring Email Notification Settings
 You can configure email notification settings using either the admin interface, config files or environment variables.
@@ -77,7 +83,11 @@ If multiple settings providers are used the settings in the admin interface will
 Similarly the settings in files will override environment variables.
 
 ## Using admin user interface
-Since v2.10 a user interface is provided for administrators to setup email notification settings. Click on "administration" in the top menu, then "Email Notifications" on the left menu.
+Since v2.10 a user interface is provided for administrators to setup email notification settings. Select &#9881; > **Organisation settings** in the top right corner, then **Email Notifications** on the left menu.
+
+:::note
+A few settings have no field in the admin interface and can only be changed through environment variables or the configuration file: the two "admin role revoked" settings and the two "user deleted" settings listed in the administrator notifications table below.
+:::
 
 The settings are divided into two sections.
 
@@ -106,55 +116,91 @@ These settings control whether a piece of information is included in the emails 
 
 ## Using Environment variables
 You can use the following environment variables to control the email delivery settings.
-They are all boolean and accepts 1 or 0. Setting the variable to 1 (one) will mean that email will be sent for that
-event and setting it 0 (zero) will ignore the event.
+They are all boolean and accept 1 or 0. Setting the variable to 1 (one) will mean that email will be sent for that
+event and setting it 0 (zero) will ignore the event. The Default column shows the value used when the setting is not configured anywhere.
 
-<table>
-  <thead>
-    <tr>
-      <th>Event</th>
-      <th>Environment variable</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>When a comment is posted on a password	</td><td>PASSBOLT_EMAIL_SEND_COMMENT_ADD</td></tr>
-    <tr><td>When a password is created	</td><td>PASSBOLT_EMAIL_SEND_PASSWORD_CREATE</td></tr>
-    <tr><td>When a password is shared	</td><td>PASSBOLT_EMAIL_SEND_PASSWORD_SHARE</td></tr>
-    <tr><td>When a password is updated	</td><td>PASSBOLT_EMAIL_SEND_PASSWORD_UPDATE</td></tr>
-    <tr><td>When a password is deleted	</td><td>PASSBOLT_EMAIL_SEND_PASSWORD_DELETE</td></tr>
-    <tr><td>When a new user is invited	</td><td>PASSBOLT_EMAIL_SEND_USER_CREATE</td></tr>
-    <tr><td>When users try to recover their passbolt account	</td><td>PASSBOLT_EMAIL_SEND_USER_RECOVER</td></tr>
-    <tr><td>When a group is deleted	</td><td>PASSBOLT_EMAIL_SEND_GROUP_DELETE</td></tr>
-    <tr><td>A user is added to a group	</td><td>PASSBOLT_EMAIL_SEND_GROUP_USER_ADD</td></tr>
-    <tr><td>A user is removed from a group	</td><td>PASSBOLT_EMAIL_SEND_GROUP_USER_DELETE</td></tr>
-    <tr><td>When user roles change in a group	</td><td>PASSBOLT_EMAIL_SEND_GROUP_USER_UPDATE</td></tr>
-    <tr><td>When members of a group change	</td><td>PASSBOLT_EMAIL_SEND_GROUP_MANAGER_UPDATE</td></tr>
-    <tr><td>When a folder is created, notify its creator	</td><td>PASSBOLT_EMAIL_SEND_FOLDER_CREATED</td></tr>
-    <tr><td>When a folder is updated, notify the users who have access to it	</td><td>PASSBOLT_EMAIL_SEND_FOLDER_UPDATED</td></tr>
-    <tr><td>When a folder is deleted, notify the users who had access to it	</td><td>PASSBOLT_EMAIL_SEND_FOLDER_DELETED</td></tr>
-    <tr><td>When a folder is shared, notify the users who gain access to it	</td><td>PASSBOLT_EMAIL_SEND_FOLDER_SHARE_CREATED</td></tr>
-    <tr><td>When permissions on a folder are removed, notify the users who lost access to it	</td><td>PASSBOLT_EMAIL_SEND_FOLDER_SHARE_DROPPED</td></tr>
-  </tbody>
-</table>
+### Passwords, comments, users and groups
 
+| Event | Environment variable | Default |
+| --- | --- | --- |
+| When a comment is posted on a password | `PASSBOLT_EMAIL_SEND_COMMENT_ADD` | on |
+| When a password is created (notifies its creator) | `PASSBOLT_EMAIL_SEND_PASSWORD_CREATE` | off |
+| When a password is shared | `PASSBOLT_EMAIL_SEND_PASSWORD_SHARE` | on |
+| When a password is updated | `PASSBOLT_EMAIL_SEND_PASSWORD_UPDATE` | on |
+| When a password is deleted | `PASSBOLT_EMAIL_SEND_PASSWORD_DELETE` | on |
+| When a password is marked as expired | `PASSBOLT_EMAIL_SEND_PASSWORD_EXPIRE` | on |
+| When a new user is invited | `PASSBOLT_EMAIL_SEND_USER_CREATE` | on |
+| When a user tries to recover their passbolt account | `PASSBOLT_EMAIL_SEND_USER_RECOVER` | on |
+| When a user completes an account recovery | `PASSBOLT_EMAIL_SEND_USER_RECOVER_COMPLETE` | on |
+| When a group is deleted | `PASSBOLT_EMAIL_SEND_GROUP_DELETE` | on |
+| A user is added to a group | `PASSBOLT_EMAIL_SEND_GROUP_USER_ADD` | on |
+| A user is removed from a group | `PASSBOLT_EMAIL_SEND_GROUP_USER_DELETE` | on |
+| When user roles change in a group | `PASSBOLT_EMAIL_SEND_GROUP_USER_UPDATE` | on |
+| When members of a group change | `PASSBOLT_EMAIL_SEND_GROUP_MANAGER_UPDATE` | on |
+| When an administrator requests a group manager to add users to a group | `PASSBOLT_EMAIL_SEND_GROUP_MANAGER_REQUEST_ADD_USER` | on |
 
-Similarly, for changing the email content visibility, you can use the following environment variables . They are all boolean and accepts 1 or 0. Setting the variable to 1 (one) will mean that information will be included in outgoing mails and setting it to 0 (zero) will result in not including that.
+:::info
+The reminder email for passwords that are about to expire (`passbolt.email.send.password.aboutToExpire`, Pro Edition) has **no environment variable**. It can only be changed through the admin interface or the configuration file.
+:::
 
-<table>
-  <thead>
-    <tr>
-      <th>Show/Hide</th>
-      <th>Environment variable</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>Resource username	</td><td>PASSBOLT_EMAIL_SHOW_USERNAME</td></tr>
-    <tr><td>Resource URI/URL	</td><td>PASSBOLT_EMAIL_SHOW_URI</td></tr>
-    <tr><td>PGP encrypted password	</td><td>PASSBOLT_EMAIL_SHOW_SECRET</td></tr>
-    <tr><td>Resource description	</td><td>PASSBOLT_EMAIL_SHOW_DESCRIPTION</td></tr>
-    <tr><td>Comment content	</td><td>PASSBOLT_EMAIL_SHOW_COMMENT</td></tr>
-  </tbody>
-</table>
+### Folders
+
+| Event | Environment variable | Default |
+| --- | --- | --- |
+| When a folder is created (notifies its creator) | `PASSBOLT_EMAIL_SEND_FOLDER_CREATE` | off |
+| When a folder is updated | `PASSBOLT_EMAIL_SEND_FOLDER_UPDATE` | on |
+| When a folder is deleted | `PASSBOLT_EMAIL_SEND_FOLDER_DELETE` | on |
+| When a folder is shared | `PASSBOLT_EMAIL_SEND_FOLDER_SHARE` | on |
+
+### Administrator notifications
+
+| Event | Environment variable | Default |
+| --- | --- | --- |
+| When a user is suspended, notify all administrators | `PASSBOLT_EMAIL_SEND_ADMIN_USER_DISABLE_ADMIN` | on |
+| When a user is suspended, notify the suspended user | `PASSBOLT_EMAIL_SEND_ADMIN_USER_DISABLE_USER` | on |
+| When a user completes their account setup, notify all administrators | `PASSBOLT_EMAIL_SEND_ADMIN_USER_SETUP_COMPLETED` | on |
+| When a user aborts an account recovery, notify all administrators | `PASSBOLT_EMAIL_SEND_ADMIN_USER_RECOVER_ABORT` | on |
+| When a user completes an account recovery, notify all administrators | `PASSBOLT_EMAIL_SEND_ADMIN_USER_RECOVER_COMPLETE` | on |
+| When a user completes a self-registration, notify all administrators | `PASSBOLT_EMAIL_SEND_ADMIN_USER_REGISTER_COMPLETE` | on |
+| When an administrator role is revoked, notify the other administrators | `PASSBOLT_EMAIL_SEND_ADMIN_USER_ADMIN_ROLE_REVOKED_ADMIN` | on |
+| When an administrator role is revoked, notify the demoted user | `PASSBOLT_EMAIL_SEND_ADMIN_USER_ADMIN_ROLE_REVOKED_USER` | off |
+| When a user is deleted, notify all administrators | `PASSBOLT_EMAIL_SEND_ADMIN_USER_ADMIN_DELETE_ADMIN` | on |
+| When a user is deleted, notify the deleted user | `PASSBOLT_EMAIL_SEND_ADMIN_USER_ADMIN_DELETE_USER` | off |
+
+:::note
+The "user deleted" variables carry a doubled `ADMIN` segment (`..._ADMIN_USER_ADMIN_DELETE_...`). This is the name the server reads; the more regular-looking `PASSBOLT_EMAIL_SEND_ADMIN_USER_DELETE_ADMIN` does not exist.
+:::
+
+### Account recovery (Pro Edition)
+
+| Event | Environment variable | Default |
+| --- | --- | --- |
+| When a user requests an account recovery, notify the user | `PASSBOLT_EMAIL_SEND_ACCOUNT_RECOVERY_REQUEST_USER` | on |
+| When a user requests an account recovery, notify the administrators | `PASSBOLT_EMAIL_SEND_ACCOUNT_RECOVERY_REQUEST_ADMIN` | on |
+| When an account recovery request looks like a guessing attempt | `PASSBOLT_EMAIL_SEND_ACCOUNT_RECOVERY_REQUEST_GUESSING` | on |
+| When a request is approved, notify the user | `PASSBOLT_EMAIL_SEND_ACCOUNT_RECOVERY_RESPONSE_USER_APPROVED` | on |
+| When a request is rejected, notify the user | `PASSBOLT_EMAIL_SEND_ACCOUNT_RECOVERY_RESPONSE_USER_REJECTED` | on |
+| When an administrator answers a request, notify that administrator | `PASSBOLT_EMAIL_SEND_ACCOUNT_RECOVERY_RESPONSE_CREATED_ADMIN` | on |
+| When an administrator answers a request, notify all administrators | `PASSBOLT_EMAIL_SEND_ACCOUNT_RECOVERY_RESPONSE_CREATED_ALL_ADMINS` | on |
+| When the account recovery policy is updated | `PASSBOLT_EMAIL_SEND_ACCOUNT_RECOVERY_POLICY_UPDATE` | on |
+
+### Content visibility
+
+Similarly, for changing the email content visibility, you can use the following environment variables. They are all boolean and accept 1 or 0. Setting the variable to 1 (one) will mean that information will be included in outgoing mails and setting it to 0 (zero) will result in not including that.
+
+| Show/Hide | Environment variable | Default |
+| --- | --- | --- |
+| Resource username | `PASSBOLT_EMAIL_SHOW_USERNAME` | off |
+| Resource URI/URL | `PASSBOLT_EMAIL_SHOW_URI` | off |
+| PGP encrypted password | `PASSBOLT_EMAIL_SHOW_SECRET` | off |
+| Resource description | `PASSBOLT_EMAIL_SHOW_DESCRIPTION` | off |
+| Comment content | `PASSBOLT_EMAIL_SHOW_COMMENT` | off |
+
+## Resource names in notification emails (v5 encrypted metadata)
+
+When a resource uses the v5 encrypted-metadata format, the server cannot read its name, username, URI or description: that metadata is end-to-end encrypted. Notification emails for these resources therefore say only that *a resource* was created, updated, shared or deleted, without naming it, and **no setting can put the name back**. This is by design, not a bug.
+
+For resources still using the v4 (cleartext-metadata) format, the resource name is always included in the notification email, and the username, URI and description can additionally be shown through the content visibility settings above. An instance with a mix of v4 and v5 resources sends both styles, decided per resource.
 
 When using docker to set these environment variable you can pass them as arguments, like other variables
 such as the database name, for example:
@@ -197,51 +243,13 @@ These settings live in the email key under passbolt.
 ]`
 }
 </CodeBlock>
-If a config variable does not exist in your config file, it's default value will be picked.
+If a config variable does not exist in your config file, its default value will be picked.
 
-You can use the following config variables to control the email delivery settings. They are all boolean and accepts
-`true` or `false`. Setting the variable to `true` will mean that email will be sent for that event and setting it `false`
-will ignore the event.
+Every setting from the environment variable tables above is available in the config file. The config key derives from the environment variable name: drop the `PASSBOLT_EMAIL_` prefix, lowercase the rest, and turn each `_` into a dot under `passbolt.email`. For example `PASSBOLT_EMAIL_SEND_FOLDER_CREATE` becomes `passbolt.email.send.folder.create`, and `PASSBOLT_EMAIL_SHOW_USERNAME` becomes `passbolt.email.show.username`. The values are boolean and accept `true` or `false`.
 
-<table>
-  <thead>
-    <tr>
-      <th>Event</th>
-      <th>Config variable</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>When a comment is posted on a password	</td><td>passbolt.email.send.comment.add</td></tr>
-    <tr><td>When a password is created	</td><td>passbolt.email.send.password.create</td></tr>
-    <tr><td>When a password is shared	</td><td>passbolt.email.send.password.share</td></tr>
-    <tr><td>When a password is updated	</td><td>passbolt.email.send.password.update</td></tr>
-    <tr><td>When a password is deleted	</td><td>passbolt.email.send.password.delete</td></tr>
-    <tr><td>When a new user is invited	</td><td>passbolt.email.send.user.create</td></tr>
-    <tr><td>When users try to recover their passbolt account	</td><td>passbolt.email.send.user.recover</td></tr>
-    <tr><td>When a group is deleted	</td><td>passbolt.email.send.group.delete</td></tr>
-    <tr><td>When a user is added to a group	</td><td>passbolt.email.send.group.user.add</td></tr>
-    <tr><td>When a user is removed from a group	</td><td>passbolt.email.send.group.user.delete</td></tr>
-    <tr><td>When user roles change in a group	</td><td>passbolt.email.send.group.user.update</td></tr>
-    <tr><td>When members of a group change	</td><td>passbolt.email.send.group.manager.update</td></tr>
-  </tbody>
-</table>
+Two families of keys deviate from that letter-for-letter rule:
 
-Similarly, for changing the email content visibility, you can use the following config variables .
-They are all boolean and accepts `true` or `false`. Setting the variable to `true` will mean that information will be
-included in outgoing mails and setting it to `false` will result in not including that.
+- Multi-word segments are camelCase in the config key: `passbolt.email.send.user.recoverComplete`, `passbolt.email.send.group.manager.requestAddUser`, `passbolt.email.send.admin.user.adminRoleRevoked.admin`, and the account recovery keys under `passbolt.email.send.accountRecovery.*` (Pro Edition).
+- The "user deleted" keys are `passbolt.email.send.admin.user.delete.admin` and `passbolt.email.send.admin.user.delete.user`: shorter than their environment variables, which carry a doubled `ADMIN` segment.
 
-<table>
-  <thead>
-    <tr>
-      <th>Show/Hide</th>
-      <th>Variable name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>Resource username	</td><td>passbolt.email.show.username</td></tr>
-    <tr><td>Resource URI/URL	</td><td>passbolt.email.show.uri</td></tr>
-    <tr><td>PGP encrypted password	</td><td>passbolt.email.show.secret</td></tr>
-    <tr><td>Resource description	</td><td>passbolt.email.show.description</td></tr>
-    <tr><td>Comment content	</td><td>passbolt.email.show.comment</td></tr>
-  </tbody>
-</table>
+The password about-to-expire reminder is config-file only: `passbolt.email.send.password.aboutToExpire` (Pro Edition, defaults to `true`, no environment variable).

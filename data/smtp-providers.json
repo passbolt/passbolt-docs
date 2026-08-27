@@ -30,6 +30,11 @@
     "logo": "/img/smtp-providers/mailjet.svg"
   },
   {
+    "name": "Microsoft Exchange",
+    "slug": "exchange",
+    "logo": "/img/smtp-providers/microsoft.svg"
+  },
+  {
     "name": "Office 365",
     "slug": "office365",
     "logo": "/img/smtp-providers/microsoft.svg"

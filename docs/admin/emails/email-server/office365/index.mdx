@@ -21,7 +21,7 @@ import Chips from "/src/components/Chips/Chips";
 
 ## Office 365
 
-Passbolt supports two authentication methods for Office 365:
+passbolt supports two authentication methods for Office 365:
 
 - **OAuth 2.0 (Client Credentials)**: *recommended*
   - Uses short-lived access tokens issued by Microsoft Entra ID and avoids storing long-lived SMTP credentials.
@@ -30,7 +30,11 @@ Passbolt supports two authentication methods for Office 365:
 
 ### OAuth 2.0 (Client Credentials)
 
-This flow is designed for server-to-server email delivery, where no user interaction or refresh-token lifecycle is required. Passbolt requests an access token from Microsoft Entra ID at send time and uses it to authenticate to the SMTP server with `XOAUTH2`.
+This flow is designed for server-to-server email delivery, where no user interaction or refresh-token lifecycle is required. passbolt requests an access token from Microsoft Entra ID at send time and uses it to authenticate to the SMTP server with `XOAUTH2`.
+
+:::info
+OAuth 2.0 authentication for SMTP is available since passbolt v5.11.0. On earlier versions the authentication method selector does not offer it.
+:::
 
 Before you start, you will need:
 
@@ -68,23 +72,23 @@ Add-MailboxPermission -Identity "user@yourdomain.com" -User <SERVICE_PRINCIPAL_O
 
 For the full procedure and the exact commands for your environment, refer to Microsoft's guide on [authenticating an IMAP, POP or SMTP application by using OAuth](https://learn.microsoft.com/en-gb/exchange/client-developer/legacy-protocols/how-to-authenticate-an-imap-pop-smtp-application-by-using-oauth#register-service-principals-in-exchange).
 
-#### Passbolt configuration
+#### passbolt configuration
 
-On your Passbolt instance, navigate to *Administration > Email server*.
+On your passbolt instance, select &#9881; > **Organisation settings** > **Email server** in the top right corner.
 
 - Select **Office 365** as the email provider.
-- Select **OAuth (Client Credentials)** as the authentication method.
+- Select **OAuth (Client Credentials Grant)** as the authentication method.
 - Fill in the *SMTP server configuration* fields:
 
 | Field | Value |
 | --- | --- |
-| Directory (tenant) ID | The tenant ID from your Entra ID application |
-| Application (client) ID | The client ID from your Entra ID application |
-| Client secret | The secret value copied when it was created |
-| Username | The full email address of the licensed Microsoft 365 mailbox used to send (e.g. `user@yourdomain.com`) |
+| Tenant ID | The Directory (tenant) ID from your Entra ID application |
+| Client ID | The Application (client) ID from your Entra ID application |
+| Client Secret | The secret value copied when it was created |
+| OAuth Username | The full email address of the licensed Microsoft 365 mailbox used to send (e.g. `user@yourdomain.com`) |
 
 :::warning
-The **Username** must match the licensed mailbox associated with the registered application and the service principal. A mismatch will cause authentication to fail when an email is sent.
+The **OAuth Username** must match the licensed mailbox associated with the registered application and the service principal. A mismatch will cause authentication to fail when an email is sent.
 :::
 
 - Fill in the *Sender configuration* fields:
@@ -141,7 +145,7 @@ Now, you'll need to get the SMTP settings that are available from Outlook in *Se
 
 3. Authentication on passbolt GUI
 
-On your Passbolt instance, navigate to *Administration > Email server*.
+On your passbolt instance, select &#9881; > **Organisation settings** > **Email server** in the top right corner.
 
 Fill in your SMTP credentials to match your authentication method. Use the application password (not your login credentials).
 

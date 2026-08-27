@@ -58,6 +58,10 @@ Alternatively if you are using Docker Secrets you'll need to run the following t
 
 ### Server logs
 
+:::info
+On Docker, the application error logs are written to the container output: the image sets the `LOG_ERROR_URL` environment variable to `console://` by default. Unlike on package installations, you will not find them in `/var/log/passbolt/error.log` inside the container.
+:::
+
 To retrieve the server logs, run this command outside of the container (replace passbolt-container-name with your own):
 <CodeBlock>
   {`docker logs passbolt-container-name`}

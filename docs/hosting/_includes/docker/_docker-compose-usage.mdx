@@ -73,7 +73,7 @@ the most used environment variables for this purpose:
 | Variable name                    | Description                    | Default value     |
 | -------------------------------- | ------------------------------ | ----------------- |
 | EMAIL_DEFAULT_FROM_NAME          | From email username            | `'Passbolt'`      |
-| EMAIL_DEFAULT_FROM               | From email address             | `'you@localhost'` |
+| EMAIL_DEFAULT_FROM               | From email address             | `'you@localhost.test'` |
 | EMAIL_TRANSPORT_DEFAULT_HOST     | Server hostname                | `'localhost'`     |
 | EMAIL_TRANSPORT_DEFAULT_PORT     | Server port                    | `25`              |
 | EMAIL_TRANSPORT_DEFAULT_USERNAME | Username for email server auth | `null`            |
@@ -82,6 +82,10 @@ the most used environment variables for this purpose:
 
 For more information on which environment variables are available on passbolt, please check the
 [environment variable reference](/hosting/environment-reference/)
+
+:::caution[Using a passbolt.php configuration file on Docker]
+At container start, passbolt detects the fingerprint of its server GPG key automatically, but only when the `PASSBOLT_GPG_SERVER_KEY_FINGERPRINT` environment variable is not set **and** no `/etc/passbolt/passbolt.php` file exists. Mounting a `passbolt.php` file into the container disables this detection: if neither the file nor the environment defines the fingerprint, passbolt cannot find its server key and the instance stops working. If you mount a `passbolt.php`, always set `PASSBOLT_GPG_SERVER_KEY_FINGERPRINT` explicitly in your compose file.
+:::
 
 <Incrementor title="Start your containers" />
 

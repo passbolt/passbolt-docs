@@ -84,14 +84,12 @@ You can use docker compose cp to backup the Passbolt GPG keys:
 </Tabs>
 
 ### 3. The application configuration
-Passbolt docker stores its configuration as environment variables.
+passbolt on Docker stores its configuration as environment variables.
 
-If you are using docker compose, environment variables are on the env folder:
+If you are using docker compose, the environment variables live in the `environment:` blocks of the passbolt and db services in your docker compose file. Back up the compose file itself: it contains your instance configuration, including the database credentials. If you moved the variables into separate files through the compose `env_file:` option, back up those files as well.
 
-* env/passbolt.env
-* env/mysql.env
+If you are running docker containers directly, you passed these variables through the command line, and you should keep a copy of the commands used.
 
-If you are running docker container, you should have passed these variables through the command line.
 Please check the [passbolt env variable reference](/hosting/environment-reference/)
 
 <BackupList />

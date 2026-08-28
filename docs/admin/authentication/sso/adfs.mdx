@@ -1,0 +1,112 @@
+---
+title: How to configure SSO with AD FS
+sidebar_label: AD FS
+description: How to configure Single Sign-On with Active Directory Federation Services (AD FS)
+hide_table_of_contents: false
+---
+
+import Figure from '@site/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+import EmailMatchingWarning from "/docs/admin/_includes/sso/email-matching-warning.mdx";
+import HttpsWarning from "/docs/admin/_includes/sso/https-warning.mdx";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+:::danger[Do not map users to untrusted attributes]
+passbolt relies on the identity provider to authenticate users and to assert their identity, and matches users to existing passbolt accounts by their email address. Only use an identity provider that guarantees users can authenticate only as email addresses they legitimately own and that you administer. If the provider lets users self-assign or modify unverified email addresses, an attacker may be able to impersonate another user.
+:::
+
+<HttpsWarning />
+
+passbolt Pro Edition supports SSO with Active Directory Federation Services (AD FS) through OpenID Connect, since version 4.6.0. AD FS is configured as a dedicated provider on the SSO administration screen.
+
+## How does it work?
+
+passbolt SSO uses the AD FS OpenID Connect endpoints alongside the existing [challenge-based authentication](/development/authentication/). When a user logs in through AD FS, they unlock a server-side key needed to decrypt their secret key passphrase.
+
+AD FS asserts the user's identity through the **UPN** (user principal name) claim. passbolt reads the UPN as the user's email address, so each user's UPN in Active Directory must be the same address as their passbolt account. This is the only email claim AD FS supports on passbolt.
+
+## Prerequisites
+
+You need the following to configure AD FS SSO with passbolt:
+
+- An AD FS server reachable over HTTPS from the passbolt server
+- Administrative access to both AD FS and passbolt
+- Each user's UPN in Active Directory set to the email address of their passbolt account
+
+## Configuration
+
+<EmailMatchingWarning />
+
+### Step 1: Register passbolt in AD FS
+
+On the AD FS server, register passbolt as an OpenID Connect relying party. In the AD FS management console this is an **Application Group** containing a **Server application** (which holds the client ID and secret) and a **Web API**.
+
+1. Create an application group for passbolt (for example, "passbolt SSO").
+2. Add a **Server application**. Note its **Client Identifier**: this is the client ID passbolt needs.
+3. Add the passbolt **redirect URI**. You will find the exact value on the passbolt SSO administration screen in Step 3; it has the form `https://passbolt.example.com/sso/adfs/redirect`.
+4. Generate a **client secret** and copy it: it is shown only once.
+5. Add a **Web API**, using the client identifier from the server application as its identifier.
+6. In the Web API, permit the `openid`, `email` and `profile` scopes and apply an access control policy that permits the users who should be able to sign in.
+7. Make sure AD FS issues the **UPN** claim to passbolt.
+
+Refer to Microsoft's AD FS documentation for the exact wizard steps for your Windows Server version.
+
+### Step 2: Trust the AD FS certificate
+
+The passbolt server calls the AD FS OpenID Connect endpoints over HTTPS and verifies the certificate. If AD FS serves a certificate from an internal certificate authority, add that CA to the passbolt server's trust store, then confirm connectivity:
+
+```bash
+curl -s -o /dev/null -v https://adfs.example.com/adfs/.well-known/openid-configuration
+```
+
+A successful call ends with `SSL certificate verify ok`. If it reports a verification error, fix the certificate trust before continuing.
+
+### Step 3: Configure passbolt
+
+1. Sign in to passbolt with an administrator account.
+2. Select &#9881; > **Organisation settings** > **Single Sign-On** in the top right corner.
+3. Select **AD FS** as the provider.
+4. Copy the **Redirect URL** shown on this screen and add it to the AD FS server application's redirect URIs (Step 1) if you have not already.
+5. Fill in the configuration:
+
+| Field | Value |
+| --- | --- |
+| Login URL | The base URL of your AD FS server, e.g. `https://adfs.example.com` |
+| OpenId Configuration Path | The discovery document path, usually `/adfs/.well-known/openid-configuration` |
+| Scope | `openid email profile` |
+| Application (client) ID | The client identifier of the AD FS server application |
+| Secret | The secret generated for the server application |
+
+passbolt always reads the user's email from the UPN claim for AD FS, so there is no email claim to choose on this screen.
+
+6. Click **Save settings** to run a test authentication, and complete the AD FS login flow.
+7. If the test succeeds, save the settings permanently.
+
+### Step 4: Test the configuration
+
+1. Sign out from passbolt.
+2. On the login page, select **Sign in with AD FS**.
+3. Confirm you can authenticate through AD FS and reach your passbolt account.
+
+## Troubleshooting
+
+**Authentication fails**: verify the client ID and secret, and that the redirect URI in AD FS matches the passbolt redirect URL exactly.
+
+**The user cannot sign in**: confirm the user's UPN in Active Directory is exactly the email address of their passbolt account. A UPN that differs from the passbolt email, even by domain, prevents the match.
+
+**Certificate errors**: confirm the AD FS certificate is trusted by the passbolt server (Step 2).
+
+To enable SSO debug logging, set the environment variable:
+
+```bash
+export PASSBOLT_PLUGINS_SSO_DEBUG_ENABLED=true
+```
+
+## Important notes
+
+- Users must sign in with their passphrase **after SSO is activated** for the SSO option to appear on later logins.
+- HTTPS is required for SSO to function.

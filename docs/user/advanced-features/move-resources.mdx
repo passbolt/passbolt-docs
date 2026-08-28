@@ -56,7 +56,7 @@ What a move changes depends on what you are moving, and on your own access to it
 
 ### Moving a folder
 
-When the permissions of the folder you drag do not match the destination, passbolt asks before applying anything. A dialog opens, titled **How do you want to proceed?**, with the message "You are about to move a folder. The permissions do not match the destination folder permissions.", and two options:
+When the permissions of the folder you drag do not match the destination, passbolt asks before applying anything. As with resources, permissions are only rewritten on the folders and resources inside the move that you own: when you own none of them, the move applies no permission changes and shows no dialog. Otherwise a dialog opens, titled **How do you want to proceed?**, with the message "You are about to move a folder. The permissions do not match the destination folder permissions.", and two options:
 
 - **Change permissions**: "Remove old inherited permissions and apply the new destination folder permissions recursively."
 - **Keep existing permissions**: "Keep the original permissions, do not apply the destination folder permissions."

@@ -19,6 +19,10 @@ import KeyRotatedWarning from "/docs/hosting/_includes/warning/_key_rotated_warn
   <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
 </div>
 
+:::info[What a server key rotation affects]
+Rotating the server GPG key does not re-encrypt or affect your users' stored passwords and other secrets: each secret is encrypted with the individual user's OpenPGP key, not the server key, so existing secrets stay accessible after the rotation. Login sessions are not invalidated either, because JSON Web Token (JWT) authentication uses a separate key pair. The only change your users see is a one-time prompt to accept the new server key on their next sign-in. If you use encrypted metadata, rotate the metadata key as well. Both points are covered by the warnings at the end of this page.
+:::
+
 ## Docker installation
 
 It is quite simple with docker to rotate your passbolt server GPG keys:
@@ -111,7 +115,7 @@ Generate new GPG keys:
     Subkey-Usage: encrypt
     Name-Real: Passbolt default user
     Name-Email: passbolt@yourdomain.com
-    Expire-Date: -0
+    Expire-Date: 0
     %no-protection
     %commit
 EOF`}

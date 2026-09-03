@@ -76,6 +76,7 @@ const hostingSidebar = [
         link: { type: 'doc', id: 'hosting/database/index' },
         items: [
           { type: 'doc', id: 'hosting/database/postgres', label: 'PostgreSQL' },
+          { type: 'doc', id: 'hosting/database/high-availability', label: 'High Availability' },
         ],
       },
       {

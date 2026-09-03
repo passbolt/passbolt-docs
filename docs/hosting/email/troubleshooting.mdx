@@ -7,6 +7,9 @@ toc_min_heading_level: 2
 toc_max_heading_level: 3
 ---
 import Figure from '/src/components/Figure/Figure';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
 
 ## Why are my emails not being sent?
 
@@ -24,13 +27,22 @@ If this fails you should double check what is the recommended configuration in y
 
 ### Running these commands on Docker
 
-On the official Docker image, run the commands on this page through `docker exec`, sourcing `/etc/environment` so the container's environment variables are available. For example, to send the test email (replace `passbolt` with your container name):
+On the official Docker image, run the commands on this page against the `passbolt` compose service, sourcing `/etc/environment` so the container's environment variables are available. For example, to send the test email:
 
-```bash
-docker exec passbolt su -s /bin/bash -c ". /etc/environment && bin/cake passbolt send_test_email --recipient=youremail@domain.com" www-data
-```
+<Tabs groupId="edition">
+  <TabItem value="ce" label="CE" default>
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml exec passbolt su -s /bin/bash -c ". /etc/environment && bin/cake passbolt send_test_email --recipient=youremail@domain.com" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="pro" label="PRO">
+    <CodeBlock>
+      {`docker compose -f docker-compose-pro.yaml exec passbolt su -s /bin/bash -c ". /etc/environment && bin/cake passbolt send_test_email --recipient=youremail@domain.com" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
 
-On the rootless image, drop the `su` wrapper: `docker exec passbolt bin/cake passbolt send_test_email --recipient=youremail@domain.com`.
+On the rootless image, drop the `su` wrapper and run `bin/cake passbolt send_test_email --recipient=youremail@domain.com` directly.
 
 
 ## Reason 2: Email notifications are disabled in the config
@@ -49,11 +61,20 @@ passbolt uses a system of email queue to send email notifications. A dedicated c
 
 So if you manage to send the test email but are not receiving notifications (such as registration emails), one of the reason may be that the cron service is stopped.
 
-On Docker, the cron job runs inside the passbolt container, so there is no host service to check: look at the container output (`docker logs`) instead, and process the queue manually to see errors directly:
+On Docker, the cron job runs inside the passbolt container, so there is no host service to check: look at the container output (`docker compose logs passbolt`) instead, and process the queue manually to see errors directly:
 
-```bash
-docker exec passbolt su -s /bin/bash -c ". /etc/environment && bin/cake passbolt email_digest send" www-data
-```
+<Tabs groupId="edition">
+  <TabItem value="ce" label="CE" default>
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml exec passbolt su -s /bin/bash -c ". /etc/environment && bin/cake passbolt email_digest send" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="pro" label="PRO">
+    <CodeBlock>
+      {`docker compose -f docker-compose-pro.yaml exec passbolt su -s /bin/bash -c ". /etc/environment && bin/cake passbolt email_digest send" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
 
 You can verify if the service is running by executing this command:
 ```bash

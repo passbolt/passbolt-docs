@@ -66,6 +66,19 @@ a fresh one:
 This sends a new invitation email with a new link. The option is only available while the
 user has not completed their setup; it is greyed out for active users.
 
+:::warning
+The invitation goes into the email queue and is delivered in the background. passbolt confirms
+success as soon as the email is queued, not when it is delivered, and the interface gives no
+indication if delivery later fails. So if the user received nothing the first time, resending
+returns the same confirmation and will not fix it.
+
+Troubleshoot delivery instead: list the queue with the `show_queued_emails` command to see the
+error, then work through [email delivery issues](/hosting/email/troubleshooting/). Also check
+that **When new users are invited to passbolt, notify them** is enabled in the email
+notification settings. While it is off, no invitation is queued at all and the confirmation
+still appears.
+:::
+
 ## How to edit a user
 
 Administrators can change the first name and last name of any user:

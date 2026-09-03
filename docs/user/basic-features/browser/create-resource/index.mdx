@@ -12,14 +12,14 @@ import Figure from '/src/components/Figure/Figure';
   <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
 </div>
 
-A resource is any entry you store in passbolt. Each one carries metadata, such as its name and the address it belongs to, along with one or more encrypted secrets. That secret does not have to be a password. It can be a time-based one-time password on its own, a note, custom fields or a pin code, and one resource can hold several of them at once.
+A resource is any entry you store in passbolt. Each one carries metadata, such as its name and the address it belongs to, along with one or more encrypted secrets. That secret does not have to be a password. It can be a Time-base One Time Password (TOTP) on its own, a note, custom fields or a pin code, and one resource can hold several of them at once.
 
 ## Content types you can create
 
 | Content type | What the secret holds | New in |
 | --- | --- | --- |
 | **Password** | A password, optionally with a TOTP alongside it | |
-| **TOTP** | A time-based one-time password on its own, with no password attached | 4.4 |
+| **TOTP** | A TOTP on its own, with no password attached | 4.4 |
 | **Custom fields** | Key and value pairs, for anything that does not fit the other types | 5.3 |
 | **Notes** | A free text note of up to 50,000 characters | 5.6 |
 | **Pin code** | A numeric code of 4 to 12 digits | 5.12 |
@@ -88,7 +88,7 @@ The **passphrase** tab builds a sequence of words:
 
 - **Number of words**: from 4 to 40, 9 by default.
 - **Words separator**: the character placed between the words, a space by default.
-- **Words case**: **Lower case**, **Upper case** or **Camel case**.
+- **Words case**: `lower-case`, `UPPER-CASE` or `Camel-Case`.
 
 To change these defaults for everyone rather than for one secret, see [password policy](/admin/resource-policies/password-policy/) (Pro and Cloud).
 

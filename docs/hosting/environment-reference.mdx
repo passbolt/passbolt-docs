@@ -530,9 +530,9 @@ Set MFA cookie secure flag. When enabled, cookies are only sent over HTTPS conne
 Enable proxy support for load balancers/proxies. Required when Passbolt is behind a reverse proxy to correctly identify client IP addresses.
 **Default:** `false` | **Environment:** all
 
-**`PASSBOLT_SECURITY_MFA_MAX_ATTEMPTS`** *(string, optional)*
-Maximum attempts for MFA authentication before the user is locked out. Helps prevent brute force attacks.
-**Default:** `'4'` | **Environment:** all
+**`PASSBOLT_SECURITY_MFA_MAX_ATTEMPTS`** *(integer, optional)*
+Maximum failed TOTP verifications before the user is signed out. Applies to TOTP only. Any value below 1, including a value that is not a valid integer, disables the protection. See [failed attempt handling](/admin/authentication/mfa/totp/#failed-attempt-handling).
+**Default:** `4` | **Environment:** all
 
 **`PASSBOLT_SECURITY_FULLBASEURL_ENFORCE`** *(boolean, optional)*
 Enforce full base URL configuration. When enabled, requires APP_FULL_BASE_URL to be properly configured.
@@ -933,7 +933,7 @@ Enable metadata for existing Passbolt instances.
 ### In-Form Integration
 
 **`PASSBOLT_PLUGINS_IN_FORM_INTEGRATION_ENABLED`** *(boolean, optional)*
-Enable in-form integration functionality.
+Enable in-form integration functionality: the passbolt icon inside login fields, its menu, and the automatic detection of login forms. Disabling it does not affect filling from the quick access popup. Used in [why can't I use autofill](/user/faq/why-my-autofill-doesnt-work/).
 **Default:** `true` | **Environment:** all
 
 ### Email Digest

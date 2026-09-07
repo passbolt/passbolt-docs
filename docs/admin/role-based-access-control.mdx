@@ -15,8 +15,7 @@ import Chips from "/src/components/Chips/Chips";
 </div>
 
 :::important
-RBAC is currently available at the user interface (UI) level, with the API level planned in the future.
-So please note that this first release of RBAC only restricts passbolt at the interface level, not the underlying API.
+RBAC started as a user-interface restriction only. Since passbolt v5.8.0 a growing set of actions is also enforced at the API level, so a denied action is refused even when it is called directly through the API and not only hidden in the interface. Server-side enforcement currently covers account recovery management and group creation; other functionalities are still restricted at the interface level only. Do not rely on RBAC alone to prevent an API call for a functionality that is not yet enforced server-side.
 :::
 
 ### How to configure Role-Based Access Control
@@ -43,7 +42,7 @@ RBAC is a feature introduced to restrict the access of functionalities to users.
 According to the administrator choices, users can be restricted to some functionalities. The administrator has only to chose between allow or deny options for the functionalities.
 
 ## RBAC
-In order to configure RBAC for your organisation, go to administration setting workspace Administration > Role-Based Access Control.
+In order to configure RBAC for your organisation, select &#9881; > **Organisation settings** > **Role-Based Access Control** in the top right corner.
 
 ### Choose to restrict or not a functionality
 By default, all functionalities are allowed. To deny one select and restrict the one that suits best your organisation.

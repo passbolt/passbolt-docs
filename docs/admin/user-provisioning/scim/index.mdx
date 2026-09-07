@@ -57,7 +57,7 @@ SCIM requires HTTPS for secure communication.
 ### Access SCIM Settings
 
 1. Log in as administrator
-2. Go to **Administration** > **SCIM Settings**
+2. Go to **Administration** > **User Provisioning** > **SCIM**
 
 ### Enable SCIM
 
@@ -81,7 +81,7 @@ https://your-passbolt-instance.com/scim/v2/<settings_id>
 The `<settings_id>` is a unique identifier generated when SCIM is enabled.
 
 **Authentication Token:**
-A token with format `pb_[A-Za-z0-9]{43}` sent as a Bearer token in the Authorization header.
+A token with format `pb_[A-Za-z0-9_-]{43}` (a `pb_` prefix followed by 43 base64url characters, which may include `-` and `_`) sent as a Bearer token in the Authorization header.
 
 ## Available Endpoints
 
@@ -149,7 +149,7 @@ SCIM user deletion follows a two-phase process:
 4. User's private key and secrets are deleted
 
 **Exception - Cannot Delete:**
-If the user cannot be deleted (e.g., sole owner of shared resources), the user is disabled and administrators receive an email notification to manually resolve the issue.
+If the user cannot be deleted (e.g., sole owner of shared resources), the user is disabled and an administrator must resolve the issue manually, for example by reassigning ownership of the shared resources before deleting the user.
 
 :::caution[Two-Phase Deletion]
 User deletion occurs in two phases: first disable, then permanent deletion after 30 days. Users who cannot be deleted remain disabled until manually resolved.

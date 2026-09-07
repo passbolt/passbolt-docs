@@ -11,6 +11,12 @@ import Link from '@docusaurus/Link';
 
 Configure which metadata format (encrypted v5 or legacy cleartext v4) is used for new resources. You can enable both formats during migration, or enforce only encrypted metadata for new installations.
 
+:::note[Out-of-the-box default]
+New instances set up on passbolt 5.4.0 or later come with encrypted metadata enabled by default: new content is created in the v5 format. Instances upgraded from an earlier version keep creating v4 cleartext content until an administrator enables encrypted metadata, either on this screen or from *Administration > Resource types > Getting started* with "Enable encrypted metadata and new resource types (recommended)".
+
+The default activation on new instances is governed by the `passbolt.plugins.metadata.enableForNewInstances` flag, true by default, and the administrator can decline it during setup by choosing "Keep legacy cleartext metadata".
+:::
+
 ## What is Metadata Encryption?
 
 Metadata encryption encrypts:

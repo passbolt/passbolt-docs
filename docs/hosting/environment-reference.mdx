@@ -316,15 +316,15 @@ The legacy variables `PASSBOLT_GPG_SERVER_KEY_PUBLIC_FILE` and `PASSBOLT_GPG_SER
 ## User Key Policies Configuration
 
 **`PASSBOLT_PLUGINS_USER_KEY_POLICIES_PREFERRED_KEY_TYPE`** *(string, optional)*
-Preferred GPG key type for user key generation. Controls whether users get RSA or ECC (curve) keys.
+Preferred GPG key type for user key generation. Controls whether new accounts generate RSA or ECC (curve) keys during setup. See [User Key Policies](/admin/authentication/user-key-policies/) for guidance. Note: the curve default describes the server policy, which applies whenever the plugin is enabled, the default on 5.2.0 and later; when the plugin is disabled, or the server predates 5.2.0, the browser extension falls back to its own default and generates an RSA 3072 key.
 **Default:** `'curve'` | **Environment:** all | **Example:** `'rsa'`, `'curve'`
 
 **`PASSBOLT_PLUGINS_USER_KEY_POLICIES_PREFERRED_KEY_SIZE`** *(integer|null, optional)*
-Preferred GPG key size for RSA keys. Not used for ECC keys (set to null).
+Preferred GPG key size. Only used when the preferred key type is `rsa`; the allowed values are 3072 and 4096, and the type and size combination is validated together. Set to null otherwise.
 **Default:** `null` | **Environment:** all | **Example:** `3072`, `4096`, `null`
 
 **`PASSBOLT_PLUGINS_USER_KEY_POLICIES_PREFERRED_KEY_CURVE`** *(string|null, optional)*
-Preferred GPG key curve for ECC keys. Not used for RSA keys (set to null).
+Preferred GPG key curve. Only used when the preferred key type is `curve`; `'curve25519_legacy+ed25519_legacy'` is the only accepted value. Set to null otherwise.
 **Default:** `'curve25519_legacy+ed25519_legacy'` | **Environment:** all | **Example:** `'curve25519_legacy+ed25519_legacy'`, `null`
 
 ## Application Configuration
@@ -812,7 +812,7 @@ Enable tags backup mode. When enabled, tags are preserved during data migrations
 **Default:** `false` | **Environment:** all
 
 **`PASSBOLT_PLUGINS_USER_KEY_POLICIES_ENABLED`** *(boolean, optional)*
-Enable user key policies.
+Enable user key policies. Used in [User Key Policies](/admin/authentication/user-key-policies/).
 **Default:** `true` | **Environment:** all
 
 ### Directory Sync

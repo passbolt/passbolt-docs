@@ -32,7 +32,7 @@
   {
     "name": "Ubuntu",
     "slug": "ubuntu",
-    "version": 24.04,
+    "version": 26.04,
     "package": "apt",
     "db_engine": "mysql",
     "logo": "/img/distributions/ubuntu.svg",

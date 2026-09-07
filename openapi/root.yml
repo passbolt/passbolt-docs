@@ -44,9 +44,9 @@ paths:
     $ref: "paths/directorySyncDryRun.yml"
   /directorysync/synchronize.json:
     $ref: "paths/directorySync.yml"
-  /favorite/{favoriteId}.json:
+  /favorites/{favoriteId}.json:
     $ref: "paths/favorite.yml"
-  /favorite/{foreignModel}/{foreignId}.json:
+  /favorites/resource/{foreignId}.json:
     $ref: "paths/favoritesForeignModel.yml"
   /folders.json:
     $ref: "paths/folders.yml"
@@ -116,11 +116,13 @@ paths:
     $ref: "paths/secretsResource.yml"
   /settings.json:
     $ref: "paths/settings.yml"
-  /share/{foreignModel}/{foreignId}.json:
-    $ref: "paths/shareForeignModel.yml"
+  /share/resource/{foreignId}.json:
+    $ref: "paths/shareResource.yml"
+  /share/folder/{foreignId}.json:
+    $ref: "paths/shareFolder.yml"
   /share/search-aros.json:
     $ref: "paths/shareSearchAros.yml"
-  /share/simulate/{foreignModel}/{foreignId}.json:
+  /share/simulate/resource/{foreignId}.json:
     $ref: "paths/shareSimulateForeignModel.yml"
   /tags.json:
     $ref: "paths/tags.yml"

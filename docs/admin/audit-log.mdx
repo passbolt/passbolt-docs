@@ -21,7 +21,7 @@ The log is still written, and can be exploited outside the interface: [forward i
 
 ## What is recorded
 
-passbolt writes one row per authenticated API call, except for the calls excluded by its logging blacklist, which an operator can extend. The audit log presents those rows as activity entries: resources created and updated, secrets read and updated, permission changes, folders created and updated, and user accounts created, updated and deleted.
+passbolt writes one row per authenticated API call, except for the calls excluded by its logging denylist, which an operator can extend. The audit log presents those rows as activity entries: resources created and updated, secrets read and updated, permission changes, folders created and updated, and user accounts created, updated and deleted.
 
 Two limits are worth stating up front:
 

@@ -13,6 +13,7 @@ import Chips from "/src/components/Chips/Chips";
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import CodeBlock from '@theme/CodeBlock';
+import RestoreDatabaseNotes from '/docs/hosting/_includes/backup/_restore-database-notes.mdx';
 
 # Backing up a Docker passbolt installation
 
@@ -91,6 +92,31 @@ If you are using docker compose, the environment variables live in the `environm
 If you are running docker containers directly, you passed these variables through the command line, and you should keep a copy of the commands used.
 
 Please check the [passbolt env variable reference](/hosting/environment-reference/)
+
+## How to restore the database?
+
+Copy the SQL backup into the passbolt container, then run `mysql_import`. Unlike the export, this command needs no database client binary in the container, as it loads the file through the application's own database connection:
+
+<Tabs groupId="edition">
+  <TabItem value="ce" label="CE" default>
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml cp /path/to/backup.sql passbolt:/tmp/backup.sql
+
+docker compose -f docker-compose-ce.yaml exec passbolt \\
+  su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt mysql_import --dir /tmp --file backup.sql" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="pro" label="PRO">
+    <CodeBlock>
+      {`docker compose -f docker-compose-pro.yaml cp /path/to/backup.sql passbolt:/tmp/backup.sql
+
+docker compose -f docker-compose-pro.yaml exec passbolt \\
+  su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt mysql_import --dir /tmp --file backup.sql" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+<RestoreDatabaseNotes />
 
 <BackupList />
 <MigrateOldToNew />

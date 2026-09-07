@@ -35,10 +35,18 @@ A complete passbolt backup should include:
 
 ## Recovery
 
+The database is restored with the `mysql_import` command, the counterpart of the `sql_export` used for backups. The procedure, with the right command for your installation, is on the same pages as the backup steps:
+
+- **[From Docker](/hosting/maintenance/backup/from-docker/#how-to-restore-the-database)**
+- **[From Packages](/hosting/maintenance/backup/from-packages/#how-to-restore-the-database)**
+- **[From Sources](/hosting/maintenance/backup/from-sources/#how-to-restore-the-database)**
+
 After restoring a backup, ensure:
 
 - Database is restored to the correct location
-- GPG server keys are restored with correct permissions
+- GPG server keys are restored with correct permissions, and imported into the keyring of the web server user with `passbolt keyring_init`
 - Configuration files match the backup state
 - TLS certificates are valid and properly configured
+
+Finish with `passbolt healthcheck` to confirm the instance is consistent.
 

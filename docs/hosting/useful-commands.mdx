@@ -455,6 +455,19 @@ Performance may be degraded while running. Always run with `--dry-run` first.
 Processes in batches. Can be scheduled via cron.
 :::
 
+### Restore an SQL Backup
+
+Loads an SQL backup back into the database, as the counterpart of the `sql_export` used to produce it.
+
+**Options:**
+- `--file` - The SQL file to import
+- `--dir` - The directory holding the file (default: the `tmp/cache/database/` directory of the installation)
+- `-d, --datasource` - Datasource name (default: `default`)
+
+Pass `--file` explicitly: without it, the command takes the first file in reverse alphabetical order from the directory, which is not necessarily the most recent backup. Note that the export and the import are not symmetric under the hood: `sql_export` calls a database client binary, while this command loads the file through the application's database connection, so it needs no client binary but reads the whole dump into memory.
+
+For the full procedure, including the restore-specific precautions and the command for your installation type, see [backup and recovery](/hosting/maintenance/backup/).
+
 ## Email Management
 
 ### Send Test Email
@@ -601,6 +614,92 @@ Runs pending database migrations. Automatically clears cache after migration (un
 # Migration without cache clearing (advanced)
 ./bin/cake passbolt migrate --no-clear-cache
 ```
+
+### One-Time Post-Upgrade Commands
+
+These commands are run once, after a specific upgrade or operation, not on a schedule.
+
+#### Backfill Secret History Data
+
+Two commands fill in data that new writes now record natively, for the secrets that already existed before the upgrade. Run them once, in this order, after upgrading an instance that already contains secrets to version 5.8.0 or later. They are not a prerequisite for enabling [secret history](/admin/resource-policies/secret-history/), but without them the resources created before the upgrade have no starting revision.
+
+<Tabs groupId="installation">
+  <TabItem value="deb" label="Debian-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt populate_secret_revisions_for_existing_secrets" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="rpm" label="RPM-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt populate_secret_revisions_for_existing_secrets" nginx`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml exec passbolt \\
+  su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt populate_secret_revisions_for_existing_secrets" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+<Tabs groupId="installation">
+  <TabItem value="deb" label="Debian-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt populate_created_by_and_modified_by_in_secrets" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="rpm" label="RPM-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt populate_created_by_and_modified_by_in_secrets" nginx`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml exec passbolt \\
+  su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt populate_created_by_and_modified_by_in_secrets" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+Neither command takes any option, and both are safe to run again: they only touch the rows that are still empty, so a second run finds nothing to do and cannot create duplicates. On an instance created in 5.8.0 or later they have nothing to do at all.
+
+:::note[No progress output]
+Each command prints one line when it starts and one when it finishes, with nothing in between and no count, so a large vault looks like a stalled terminal. A PHP execution timeout can also cut a very large backfill short: run it again, which is harmless. To check where you stand, count the rows that remain empty, for example `SELECT COUNT(*) FROM secrets WHERE secret_revision_id IS NULL;`.
+:::
+
+The first command reconstructs who last modified each secret from the action log. On an instance whose action logs have been purged, that attribution falls back to the creator of the resource, without failing.
+
+#### Re-Run the PostgreSQL Migrations
+
+Marks three schema migrations as not applied, the two that convert ASCII field encodings and the one that converts identifier fields to UUID, then runs the pending migrations again. Their implementation differs between MySQL or MariaDB and PostgreSQL, so this command exists to apply the PostgreSQL variants on an instance where they were recorded as done without having run.
+
+Run it after importing a database into PostgreSQL, typically a conversion from MySQL where `phinxlog` came along with the data, or when passbolt support points you to it. It refuses to run on any driver other than PostgreSQL, reporting "This command is available with a Postgres connection only."
+
+**Options:**
+- `-d, --datasource` - Datasource name, `default` or `test` (default: `default`)
+
+<Tabs groupId="installation">
+  <TabItem value="deb" label="Debian-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt migrate_postgres" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="rpm" label="RPM-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt migrate_postgres" nginx`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml exec passbolt \\
+  su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt migrate_postgres" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+:::warning
+This command replays schema migrations on a database that holds data. It writes only to the migrations table itself, not to your application data, but the migrations it triggers do alter the schema. Take a database backup first and run it in a maintenance window, as you would for any migration.
+:::
 
 :::info
 Cannot rollback - use `migrations rollback` for that. Backup option uses `sql_export`.
@@ -761,6 +860,7 @@ Synchronises users and groups from LDAP/AD. Use `--persist` to save changes to t
 - `directory_sync groups` - Synchronise groups only
 - `directory_sync test` - Test synchronisation without making changes (safe)
 - `directory_sync debug` - Debug configuration helper (safe)
+- `directory_sync purge_directory_reports` - Delete old synchronisation reports (irreversible, no dry-run)
 
 **Output format:**
 Shows Created/Updated/Deleted sections for Users and Groups. Error messages include instructions for ignoring specific entries if needed.
@@ -800,6 +900,173 @@ Shows Created/Updated/Deleted sections for Users and Groups. Error messages incl
 Cannot be run as root - must run as web server user. Error messages include instructions for ignoring entries. See [Advanced Directory Options](/admin/user-provisioning/users-directory/advanced-directory-options/) for sync error explanations. See [LDAP Sync Cronjob](/hosting/ldap/ldap-cron/) for automated setup.
 :::
 
+### Purge Directory Reports
+
+Deletes old synchronisation reports and their entries from the database. Available since version 4.10.0.
+
+Every synchronisation run writes a report, plus one item row for each directory entry it reports on, including the entries where nothing changed. A directory of a few thousand entries synchronised several times a day therefore adds tens of thousands of rows a day, and nothing prunes them: there is no retention setting, and none of the bundled cron scripts calls this command. On long-running instances these tables reach several gigabytes, so plan a periodic purge.
+
+:::warning
+This command has no dry-run and no batch size: it deletes as soon as it runs, with one delete per table. Take a database backup first, or at least count the rows you are about to remove. On a table that has already grown to several gigabytes, start with an old `--before` date and move it forward over successive runs rather than purging everything at once, as a single large delete can hold locks and inflate the transaction log.
+:::
+
+**Options:**
+- `-b, --before` - Date in `dd-mm-yyyy` format, before which reports are purged (required). A date that does not match this format is rejected with "Invalid before date provided."
+
+Only reports with a "done" status are purged, so a report still in progress is kept even when it predates the date. The counts can therefore be lower than you expect.
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake directory_sync purge_directory_reports --before 01-01-2026" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake directory_sync purge_directory_reports --before 01-01-2026" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose -f docker-compose-pro.yaml exec passbolt \\
+  su -s /bin/bash -c "source /etc/environment && ./bin/cake directory_sync purge_directory_reports --before 01-01-2026" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+The command prints "No reports to purge." when nothing matches, otherwise the number of report entries and of report item entries it deleted.
+
+:::info
+Like the other directory_sync commands, this one cannot run as root and requires the LDAP integration to be configured and enabled. Mind the consequence: if you have disabled directory synchronisation but still carry a large reports table, you need to enable the integration again to run the purge.
+:::
+
+## User Management
+
+These commands act on user accounts from the server. They all refuse to run as root, so run them as the web server user. The Docker examples use `docker-compose-ce.yaml`, replace it with `docker-compose-pro.yaml` on the Pro Edition.
+
+:::note[Mind the option names]
+`recover_user` takes `--username`, while `mfa_user_settings_disable` and `user_promote_to_administrator` take `--user-username`. All three accept the short form `-u`, which is what the examples use.
+:::
+
+### List Users
+
+Prints every registered user as a table, with the columns Role, Username, Last name, First name, Created At, Active, Disabled, Deleted and MFA enabled. It takes no options.
+
+<Tabs groupId="installation">
+  <TabItem value="deb" label="Debian-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt users_index" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="rpm" label="RPM-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt users_index" nginx`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml exec passbolt \\
+  su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt users_index" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+Two differences with the users workspace are worth knowing: the listing includes deleted users, which is why there is a Deleted column, and the MFA enabled column is only meaningful when the MFA plugin is enabled, otherwise every row reads `no`. The output is an ASCII table with no JSON or CSV option, so treat it as a diagnostic tool rather than something to parse. When the instance has no user, it prints "This organization has no registered users."
+
+### Recover a User Account
+
+Prints a recovery URL for a user who can no longer sign in, which is the way out when nobody can send an invitation from the interface any more, typically a locked-out administrator.
+
+**Options:**
+- `-u, --username` - The email address of the user (required)
+- `-c, --create` - Create a new recovery token
+
+<Tabs groupId="installation">
+  <TabItem value="deb" label="Debian-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt recover_user -u ada@passbolt.com -c" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="rpm" label="RPM-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt recover_user -u ada@passbolt.com -c" nginx`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml exec passbolt \\
+  su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt recover_user -u ada@passbolt.com -c" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+Drop the `-c` to print the URL of an existing, still valid token instead: without it, the command looks for an active recovery token and stops if there is none, suggesting the option. The user must exist, be active, meaning they completed their setup, and not be suspended, otherwise the command reports "The user does not exist or is not active or is disabled." A user who was invited but never completed their setup needs a new invitation instead.
+
+:::warning
+The URL contains an account recovery token, so treat it as a secret: send it over a channel you trust, and mind that it expires. And keep its scope in mind, it hands the user a way back into the recovery flow, not access to their data: they still need their private key and their passphrase to complete it. A lost passphrase is a different problem, covered by [account recovery](/admin/authentication/account-recovery/).
+:::
+
+### Disable MFA for a User
+
+Disables multi-factor authentication for one user, from the server. This is the CLI counterpart of the "Disable MFA" entry of the users workspace, for when the interface is not an option.
+
+**Options:**
+- `-u, --user-username` - The email address of the user (required)
+
+<Tabs groupId="installation">
+  <TabItem value="deb" label="Debian-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt mfa_user_settings_disable -u ada@passbolt.com" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="rpm" label="RPM-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt mfa_user_settings_disable -u ada@passbolt.com" nginx`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml exec passbolt \\
+  su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt mfa_user_settings_disable -u ada@passbolt.com" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+On success it prints `The MFA for user "<email>" has been disabled.` The command also invalidates the verified MFA tokens of that user, so a device that was remembered for a month stops being trusted, and it triggers the notification email. See [disable MFA for a specific user](/admin/authentication/mfa/disable-mfa/) for the interface route.
+
+:::note
+If the user has no active provider, the command reports that MFA is already disabled. That message also appears when MFA is disabled for the whole organisation, so it does not prove that the user had no settings.
+:::
+
+### Promote a User to Administrator
+
+Grants the administrator role to a user. The command performs the change on behalf of an existing administrator, whose email address you pass as the second option.
+
+**Options:**
+- `-u, --user-username` - The user to promote (required)
+- `-a, --admin-username` - The administrator to act on behalf of (required)
+
+<Tabs groupId="installation">
+  <TabItem value="deb" label="Debian-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt user_promote_to_administrator -u ada@passbolt.com -a betty@passbolt.com" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="rpm" label="RPM-based">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt user_promote_to_administrator -u ada@passbolt.com -a betty@passbolt.com" nginx`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose -f docker-compose-ce.yaml exec passbolt \\
+  su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt user_promote_to_administrator -u ada@passbolt.com -a betty@passbolt.com" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+There is no confirmation prompt, and there is no reverse option: the command only promotes. To remove the administrator role, use the users workspace or the API.
+
 ## Resource Management
 
 ### Notify About Expired Resources
@@ -838,6 +1105,7 @@ Requires password expiry policies to be configured. Typically run via cron.
 - `version`
 - `subscription_check` / `license_check`
 - `migrations status`
+- `users_index`
 - `directory_sync test`
 - `directory_sync debug`
 - All commands with `--dry-run` option
@@ -852,7 +1120,13 @@ Requires password expiry policies to be configured. Typically run via cron.
 - `purge_email_queue`
 - `email_digest send`
 - `notify_about_expired_resources`
-- `directory_sync` commands (except test/debug)
+- `recover_user` (with `--create`, which issues a new recovery token)
+- `populate_secret_revisions_for_existing_secrets` and `populate_created_by_and_modified_by_in_secrets` - write data, but safe to run again
+- `migrate_postgres` - replays schema migrations
+- `mfa_user_settings_disable`
+- `user_promote_to_administrator` - grants the administrator role, with no confirmation and no reverse option
+- `directory_sync purge_directory_reports` - irreversible delete, with no `--dry-run` and no batching
+- `directory_sync` synchronisation commands (except test/debug), which run in dry-run mode unless `--persist` is passed
 
 ### Destructive Commands (Cannot be Undone)
 

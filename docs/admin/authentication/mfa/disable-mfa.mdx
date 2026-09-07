@@ -14,11 +14,12 @@ import Link from '@docusaurus/Link';
 <div style={{display: "flex", gap: "1rem"}}>
   <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
   <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
 </div>
 
-When an user that configured MFA lose his access, it is still possible to help him as an administrator and a system administrator.
+When a user who configured multi-factor authentication loses access to their second factor, an administrator can disable it for them, either from the interface or from the server.
 
-# Interface
+## Interface
 
 In the *users* workspace, as an administrator, it is possible to right click on the user and Disable MFA.
 
@@ -30,26 +31,25 @@ In the *users* workspace, as an administrator, it is possible to right click on 
   caption={'fig. Disable MFA from the users workspace'}
 />
 
+## Server
 
-# Server
-
-In the passbolt database, it is possible with an SQL query to deactivate MFA for the user
+When the interface is not an option, for example when the only administrator is locked out by their own second factor, run the dedicated command on the server. Replace **USERNAME** with the email address of the user:
 
 <CodeBlock>
-{`SELECT id, username FROM users WHERE username='USERNAME';`}
+{`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt mfa_user_settings_disable -u USERNAME" www-data`}
 </CodeBlock>
 
-The placeholder **USERNAME** should be replaced with the user's email address, then copy the identifier output e.g. `20f11ac2-eabd-4e83-8ddb-0752934ca119`
+On success the command prints `The MFA for user "USERNAME" has been disabled.`
 
+This does more than clearing the setting: it also invalidates the verified MFA tokens of that user, so a device that was remembered for a month stops being trusted, and it triggers the notification email. The user configures their second factor again afterwards, and if your [MFA policy](/admin/authentication/mfa-policy/) is set to Prompt, they are invited to do so at their next sign-in.
 
-Then, replace the placeholder **ID** with the copied output, run the SQL query below and it should be done!
-<CodeBlock>
-{`DELETE FROM account_settings WHERE user_id='ID' AND property='mfa';`}
-</CodeBlock>
+:::note
+This command is available since passbolt 5.7.0. It requires shell access to the server, so it applies to self-hosted instances: on a Cloud plan, contact passbolt support, where disabling multi-factor authentication for a locked-out administrator goes through an identity verification.
+:::
 
+See the [cake commands reference](/hosting/useful-commands/#disable-mfa-for-a-user) for the invocation on Docker and from-source installations.
 
 ### Other frequently asked questions in the same category
 
-- <Link to="/docs/admin/user-provisioning/self-registration/">User Self Registration Set Up</Link>
+- <Link to="/admin/user-provisioning/self-registration/">User Self Registration Set Up</Link>
 - <Link to="/hosting/maintenance/performance/performance-tweaks/">Some potential performance tweaks</Link>
-

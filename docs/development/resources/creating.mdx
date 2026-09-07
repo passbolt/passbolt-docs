@@ -5,6 +5,10 @@ sidebar_position: 1
 hide_table_of_contents: false
 ---
 
+:::info[This guide describes the v4 format]
+The payload built below sends `name` and `uri` in clear, which only works for a resource type whose metadata is not encrypted. To create a resource in the v5 format, those fields go into an encrypted `metadata` field instead, as described in [working with v5 encrypted metadata](/development/resources/v5-encrypted-metadata/).
+:::
+
 In this guide, we will walk through the creation of a resource which would contain an encrypted password and an encrypted description.
 
 ## Choosing a resource type

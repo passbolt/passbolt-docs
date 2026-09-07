@@ -6,6 +6,7 @@ hide_table_of_contents: false
 ---
 
 import CodeBlock from '@theme/CodeBlock';
+import Dockererrorlogs from '/docs/hosting/_includes/troubleshooting/_docker-error-logs.mdx';
 
 ## Prerequisite Steps
 
@@ -57,6 +58,8 @@ Alternatively if you are using Docker Secrets you'll need to run the following t
 </CodeBlock>
 
 ### Server logs
+
+<Dockererrorlogs />
 
 To retrieve the server logs, run this command outside of the container (replace passbolt-container-name with your own):
 <CodeBlock>

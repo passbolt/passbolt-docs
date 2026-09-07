@@ -1,0 +1,54 @@
+---
+title: Export policies
+sidebar_label: Export policies
+description: Control whether users can export resources in cleartext CSV formats
+hide_table_of_contents: true
+---
+
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+Since version 5.10.0, export policies control whether users can export resources in cleartext CSV formats. Cleartext CSV export is not allowed by default: the setting exists to allow it again, not to restrict it.
+
+## How does it work?
+
+The export dialog offers two families of formats: the encrypted KDBX files, and the cleartext CSV files. Export policies gate the CSV family only, as a single block: KDBX exports are never affected, and there is no way to allow one CSV dialect and not another.
+
+There is no administration screen for this policy: it is configured server-side, in the configuration file or with environment variables.
+
+:::caution
+This setting removes the CSV options from the export dialog. It is a guardrail against accidental cleartext exports, not a data loss prevention control: users who can read a secret can still copy it, or export it to a KDBX file.
+:::
+
+## What users see
+
+When cleartext CSV export is not allowed, the export format list only offers `kdbx (keepass)` and `kdbx (keepassXC & others)`. The CSV entries are simply absent from the list: there is no disabled option and no error message, so a user looking for the CSV format may report it as a bug rather than as a policy.
+
+When it is allowed, ten CSV entries become available at once: `csv (keepass)`, `csv (lastpass)`, `csv (1password)`, `csv (chromium based browsers)`, `csv (bitwarden)`, `csv (mozilla)`, `csv (safari)`, `csv (dashlane)`, `csv (nordpass)` and `csv (logmeonce)`. Selecting one of them requires the user to tick a confirmation box, "I understand this file is unencrypted and potentially unsafe to open in a spreadsheet software.", which never appears while CSV export is disallowed.
+
+## How to allow cleartext CSV exports
+
+In */etc/passbolt/passbolt.php*:
+
+```php
+'passbolt' => [
+    'plugins' => [
+        'exportPolicies' => [
+            'allowCsvFormat' => true,
+        ],
+    ],
+],
+```
+
+Or with an environment variable, on Docker, Kubernetes or Helm:
+
+```bash
+PASSBOLT_PLUGINS_EXPORT_POLICIES_ALLOW_CSV_FORMAT=true
+```
+
+The configuration file takes precedence over the environment variable, and an invalid value falls back to the default. The related variables are listed in the [environment variables reference](/hosting/environment-reference/).

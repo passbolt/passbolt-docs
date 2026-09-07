@@ -18,7 +18,6 @@ If you have followed our  <Link to={`/docs/hosting/install/${props.productName.t
 To handle HTTPS setup with Let's Encrypt, add a traefik service as follow:
 
 ```yaml
-version: '3.7'
 services:
   db:
     ...
@@ -148,7 +147,6 @@ To make Traefik redirect incoming requests to passbolt, edit the `passbolt` serv
 **Step 2.** Add docker labels to make Traefik aware of the `passbolt` service
 
 ```yaml
-version: '3.7'
 services:
   db:
     ...
@@ -175,7 +173,6 @@ Ensure you have correctly set your domain name (replace `passbolt.domain.tld` wi
 If you are using non-root images, add `loadbalancer.server.port` label to make traefik aware of the to be used port for `passbolt` service:
 
 ```yaml
-version: '3.7'
 services:
   db:
     ...

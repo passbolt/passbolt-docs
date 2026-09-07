@@ -1,23 +1,75 @@
 ---
 title: How to manage user groups
-description: How to manage user groups
+description: How to create groups, manage group members and group managers, and recover a group whose only manager is unavailable
 sidebar_label: Manage groups
-sidebar_position: 3
+sidebar_position: 4
 hide_table_of_contents: false
 ---
 
 ## Who can create a group in passbolt?
 
-Only a passbolt administrator can create groups on passbolt.
+Only a passbolt administrator can create groups. When creating a group, the administrator
+selects the initial members and must appoint at least one group manager.
 
 ## What is the difference between a group manager and group member?
 
-The group manager is a group member who can add or delete users to a given group, and promote them as another
-group manager. No more, no less.
+The group manager is a group member who can add and remove members of the group, and
+promote other members to group manager. No more, no less.
 
-It is possible for a group member to share a resource he owns in "read-only" mode with the group. Group manager
-doesn't have extra-rights to edit resources ownership.
+It is possible for a group member to share a resource they own in "read-only" mode with the
+group. Group managers don't have extra rights to edit resource ownership.
 
-## How do I add or edit users access in a group?
+## How do I add or remove group members?
 
-Only group managers may edit group members. This can be done with a specific group where you have the group manager role via the *Settings button* > *Manage Users and Groups*. Select the 3-dots button on the group you wish to modify in the sidebar then hit *Edit* to access the user sharing menu. Here you may edit access to the group for existing users, and add access for additional users by utilising the search function. Note that multiple group managers can be assigned.
+Only group managers can add members to a group. To manage the members of a group where you
+have the group manager role:
+
+1. Select &#9881; > **Manage Users & Groups** in the top right corner
+2. In the **Groups** section of the sidebar, right-click on the group, or hover over it and
+   click its **...** button, then select **Edit**
+3. In the **Edit group** dialog, add people using the search field, change a member's role
+   between **Member** and **Group manager**, or remove members
+4. Click **Save**
+
+Multiple group managers can be assigned, and every group must keep at least one: passbolt
+will not let you remove or demote the last group manager.
+
+## What can an administrator do in a group they do not manage?
+
+Administrators can rename a group, delete it, remove members, and change members' roles
+between **Member** and **Group manager**, all without being a member of the group.
+
+What the Admin role does not grant is **adding** members. Adding someone to a group means
+decrypting each secret shared with the group and re-encrypting it for the newcomer, and
+only someone with access to those secrets can do that. For an administrator who is not a
+group manager, the **Edit group** dialog hides the add field and shows "Only the group
+manager can add new people to a group."
+
+See [roles and permissions](/admin/user-provisioning/roles-and-permissions/) for the full
+comparison of the two roles.
+
+## How do I recover a group whose only manager is unavailable?
+
+If the only group manager of a group has been suspended or has left the organisation, the
+group can no longer gain new members: a suspended manager cannot sign in, and
+administrators cannot add members. To recover:
+
+- **If the group has other members**, an administrator can promote one of them: open the
+  **Edit group** dialog, change the member's role to **Group manager** and save. The
+  unavailable manager can then be demoted or removed the same way.
+- **If the unavailable manager is the only member**, there is nobody to promote. Either
+  reinstate the manager (untick **Suspend this user** in their
+  [user settings](/admin/user-provisioning/manage-users/)), or delete their account:
+  deleting a user also deletes the groups in which they were the only member. You can also
+  delete the group and create a new one.
+
+:::caution
+Both deletions are destructive: deleting the user or the group also deletes any passwords
+that were only accessible through them. Reinstating the manager, even briefly, is the only
+option that preserves everything. If you delete, do it from the user or group deletion
+dialog so passbolt can prompt you to transfer ownership of shared items first.
+:::
+
+Deleting a user who is the sole manager of a group with other members prompts you to
+transfer the group manager role during the deletion, see
+[how to delete users](/admin/user-provisioning/delete-user/).

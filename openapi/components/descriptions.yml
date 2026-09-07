@@ -1,1 +1,8 @@
-main: "This is a low-level overview of the API and its endpoints, if you need higher-level guides for interacting with the endpoints, use the Developer guide."
+main: >
+  This is a low-level overview of the API and its endpoints, if you need higher-level
+  guides for interacting with the endpoints, use the Developer guide.
+
+
+  This reference grows with the product: endpoint groups are added as they are
+  described, so an endpoint you do not find here may still exist on your instance.
+  The route configuration of your server is what tells you exactly what it exposes.

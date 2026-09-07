@@ -7,6 +7,7 @@ hide_table_of_contents: false
 
 import Figure from '@site/src/components/Figure/Figure';
 import Chips from "/src/components/Chips/Chips";
+import AccountRecoveryNote from "/docs/admin/_includes/sso/account-recovery-note.mdx";
 import EmailMatchingWarning from "/docs/admin/_includes/sso/email-matching-warning.mdx";
 import HttpsWarning from "/docs/admin/_includes/sso/https-warning.mdx";
 
@@ -188,7 +189,7 @@ If you see certificate verification errors, fix the certificate trust configurat
 
 1. Sign in to Passbolt with an administrator account
 2. Navigate to **Administration** > **Single Sign-On**
-3. Select **"OpenID Connect"** from the available providers
+3. Select **"OpenID"** from the available providers
 4. Configure the OpenID Connect settings
 5. Copy the **Redirect URL** from Passbolt's SSO configuration page and add it to your Keycloak client's **Valid redirect URIs** setting
 6. Click **"Save settings"** to perform a test authentication
@@ -254,3 +255,5 @@ This enables detailed SSO logging.
 - Users must login with their passphrase **after SSO activation** for the SSO option to appear in future logins
 - HTTPS is required for SSO to function properly
 - Don't use the demo repository configuration in production - adapt all values for your environment
+
+<AccountRecoveryNote />

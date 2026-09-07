@@ -39,7 +39,7 @@ SCIM has been tested with:
 When configuring your identity provider, you'll need:
 
 - **SCIM Endpoint URL**: `https://your-passbolt-instance.com/scim/v2/<settings_id>`
-- **Authentication**: Bearer token (format: `pb_[A-Za-z0-9]{43}`)
+- **Authentication**: Bearer token (format: `pb_[A-Za-z0-9_-]{43}`)
 - **Authentication Header**: `Authorization: Bearer YOUR_TOKEN`
 
 ### Required User Attributes
@@ -51,7 +51,11 @@ Your identity provider must provide these attributes:
 | **Username** | `userName` | Unique identifier (email address) |
 | **First Name** | `name.givenName` | User's first name |
 | **Last Name** | `name.familyName` | User's last name |
-| **Email** | `emails[0].value` | Primary email address |
+| **Email** | `emails[type eq "work"].value` | Primary email address (the entry must be typed `work`) |
+
+:::important[Email must be typed "work"]
+Passbolt reads the account email only from the `emails` entry whose `type` is `work`. Mapping the email by array position (`emails[0].value`) is rejected with `400 Bad Request` ("No email with type work was found") when the first entry is not typed `work`, and the user is not created. Always map the email to `emails[type eq "work"].value`.
+:::
 
 ### Supported Operations
 
@@ -88,7 +92,7 @@ Based on Microsoft's official documentation, configure SCIM provisioning with th
   - `userPrincipalName` -> `userName`
   - `givenName` -> `name.givenName`
   - `surname` -> `name.familyName`
-  - `mail` -> `emails[0].value`
+  - `mail` -> `emails[type eq "work"].value`
 - Click **Save**
 
 ### 4. Assign Users

@@ -21,7 +21,7 @@ Since version 3.10.0, Passbolt Pro Edition supports MFA Policy.
   caption="fig. MFA Policy Administration"
 />
 
-## Defined the default multi factor authentication policy
+## Define the default multi factor authentication policy
 
 Administrators are now able to set the default behaviour of the [multi factor authentication](/admin/authentication/mfa/) for all their users.
 
@@ -29,13 +29,36 @@ Administrators are now able to set the default behaviour of the [multi factor au
 Passbolt is already using Multi-Factor Authentication by default, because you have to provide the recovery kit which is the private key and you have to know the passphrase associated to it. It means that you have the knowledge factor which is the passphrase and you have the possession factor which is the private key. With any Multi-Factor Authenticator configured, it is adding another good layer of security.
 :::
 
+The screen holds two settings. If you drive them through the API, mind that the interface labels and the stored values differ:
+
+| Setting in the interface | API field | Values | Default |
+|--------------------------|-----------|--------|---------|
+| Prompt, Opt-in | `policy` | `mandatory`, `opt-in` | `opt-in` |
+| Allow "Remember this device for a month." option during MFA. | `remember_me_for_a_month` | `true`, `false` | `true` |
+
+:::note
+The "Prompt" option is stored as `mandatory`. Despite that name, it does not make multi factor authentication mandatory to sign in, see below.
+:::
+
 ### Prompt
 
-Passbolt will not enforce users to configure the multi factor authentication, however it will remind all of the users to do so every time they are logging in.
+Stored as `policy: mandatory`.
+
+passbolt reminds users to configure multi factor authentication, it does not force them to. A user who has no method configured gets a dialog titled "Enable Multi Factor Authentication", with two ways out: "Go to MFA settings", which opens their profile settings, and "Later". Postponing dismisses the invitation for the current session, and it comes back at the next sign-in.
+
+:::caution[What this policy does not do]
+Prompt does not block sign-in and does not restrict access: a user can postpone the invitation indefinitely, one session at a time. It is an interface reminder, so it has no effect on API clients such as scripts or the command line interface. To require multi factor authentication for authentication itself, configure it at the provider level.
+:::
 
 ### Opt-in (default)
+
+Stored as `policy: opt-in`, the value that applies when no policy has been saved.
 
 This will give the opportunity to the users to enable or not the multi-factor authentication. They will not be reminded after that.
 
 ## Remember the device for a month
-With this option, administrators are able to allow users to remember their device for a month after successfully logging in with their multi factor authentication.
+With this option, administrators are able to allow users to remember their device for a month after successfully logging in with their multi factor authentication. The checkbox is labelled `Allow "Remember this device for a month." option during MFA.`, it is stored as `remember_me_for_a_month`, it is enabled by default, and the duration is exactly 30 days.
+
+:::warning
+Unlike the policy above, this setting is enforced by the server. Clearing it does not only hide the option from the verification screen, it also invalidates the devices that were already remembered, so the users concerned are asked for their second factor again at their next verification.
+:::

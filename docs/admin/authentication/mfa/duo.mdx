@@ -81,23 +81,6 @@ Note down the "Client ID", "Client secret", and "API hostname" details, as it wi
 
 Duo can be set up through either the administration interface or environment variables. Should both settings providers be utilized, the configurations made in the administration interface will take precedence over those specified by environment variables.
 
-### Generate a salt
-
-:::info
-Required only for passbolt server < 3.11.
-:::
-
-Generating a random salt to configure Duo is mandatory, a salt is a random piece of data that is generated and used in the hashing process to protect sensitive information. It is generated and combined with the secret key before hashing it.
-
-To generate a random salt, you can use the passbolt interface, generate a new password as shown below and use it as the generated salt.
-
-<Figure
-src="/img/help/2023/05/password-generator.png"
-alt="Generate a salt with passbolt password generator"
-caption="fig. Generate a salt with passbolt password generator"
-size={{ width: '450px', height: 'auto' }}
-/>
-
 ### Enable Duo access via the interface
 
 To enable Duo via the interface, navigate to the multi-factor authentication administration page: *Administration > Multi Factor Authentication*.

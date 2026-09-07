@@ -66,6 +66,13 @@ e2eeMetadataBased:
     - metadata_key_type
   properties:
     metadata:
+      description: >
+        An armoured OpenPGP message. Its cleartext is a JSON object carrying an
+        `object_type` field that names the payload, `PASSBOLT_RESOURCE_METADATA`
+        for a resource, and the descriptive fields that used to travel in clear
+        in the v4 format. The fields expected for a resource, and the two
+        decryption paths, are described in the guide on working with v5
+        encrypted metadata.
       type: "string"
     metadata_key_id:
       type: "string"

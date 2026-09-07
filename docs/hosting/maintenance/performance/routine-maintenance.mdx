@@ -1,0 +1,171 @@
+---
+title: Routine maintenance
+sidebar_label: Routine maintenance
+description: The tables that grow over time on a long-lived passbolt instance, and the commands that keep them in check
+hide_table_of_contents: false
+---
+
+import Chips from "/src/components/Chips/Chips";
+import CodeBlock from '@site/src/components/CodeBlock/CodeBlock';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+A passbolt instance accumulates data that is never needed again. Sent emails
+stay in the queue table, action logs record every read of every secret, and on
+Pro installations each directory synchronisation writes a report. None of it is
+removed automatically.
+
+On a young instance this is invisible. On one that has run for a few years, or
+that synchronises a large directory, these tables can grow to several gigabytes
+and slow down backups, restores and upgrades. This page covers what grows and
+the commands that keep it in check.
+
+## What grows
+
+| Table | Filled by | Command |
+| --- | --- | --- |
+| `email_queue` | Every notification passbolt sends | `passbolt purge_email_queue` |
+| `action_logs` | Every user action, including secret reads | `passbolt action_logs_purge` |
+| `directory_reports`, `directory_reports_items` | Each directory synchronisation run (Pro with LDAP or Active Directory) | `directory_sync purge_directory_reports` |
+
+## Running the commands
+
+Every command below runs as the web server user, which is `www-data` on Debian,
+Ubuntu, Docker and Helm, and `nginx` on RPM-based systems. Running them as root
+will fail.
+
+On Docker, `source /etc/environment` is needed before the command. Database
+credentials supplied through Docker secrets are resolved only in the
+entrypoint's boot process and written to that file, so a later
+`docker compose exec` session cannot see them otherwise. Without it the command
+fails with an access-denied error that looks like a password problem.
+
+## Purging the email queue
+
+Sent messages stay in `email_queue` indefinitely. The command removes the ones
+already delivered.
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt purge_email_queue" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt purge_email_queue" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose exec passbolt su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt purge_email_queue" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+## Purging the action logs
+
+`action_logs` is usually the largest of the three, because it records every
+action every user takes. It has its own guide, including how to preview a purge
+before running it: see [how to purge the action
+logs](/hosting/maintenance/performance/purge-action-logs/).
+
+## Purging directory synchronisation reports
+
+<Chips link="https://www.passbolt.com/pricing/pro">Pro</Chips>
+
+Each directory synchronisation writes a report and a row per item processed.
+On an instance synchronising a large directory several times a day, the
+`directory_reports_items` table is often the fastest-growing table in the
+database.
+
+The command takes a date, and removes reports from before it. `--before` is
+required, and the format is `dd-mm-yyyy`.
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake directory_sync purge_directory_reports -b 01-06-2026" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake directory_sync purge_directory_reports -b 01-06-2026" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose exec passbolt su -s /bin/bash -c "source /etc/environment && ./bin/cake directory_sync purge_directory_reports -b 01-06-2026" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+:::info
+The command is `directory_sync purge_directory_reports`, not
+`passbolt purge_directory_reports`. Directory synchronisation commands use
+their own prefix.
+:::
+
+Only completed reports are removed. A synchronisation that is still running is
+left alone, so the command is safe to run on a schedule without coordinating it
+against the sync timetable.
+
+## Repairing database integrity
+
+Separately from the purges, passbolt can detect and repair relational integrity
+problems in its own tables, such as records left pointing at rows that no longer
+exist.
+
+:::warning[This command changes data when run without options]
+`passbolt cleanup` runs in fix mode by default. Add `--dry-run` to see what it
+would change without changing anything. Run the dry run first, read the report,
+and only then run it without the option.
+:::
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt cleanup --dry-run" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="source" label="From Source">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/var/www/passbolt/bin/cake passbolt cleanup --dry-run" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose exec passbolt su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt cleanup --dry-run" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+The dry run reports the number of issues found per table and ends with a count.
+Repeat the command without `--dry-run` to apply the fixes.
+
+## Putting it on a schedule
+
+None of these commands runs on its own. How often to run them depends on the
+size of the instance rather than on any fixed rule, so start by running each one
+with its preview option, look at how much it would remove, and set the frequency
+from that.
+
+A reasonable starting point on a busy instance is monthly for the email queue
+and the action logs, and monthly for directory reports where directory
+synchronisation is enabled. Keep integrity repair separate from the purges and
+run it deliberately, not on a timer, so that its report is read by someone.
+
+Retention is a policy decision as much as a technical one. Action logs in
+particular may be subject to a retention period your organisation has to meet,
+so agree the number of days before automating their removal.
+
+## Related pages
+
+- [How to purge the action logs](/hosting/maintenance/performance/purge-action-logs/)
+- [Performance tweaks](/hosting/maintenance/performance/performance-tweaks/)
+- [Useful commands](/hosting/useful-commands/)

@@ -50,9 +50,9 @@ The kernel version check ensures that your system is running a modern and stable
 This checks whether your system is running on a 64-bit architecture. A 64-bit system provides better performance, allowing full compatibility with PHP and GPG requirements.
 
 #### PHP Version
-It helps to ensure you are not running an unsupported PHP version. It should be green if you are running PHP > 8.2 as it is the minimum version recommended to run Passbolt.
+It helps to ensure you are not running an unsupported PHP version. It should be green if you are running PHP 8.2 or higher, the minimum version required to run passbolt. Older versions, including PHP 7.4, fail this check with "PHP version is too low, passbolt need PHP 8.2 or higher."
 
-However, with the upcoming Passbolt v5, if you are still on PHP 7.4 we recommend [migrating to a new server](/hosting/migrate/server/) already to ensure a smooth future update.
+If your operating system cannot provide PHP 8.2 or higher, consider [migrating to a new server](/hosting/migrate/server/). A second, warning-level line announces the next minimum PHP version whenever passbolt plans to raise it.
 
 #### Gnupg Version
 The software relies on gnupg for cryptographic operations, such as key management and encryption. Ensuring that you are running an up-to-date version of GPG is essential for security and performance.
@@ -123,7 +123,7 @@ This is the passbolt configuration file, it is needed to ensure that passbolt ha
 ### Core config
 These verification are for the basic application settings, such as URL and security configurations, are properly set and operational.
 #### Debug mode
-We highly not recommend to use the debug mode on a prod or pre-prod environment. If you see **Debug mode is on**, update the configuration file in */etc/passbolt/passbolt.php* and set debug to false.
+We highly not recommend to use the debug mode on a prod or pre-prod environment. If you see **Debug mode is on**, update the configuration file in */etc/passbolt/passbolt.php* and set debug to false, or set the `DEBUG` environment variable to false if you are on Docker or Helm.
 
 <Figure
   src={
@@ -137,7 +137,7 @@ We highly not recommend to use the debug mode on a prod or pre-prod environment.
 It verifies that the cache mechanism is working, this can help with performances issues. If the cache is somehow not working, you should consider taking a look at the settings in */etc/passbolt/app.php*
 
 #### Unique value for security.salt
-It helps to ensure that the **security.salt** value used for the hash is unique and correctly configured. If you have any error you will need to edit the `security.salt` in */etc/passbolt/app.php*
+It helps to ensure that the **security.salt** value used for the hash is unique and correctly configured. If you have any error you will need to edit the `security.salt` in */etc/passbolt/app.php*, or set the `SECURITY_SALT` environment variable if you are on Docker or Helm.
 
 #### Full Base URL
 :::info
@@ -156,12 +156,12 @@ Helps to confirm that the fullBaseUrl is defined, if it is not defined yet, you 
 
 #### Full Base URL validation
 It checks that the fullBaseUrl is correct and match the expectation, if there is any error with the validation here is the two things you might want to do:
-- Edit `App.fullBaseUrl` in */etc/passbolt/passbolt.php*
+- Edit `App.fullBaseUrl` in */etc/passbolt/passbolt.php*, or the `APP_FULL_BASE_URL` environment variable if you are on Docker or Helm
 - Select a valid domain name as defined by section 2.3.1 of [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt)
 
 #### Healthcheck Status
 It checks that the status url is reachable. If you have any error with this check, the good news is that this warning should not limit you for running passbolt, however, in order to get rid of this warning, you will need to ensure a few things:
-- `App.fullBaseUrl` is correct inside */etc/passbolt/passbolt.php* or with the environment variable `APP_FUL_BASE_URL` if you are on Docker or Helm.
+- `App.fullBaseUrl` is correct inside */etc/passbolt/passbolt.php* or with the environment variable `APP_FULL_BASE_URL` if you are on Docker or Helm.
 - The server is able to ping the domain with `ping YOUR_DOMAIN`
 
 If the server is not able to ping the domain, this might the cause of the issues, you will need to edit the */etc/hosts* file and add the domain resolution.
@@ -216,7 +216,7 @@ If you are on Docker or Helm, you might want to double-check the values for `DAT
 :::
 
 It helps to ensure that the application is able to connect to the database. If you encounter some issues with this check, there is a few potentials reasons:
-- Ensure that the driver defined for `Datasources.default.driver` in */etc/passbolt/passbolt.php* is one of the following:
+- Ensure that the driver defined for `Datasources.default.driver` in */etc/passbolt/passbolt.php*, or with the `DATASOURCES_DEFAULT_DRIVER` environment variable on Docker or Helm, is one of the following:
   - 'Cake\Database\Driver\Mysql'
   - 'Cake\Database\Driver\Postgres'
 - Double-check that the database credentials for `Datasources.default` in */etc/passbolt/passbolt.php*
@@ -247,6 +247,9 @@ Ensure that default content are present in the database. If there is any error, 
 
 <PassboltInstall />
 
+#### MariaDB/MySQL version deprecation
+Since version 5.9.0, this warning-level check reports when the database engine runs a version passbolt plans to stop supporting: it warns below MariaDB 10.6 or MySQL 8.0. Plan a database engine upgrade to clear the warning.
+
 ### GPG Configuration
 These checks helps to confirm the correct setup and functionality of GPG keys used for encrypting and signing messages. This is critical for Passbolt to work properly.
 
@@ -274,7 +277,7 @@ sudo chown -R www-data:www-data /var/lib/passbolt/.gnupg
 sudo chmod 700 /var/lib/passbolt/.gnupg`}
 </CodeBlock>
 
-You can also change the location of the keyring by editing the `GPG.env.setenv` and `GPG.env.home` variable in */etc/passbolt/passbolt.php*.
+You can also change the location of the keyring by editing the `GPG.env.setenv` and `GPG.env.home` variable in */etc/passbolt/passbolt.php*, or with the `GNUPGHOME` environment variable if you are on Docker or Helm.
 
 #### GPG Keyring
 It helps to ensure that the keyring is writable by the webserver, if you face any error please consider running these commands
@@ -290,7 +293,7 @@ sudo chmod 700 /var/lib/passbolt/.gnupg`}
 
 #### Server Public Key
 It helps to ensure that the server public key is defined and readable. If you face any error there is few potentials things to do:
-- Ensure the public key file is defined by the variable `passbolt.gpg.serverKey.public` in */etc/passbolt/passbolt.php*
+- Ensure the public key file is defined by the variable `passbolt.gpg.serverKey.public` in */etc/passbolt/passbolt.php*, or by the `PASSBOLT_GPG_SERVER_KEY_PUBLIC` environment variable if you are on Docker or Helm.
 - Ensure there is a public key armored block in the key file.
 - Ensure the public key defined in */etc/passbolt/passbolt.php* exists and is accessible by the webserver user.
 
@@ -304,7 +307,7 @@ It helps to ensure that the server public key is defined and readable. If you fa
 
 #### Server Private Key
 It helps to ensure that the server private key is defined and readable. If you face any error there is few potentials things to do:
-- Ensure the private key file is defined by the variable `passbolt.gpg.serverKey.private` in */etc/passbolt/passbolt.php*
+- Ensure the private key file is defined by the variable `passbolt.gpg.serverKey.private` in */etc/passbolt/passbolt.php*, or by the `PASSBOLT_GPG_SERVER_KEY_PRIVATE` environment variable if you are on Docker or Helm.
 - Ensure there is a private key armored block in the key file.
 - Ensure the private key defined in */etc/passbolt/passbolt.php* exists and is accessible by the webserver user.
 
@@ -409,8 +412,19 @@ It helps to identify which version are running and if it is the latest version. 
 
 If the server is not up-to-date, unless you have an internal good reason, please consider [updating](/hosting/update/) to the latest version.
 
+#### Database schema
+It checks that no database migration is pending. On failure, it reports "The database schema is not up to date." together with the command to run:
+
+<CodeBlock>
+  {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake migrations migrate --no-lock" www-data`}
+</CodeBlock>
+
+<WebServerLocationWarning />
+
+If the pending migrations come from a partially applied update, follow the [update guide](/hosting/update/).
+
 #### Force TLS (SSL)
-We recommend using TLS (SSL) with Passbolt, this checks verify if passbolt has been configured to force TLS (SSL). If you have this error, you will need to set `passbolt.ssl.force` to true in */etc/passbolt/passbolt.php*
+We recommend using TLS (SSL) with passbolt, this checks verify if passbolt has been configured to force TLS (SSL). If you have this error, you will need to set `passbolt.ssl.force` to true in */etc/passbolt/passbolt.php*, or the `PASSBOLT_SSL_FORCE` environment variable to true if you are on Docker or Helm.
 
 <Figure
   src={
@@ -435,7 +449,7 @@ Selenium API endpoints are disabled by default and should remain disabled. This 
 />
 
 #### Search engine robots
-Ensure that the search engine robots are configured to not index the content, if it is not the case, set `passbolt.meta.robots` to false in */etc/passbolt/passbolt.php*
+Ensure that the search engine robots are configured to not index the content, if it is not the case, set `passbolt.meta.robots` to false in */etc/passbolt/passbolt.php*, or the `PASSBOLT_META_ROBOTS` environment variable if you are on Docker or Helm.
 
 <Figure
   src={
@@ -446,7 +460,7 @@ Ensure that the search engine robots are configured to not index the content, if
 />
 
 #### Self Registration Plugin
-Enabled by default, it check if the self registration plugin is enabled as expected. You can disable the plugin in */etc/passbolt/passbolt.php* through `passbolt.plugins.selfRegistration.enabled` and set it to false.
+Enabled by default, it check if the self registration plugin is enabled as expected. You can disable the plugin in */etc/passbolt/passbolt.php* through `passbolt.plugins.selfRegistration.enabled` and set it to false, or with the `PASSBOLT_PLUGINS_SELF_REGISTRATION_ENABLED` environment variable if you are on Docker or Helm.
 
 <Figure
   src={
@@ -479,7 +493,7 @@ When it is enabled, it won't be possible to proceed to a user creation using a l
 />
 
 #### Compiled version of the javascript application
-It will ensure that the compiled version of the application is served, you should not face any errors, however if there is any, you should set `passbolt.js.build` to production in */etc/passbolt/passbolt.php* otherwise Passbolt will be slower.
+It will ensure that the compiled version of the application is served, you should not face any errors, however if there is any, you should set `passbolt.js.build` to production in */etc/passbolt/passbolt.php*, or with the `PASSBOLT_JS_BUILD` environment variable if you are on Docker or Helm, otherwise passbolt will be slower.
 
 <Figure
   src={
@@ -535,3 +549,56 @@ If you want to fix this, set `PASSBOLT_SECURITY_SSO_SSL_VERIFY` environment vari
   caption="fig. Enable TLS (SSL) certificate validation for SSO"
   alt="Enable TLS (SSL) certificate validation for SSO"
 />
+
+### JWT Authentication
+These checks verify the JWT authentication setup, which is required for the mobile and desktop apps and the JWT API.
+
+#### JWT Authentication plugin
+This warning-level check verifies that the JWT Authentication plugin is enabled. A disabled plugin is reported as "The JWT Authentication plugin is disabled."
+
+#### JWT directory not writable
+The */etc/passbolt/jwt/* directory must not be writable by the webserver user. The check fails with "The /etc/passbolt/jwt/ directory should not be writable." Fix the permissions:
+
+<WebServerLocationWarning />
+
+<CodeBlock>
+  {`sudo chown -Rf root:www-data /etc/passbolt/jwt/
+sudo chmod 750 /etc/passbolt/jwt/
+sudo chmod 640 /etc/passbolt/jwt/jwt.key
+sudo chmod 640 /etc/passbolt/jwt/jwt.pem`}
+</CodeBlock>
+
+#### Valid JWT key pair
+It ensures that a valid JWT key pair is present, otherwise the check fails with "A valid JWT key pair is missing." Create the key pair:
+
+<CodeBlock>
+  {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt create_jwt_keys" www-data`}
+</CodeBlock>
+
+See the [JWT key pair generation guide](/hosting/openpgp/generate-keys-jwt/) for the full procedure.
+
+### Metadata
+These checks verify the encrypted metadata keys used by the v5 resource format. The active metadata key, server access and key validity checks were introduced in version 5.4.0. The decryption check is older, version 4.10.0, where it was added as preparatory work before v5 metadata became generally available, and the zero-knowledge check was added in version 5.7.0.
+
+:::note
+An instance that does not use v5 metadata still reports most of these checks, and it reports them as passing rather than as skipped. The active metadata key, decryption and validity checks each display a green line, and the server access check has no v5 condition at all, so it runs whatever metadata format is in use. Only the zero-knowledge check is reported as skipped.
+:::
+
+#### Active metadata key
+At least one active metadata key must exist, otherwise the check fails with "No active metadata key found." Create or activate a metadata key from the [encrypted metadata administration](/admin/resource-types/metadata-key/).
+
+#### Server access to the metadata key
+When zero-knowledge mode is off, the server must hold a copy of the metadata private key, otherwise it cannot share it with users. The check fails with "The server does not have access to metadata key."
+
+#### Server metadata private key decryption
+The server copy of the metadata private key must be decryptable with the server GPG key, otherwise the check fails with "Unable to decrypt the metadata private key." A classic cause is a server GPG key that was changed or rotated after the metadata key was shared.
+
+#### Server metadata private key validity
+The decrypted key must also be structurally valid, otherwise the check fails with "The server metadata private key is not valid."
+
+For the access, decryption and validity checks alike, the remedy is an administrator sharing the metadata key with the server again, from an administrator's client: the server cannot grant itself access.
+
+#### Zero-knowledge mode
+The reverse check: when zero-knowledge mode is enabled, the server must not have access to the metadata private key. The check fails with "The server has access to the server metadata private key while in Zero-knowledge mode." Remove the server access, or disable zero-knowledge mode if it is not intended.
+
+Zero-knowledge mode also changes the four checks above: all four are skipped once it is enabled. This check is skipped when v5 metadata is disabled, and skipped again when zero-knowledge sharing is disabled, so it appears in the report only when both are enabled. See the [encrypted metadata documentation](/admin/resource-types/encrypted-metadata/).

@@ -46,7 +46,7 @@ The integration works by periodically syncing the list of groups and users (alon
     <li><strong>No nested groups</strong>: Only direct group memberships are supported. Nested groups (groups within groups) are not.</li>
     <li><strong>Email invitations</strong>: Synced users receive an email invitation to activate their account. When testing, use the <strong>Simulate Sync</strong> option to avoid unintended invitations.</li>
     <li><strong>Username/Email requirements</strong>: Each LDAP user must have a unique email. If emails are not available, use the <code>Use email prefix/suffix</code> option with a defined domain.</li>
-    <li><strong>Admin user and group manager</strong>: Assign a <strong>Default admin</strong> for performing syncs and a <strong>Default group manager</strong> for managing new groups.</li>
+    <li><strong>Admin user and group manager</strong>: Assign a <strong>Default admin</strong> for performing syncs and a <strong>Default group admin</strong> for managing new groups.</li>
   </ul>
 </div>
 
@@ -80,7 +80,7 @@ The integration works by periodically syncing the list of groups and users (alon
      - Groups: `groupOfUniqueNames`
    - **Default Admin**:  
      A Passbolt admin user responsible for sync actions.
-   - **Default Group Manager**:  
+   - **Default Group Admin**:  
      The user assigned to manage synced groups.
 
 4. **Filtering options**

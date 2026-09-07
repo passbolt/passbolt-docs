@@ -139,7 +139,7 @@ When credentials are created, you'll get Client ID and Client secret. These are 
 />
 
 :::caution[Things to consider]
-The Authorized redirect URIs should be the URL given by the passbolt while configuring SSO from administration (https://your-domain.com/app/administration/sso). Google can accept any valid URL in redirect URLs but it might not work with passbolt.
+The Authorized redirect URI must be `https://your-domain.com/sso/google/redirect`, and it must match your instance full base URL exactly, including the https scheme. You can copy it from the read-only Redirect URL field on the passbolt SSO settings page. Google accepts any valid URL here, but any other value makes the sign-in fail with a redirect_uri_mismatch error.
 :::
 
 ## Configure SSO through the GUI
@@ -147,7 +147,7 @@ The Authorized redirect URIs should be the URL given by the passbolt while confi
 To finish the configuration, navigate to _Administration_ > _Single Sign On_
 
 Fill the fields with what we created, such as:
-1. Application ID
+1. Application (client) ID
 2. Secret
 
 <Figure
@@ -156,7 +156,7 @@ Fill the fields with what we created, such as:
   caption="fig. Passbolt GUI - Google SSO Test Settings"
 />
 
-After that, a dialog will open with a "Sign in with Google" button, click on it. A popup will open asking you to perform the authentication with Microsoft, once the authentication is successful you can save the settings. Once the settings have been saved, you can log out and you should see an SSO option.
+After that, a dialog will open with a "Sign in with Google" button, click on it. A popup will open asking you to perform the authentication with Google, once the authentication is successful you can save the settings. Once the settings have been saved, you can log out and you should see an SSO option.
 
 :::caution[Please note]
 Users must successfully perform a login using their current passphrase after SSO has been activated in order for the SSO option to be proposed to them at future logins.

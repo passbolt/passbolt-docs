@@ -1,0 +1,285 @@
+---
+title: FQDN change
+description: Prepare, perform and verify a FQDN change on your passbolt server, and fix issues if the domain was already changed
+sidebar_label: FQDN
+hide_table_of_contents: false
+toc_min_heading_level: 2
+toc_max_heading_level: 3
+---
+
+import Chips from "/src/components/Chips/Chips";
+import CodeBlock from '@site/src/components/CodeBlock/CodeBlock';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Webserverprotip from '/docs/hosting/_includes/troubleshooting/_webserver-user-protip.mdx';
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+This guide describes how to change the fully qualified domain name (FQDN) of a passbolt server: the [prerequisites](#prerequisites), [the change itself](#change-the-domain), and how to [finalise the change](#finalise-the-change).
+
+:::important
+Follow the sections of this guide in order. The FQDN change affects many parts of your setup (domain validation, TLS, browser extensions), so we encourage you to [back up your instance](/hosting/maintenance/backup/) or take a full snapshot of the machine before any change. If you already changed the domain and run into issues, go directly to the [Troubleshooting](#troubleshooting) section.
+:::
+
+## Prerequisites
+
+Changing the FQDN resets the browser extension configuration. Every user will need to set up their account again on the new domain by following the [setup on another browser](/user/quickstart/browser/setup-on-another-machine/) guide, which requires their private key and their passphrase. Warn your users ahead of the change, because the account recovery feature is reset as part of the change and you will not be able to assist them afterwards. It is your responsibility to make sure, before the change, that:
+
+- All your users have a copy of their private key and know their passphrase. Users can [download their private key](/user/basic-features/browser/download-recovery-kit/) at any time from **Manage account > Keys inspector > Download private key**.
+- On Pro Edition, users missing their private key or their passphrase [initiate an account recovery](/user/quickstart/browser/admin-assisted-recovery/) before the change.
+
+On Pro Edition, if the account recovery feature is enabled, disable it before the change. Otherwise the account recovery data will still reference the old domain, see [Account recovery was not disabled before the change](#account-recovery-was-not-disabled-before-the-change-pro-edition).
+
+:::danger
+Disabling account recovery permanently deletes all account recovery data, including pending recovery requests. Before disabling it, make sure that no recovery request is pending and that every user has a copy of their private key.
+:::
+
+To disable the account recovery feature:
+
+- If you have the organisation recovery key (ORK) and its passphrase, [disable the feature](/admin/authentication/account-recovery/account-recovery-configuration/#disable-account-recovery) from **Administration > Account recovery**. You will be asked for the ORK.
+- If you do not have the ORK or its passphrase, as a last resort, truncate the account recovery tables from the CLI:
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt truncate_account_recovery_tables -n" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose -f docker-compose-pro.yaml exec passbolt su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt truncate_account_recovery_tables -n" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+<Webserverprotip />
+
+## Change the domain
+
+The procedure differs based on the installation method:
+
+- **Update the full base URL**
+  - Debian/RPM packages: edit `App.fullBaseUrl` in `/etc/passbolt/passbolt.php`.
+  - Docker/Helm: update the `APP_FULL_BASE_URL` environment variable.
+    - In both cases, include the scheme, e.g. `https://`.
+- **Regenerate the TLS certificate**
+  - The certificate CN and SAN must match the new FQDN, otherwise the browser extension and the healthcheck TLS validation will fail. See the [HTTPS configuration guide](/hosting/tls/https/).
+- **Update the DNS resolution**
+  - The new domain must resolve on the server itself (`/etc/hosts` if needed), inside the container on Docker, and on every client device.
+- **Reconfigure the SSO settings** (Pro Edition)
+  - The redirect URI registered on the identity provider side is tied to the old domain. Update it in the identity provider client configuration and in the passbolt SSO administration settings.
+
+## Finalise the change
+
+Once the changes above are applied, perform the following verifications.
+
+### Run the healthcheck
+
+Run the healthcheck and confirm there is no domain mismatch warning:
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt healthcheck" www-data`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose exec passbolt su -s /bin/bash -c "source /etc/environment && ./bin/cake passbolt healthcheck" www-data`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+<Webserverprotip />
+
+:::info
+Some TLS warnings in the healthcheck output are expected. See the [TLS troubleshooting guide](/hosting/tls/troubleshooting/) to confirm whether they apply to your setup.
+:::
+
+### Reconnect the browser extensions
+
+The browser extension is associated with the domain. After the change, existing accounts in the extension are no longer linked to the server, and every user needs to [set up their account again with their recovery kit](/user/quickstart/browser/setup-on-another-machine/) on the new domain. Admin assisted account recovery is not available at this point, since the feature was disabled in the [Prerequisites](#prerequisites): this is why every user must have a copy of their private key and their passphrase before the change.
+
+Inform your users ahead of time so the change does not look like an outage.
+
+### Re-enable account recovery (Pro Edition)
+
+If you disabled the account recovery feature before the change, re-enable it from **Administration > Account recovery** with the policy of your choice, then have your users enrol again. See [how to configure the account recovery feature](/admin/authentication/account-recovery/account-recovery-configuration/).
+
+### Test the SSO login (Pro Edition)
+
+Once the redirect URI is updated on the identity provider side and in the passbolt SSO administration settings, verify the SSO flow by logging in through it.
+
+### Rotate the shared metadata key
+
+The shared metadata key data also contains the domain, encrypted. If you do not rotate the key, the domain will not match for every user created after the change, and you will have to [share the key with them manually](/admin/resource-types/metadata-key/#sharing-missing-metadata-keys) each time. A single rotation fixes this for both the existing users and the users created afterwards. See [how to rotate the shared metadata key](/admin/resource-types/metadata-key/#rotating-the-shared-metadata-key). If your instance uses encrypted metadata, you must rotate the shared metadata key after the FQDN change.
+
+### Update the mobile configuration profiles
+
+If your organisation uses a mobile device management solution (e.g. Intune, Jamf) to push the passbolt server URL to mobile devices, update the URL in the MDM policy. It will not pick up the change automatically.
+
+## Troubleshooting
+
+These scenarios should not happen if the [Prerequisites](#prerequisites) checklist was followed. They cover the cases where a step was skipped or was not possible at the time.
+
+### Account recovery was not disabled before the change (Pro Edition)
+
+If the account recovery feature was not disabled before the FQDN change, the `account_recovery_private_key_passwords` records still reference the old domain, and approving a recovery request fails with the following error:
+
+```
+The domain contained in the private key password data does not match the expected target domain.
+```
+
+The fix depends on whether a recovery request is pending:
+
+:::danger
+Disabling the account recovery feature permanently deletes all account recovery data, including pending recovery requests. Double-check that no user has a request in progress before doing it.
+:::
+
+- **No pending request:** you have not hit the error yet, and you can avoid it entirely. Disable the account recovery feature and re-enable it, as described in [Prerequisites](#prerequisites) and [Re-enable account recovery](#re-enable-account-recovery-pro-edition). The records will be regenerated with the new domain when your users enrol again.
+- **Pending request:** disabling the feature would delete the pending request. Follow the procedure below to correct the affected record and let the user complete their recovery.
+
+:::important
+The procedure below only fixes the record of the affected user. In both cases, once no request is pending any more, you must disable and re-enable the account recovery feature so that all the records are regenerated with the new domain. Otherwise the error will come back with the next recovery request.
+:::
+
+The `data` column of the `account_recovery_private_key_passwords` table holds a GPG-encrypted, ASCII-armored payload containing a JSON object with, among other fields, the `domain`. Because it is encrypted, you cannot run a SQL `UPDATE ... SET data = REPLACE(...)`. You have to decrypt the payload, edit the plaintext JSON, re-encrypt it and write the result back, as follows.
+
+#### 1. Import the organisation recovery key into your local GPG keyring
+
+You need the ORK and its passphrase to decrypt and re-encrypt the payload.
+
+:::warning
+If you no longer have the ORK or its passphrase, this procedure is not possible: due to the end-to-end encrypted nature of passbolt, the data cannot be decrypted by any other means. You will have to reset and reconfigure the account recovery feature, as described in [Prerequisites](#prerequisites) and [Re-enable account recovery](#re-enable-account-recovery-pro-edition), and delete the user with the pending request, who can then be invited again as a new user. If that user was the sole owner of shared resources, the interface will ask you to promote someone who already has access as the new owner. Also, all the users' unshared resources will be removed upon the deletion.
+:::
+
+Import the ORK file (replace `ork_private.asc` with the path to your own ORK file):
+
+```bash
+gpg --import ork_private.asc
+```
+
+You can confirm the import, and find the ORK email if you do not know it, with:
+
+```bash
+gpg --list-keys
+```
+
+#### 2. Find the affected record
+
+Connect to your MariaDB database. You will be prompted for the password:
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock>
+      {`mariadb -u passbolt -p passboltdb`}
+    </CodeBlock>
+    Replace <code>passbolt</code> and <code>passboltdb</code> with your own database user and database name, as set in <code>/etc/passbolt/passbolt.php</code>.
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock>
+      {`docker compose -f docker-compose-pro.yaml exec db bash -c \\
+'mariadb -u\${MYSQL_USER} -p\${MYSQL_PASSWORD} \${MYSQL_DATABASE}'`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+Then look up the record of the affected user (replace `user@yourdomain.com` with the email of the affected user):
+
+<CodeBlock>
+{`SELECT arpkp.id
+FROM account_recovery_private_key_passwords arpkp
+JOIN account_recovery_private_keys arpk ON arpk.id = arpkp.private_key_id
+JOIN users u ON u.id = arpk.user_id
+WHERE u.username = 'user@yourdomain.com';`}
+</CodeBlock>
+
+This returns a single ID. Note it down, you will need it for the next steps.
+
+#### 3. Extract the encrypted data
+
+Replace `RECORD_ID` with the ID returned by the previous query:
+
+<CodeBlock>
+{`SELECT data FROM account_recovery_private_key_passwords WHERE id = 'RECORD_ID';`}
+</CodeBlock>
+
+The query returns a PGP message block. Copy it, from `-----BEGIN PGP MESSAGE-----` to `-----END PGP MESSAGE-----`, and save it with your favourite text editor into a new file on your host machine, for example `encrypted_message.gpg`.
+
+#### 4. Decrypt it
+
+```bash
+gpg --decrypt -o decrypted_message.txt encrypted_message.gpg
+```
+
+GPG will prompt for the passphrase of the organisation recovery key.
+
+#### 5. Edit the domain
+
+Open `decrypted_message.txt` with your favourite text editor, replace the value of the `domain` field with the new domain, and save the file.
+
+#### 6. Re-encrypt it
+
+Replace `ork@yourdomain.com` with the email of your ORK, as listed in step 1:
+
+```bash
+gpg --output encrypted_message.gpg --encrypt --armor --recipient ork@yourdomain.com decrypted_message.txt
+```
+
+#### 7. Write the result back into the database
+
+Connect to the database again, as in step 2, and update the record with the new PGP message you just encrypted, using the same `RECORD_ID` as in step 3:
+
+<CodeBlock>
+{`UPDATE account_recovery_private_key_passwords SET data = '-----BEGIN PGP MESSAGE-----
+...
+-----END PGP MESSAGE-----' WHERE id = 'RECORD_ID';`}
+</CodeBlock>
+
+:::note
+Paste the whole new PGP message, from `-----BEGIN PGP MESSAGE-----` to `-----END PGP MESSAGE-----`.
+:::
+
+The record now contains the new domain. Try approving the request again.
+
+#### 8. Disable and re-enable the account recovery feature
+
+The procedure above fixed a single record. Once the recovery request is completed, disable and re-enable the account recovery feature, as described in [Prerequisites](#prerequisites) and [Re-enable account recovery](#re-enable-account-recovery-pro-edition), so that the remaining records are regenerated with the new domain and the error does not come back.
+
+#### 9. Clean up
+
+:::warning[Security note]
+The intermediate files contain sensitive plaintext and key material. Delete `encrypted_message.gpg` and `decrypted_message.txt`, and remove the ORK from your keyring.
+:::
+
+To remove the ORK from your keyring, note down its fingerprint:
+
+```bash
+gpg --list-keys
+```
+
+The fingerprint is the long string below the `pub` line:
+
+```
+pub   rsa4096 2026-07-15 [SC]
+      ORK_FINGERPRINT
+uid           [ unknown] Organisation Recovery Key <ork@yourdomain.com>
+sub   rsa4096 2026-07-15 [E]
+```
+
+Then delete the key, replacing `ORK_FINGERPRINT` with your own:
+
+```bash
+gpg --batch --yes --delete-secret-and-public-key ORK_FINGERPRINT
+```
+
+### SSO login loops or fails after the change (Pro Edition)
+
+This usually means the redirect URI was not updated on the identity provider side, on the passbolt SSO settings side, or both. Check that both configurations match the new domain exactly, including the scheme and any trailing path. On Docker, verify that your changes are applied inside the container.
+
+### Getting help
+
+If you are on Pro Edition and run into any issue before, during or after the change, you can reach out to the technical team included in your subscription via the [support contact page](https://www.passbolt.com/contact/support). For other issues, Community Edition users are more than welcome to ask for help on the [community forum](https://community.passbolt.com).

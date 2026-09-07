@@ -1,0 +1,87 @@
+resourceActivity:
+  - lang: cURL
+    source: |
+      curl --request GET \
+        --url {{API_BASE_URL}}/actionlog/resource/8e3874ae-4b40-590b-968a-418f704b9d9a.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/actionlog/resource/8e3874ae-4b40-590b-968a-418f704b9d9a.json';
+      const options = {
+        method: 'GET',
+        headers: {Authorization: 'Bearer {{JWT_TOKEN}}'}
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+
+userActivity:
+  - lang: cURL
+    source: |
+      curl --request GET \
+        --url {{API_BASE_URL}}/actionlog/user/f848277c-5398-58f8-a82a-72397af2d450.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/actionlog/user/f848277c-5398-58f8-a82a-72397af2d450.json';
+      const options = {
+        method: 'GET',
+        headers: {Authorization: 'Bearer {{JWT_TOKEN}}'}
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+
+folderActivity:
+  - lang: cURL
+    source: |
+      curl --request GET \
+        --url {{API_BASE_URL}}/actionlog/folder/e97b14ba-8957-57c9-a357-f78a6e1e1a46.json \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/actionlog/folder/e97b14ba-8957-57c9-a357-f78a6e1e1a46.json';
+      const options = {
+        method: 'GET',
+        headers: {Authorization: 'Bearer {{JWT_TOKEN}}'}
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+
+logs:
+  - lang: cURL
+    source: |
+      curl --request GET \
+        --url '{{API_BASE_URL}}/actionlog/logs.json?limit=50' \
+        --header 'Authorization: Bearer {{JWT_TOKEN}}'
+  - lang: JavaScript
+    source: |
+      const url = '{{API_BASE_URL}}/actionlog/logs.json?limit=50';
+      const options = {
+        method: 'GET',
+        headers: {Authorization: 'Bearer {{JWT_TOKEN}}'}
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }

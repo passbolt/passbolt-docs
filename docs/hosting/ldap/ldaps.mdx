@@ -209,6 +209,8 @@ export PASSBOLT_PLUGINS_DIRECTORY_SYNC_SECURITY_SSL_CUSTOM_OPTIONS_CAFILE="/etc/
 
 :::info
 Use either the Passbolt config OR `ldap.conf` (below), **not both**.
+
+These TLS options belong in `passbolt.php` or environment variables. They are separate from the file-based synchronisation settings (domains, filters), which live in `/etc/passbolt/ldap.php`; see the [file-based configuration reference](/admin/user-provisioning/users-directory/advanced-directory-options/#file-based-configuration).
 :::
 
 ---

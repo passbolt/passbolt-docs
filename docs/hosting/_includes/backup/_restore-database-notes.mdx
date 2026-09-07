@@ -1,0 +1,15 @@
+:::caution[Before you restore]
+Read these three points, they are specific to the restore command:
+
+- **Restore into an empty database.** The command runs the SQL file as it is: it never drops anything and never checks that the target is empty. Whether existing tables are replaced depends entirely on your dump, so a restore is safest on a fresh instance or an empty database.
+- **A failure can leave the database half imported.** The whole file is executed in one go, so if it stops midway you are left in an intermediate state. Take a backup of the current database first, even when you are about to overwrite it.
+- **Large dumps can hit the memory limit.** The file is read into memory before being executed, so a dump of several gigabytes may exceed the PHP `memory_limit`. Unlike the export, the command needs no database client binary.
+:::
+
+Always pass `--file` explicitly. Without it, the command picks the first file in reverse alphabetical order from the directory, which is not necessarily the most recent backup. Without `--dir`, it looks in the `tmp/cache/database/` directory of the installation.
+
+On success it prints the file it loaded, then `Success: SQL file imported`.
+
+:::important[Restoring the server keys too]
+If you also restore the OpenPGP server keys from a backup, the key files alone are not enough: the keys must be present in the GnuPG keyring of the web server user. Import them with `passbolt keyring_init`, then confirm with `passbolt healthcheck --gpg`. See [rotating server GPG keys](/hosting/openpgp/rotation/) for the details of that command.
+:::

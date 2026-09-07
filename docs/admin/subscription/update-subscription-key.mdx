@@ -1,6 +1,6 @@
 ---
 title: Updating Your Subscription Key
-description: How to update my subscription key
+description: How to update your passbolt subscription key from the administration panel or the command line, where the key is stored, and what happens when it expires
 sidebar_label: Update Subscription Key
 hide_table_of_contents: false
 ---
@@ -8,40 +8,37 @@ import Figure from '/src/components/Figure/Figure';
 import Chips from "/src/components/Chips/Chips";
 import CodeBlock from '@theme/CodeBlock';
 
-# How can I update my subscription key?
-
 <div style={{display: "flex", gap: "1rem"}}>
   <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
 </div>
 
-For Passbolt version 3.2 and higher, you can update your subscription key on the web interface directly, using the administration panel.
+For passbolt version 3.2 and higher, you can update your subscription key on the web interface directly, using the administration panel.
 
-For Passbolt version prior to 3.2, the command line is the only way to update your subscription key, by the command line method.
+For passbolt versions prior to 3.2, the command line is the only way to update your subscription key.
 
 ## Using administration panel
 
-Navigate to **administration > Subscription** and click on the **Update key** button.
+Navigate to &#9881; > **Organisation settings** > **Subscription** and click on the **Update subscription key** button.
 <Figure
-  src="/img/help/2026/06/plan_updateKey.png"
-  alt="Update subscription key administration screen "
-  caption="fig. Update subscription key administration screen"
+  src="/img/help/2026/09/subscription_details_and_plans.png"
+  alt="Subscription administration screen showing the Details panel and the Plans cards"
+  caption="fig. The Subscription administration screen"
 />
 
 
 A pop-up will appear and you will be able to import your new subscription key
 <Figure
-  src="/img/screenshots/update-subscription-key-2.jpg"
-  alt="Choose file popup in subscription key administration screen "
-  caption="fig. Choose file popup in subscription key administration screen"
+  src="/img/help/2026/09/subscription_edit-key-dialog.png"
+  alt="Edit subscription key dialog with the key field and Choose a file button"
+  caption="fig. The Edit subscription key dialog"
 />
 
 
-You are now able to see your subscription details:
-<Figure
-  src="/img/help/2026/06/plan_updateKeyValid.png"
-  alt="Subscription details in subscription key administration screen "
-  caption="fig. Subscription details in subscription key administration screen"
-/>
+Once the key is saved, the **Details** panel above shows your subscription. It opens with **Edition**, which reads *Pro Edition* or *Community Edition*, followed by the server and client versions. On Pro Edition it also lists the email the subscription was issued to, the users limit with your current usage beside it, the customer and subscription ids, and the **Valid from** and **Expires on** dates.
+
+Two of those values change colour to flag a problem. **Expires on** turns amber within 30 days of the expiry date and red once the subscription has expired. **Users limit** turns red when the number of users exceeds the limit on the key.
+
+Under **Plans**, a card for each edition lists what it includes, and the one you are running is marked **Current plan**.
 
 ## From command line
 ### Get ready
@@ -65,17 +62,22 @@ To replace the existing subscription key with the new one:
 To check if the operation was successful and if the new subscription key is valid:
 
 <CodeBlock>
-  {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt license_check" www-data`}
+  {`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt subscription_check" www-data`}
 </CodeBlock>
 
 :::tip
 If you are on a RPM distribution, replace www-data with nginx
 :::
 
+:::note
+Older documentation and scripts may use `passbolt license_check`; it still works as an
+alias of `subscription_check`.
+:::
+
 If your key is valid, this command will display the passbolt logo and the subscription key details, as in the example below:
 
 ```bash
-/usr/share/php/passbolt/bin/cake passbolt license_check
+/usr/share/php/passbolt/bin/cake passbolt subscription_check
 
      ____                  __          ____
     / __ \____  _____ ____/ /_  ____  / / /_
@@ -95,8 +97,82 @@ Valid from:	May 6, 2025
 Expires on:	May 6, 2026 (in 385 days)
 ```
 
-Then, to import the subscription key to the database since it prevent on file checking, you need to run:
+Then, import the subscription key into the database, which is where passbolt looks for it
+first (see [where the subscription key is stored](#where-the-subscription-key-is-stored)):
 
 <CodeBlock>
-{`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt subscripton_import" www-data`}
+{`sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt subscription_import" www-data`}
 </CodeBlock>
+
+By default the command reads `/etc/passbolt/subscription_key.txt`; use `--file` to point at
+another path. On success it prints "The subscription key was successfully imported in the
+database."
+
+## How subscription seats are counted
+
+A subscription seat is used by every user who has completed their account setup and has not
+been deleted:
+
+- Users who have been invited but have not finished their setup do not use a seat yet.
+- Suspended users still use a seat. Suspension blocks sign-in but keeps the account.
+- Deleting a user frees their seat.
+
+passbolt enforces the limit when the subscription key is saved or the **Subscription** page
+is viewed, not when users are added. If the number of users exceeds the key's users limit,
+the key is rejected with the error "The users limit is exceeded." (HTTP 402 on the API).
+Users can still be added beyond the limit, but the subscription key can no longer be
+validated or updated until the user count is back within the limit or a larger subscription
+is in place.
+
+To compare your current usage against the limit, run `subscription_check` (see
+[above](#steps)); the output includes a line such as `Users limit: 150 (currently: 43)`.
+
+:::tip[Suspending does not free a seat]
+If you hit "The users limit is exceeded.", suspending users does not help: suspended users
+still count towards the limit. Delete the users you no longer need, see
+[suspend or delete](/admin/user-provisioning/manage-users/#suspend-or-delete), or renew
+with a higher users limit.
+:::
+
+## Where the subscription key is stored
+
+passbolt looks for the subscription key in the database first, and only falls back to the
+`/etc/passbolt/subscription_key.txt` file when the database holds no key:
+
+- A key imported through the administration panel is stored in the database only. Nothing
+  is written to disk.
+- `subscription_import` also stores the key in the database.
+- The file is a fallback, read only when no key exists in the database.
+
+:::caution[When migrating or rebuilding a server]
+If your key was imported through the administration panel, it exists only in the database.
+A migration that copies the configuration files but does not restore the database loses the
+subscription. Either migrate the database, in which case the key travels with it, or place
+your subscription key at `/etc/passbolt/subscription_key.txt` on the new server. Run
+`subscription_check` after the migration to confirm.
+:::
+
+## What happens when the subscription expires
+
+An expired subscription does not lock you out. Signing in, using and sharing passwords all
+keep working; only the subscription administration endpoints reject requests until a valid
+key is provided.
+
+What changes:
+
+- Administrators see a warning banner from 30 days before the expiry date, and once the key
+  has expired, a banner that cannot be dismissed. Regular users see no banner.
+- `bin/cake passbolt healthcheck` reports a warning within 30 days of expiry and an error
+  once expired.
+- The **Subscription** page in the administration panel shows the key as invalid, with a
+  **Renew key** button linking to the passbolt website.
+
+To resolve it, renew and then import the new key as described above, or downgrade: from
+version 5.13.0 the **Subscription** page offers **Downgrade to Community**, which removes
+the subscription key and switches the instance to the Community Edition.
+
+:::warning
+Downgrading to the Community Edition is destructive: Pro features and their data are lost,
+and the confirmation dialog requires you to accept this data loss. Renewing the key is the
+only option that preserves everything.
+:::

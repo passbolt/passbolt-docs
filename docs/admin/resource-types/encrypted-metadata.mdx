@@ -11,6 +11,12 @@ import Link from '@docusaurus/Link';
 
 Configure which metadata format (encrypted v5 or legacy cleartext v4) is used for new resources. You can enable both formats during migration, or enforce only encrypted metadata for new installations.
 
+:::note[Out-of-the-box default]
+New instances set up on passbolt 5.4.0 or later come with encrypted metadata enabled by default: new content is created in the v5 format. Instances upgraded from an earlier version keep creating v4 cleartext content until an administrator enables encrypted metadata, either on this screen or from *Administration > Resource types > Getting started* with "Enable encrypted metadata and new resource types (recommended)".
+
+The default activation on new instances is governed by the `passbolt.plugins.metadata.enableForNewInstances` flag, true by default, and the administrator can decline it during setup by choosing "Keep legacy cleartext metadata".
+:::
+
 ## What is Metadata Encryption?
 
 Metadata encryption encrypts:
@@ -101,6 +107,21 @@ The columns are grouped into two categories:
 - **Shared keys in zero-knowledge mode** protect metadata against all server-side threats, including complete server access.
 - **Shared keys in server-knowledge mode** protect metadata at rest (backups, database) but not when an attacker gains significant access to the running application. Secrets (passwords) remain protected by the user's personal key regardless.
 - **No configuration protects against full client compromise.** Client-side security (device encryption, secure passphrase practices) remains essential.
+:::
+
+## Troubleshooting: a resource nobody can see
+
+A resource whose metadata cannot be decrypted disappears from the interface instead of showing an error. The server still returns it, and the API still lists it, but the client cannot read its name, so it drops the entry and logs the failure rather than breaking the display of the whole vault. The effect for the user is a resource that has apparently vanished.
+
+Diagnose it in this order:
+
+1. **Open the console of the service worker of the browser extension**, not the one of the tab, and reload the list of resources. The failure is logged there with the identifier of the resource, as "Unable to decrypt the metadata of the resource (`<id>`) using the user key." for a user key, or "Unable to decrypt the metadata of the resource (`<id>`) using the shared key (`<metadata key id>`)." for a shared key, which names the key that failed as well as the resource. Reload the list rather than opening one resource: these messages only reach the console on the flows that refresh the local storage, the ones that ignore a decryption error instead of raising it. A variant naming the entity rather than the resource, and carrying no key, comes from the same path. A message mentioning a session key is benign: passbolt falls back to the normal decryption and discards the stale session key.
+2. **Compare the counts.** The number of entries returned by `GET /resources.json` against the number of rows displayed. A difference confirms the diagnosis without reading anything, and it is easy to have a user check.
+3. **Look at the resource itself**, with `GET /resources/{id}.json`, and read its `metadata_key_type` and `metadata_key_id`. For a shared key, check that the user has an entry for that key among the metadata private keys. For a user key, check that the key which encrypted the metadata is still the user's current key, which is the usual explanation after a key rotation.
+4. **Rule out an organisation-wide cause** with `passbolt healthcheck --metadata`, which reports a missing active key, a server without access to it, or a key it cannot decrypt. It says nothing about one particular resource.
+
+:::caution[No command can list them for you]
+There is no cake command that returns the resources a given user cannot decrypt, and there cannot be one: the server does not hold the keys. The console of the client is the only place where the failure is visible, which is why step 1 comes first.
 :::
 
 ## Implementation Steps

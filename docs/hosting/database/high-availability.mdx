@@ -1,0 +1,55 @@
+---
+title: Database High Availability
+description: How to run passbolt against a replicated or clustered database
+sidebar_label: High Availability
+hide_table_of_contents: false
+---
+
+import Chips from "/src/components/Chips/Chips";
+
+# Database high availability
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+passbolt connects to one database. It has no read/write splitting, no configuration for more than one datasource, and nothing in it is aware that the database might be a cluster. That is the constraint any high availability design has to work around.
+
+## passbolt is a single-writer application
+
+Whatever sits behind the connection, passbolt behaves as though it is talking to one server. If your topology accepts writes on more than one node at the same time, passbolt has no way to route around the conflicts that follow, and no way to recover from most of them.
+
+## Why multi-primary Galera causes failures
+
+Galera certifies a transaction when it commits, not while it runs. If two nodes commit changes to the same rows, one of them is rolled back after the fact, and the database driver reports that rollback as a deadlock.
+
+passbolt contains exactly one retry loop. Creating a resource retries up to five times, pausing 100 milliseconds between attempts. It was added for parallel imports, where many resources are created at once. If the attempts run out, the request fails with `503 Service Unavailable`.
+
+Every other multi-row write runs in an unguarded transaction, so the failure reaches the user as a `500 Internal Server Error`:
+
+- sharing a resource
+- sharing a folder
+- updating a resource
+- updating a group's membership
+- creating permissions
+
+Sharing a folder is the most exposed of these. It cascades permission changes across everything the folder contains, which makes it both the largest transaction passbolt performs and the one most likely to conflict. The operations without retry are the heavier ones, not the lighter ones.
+
+:::warning
+On a multi-primary cluster this is not a rare edge case. Two administrators sharing overlapping folders at the same time is enough to produce it, and the user sees a server error rather than a message explaining what happened.
+:::
+
+## Recommended pattern: route writes to one node
+
+Point passbolt at a single Galera node and keep the others as standby. With HAProxy, that means configuring one node as the active backend and marking the rest `backup`, so traffic moves only when the active node is lost.
+
+This keeps the cluster's availability benefit, since losing the active node fails over to another, while avoiding the certification conflicts that come from accepting writes in more than one place. Because passbolt does not split reads from writes, all of its traffic follows this path.
+
+Failover is not free: any transaction in flight when a node drops is lost, and passbolt will surface that as an error to whoever was mid-operation. Users retry the action and continue.
+
+## What passbolt does not provide
+
+passbolt does not ship, configure or support a clustering topology. The single-writer requirement above is what passbolt needs from your database layer; how you deliver it is an infrastructure decision that stays with you and your database administrators.
+
+If you are evaluating a design, the questions worth answering are whether writes can ever reach two nodes at once, and what your load balancer does with in-flight connections during failover. Both are properties of your infrastructure rather than of passbolt.

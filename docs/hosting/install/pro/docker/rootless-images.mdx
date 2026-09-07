@@ -18,7 +18,6 @@ Our docker-compose.yml example uses root images. If you want to use non-root ima
 
 root images uses ports 80 and 443:
 ```yaml
-version: '3.7'
 services:
   db:
     ...
@@ -31,7 +30,6 @@ services:
 ```
 non-root images uses ports 8080 and 4433 so you need to map ports 80 and 443 to them:
 ```yaml
-version: '3.7'
 services:
   db:
     ...
@@ -44,7 +42,6 @@ services:
 ```
 non-root images also uses a different path to handle TLS (SSL) certificates:
 ```yaml
-version: '3.7'
 services:
   db:
     ...

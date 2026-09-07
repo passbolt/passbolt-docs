@@ -5,6 +5,7 @@ sidebar_label: LDAP Sync Cronjob
 ---
 
 import CodeBlock from "/src/components/CodeBlock/CodeBlock.js";
+import Webserverprotip from '/docs/hosting/_includes/troubleshooting/_webserver-user-protip.mdx';
 
 # How to Set Up the LDAP Synchronization Cronjob
 
@@ -29,15 +30,15 @@ We recommend running it once per day, but you can adjust the frequency as needed
 0 0 * * * su -c "/usr/share/php/passbolt/bin/cake directory_sync all --persist" -s /bin/bash nginx >> /var/log/cron.log 2>&1
 ```
 
-> Replace `nginx` with the actual web server user if your environment differs.
+<Webserverprotip />
 
 ---
 
 ### Docker
 
-If you're using the official Docker deployment, uncomment the relevant cron lines in your Docker Compose file:
+If you're using the official Docker deployment, uncomment the two commented cron lines in the `command:` section of the passbolt service in your Docker Compose file, below the comment starting with "Uncomment the below two lines if you are using ldap sync":
 
-- [Lines 36-37 of `docker-compose-pro.yaml`](https://github.com/passbolt/passbolt_docker/blob/master/docker-compose/docker-compose-pro.yaml#L36)
+- [Lines 37-38 of `docker-compose-pro.yaml`](https://github.com/passbolt/passbolt_docker/blob/master/docker-compose/docker-compose-pro.yaml#L37-L38)
 
 These lines enable the sync cron task within the containerized environment.
 

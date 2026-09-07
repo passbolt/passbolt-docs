@@ -60,6 +60,11 @@ const adminSidebar = [
   },
   {
     type: "doc",
+    id: 'admin/internationalisation',
+    label: "Internationalisation",
+  },
+  {
+    type: "doc",
     id: 'admin/passbolt-api-status',
     label: "Passbolt API Status",
   },

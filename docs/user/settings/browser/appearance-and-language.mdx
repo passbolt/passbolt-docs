@@ -1,0 +1,71 @@
+---
+title: How can I change the theme and the display language?
+description: How to pick a passbolt theme and set the language of the interface and of your notification emails
+sidebar_label: Theme and language
+hide_table_of_contents: false
+---
+
+import Figure from "/src/components/Figure/Figure";
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+Two settings decide what passbolt looks like and what language it speaks to you in. Both live in your profile, and both are saved on your account rather than in your browser, so they follow you from one machine to the next.
+
+## Choose a theme
+
+1. While logged into your passbolt account, click your account image in the top right corner.
+2. Select **Manage account**.
+3. Open the **Theme** tab.
+4. Click the preview of the theme you want.
+
+<Figure
+  src="/img/help/2026/08/user-settings-theme-tab.png"
+  alt="The Theme tab of the user settings, showing the previews of the four available themes"
+  caption="fig. The Theme tab, with the four themes"
+/>
+
+Four themes are available: **Default**, **Midgar**, **Solarized Dark** and **Solarized Light**. There is no save button and no preview mode: the theme changes the moment you click it, and passbolt confirms with "The theme has been updated successfully". Clicking the theme you are already using does nothing.
+
+:::note[Where the theme applies]
+Your theme is not limited to the web application. It also styles every surface of the browser extension: the Quick Access popup, the menu that appears in the password fields of websites, and the sign in, setup and recovery screens.
+:::
+
+:::tip[If you never pick a theme]
+passbolt follows the light or dark preference of your operating system, and switches along with it. Choosing a theme replaces that behaviour with your explicit choice.
+:::
+
+## Choose the display language
+
+The language is not a tab of its own, it is a field of your profile:
+
+1. Open **Manage account**, as above, and stay on the **Profile** tab.
+2. Start editing your profile.
+3. Pick a language in the **Language** list.
+4. Save the form. Unlike the theme, the language is part of the profile, so nothing changes until you save.
+
+<Figure
+  src="/img/help/2026/08/user-profile-language-field.png"
+  alt="The profile edit form with the Language dropdown open"
+  caption="fig. The Language field of the profile"
+/>
+
+Which languages are on offer depends on the version of passbolt you are using, and your administrator does not compose that list. An entry marked "(beta)" means the translation is not complete, so expect to meet some English in those places.
+
+### Your notification emails follow it too
+
+The language of your profile is also the language of the emails passbolt sends you. It is resolved when a notification is queued rather than when it is sent, so changing your language now does not translate the notifications already waiting to go out.
+
+:::info[Screens before you sign in]
+The sign in, setup and recovery screens cannot know who you are yet, so they use the default language of your organisation, whatever your own preference says.
+:::
+
+## These settings belong to your account
+
+Your theme and your language are stored on your passbolt account, not in your browser. Sign in from another browser or another computer and you will find them again, and reinstalling the extension does not reset them.
+
+Your own language always wins over the default language chosen by your organisation, which only applies to people who have no preference of their own. That explains why a new organisation default can do nothing for you: passbolt records a language preference on your account when you register, when you complete your setup and when you complete an account recovery, taken from the organisation default in force at that moment. You have had one ever since, without ever opening your profile.

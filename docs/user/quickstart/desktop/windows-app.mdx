@@ -43,6 +43,14 @@ To configure your account in the desktop application, you must transfer your pri
 
 After installing the application, you will see instructions on how to download your account kit via the web application. By clicking the 'Next' button, you will be guided to the process for uploading your account kit.
 
+To produce the kit, go to the browser extension where your account is already set up, open your **profile**, and select **Desktop app setup**. Click **Download your account kit** and enter your passphrase when prompted. This saves a file named `account-kit.passbolt`.
+
+:::warning[Your account kit contains your private key]
+The account kit holds your private key. Your passphrase signs the file, it does not encrypt it, so anyone who obtains both the kit and your passphrase has your account. Transfer it directly to the machine running the desktop app and delete it afterwards. Do not email it or leave it in shared storage.
+:::
+
+If **Desktop app setup** does not appear in your profile, the desktop plugin is disabled on your instance, or your role is not permitted to transfer an account. Ask your administrator.
+
 <Figure
   src={
     '/img/help/2023/12/desktop-app-get-started.png'
@@ -63,7 +71,7 @@ After installing the application, you will see instructions on how to download y
 
 ### Verify account kit
 
-Once the account kit is successfully uploaded, your account information, including your username and the URL of the Passbolt server, will be displayed on the screen.
+Once the account kit is successfully uploaded, your account information, including your username and the URL of the passbolt server, will be displayed on the screen.
 
 Please review this information carefully before proceeding. If you find any discrepancies, you can return to the upload screen by clicking on `Import another account`.
 
@@ -95,6 +103,14 @@ To remove an existing account from the application, delete the `account-metadata
 
 Currently, we do not support Windows Hello due to certain security concerns that are under review. We are investigating the most secure implementation methods and will inform you as soon as a plan is established.
 
+### Which multi-factor authentication providers work in the desktop app?
+
+TOTP, Yubikey and Duo all work. Duo support was added in **2.12.0**; on earlier versions the Duo prompt does not load and sign-in cannot be completed, so upgrade the app if your organisation uses Duo.
+
+The Duo hostname configured by your administrator has to be of the form `api-<identifier>.duosecurity.com`, which is the same form the administration screen accepts when the setting is saved.
+
 ### How to Report Issues to Help Us Improve the Product
 
-As mentioned earlier, the app is currently in beta and is primarily intended for reporting issues that you encounter while using it. To report issues, please visit the following link: Passbolt Community - Windows Application Developer Edition v0.5.0.
+Report bugs and feature requests on the [passbolt-windows issue tracker](https://github.com/passbolt/passbolt-windows/issues).
+
+Please do not report security issues there. Send them to `security@passbolt.com` instead, so they can be handled privately.

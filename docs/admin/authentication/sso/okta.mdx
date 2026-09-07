@@ -1,0 +1,100 @@
+---
+title: How to configure SSO with Okta
+sidebar_label: Okta
+description: How to configure Single Sign-On with Okta using OpenID Connect
+hide_table_of_contents: false
+---
+
+import Figure from '@site/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+import EmailMatchingWarning from "/docs/admin/_includes/sso/email-matching-warning.mdx";
+import HttpsWarning from "/docs/admin/_includes/sso/https-warning.mdx";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+:::danger[Do not map users to untrusted attributes]
+passbolt relies on the identity provider to authenticate users and to assert their identity, and matches users to existing passbolt accounts by their email address. Only use an identity provider that guarantees users can authenticate only as email addresses they legitimately own and that you administer. If the provider lets users self-assign or modify unverified email addresses, an attacker may be able to impersonate another user.
+:::
+
+<HttpsWarning />
+
+passbolt Pro Edition supports SSO with Okta through OpenID Connect. Okta does not have its own tile on the SSO administration screen, so it is configured with the generic **OpenID** provider.
+
+## How does it work?
+
+passbolt SSO uses Okta's OpenID Connect endpoints alongside the existing [challenge-based authentication](/development/authentication/). When a user logs in through Okta, they unlock a server-side key needed to decrypt their secret key passphrase.
+
+Okta asserts the user's identity through the standard `email` claim, so each user's Okta email must be the same address as their passbolt account.
+
+## Prerequisites
+
+You need the following to configure Okta SSO with passbolt:
+
+- An Okta organisation where you can create application integrations
+- Administrative access to both Okta and passbolt
+- Each user's Okta email set to the email address of their passbolt account
+
+## Configuration
+
+<EmailMatchingWarning />
+
+### Step 1: Create an Okta application integration
+
+In the Okta admin console, create an OpenID Connect application for passbolt.
+
+1. Go to **Applications** > **Applications** > **Create App Integration**.
+2. Select **OIDC - OpenID Connect** as the sign-in method and **Web Application** as the application type, then click **Next**.
+3. Give the application a name (for example, "passbolt SSO").
+4. Under **Grant type**, keep **Authorization Code** selected.
+5. Under **Sign-in redirect URIs**, add the passbolt **redirect URL**. You will find the exact value on the passbolt SSO administration screen in Step 2; it has the form `https://passbolt.example.com/sso/oauth2/redirect`.
+6. Under **Assignments**, choose which users or groups may sign in, then click **Save**.
+7. On the application's **General** tab, copy the **Client ID** and **Client secret**.
+
+Your Okta OpenID Connect issuer is your Okta organisation URL, for example `https://your-org.okta.com`. If you use a custom Okta authorization server, use its issuer URL instead.
+
+### Step 2: Configure passbolt
+
+1. Sign in to passbolt with an administrator account.
+2. Select &#9881; > **Organisation settings** > **Single Sign-On** in the top right corner.
+3. Select **OpenID** as the provider.
+4. Copy the **Redirect URL** shown on this screen and add it to your Okta application's sign-in redirect URIs (Step 1) if you have not already.
+5. Fill in the configuration:
+
+| Field | Value |
+| --- | --- |
+| Login URL | Your Okta issuer URL, e.g. `https://your-org.okta.com` |
+| OpenId Configuration Path | `/.well-known/openid-configuration` |
+| Scope | `openid email profile` |
+| Application (client) ID | The client ID from your Okta application |
+| Secret | The client secret from your Okta application |
+
+6. Click **Save settings** to run a test authentication, and complete the Okta login flow.
+7. If the test succeeds, save the settings permanently.
+
+### Step 3: Test the configuration
+
+1. Sign out from passbolt.
+2. On the login page, select **Sign in with OpenID**.
+3. Confirm you can authenticate through Okta and reach your passbolt account.
+
+## Troubleshooting
+
+**Authentication fails**: verify the client ID and secret, and that the sign-in redirect URI in Okta matches the passbolt redirect URL exactly.
+
+**The user cannot sign in**: confirm the user's Okta email is exactly the email address of their passbolt account.
+
+**Wrong configuration path**: if you use a custom Okta authorization server, its discovery path is `/oauth2/<authorization-server-id>/.well-known/openid-configuration` rather than `/.well-known/openid-configuration`.
+
+To enable SSO debug logging, set the environment variable:
+
+```bash
+export PASSBOLT_PLUGINS_SSO_DEBUG_ENABLED=true
+```
+
+## Important notes
+
+- Users must sign in with their passphrase **after SSO is activated** for the SSO option to appear on later logins.
+- HTTPS is required for SSO to function.

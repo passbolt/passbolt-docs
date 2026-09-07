@@ -1,0 +1,36 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
+
+:::info[SSO account recovery]
+Once an SSO provider is active, users can also authenticate with it to recover access to their account on a new browser, instead of using the email verification link. See [how a user recovers an account with SSO](/user/quickstart/browser/sso-account-recovery/).
+:::
+
+There is no toggle in the administration interface. To turn the feature off, select your installation method:
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    Open `/etc/passbolt/passbolt.php` and edit the **plugins** block:
+
+    <CodeBlock language="php">
+      {`[...]
+'passbolt' => [
+    'plugins' => [
+        'sso' => [
+            'ssoRecover' => [
+                'enabled' => false,
+            ],
+        ],
+    ],
+],
+[...]`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    Set the environment variable on the passbolt container:
+
+    <CodeBlock language="bash">
+      {`PASSBOLT_PLUGINS_SSO_RECOVER_ENABLED=false`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>

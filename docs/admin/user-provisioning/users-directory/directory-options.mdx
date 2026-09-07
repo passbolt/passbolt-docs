@@ -28,7 +28,7 @@ When integrating with OpenLDAP, keep in mind the following specifics:
   * Each user must have a unique and valid email address in the attribute Passbolt 
     maps as the username (usually `mail`). It must be properly formatted (no 
     leading/trailing spaces).
-  * Each group must contain members via the `uniqueMember` attribute.
+  * Each group must list its members in the attribute passbolt maps as the group users field. The default mapping reads `member`, while `groupOfUniqueNames` groups store members in `uniqueMember`: see the mapping note in the example configuration below.
 * If these are not present or properly formatted, sync will report a "data validation" 
   error.
 
@@ -68,7 +68,7 @@ Then set:
 - **User Path**: `ou=People`
 - **Group Path**: `ou=Groups`
 
-If groups use `member` instead of `uniqueMember`, change the **group object class** accordingly and verify schema mapping in the plugin config.
+Mind the membership attribute: by default, the search targets `groupOfUniqueNames` groups but reads members from the `member` attribute, so the membership of standard `groupOfUniqueNames` groups is ignored until the mapping is overridden. Read the **Group object class** field before you change anything: `groupOfUniqueNames` is the default for a fresh setting, but an instance upgraded through version 4.0.0 while the group object class was empty may hold `groupOfNames` instead, and there the shipped `member` mapping is already correct. When the field shows `groupOfUniqueNames`, override the group users field mapping to `uniqueMember`, with the "Group users field mapping" field of the Users Directory screen or with `fieldsMapping.openldap.group.users` in the [file-based configuration](/admin/user-provisioning/users-directory/advanced-directory-options/#file-based-configuration). Change the **group object class** only if your groups use a different class, and set the users mapping to match that class's membership attribute (`member` for `groupOfNames`).
 
 ---
 
@@ -90,13 +90,17 @@ You can restrict the sync scope by setting the Base DN to a specific OU.
   - Filling the `mail` field in AD.
   - Overriding with `userPrincipalName` or `sAMAccountName`.
 
-This requires config-level changes, e.g.:
+This can be changed with the "User username field mapping" field of the Users Directory administration screen, or with the `fieldsMapping` key of the [file-based configuration](/admin/user-provisioning/users-directory/advanced-directory-options/#file-based-configuration). Only the overridden key needs to be declared, the rest of the mapping keeps its defaults:
 
-```yaml
-username_attribute: sAMAccountName
+```php
+'fieldsMapping' => [
+    'ad' => [
+        'user' => [
+            'username' => 'sAMAccountName',
+        ],
+    ],
+],
 ```
-
-> This cannot be changed via the UI currently. Use configuration files instead.
 
 ### Enabled Users Only
 
@@ -118,9 +122,15 @@ If Group A is a member of Group B in AD, Passbolt will **not** include Group A's
 
 - Default mapping: `mail` maps to the Passbolt username
 - Optional override: `userPrincipalName`, `sAMAccountName`
-- Manual override must be done via configuration:
-  ```yaml
-  username_attribute: userPrincipalName
+- Override with the "User username field mapping" field of the interface, or in the file-based configuration:
+  ```php
+  'fieldsMapping' => [
+      'ad' => [
+          'user' => [
+              'username' => 'userPrincipalName',
+          ],
+      ],
+  ],
   ```
 
 Contact engineering if you require a different mapping strategy.
@@ -152,7 +162,7 @@ Some environments enforce:
 
 Very large ADs may hit the default 1000-record page size limit.
 
-- Passbolt uses the LdapTools library, which supports automatic paged queries.
+- passbolt uses the LdapRecord library, which paginates queries automatically, in pages of 1000 entries by default.
 - If AD paging is disabled, you might see errors like:
 
 ```
@@ -226,11 +236,23 @@ The available options are:
      </tr>
      <tr>
          <td>
-         Username and password<br/>
-         <em>(required)</em>
+         Authentication method<br/>
+         <em>(optional)</em>
          </td>
          <td>
-         Username and password to authentify on your directory
+         "Basic" (username and password, the default) or "SASL (EE)". With SASL, the username and password fields are hidden and not required: the bind uses the Kerberos credentials of the system user running passbolt (GSSAPI). Available for both directory types since version 4.0.0.
+         </td>
+         <td>
+         <code>Basic</code>
+         </td>
+     </tr>
+     <tr>
+         <td>
+         Username and password<br/>
+         <em>(required with Basic)</em>
+         </td>
+         <td>
+         Username and password to authentify on your directory. Not used with the SASL authentication method.
          </td>
          <td>
          </td>
@@ -365,6 +387,19 @@ The available options are:
            <br/><br/>Default value: everything is enabled.
            </td>
            <td>
+           </td>
+        </tr>
+        <tr>
+           <td>
+           Delete or suspend users<br/>
+           <em>(optional)</em>
+           </td>
+           <td>
+           Defines what happens to synchronised users removed from the directory: "Delete users" permanently deletes them and the data associated with them, "Suspend users" prevents them from signing in and from receiving email notifications while other users can still share resources with them and add them to groups. Available since version 4.9.0.
+           <br/><br/>Default value: Delete users.
+           </td>
+           <td>
+           <code>Delete users</code>
            </td>
         </tr>
   </tbody>

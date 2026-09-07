@@ -6,6 +6,7 @@ sidebar_position: 2
 hide_table_of_contents: false
 ---
 import Chips from "/src/components/Chips/Chips";
+import Figure from '@site/src/components/Figure/Figure';
 
 <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
 
@@ -61,10 +62,12 @@ Delete the manual group in Passbolt (after confirming it's safe), then re-run sy
 :::
 
 **Explanation**  
-This occurs when a user that exists in LDAP was manually deleted in Passbolt. Sync respects manual deletions.
+The user exists in LDAP but the matching passbolt account is soft-deleted, whether an administrator deleted it manually or the delete operation of a previous synchronisation removed it. When the LDAP object is older than the last modification of the deleted account, passbolt treats the deletion as deliberate, does not recreate the account, and the error repeats at every run.
 
 **Solution**  
-Manually recreate the user in Passbolt, then run sync again.
+To bring the user back: recreate them in passbolt (send a new invitation with the same email address), then run the synchronisation again. The next run maps the LDAP entry to the new account and reports "The user X was mapped with an existing user in passbolt." The data of the old account is not restored, and the user goes through the setup again. Run a simulation first to check the expected report. This procedure does not trigger the "created after" conflict described above, which only applies when the LDAP object is more recent than the existing passbolt account.
+
+To keep the user out instead, silence the recurring error with `ignore_create` (see the section on ignoring problematic LDAP entries): the record is skipped at the next runs and the account stays deleted. `ignore_create` silences the error, it is not a recovery step.
 
 ---
 
@@ -143,6 +146,19 @@ Usually caused by missing or malformed user attributes in LDAP.
 
 **Solution**  
 Ensure all LDAP users have valid email addresses and fix formatting issues before syncing again.
+
+---
+
+**Message**  
+:::danger
+`The synchronization failed. Could not retrieve the group matching name X`
+:::
+
+**Explanation**  
+The users parent group or groups parent group setting names a group that is not present in the results returned by the directory. The value is matched by name against the fetched groups, after the search: it is not a DN or an LDAP query. A group that exists in the directory but sits outside the queried scope (base DN, group path, custom filters) produces the same error. Both settings are resolved before any entry is processed, so a wrong value does not filter anything out: the whole run fails, users and groups included, until the value is corrected. The simulation shows the same message prefixed with "The simulation failed.", and the CLI prints the raw error.
+
+**Solution**  
+Set the parent group to the exact name of a group present in the synchronisation scope, or clear the setting.
 
 ---
 
@@ -247,32 +263,28 @@ memory_limit = 1024M
 
 ### Pagination Issues
 
-The LdapTools library used by Passbolt relies on paged LDAP queries.
+passbolt automatically paginates directory searches through the standard LDAP paged-results control (RFC 2696), in pages of 1000 entries, the default of the LdapRecord library used by passbolt. There is nothing to configure: no option disables pagination or changes the page size.
 
-If your LDAP server (e.g., Sun Directory Server or eDirectory) doesn't support RFC 2696 pagination, sync may fail or return incomplete results.
+The control is sent as non-critical, so a server without paged-results support (e.g., Sun Directory Server or eDirectory) ignores it and answers within its own limits instead of rejecting the query. If results are truncated, the remedy is on the server side (for example the Active Directory MaxPageSize policy, or the OpenLDAP size limits and paged-results overlay, see your directory vendor's documentation), or reduce the synchronised scope with the base DN, the user and group paths, custom filters, or parent groups.
 
-**Workaround**:
-- Advanced users can override LdapTools' `ldaptools.yml` to set:
+A legacy directory that rejects the query outright reports "Operations error". The remedies are the same: raise the server-side limits, or reduce the synchronised scope.
 
-```yaml
-use_paging: false
-```
-
-- This requires mounting a custom config in Docker or modifying the vendor folder (not upgrade-safe).
-- Contact Passbolt support for guidance on safe overrides.
-
-> Active Directory and OpenLDAP support paging by default. This issue is rare.
+> Active Directory and OpenLDAP support paging by default. This issue is rare, and primarily affects legacy directories.
 
 ---
 
 ### Large Group Counts
 
-If you only need a subset of users or groups, **always apply LDAP filters** to reduce scope.
+Directories with tens of thousands of groups may degrade sync performance. If you only need a subset of users or groups, **always apply LDAP filters** to reduce scope.
 
 Benefits:
 - Improves sync performance
 - Reduces UI clutter
-- Minimizes resource usage
+- Minimises resource usage
+
+Group nesting and the parent group filter narrow the scope further.
+
+> Version 4.6 and later include improvements, but filtering is still the best way to reduce memory and sync time.
 
 ---
 
@@ -345,13 +357,34 @@ Passbolt identifies users by their persistent LDAP GUID (`objectGUID` for AD, `e
 
 ### Multi-Domain Forests (AD)
 
-Passbolt does not support syncing multiple AD domains via the UI.
+passbolt does not support configuring multiple AD domains via the UI.
 
-- Advanced users can configure multiple domain settings manually in `passbolt.php` by specifying multiple server URLs and base DNs.
-- Each domain may need to be synced separately.
-- Best practice: consolidate via AD trust and use the Global Catalog.
+- Declare each domain as an entry of the `ldap.domains` array in `/etc/passbolt/ldap.php`, as described in the [file-based configuration reference](#file-based-configuration).
+- A single synchronisation run queries every configured domain and merges the results into one set: there is no need to run one sync per domain.
+- A Global Catalog only contains data from the domains of its own forest, an Active Directory behaviour documented by Microsoft. To cover several forests, declare one `ldap.domains` entry per forest.
 
 > This is considered advanced and should be coordinated with support or engineering.
+
+---
+
+### Unwanted or Empty Directory Groups in passbolt
+
+By default, a synchronisation brings in every group returned by the directory, including empty ones. On Active Directory, this covers distribution groups as well as security groups: passbolt only filters on the `group` object class, without any member or group type condition.
+
+To keep groups out of passbolt, both restrictions being opt-in:
+
+- Disable the group synchronisation operations with the "Create groups", "Update groups" and "Delete groups" toggles, in the administration interface under *Users Directory > Synchronization options > Sync operations*, or with the matching `jobs.groups` keys of the [file-based configuration](#file-based-configuration).
+- Restrict what the directory returns with the groups parent group, the group path, or custom group filters.
+
+<Figure
+  src="/img/help/2026/08/users-directory-sync-operations.png"
+  alt="Sync operations toggles in the Users Directory administration screen"
+  caption="fig. Sync operations toggles in the Users Directory administration screen"
+/>
+
+:::warning
+Do not use a group custom filter that matches nothing to "disable" group synchronisation. Already synchronised groups would then look as if they had disappeared from the directory, and the next run deletes them from passbolt when the delete operation is enabled, which is the default. Use the synchronisation operation toggles instead.
+:::
 
 ---
 
@@ -385,14 +418,22 @@ Resolve the underlying error (e.g., increase memory) and retry.
 
 If certain entries cause repeated sync failures (e.g., malformed data, no email), they can be ignored.
 
-To ignore a record:
+To ignore a record at the next synchronisations:
 
 ```bash
-./bin/cake directory_sync ignore <type> <identifier>
+./bin/cake directory_sync ignore_create --model <Users|Groups|DirectoryEntries> --id <uuid>
 ```
 
-- `type` is `user` or `group`
-- `identifier` can be the GUID or DN
+- `--model` accepts exactly `Users`, `Groups` or `DirectoryEntries`, capitalised.
+- `--id` is always a UUID, never a DN: the passbolt id of the user or group for `Users` and `Groups`, or the directory entry id for `DirectoryEntries`, which is the GUID of the directory object (`objectGuid` on AD, `entryUUID` on OpenLDAP).
+
+Ignored records are skipped by the create and delete passes, with a report message such as "The user X was not synced because the passbolt user is marked as to be ignored."
+
+To stop ignoring a record:
+
+```bash
+./bin/cake directory_sync ignore_delete --model <Users|Groups|DirectoryEntries> --id <uuid>
+```
 
 To view ignored entries:
 
@@ -400,39 +441,11 @@ To view ignored entries:
 ./bin/cake directory_sync ignore_list
 ```
 
+:::note
+The footer printed by `ignore_list` suggests `ignore_create [ID]` to stop ignoring records. That embedded help text is wrong on both counts: the command to stop ignoring is `ignore_delete`, and it takes the `--model` and `--id` options shown above.
+:::
+
 > Useful for excluding system accounts, test users, or known bad records. Document any entries you ignore.
-
----
-
-### Missing LDAP Paging Support
-
-Older LDAP servers may not support paged results (RFC 2696), causing sync to fail with:
-
-> "Operations error"
-
-**Workaround**:
-
-- Override paging by providing a custom `ldaptools.yml` with `use_paging: false`
-- May require help from support or editing files like:
-
-```bash
-vendor/ldaptools/ldaptools/resources/config/example.yml
-```
-
-> This is rare and primarily affects legacy directories.
-
----
-
-### Large Group Counts Impacting Performance
-
-Directories with tens of thousands of groups may cause performance degradation.
-
-**Recommendation**:
-
-- Use LDAP filters or group nesting to limit scope
-- Filter groups via parent group filter or other scoped criteria
-
-> Version 4.6+ includes improvements, but filtering is still the best way to reduce memory and sync time.
 
 ---
 
@@ -478,6 +491,152 @@ If you're experiencing LDAP synchronisation issues, follow this structured check
     [📘 Directory Sync Healthcheck Docs](/admin/passbolt-api-status/#directory-sync)
 
 
+## File-Based Configuration
+
+Directory synchronisation settings can be provided in a file instead of the administration interface. The file is `/etc/passbolt/ldap.php` (the `config/ldap.php` of your installation), not `passbolt.php`.
+
+:::info
+File-based configuration is mostly useful when you need what the administration interface does not offer, such as multiple LDAP servers or domains. For a single directory, prefer the administration interface: file-based configuration is expected to be deprecated in the future.
+:::
+
+:::important
+The file is a fallback: passbolt reads it only when no settings have been saved from the administration interface. Settings stored in the database take precedence entirely, there is no merge between the two sources.
+:::
+
+The file must return a single array, with everything nested under `passbolt > plugins > directorySync`. A misplaced nesting does not raise an error, passbolt silently reads an empty configuration. Example with two domains:
+
+```php
+<?php
+return [
+    'passbolt' => [
+        'plugins' => [
+            'directorySync' => [
+                'enabled' => true,
+                'defaultUser' => 'admin@corp.example',
+                'defaultGroupAdminUser' => 'admin@corp.example',
+                'ldap' => [
+                    'domains' => [
+                        'corp' => [
+                            'domain_name' => 'corp.example',
+                            'username' => 'sync-bind',
+                            'password' => 'secret1',
+                            'base_dn' => 'dc=corp,dc=example',
+                            'hosts' => ['dc1.corp.example'],
+                        ],
+                        'labs' => [
+                            'domain_name' => 'labs.example',
+                            'username' => 'sync-bind',
+                            'password' => 'secret2',
+                            'base_dn' => 'dc=labs,dc=example',
+                            'hosts' => ['dc1.labs.example'],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+```
+
+### Connection keys and synchronisation keys
+
+The configuration splits into two levels:
+
+- **Connection keys** live under `ldap.domains.<alias>`, one entry per domain, where the alias is a free name. Per domain: `domain_name` (required), `username` (required), `password` (required), `base_dn` (recommended, otherwise queried via the RootDSE), `hosts` (recommended, otherwise resolved via DNS), `port` (389 by default, 636 with `use_ssl`), `use_tls`, `use_ssl`, `use_sasl`, `sasl_options`, `ldap_type`, `lazy_bind`, `server_selection`, `bind_format`, `options` (LDAP_OPT_* constants), `timeout`. Next to `domains`, the only sibling key is `default_domain`.
+- **Synchronisation and filter keys** live directly under `directorySync` and apply to all domains: `defaultUser`, `defaultGroupAdminUser`, `usersParentGroup`, `groupsParentGroup`, `enabledUsersOnly`, `useEmailPrefixSuffix`, `fieldsMapping`, `groupPath`, `userPath`, `userCustomFilters`, `groupCustomFilters`, `jobs`. Filters cannot be set per domain.
+
+### Synchronisation jobs
+
+The `jobs` key toggles each synchronisation operation individually. The six toggles default to `true`, and a partial `jobs` block keeps the defaults for the omitted keys: only an explicit `false` disables an operation. They match the "Sync operations" toggles of the administration interface.
+
+```php
+'jobs' => [
+    'users' => [
+        'create' => true,
+        'update' => true,
+        'delete' => true,
+    ],
+    'groups' => [
+        'create' => true,
+        'update' => true,
+        'delete' => true,
+    ],
+],
+```
+
+- `create => false` stops new entries from being created; already synchronised entries stay in place and keep being tracked.
+- `update => false` stops changes from being applied; for groups, the update operation also covers membership additions.
+- `delete => false` keeps entries in passbolt when they disappear from the directory.
+
+### Deleting or suspending removed users
+
+Since version 4.9.0, the `deleteUserBehavior` key, which the API and the administration form call `delete_user_behavior`, defines what the delete operation does to synchronised users removed from the directory. It sits directly under `directorySync`, next to `jobs`, and accepts two values:
+
+- `delete`, the default: the user goes through the standard passbolt soft delete, removing the data associated with them. The deletion is skipped, with a report message, when the user is the only owner of one or more passwords or the only manager of one or more groups.
+- `disable`: the user is suspended instead. They can no longer sign in or receive email notifications, but other users can still share resources with them and add them to groups. The suspension applies even to users who are the sole owner of passwords. If the user reappears in the directory with the same DN, the next synchronisation unsuspends them.
+
+This setting only chooses what the delete operation does when it runs: with `jobs.users.delete` set to `false`, removed users are neither deleted nor suspended.
+
+The same choice is available in the administration interface, under *Users Directory > Synchronization options*, with the "Delete or suspend users" radio buttons ("Delete users" and "Suspend users").
+
+<Figure
+  src="/img/help/2026/08/users-directory-delete-suspend.png"
+  alt="Delete or suspend users setting in the Users Directory administration screen"
+  caption="fig. Delete or suspend users setting in the Users Directory administration screen"
+/>
+
+### Multiple hosts and server selection
+
+Each domain accepts a `hosts` array listing several servers. `server_selection` controls how they are used: `order`, the default, tries them in the order written, and `random` shuffles the list before connecting. The older `servers` key is deprecated since version 3.12.0; it still works and is copied into `hosts` when present, but new configurations should use `hosts`. Likewise, `connect_timeout` is deprecated in favour of `timeout`.
+
+### SASL (GSSAPI) authentication
+
+Since version 4.0.0, the directory bind can authenticate with SASL instead of a username and password, for both directory types. In the administration interface, select "SASL (EE)" in the "Authentication method" dropdown of the Users Directory screen: the username and password fields disappear, and the bind uses the Kerberos credentials of the system user running passbolt.
+
+<Figure
+  src="/img/help/2026/08/users-directory-authentication-method.png"
+  alt="Authentication method dropdown in the Users Directory administration screen"
+  caption="fig. Authentication method dropdown in the Users Directory administration screen"
+/>
+
+In the file-based configuration, SASL is a per-domain connection setting. The fine-grained options have no interface equivalent and can only be set in the file:
+
+```php
+'use_sasl' => true,
+'sasl_options' => [
+    'mech' => 'GSSAPI',   // SASL mechanism
+    'realm' => '',        // Kerberos realm
+    'authc_id' => '',     // authentication identity
+    'authz_id' => '',     // authorisation identity
+    'props' => '',
+],
+```
+
+`sasl_options` can be omitted entirely: the mechanism defaults to GSSAPI. Other SASL mechanisms accepted by the system libraries would be passed through, but GSSAPI is the only one passbolt names and documents; treat others as untested. With SASL enabled, `username` and `password` are not needed, the identity comes from the Kerberos ticket.
+
+:::important[Prerequisites]
+The PHP `ldap` extension must be built with SASL support. passbolt does not obtain Kerberos tickets itself: the system user running PHP needs a valid ticket, typically obtained from a keytab with `kinit`, with the credential cache designated by `KRB5CCNAME`. Mind that the interface runs as the web server user while scheduled synchronisations run as the cron user; both need a ticket.
+:::
+
+### Field fallbacks
+
+`fieldFallbacks`, which the API and the administration form call `field_fallbacks`, defines, per directory type, a replacement LDAP attribute used when the primary attribute from `fieldsMapping` is empty on an entry. It never overrides a primary attribute that has a value. It is keyed by directory type, then by passbolt field. Only the `username` field is currently accepted:
+
+```php
+'fieldFallbacks' => [
+    'ad' => [
+        'username' => 'userPrincipalName',
+    ],
+    'openldap' => [
+        'username' => 'uid',
+    ],
+],
+```
+
+### Directory types
+
+`ldap_type` accepts two values: `ad` (Active Directory, the default) and `openldap`. passbolt has no dedicated, supported FreeIPA directory type.
+
 ## Logs and Diagnostic Tools
 
 If the basic connectivity and configuration checks don't resolve the issue, move on to server-side diagnostics.
@@ -488,13 +647,11 @@ If the basic connectivity and configuration checks don't resolve the issue, move
 
 Increase logging verbosity to get more insight into sync behaviour:
 
-- In `config/passbolt.php`, temporarily set:
+- In `config/passbolt.php`, temporarily enable the global CakePHP debug mode at the top level of the configuration:
 
 ```php
 'debug' => true
 ```
-
-- Apply it under the `directorySync` plugin section or globally (depending on version support)
 
 To run a dry sync with verbose CLI output:
 

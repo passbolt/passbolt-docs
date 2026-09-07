@@ -1,0 +1,87 @@
+---
+title: How to Customise the Grid Columns
+description: How to show, hide, reorder and resize the columns of the passwords workspace
+sidebar_label: Grid Columns
+sidebar_position: 8
+---
+
+import Figure from '/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+The list of resources does not have to stay as it comes. You can choose which columns it shows, in which order, how wide they are, and how tall the rows are.
+
+Everything except the order and the width is in one place: the **Columns** button, on the right of the action bar of the passwords workspace.
+
+<Figure
+  src="/img/help/2026/08/resource-grid-columns-menu.png"
+  alt="The Columns menu of the passwords workspace, with the row height options, the column checkboxes and the Reset columns button"
+  caption="fig. The Columns menu"
+/>
+
+## Show or hide a column
+
+1. In the passwords workspace, click the **Columns** button.
+2. Tick a column to show it, untick it to hide it.
+3. The menu stays open, so you can adjust several columns in a row, then click outside to close it.
+
+Hiding a column hides it from the list only. Nothing is deleted, and the resources keep the values you no longer display.
+
+## Reorder the columns
+
+Drag a column header sideways and drop it where you want it. The order is kept for your next visit.
+
+:::note[Some columns stay put]
+Not every column can be dragged, and the gesture relies on the mouse, so a touch screen is not the right tool for it. Use the **Columns** menu to hide what you do not need rather than trying to move a column that resists.
+:::
+
+## Resize a column
+
+Drag the separator between two column headers. Widths are remembered along with the rest of your layout.
+
+## Change the row height
+
+The **Columns** menu opens with two row height options:
+
+- **Compact**, the default, to fit as many resources as possible on screen.
+- **Comfortable**, which gives each row more breathing room.
+
+## Reset the layout
+
+The **Reset columns** button at the bottom of the **Columns** menu restores the default set of columns and their default order.
+
+## Which columns are available
+
+Nine columns are always offered. Three depend on what your organisation has enabled, and when they do not apply they are removed from the collection altogether, so they disappear from the **Columns** menu as well as from the list.
+
+The table follows the order the columns come in:
+
+| Column | When it is offered |
+| --- | --- |
+| Favorite | Always |
+| Icon | Always |
+| Name | Always |
+| Username | Always |
+| Password | Always |
+| Pin code | Always |
+| TOTP | When one-time passwords are available on your instance |
+| URI | Always |
+| Tags | Always |
+| Expiry | When your administrator has enabled [password expiry](/user/basic-features/browser/password-expiry/) |
+| Modified | Always |
+| Location | When folders are available and your role is allowed to use them |
+
+**Pin code** is the only column hidden by default. It is always in the menu, but you have to tick it before it appears in the list.
+
+## Where your layout is stored
+
+Your columns, their order, their width, the sort order and the row height are saved by the browser extension, for the passbolt account you are signed in with.
+
+:::caution[Your layout does not follow you]
+This layout is not stored on the passbolt server and is not synchronised with your account. Signing in from another browser, from another computer, or after reinstalling the extension gives you the default layout again. Two accounts used in the same browser do keep separate layouts.
+:::

@@ -39,7 +39,9 @@ This page configures:
 
 ### Metadata Key Policy
 
-Choose one of the following modes:
+The metadata key policy and the zero-knowledge key distribution below are two independent settings, and any combination of the two is valid. Out of the box, personal keys are allowed and the distribution runs in user-friendly mode.
+
+The policy offers two options:
 
 #### Allow the use of personal keys (recommended)
 
@@ -121,6 +123,27 @@ Users without the shared metadata key cannot create resources in shared folders 
 
 :::warning
 Key rotation will generate a new shared metadata key. All existing encrypted metadata will need to be re-encrypted with the new key. This process may take time depending on the amount of data.
+:::
+
+## Troubleshooting
+
+### "Unable to encrypt the entity metadata, no metadata key found."
+
+This error is raised by the browser extension, before any server call, when the list of shared metadata keys available to the user is empty. It can appear on any operation that needs the shared metadata key: creating or editing a shared v5 resource (or any v5 resource when the policy enforces shared keys), sharing a personal v5 resource for the first time (the share switches its metadata from the user key to the shared key), importing resources, or migrating and rotating metadata.
+
+Two causes produce an empty list:
+
+- **No active shared metadata key.** The key was never generated, for example when encrypted metadata was enabled through the configuration file or environment variables without going through the Getting started screen, or every key was deleted. In that case, the Metadata key administration screen shows "You need to generate a new shared key to enable encrypted metadata.": click "Generate key". A key that is expired but not deleted is still served and does not cause this error.
+- **The key is not shared with the user.** In zero-knowledge mode, a user who has not received the key yet gets this exact error. Share the key with them as described in the sharing section above; generating a new key does not help here.
+
+To verify the state after fixing, check that the key shows as active in the "Shared metadata keys" section of the screen, or run the metadata healthcheck:
+
+```bash
+sudo su -s /bin/bash -c "/usr/share/php/passbolt/bin/cake passbolt healthcheck --metadata" www-data
+```
+
+:::note
+A neighbouring error, "Unable to encrypt the entity metadata, metadata private key is not decrypted.", is a different state: a copy of the key exists for the user but is not decrypted.
 :::
 
 ## Key Information

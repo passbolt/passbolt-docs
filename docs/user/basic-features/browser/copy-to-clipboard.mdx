@@ -1,14 +1,14 @@
 ---
-title: Copy a Password to Clipboard
+title: How to Copy Resource Content to Clipboard
 sidebar_label: Copy to Clipboard
-description: How to Copy a Password to Clipboard
+description: How to copy a username, a password, a TOTP, a URI or a permalink to the clipboard
 slug: copy-to-clipboard
 sidebar_position: 3
 ---
 
 import Chips from "/src/components/Chips/Chips";
 
-# How to Copy a Password to Clipboard
+# How to Copy Resource Content to Clipboard
 
 <div style={{display: "flex", gap: "1rem"}}>
   <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
@@ -22,12 +22,47 @@ within and between application programs.
 :::
 
 1.  Log in to your passbolt account
-2.  Select a password you wish to copy to clipboard
-3.  Click the "more" button" on top of your password list
-4.  Select option "copy password to clipboard"
-5.  If required, enter your master password and lick "Ok" to confirm.
-6.  Your password will be copied to clipboard.
+2.  Select the resource holding the content you want to copy
+3.  Click the **Copy** button above the resource list
+4.  Choose what to copy from the dropdown
+5.  If required, enter your passphrase and click **Ok** to confirm
+6.  The content is copied to the clipboard
+
+Right-clicking the resource in the list opens the same set of copy actions, so you can skip the toolbar if you prefer.
+
+## What you can copy
+
+| Entry | Copies | Notes |
+| --- | --- | --- |
+| **Copy username** | The username stored on the resource | Absent on a standalone TOTP, which has no username. Greyed out when the resource has one but it is empty |
+| **Copy password** | The password | Only listed when the resource holds a password and your role allows copying secrets |
+| **Copy TOTP** | The one-time code as it stands at that moment | Only listed when the resource holds a TOTP and your instance has the TOTP content type enabled |
+| **Copy URI** | The first address stored on the resource | Greyed out when the resource has no URI |
+| **Copy permalink** | A direct link to the resource in passbolt, of the form `https://your-passbolt-domain/app/passwords/view/<id>` | Always available. The link is not a substitute for sharing: it only opens for someone who already has access |
+
+The details panel on the right of the workspace has its own copy button beside each field, which also covers pin codes
+and custom fields.
 
 :::info
-This action is controlled by [RBAC](/admin/role-based-access-control/) (Role-Based Access Control). Access may vary according to your organisation's policy, so if you require access, please contact your administrator.
+Copying a password is controlled by [RBAC](/admin/role-based-access-control/) (Role-Based Access Control). Access may vary according to your organisation's policy, so if you require access, please contact your administrator.
+:::
+
+## Secrets clear from the clipboard after 30 seconds
+
+Since 5.3.2, passbolt removes a copied secret from the clipboard 30 seconds after you copy it, so a password does not
+stay there waiting to be pasted somewhere you did not intend. The confirmation message tells you at the time: "The
+password has been copied to clipboard. It will clear in 30 seconds."
+
+This covers secrets only: passwords, TOTP codes, pin codes, and a password generated from the quick access popup.
+A username, a URI and a permalink are copied normally and stay in the clipboard until something else replaces them.
+
+Two things stop the countdown, so passbolt does not clear content you put in the clipboard yourself:
+
+- Copying or cutting anything else on a web page cancels the pending clear.
+- Copying another secret starts a fresh 30 seconds.
+
+Logging out clears the clipboard immediately if a copied secret is still in it.
+
+:::note
+The 30 seconds is fixed. There is no setting for it, for administrators or for users.
 :::

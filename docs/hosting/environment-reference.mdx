@@ -189,6 +189,10 @@ Complete database connection URL that overrides individual host, port, username,
 Database schema (for PostgreSQL).
 **Default:** `'public'` | **Environment:** all
 
+**`DATASOURCES_QUOTE_IDENTIFIER`** *(boolean, optional)*
+Wrap table and column names in quotes in generated SQL. Needed when identifiers collide with reserved words or are case-sensitive, which is common on PostgreSQL. Leaving it on costs a small amount of query-building time.
+**Default:** `true` | **Environment:** all
+
 ### Database TLS (SSL) Configuration
 
 **`DATASOURCES_DEFAULT_SSL_KEY`** *(string, optional)*
@@ -313,18 +317,49 @@ System environment variable for GPG home directory. Overrides the default keyrin
 The legacy variables `PASSBOLT_GPG_SERVER_KEY_PUBLIC_FILE` and `PASSBOLT_GPG_SERVER_KEY_PRIVATE_FILE` are also supported for backward compatibility.
 :::
 
+### Server key generation
+
+These are read by the container entrypoint, not by the application, so they
+only apply to the Docker and Helm images. They are used once, when the
+entrypoint finds no server key and generates one. Changing them later has no
+effect on a key that already exists; to change an existing key, see
+[GPG key rotation](/hosting/openpgp/rotation/).
+
+The generated key is always RSA. There is no variable to select a different
+algorithm.
+
+**`PASSBOLT_KEY_NAME`** *(string, optional)*
+Owner name on the generated server key.
+**Default:** `'Passbolt default user'` | **Environment:** docker
+
+**`PASSBOLT_KEY_EMAIL`** *(string, optional)*
+Owner email address on the generated server key. The entrypoint also uses this address to look the key up when it calculates the fingerprint, so it has to match the key actually in the keyring.
+**Default:** `'passbolt@yourdomain.com'` | **Environment:** docker
+
+**`PASSBOLT_KEY_LENGTH`** *(integer, optional)*
+Length in bits of the generated primary key.
+**Default:** `3072` | **Environment:** docker | **Example:** `3072`, `4096`
+
+**`PASSBOLT_SUBKEY_LENGTH`** *(integer, optional)*
+Length in bits of the generated encryption subkey.
+**Default:** `3072` | **Environment:** docker | **Example:** `3072`, `4096`
+
+**`PASSBOLT_KEY_EXPIRATION`** *(string, optional)*
+Expiry of the generated key, in GnuPG's format. `0` means the key never expires.
+**Default:** `0` | **Environment:** docker | **Example:** `0`, `2y`
+
 ## User Key Policies Configuration
 
 **`PASSBOLT_PLUGINS_USER_KEY_POLICIES_PREFERRED_KEY_TYPE`** *(string, optional)*
-Preferred GPG key type for user key generation. Controls whether users get RSA or ECC (curve) keys.
+Preferred GPG key type for user key generation. Controls whether new accounts generate RSA or ECC (curve) keys during setup. See [User Key Policies](/admin/authentication/user-key-policies/) for guidance. Note: the curve default describes the server policy, which applies whenever the plugin is enabled, the default on 5.2.0 and later; when the plugin is disabled, or the server predates 5.2.0, the browser extension falls back to its own default and generates an RSA 3072 key.
 **Default:** `'curve'` | **Environment:** all | **Example:** `'rsa'`, `'curve'`
 
 **`PASSBOLT_PLUGINS_USER_KEY_POLICIES_PREFERRED_KEY_SIZE`** *(integer|null, optional)*
-Preferred GPG key size for RSA keys. Not used for ECC keys (set to null).
+Preferred GPG key size. Only used when the preferred key type is `rsa`; the allowed values are 3072 and 4096, and the type and size combination is validated together. Set to null otherwise.
 **Default:** `null` | **Environment:** all | **Example:** `3072`, `4096`, `null`
 
 **`PASSBOLT_PLUGINS_USER_KEY_POLICIES_PREFERRED_KEY_CURVE`** *(string|null, optional)*
-Preferred GPG key curve for ECC keys. Not used for RSA keys (set to null).
+Preferred GPG key curve. Only used when the preferred key type is `curve`; `'curve25519_legacy+ed25519_legacy'` is the only accepted value. Set to null otherwise.
 **Default:** `'curve25519_legacy+ed25519_legacy'` | **Environment:** all | **Example:** `'curve25519_legacy+ed25519_legacy'`, `null`
 
 ## Application Configuration
@@ -458,6 +493,14 @@ Force SSL/HTTPS only. When enabled, all HTTP requests are redirected to HTTPS, e
 If `PASSBOLT_SSL_FORCE` is set to `false` or `DEBUG` is enabled, Passbolt will display an "unsafe mode" banner in the footer. This indicates the instance is not secure and should not be used in production. To disable the warning, set `PASSBOLT_SSL_FORCE=true` and `DEBUG=false`.
 :::
 **Default:** `false` | **Environment:** all
+
+**`PASSBOLT_SSL_SERVER_CERT_FILE`** *(string, optional)*
+Path to a Docker secret holding the web server certificate. Read by the container entrypoint, which symlinks it to the path the bundled nginx expects: `/etc/ssl/certs/certificate.crt` on the root image, `/etc/passbolt/certs/certificate.crt` on the rootless and OpenShift images. Ignored if the file does not exist.
+**Default:** `null` | **Environment:** docker | **Example:** `'/run/secrets/ssl-cert'`
+
+**`PASSBOLT_SSL_SERVER_KEY_FILE`** *(string, optional)*
+Path to a Docker secret holding the web server private key. Symlinked to `/etc/ssl/certs/certificate.key` on the root image, `/etc/passbolt/certs/certificate.key` on the rootless and OpenShift images.
+**Default:** `null` | **Environment:** docker | **Security:** critical | **Example:** `'/run/secrets/ssl-key'`
 
 **`SECURITY_SALT`** *(string, optional)*
 CakePHP security salt for hashing and encryption. Auto-generated during deployment. Used for password hashing and other cryptographic operations.
@@ -812,14 +855,62 @@ Enable tags backup mode. When enabled, tags are preserved during data migrations
 **Default:** `false` | **Environment:** all
 
 **`PASSBOLT_PLUGINS_USER_KEY_POLICIES_ENABLED`** *(boolean, optional)*
-Enable user key policies.
+Enable user key policies. Used in [User Key Policies](/admin/authentication/user-key-policies/).
 **Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_SECRET_REVISIONS_ENABLED`** *(boolean, optional)*
+Enable the secret revisions plugin, which keeps previous versions of a secret when it is updated.
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_SECRET_REVISIONS_MAX_REVISIONS_LIMIT`** *(integer, optional)*
+Number of previous versions kept per secret. Older revisions beyond this count are discarded.
+**Default:** `10` | **Environment:** all | **Example:** `5`, `10`, `25`
+
+**`PASSBOLT_PLUGINS_SECRET_REVISIONS_ENABLE_ALLOW_SHARING_REVISIONS`** *(boolean, optional)*
+Allow revisions to be shared along with the resource.
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_SECURITY_SECRET_REVISIONS_SETTINGS_EDITION_DISABLED`** *(boolean, optional)*
+Prevent administrators from changing the secret revisions settings from the administration screens. The settings endpoint rejects changes while this is on, which is useful for locking a policy set at deployment time.
+**Default:** `false` | **Environment:** all
 
 ### Directory Sync
 
 **`PASSBOLT_PLUGINS_DIRECTORY_SYNC_CASE_SENSITIVE_FILTERS`** *(boolean, optional)*
 Enable case-sensitive LDAP filters for directory synchronisation. When enabled, LDAP search filters are case-sensitive, which may be required for some directory servers. See [Directory Sync configuration](/admin/user-provisioning/users-directory/) for detailed setup.
 **Default:** `false` | **Environment:** all
+
+### SCIM User Provisioning
+
+SCIM user provisioning is a Passbolt Pro Edition feature, available since version 5.5.0. See [SCIM User Provisioning](/admin/user-provisioning/scim/) for setup instructions.
+
+:::note[Variable prefix inconsistency]
+The secret token variables use the `PASSBOLT_SCIM_` prefix rather than `PASSBOLT_PLUGINS_SCIM_`. The names below are the ones the server reads.
+:::
+
+**`PASSBOLT_PLUGINS_SCIM_ENABLED`** *(boolean, optional)*
+Enable the SCIM user provisioning plugin.
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_SCIM_LOG_SCIM_REQUESTS`** *(boolean, optional)*
+Log incoming SCIM requests to the application log: the method and URI of every SCIM request, plus the request body for POST, PUT and PATCH. Useful when troubleshooting an identity provider integration.
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_SCIM_SECURITY_ALLOW_SUSPEND_ADMINISTRATORS`** *(boolean, optional)*
+Allow the identity provider to suspend administrator accounts via SCIM. When disabled, a SCIM request that would suspend an administrator is rejected with an HTTP 403 error, protecting against administrator lockout through a compromised or misconfigured identity provider. Available since passbolt 5.11.0.
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_SCIM_SECURITY_SECRET_TOKEN_COST`** *(integer, optional)*
+Bcrypt cost factor used to hash the SCIM secret token. Available since passbolt 5.10.0.
+**Default:** `12` | **Environment:** all
+
+**`PASSBOLT_SCIM_SECURITY_SECRET_TOKEN_LEGACY_HASH_ALLOWED`** *(boolean, optional)*
+Accept SCIM secret tokens hashed with the legacy SHA-256 format used before passbolt 5.10.0. Tokens generated on 5.10.0 or later are hashed with bcrypt. Set this to `false` once the token has been regenerated, to reject the legacy format. Available since passbolt 5.10.0.
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_SCIM_SECURITY_SECRET_TOKEN_EXPIRY`** *(string, optional)*
+How long a SCIM secret token remains valid after it is created or regenerated. Accepts a number followed by a unit: `year`, `month`, `day`, `hour`, `minute` or `second`. Available since passbolt 5.10.0.
+**Default:** `'1 year'` | **Environment:** all | **Example:** `'6 months'`, `'2 years'`
 
 ### Metadata Plugin
 

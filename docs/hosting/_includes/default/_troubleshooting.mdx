@@ -39,3 +39,58 @@ You can also run the following command to ensure everything is working properly:
 <CodeBlock>
     {`sudo -H -u ${props.webServerUser.toLowerCase()} bash -c "/usr/share/php/passbolt/bin/cake passbolt healthcheck"`}
 </CodeBlock>
+
+#### The update is blocked by PHP dependencies
+
+Since passbolt v5.0.0, the passbolt server package requires PHP 8.2 or newer. If the repositories of your operating system release do not provide PHP 8.2, the package manager cannot install the new passbolt version and your instance stays on the last version compatible with your PHP.
+
+<>
+  {props.distributionPackage === 'apt' && (
+    <CodeBlock>
+      {`The following packages have been kept back:
+  passbolt-ce-server
+0 to upgrade, 0 to newly install, 0 to remove and 1 not to upgrade.`}
+    </CodeBlock>
+  )}
+  {props.distributionPackage !== 'apt' && (
+    <CodeBlock>
+      {`Problem: cannot install the best update candidate for package passbolt-ce-server
+  - nothing provides php-fpm >= 8.2 needed by passbolt-ce-server`}
+    </CodeBlock>
+  )}
+</>
+
+<>
+  {props.distributionPackage === 'apt' && (
+    <p>Trying to install the package directly instead fails with <code>E: Unable to correct problems, you have held broken packages.</code></p>
+  )}
+</>
+
+In this situation, update your server to an operating system release that provides PHP 8.2 or newer, or migrate passbolt to a fresh server running a supported release by following the [migration guides](/hosting/migrate/).
+
+#### LDAP synchronisation stops working after the update (Pro Edition)
+
+Since passbolt v5.12.0, the passbolt server package requires the `php-ldap` extension on all editions, and the package manager installs it automatically during the update.
+
+<>
+  {props.distributionPackage === 'apt' && (
+    <p>On Debian and Ubuntu servers using a third-party PHP repository (such as sury.org or the ondrej PPA), <code>php-ldap</code> is a metapackage that follows the repository default PHP version, which can be newer than the PHP version running passbolt. In that case the update installs the LDAP extension for the wrong PHP version, the <code>ldap_*</code> PHP functions stay missing, and the directory synchronisation fails.</p>
+  )}
+</>
+
+<>
+  {props.distributionPackage === 'apt' && (
+    <p>Install the extension matching the PHP version that serves passbolt, then restart PHP-FPM. For example, for PHP 8.2:</p>
+  )}
+</>
+
+<>
+  {props.distributionPackage === 'apt' && (
+    <CodeBlock>
+      {`sudo apt install php8.2-ldap
+sudo systemctl restart php8.2-fpm`}
+    </CodeBlock>
+  )}
+</>
+
+If the directory synchronisation still fails after the update, verify the LDAP extension is loaded for the PHP version passbolt runs on before investigating the directory configuration itself.

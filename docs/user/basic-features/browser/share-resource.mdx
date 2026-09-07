@@ -1,11 +1,12 @@
 ---
 title: How to share resources
-description: How to share resources
+description: How to share a resource with a user or a group, share several resources at once, and read the Shared with me filter
 sidebar_label: Share Resource
 hide_table_of_contents: false
 sidebar_position: 4
 ---
 
+import Figure from '/src/components/Figure/Figure';
 import Chips from "/src/components/Chips/Chips";
 
 <div style={{display: "flex", gap: "1rem"}}>
@@ -14,41 +15,97 @@ import Chips from "/src/components/Chips/Chips";
   <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
 </div>
 
-##  What are the different permissions?
+## What are the different permissions?
 
-Passbolt offers three permissions at the resource or folder level:
+passbolt offers three permission levels, named in the share dialog as follows:
 
-* <b>Owner:</b> can manage share settings, delete, update, read.
-* <b>Update:</b> can update the record and delete.
-* <b>Read:</b> can only read and use the password metadata and secret.
-
-:::warning
-A User with <b>Update</b> right is able to delete a resource. The main difference between <b>Owner</b> and <b>Update</b>
-right is the ability for the <b>Owner</b> to share a resource.
-:::
-
-##  Sharing a password
-
-<ol type="1">
-  <li>Login and/ or go to password workspace</li>
-  <li>Select the password you would like to share</li>
-  <li>Click the "share" button</li>
-  <li>Type the name of a user you would like to share this password with. Optionally, you can select the permissions you wish to give to a user</li>
-  <li>Press the save button (or enter on your keyboard)</li>
-  <li>Enter your master password. Press OK to continue.</li>
-  <li>Wait until encryption is done</li>
-</ol>
+- **can read**: read and use the metadata and the secret.
+- **can update**: read, use and update the resource, and delete it.
+- **is owner**: everything above, plus managing who the resource is shared with.
 
 :::warning
-Make sure you <b>press the save button every time</b> you make changes
+A user with **can update** is able to delete a resource. The difference that matters between **can update** and **is owner** is the ability to share.
 :::
 
-## Removing yourself from a password shared with you
+Only an owner can open the share dialog. If you have **can read** or **can update** on a resource, sharing it is not yours to do, and neither is removing yourself from it.
 
-<ol type="1">
-  <li>Log in to your passbolt account.</li>
-  <li>Click on "Shared with me" from the menu on the left</li>
-  <li>Select a password you wish to remove yourself from</li>
-  <li>Remove yourself from the list of users with whom the password is shared</li>
-  <li>The password will no longer be shared with you</li>
-</ol>
+## Share a resource
+
+1. Log in and go to the passwords workspace.
+2. Select the resource, then click the share button.
+3. In **Share with people or groups**, start typing a user or a group name.
+4. Pick the entry you want in the list, then choose its permission level.
+5. Click **Save**.
+6. Enter your passphrase, then wait until the encryption is done.
+
+<Figure
+  src="/img/help/2026/08/share-dialog-autocomplete.png"
+  alt="The Share resource dialog with the autocomplete list open, showing a user with their email address and a group with its member count"
+  caption="fig. The share dialog, with a user and a group in the suggestions"
+/>
+
+:::warning
+Make sure you **click Save every time** you make changes. The dialog reminds you with "Click save to apply your pending changes." while something is still pending.
+:::
+
+The suggestion list mixes people and groups, and the subtitle is what tells them apart: an email address for a person, a count such as "3 group members" for a group. The three permission levels are the same for both.
+
+A resource must keep at least one owner. Any change that would leave it without one is refused, with "Please make sure there is at least one owner.".
+
+## Share with a group, or with people
+
+Sharing with a group means the access follows the composition of the group, in both directions, without ever reopening the share dialog.
+
+- When a group manager adds someone to the group, that person gains access to everything shared with the group. The manager's browser re-encrypts each secret for the newcomer during the operation, so on a group that shares many resources this takes a while. No background process can do it instead, which is also why directory synchronisation does not add members to a group that shares passwords, and notifies the group managers instead.
+- When someone leaves the group, their access is withdrawn and their encrypted copies of those secrets are deleted. They keep only what another permission still grants them, such as a direct share on the same resource or membership of another group that has it.
+
+:::tip[Which one to choose]
+Share with a group when the access should belong to a team, since new joiners and leavers are handled for you. Share with people when the access is meant to be nominal and durable, independent of team movements.
+:::
+
+:::caution[Leaving a group is not a rotation]
+Removing someone from a group takes their access away for the future, but they may have read or copied the secret before. When the departure is sensitive, change the secret as well.
+:::
+
+## Share several resources at once
+
+Select more than one resource, then share them in a single operation:
+
+- Tick the checkbox of each row, or the checkbox in the header to select everything in the current view.
+- Or hold ctrl, cmd on macOS, and click to add and remove resources one by one.
+- Or hold shift and click to select a range.
+
+The dialog then names the size of your selection, "Share 12 resources", and lists every person and group who has a permission on any of the selected resources.
+
+<Figure
+  src="/img/help/2026/08/share-dialog-varies.png"
+  alt="The share dialog for several resources, with a recipient whose permission level shows varies and its information icon"
+  caption="fig. A heterogeneous selection, with a permission level shown as varies"
+/>
+
+When a recipient does not have the same level on all the selected resources, their level reads **varies** instead of one of the three. This also covers the case of a recipient who has access to only part of the selection: partial access counts as varying, not as no access. The information icon next to the level opens the detail, listing which resources sit at which level, including those where the recipient has no access at all.
+
+Choosing a real level for that recipient applies it to every resource of the selection, including the ones they could not see before. Once you have picked a level, you cannot go back to **varies**.
+
+:::note[Changes add up, they do not replace]
+Setting a level for one recipient leaves the other permissions of those resources untouched. A bulk share adds to what exists, it does not reset the sharing of the selected resources.
+:::
+
+Every recipient who gains access means one encryption per secret, done by your own browser. A bulk share over a long selection is therefore a slow operation, not a frozen one.
+
+## What Shared with me contains
+
+**Shared with me**, in the menu on the left, lists the resources you have access to without being their owner, which is to say everything where your level is **can read** or **can update**.
+
+That definition has two consequences worth knowing:
+
+- A resource somebody shared with you as an owner does not appear there, even though it was shared with you.
+- A resource you created yourself appears there as soon as you are no longer its owner.
+
+Access inherited from a group counts exactly like a direct share, since what passbolt keeps for each resource is your highest level across your direct permissions and your groups. A group that makes you an owner therefore takes the resource out of this filter.
+
+## Removing yourself from a resource
+
+You can remove your own permission from the share dialog, but only on a resource you own, and only as long as another owner remains.
+
+On the resources listed under **Shared with me** you are, by definition, not an owner, so you cannot remove yourself: ask one of the owners to do it. When your access comes from a group, the resource is not the right place to act at all, and a group manager has to change the membership of the group instead.

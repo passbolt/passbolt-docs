@@ -1,0 +1,100 @@
+---
+title: How to Move Resources and Folders
+description: How to move a resource or a folder by drag and drop, and what a move does to permissions
+sidebar_label: Move items
+hide_table_of_contents: false
+---
+
+import Figure from '/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+Moving an item into a folder is not only tidying up. A move can rewrite who has access to what you moved, sometimes without asking, so it is worth knowing what to expect before you drag anything.
+
+## Moving is a drag and drop
+
+There is no move entry in the resource menu. Dragging is the only way:
+
+1. In the passwords workspace, press the mouse button on the row you want to move.
+2. Drag it onto the destination folder in the tree on the left.
+3. Release. The move is applied straight away, permissions included.
+
+You can select several resources beforehand and drag them together, and they all move in one operation.
+
+:::note[Folders move one at a time]
+A multiple selection only works for resources. When you drag several folders, only one of them moves, and when your selection mixes folders and resources, only the first folder moves and the resources stay where they are. Move folders one by one.
+:::
+
+## Taking an item out of a folder
+
+Drop it on the title of the folders tree, at the top of the left panel. That moves it back out of any folder, to the root of your workspace.
+
+## When a move is not allowed
+
+Whether you may drag an item depends on where it comes from:
+
+- From the root of your workspace, or from one of your personal folders, you can always move it.
+- From a shared folder, you need **can update** both on that folder and on the item itself.
+
+And whether you may drop it depends on the destination:
+
+- You need **can update** on the destination folder.
+- When the destination is a shared folder, every item you are dragging must be at least **can update**. A single read-only item in the selection blocks the whole batch.
+
+:::caution[A refused move says nothing]
+passbolt does not explain a refusal. The destination simply does not light up as you hover it, the item returns to its place, and no message appears. When a move does not work, check the conditions above rather than looking for an error.
+:::
+
+## What a move does to permissions
+
+What a move changes depends on what you are moving, and on your own access to it.
+
+### Moving a folder
+
+When the permissions of the folder you drag do not match the destination, passbolt asks before applying anything. As with resources, permissions are only rewritten on the folders and resources inside the move that you own: when you own none of them, the move applies no permission changes and shows no dialog. Otherwise a dialog opens, titled **How do you want to proceed?**, with the message "You are about to move a folder. The permissions do not match the destination folder permissions.", and two options:
+
+- **Change permissions**: "Remove old inherited permissions and apply the new destination folder permissions recursively."
+- **Keep existing permissions**: "Keep the original permissions, do not apply the destination folder permissions."
+
+Confirm with **Move**.
+
+<Figure
+  src="/img/help/2026/08/folder-move-strategy-dialog.png"
+  alt="The How do you want to proceed dialog, with the Change permissions option selected and the Keep existing permissions option below it"
+  caption="fig. Choosing what a folder move does to permissions"
+/>
+
+:::caution[The destructive option is the preselected one]
+**Change permissions** is selected and holds the focus when the dialog opens, so confirming without reading applies the destination permissions and removes the inherited ones. Choose **Keep existing permissions** to move the folder without touching who can see it.
+:::
+
+The dialog only opens when a permission change was actually computed. A move that changes nothing for anybody goes through without asking.
+
+### Moving a resource
+
+Resources have no such dialog. A move is applied straight away.
+
+Permissions are only rewritten when you own the resource. If your access to it is **can update** rather than **is owner**, the resource moves and its permissions are left alone.
+
+As an owner, what happens depends on where the resource comes from:
+
+- **From the root of your workspace into a shared folder**: nothing is kept. The resource takes the permissions of the destination folder, and everyone else who had access loses it.
+- **From one folder into another**: the permissions granted directly on the resource survive. Only what it inherited from the folder it leaves is replaced by what the destination folder gives.
+- **From a folder back to the root**: the permissions granted directly survive and you keep it as owner. What it inherited from the folder it leaves is removed.
+
+:::danger[Moving a resource from the root into a shared folder removes other people's access]
+That case has no safety net: no dialog, no warning, and nothing kept. Take a resource you own sitting at the root of your workspace, shared directly with a colleague, drag it into a folder shared with somebody else, and your colleague loses it on the spot. It disappears from their workspace, and the only sign for them is that they can no longer find it.
+
+Before that move, look at who the destination folder is shared with and at who currently holds the resource, then warn the people who are about to lose access.
+:::
+
+A move you regret is not undone by moving the item back. The second move applies the rules above again, so an access removed by the first one does not return on its own. Open the share dialog afterwards and share the resource again where needed, knowing that each person you add means a fresh encryption.
+
+:::tip[Reorganise without changing access]
+Moving items inside your own personal folders, or between folders shared with exactly the same people, changes nothing for anybody. When you want to tidy up without touching access, keep the moves within one sharing perimeter.
+:::

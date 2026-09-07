@@ -11,6 +11,7 @@ import CodeBlock from '@theme/CodeBlock';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import KeyRotatedWarning from "/docs/hosting/_includes/warning/_key_rotated_warning.mdx";
+import Webserverprotip from '/docs/hosting/_includes/troubleshooting/_webserver-user-protip.mdx';
 
 # How can I rotate the server GPG keys?
 
@@ -18,6 +19,20 @@ import KeyRotatedWarning from "/docs/hosting/_includes/warning/_key_rotated_warn
   <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
   <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
 </div>
+
+:::warning[A rotation breaks settings encrypted with the server key]
+Some organisation settings are encrypted with the server key and stored in the database, so after a rotation they can no longer be decrypted and must be reconfigured:
+
+- **SMTP / email server settings**: the whole configuration is encrypted with the server key, so it must be entered again.
+- **SSO settings** (Pro Edition): the provider configuration must be entered again.
+- **LDAP / directory sync** (Pro Edition): the configuration is kept, but the directory bind password must be re-entered.
+
+Plan to reconfigure these in *Organisation Settings* straight after the rotation.
+:::
+
+:::info[What a rotation does not affect]
+Your users' stored passwords and other secrets are not re-encrypted or lost: each secret is encrypted with the individual user's OpenPGP key, not the server key, so they stay accessible after the rotation. Login sessions are not invalidated either, because JSON Web Token (JWT) authentication uses a separate key pair. Each user is prompted once to accept the new server key on their next sign-in. If you use encrypted metadata, rotate the metadata key as well. These last two points are covered by the warnings at the end of this page.
+:::
 
 ## Docker installation
 
@@ -95,6 +110,18 @@ Search for `Passbolt default user <passbolt@yourdomain.com>` with the creation d
 
 ## Other installations
 
+This section covers package installations and installations from source. Two
+things vary between them, and the commands below use the package defaults:
+
+- **The web server user.** `www-data` on Debian and Ubuntu, `nginx` on
+  RPM-based distributions.
+- **The passbolt directory.** `/usr/share/php/passbolt` for a package
+  installation, `/var/www/passbolt` from source.
+
+Substitute both throughout if yours differ.
+
+<Webserverprotip />
+
 Create a temporary GPG home folder:
 <CodeBlock>
   {`mkdir /tmp/gpg-temp`}
@@ -111,7 +138,7 @@ Generate new GPG keys:
     Subkey-Usage: encrypt
     Name-Real: Passbolt default user
     Name-Email: passbolt@yourdomain.com
-    Expire-Date: -0
+    Expire-Date: 0
     %no-protection
     %commit
 EOF`}
@@ -124,7 +151,7 @@ Replace the current GPG server keys with the new ones:
 gpg --homedir /tmp/gpg-temp --armor --export-secret-key passbolt@yourdomain.com | sudo tee /etc/passbolt/gpg/serverkey_private.asc > /dev/null`}
 </CodeBlock>
 
-Ensure new GPG keys owner and group are correct. Replace `www-data` with `nginx` if you are using RPM-based Linux distribution:
+Ensure the new GPG keys have the correct owner and group:
 
 <CodeBlock>
 {`sudo chown www-data:www-data /etc/passbolt/gpg/serverkey_private.asc
@@ -159,13 +186,15 @@ Open `/etc/passbolt/passbolt.php` configuration file and replace old fingerprint
         ],`}
 </CodeBlock>
 
-Launch a healthcheck command to get passbolt GNUPGHOME folder (usually `/var/lib/passbolt/.gnupg` but can be different if you installed passbolt from source):
+Run a healthcheck to find the GNUPGHOME folder passbolt is using. Note down what it reports: the next step deletes that folder, and it is not always the default.
 
 <CodeBlock>
 {`sudo -H -u www-data bash -c "/usr/share/php/passbolt/bin/cake passbolt healthcheck --gpg" | grep GNUPGHOME`}
 </CodeBlock>
 
-Delete the current GNUPGHOME folder, it will be automatically recreated:
+Delete the GNUPGHOME folder reported by the healthcheck above. It is
+recreated automatically. The command below uses the package default, so
+change the path if the healthcheck reported a different one:
 <CodeBlock>
 {`sudo rm -rf /var/lib/passbolt/.gnupg`}
 </CodeBlock>

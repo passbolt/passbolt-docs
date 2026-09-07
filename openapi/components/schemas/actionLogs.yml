@@ -1,0 +1,106 @@
+activity:
+  type: "object"
+  description: "An interpreted activity, as displayed in the activity tab of an entity."
+  required:
+    - id
+    - action_log_id
+    - type
+    - creator
+    - created
+    - data
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    action_log_id:
+      type: "string"
+      format: "uuid"
+      description: "Identifier of the underlying log entry."
+    type:
+      type: "string"
+      description: "The kind of activity, which determines the shape of `data`."
+      example: "Resources.created"
+    creator:
+      $ref: "#/activityCreator"
+    created:
+      type: "string"
+      format: "date-time"
+    data:
+      type: "object"
+      description: >
+        Details of the activity. Its content depends on the value of `type`,
+        so a client should switch on `type` before reading it. Note that for a
+        resource using the v5 encrypted metadata format, `data.resource.name`
+        is null, since the activity reads the cleartext columns.
+
+activityCreator:
+  type: "object"
+  description: "The author of an activity, reduced to what the activity feed displays."
+  required:
+    - id
+    - username
+    - profile
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    username:
+      type: "string"
+      format: "email"
+    profile:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+          format: "uuid"
+        first_name:
+          type: "string"
+        last_name:
+          type: "string"
+        avatar:
+          type: "object"
+          properties:
+            url:
+              type: "object"
+              properties:
+                medium:
+                  type: "string"
+                  format: "uri"
+                small:
+                  type: "string"
+                  format: "uri"
+
+logEntry:
+  type: "object"
+  description: "A raw log entry, as stored by the action log plugin."
+  required:
+    - id
+    - action_id
+    - context
+    - status
+    - created
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    user_id:
+      type: "string"
+      format: "uuid"
+      x-nullable: true
+      description: "The user who performed the call, null for an unauthenticated one."
+    action_id:
+      type: "string"
+      format: "uuid"
+    context:
+      type: "string"
+      description: "The method and the path of the call."
+      example: "GET /users/me.json"
+    status:
+      type: "integer"
+      description: "1 when the call succeeded, 0 when it failed."
+      enum:
+        - 0
+        - 1
+    created:
+      type: "string"
+      format: "date-time"

@@ -1,0 +1,26 @@
+get:
+  summary: "Get the raw action log."
+  description: >
+    Returns the raw log entries recorded by the action log plugin, rather than
+    the interpreted activities of an entity. Reserved to administrators.
+  operationId: "indexActionLogs"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/actionLogs.yml#/logs"
+  tags:
+    - "Action logs"
+  parameters:
+    - $ref: "../components/parameters.yml#/filterHasUsers"
+    - $ref: "../components/parameters.yml#/filterIsSuccess"
+    - $ref: "../components/parameters.yml#/filterCreatedAfter"
+    - $ref: "../components/parameters.yml#/filterCreatedBefore"
+    - $ref: "../components/parameters.yml#/limit"
+    - $ref: "../components/parameters.yml#/page"
+  responses:
+    200:
+      $ref: "../components/responses/actionLogs.yml#/logsIndex"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"

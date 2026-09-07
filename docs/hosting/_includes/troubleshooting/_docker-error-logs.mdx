@@ -1,0 +1,3 @@
+:::info
+On Docker, the application error logs are written to the container output: the image sets the `LOG_ERROR_URL` environment variable to `console://` by default. Unlike on package installations, you will not find them in `/var/log/passbolt/error.log` inside the container.
+:::

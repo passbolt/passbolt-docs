@@ -1,10 +1,12 @@
 import CodeBlock from "/src/components/CodeBlock/CodeBlock";
 import Link from '@docusaurus/Link';
+import KeyRotatedWarning from "/docs/hosting/_includes/warning/_key_rotated_warning.mdx";
+import MetadataKeyRotationWarning from "/docs/hosting/_includes/warning/_metadata_key_rotation.mdx";
 
 ## Pre-requisites
 
 For this tutorial, you will need:
-- Passbolt installed on an old server
+- passbolt installed on an old server
 - A new server with Docker
 
 ## Backup the existing data
@@ -16,15 +18,19 @@ Depending on your TLS (SSL) configuration you might need to copy the certificate
 Don't delete the existing instance yet!
 
 ## Prepare the new server
-Create a fresh new Passbolt instance on Docker following <Link to={`/docs/hosting/install/${props.productName.toLowerCase()}/docker/`}>this documentation</Link>.
+Create a fresh new passbolt instance on Docker following <Link to={`/docs/hosting/install/${props.productName.toLowerCase()}/docker/`}>this documentation</Link>.
 
 ## Migrate the data
 
 ### Stop running containers
 
-At this step, you should have a running empty Passbolt instance running on your server. We will now stop it and delete the database volume.
+At this step, you should have a running empty passbolt instance running on your server. We will now stop it and delete the database volume.
 
-If you have chosen the `docker compose` install, you just have to delete the volumes you created with this command (don't forget the `-v`):
+:::warning
+Both commands below delete named volumes and destroy the database data they hold: `-v` on `docker compose down`, and `docker volume rm`. Check that you are targeting the empty instance you have just created, not a populated production stack.
+:::
+
+If you have chosen the `docker compose` install, you just have to delete the volumes you created with this command:
 
 <CodeBlock>
     {`docker compose -f docker-compose-${props.productName.toLowerCase()}.yaml down -v`}
@@ -38,7 +44,7 @@ docker stop passbolt-database-name
 docker volume rm passbolt-database-volume-name`}
 </CodeBlock>
 
-Of course, replace containers and volume name with your own !
+Of course, replace containers and volume name with your own!
 
 ### Restore your database
 
@@ -108,6 +114,52 @@ docker exec -it your-passbolt-container chown www-data:www-data /etc/passbolt/gp
 docker exec -it your-passbolt-container chmod 440 /etc/passbolt/gpg/serverkey.asc
 docker exec -it your-passbolt-container chmod 440 /etc/passbolt/gpg/serverkey_private.asc
 ```
+
+### Restart the passbolt container
+
+The container entrypoint imports the server keys into the web server user keyring only when the container starts. Copying the key files into a running container does not update the keyring: until you restart it, passbolt keeps using the key it generated at first start.
+
+Restart the passbolt container so the entrypoint imports your restored keys:
+
+<CodeBlock>
+    {`docker compose -f docker-compose-${props.productName.toLowerCase()}.yaml restart passbolt`}
+</CodeBlock>
+
+If you have chosen to run docker containers:
+
+```bash
+docker restart your-passbolt-container
+```
+
+The copied key files survive the restart: the official docker compose file mounts `/etc/passbolt/gpg` on a named volume.
+
+:::info
+After the restart the keyring contains two keys: the one generated at first start and your restored key. The `PASSBOLT_GPG_SERVER_KEY_FINGERPRINT` environment variable you set earlier tells passbolt which one to use, so make sure it is set to the fingerprint of your restored key.
+:::
+
+You can verify that passbolt uses the restored key:
+
+```bash
+docker exec -it your-passbolt-container su -c "/usr/share/php/passbolt/bin/cake passbolt healthcheck --gpg" -s /bin/bash www-data
+```
+
+### If you have lost the old server keys
+
+You can still migrate. Your users' passwords are encrypted with each user's own key, not the server key, so they are not lost with it. The server key is used to authenticate the server towards the users, and passbolt already generated a new one when the fresh container first started, so keep that one instead of restoring a backup:
+
+- Skip the fingerprint, `docker cp` and restart steps above.
+- Get the fingerprint of the generated key:
+
+<CodeBlock>
+    {`docker compose -f docker-compose-${props.productName.toLowerCase()}.yaml exec passbolt su -c "gpg --list-keys" -s /bin/bash www-data`}
+</CodeBlock>
+
+- Set `PASSBOLT_GPG_SERVER_KEY_FINGERPRINT` to that fingerprint in your docker compose file, as described in the fingerprint section above, then restart the passbolt container to apply it.
+
+<KeyRotatedWarning />
+<MetadataKeyRotationWarning />
+
+The [server GPG keys rotation](/hosting/openpgp/rotation/) page describes the key replacement process in more detail.
 
 ### That's it
 

@@ -189,6 +189,10 @@ Complete database connection URL that overrides individual host, port, username,
 Database schema (for PostgreSQL).
 **Default:** `'public'` | **Environment:** all
 
+**`DATASOURCES_QUOTE_IDENTIFIER`** *(boolean, optional)*
+Wrap table and column names in quotes in generated SQL. Needed when identifiers collide with reserved words or are case-sensitive, which is common on PostgreSQL. Leaving it on costs a small amount of query-building time.
+**Default:** `true` | **Environment:** all
+
 ### Database TLS (SSL) Configuration
 
 **`DATASOURCES_DEFAULT_SSL_KEY`** *(string, optional)*
@@ -312,6 +316,37 @@ System environment variable for GPG home directory. Overrides the default keyrin
 :::note
 The legacy variables `PASSBOLT_GPG_SERVER_KEY_PUBLIC_FILE` and `PASSBOLT_GPG_SERVER_KEY_PRIVATE_FILE` are also supported for backward compatibility.
 :::
+
+### Server key generation
+
+These are read by the container entrypoint, not by the application, so they
+only apply to the Docker and Helm images. They are used once, when the
+entrypoint finds no server key and generates one. Changing them later has no
+effect on a key that already exists; to change an existing key, see
+[GPG key rotation](/hosting/openpgp/rotation/).
+
+The generated key is always RSA. There is no variable to select a different
+algorithm.
+
+**`PASSBOLT_KEY_NAME`** *(string, optional)*
+Owner name on the generated server key.
+**Default:** `'Passbolt default user'` | **Environment:** docker
+
+**`PASSBOLT_KEY_EMAIL`** *(string, optional)*
+Owner email address on the generated server key. The entrypoint also uses this address to look the key up when it calculates the fingerprint, so it has to match the key actually in the keyring.
+**Default:** `'passbolt@yourdomain.com'` | **Environment:** docker
+
+**`PASSBOLT_KEY_LENGTH`** *(integer, optional)*
+Length in bits of the generated primary key.
+**Default:** `3072` | **Environment:** docker | **Example:** `3072`, `4096`
+
+**`PASSBOLT_SUBKEY_LENGTH`** *(integer, optional)*
+Length in bits of the generated encryption subkey.
+**Default:** `3072` | **Environment:** docker | **Example:** `3072`, `4096`
+
+**`PASSBOLT_KEY_EXPIRATION`** *(string, optional)*
+Expiry of the generated key, in GnuPG's format. `0` means the key never expires.
+**Default:** `0` | **Environment:** docker | **Example:** `0`, `2y`
 
 ## User Key Policies Configuration
 
@@ -458,6 +493,14 @@ Force SSL/HTTPS only. When enabled, all HTTP requests are redirected to HTTPS, e
 If `PASSBOLT_SSL_FORCE` is set to `false` or `DEBUG` is enabled, Passbolt will display an "unsafe mode" banner in the footer. This indicates the instance is not secure and should not be used in production. To disable the warning, set `PASSBOLT_SSL_FORCE=true` and `DEBUG=false`.
 :::
 **Default:** `false` | **Environment:** all
+
+**`PASSBOLT_SSL_SERVER_CERT_FILE`** *(string, optional)*
+Path to a Docker secret holding the web server certificate. Read by the container entrypoint, which symlinks it to the path the bundled nginx expects: `/etc/ssl/certs/certificate.crt` on the root image, `/etc/passbolt/certs/certificate.crt` on the rootless and OpenShift images. Ignored if the file does not exist.
+**Default:** `null` | **Environment:** docker | **Example:** `'/run/secrets/ssl-cert'`
+
+**`PASSBOLT_SSL_SERVER_KEY_FILE`** *(string, optional)*
+Path to a Docker secret holding the web server private key. Symlinked to `/etc/ssl/certs/certificate.key` on the root image, `/etc/passbolt/certs/certificate.key` on the rootless and OpenShift images.
+**Default:** `null` | **Environment:** docker | **Security:** critical | **Example:** `'/run/secrets/ssl-key'`
 
 **`SECURITY_SALT`** *(string, optional)*
 CakePHP security salt for hashing and encryption. Auto-generated during deployment. Used for password hashing and other cryptographic operations.
@@ -814,6 +857,22 @@ Enable tags backup mode. When enabled, tags are preserved during data migrations
 **`PASSBOLT_PLUGINS_USER_KEY_POLICIES_ENABLED`** *(boolean, optional)*
 Enable user key policies. Used in [User Key Policies](/admin/authentication/user-key-policies/).
 **Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_SECRET_REVISIONS_ENABLED`** *(boolean, optional)*
+Enable the secret revisions plugin, which keeps previous versions of a secret when it is updated.
+**Default:** `true` | **Environment:** all
+
+**`PASSBOLT_PLUGINS_SECRET_REVISIONS_MAX_REVISIONS_LIMIT`** *(integer, optional)*
+Number of previous versions kept per secret. Older revisions beyond this count are discarded.
+**Default:** `10` | **Environment:** all | **Example:** `5`, `10`, `25`
+
+**`PASSBOLT_PLUGINS_SECRET_REVISIONS_ENABLE_ALLOW_SHARING_REVISIONS`** *(boolean, optional)*
+Allow revisions to be shared along with the resource.
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_SECURITY_SECRET_REVISIONS_SETTINGS_EDITION_DISABLED`** *(boolean, optional)*
+Prevent administrators from changing the secret revisions settings from the administration screens. The settings endpoint rejects changes while this is on, which is useful for locking a policy set at deployment time.
+**Default:** `false` | **Environment:** all
 
 ### Directory Sync
 

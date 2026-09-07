@@ -54,26 +54,6 @@ const config = {
   trailingSlash: true,
   presets: [
     [
-      'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
-        docs: {
-          routeBasePath: '/',
-          sidebarPath: require.resolve('./sidebars/index.js'),
-          showLastUpdateTime: true,
-          showLastUpdateAuthor: false,
-          editUrl: 'https://github.com/passbolt/passbolt-docs/blob/main',
-        },
-        blog: false,
-        theme: {
-          customCss: require.resolve('./src/css/custom.css'),
-        },
-        sitemap: {
-          ignorePatterns: ['/docs/components/**', '/docs/development/**'],
-        },
-      }),
-    ],
-    [
       'redocusaurus',
       /** @type {import('redocusaurus').PresetEntry} */
       {
@@ -363,6 +343,17 @@ const config = {
       },
     }),
   themes: [
+    // Previously supplied by preset-classic. Listed explicitly so that
+    // @docusaurus/theme-search-algolia (unused here; search is provided by
+    // @easyops-cn/docusaurus-search-local below) is not installed at all.
+    // See PB-54132. Revisit moving back to preset-classic once its
+    // @docsearch/react dependency is no longer flagged.
+    [
+      '@docusaurus/theme-classic',
+      {
+        customCss: require.resolve('./src/css/custom.css'),
+      },
+    ],
     [
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
@@ -376,6 +367,31 @@ const config = {
     ],
   ],
   plugins: [
+    // Previously supplied by preset-classic; see the note on themes above.
+    // The conditionals mirror preset-classic/lib/index.js: debug is dev-only,
+    // sitemap is production-only, blog is omitted (was blog: false).
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        routeBasePath: '/',
+        sidebarPath: require.resolve('./sidebars/index.js'),
+        showLastUpdateTime: true,
+        showLastUpdateAuthor: false,
+        editUrl: 'https://github.com/passbolt/passbolt-docs/blob/main',
+      },
+    ],
+    '@docusaurus/plugin-content-pages',
+    '@docusaurus/plugin-svgr',
+    ...(process.env.NODE_ENV === 'production'
+      ? [
+          [
+            '@docusaurus/plugin-sitemap',
+            {
+              ignorePatterns: ['/docs/components/**', '/docs/development/**'],
+            },
+          ],
+        ]
+      : ['@docusaurus/plugin-debug']),
     ...(process.env.GTM_ID
       ? [
           [

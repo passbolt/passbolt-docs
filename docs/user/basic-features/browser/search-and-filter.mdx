@@ -1,0 +1,62 @@
+---
+title: How to Search, Filter and Sort your Passwords
+description: How the search box works, what each filter of the left panel shows, and how to sort the list
+sidebar_label: Search and filter
+sidebar_position: 11
+---
+
+import Figure from '/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+Three tools narrow down a long list of passwords: the search box at the top, the filters in the panel on the left, and the sort order of the columns. They do not stack the way you might expect, which is worth knowing before you go looking for something.
+
+## Search
+
+Type in the **Search** box at the top of the workspace. A clear button empties it again.
+
+The search looks at the name of a resource, its username, its description, all of its URIs, the names of its custom fields, its tags, and the name of the folder that holds it. That last one goes up the whole hierarchy, so searching for the name of a top level folder brings up everything inside it, however deep.
+
+Case does not matter. Several words separated by spaces all have to match, but not necessarily in the same field and not in any particular order, so `acme prod` finds a resource named "prod" inside a folder named "Acme". There are no wildcards and no regular expressions: special characters are searched as themselves.
+
+:::info[The search never looks inside your secrets]
+Passwords, secure notes and the values of custom fields are encrypted for you alone, and passbolt does not decrypt your whole vault to search it. The names of your custom fields are searched, their values are not. Nothing you hide in a secret will ever be found this way.
+:::
+
+:::caution[Search and filters replace each other]
+Searching does not narrow down what you are currently looking at, it searches the whole vault: type something while you are inside a folder or in **Starred**, and the results come from everywhere. The other way round, clicking a filter or a folder clears the search box. The two never apply at the same time, so use the **Location** column of the results to see where a resource actually sits.
+:::
+
+Folders themselves never appear in the results. A folder name is a criterion, not a target.
+
+## The filters of the left panel
+
+<Figure
+  src="/img/help/2026/08/workspace-filters-sidebar.png"
+  alt="The left panel of the passwords workspace with its filters, and the folders and tags sections below"
+  caption="fig. The filters of the passwords workspace"
+/>
+
+- **All items**, everything you have access to.
+- **Starred**, the resources you marked with the star, as described in [managing your favourites](/user/basic-features/browser/mark-as-favorite/).
+- **Shared with me**, everything you can reach without being its owner.
+- **Items I own**, the resources where you are an owner.
+- **Private**, the resources that are yours alone, shared with nobody.
+- **Expired**, present only when your administrator has enabled password expiry.
+
+Below them come the **Folders** and **Tags** sections, tags being covered by [filtering by tags](/user/advanced-features/tags/filter-by-tags/). There is no filter by group here: a group is a way of sharing, not a way of browsing, so to see what a group has access to you have to look at the resources themselves.
+
+## Sort the list
+
+Click the header of a column to sort by it. Not every column can be sorted, and the ones that can react to a click anywhere in their header.
+
+- Clicking a new column always sorts in ascending order. Clicking the same header again reverses the order.
+- The arrow next to the header of the active column shows the current direction: pointing down for ascending, up for descending.
+- There is only ever one sort criterion. Picking another column replaces it, it does not refine it, and there is no third click that returns to no sorting at all.
+
+By default, the list is sorted by modification date, most recently modified first. Your sort order is remembered together with your column layout, in the browser you are using, so another browser or another computer starts again from that default.

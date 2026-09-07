@@ -1,0 +1,98 @@
+---
+title: How to Use Quick Access
+description: How to open the passbolt popup, find a credential, fill a form, and create or save a password from it
+sidebar_label: Quick Access
+sidebar_position: 13
+---
+
+import Figure from '/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+Quick Access is the small window that opens from the passbolt icon of your browser toolbar. Everything you do most often is there: finding a password, copying it, filling the form of the page you are on, saving a new credential. You can even sign in from it, so a normal day never requires opening the passbolt tab at all.
+
+## Open it
+
+Click the passbolt icon in your browser toolbar.
+
+:::caution[Alt+Shift+P does something else]
+That shortcut opens the passbolt web application in a new tab, it does not open Quick Access. No keyboard shortcut opens the popup out of the box, but your browser can provide one: assign it in the shortcut manager of Firefox, or on the `chrome://extensions/shortcuts` page of Chrome.
+:::
+
+If your session has expired, the popup shows its own sign in screen, with your **Username** and **Passphrase**, and a **Remember until I log out.** option. When your organisation uses single sign-on, **Sign in with Single Sign-On.** is offered there too, with **Sign in with my passphrase.** as the way back.
+
+## The home screen
+
+<Figure
+  src="/img/help/2026/08/quick-access-home.png"
+  alt="The Quick Access popup on its home screen, with the Suggested section listing credentials for the current page"
+  caption="fig. Quick Access, opened on a page with matching credentials"
+/>
+
+The popup opens on two sections:
+
+- **Suggested**, the credentials that match the page you are on. When there is none, it says so: "No passwords found for the current page. You can use the search."
+- **Browse**, with three ways in: **Filters**, **Groups** and **Tags**.
+
+A search field sits at the top, and **Create new** at the bottom of the screen. A search that finds nothing answers "No result match your search. Try with another search term."
+
+## Use a credential
+
+Select a credential to open its details.
+
+<Figure
+  src="/img/help/2026/08/quick-access-resource.png"
+  alt="A credential open in Quick Access, with the Use on this page button and the copy actions on each field"
+  caption="fig. A credential in Quick Access"
+/>
+
+- **Use on this page** is the main button, at the bottom. It fills the form of the current tab, which is the same autofill described in [using autofill and the in-form menu](/user/basic-features/browser/autofill/).
+- **Copy to clipboard** copies the field you point at, whether that is the **Username**, the **Password** or the **TOTP**.
+- **View** reveals a hidden value in the popup instead of copying it.
+- **Open in new window** opens the address of the resource in a new tab.
+- **Edit in passbolt** takes you to the resource in the web application, since the popup does not edit.
+- **Additional URIs** appears when the resource has more than one address.
+
+You may be asked for your passphrase before a secret is revealed or copied, depending on how long ago you signed in.
+
+:::tip[The timer after a copy is a feature]
+Once you copy a secret, a countdown appears next to the field. It is not a progress indicator: it shows how long the value stays in your clipboard before passbolt empties it, so that a password does not sit there for the rest of the day. Paste before it runs out, or copy again.
+:::
+
+## Create or save a password
+
+**Create new**, at the bottom of any screen, opens **Create password**, with four fields: **Name**, **URL**, **Username** and **Password**. A name and a password are mandatory. **Save** creates the resource, **Cancel** drops it.
+
+Two buttons sit next to the password field:
+
+- **Generate** puts a random value straight into the field.
+- **Open generator** switches to the **Generate password** screen, where **Generate** draws a new value, **Copy** puts it in your clipboard, and **Apply** brings it back to the form.
+
+:::note[The generator does not look the same everywhere]
+In the web application, the generator is a foldable section of the resource form, and the value lands in the field as you change the settings. In the popup it is a screen of its own, with its own **Apply** button. The [password generator](/user/basic-features/browser/password-generator/) page describes the settings themselves.
+:::
+
+When you submit a login form on a website, passbolt offers to save what you typed, and that offer also lands in this popup, on a screen titled "Would you like to save this credential ?". The same four fields are already filled in from the page, so you only have to check them, most often to replace the page title by something shorter, and click **Save**.
+
+## Browse and filter
+
+**Filters** opens a screen listing four of them: **Favorites**, **Items I own**, **Recently modified** and **Shared with me**. **Groups** and **Tags** are reached directly from the home screen instead.
+
+The popup and the web application do not offer the same filters, and one of them even goes by two names:
+
+| Quick Access | Passwords workspace |
+| --- | --- |
+| Favorites | Starred |
+| Items I own | Items I own |
+| Shared with me | Shared with me |
+| Recently modified | not available |
+| Groups | not available |
+| Tags | Tags |
+| not available | All items, Private, Expired |
+
+So the popup is the only place where you can list your recently modified passwords, or browse by group, while the workspace is the only one with **Private** and **Expired**. What the workspace does offer is described in [searching, filtering and sorting your passwords](/user/basic-features/browser/search-and-filter/).

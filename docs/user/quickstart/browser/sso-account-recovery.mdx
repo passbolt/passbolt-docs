@@ -7,6 +7,9 @@ hide_table_of_contents: false
 
 import Figure from '@site/src/components/Figure/Figure';
 import Chips from "/src/components/Chips/Chips";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
 
 <div style={{display: "flex", gap: "1rem"}}>
   <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
@@ -34,11 +37,34 @@ SSO account recovery is available when all of the following are true:
 
 ## How to enable or disable it
 
-There is no toggle in the administration interface. The feature is enabled by default as soon as an SSO provider is active, and can be disabled with an environment variable:
+There is no toggle in the administration interface. The feature is enabled by default as soon as an SSO provider is active, and is turned off through the server configuration:
 
-```bash
-PASSBOLT_PLUGINS_SSO_RECOVER_ENABLED=false
-```
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    Open `/etc/passbolt/passbolt.php` and edit the **plugins** block:
+
+    <CodeBlock language="php">
+      {`[...]
+'passbolt' => [
+    'plugins' => [
+        'sso' => [
+            'ssoRecover' => [
+                'enabled' => false,
+            ],
+        ],
+    ],
+],
+[...]`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    Set the environment variable on the passbolt container:
+
+    <CodeBlock language="bash">
+      {`PASSBOLT_PLUGINS_SSO_RECOVER_ENABLED=false`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
 
 ## Recover an account with SSO
 

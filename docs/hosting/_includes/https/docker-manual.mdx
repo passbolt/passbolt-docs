@@ -29,8 +29,7 @@ The bind-mount configuration will differ depending which passbolt image you are 
 If you are using standard passbolt image, add your certificates in the volumes definition of the passbolt service and ensure ports are well mapped:
 
 <CodeBlock>
-    {`version: '3.7'
-services:
+    {`services:
   db:
     ...
   passbolt:
@@ -50,8 +49,7 @@ Ensure your `APP_FULL_BASE_URL` environment variable starts with `https://`
 If you are using non-root images, tagged as non-root, the bind-mount path will be different as well as port mapping:
 
 <CodeBlock>
-    {`version: '3.7'
-services:
+    {`services:
   db:
     ...
   passbolt:

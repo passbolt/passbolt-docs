@@ -1,12 +1,11 @@
 post:
-  summary: "Simulate sharing a resource or folder."
+  summary: "Simulate sharing a resource."
   operationId: "updateShareDryRun"
   security:
     - bearerHttpAuthentication: []
   x-codeSamples:
     $ref: "../components/codeSamples/shares.yml#/updateDryRun"
   parameters:
-    - $ref: "../components/parameters.yml#/sharesForeignModel"
     - $ref: "../components/parameters.yml#/foreignId"
   tags:
     - "Shares"

@@ -71,3 +71,40 @@ Since you edited the php configuration, you will need to restart php-fpm to appl
 
 ## Nginx
 For Nginx our recommendation is less about making it more performant, but rather increasing a timeout so that your users don't experience as many errors if they are regularly running into time outs. You can do this by editing the value for `keepalive_timeout` in your Nginx config file.
+
+## Adding a member to a large shared group
+
+Adding one user to a group that shares a lot of resources is the single most
+expensive operation in passbolt, and on large groups it can exceed the default
+timeouts.
+
+The cost is not in adding the membership row. When a user joins a group, every
+secret the group can reach has to be re-encrypted for that user's key, and one
+secret row is inserted per resource. passbolt does all of this in a single
+database transaction, along with queueing the notification emails, and none of
+it is deferred to a background job. The work therefore scales with the number
+of users added multiplied by the number of resources shared with the group, and
+it all happens inside the one web request.
+
+When that request runs longer than the stack allows, the administrator sees a
+504 from Nginx or a PHP fatal error, and the operation is rolled back.
+
+Three limits decide how long the request may take:
+
+- `fastcgi_read_timeout` and `fastcgi_send_timeout` in your Nginx configuration,
+  which cap how long Nginx waits for PHP.
+- `max_execution_time` in `/etc/php/X.X/fpm/php.ini`, which caps the PHP process
+  itself.
+
+Raise all three together. Raising only the Nginx values leaves PHP stopping
+first, and raising only PHP leaves Nginx giving up while the work is still
+running.
+
+:::info
+There is no single correct value, because the right one depends on how many
+resources your largest group shares. Time one real add-member operation on your
+own instance, then set the limits above that with room to spare, rather than
+copying a number from elsewhere.
+:::
+
+Restart both services after changing them.

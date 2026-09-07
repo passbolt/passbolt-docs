@@ -16,6 +16,14 @@ servers:
     description: "API Passbolt"
 
 paths:
+  /actionlog/folder/{folderId}.json:
+    $ref: "paths/actionLogFolder.yml"
+  /actionlog/logs.json:
+    $ref: "paths/actionLogs.yml"
+  /actionlog/resource/{resourceId}.json:
+    $ref: "paths/actionLogResource.yml"
+  /actionlog/user/{userId}.json:
+    $ref: "paths/actionLogUser.yml"
   /auth/is-authenticated.json:
     $ref: "paths/authIsAuthenticated.yml"
   /auth/jwt/jwks.json:
@@ -44,9 +52,9 @@ paths:
     $ref: "paths/directorySyncDryRun.yml"
   /directorysync/synchronize.json:
     $ref: "paths/directorySync.yml"
-  /favorite/{favoriteId}.json:
+  /favorites/{favoriteId}.json:
     $ref: "paths/favorite.yml"
-  /favorite/{foreignModel}/{foreignId}.json:
+  /favorites/resource/{foreignId}.json:
     $ref: "paths/favoritesForeignModel.yml"
   /folders.json:
     $ref: "paths/folders.yml"
@@ -116,11 +124,13 @@ paths:
     $ref: "paths/secretsResource.yml"
   /settings.json:
     $ref: "paths/settings.yml"
-  /share/{foreignModel}/{foreignId}.json:
-    $ref: "paths/shareForeignModel.yml"
+  /share/resource/{foreignId}.json:
+    $ref: "paths/shareResource.yml"
+  /share/folder/{foreignId}.json:
+    $ref: "paths/shareFolder.yml"
   /share/search-aros.json:
     $ref: "paths/shareSearchAros.yml"
-  /share/simulate/{foreignModel}/{foreignId}.json:
+  /share/simulate/resource/{foreignId}.json:
     $ref: "paths/shareSimulateForeignModel.yml"
   /tags.json:
     $ref: "paths/tags.yml"
@@ -134,6 +144,8 @@ paths:
     $ref: "paths/userDryRun.yml"
 
 tags:
+  - name: "Action logs"
+    description: "Read the activity of an entity, or the raw action log. Requires the Pro Edition, the Enterprise Edition or a Cloud plan."
   - name: "Authentication (GPGAuth)"
     description:
       $ref: "components/descriptions/authGpg.yml#/tag"

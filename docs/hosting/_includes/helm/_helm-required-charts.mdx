@@ -1,5 +1,8 @@
-| Repository                                                                                                                     | Name             | Version |
-| ------------------------------------------------------------------------------------------------------------------------------ | ---------------- | ------- |
-| [https://charts.bitnami.com/bitnami](https://charts.bitnami.com/bitnami)                                                       | mariadb          | 11.3.5  |
-| [https://charts.bitnami.com/bitnami](https://charts.bitnami.com/bitnami)                                                       | redis            | 17.3.8  |
-| [https://passbolt.gitlab.io/passbolt-ops/passbolt-helm-library](https://passbolt.gitlab.io/passbolt-ops/passbolt-helm-library) | passbolt-library | 0.2.1   |
+| Repository                                                                                                                       | Name             | Version |
+| -------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ------- |
+| [https://download.passbolt.com/charts/passbolt-library](https://download.passbolt.com/charts/passbolt-library)                  | passbolt-library | 0.3.7   |
+| [https://charts.bitnami.com/bitnami](https://charts.bitnami.com/bitnami)                                                         | redis            | 22.0.7  |
+| [https://charts.bitnami.com/bitnami](https://charts.bitnami.com/bitnami)                                                         | mariadb          | 22.0.0  |
+| [https://charts.bitnami.com/bitnami](https://charts.bitnami.com/bitnami)                                                         | postgresql       | 16.7.27 |
+
+The mariadb and redis dependencies are installed by default; postgresql is optional and disabled by default. Each one is toggled by the matching `redisDependencyEnabled`, `mariadbDependencyEnabled` or `postgresqlDependencyEnabled` key of `values.yaml`. These versions match chart version 2.1.1; check the `Chart.lock` of your chart release for the exact versions it pins.

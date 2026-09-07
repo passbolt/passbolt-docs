@@ -1,0 +1,51 @@
+---
+title: Getting started with passbolt
+sidebar_label: Getting started
+description: The recommended order to set up passbolt for your organisation, from installation to onboarding your team
+sidebar_position: 0
+---
+
+This page is the path a new administrator can follow, from an empty instance to a team that uses passbolt every day. Each step stays short and links to the pages that cover it in detail.
+
+If you would rather hand out ready-made material than read the whole guide, the [admin onboarding](/admin/introduction/onboarding-admins/) and [user onboarding](/admin/introduction/onboarding-users/) pages gather slide decks, PDFs and the product tour video.
+
+## 1. Get your instance running
+
+On a cloud plan there is nothing to install: your instance is ready, so go straight to step 2.
+
+Self-hosted, work through the [hosting guide](/hosting/): check the [requirements](/hosting/requirements/), then follow the [installation](/hosting/install/) for your platform. Two things save time later, opening the [firewall rules](/hosting/firewall-rules/) that passbolt needs, and making sure the [system clock is synchronised](/hosting/ntp/), as a drifting clock makes time-based one-time passwords fail.
+
+Whatever your hosting, finish this step by running the [healthcheck](/admin/passbolt-api-status/) and clearing what it reports.
+
+## 2. Configure the essentials
+
+Both items in this step are for self-hosted instances. On a cloud plan, outgoing email is delivered by the passbolt email service and there is no subscription key to register, so you can move on to step 3.
+
+- **Email server**: set it up in the [email server settings](/admin/emails/email-server/) before you invite anyone, as users receive an email invitation to activate their account.
+- **Subscription key**: on the Pro Edition, register your key as described in [update the subscription key](/admin/subscription/update-subscription-key/).
+
+Whatever your hosting, the [email notifications](/admin/emails/email-notifications/) settings let you choose what passbolt sends, and to whom.
+
+## 3. Decide your policies before inviting users
+
+These settings are far easier to choose now than to retrofit on a live instance.
+
+- [Account recovery](/admin/authentication/account-recovery/): configure the organisation recovery key first. Without it, a user who loses both their passphrase and their recovery kit loses access to the secrets that only they can decrypt.
+- [Multi factor authentication](/admin/authentication/mfa/), together with the [MFA policy](/admin/authentication/mfa-policy/) that decides whether users are reminded to enable it.
+- [Single sign-on](/admin/authentication/sso/), if you want your users to authenticate through your identity provider.
+- [User passphrase policies](/admin/authentication/user-passphrase-policies/) for the passphrase protecting each private key, and the [password policy](/admin/resource-policies/password-policy/) for the secrets your users generate.
+- [Role-based access control](/admin/role-based-access-control/), to allow or restrict specific actions per role.
+- [Encrypted metadata](/admin/resource-types/encrypted-metadata/): check which format your instance creates for new content, as converting existing content is a separate operation.
+
+## 4. Structure content and bring your team in
+
+- Design a folder structure and the [groups](/admin/user-provisioning/manage-groups/) that mirror your organisation, then share at group level rather than user by user. [Roles and permissions](/admin/user-provisioning/roles-and-permissions/) explains who can do what.
+- Provision your users: synchronise a [users directory](/admin/user-provisioning/users-directory/) over LDAP, use [SCIM](/admin/user-provisioning/scim/) with your identity provider, or open [self-registration](/admin/user-provisioning/self-registration/) to a chosen email domain.
+- Move your existing credentials in with one of the supported [import](/user/basic-features/browser/import/) formats, straight into the folder structure you designed.
+
+## 5. Keep it healthy
+
+- Run the [healthcheck](/admin/passbolt-api-status/) again after any configuration change.
+- Plan [updates](/hosting/update/) and [backups](/hosting/maintenance/backup/) from the start, and test a restore at least once rather than discovering it during an incident.
+- [Password expiry](/admin/resource-policies/password-expiry/) and [secret history](/admin/resource-policies/secret-history/) support credential rotation.
+- For offboarding, see [delete a user](/admin/user-provisioning/delete-user/), and mind the secrets they own before removing them.

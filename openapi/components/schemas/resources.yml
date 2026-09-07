@@ -18,7 +18,7 @@ resourceV5IndexAndView:
         secrets:
           type: "array"
           items:
-            type: "string"
+            $ref: "secrets.yml#/secretIndex"
         resource_type:
           $ref: "resourceTypes.yml#/resourceType"
 
@@ -115,9 +115,17 @@ resourceAddAndUpdate:
           type: "string"
           format: "uuid"
         secrets:
+          description: >
+            One entry per recipient. The `data` of each entry is an armoured
+            OpenPGP message whose cleartext is the secret of the resource. Its
+            shape depends on the resource type: a JSON object carrying
+            `object_type` set to `PASSBOLT_SECRET_DATA` for every v5 type but
+            `v5-password-string`, which encrypts the password as a bare string.
+            The fields expected for each type are listed in the guide on
+            working with v5 encrypted metadata.
           type: "array"
           items:
-            type: "string"
+            $ref: "secrets.yml#/secretAdd"
 
 resourceMetadataRotateKey:
   allOf:

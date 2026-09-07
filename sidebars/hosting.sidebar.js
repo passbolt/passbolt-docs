@@ -231,6 +231,11 @@ const hostingSidebar = [
         id: 'hosting/useful-commands',
         label: 'Useful Commands',
       },
+      {
+        type: 'doc',
+        id: 'hosting/fqdn',
+        label: 'FQDN',
+      },
     ],
   },
 

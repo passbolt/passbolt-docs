@@ -16,12 +16,12 @@ import Chips from "/src/components/Chips/Chips";
 </div>
 
 :::danger
-Sending a test email opens a connection from the Passbolt server to the host and port you specify, and reports the result back to this screen. If the Passbolt administrator and the system administrator are not the same person in your organisation, you should disable these endpoints once SMTP is configured, by setting `PASSBOLT_SECURITY_SMTP_SETTINGS_ENDPOINTS_DISABLED` to **true**. The healthcheck will remind you while they remain enabled.
+Sending a test email opens a connection from the passbolt server to the host and port you specify, and reports the result back to this screen. If the passbolt administrator and the system administrator are not the same person in your organisation, you should disable these endpoints once SMTP is configured, by setting `PASSBOLT_SECURITY_SMTP_SETTINGS_ENDPOINTS_DISABLED` to **true**. The healthcheck will remind you while they remain enabled.
 :::
 
 ## Introduction
 
-Passbolt relies heavily on emails:
+passbolt relies heavily on emails:
 
 - Account creation
 - Account recovery
@@ -42,15 +42,13 @@ You can follow this procedure if you are meeting the following requirements:
 
 ## How does it work?
 
-Configuring the email server through the UI is a feature introduced with Passbolt v3.8.0 to help all administrators manage their SMTP server settings easily.
+Configuring the email server through the UI is a feature introduced with passbolt v3.8.0 to help all administrators manage their SMTP server settings easily.
 
 We moved the email configuration from `config/passbolt.php` directly into the database and your credentials are encrypted with the server GPG public key.
 
 ## Access to email server configuration
 
-In order to configure your email server configuration, go to administration setting workspace.
-
-*Administration > Email server*
+In order to configure your email server configuration, select &#9881; > **Organisation settings** > **Email server** in the top right corner.
 
 ### Choose your email provider
 
@@ -94,6 +92,24 @@ You can test your configuration by clicking on the *send test email* button. You
 
 If the email has been successfully sent and you haven't received anything you should check your spam folder.
 The logs are also available in a text area if you unfolds the logs section.
+
+:::caution[A successful test does not prove your saved settings work]
+The **send test email** button uses the values currently displayed in the form, even if they have not been saved. The notification emails your users receive are sent later by the email queue worker, which uses the **saved** settings, where settings stored in the database take precedence over environment variables and `passbolt.php`. So the test can succeed while queued notifications keep failing (or keep using old settings) when the form was tested but never saved, or when the database still holds an earlier configuration.
+
+After a successful test, save the settings, then verify the saved configuration from the command line: `passbolt send_test_email` reads the settings the queue worker will use. See the [email troubleshooting page](/hosting/email/troubleshooting/) for the commands.
+:::
+
+## Email digest
+
+To avoid flooding inboxes during busy operations (an import, a large share, a group reshuffle), passbolt groups queued notifications before sending them. Notifications for the same recipient, triggered by the same user and belonging to the same kind of activity are combined:
+
+- 1 pending notification is sent as a normal email.
+- 2 to 10 pending notifications are combined into one digest email carrying each notification.
+- More than 10 pending notifications are replaced by a single summary email telling the recipient how many changes happened.
+
+Digests exist for resource changes, resource shares, group membership changes and removals, folder changes and passwords marked as expired. Other notifications, such as user invitations, are always sent individually.
+
+The digest is enabled by default. You can disable it by setting the `PASSBOLT_PLUGINS_EMAIL_DIGEST_ENABLED` environment variable to `false`: every notification is then sent as an individual email. The emails are sent by the `passbolt email_digest send` command that the packaged cron job runs every minute; it processes up to 100 queued emails per run, configurable with the `PASSBOLT_PLUGINS_EMAIL_DIGEST_BATCH_SIZE_LIMIT` environment variable or the command's `--limit` option. When the digest plugin is disabled the same command keeps working and sends the queued emails without grouping.
 
 ## Configure SMTP server using custom/self-signed certificate
 
@@ -181,7 +197,7 @@ export PASSBOLT_PLUGINS_SMTP_SETTINGS_SECURITY_SSL_VERIFY_PEER_NAME=false
 export PASSBOLT_PLUGINS_SMTP_SETTINGS_SECURITY_SSL_ALLOW_SELF_SIGNED=true
 ```
 
-## Configure SMTP with Passbolt 3.7.3 or earlier version
+## Configure SMTP with passbolt 3.7.3 or earlier version
 
 ### SMTP with STARTTLS
 

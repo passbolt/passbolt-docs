@@ -1,0 +1,110 @@
+---
+title: Configure Email Authentication with Microsoft Exchange Server
+description: How to configure passbolt SMTP settings for an on-premises Microsoft Exchange Server
+sidebar_label: Exchange Server
+sidebar_position: 065
+hide_table_of_contents: true
+---
+import EmailServerConfigurationIntroduction from '/docs/admin/_includes/email/email-server/introduction.mdx';
+import TestYourEmailConfiguration from '/docs/admin/_includes/email/email-server/test-your-email-configuration.mdx';
+import Chips from "/src/components/Chips/Chips";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
+
+# Configure Email authentication with Microsoft Exchange Server
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+</div>
+
+<EmailServerConfigurationIntroduction/>
+
+## Microsoft Exchange Server (on-premises)
+
+This page covers on-premises Microsoft Exchange Server. If your mailboxes are in Exchange Online / Microsoft 365, follow the [Office 365 page](/admin/emails/email-server/office365/) instead.
+
+## Exchange side
+
+passbolt submits emails to Exchange the same way a mail client does: authenticated SMTP client submission, by default on port **587** with **STARTTLS**. Exchange only offers authentication once the connection is encrypted, so a connection test without STARTTLS will not show an authentication option.
+
+Check the following with your Exchange administrator:
+
+- A receive connector accepts authenticated client submissions on port 587 (Exchange creates one by default, named *Client Frontend &lt;ServerName&gt;*), and the account used by passbolt is allowed to submit through it.
+- The account has a mailbox, and may send as the address you plan to use as the sender email.
+- The TLS certificate served on port 587 is trusted by the passbolt server. If Exchange serves a certificate from an internal CA, either add that CA to the passbolt server's trust store or configure the [custom certificate options](/admin/emails/email-server/#configure-smtp-server-using-customself-signed-certificate).
+
+## passbolt configuration
+
+On your passbolt instance, select &#9881; > **Organisation settings** > **Email server** in the top right corner.
+
+- Select **Other** as the email provider.
+- Select **Username & Password** as the authentication method.
+- Fill in the fields:
+
+| Field | Value |
+| --- | --- |
+| Username | The account's user principal name, e.g. `svc-passbolt@yourdomain.com`. If authentication fails, try the `DOMAIN\username` form: which one Exchange accepts depends on its configuration. |
+| Password | The account's password |
+| SMTP host | Your Exchange server hostname, e.g. `mail.yourdomain.com` (under *Advanced settings*) |
+| Use TLS | Yes (under *Advanced settings*) |
+| Port | 587 (under *Advanced settings*) |
+| Sender email | An address the account may send as |
+
+## Setting it as configuration instead
+
+The same settings can be supplied as configuration rather than entered in the interface. Select your installation method:
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    Open `/etc/passbolt/passbolt.php` and edit the **EmailTransport** and **Email** blocks:
+
+    <CodeBlock language="php">
+      {`[...]
+'EmailTransport' => [
+    'default' => [
+        'host' => 'mail.yourdomain.com',
+        'port' => 587,
+        'username' => 'svc-passbolt@yourdomain.com',
+        'password' => 'your-password',
+        'tls' => true,
+    ],
+],
+'Email' => [
+    'default' => [
+        'from' => [
+            'passbolt@yourdomain.com' => 'Passbolt'
+        ],
+    ],
+],
+[...]`}
+    </CodeBlock>
+
+    Save and quit.
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    On Docker the same settings are provided as environment variables in your docker compose file:
+
+    <CodeBlock language="yaml">
+      {`services:
+  passbolt:
+    environment:
+      EMAIL_TRANSPORT_DEFAULT_HOST: "mail.yourdomain.com"
+      EMAIL_TRANSPORT_DEFAULT_PORT: 587
+      EMAIL_TRANSPORT_DEFAULT_TLS: "true"
+      EMAIL_TRANSPORT_DEFAULT_USERNAME: "svc-passbolt@yourdomain.com"
+      EMAIL_TRANSPORT_DEFAULT_PASSWORD: "your-password"
+      EMAIL_DEFAULT_FROM: "passbolt@yourdomain.com"`}
+    </CodeBlock>
+
+:::caution[Passwords with special characters in docker compose]
+docker compose treats `$` in a value as the start of a variable interpolation, silently mangling passwords that contain it: write every `$` as `$$`. Keep the value double-quoted so YAML does not reinterpret other characters, and if the password contains double quotes, escape them as `\"`. A password that works everywhere else but fails only on Docker is a sign the compose file altered it: compare with `docker compose config`, which prints the interpolated result.
+:::
+
+  </TabItem>
+</Tabs>
+
+<TestYourEmailConfiguration/>
+
+If the test email succeeds but the queued notification emails fail, or authentication errors persist, see the [email troubleshooting page](/hosting/email/troubleshooting/).

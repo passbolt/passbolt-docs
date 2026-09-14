@@ -1,0 +1,23 @@
+delete:
+  summary: "Delete the Offline mode settings."
+  description: "Only administrators can call this endpoint. Deleting the settings switches Offline mode off for the organisation and removes every user's offline items."
+  operationId: "deleteOfflineSettings"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/offline.yml#/deleteSettings"
+  tags:
+    - "Offline mode"
+  parameters:
+    - $ref: "../components/parameters.yml#/offlineSettingsId"
+  responses:
+    200:
+      $ref: "../components/responses.yml#/nullBody"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"
+    404:
+      $ref: "../components/responses.yml#/notFound"

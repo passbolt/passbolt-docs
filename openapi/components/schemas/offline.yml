@@ -1,0 +1,98 @@
+offlineSettings:
+  type: "object"
+  required:
+    - id
+    - max_session_duration
+    - data_retention_period
+    - max_items
+    - created
+    - created_by
+    - modified
+    - modified_by
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    max_session_duration:
+      type: "integer"
+      description: "How long a user stays authenticated offline before having to enter their passphrase again, in seconds."
+      minimum: 300
+      maximum: 86400
+      example: 3600
+    data_retention_period:
+      type: "integer"
+      description: "Maximum number of days encrypted data is kept on a user's device, counted from the last time that device reached the server."
+      minimum: 1
+      maximum: 30
+      example: 7
+    max_items:
+      type: "integer"
+      description: "Maximum number of items a single user can mark as available offline."
+      minimum: 1
+      maximum: 5000
+      example: 1000
+    created:
+      type: "string"
+      format: "date-time"
+    created_by:
+      type: "string"
+      format: "uuid"
+    modified:
+      type: "string"
+      format: "date-time"
+    modified_by:
+      type: "string"
+      format: "uuid"
+
+offlineSettingsUpdate:
+  type: "object"
+  properties:
+    max_session_duration:
+      type: "integer"
+      description: "How long a user stays authenticated offline before having to enter their passphrase again, in seconds."
+      minimum: 300
+      maximum: 86400
+      example: 3600
+    data_retention_period:
+      type: "integer"
+      description: "Maximum number of days encrypted data is kept on a user's device."
+      minimum: 1
+      maximum: 30
+      example: 7
+    max_items:
+      type: "integer"
+      description: "Maximum number of items a single user can mark as available offline."
+      minimum: 1
+      maximum: 5000
+      example: 1000
+
+offlineItem:
+  type: "object"
+  description: "The mark that makes a resource available offline for one user. It is created when the user marks the item and holds no data of its own beyond the link."
+  required:
+    - id
+    - foreign_model
+    - foreign_key
+    - user_id
+    - created
+    - created_by
+  properties:
+    id:
+      type: "string"
+      format: "uuid"
+    foreign_model:
+      type: "string"
+      enum:
+        - "Resource"
+    foreign_key:
+      type: "string"
+      format: "uuid"
+    user_id:
+      type: "string"
+      format: "uuid"
+    created:
+      type: "string"
+      format: "date-time"
+    created_by:
+      type: "string"
+      format: "uuid"

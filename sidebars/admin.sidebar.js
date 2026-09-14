@@ -60,6 +60,11 @@ const adminSidebar = [
   },
   {
     type: "doc",
+    id: 'admin/offline-mode',
+    label: "Offline mode",
+  },
+  {
+    type: "doc",
     id: 'admin/audit-log',
     label: "Audit Log",
   },

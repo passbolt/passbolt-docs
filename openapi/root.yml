@@ -108,6 +108,10 @@ paths:
     $ref: "paths/mfaVerifyError.yml"
   /move/{foreignModel}/{foreignId}.json:
     $ref: "paths/move.yml"
+  /offline/settings.json:
+    $ref: "paths/offlineSettings.yml"
+  /offline/settings/{id}.json:
+    $ref: "paths/offlineSettingsId.yml"
   /permissions/resource/{resourceId}.json:
     $ref: "paths/permissionsResource.yml"
   /resources.json:
@@ -188,6 +192,8 @@ tags:
   - name: "Multi-Factor Authentication"
     description:
       $ref: "components/descriptions/mfaVerify.yml#/tag"
+  - name: "Offline mode"
+    description: "Configure Offline mode and manage the items users can read while the server is unreachable."
   - name: "Permissions"
     description: "Query permissions for resources."
   - name: "Resources"

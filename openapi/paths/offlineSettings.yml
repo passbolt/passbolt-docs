@@ -1,0 +1,37 @@
+get:
+  summary: "Get the Offline mode settings."
+  description: "Returns the settings that apply to the organisation. Saving the settings is what enables Offline mode, so an empty body means the feature is switched off."
+  operationId: "indexOfflineSettings"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/offline.yml#/indexSettings"
+  tags:
+    - "Offline mode"
+  responses:
+    200:
+      $ref: "../components/responses/offline.yml#/indexSettings"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+
+post:
+  summary: "Save the Offline mode settings."
+  description: "Only administrators can call this endpoint. Saving the settings is what enables Offline mode for the organisation. The settings are held in a single row, so saving again updates that row instead of creating a second one."
+  operationId: "updateOfflineSettings"
+  security:
+    - bearerHttpAuthentication: []
+  x-codeSamples:
+    $ref: "../components/codeSamples/offline.yml#/updateSettings"
+  tags:
+    - "Offline mode"
+  requestBody:
+    $ref: "../components/requestBodies/offline.yml#/updateOfflineSettings"
+  responses:
+    200:
+      $ref: "../components/responses/offline.yml#/updateSettings"
+    400:
+      $ref: "../components/responses.yml#/badRequest"
+    401:
+      $ref: "../components/responses.yml#/authenticationRequired"
+    403:
+      $ref: "../components/responses.yml#/accessRestrictedToAdministrators"

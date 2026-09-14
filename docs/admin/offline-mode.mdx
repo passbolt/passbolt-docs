@@ -1,0 +1,161 @@
+---
+title: Offline mode
+sidebar_label: Offline mode
+description: How to enable and configure Offline mode, the RBAC controls around it, and what happens when it is switched off
+hide_table_of_contents: true
+---
+
+import Figure from '/src/components/Figure/Figure';
+import Chips from "/src/components/Chips/Chips";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
+
+<div style={{display: "flex", gap: "1rem"}}>
+  <Chips link="https://www.passbolt.com/ce/docker" isUnderMainTitle={true}>CE</Chips>
+  <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
+  <Chips link="https://www.passbolt.com/pricing/cloud" isUnderMainTitle={true}>Cloud</Chips>
+</div>
+
+Since version 5.16.0, passbolt supports Offline mode.
+
+:::info[Beta]
+Offline mode is currently in beta, the entry in the administration menu carries a beta chip.
+:::
+
+Offline mode enables read-only access to critical credentials when the passbolt server is unreachable or network connectivity is unavailable.
+
+<Figure
+  src="/img/help/2026/09/administration_offline-mode.png"
+  caption="fig. Offline mode administration"
+  alt="The Offline mode administration screen, with the feature toggle, the session duration and maximum data retention period settings, and the warning panel"
+/>
+
+## How does it work?
+
+Users mark individual passwords and one time passwords as available offline. passbolt writes an encrypted copy to their device. When the server becomes unreachable, they open Quick Access, enter their passphrase, and read only the items they marked, nothing else. See [how to use Offline mode](/user/advanced-features/offline-mode/) for that side of the workflow.
+
+The plugin is enabled by default on every instance, so the feature is one save away.
+
+To configure Offline mode for your organisation, select &#9881; > **Organisation settings** > **Offline mode**.
+
+## Configure the organisation settings
+
+The feature stays inactive for your organisation until an administrator saves the settings screen. Saving the toggle on turns Offline mode on; switching it off and saving removes the organisation settings entirely, which turns it back off.
+
+:::warning[Switching off clears every marked item]
+Disabling Offline mode does not just hide the settings, it deletes every user's offline items across the organisation. There is no separate confirmation step beyond the save action itself. Re-enabling the feature does not bring the old marks back, users have to mark their items again.
+:::
+
+The screen holds two settings:
+
+| Setting | Values | Default |
+| --- | --- | --- |
+| Session duration | 5 minutes, 15 minutes, 1 hour, 24 hours | 5 minutes |
+| Maximum data retention period | 1, 7, 14, 30 days | 7 days |
+
+**Session duration** is how long a user remains authenticated offline before having to enter their passphrase again. It is a ceiling rather than a fixed value: a user who asks to stay signed in for longer, or indefinitely, gets this duration instead. When it expires, passbolt asks for the passphrase again without clearing the cached items.
+
+**Maximum data retention period** is the maximum time encrypted data is stored on a user's device before it is automatically deleted. The countdown starts from the last time that device reached the server, not from the moment an item was marked, so a device that syncs regularly keeps its items indefinitely.
+
+:::info
+In the Community Edition, both dropdowns only ever show the current value: the settings are pinned to 5 minutes of session duration and 7 days of data retention, and any other value is rejected. Choosing them requires the Pro Edition, Business Cloud, Sovereign Cloud or Enterprise Cloud.
+:::
+
+## Role-based access control
+
+Offline mode adds three actions to the API Permissions block of [Role-Based Access Control](/admin/role-based-access-control/):
+
+| Setting label | Action | Effect |
+| --- | --- | --- |
+| Can view offline items | `OfflineItemsView.view` | Shows the Offline column, the Available offline filter, and the offline items in the workspace |
+| Can mark items as available offline | `OfflineItemsAdd.add` | Allows marking a resource as available offline |
+| Can remove offline availability | `OfflineItemsDelete.delete` | Allows removing the offline mark from a resource |
+
+All three are allowed for every role by default, and administrators are never restricted by them, whichever way the role settings are configured.
+
+:::caution[Denying view access purges existing data]
+Setting **Can view offline items** to deny for a role deletes the offline items already marked by users who hold that role. The deletion is not immediate, it happens the next time the server-side cleanup runs.
+:::
+
+## What offline mode does not do
+
+:::caution[Limitations of this beta]
+- It is read only. Nothing can be created or edited while offline.
+- Only passwords and TOTP secrets can be marked as available offline, and only on resources in the version 5 format.
+- Folders cannot be marked as available offline yet.
+- Items are marked one at a time, there is no bulk action.
+- Each user can mark at most 1000 items, a limit that is not configurable.
+- Single sign-on does not work offline, users need their passphrase.
+- Offline access only works from Quick Access, not from the web application.
+- In the Community Edition, session duration and retention period are fixed and cannot be customised.
+:::
+
+## What is stored on a user's device
+
+The encrypted copy lives in the browser, split across the resource itself, its secret, and the metadata key used to decrypt it, all of them encrypted to the user's OpenPGP key. Nothing is ever written unencrypted: the copy only becomes readable in memory, after the user enters their passphrase to sign in offline.
+
+## Revoked access and a disconnected device
+
+:::caution[Retention is the only safeguard for a device that stays offline]
+Removing a user's access to a resource, whether by revoking a share, removing them from a group, or deleting the group, deletes their offline mark on the server straight away. The encrypted copy already on their device is only removed the next time that device reconnects and refreshes its data. A device that never reconnects keeps its copy until the maximum data retention period expires it. Choose the retention period with that gap in mind.
+:::
+
+The same applies when Offline mode itself is switched off: the server-side data is deleted immediately, but a device that stays offline keeps its cached copy until its retention period runs out.
+
+## Notifications
+
+Administrators receive an email whenever the settings change:
+
+| Trigger | Subject |
+| --- | --- |
+| Settings saved | "You edited the Offline Mode settings" / "*Name* edited the Offline Mode settings" |
+| Settings removed (feature disabled) | "You disabled Offline Mode" / "*Name* disabled Offline Mode" |
+
+Both emails are sent to every administrator and have no corresponding toggle in *Administration > Email Notifications*.
+
+## Remove the feature from the instance
+
+The plugin is enabled by default, so there is nothing to switch on. To take Offline mode off the instance altogether, disable the plugin: the **Offline mode** entry then disappears from the administration menu, whatever the organisation settings hold.
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    Open `/etc/passbolt/passbolt.php` and edit the **plugins** block:
+
+    <CodeBlock language="php">
+      {`'passbolt' => [
+    'plugins' => [
+        'offlineMode' => [
+            'enabled' => false,
+        ],
+    ],
+],`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock language="bash">
+      {`PASSBOLT_PLUGINS_OFFLINE_MODE_ENABLED=false`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+The Pro Edition has a second, independent plugin for the customisable policies. Disabling it while the base plugin stays on keeps the menu entry, but pins the session duration and the retention period to the fixed values of the Community Edition:
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    <CodeBlock language="php">
+      {`'passbolt' => [
+    'plugins' => [
+        'offlineModePolicies' => [
+            'enabled' => false,
+        ],
+    ],
+],`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    <CodeBlock language="bash">
+      {`PASSBOLT_PLUGINS_OFFLINE_MODE_POLICIES_ENABLED=false`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>

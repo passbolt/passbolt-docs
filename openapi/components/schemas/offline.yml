@@ -46,6 +46,10 @@ offlineSettings:
 
 offlineSettingsUpdate:
   type: "object"
+  required:
+    - max_session_duration
+    - data_retention_period
+    - max_items
   properties:
     max_session_duration:
       type: "integer"

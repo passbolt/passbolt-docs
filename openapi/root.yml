@@ -193,7 +193,7 @@ tags:
     description:
       $ref: "components/descriptions/mfaVerify.yml#/tag"
   - name: "Offline mode"
-    description: "Configure Offline mode and manage the items users can read while the server is unreachable."
+    description: "Configure the organisation settings that enable Offline mode and set the session duration, the data retention period and the item limit."
   - name: "Permissions"
     description: "Query permissions for resources."
   - name: "Resources"

@@ -29,7 +29,7 @@
     "@docusaurus/plugin-sitemap": "^3.10.1",
     "@docusaurus/plugin-svgr": "^3.10.1",
     "@docusaurus/theme-classic": "^3.10.1",
-    "@easyops-cn/docusaurus-search-local": "^0.51.0",
+    "@easyops-cn/docusaurus-search-local": "^0.55.0",
     "@mdx-js/react": "^3.1.0",
     "clsx": "^1.2.1",
     "lucide-react": "^0.343.0",

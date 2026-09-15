@@ -1,6 +1,6 @@
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import SearchBar from '@easyops-cn/docusaurus-search-local/dist/client/client/theme/SearchBar/index.js';
+import SearchBar from '@theme/SearchBar';
 import Heading from '@theme/Heading'; // Import the Heading component
 import styles from './HomepageHero.module.css';
 

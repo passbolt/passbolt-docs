@@ -1,0 +1,36 @@
+indexSettings:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            oneOf:
+              - $ref: "../schemas/offline.yml#/offlineSettings"
+              - type: "object"
+                description: "An empty object, returned when no settings have been saved. Offline mode is switched off in that case."
+      examples:
+        $ref: "../examples/offline.yml#/offlineSettings/response"
+
+updateSettings:
+  description: "Operation is successful"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - header
+          - body
+        properties:
+          header:
+            $ref: "../schemas.yml#/header"
+          body:
+            $ref: "../schemas/offline.yml#/offlineSettings"
+      examples:
+        $ref: "../examples/offline.yml#/offlineSettingsUpdate/response"

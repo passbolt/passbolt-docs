@@ -47,6 +47,15 @@ favoriteId:
     type: "string"
     format: "uuid"
 
+offlineSettingsId:
+  name: "id"
+  description: "ID for the Offline mode settings being deleted."
+  in: "path"
+  required: true
+  schema:
+    type: "string"
+    format: "uuid"
+
 gpgkeyId:
   name: "gpgkeyId"
   description: "ID for the GPG key being manipulated."
@@ -271,6 +280,17 @@ containTag:
 containFavorite:
   name: "contain[favorite]"
   description: "Add favorite to response body."
+  in: "query"
+  required: false
+  schema:
+    type: "integer"
+    enum:
+      - 1
+      - 0
+
+containOffline:
+  name: "contain[offline]"
+  description: "Add offline availability to response body. The field is `null` for every element when Offline mode is disabled, or when the role of the requesting user is not allowed to view offline items."
   in: "query"
   required: false
   schema:

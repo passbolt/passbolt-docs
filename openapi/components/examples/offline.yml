@@ -1,0 +1,62 @@
+offlineSettings:
+  response:
+    configured:
+      summary: "Offline mode is enabled"
+      value:
+        header:
+          id: "a5f20ee0-1100-4acf-a907-0e002ab78814"
+          status: "success"
+          servertime: 1789373195
+          action: "bb778c13-86aa-56a0-94ef-9b554fb330b1"
+          message: "The operation was successful."
+          url: "/offline/settings.json"
+          code: 200
+        body:
+          id: "606581db-4edc-44d4-8f5c-85e98cc70a0e"
+          max_session_duration: 3600
+          data_retention_period: 14
+          max_items: 1000
+          created: "2026-09-08T07:00:16+00:00"
+          created_by: "563d7c84-0192-466b-ac29-ca509389778e"
+          modified: "2026-09-08T07:00:16+00:00"
+          modified_by: "563d7c84-0192-466b-ac29-ca509389778e"
+    notConfigured:
+      summary: "Offline mode is switched off"
+      value:
+        header:
+          id: "9c9f983f-29c5-46e9-91c7-9247b44f9643"
+          status: "success"
+          servertime: 1789373843
+          action: "bb778c13-86aa-56a0-94ef-9b554fb330b1"
+          message: "The operation was successful."
+          url: "/offline/settings.json"
+          code: 200
+        body: {}
+
+offlineSettingsUpdate:
+  request:
+    base:
+      value:
+        max_session_duration: 3600
+        data_retention_period: 7
+        max_items: 1000
+  response:
+    base:
+      value:
+        header:
+          id: "52ad327a-4cca-4a76-bf0c-d215c373d449"
+          status: "success"
+          servertime: 1789373244
+          action: "310cef79-ce68-55e9-b3bb-dba8b1e0e31f"
+          message: "The operation was successful."
+          url: "/offline/settings.json?api-version=v2"
+          code: 200
+        body:
+          id: "606581db-4edc-44d4-8f5c-85e98cc70a0e"
+          max_session_duration: 3600
+          data_retention_period: 7
+          max_items: 1000
+          created: "2026-09-08T07:00:16+00:00"
+          created_by: "563d7c84-0192-466b-ac29-ca509389778e"
+          modified: "2026-09-14T08:07:24+00:00"
+          modified_by: "563d7c84-0192-466b-ac29-ca509389778e"

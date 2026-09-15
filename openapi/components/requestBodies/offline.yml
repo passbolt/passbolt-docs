@@ -1,0 +1,9 @@
+updateOfflineSettings:
+  description: The Offline mode settings you want to save
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/offline.yml#/offlineSettingsUpdate"
+      examples:
+        $ref: "../examples/offline.yml#/offlineSettingsUpdate/request"

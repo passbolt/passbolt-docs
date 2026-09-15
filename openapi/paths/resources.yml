@@ -11,6 +11,7 @@ get:
     - $ref: "../components/parameters.yml#/containCreator"
     - $ref: "../components/parameters.yml#/containFavorite"
     - $ref: "../components/parameters.yml#/containModifier"
+    - $ref: "../components/parameters.yml#/containOffline"
     - $ref: "../components/parameters.yml#/containSecret"
     - $ref: "../components/parameters.yml#/containResourceType"
     - $ref: "../components/parameters.yml#/containPermission"

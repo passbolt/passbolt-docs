@@ -5,7 +5,9 @@ description: How to configure Single Sign-On with PingOne using OpenID Connect
 hide_table_of_contents: false
 ---
 
+import CodeBlock from '@theme/CodeBlock';
 import Chips from "/src/components/Chips/Chips";
+import AccountRecoveryNote from "/docs/admin/_includes/sso/account-recovery-note.mdx";
 import EmailMatchingWarning from "/docs/admin/_includes/sso/email-matching-warning.mdx";
 import HttpsWarning from "/docs/admin/_includes/sso/https-warning.mdx";
 
@@ -55,6 +57,7 @@ In the PingOne admin console, create an OpenID Connect web application for passb
    - **Grant Type**: **Authorization Code**
    - **Redirect URIs**: the passbolt **redirect URL**. You will find the exact value on the passbolt SSO administration screen in Step 2; it has the form `https://passbolt.example.com/sso/pingone/redirect`.
    - **Token Endpoint Authentication Method**: **Client Secret Post**. passbolt sends the client credentials in the body of the token request, which matches this method.
+   - **PKCE Enforcement** (in the **Grant Type** section): **Optional**. passbolt does not send a PKCE code challenge, so **Required** or **S256_required** makes PingOne reject the token request.
 4. Click **Save**.
 5. On the **Resources** tab, click the pencil icon and grant the **openid**, **profile** and **email** scopes.
 6. Enable the application with the toggle at the top of the application panel.
@@ -70,7 +73,7 @@ In the PingOne admin console, create an OpenID Connect web application for passb
 
 | Field | Value |
 | --- | --- |
-| URL | The PingOne authentication domain for your environment's region: `auth.pingone.com`, `auth.pingone.eu`, `auth.pingone.ca`, `auth.pingone.asia`, `auth.pingone.com.au` or `auth.pingone.sg` |
+| URL | Select the authentication URL for your region from the dropdown: `https://auth.pingone.com` (default), `https://auth.pingone.eu`, `https://auth.pingone.ca`, `https://auth.pingone.asia`, `https://auth.pingone.com.au` or `https://auth.pingone.sg` |
 | Environment ID | The environment ID (a UUID) from your PingOne application's Configuration tab |
 | Application (client) ID | The client ID from your PingOne application |
 | Secret | The client secret from your PingOne application |
@@ -78,7 +81,7 @@ In the PingOne admin console, create an OpenID Connect web application for passb
 
 The **Scope** field is fixed to `openid profile email` and cannot be changed.
 
-6. Click **Save settings** to run a test authentication, and complete the PingOne login flow.
+6. Click **Save** to run a test authentication, and complete the PingOne login flow.
 7. If the test succeeds, save the settings permanently.
 
 ### Step 3: Test the configuration
@@ -91,21 +94,24 @@ The **Scope** field is fixed to `openid profile email` and cannot be changed.
 
 **Authentication fails**: verify the environment ID, client ID and secret, that the redirect URI in PingOne matches the passbolt redirect URL exactly, and that the application is enabled.
 
-**The sign-in fails after the PingOne login step**: check that the application's **Token Endpoint Authentication Method** is **Client Secret Post**, and that the **openid**, **profile** and **email** scopes are granted on the **Resources** tab.
+**The sign-in fails after the PingOne login step**: check that the application's **Token Endpoint Authentication Method** is **Client Secret Post** and its **PKCE Enforcement** is **Optional**, and that the **openid**, **profile** and **email** scopes are granted on the **Resources** tab.
 
 **The user cannot sign in**: confirm the user's PingOne email is exactly the email address of their passbolt account, and that the user is allowed to access the application in PingOne.
 
-**The URL is rejected**: only the PingOne authentication domains listed above are accepted. If your organisation uses a PingOne custom domain or PingFederate, configure the generic **OpenID** provider instead.
+**Your region or custom domain is not in the URL list**: the URL dropdown only offers the six regional authentication URLs above. If your organisation uses a PingOne custom domain or PingFederate, configure the generic **OpenID** provider instead.
 
-**The PingOne provider does not appear**: check that your instance runs passbolt 5.11 or later and that the environment variable `PASSBOLT_PLUGINS_SSO_PROVIDER_PINGONE_ENABLED` is not set to `false`.
+**The PingOne provider does not appear**: check that both your passbolt server and browser extension are on 5.11 or later, and that the environment variable `PASSBOLT_PLUGINS_SSO_PROVIDER_PINGONE_ENABLED` is not set to `false`. The provider tile comes from the browser extension, so a 5.11 server with an older extension will not show it.
 
 To enable SSO debug logging, set the environment variable:
 
-```bash
-export PASSBOLT_PLUGINS_SSO_DEBUG_ENABLED=true
-```
+<CodeBlock language="bash">
+  {`PASSBOLT_PLUGINS_SSO_DEBUG_ENABLED=true`}
+</CodeBlock>
 
 ## Important notes
 
 - Users must sign in with their passphrase **after SSO is activated** for the SSO option to appear on later logins.
 - HTTPS is required for SSO to function.
+- passbolt does not track the expiry date of the PingOne client secret and does not send a reminder before it expires. If you set an expiry on the secret in PingOne, plan the rotation yourself: SSO login stops working as soon as the secret expires.
+
+<AccountRecoveryNote />

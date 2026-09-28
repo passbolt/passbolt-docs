@@ -912,6 +912,14 @@ Accept SCIM secret tokens hashed with the legacy SHA-256 format used before pass
 How long a SCIM secret token remains valid after it is created or regenerated. Accepts a number followed by a unit: `year`, `month`, `day`, `hour`, `minute` or `second`. Available since passbolt 5.10.0.
 **Default:** `'1 year'` | **Environment:** all | **Example:** `'6 months'`, `'2 years'`
 
+**`PASSBOLT_SCIM_SECURITY_SECRET_TOKEN_ENFORCE_EXPIRY`** *(boolean, optional)*
+Reject the SCIM requests authenticated with an expired secret token, with an HTTP 401 error. When disabled, such a request is still processed and a warning is written to the application log. See [Secret Token Expiry](/admin/user-provisioning/scim/#secret-token-expiry). Available since passbolt 5.17.0.
+**Default:** `false` | **Environment:** all
+
+**`PASSBOLT_SCIM_SECURITY_SECRET_TOKEN_WARNING_WINDOW`** *(string, optional)*
+How long before the expiry date of the SCIM secret token the warnings start: the SCIM settings page shows the token as about to expire, and administrators are emailed when the identity provider sends a request. Accepts the same format as `PASSBOLT_SCIM_SECURITY_SECRET_TOKEN_EXPIRY`. Available since passbolt 5.17.0.
+**Default:** `'14 days'` | **Environment:** all | **Example:** `'30 days'`, `'1 month'`
+
 ### Metadata Plugin
 
 **`PASSBOLT_PLUGINS_METADATA_DEFAULT_PAGINATION_LIMIT`** *(integer, optional)*

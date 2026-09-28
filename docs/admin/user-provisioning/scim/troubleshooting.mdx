@@ -38,14 +38,16 @@ Common issues with SCIM user provisioning and frequently asked questions.
 - "Unauthorized" or "401" errors
 - "Invalid token" messages
 - Connection test fails with authentication error
+- Provisioning fails with "401" errors once the date shown in **Secret Token expiry** has passed, when the expiry is enforced
 
 **Solutions:**
 1. Verify token format: `pb_[A-Za-z0-9_-]{43}`
 2. Ensure "Bearer " prefix is included in authentication header
-3. Regenerate token in Passbolt if needed:
+3. Check the **Secret Token expiry** field: an expired token is rejected when the expiry is enforced, see [Secret Token Expiry](/admin/user-provisioning/scim/#secret-token-expiry)
+4. Regenerate token in passbolt if needed:
    - Go to Administration > User Provisioning > SCIM
-   - Disable SCIM temporarily
-   - Re-enable SCIM to generate new token
+   - Click the regenerate button of the **Secret token** field
+   - Click **Save Settings**
    - Update identity provider configuration
 
 ## Provisioning Issues
@@ -152,9 +154,9 @@ Passbolt Pro Edition version 5.5 or later.
 **What if I lose my authentication token?**
 
 1. Go to **Administration** > **User Provisioning** > **SCIM**
-2. Temporarily disable SCIM
-3. Re-enable SCIM to generate a new token
-4. Update your identity provider configuration
+2. Click the regenerate button of the **Secret Token** field
+3. Click **Save Settings**
+4. Update your identity provider configuration with the new token
 
 ### User Management Questions
 
@@ -199,9 +201,14 @@ Group synchronisation is not supported in the initial SCIM release.
 Common causes:
 - Incorrect SCIM endpoint URL (must include settings_id)
 - Wrong authentication token format
+- Expired authentication token, when the expiry is enforced
 - HTTPS not properly configured
 - Firewall blocking access
 - Passbolt server not running
+
+**What happens when the secret token expires?**
+
+By default, passbolt keeps accepting the requests, writes a warning to the application log and emails the administrators. When the expiry is enforced, the requests are rejected with a 401 error and provisioning stops until you regenerate the token and update your identity provider. See [Secret Token Expiry](/admin/user-provisioning/scim/#secret-token-expiry).
 
 **Users are not being created - what should I check?**
 

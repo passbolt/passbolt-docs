@@ -42,6 +42,10 @@ When configuring your identity provider, you'll need:
 - **Authentication**: Bearer token (format: `pb_[A-Za-z0-9_-]{43}`)
 - **Authentication Header**: `Authorization: Bearer YOUR_TOKEN`
 
+:::info[The token expires]
+The authentication token expires after one year by default. When you regenerate it in passbolt, update the **Secret Token** field in Microsoft Entra ID or the **API Token** field in Okta with the new value. See [Secret Token Expiry](/admin/user-provisioning/scim/#secret-token-expiry).
+:::
+
 ### Required User Attributes
 
 Your identity provider must provide these attributes:

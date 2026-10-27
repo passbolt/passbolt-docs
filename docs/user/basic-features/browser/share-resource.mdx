@@ -1,6 +1,6 @@
 ---
 title: How to share resources
-description: How to share a resource with a user or a group, share several resources at once, and read the Shared with me filter
+description: How to share a resource with a user or a group, review who gets access before you save, share several resources at once, and read the Shared with me filter
 sidebar_label: Share Resource
 hide_table_of_contents: false
 sidebar_position: 4
@@ -45,12 +45,46 @@ Only an owner can open the share dialog. If you have **can read** or **can updat
 />
 
 :::warning
-Make sure you **click Save every time** you make changes. The dialog reminds you with "Click save to apply your pending changes." while something is still pending.
+Make sure you **click Save every time** you make changes. Until you do, the badges described in [review the changes before you save](#review-the-changes-before-you-save) show what is pending, and nothing is applied.
 :::
 
 The suggestion list mixes people and groups, and the subtitle is what tells them apart: an email address for a person, a count such as "3 group members" for a group. The three permission levels are the same for both.
 
 A resource must keep at least one owner. Any change that would leave it without one is refused, with "Please make sure there is at least one owner.".
+
+## Review the changes before you save
+
+passbolt shows you who is about to get access to a secret, or lose it, before it applies the change. Nothing reaches anyone until you save.
+
+### When passbolt asks you to confirm
+
+- When you share one resource or several, the share dialog marks every row you change with a badge, as described below.
+- When you edit the secret of a shared resource, or create a resource in a shared folder, a **Confirm permissions** dialog lists everyone who will be able to decrypt the secret before passbolt encrypts it. If you edit a resource you can update without being one of its owners, that list is read-only.
+- When you move items between folders, see [the Confirm permissions dialog](/user/advanced-features/move-resources/#the-confirm-permissions-dialog) on the page about moving.
+
+passbolt decides whether a resource is shared from its list of permissions alone: a resource shared with a group counts as shared, even when that group has a single member. Editing only the metadata of a resource, such as its name or its description, opens no dialog, since no secret is encrypted again. Editing a note does, because a note is part of the secret.
+
+A folder does not decide who can access its content at every moment. Every resource and every folder keeps its own list of permissions, and passbolt applies the permissions of a shared folder to an item at three moments only: when you change the permissions of the folder, when you create an item in it, and when you move an item into it. This is why creating a resource in a shared folder asks for your confirmation.
+
+### Read the badges
+
+Each row you change in the share dialog carries a badge until you save:
+
+| Badge | Meaning |
+| --- | --- |
+| **added** | The person or group has no access to any of the resources in the dialog, and is about to get it. |
+| **modified** | The person or group already has access, and you changed their level. |
+| **removed** | The person or group has access and is about to lose it. The row stays in the list, dimmed. |
+
+<Figure
+  src="/img/help/2026/10/share-dialog-badges.png"
+  alt="The Share resource dialog with three recipients, one marked added, one marked modified and one marked removed, the removed row dimmed with a revert arrow in place of its cross"
+  caption="fig. Pending changes in the share dialog, one badge per row"
+/>
+
+- A row you added and then removed again disappears: there was no access to remove.
+- To cancel a removal, click the revert arrow that replaces the cross on the dimmed row. The row returns to the level it had when you opened the dialog, not to the last level you chose.
+- To cancel a level change, choose the original level again: the **modified** badge disappears.
 
 ## Share with a group, or with people
 
@@ -83,9 +117,9 @@ The dialog then names the size of your selection, "Share 12 resources", and list
   caption="fig. A heterogeneous selection, with a permission level shown as varies"
 />
 
-When a recipient does not have the same level on all the selected resources, their level reads **varies** instead of one of the three. This also covers the case of a recipient who has access to only part of the selection: partial access counts as varying, not as no access. The information icon next to the level opens the detail, listing which resources sit at which level, including those where the recipient has no access at all.
+When a recipient does not have the same level on all the selected resources, their level reads **varies** instead of one of the three. This also covers the case of a recipient who has access to only part of the selection: partial access counts as varying, not as no access. Hover the information icon next to the level to see the detail, one line per resource, sorted by name: **No access**, **Can read**, **Can edit** or **Is owner**, where **Can edit** is the tooltip's name for **can update**. The tooltip lists three resources at most, followed by "and more..." when the selection is longer.
 
-Choosing a real level for that recipient applies it to every resource of the selection, including the ones they could not see before. Once you have picked a level, you cannot go back to **varies**.
+Choosing a real level for that recipient applies it to every resource of the selection, including the ones they could not see before. Once you have picked a level, the list no longer offers **varies**. Leaving **varies** as it is changes nothing for that recipient: each resource keeps the level they already had on it.
 
 :::note[Changes add up, they do not replace]
 Setting a level for one recipient leaves the other permissions of those resources untouched. A bulk share adds to what exists, it does not reset the sharing of the selected resources.

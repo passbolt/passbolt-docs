@@ -7,6 +7,9 @@ hide_table_of_contents: false
 
 import Figure from '@site/src/components/Figure/Figure';
 import Chips from "/src/components/Chips/Chips";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
 
 <div style={{display: "flex", gap: "1rem", alignItems: "center"}}>
   <Chips link="https://www.passbolt.com/pricing/pro" isUnderMainTitle={true}>Pro</Chips>
@@ -62,7 +65,7 @@ SCIM requires HTTPS for secure communication.
 ### Enable SCIM
 
 1. Toggle **Enable SCIM** to activate the feature
-2. passbolt generates a SCIM endpoint URL and authentication token
+2. passbolt generates a SCIM endpoint URL and an authentication token, and shows the token's expiry date in the **Secret token expiry** field
 3. Click **Save Settings** to apply the configuration
 
 :::important[Keep Your Token Secure]
@@ -82,6 +85,102 @@ The `<settings_id>` is a unique identifier generated when SCIM is enabled.
 
 **Authentication Token:**
 A token with format `pb_[A-Za-z0-9_-]{43}` (a `pb_` prefix followed by 43 base64url characters, which may include `-` and `_`) sent as a Bearer token in the Authorization header.
+
+## Secret Token Expiry
+
+The authentication token, labelled **Secret token** on the SCIM settings page, remains valid for the duration set by `PASSBOLT_SCIM_SECURITY_SECRET_TOKEN_EXPIRY`, one year by default. Its expiry date is shown in the **Secret Token expiry** field. Since version 5.17.0, passbolt can also reject the requests of an identity provider that still uses an expired token.
+
+### Expiry States
+
+The SCIM settings page shows how close the token is to its expiry date.
+
+**Within the warning window.** From 14 days before the expiry date by default, the **Secret token expiry** field switches to a warning state with the message "This token is about to expire." A warning banner at the bottom of the page reads: "The SCIM secret token expires on *date*. To avoid service disruption, generate a new token and save it in your identity provider settings before the expiration date."
+
+**Expired.** An error banner is shown at the bottom of the page. When the expiry is enforced, it reads: "The SCIM secret token expired and user provisioning has stopped. To resume service, generate a new token and save it in your identity provider settings." When the expiry is not enforced, which is the default, the banner reports the expired token with a different wording, since provisioning carries on.
+
+The settings cannot be saved while the token is expired: the message "This token has expired." appears below the **Secret token expiry** field. Saving is also refused when that field is empty and the token has not been regenerated, with the message "Enter an expiry date, or regenerate the secret token." Regenerating the token clears both errors.
+
+### What Happens When the Token Expires
+
+What passbolt does with a request that uses an expired token depends on whether the expiry is enforced. Enforcement is off by default, see [Enforce the Expiry](#enforce-the-expiry).
+
+| Behaviour | Expiry not enforced (default) | Expiry enforced |
+|-----------|-------------------------------|-----------------|
+| **Request** | Accepted, and a warning is written to the application log | Rejected with `401 Unauthorized` |
+| **User provisioning** | The operation is performed | The operation is not performed |
+| **Administrators** | Notified by email | Notified by email |
+
+:::warning[Provisioning stops until the token is replaced]
+With enforcement on, every SCIM request fails once the token has expired. The identity provider cannot create, update, suspend or delete any user until you regenerate the token and save the new one in its settings.
+:::
+
+### Regenerate the Secret Token
+
+1. Go to **Administration** > **User Provisioning** > **SCIM**
+2. Click the regenerate button of the **Secret Token** field
+3. Click **Save Settings**
+4. Copy the new token into your identity provider: the **Secret Token** field under **Admin Credentials** in Microsoft Entra ID, or the **API Token** field in Okta
+
+Regenerating clears the warning or error state and sets a new expiry date, using the duration set by `PASSBOLT_SCIM_SECURITY_SECRET_TOKEN_EXPIRY`, one year by default.
+
+Once the new token is saved in the identity provider, resume the operations that failed while the token was expired:
+
+- **Microsoft Entra ID** retries the failed operations on its next provisioning cycles. If the failures lasted long enough, Entra ID may have placed the application in quarantine.
+- **Okta** does not retry on its own. The failed operations are listed under **Dashboard** > **Tasks**: select them and click **Retry Selected**.
+
+### Administrator Notifications
+
+passbolt emails every administrator when an identity provider request uses a token that is about to expire or already expired:
+
+| Trigger | Subject |
+|---------|---------|
+| A SCIM request uses a token within the warning window | "The SCIM secret token expires soon" |
+| A SCIM request uses an expired token, whether the expiry is enforced or not | "The SCIM secret token is expired" |
+
+Each email is sent at most once every 24 hours. Both are automatic and cannot be disabled. End users are not notified.
+
+:::caution[Notifications depend on incoming requests]
+These emails are only sent when the identity provider calls passbolt. No reminder is scheduled on the passbolt side, so an identity provider that has stopped sending requests triggers no email. Keep an eye on the date shown in the **Secret Token expiry** field.
+:::
+
+### Enforce the Expiry
+
+On self-hosted servers, turn enforcement on so that passbolt rejects the requests of an identity provider that still uses an expired token. The same block sets the warning window:
+
+<Tabs groupId="installation">
+  <TabItem value="package" label="Package Installation">
+    Open `/etc/passbolt/passbolt.php` and edit the **plugins** block:
+
+    <CodeBlock language="php">
+      {`'passbolt' => [
+    'plugins' => [
+        'scim' => [
+            'security' => [
+                'secretToken' => [
+                    'enforceExpiry' => true,
+                    'warningWindow' => '14 days',
+                ],
+            ],
+        ],
+    ],
+],`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="docker" label="Docker">
+    Set the environment variables of the passbolt container:
+
+    <CodeBlock language="yaml">
+      {`PASSBOLT_SCIM_SECURITY_SECRET_TOKEN_ENFORCE_EXPIRY: "true"
+PASSBOLT_SCIM_SECURITY_SECRET_TOKEN_WARNING_WINDOW: "14 days"`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
+The warning window accepts the same format as the token validity: a number followed by a unit, such as `'30 days'` or `'1 month'`.
+
+:::tip
+Check the **Secret token expiry** field before turning enforcement on. If the token has already expired, regenerate it and update your identity provider first, otherwise provisioning stops as soon as the setting applies.
+:::
 
 ## Available Endpoints
 
@@ -171,6 +270,8 @@ On self-hosted servers, SCIM behaviour can be tuned with environment variables:
 | `PASSBOLT_SCIM_SECURITY_SECRET_TOKEN_COST` | `12` | Bcrypt cost factor for hashing the authentication token |
 | `PASSBOLT_SCIM_SECURITY_SECRET_TOKEN_LEGACY_HASH_ALLOWED` | `true` | Accept tokens hashed with the pre-5.10.0 legacy format |
 | `PASSBOLT_SCIM_SECURITY_SECRET_TOKEN_EXPIRY` | `1 year` | How long the authentication token remains valid |
+| `PASSBOLT_SCIM_SECURITY_SECRET_TOKEN_ENFORCE_EXPIRY` | `false` | Reject SCIM requests that use an expired authentication token |
+| `PASSBOLT_SCIM_SECURITY_SECRET_TOKEN_WARNING_WINDOW` | `14 days` | How long before the expiry date the warnings start |
 
 See the [environment variables reference](/hosting/environment-reference/) for details on each variable, including the version each one became available in.
 
@@ -190,6 +291,9 @@ Password changes are not supported. passbolt does not store user passwords - aut
 
 **Custom Attributes**
 Only standard SCIM user attributes are supported. Custom schemas and resource extensions are not available.
+
+**Token Rotation**
+The authentication token is not rotated automatically. Regenerate it before its expiry date and update your identity provider, see [Regenerate the Secret Token](#regenerate-the-secret-token).
 
 ## Comparison with LDAP Directory Sync
 

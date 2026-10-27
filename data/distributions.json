@@ -192,7 +192,7 @@
   {
     "name": "OpenSUSE Leap",
     "slug": "opensuse",
-    "version": 15,
+    "version": 16,
     "package": "zypper",
     "db_engine": "mariadb",
     "logo": "/img/distributions/opensuse.svg",
